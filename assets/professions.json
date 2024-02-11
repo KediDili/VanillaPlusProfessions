@@ -1,0 +1,249 @@
+{
+	//Farming
+	"Nutritionist": {
+		"ID": 30,
+		"Requires": 2,
+		"Skill": 0
+	},
+	"Breeder": {
+		"ID": 31,
+		"Requires": 2,
+		"Skill": 0
+	},
+	"Musterer": {
+		"ID": 32,
+		"Requires": 3,
+		"Skill": 0
+	},
+	"Caretaker": {
+		"ID": 33,
+		"Requires": 3,
+		"Skill": 0
+	},
+	"Machinist": {
+		"ID": 34,
+		"Requires": 4,
+		"Skill": 0
+	},
+	"Connoisseur": {
+		"ID": 35,
+		"Requires": 4,
+		"Skill": 0
+	},
+	"Horticulturist": {
+		"ID": 36,
+		"Requires": 5,
+		"Skill": 0
+	},
+	"Agronomist": {
+		"ID": 37,
+		"Requires": 5,
+		"Skill": 0
+	},
+
+	//Fishing
+	"Oceanologist": {
+		"ID": 38,
+		"Requires": 8,
+		"Skill": 1
+	},
+	"Artificer": {
+		"ID": 39,
+		"Requires": 8,
+		"Skill": 1
+	},
+	"Plunderer": {
+		"ID": 40,
+		"Requires": 9,
+		"Skill": 1
+	},
+	"Buccaneer": {
+		"ID": 41,
+		"Requires": 9,
+		"Skill": 1
+	},
+	"Aquaculturalist": {
+		"ID": 42,
+		"Requires": 10,
+		"Skill": 1
+	},
+	"Trawler": {
+		"ID": 43,
+		"Requires": 10,
+		"Skill": 1
+	},
+	"Recycler": {
+		"ID": 44,
+		"Requires": 11,
+		"Skill": 1
+	},
+	"Hydrologist": {
+		"ID": 45,
+		"Requires": 11,
+		"Skill": 1
+	},
+	//Foraging
+	"Arborist": {
+		"ID": 46,
+		"Requires": 14,
+		"Skill": 2
+	},
+	"Shaker": {
+		"ID": 47,
+		"Requires": 14,
+		"Skill": 2
+	},
+	"Sapper": {
+		"ID": 48,
+		"Requires": 15,
+		"Skill": 2
+	},
+	"Orchardist": {
+		"ID": 49,
+		"Requires": 15,
+		"Skill": 2
+	},
+	"Ranger": {
+		"ID": 50,
+		"Requires": 16,
+		"Skill": 2
+	},
+	"Adventurer": {
+		"ID": 51,
+		"Requires": 16,
+		"Skill": 2
+	},
+	"Gleaner": {
+		"ID": 52,
+		"Requires": 17,
+		"Skill": 2
+	},
+	"Wayfarer": {
+		"ID": 53,
+		"Requires": 17,
+		"Skill": 2
+	},
+	//Mining
+	"Metallurgist": {
+		"ID": 54,
+		"Requires": 20,
+		"Skill": 3
+	},
+	"Ironmonger": {
+		"ID": 55,
+		"Requires": 20,
+		"Skill": 3
+	},
+	"Ignitor": {
+		"ID": 56,
+		"Requires": 21,
+		"Skill": 3
+	},
+	"Crafter": {
+		"ID": 57,
+		"Requires": 21,
+		"Skill": 3
+	},
+	"Archeologist": {
+		"ID": "58",
+		"Requires": 22,
+		"Skill": 3
+	},
+	"Mineralogist": {
+		"ID": 59,
+		"Requires": 22,
+		"Skill": 3
+	},
+	"Appraiser": {
+		"ID": 60,
+		"Requires": 23,
+		"Skill": 3
+	},
+	"Enchanter": {
+		"ID": 61,
+		"Requires": 23,
+		"Skill": 3
+	},
+	//Combat
+	"Warrior": {
+		"ID": 62,
+		"Requires": 26,
+		"Skill": 4
+	},
+	"Berserker": {
+		"ID": 63,
+		"Requires": 26,
+		"Skill": 4
+	},
+	"Survivalist": {
+		"ID": 64,
+		"Requires": 27,
+		"Skill": 4
+	},
+	"Healer": {
+		"ID": 65,
+		"Requires": 27,
+		"Skill": 4
+	},
+	"Technician": {
+		"ID": 66,
+		"Requires": 28,
+		"Skill": 4
+	},
+	"Speedster": {
+		"ID": 67,
+		"Requires": 28,
+		"Skill": 4
+	},
+	"Assassin": {
+		"ID": 68,
+		"Requires": 29,
+		"Skill": 4
+	},
+	"Assailant": {
+		"ID": 69,
+		"Requires": 29,
+		"Skill": 4
+	},
+	//Combo professions
+	"Farm-Forage": {
+		"ID": 70,
+		"Skill": 0
+	},
+	"Farm-Mine": {
+		"ID": 71,
+		"Skill": 0
+	},
+	"Mine-Combat": {
+		"ID": 72,
+		"Skill": 3
+	},
+	"Mine-Forage": {
+		"ID": 73,
+		"Skill": 3
+	},
+	"Forage-Fish": {
+		"ID": 74,
+		"Skill": 2
+	},
+	"Forage-Combat": {
+		"ID": 75,
+		"Skill": 2
+	},
+	"Fish-Farm": {
+		"ID": 76,
+		"Skill": 1
+	},
+	"Fish-Mine": {
+		"ID": 77,
+		"Skill": 1
+	},
+	"Combat-Farm": {
+		"ID": 78,
+		"Skill": 4
+	},
+	"Combat-Fish": {
+		"ID": 79,
+		"Skill": 4
+	}
+}

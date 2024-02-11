@@ -1,0 +1,509 @@
+[
+	//Tree branch 1
+	{
+		"Name": "Resurgence",
+		"Skill": "Farming",
+		"RequiresTalent": "",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 121,
+			"Y": 129
+		}
+	},
+	{
+		"Name": "RefreshingWaters",
+		"Skill": "Farming",
+		"RequiresTalent": "Resurgence",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 100,
+			"Y": 113
+		}
+	},
+	{
+		"Name": "GoodSoaking",
+		"Skill": "Farming",
+		"RequiresTalent": "RefreshingWaters",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 76,
+			"Y": 110
+		}
+	},
+	{
+		"Name": "NourishingRain",
+		"Skill": "Farming",
+		"RequiresTalent": "GoodSoaking",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 55,
+			"Y": 89
+		}
+	},
+	//Tree branch 2
+	{
+		"Name": "WildGrowth",
+		"Skill": "Farming",
+		"RequiresTalent": "",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 179,
+			"Y": 132
+		}
+	},
+	{
+		"Name": "Overcrowding",
+		"Skill": "Farming",
+		"RequiresTalent": "WildGrowth",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 180,
+			"Y": 110
+		}
+	},
+	{
+		"Name": "Bio-Engineering",
+		"Skill": "Farming",
+		"RequiresTalent": "Overcrowding",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 186,
+			"Y": 85
+		}
+	},
+	{
+		"Name": "Pastoralism",
+		"Skill": "Farming",
+		"RequiresTalent": "Overcrowding",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 206,
+			"Y": 110
+		}
+	},
+	{
+		"Name": "BreedLikeRabbits",
+		"Skill": "Farming",
+		"RequiresTalent": "Bio-Engineering",
+		"RequiresTalent2": "Pastoralism",
+		"Position": {
+			"X": 215,
+			"Y": 84
+		}
+	},
+	{
+		"Name": "BrimmingWithLife",
+		"Skill": "Farming",
+		"RequiresTalent": "BreedLikeRabbits",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 242,
+			"Y": 85
+		}
+	},
+	//Tree Branch 3
+	{
+		"Name": "CycleOfLife",
+		"Skill": "Farming",
+		"RequiresTalent": "",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 146,
+			"Y": 127
+		}
+	},
+	{
+		"Name": "Effloresence",
+		"Skill": "Farming",
+		"RequiresTalent": "CycleOfLife",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 123,
+			"Y": 103
+		}
+	},
+	{
+		"Name": "HarmoniousBlooming",
+		"Skill": "Farming",
+		"RequiresTalent": "Effloresence",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 110,
+			"Y": 80
+		}
+	},
+	{
+		"Name": "Abundance",
+		"Skill": "Farming",
+		"RequiresTalent": "HarmoniousBlooming",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 123,
+			"Y": 60
+		}
+	},
+	{
+		"Name": "FairysKiss",
+		"Skill": "Farming",
+		"RequiresTalent": "HarmoniousBlooming",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 87,
+			"Y": 65
+		}
+	},
+	{
+		"Name": "FaeBlessings",
+		"Skill": "Farming",
+		"RequiresTalent": "FairysKiss",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 62,
+			"Y": 49
+		}
+	},
+	{
+		"Name": "FineGrind",
+		"Skill": "Farming",
+		"RequiresTalent": "CycleOfLife",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 156,
+			"Y": 106
+		}
+	},
+	{
+		"Name": "DriftFencing",
+		"Skill": "Farming",
+		"RequiresTalent": "FineGrind",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 166,
+			"Y": 77
+		}
+	},
+	{
+		"Name": "StormSurge",
+		"Skill": "Farming",
+		"RequiresTalent": "DriftFencing",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 168,
+			"Y": 55
+		}
+	},
+	{
+		"Name": "ColdPress",
+		"Skill": "Farming",
+		"RequiresTalent": "StormSurge",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 179,
+			"Y": 31
+		}
+	},
+	{
+		"Name": "Upcycling",
+		"Skill": "Farming",
+		"RequiresTalent": "DriftFencing",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 189,
+			"Y": 63
+		}
+	},
+	{
+		"Name": "Fertigation",
+		"Skill": "Farming",
+		"RequiresTalent": "Upcycling",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 213,
+			"Y": 59
+		}
+	},
+	{
+		"Name": "Trickster",
+		"Skill": "Farming",
+		"RequiresTalent": "Effloresence",
+		"RequiresTalent2": "FineGrind",
+		"Position": {
+			"X": 144,
+			"Y": 82
+		}
+	},
+	{
+		"Name": "TropicalBliss",
+		"Skill": "Farming",
+		"RequiresTalent": "Trickster",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 144,
+			"Y": 55
+		}
+	},
+	{
+		"Name": "HarvestSeason",
+		"Skill": "Farming",
+		"RequiresTalent": "TropicalBliss",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 144,
+			"Y": 33
+		}
+	},
+	//Mining
+	//Tree 1
+	{
+		"Name": "DownInTheDepths",
+		"Skill": "Mining",
+		"RequiresTalent": "",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 125,
+			"Y": 129
+		}
+	},
+	{
+		"Name": "ShadowBuddies",
+		"Skill": "Mining",
+		"RequiresTalent": "DownInTheDepths",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 94,
+			"Y": 125
+		}
+	},
+	{
+		"Name": "DwarvenBuddies",
+		"Skill": "Mining",
+		"RequiresTalent": "DownInTheDepths",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 115,
+			"Y": 105
+		}
+	},
+	{
+		"Name": "EssenceInfusion",
+		"Skill": "Mining",
+		"RequiresTalent": "ShadowBuddies",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 67,
+			"Y": 119
+		}
+	},
+	{
+		"Name": "ElderScrolls",
+		"Skill": "Mining",
+		"RequiresTalent": "DwarvenBuddies",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 105,
+			"Y": 81
+		}
+	},
+	{
+		"Name": "SpeedOfDarkness",
+		"Skill": "Mining",
+		"RequiresTalent": "EssenceInfusion",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 56,
+			"Y": 96
+		}
+	},
+	{
+		"Name": "AncestralWeaponry",
+		"Skill": "Mining",
+		"RequiresTalent": "ElderScrolls",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 78,
+			"Y": 77
+		}
+	},
+	{
+		"Name": "SharedFocus",
+		"Skill": "Mining",
+		"RequiresTalent": "SpeedOfDarkness",
+		"RequiresTalent2": "AncestralWeaponry",
+		"Position": {
+			"X": 47,
+			"Y": 73
+		}
+	},
+	//Tree 2
+	{
+		"Name": "MuseumPiece",
+		"Skill": "Mining",
+		"RequiresTalent": "",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 147,
+			"Y": 118
+		}
+	},
+	{
+		"Name": "ExplosivePersonality",
+		"Skill": "Mining",
+		"RequiresTalent": "MuseumPiece",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 147,
+			"Y": 97
+		}
+	},
+	{
+		"Name": "Synthesis",
+		"Skill": "Mining",
+		"RequiresTalent": "ExplosivePersonality",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 147,
+			"Y": 78
+		}
+	},
+	{
+		"Name": "Upheaval",
+		"Skill": "Mining",
+		"RequiresTalent": "Synthesis",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 121,
+			"Y": 69
+		}
+	},
+	{
+		"Name": "Matryoshka",
+		"Skill": "Mining",
+		"RequiresTalent": "Upheaval",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 102,
+			"Y": 51
+		}
+	},
+	{
+		"Name": "X-ray",
+		"Skill": "Mining",
+		"RequiresTalent": "Matryoshka",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 75,
+			"Y": 51
+		}
+	},
+	{
+		"Name": "Geometry",
+		"Skill": "Mining",
+		"RequiresTalent": "Synthesis",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 147,
+			"Y": 56
+		}
+	},
+	{
+		"Name": "Dazzle",
+		"Skill": "Mining",
+		"RequiresTalent": "Geometry",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 147,
+			"Y": 35
+		}
+	},
+	// Tree 3
+	{
+		"Name": "StraightRun",
+		"Skill": "Mining",
+		"RequiresTalent": "",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 168,
+			"Y": 127
+		}
+	},
+	{
+		"Name": "DetonationDampener",
+		"Skill": "Mining",
+		"RequiresTalent": "StraightRun",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 168,
+			"Y": 107
+		}
+	},
+	{
+		"Name": "Volatility",
+		"Skill": "Mining",
+		"RequiresTalent": "DetonationDampener",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 175,
+			"Y": 84
+		}
+	},
+	{
+		"Name": "AlchemicReversal",
+		"Skill": "Mining",
+		"RequiresTalent": "Volatility",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 185,
+			"Y": 63
+		}
+	},
+	{
+		"Name": "RoomAndPillar",
+		"Skill": "Mining",
+		"RequiresTalent": "AlchemicReversal",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 196,
+			"Y": 44
+		}
+	},
+	{
+		"Name": "Fallout",
+		"Skill": "Mining",
+		"RequiresTalent": "RoomAndPillar",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 219,
+			"Y": 44
+		}
+	},
+	{
+		"Name": "EveryonesBestFriend",
+		"Skill": "Mining",
+		"RequiresTalent": "DetonationDampener",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 198,
+			"Y": 107
+		}
+	},
+	{
+		"Name": "CrystalCavern",
+		"Skill": "Mining",
+		"RequiresTalent": "EveryonesBestFriend",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 214,
+			"Y": 87
+		}
+	},
+	{
+		"Name": "OverTheRainbow",
+		"Skill": "Mining",
+		"RequiresTalent": "CrystalCavern",
+		"RequiresTalent2": "",
+		"Position": {
+			"X": 239,
+			"Y": 87
+		}
+	},
+]
