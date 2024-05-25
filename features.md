@@ -22,16 +22,30 @@ Every profession you see with '(Lv15)' might be chosen at level 15, and '(Lv20)'
 
 ### Farming
 #### Nutritionist (Lv15)
+Machines that take coop animal goods have a chance to double their output. (Machinery as in Mayonnaise machine or loom, but VPP doesn't try to keep track of wool comes from whether a sheep or a rabbit as that'd require effort that isn't worth it.)
 For Mod Authors: If your animal(s) live in the coop and their products use machines that aren't Mayonnaise Machine or Loom, you should add ``StackModifiers`` to your rules to double the amount of the output. You can use the ``HasProfession`` token to detect if the player has this profession.
 #### Breeder (Lv15)
-For Mod Authors: If your animal(s) live in the coop, you should double its price when the current player has this profession. You can use the ``HasProfession`` token to detect if the player has it.
+Coop animals are worth more when sold.
+For Mod Authors: You don't need to do anything, as VPP will automatically detect your animal if it lives in any vanilla coop.
 #### Musterer (Lv15)
-For Mod Authors: If your animal(s) live in the barn and their products use machines that aren't Loom or Cheese Press, you should add ``ReadyTimeModifiers`` to your rules to make the machine faster. You can use the ``HasProfession`` token to detect if the player has this profession.
+Machines that take barn animal goods work faster.
+Loom, Mayonnaise machine (only for ostrich eggs) and cheese presses will work faster.
+For Mod Authors: If your animal(s) live in the barn and their products use machines that aren't Loom or Cheese Press, or if they use Mayonnaise Machine you should add ``ReadyTimeModifiers`` to the said machinery to make the your produce faster. You can use the ``HasProfession`` token to detect if the player has this profession.
 #### Caretaker (Lv15)
+Milk pail and shears take no energy. Chance for hay eaten by animals to not be consumed. The chance for animals to not eat hay is %, and its evaluated for every animal individually.
+
+For Mod Authors: For custom animals, you don't need to do anything as VPP will apply these effects automatically for any animal. If you add any custom tools for animals, you'll have to check if the player has a profession with the ID of ``33``.
 #### Machinist (Lv15)
+
 #### Connoisseur (Lv15)
+For Mod Authors: VPP doesn't automatically make any artisan good into a loved gift, and chooses to ignore the characters or items in the following cases:
+1) The item is alcoholic (has the ``alcohol_item`` context tag)
+2) The NPC has it as a hated or disliked gift
+3) The NPC has an entry of ``"Kedi.VPP.ExcludeFromConnoisseur": "true"`` in their Data/Characters entry's CustomFields
 #### Horticulturist (Lv15)
 #### Agronomist (Lv15)
+Once you choose this profession, for every fertilizer you use outside of a greenhouse. Gem dusts made with geode crushers & Farming-Mining combo profession are also affected by this profession.
+For Mod Authors: Crop modders do not have to do anything, but for mods that add custom fertilizers, you might need to check if the player has a profession with the ID of ``37``.
 #### Farming-Mining (Lv20)
 This profession allows you to use the Geode Crusher to produce Gem Dusts out of minerals, which you can use in place of fertilizers (gem dusts are affected by Agronomist profession as well.)
 Which type of effect they give depends on their price and color:
