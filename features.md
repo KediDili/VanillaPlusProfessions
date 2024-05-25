@@ -103,6 +103,7 @@ Every vanilla gem will act like a certain vanilla tackle when placed to the fish
 - Aquamarine -> Lead Bobber
 - Amethyst -> Dressed Spinner
 - Topaz -> Cork Bobber
+
 After being used at least once, they WILL NOT stack with other gems, even if they're of the same type!
 
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
@@ -137,6 +138,9 @@ Makes it so that any metal bar is processed %20 faster in both Furnace and Heavy
 
 For Mod Authors: If you add custom ores and metal bars, you should also make it faster.
 #### Crafter (Lv15)
+
+
+For Mod Authors: There's nothing you should do to add compatibility with this profession.
 #### Archeologist (Lv15)
 Artifacts can be recycled.
 Allows artifacts to be recycled via Recycling Machine. The full drops are explained below:
@@ -170,13 +174,24 @@ For Mod Authors: There's nothing you should do to add compatibility with this pr
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 ### Combat
 #### Warrior (Lv15)
+Invincible monsters can be damaged.
+Monsters like armored bugs, rock crabs, or pupating grubs can be damaged.
+
+For Mod Authors: If you add custom monsters that aren't named like above in the game code, contact me for compatibility with your mod. Otherwise you don't need to do anything.
 #### Berserker (Lv15)
 #### Survivalist (Lv15)
 #### Healer (Lv15)
 #### Technician (Lv15)
 #### Speedster (Lv15)
 #### Assassin (Lv15)
+Guaranteed critical hits against monsters with high defense.
+You will be dealing guaranteed crits against Metal Heads, Hot Heads, Dwarvish Sentries, Stickbugs and Rock Crabs.
+
+For Mod Authors: If you add custom monsters that aren't named like above in the game code, contact me for compatibility with your mod. Otherwise you don't need to do anything.
 #### Assailant (Lv15)
+No cooldowns after critical hits.
+
+For Mod Authors: There's nothing you should do to add compatibility with this profession.
 #### Combat-Farming (Lv20)
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 #### Combat-Fishing (Lv20)
