@@ -45,19 +45,20 @@ For Mod Authors: VPP doesn't automatically make any artisan good into a loved gi
 #### Horticulturist (Lv15)
 #### Agronomist (Lv15)
 Once you choose this profession, for every fertilizer you use outside of a greenhouse. Gem dusts made with geode crushers & Farming-Mining combo profession are also affected by this profession.
+
 For Mod Authors: Crop modders do not have to do anything, but for mods that add custom fertilizers, you might need to check if the player has a profession with the ID of ``37``.
 #### Farming-Mining (Lv20)
 This profession allows you to use the Geode Crusher to produce Gem Dusts out of minerals, which you can use in place of fertilizers (gem dusts are affected by Agronomist profession as well.)
 Which type of effect they give depends on their price and color:
-- Greenish colors: Tree fertilizer behaivor
-- colors: Speed-Gro behaivor
-- colors: Quality Fertilizer behaivor
-- colors: Retaining Soil behaivor
-- Price lower than : Low-level fertilizer behaivor
-- Price between and : Mid-level fertilizer behaivor
-- Price higher than : High-level fertilizer behaivor
+- Greenish colors, black and dark brown: Tree fertilizer behaivor
+- Red, purple and pink colors: Speed-Gro behaivor
+- Orange, yellow, brown: Quality Fertilizer behaivor
+- Blue, cyan, white and gray: Retaining Soil behaivor
+- Price lower than 120g: Low-level fertilizer behaivor (doesn't affect green gem dusts)
+- Price between 120g and 280g: Mid-level fertilizer behaivor (doesn't affect green gem dusts)
+- Price higher than 280g: High-level fertilizer behaivor (doesn't affect green gem dusts)
 
-For Mod Authors: There's nothing you should do to add compatibility with this profession.
+For Mod Authors: If you add custom minerals, they should have an appropriate color tag and be in the minerals category. If both of those are met, VPP will make gem dusts of your custom mineral too.
 #### Farming-Foraging (Lv20)
 - For Mod Authors: There's a lot of things you should do but I'm lazy atm. dman.
 
@@ -100,9 +101,16 @@ For Mod Authors: There's nothing you should do to add compatibility with this pr
 ### Mining
 #### Metallurgist (Lv15)
 #### Ironmonger (Lv15)
+Ores are worth more.
+
+For Mod Authors: If you add custom ores, then you should also double your ore's sell price.
 #### Ignitor (Lv15)
+Furnaces work faster.
+Makes it so that any metal bar is processed %20 faster in both Furnace and Heavy Furnaces.
+For Mod Authors: If you add custom ores and metal bars, you should also make it faster.
 #### Crafter (Lv15)
 #### Archeologist (Lv15)
+For Mod Authors: If you add custom artifacts, then you should also add machine rules to Recycle Machine to process your artifacts.
 #### Mineralogist (Lv15)
 #### Appraiser (Lv15)
 #### Enchanter (Lv15)
