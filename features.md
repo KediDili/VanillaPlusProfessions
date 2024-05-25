@@ -22,14 +22,17 @@ Every profession you see with '(Lv15)' might be chosen at level 15, and '(Lv20)'
 
 ### Farming
 #### Nutritionist (Lv15)
-Machines that take coop animal goods have a chance to double their output. (Machinery as in Mayonnaise machine or loom, but VPP doesn't try to keep track of wool comes from whether a sheep or a rabbit as that'd require effort that isn't worth it.)
+Machines that take coop animal goods have a chance to double their output. (Machinery as in Mayonnaise machine or loom, but VPP doesn't try to keep track of wool comes from whether a sheep or a rabbit as that'd require effort that isn't worth it imho.)
+
 For Mod Authors: If your animal(s) live in the coop and their products use machines that aren't Mayonnaise Machine or Loom, you should add ``StackModifiers`` to your rules to double the amount of the output. You can use the ``HasProfession`` token to detect if the player has this profession.
 #### Breeder (Lv15)
 Coop animals are worth more when sold.
+
 For Mod Authors: You don't need to do anything, as VPP will automatically detect your animal if it lives in any vanilla coop.
 #### Musterer (Lv15)
 Machines that take barn animal goods work faster.
 Loom, Mayonnaise machine (only for ostrich eggs) and cheese presses will work faster.
+
 For Mod Authors: If your animal(s) live in the barn and their products use machines that aren't Loom or Cheese Press, or if they use Mayonnaise Machine you should add ``ReadyTimeModifiers`` to the said machinery to make the your produce faster. You can use the ``HasProfession`` token to detect if the player has this profession.
 #### Caretaker (Lv15)
 Milk pail and shears take no energy. Chance for hay eaten by animals to not be consumed. The chance for animals to not eat hay is %, and its evaluated for every animal individually.
@@ -38,10 +41,14 @@ For Mod Authors: For custom animals, you don't need to do anything as VPP will a
 #### Machinist (Lv15)
 
 #### Connoisseur (Lv15)
-For Mod Authors: VPP doesn't automatically make any artisan good into a loved gift, and chooses to ignore the characters or items in the following cases:
+Artisan goods are loved by NPCs.
+Most NPCs will love most artisan goods, but it wont automatically make every artisan good loved. Exclusion cases are mentioned below.
+
+For Mod Authors: VPP chooses to ignore the characters or items in the following cases:
 1) The item is alcoholic (has the ``alcohol_item`` context tag)
 2) The NPC has it as a hated or disliked gift
 3) The NPC has an entry of ``"Kedi.VPP.ExcludeFromConnoisseur": "true"`` in their Data/Characters entry's CustomFields
+So if you want to exclude an item for your NPC fully or just have it ignore your NPC, add any of those
 #### Horticulturist (Lv15)
 #### Agronomist (Lv15)
 Once you choose this profession, for every fertilizer you use outside of a greenhouse. Gem dusts made with geode crushers & Farming-Mining combo profession are also affected by this profession.
@@ -76,14 +83,29 @@ For Mod Authors: There's nothing you should do to add compatibility with this pr
 #### Trawler (Lv15)
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 #### Recycler (Lv15)
+
 For Mod Authors: If you aren't adding custom tackles, this shouldn't matter for your mod. If so, you should add machine rules to Recycling Machine to give your tackle as output. VPP adds rules for vanilla tackles, with a chance of %25 for common ones and %10 for rarer ones. You can use the ``HasProfession`` token to detect if the player has this profession.
 #### Hydrologist (Lv15)
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 #### Fishing-Farming (Lv20)
-For Mod Authors: Your fish must have at least one ``PopulationGate`` to be compatible with this profession. Nothing should error if it doesn't, though.
-#### Fishing-Mining (Lv20)
-For Mod Authors: There's nothing you should do to add compatibility with this profession.
+Full fish ponds will continue making item requests. If completed, double yield for the rest of the week.
+Fish ponds that are full will ask for quest items, just as they did while wanting to expand the population. If you bring the item to them, they'll give double items for the rest of the week.
 
+For Mod Authors: Your fish must have at least one ``PopulationGate`` entry to be compatible with this profession.
+#### Fishing-Mining (Lv20)
+Gems can be used as tackles.
+Every vanilla gem will act like a certain vanilla tackle when placed to the fishing rod. The matches are:
+- Prismatic shard -> Curiosity Lure
+- Diamond -> Quality Bobber
+- Ruby -> Treasure Hunter
+- Emerald -> Barbed Hook
+- Jade -> Trap Bobber
+- Aquamarine -> Lead Bobber
+- Amethyst -> Dressed Spinner
+- Topaz -> Cork Bobber
+After being used at least once, they WILL NOT stack with other gems, even if they're of the same type!
+
+For Mod Authors: There's nothing you should do to add compatibility with this profession.
 ### Foraging
 #### Arborist (Lv15)
 #### Shaker (Lv15)
@@ -94,10 +116,15 @@ For Mod Authors: There's nothing you should do to add compatibility with this pr
 #### Gleaner (Lv15)
 #### Wayfarer (Lv15)
 #### Foraging-Fishing (Lv20)
+Every four days, a randomly-selected forage item will be able to summon fishing bubbles when tossed in the water.
+
+
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 #### Foraging-Combat (Lv20)
-For Mod Authors: There's nothing you should do to add compatibility with this profession.
+Off-screen monsters can be tracked.
+Similar to the Tracker Profession in vanilla, when you choose this profession you'll be shown small and moving red arrows that points at monsters.
 
+For Mod Authors: There's nothing you should do to add compatibility with this profession.
 ### Mining
 #### Metallurgist (Lv15)
 #### Ironmonger (Lv15)
@@ -107,19 +134,40 @@ For Mod Authors: If you add custom ores, then you should also double your ore's 
 #### Ignitor (Lv15)
 Furnaces work faster.
 Makes it so that any metal bar is processed %20 faster in both Furnace and Heavy Furnaces.
+
 For Mod Authors: If you add custom ores and metal bars, you should also make it faster.
 #### Crafter (Lv15)
 #### Archeologist (Lv15)
-For Mod Authors: If you add custom artifacts, then you should also add machine rules to Recycle Machine to process your artifacts.
+Artifacts can be recycled.
+Allows artifacts to be recycled via Recycling Machine. The full drops are explained below:
+- 
+- 
+- 
+- 
+- 
+-
+- 
+-
+-
+
+For Mod Authors: If you add custom artifacts, then you should also add machine rules to Recycling Machine to process your artifacts.
 #### Mineralogist (Lv15)
 #### Appraiser (Lv15)
+Cinder shard nodes drop more cinder shards.
+In vanilla, cinder shard nodes drop 1-3 shards each. This profession changes them to drop 2-5 instead.
+
+For Mod Authors: There's nothing you should do to add compatibility with this profession.
 #### Enchanter (Lv15)
+Cheaper enchantment of weapons and tools.
+It'll allow you to enchant your weapons and tools using 4 fire quartzes for each enchant attempt, but you still can use prismatic shards too.
+
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 #### Mining-Combat (Lv20)
+
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 #### Mining-Foraging (Lv20)
-For Mod Authors: There's nothing you should do to add compatibility with this profession.
 
+For Mod Authors: There's nothing you should do to add compatibility with this profession.
 ### Combat
 #### Warrior (Lv15)
 #### Berserker (Lv15)
