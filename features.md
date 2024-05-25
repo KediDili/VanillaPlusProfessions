@@ -119,8 +119,7 @@ For Mod Authors: There's nothing you should do to add compatibility with this pr
 #### Foraging-Fishing (Lv20)
 Every four days, a randomly-selected forage item will be able to summon fishing bubbles when tossed in the water.
 
-
-For Mod Authors: There's nothing you should do to add compatibility with this profession.
+For Mod Authors: If you want your forage to be included by this, make sure it has the ``forage_item`` context tag. If you want your forage to be excluded, make sure it has ``vpp_forageThrowGame_banned`` context tag.
 #### Foraging-Combat (Lv20)
 Off-screen monsters can be tracked.
 Similar to the Tracker Profession in vanilla, when you choose this profession you'll be shown small and moving red arrows that points at monsters.
@@ -156,6 +155,9 @@ Allows artifacts to be recycled via Recycling Machine. The full drops are explai
 
 For Mod Authors: If you add custom artifacts, then you should also add machine rules to Recycling Machine to process your artifacts.
 #### Mineralogist (Lv15)
+All vanilla geodes hold the same items as omni-geodes.
+
+For Mod Authors: There's nothing you should do to add compatibility with this profession.
 #### Appraiser (Lv15)
 Cinder shard nodes drop more cinder shards.
 In vanilla, cinder shard nodes drop 1-3 shards each. This profession changes them to drop 2-5 instead.
@@ -167,6 +169,7 @@ It'll allow you to enchant your weapons and tools using 4 fire quartzes for each
 
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 #### Mining-Combat (Lv20)
+Gain combat buffs for every 100 stones broken that day via pickaxe or bombs.
 
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 #### Mining-Foraging (Lv20)
@@ -179,10 +182,30 @@ Monsters like armored bugs, rock crabs, or pupating grubs can be damaged.
 
 For Mod Authors: If you add custom monsters that aren't named like above in the game code, contact me for compatibility with your mod. Otherwise you don't need to do anything.
 #### Berserker (Lv15)
+Damage dealt increases at low health.
+When your health is below 1/4 of your max health, your damage is doubled.
+
+For Mod Authors: There's nothing you should do to add compatibility with this profession.
 #### Survivalist (Lv15)
+Length of positive buffs increased.
+The length of the positive buffs are doubled.
+
+For Mod Authors: If you're adding a custom debuff, make sure you set its IsDebuff field to false.
 #### Healer (Lv15)
+Length of negative buffs decreased.
+The length of the negative buffs are halved.
+
+For Mod Authors: If you're adding a custom debuff, make sure you set its IsDebuff field to true.
 #### Technician (Lv15)
+Grants invulnerability during special weapon cooldown.
+You will temporarily be invulnerable to any enemy attack while any of your weapons are on cooldown.
+
+For Mod Authors: There's nothing you should do to add compatibility with this profession.
 #### Speedster (Lv15)
+Increased speed of weapon attacks and cooldowns.
+Your weapon attacks will be double as fast, but cooldowns will also take twice as much.
+
+For Mod Authors: There's nothing you should do to add compatibility with this profession.
 #### Assassin (Lv15)
 Guaranteed critical hits against monsters with high defense.
 You will be dealing guaranteed crits against Metal Heads, Hot Heads, Dwarvish Sentries, Stickbugs and Rock Crabs.
@@ -193,10 +216,15 @@ No cooldowns after critical hits.
 
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 #### Combat-Farming (Lv20)
+Slimes in the slime hutch also produce valuable items.
+When you leave your slimes without water, they'll produce Colored Petrified Slimes, which are valuable.
+
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 #### Combat-Fishing (Lv20)
-For Mod Authors: There's nothing you should do to add compatibility with this profession.
+Fish can be used as slingshot ammo.
+You read it right. Fish on slingshots. The damage the fish will do depends on how expensive it is.
 
+For Mod Authors: There's nothing you should do to add compatibility with this profession.
 ## Talents
 ### What even is this?
 VPP adds a skill point system named 'talents' which is built from ground to the top. Every talent is a perk purchasable with 'talent points', and each of them change a different aspect of the game.
