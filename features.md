@@ -39,7 +39,12 @@ Milk pail and shears take no energy. Chance for hay eaten by animals to not be c
 
 For Mod Authors: For custom animals, you don't need to do anything as VPP will apply these effects automatically for any animal. If you add any custom tools for animals, you'll have to check if the player has a profession with the ID of ``33``.
 #### Machinist (Lv15)
+Machines that take harvested crops work faster.
+will process X% faster.
 
+//TODO
+
+For Mod Authors: If you add machinery that accept crops, you should
 #### Connoisseur (Lv15)
 Artisan goods are loved by NPCs.
 Most NPCs will love most artisan goods, but it wont automatically make every artisan good loved. Exclusion cases are mentioned below.
@@ -48,10 +53,14 @@ For Mod Authors: VPP chooses to ignore the characters or items in the following 
 1) The item is alcoholic (has the ``alcohol_item`` context tag)
 2) The NPC has it as a hated or disliked gift
 3) The NPC has an entry of ``"Kedi.VPP.ExcludeFromConnoisseur": "true"`` in their Data/Characters entry's CustomFields
-So if you want to exclude an item for your NPC fully or just have it ignore your NPC, add any of those
+So if you want to exclude an item for your NPC fully or just have it ignore your NPC/item, add any of those
 #### Horticulturist (Lv15)
+Trees grown in greenhouses will give iridium-quality produce.
+
+For Mod Authors: There's nothing you should do to add compatibility with this profession.
 #### Agronomist (Lv15)
-Once you choose this profession, for every fertilizer you use outside of a greenhouse. Gem dusts made with geode crushers & Farming-Mining combo profession are also affected by this profession.
+If a crop is grown outside of a greenhouse, chance for fertilizer to not be consumed.
+Once you choose this profession, for every fertilizer you use outside of a greenhouse, each time its got a %30 chance to not be consumed. Gem dusts made with geode crushers are also affected by this profession.
 
 For Mod Authors: Crop modders do not have to do anything, but for mods that add custom fertilizers, you might need to check if the player has a profession with the ID of ``37``.
 #### Farming-Mining (Lv20)
@@ -67,8 +76,10 @@ Which type of effect they give depends on their price and color:
 
 For Mod Authors: If you add custom minerals, they should have an appropriate color tag and be in the minerals category. If both of those are met, VPP will make gem dusts of your custom mineral too.
 #### Farming-Foraging (Lv20)
-- For Mod Authors: There's a lot of things you should do but I'm lazy atm. dman.
+Fruit trees and giant crops are tappable.
+You can now tap any giant crop and fruit tree with any tapper. Every 5 days that the tapper isn't removed, it will yield either a custom item defined by the game data (goes only for custom giant crops and fruit tree) or a Fruit Syrup flavored with the crop or fruit of the giant crop/fruit tree. 
 
+- For Mod Authors: If you want your fruit tree or giant crop to give a custom item instead of a Fruit Syrup, you should add an entry like ``"Kedi.VPP.DoesUseCustomItem": "Example.ModID_UnqualifiedItemID"`` to the fruit tree/giant crop data's CustomFields.
 ### Fishing
 #### Oceanologist (Lv15)
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
@@ -127,6 +138,10 @@ Similar to the Tracker Profession in vanilla, when you choose this profession yo
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 ### Mining
 #### Metallurgist (Lv15)
+Metal bars require less materials to produce.
+For all vanilla bars and for Furnace and Heave Furnaces, the amount of ores are reduced by %20
+
+For Mod Authors: If you add custom metal bars, then you should also reduce the material amount by %20.
 #### Ironmonger (Lv15)
 Ores are worth more.
 
@@ -135,14 +150,20 @@ For Mod Authors: If you add custom ores, then you should also double your ore's 
 Furnaces work faster.
 Makes it so that any metal bar is processed %20 faster in both Furnace and Heavy Furnaces.
 
-For Mod Authors: If you add custom ores and metal bars, you should also make it faster.
+For Mod Authors: If you add custom ores and metal bars, you should also make furnaces faster.
 #### Crafter (Lv15)
+Crafting recipes gained via the mining skill require less materials.
+The recipe changes are explained below:
+- 
+- 
+-
+-
+- 
 
-
-For Mod Authors: There's nothing you should do to add compatibility with this profession.
+For Mod Authors: If you add custom crafting recipes to unlock with Mining skill, you should lower the materials required.
 #### Archeologist (Lv15)
 Artifacts can be recycled.
-Allows artifacts to be recycled via Recycling Machine. The full drops are explained below:
+Allows artifacts to be recycled via Recycling Machine. The full outputs are explained below:
 - 
 - 
 - 
@@ -170,9 +191,13 @@ It'll allow you to enchant your weapons and tools using 4 fire quartzes for each
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 #### Mining-Combat (Lv20)
 Gain combat buffs for every 100 stones broken that day via pickaxe or bombs.
+Every 100 stones you break will grant you ``stone amount / 100``+ Defense and attack buffs. It doesn't matter whether they're destroyed by hand or bombs, but it will reset the next day.
 
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 #### Mining-Foraging (Lv20)
+Increased possibility for\nMushroom level spawn.
+In vanilla, there are "mushroom levels" which spawn in the Mine, below level 80, has colorful lights on the walls and a lot of mushrooms.
+The chance for their appaearance is now at %15, while in vanilla this is %0.8.
 
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 ### Combat
@@ -217,7 +242,7 @@ No cooldowns after critical hits.
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 #### Combat-Farming (Lv20)
 Slimes in the slime hutch also produce valuable items.
-When you leave your slimes without water, they'll produce Colored Petrified Slimes, which are valuable.
+When you leave your slimes without water, they'll produce Colored Petrified Slimes or Prismatic Slimes, which are valuable.
 
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 #### Combat-Fishing (Lv20)
