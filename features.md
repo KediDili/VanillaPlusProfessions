@@ -35,16 +35,14 @@ Loom, Mayonnaise machine (only for ostrich eggs) and cheese presses will work fa
 
 For Mod Authors: If your animal(s) live in the barn and their products use machines that aren't Loom or Cheese Press, or if they use Mayonnaise Machine you should add ``ReadyTimeModifiers`` to the said machinery to make the your produce faster. You can use the ``HasProfession`` token to detect if the player has this profession.
 #### Caretaker (Lv15)
-Milk pail and shears take no energy. Chance for hay eaten by animals to not be consumed. The chance for animals to not eat hay is %, and its evaluated for every animal individually.
+Milk pail and shears take no energy. Chance for hay eaten by animals to not be consumed. The chance for animals to not eat hay is %35, and its evaluated for every animal individually.
 
 For Mod Authors: For custom animals, you don't need to do anything as VPP will apply these effects automatically for any animal. If you add any custom tools for animals, you'll have to check if the player has a profession with the ID of ``33``.
 #### Machinist (Lv15)
 Machines that take harvested crops work faster.
-will process X% faster.
+Preserves Jar, Keg and Oil Maker will process 25% faster when the inputs are harvested crops.
 
-//TODO
-
-For Mod Authors: If you add machinery that accept crops, you should
+For Mod Authors: If you add machinery that accept crops, you should add a ReadyTimeModifier that applies the same effect when
 #### Connoisseur (Lv15)
 Artisan goods are loved by NPCs.
 Most NPCs will love most artisan goods, but it wont automatically make every artisan good loved. Exclusion cases are mentioned below.
@@ -79,24 +77,106 @@ For Mod Authors: If you add custom minerals, they should have an appropriate col
 Fruit trees and giant crops are tappable.
 You can now tap any giant crop and fruit tree with any tapper. Every 5 days that the tapper isn't removed, it will yield either a custom item defined by the game data (goes only for custom giant crops and fruit tree) or a Fruit Syrup flavored with the crop or fruit of the giant crop/fruit tree. 
 
-- For Mod Authors: If you want your fruit tree or giant crop to give a custom item instead of a Fruit Syrup, you should add an entry like ``"Kedi.VPP.DoesUseCustomItem": "Example.ModID_UnqualifiedItemID"`` to the fruit tree/giant crop data's CustomFields.
+- For Mod Authors: If you want your fruit tree or giant crop to give a custom item instead of a Fruit Syrup, you should add an entry like ``"Kedi.VPP.DoesUseCustomItem": "Example.ModID_UnqualifiedItemID"`` to the fruit tree/giant crop data's CustomFields. Otherwise you don't have to do anything other than giving your fruit tree or giant crop at least one fruit/crop.
 ### Fishing
 #### Oceanologist (Lv15)
+Attaching bait to a fishing rod will prevent trash from being caught.
+If the first catch is a trash item, the catch determination process is re-run up to 100 times, then the mod lets it go to prevent infinite loops even if its a trash.
+
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 #### Artificer (Lv15)
+Tackles last longer before breaking.
+Tackles will have now 40 uses instead of 20.
+
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 #### Plunderer (Lv15)
+Guaranteed treasure chest with every fishing rod cast.
+
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 #### Buccaneer (Lv15)
+Treasure chests contain rarer and more valuable items.
+Some drops will be switched with others upon fishing these treasures with a rod. The artifact drops will be replaced only if you have donated them to the museum already. Full drops are explained below:
+- Fire Quartz -> Fire Opal
+- Earth Crystal & Glass Shards -> Refined Quartz
+- Stone -> Ocean Stone
+- Wood -> Hardwood
+- Copper Ore -> Gold Ore
+- Iron Ore -> Iridium Ore
+- Coal and Rare Disc -> Neptunite
+- Small Glow Ring -> Glow Ring
+- Small Magnet Ring -> Magnet Ring
+- Geode, Frozen Geode & Magma Geode -> Omni Geode
+- Regular Bait -> Deluxe Bait
+- Dwarf Scrolls -> One of Ruby, Emerald, Aquamarine or Topaz, depending on the color
+- Chipped Amphora -> Junimo Pot (furniture from junimo catalogue)
+- Arrowhead -> Magic Quiver**
+- Ancient/Strange Dolls -> Ancient/Strange Doll Shirt
+- Chewing Stick -> Magic Rock Candy
+- Ornamental Fan -> Fairy Box**
+- Ancient Sword & Broken Trident -> Wicked Kris
+- Rusty Spoon -> Energy Tonic
+- Rusty Spur -> Golden Spur**
+- Rusty Cog -> Copper Bar
+- Chicken Statue -> Parrot Egg**
+- Prehistoric Tool -> Ice Rod**
+- Dried Starfish -> Junimo Star (furniture from junimo catalogue)
+- Anchor (the artifact) -> Anchor (the wall decor)
+- Bone Flute -> Flute Block
+- Prehistoric Handaxe -> Miner's Crest (wall decor)
+- Dwarvish Helm -> Wearable Dwarf Helmet
+- Dwarf Gadget -> Battery Pack
+- Ancient Drum -> Drum Block
+- Prehistoric Scapula -> Deluxe Fertilizer
+- Prehistoric Tibia -> Bone Sword
+- Prehistoric Skull -> Skeleton Shirt
+- Skeletal Hand -> Basilisk Paw**
+- Prehistoric Rib -> Tree Fertilizer
+- Prehistoric Vertebra -> Deluxe Retaining Soil
+- Skeletal Tail -> Hyper Speed-Gro
+- Nautilus Fossil -> Nautilus Shell
+- Amphibian Fossil -> Frog Egg**
+- Palm Fossil -> Golden Coconut
+- Triobite -> Crab
+- Sneakers -> Mermaid Boots
+- Rubber Boots -> Dragonscale Boots
+- Leather Boots -> Crystal Shoes
+- Work Boots -> Pirate Hat
+- Combat Boots -> Eye Patch (hat)
+- Tundra Boots -> Swashbuckler Hat
+- Thermal Boots -> Cinderclown Shoes
+-	Amethyst Ring -> Lucky Ring
+-	Topaz Ring -> Hot Java Ring
+- Aquamarine Ring -> Protection Ring
+-	Jade Ring -> Soul Sapper Ring
+-	Emerald Ring -> Phoenix Ring
+-	Ruby Ring -> Immunity Band
+-	Neptune's Glaive -> Obsidian Edge
+** if you aren't eligible for obtaining trinkets yet, you'll still get the artifact even if you donated it.
+
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 #### Aquaculturalist (Lv15)
-For Mod Authors: There's nothing you should do to add compatibility with this profession.
+Chance for fish ponds to produce double roe.
+
+For Mod Authors: There's nothing you should do to add compatibility with this profession even if you add custom fish.
 #### Trawler (Lv15)
+Adding bait to a crab pot guarantees a high-quality catch.
+There's a %30 chance the output will be iridium quality, and %70 chance to be gold quality.
+
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 #### Recycler (Lv15)
+Chance for recycled trash to produce various tackles.
+There's a chance that putting trash in recycling machine will output tackles. Full drops are explained below:
+- Trash -> Lead Bobber (%25) or Sonar Bobber (%10)
+- Soggy Newspaper -> Trap Bobber (%25) or Treasure Hunter (%10)
+- Broken Glasses -> Barbed Hook (%25) or Curiosity Lure (%10)
+- Broken CD -> Spinner (%25) or Dressed Spinner (%10)
+- Driftwood -> Cork Bobber (%25) or Quality Bobber (%10)
 
 For Mod Authors: If you aren't adding custom tackles, this shouldn't matter for your mod. If so, you should add machine rules to Recycling Machine to give your tackle as output. VPP adds rules for vanilla tackles, with a chance of %25 for common ones and %10 for rarer ones. You can use the ``HasProfession`` token to detect if the player has this profession.
 #### Hydrologist (Lv15)
+Chance for crab pots to produce a double catch.
+There's a %30 chance your crab pot catch to be doubled in stack.
+
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 #### Fishing-Farming (Lv20)
 Full fish ponds will continue making item requests. If completed, double yield for the rest of the week.
@@ -139,7 +219,7 @@ For Mod Authors: There's nothing you should do to add compatibility with this pr
 ### Mining
 #### Metallurgist (Lv15)
 Metal bars require less materials to produce.
-For all vanilla bars and for Furnace and Heave Furnaces, the amount of ores are reduced by %20
+For all vanilla bars and for Furnace and Heavy Furnaces, the amount of ores are reduced by %20
 
 For Mod Authors: If you add custom metal bars, then you should also reduce the material amount by %20.
 #### Ironmonger (Lv15)
@@ -272,3 +352,6 @@ and after requesting the reset you have to confirm or abort so you can't acciden
 
 ### What do each talent do exactly? I'd like to spoil myself.
 It adds a grand total of 141 talents divided across 6 skill trees, 25 for each vanilla skill and 16 extras for one tree that isn't spesific to any skills.
+
+### Farming
+
