@@ -151,6 +151,7 @@ Some drops will be switched with others upon fishing these treasures with a rod.
 -	Emerald Ring -> Phoenix Ring
 -	Ruby Ring -> Immunity Band
 -	Neptune's Glaive -> Obsidian Edge
+
 ** if you aren't eligible for obtaining trinkets yet, you'll still get the artifact even if you donated it.
 
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
@@ -244,15 +245,27 @@ For Mod Authors: If you add custom crafting recipes to unlock with Mining skill,
 #### Archeologist (Lv15)
 Artifacts can be recycled.
 Allows artifacts to be recycled via Recycling Machine. The full outputs are explained below:
-- 
-- 
-- 
-- 
-- 
--
-- 
--
--
+- Chipped Amphora -> 3 Clay
+- Arrowhead & Prehistoric Headaxe -> 3 Stone
+- Chewing Stick -> 1 Wood
+- Rusty Spoon -> 3 Iron Ore
+- Rusty Spur & Rusty Cog -> 3 Copper Ore
+- Glass Shards -> 1 Refined Quartz
+- Anchor -> 3 Iron Bar
+- Ornamental Fan -> 2 Wood
+- Golden Mask & Golden Relic -> 2 Gold Bar
+- Non Fossil Bones -> 5 Bone Fragment
+- Prehistoric Tool -> 1 Stone
+- Dried Starfish
+- Fossils (Trilobite, Palm Fossil, etc.) -> Nautilus Shell (if input is Nautilus Fossil) / 3 Clay or 2 Opal(%20 chance) (Applies only if input isnt Nautilus Fossil)
+- Elven Jewelry -> 1 Aquamarine (%20 chance) or 2 Gold Bars
+- Dwarvish Helm & Dwarf Gadget -> 1 Star Shards (%20 chance) or 2 Iron Bar
+- Dwarvish Scrolls -> One of Ruby, Aquamarine, Topaz, Emerald or Jade depending on the scroll's color (%20 chance) / 1 Cloth
+- Ancient & Strange Dolls -> 1 Cloth (%20 chance) or 2 Wool
+- Rare Disc -> 1 Helvite (%20 chance) or 2 Bixite
+- Chicken Statue -> 1-2 Copper Bar
+- Ancient Drum -> 1 Cloth (%20 chance) or 2 Wood
+- Ancient Sword -> 2 Iron Ore (%20 chance) or 1 Copper Bar
 
 For Mod Authors: If you add custom artifacts, then you should also add machine rules to Recycling Machine to process your artifacts.
 #### Mineralogist (Lv15)
@@ -285,7 +298,7 @@ For Mod Authors: There's nothing you should do to add compatibility with this pr
 Invincible monsters can be damaged.
 Monsters like armored bugs, rock crabs, or pupating grubs can be damaged.
 
-For Mod Authors: If you add custom monsters that aren't named like above in the game code, contact me for compatibility with your mod. Otherwise you don't need to do anything.
+For Mod Authors: If you add custom monsters that aren't added via FTM and not named ``Grub``, ``RockCrab`` or ``Bug`` in the C# code (or is not a subclass of any of them), contact me for compatibility with your mod. Otherwise you don't need to do anything.
 #### Berserker (Lv15)
 Damage dealt increases at low health.
 When your health is below 1/4 of your max health, your damage is doubled.
@@ -315,7 +328,7 @@ For Mod Authors: There's nothing you should do to add compatibility with this pr
 Guaranteed critical hits against monsters with high defense.
 You will be dealing guaranteed crits against Metal Heads, Hot Heads, Dwarvish Sentries, Stickbugs and Rock Crabs.
 
-For Mod Authors: If you add custom monsters that aren't named like above in the game code, contact me for compatibility with your mod. Otherwise you don't need to do anything.
+For Mod Authors: If you add custom monsters that aren't added via FTM content packs and not named ``RockCrab``, ``MetalHead``, ``HotHead``, ``DwarvishSentry`` in the game code (or isn't subclasses of any of these), contact me for compatibility with your mod. Otherwise you don't need to do anything.
 #### Assailant (Lv15)
 No cooldowns after critical hits.
 
