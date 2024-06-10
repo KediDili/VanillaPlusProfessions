@@ -201,9 +201,21 @@ After being used at least once, they WILL NOT stack with other gems, even if the
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 ### Foraging
 #### Arborist (Lv15)
+Wild trees grow faster.
+
+For Mod Authors: There's nothing you should do to add compatibility with this profession.
 #### Shaker (Lv15)
+Chance for wild trees to drop items when shaken.
+
+For Mod Authors: You can add items as drops for your custom wild trees' ``ShakeItems`` and ``SeedDropItems`` fields.
 #### Sapper (Lv15)
+Tappers work faster.
+
+For Mod Authors: There's nothing you need to do to add compatibility with this profession. If you add custom tappers, add ``<i didnt add it yet, lmk if you see this text>``
 #### Orchardist (Lv15)
+Tappers give double harvest.
+
+For Mod Authors: There's nothing you need to do to add compatibility with this profession.
 #### Ranger (Lv15)
 #### Adventurer (Lv15)
 #### Gleaner (Lv15)
