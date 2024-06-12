@@ -2,7 +2,18 @@
 VPP has a lot of features, but mainly divided in three groups:
 - Skill Changes
 - Professions
+  - Farming
+  - Mining
+  - Foraging
+  - Fishing
+  - Combat
 - Talents
+  - Farming
+  - Mining
+  - Foraging
+  - Fishing
+  - Combat
+  - Daily Life
 
 Please click one of the titles to jump between sections.
 
