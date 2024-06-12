@@ -31,7 +31,7 @@ VPP adds a total of 50 professions for all vanilla skills:
 
 Every profession you see with '(Lv15)' might be chosen at level 15, and '(Lv20)' means that it will appear in level 20.
 
-### Farming
+### Farming Professions
 #### Nutritionist (Lv15)
 Machines that take coop animal goods have a chance to double their output. (Machinery as in Mayonnaise machine or loom, but VPP doesn't try to keep track of wool comes from whether a sheep or a rabbit as that'd require effort that isn't worth it imho.)
 
@@ -89,7 +89,7 @@ Fruit trees and giant crops are tappable.
 You can now tap any giant crop and fruit tree with any tapper. Every 5 days that the tapper isn't removed, it will yield either a custom item defined by the game data (goes only for custom giant crops and fruit tree) or a Fruit Syrup flavored with the crop or fruit of the giant crop/fruit tree. 
 
 - For Mod Authors: If you want your fruit tree or giant crop to give a custom item instead of a Fruit Syrup, you should add an entry like ``"Kedi.VPP.DoesUseCustomItem": "Example.ModID_UnqualifiedItemID"`` to the fruit tree/giant crop data's CustomFields. Otherwise you don't have to do anything other than giving your fruit tree or giant crop at least one fruit/crop.
-### Fishing
+### Fishing Professions
 #### Oceanologist (Lv15)
 Attaching bait to a fishing rod will prevent trash from being caught.
 If the first catch is a trash item, the catch determination process is re-run up to 100 times, then the mod lets it go to prevent infinite loops even if its a trash.
@@ -210,7 +210,7 @@ Every vanilla gem will act like a certain vanilla tackle when placed to the fish
 After being used at least once, they WILL NOT stack with other gems, even if they're of the same type!
 
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
-### Foraging
+### Foraging Professions
 #### Arborist (Lv15)
 Wild trees grow faster.
 
@@ -240,7 +240,7 @@ Off-screen monsters can be tracked.
 Similar to the Tracker Profession in vanilla, when you choose this profession you'll be shown small and moving red arrows that points at monsters.
 
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
-### Mining
+### Mining Professions
 #### Metallurgist (Lv15)
 Metal bars require less materials to produce.
 For all vanilla bars and for Furnace and Heavy Furnaces, the amount of ores are reduced by %20
@@ -316,7 +316,7 @@ In vanilla, there are "mushroom levels" which spawn in the Mine, below level 80,
 The chance for their appaearance is now at %15, while in vanilla this is %0.8.
 
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
-### Combat
+### Combat Professions
 #### Warrior (Lv15)
 Invincible monsters can be damaged.
 Monsters like armored bugs, rock crabs, or pupating grubs can be damaged.
@@ -389,5 +389,92 @@ and after requesting the reset you have to confirm or abort so you can't acciden
 ### What do each talent do exactly? I'd like to spoil myself.
 It adds a grand total of 141 talents divided across 6 skill trees, 25 for each vanilla skill and 16 extras for one tree that isn't spesific to any skills.
 
-### Farming
+### Farming Talents
+### Mining Talents
+### Foraging Talents
+### Fishing Talents
+### Combat Talents
+### Daily Life Talents
+- Mate's Rates
 
+- Monumental Discount
+Obelisks are cheaper to purchase.
+All vanilla obelisks are re-priced as 100,000g.
+
+- Craft Supplies
+New craftables gained by skill level-up\nare sold at shops after being unlocked.
+
+- Admiration
+Halves the friendship decay. There's nothing you should do for compatibiliy with this talent.
+
+- Insider Info
+The price increases for the vanilla NPCs are listed below:
+
+- 
+-
+-
+- 
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+
+- Gift of Friendship
+
+- Haute Cuisine
+
+- Mini Fridge, Big Space
+   
+- Good Eats
+
+- Lost And Found
+Reading lost books after they've been found gives you daily buffs, reading another book while one will override the previous book buff and the buffs will be removed next day. Here are the buffs for vanilla lost books:
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+
+- Bookclub Bargains
+This talent decreases prices in The Bookseller's shop. 
+
+- Cycle of Knowledge
+
+- Narrow Escape
+
+- Trashed Treasure
+
+- Butterfly Effect
+
+- Gift of The Talented
+Gives you a stardrop. This stardrop doesn't count towards perfection.
