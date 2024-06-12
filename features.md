@@ -2,7 +2,7 @@
 VPP has a lot of features, but mainly divided in three groups:
 - Skill Changes
 - Professions
-  - Farming
+  - (Farming)[https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#farming]
   - Mining
   - Foraging
   - Fishing
