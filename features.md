@@ -3,17 +3,17 @@ VPP has a lot of features, but mainly divided in three groups:
 - Skill Changes
 - Professions
   - [Farming Professions](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#farming)
-  - Mining
-  - Foraging
-  - Fishing
-  - Combat
+  - Mining Professions
+  - Foraging Professions
+  - Fishing Professions
+  - Combat Professions
 - Talents
-  - Farming
-  - Mining
-  - Foraging
-  - Fishing
-  - Combat
-  - Daily Life
+  - Farming Talents
+  - Mining Talents
+  - Foraging Talents
+  - Fishing Talents
+  - Combat Talents
+  - Daily Life Talents
 
 Please click one of the titles to jump between sections.
 
@@ -436,10 +436,14 @@ The price increases for the vanilla NPCs are listed below:
 - Gift of Friendship
 
 - Haute Cuisine
+Increases sell prices of cooked food.
+Doubles the sell price of cooking category objects, there's nothing you need to do add compatibility with this talent.
 
 - Mini Fridge, Big Space
-   
+Increase storage space for mini-fridges.
+
 - Good Eats
+Allows for two food buffs and two drink buffs simultaneously.
 
 - Lost And Found
 Reading lost books after they've been found gives you daily buffs, reading another book while one will override the previous book buff and the buffs will be removed next day. Here are the buffs for vanilla lost books:
@@ -466,7 +470,7 @@ Reading lost books after they've been found gives you daily buffs, reading anoth
 --
 
 - Bookclub Bargains
-This talent decreases prices in The Bookseller's shop. 
+This talent decreases prices in The Bookseller's shop.
 
 - Cycle of Knowledge
 
