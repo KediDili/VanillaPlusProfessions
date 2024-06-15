@@ -63,7 +63,7 @@ For Mod Authors: VPP chooses to ignore the characters or items in the following 
 2) The NPC has it as a hated or disliked gift
 3) The NPC has an entry of ``"Kedi.VPP.ExcludeFromConnoisseur": "true"`` in their Data/Characters entry's CustomFields
 So if you want to exclude an item for your NPC fully or just have it ignore your NPC/item, add any of those
-#### Horticulturist (Lv15)
+### Horticulturist (Lv15)
 Trees grown in greenhouses will give iridium-quality produce.
 
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
@@ -224,7 +224,7 @@ Tappers work faster.
 All tappers will output %20 faster.
 
 For Mod Authors: If you add custom tappers, add ``tapper_multiplier_<speed>`` context tag to your item. Vanilla takes the speed bit and sets the minutes-until-ready to `` daysUntilReady * 1 / speed``. You can use the ``HasProfession`` token to see if the player has the profession.
-#### Orchardist (Lv15)
+### Orchardist (Lv15)
 Tappers give double harvest.
 
 For Mod Authors: There's nothing you need to do to add compatibility with this profession.
