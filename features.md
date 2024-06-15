@@ -207,7 +207,7 @@ Every vanilla gem will act like a certain vanilla tackle when placed to the fish
 - Amethyst -> Dressed Spinner
 - Topaz -> Cork Bobber
 
-After being used at least once, they WILL NOT stack with other gems, even if they're of the same type!
+**After being used at least once, they WILL NOT stack with other gems, even if they're of the same type!**
 
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 ### Foraging Professions
@@ -218,19 +218,28 @@ For Mod Authors: There's nothing you should do to add compatibility with this pr
 #### Shaker (Lv15)
 Chance for wild trees to drop items when shaken.
 
-For Mod Authors: You can add items as drops for your custom wild trees' ``ShakeItems`` and ``SeedDropItems`` fields.
+For Mod Authors: You can add items as drops for your custom wild trees' ``ShakeItems`` and ``SeedDropItems`` fields. You can use the ``HasProfession`` token to see if the player has the profession.
 #### Sapper (Lv15)
 Tappers work faster.
+All tappers will output %20 faster.
 
-For Mod Authors: There's nothing you need to do to add compatibility with this profession. If you add custom tappers, add ``<i didnt add it yet, lmk if you see this text>``
+For Mod Authors: If you add custom tappers, add ``tapper_multiplier_<speed>`` context tag to your item. Vanilla takes the speed bit and sets the minutes-until-ready to `` daysUntilReady * 1 / speed``. You can use the ``HasProfession`` token to see if the player has the profession.
 #### Orchardist (Lv15)
 Tappers give double harvest.
 
 For Mod Authors: There's nothing you need to do to add compatibility with this profession.
 #### Ranger (Lv15)
+Forest forage worth more.
+
 #### Adventurer (Lv15)
+Non-forest forage worth more.
+
 #### Gleaner (Lv15)
+Crop seeds can be found as forage.
+
 #### Wayfarer (Lv15)
+Chance for forage to be found out of season.
+
 #### Foraging-Fishing (Lv20)
 Every four days, a randomly-selected forage item will be able to summon fishing bubbles when tossed in the water.
 
@@ -258,11 +267,14 @@ For Mod Authors: If you add custom ores and metal bars, you should also make fur
 #### Crafter (Lv15)
 Crafting recipes gained via the mining skill require less materials.
 The recipe changes are explained below:
-- 
-- 
--
--
-- 
+- Cherry Bomb: 3 copper ore + 1 coal -> 1 cherry bomb
+- Staircase: 66 stone -> 1 staircase
+- Glowstone Ring: 3 solar essence + 4 iron bars -> 1 glowstone ring
+- Bomb: 2 iron ore + 1 coal -> 1 bomb
+- Mega Bomb: 3 gol ore + 1 solar essence + 1 void essence -> 1 mega bomb
+- Crystalarium: 99 stone + 5 gold bars + 2 iridium bars + 1 battery pack -> 1 crystalarium
+- Transmute (Fe): 5 copper bars -> 2 iron bars
+- Transmute (Au): 3 iron bars -> 2 gold bars
 
 For Mod Authors: If you add custom crafting recipes to unlock with Mining skill, you should lower the materials required.
 #### Archeologist (Lv15)
@@ -319,9 +331,9 @@ For Mod Authors: There's nothing you should do to add compatibility with this pr
 ### Combat Professions
 #### Warrior (Lv15)
 Invincible monsters can be damaged.
-Monsters like armored bugs, rock crabs, or pupating grubs can be damaged.
+Monsters like armored bugs, rock crabs, mummies, or pupating grubs can be damaged.
 
-For Mod Authors: If you add custom monsters that aren't added via FTM and not named ``Grub``, ``RockCrab`` or ``Bug`` in the C# code (or is not a subclass of any of them), contact me for compatibility with your mod. Otherwise you don't need to do anything.
+For Mod Authors: If you add custom monsters that aren't added via FTM and not named ``Grub``, ``RockCrab``, ``Mummy`` or ``Bug`` in the C# code (or is not a subclass of any of them), contact me for compatibility with your mod. Otherwise you don't need to do anything.
 #### Berserker (Lv15)
 Damage dealt increases at low health.
 When your health is below 1/4 of your max health, your damage is doubled.
@@ -401,8 +413,9 @@ It adds a grand total of 141 talents divided across 6 skill trees, 25 for each v
 Obelisks are cheaper to purchase.
 All vanilla obelisks are re-priced as 100,000g.
 
+For Mod Authors: If you add custom obelisks, you should lower your money prices of your obelisks when this talent is acquired. It's mail flag is ``Misc_MonumentalDiscount``.
 - Craft Supplies
-New craftables gained by skill level-up\nare sold at shops after being unlocked.
+New craftables gained by skill level-up\nare sold at shops after being unlocked. There's nothing you should do for compatibiliy with this talent.
 
 - Admiration
 Halves the friendship decay. There's nothing you should do for compatibiliy with this talent.
@@ -433,18 +446,24 @@ The price increases for the vanilla NPCs are listed below:
 -
 -
 
+For Mod Authors: If you're a custom NPC author and want your NPC(s) affected by this talent, you need to add an entry to Insider Info's data. The format DOES NOT accept context tags or category IDs. You can get the target path for the data by using the ``ContentPaths`` token. The key must be the NPC's internal name, and the value should be a space-delimited list of UNQUALIFIED item IDs. For exp: ``"Abigail": "123 456 789 102 425"``
 - Gift of Friendship
+The villagers will start giving you gifts after you're close enough to them to show their gratitude. The gifts are usually the villagers' loved and liked gifts.
 
+For Mod Authors: If you're a custom NPC author and want your NPC(s) affected by this talent, you should add a CT response for ``VPP.GiftOfFriendship`` in their dialogue file, with a when condition if they have 8 hearts or above with the farmer. You're allowed to make it less or more than 8 hearts depending on how your character is like, its just what I set vanilla NPCs to react to.
 - Haute Cuisine
 Increases sell prices of cooked food.
 Doubles the sell price of cooking category objects, there's nothing you need to do add compatibility with this talent.
 
 - Mini Fridge, Big Space
 Increase storage space for mini-fridges.
+Makes it so that mini-fridges will act like big chests.
 
+For Mod Authors: There's nothing you need to do add compatibility with this talent.
 - Good Eats
 Allows for two food buffs and two drink buffs simultaneously.
 
+For Mod Authors: There's nothing you need to do add compatibility with this talent.
 - Lost And Found
 Reading lost books after they've been found gives you daily buffs, reading another book while one will override the previous book buff and the buffs will be removed next day. Here are the buffs for vanilla lost books:
 --
@@ -469,16 +488,27 @@ Reading lost books after they've been found gives you daily buffs, reading anoth
 --
 --
 
+For Mod Authors: There's nothing you need to do add compatibility with this talent.
 - Bookclub Bargains
-This talent decreases prices in The Bookseller's shop.
+Reduces the bookseller's prices.
 
 - Cycle of Knowledge
+Extra books can be recycled.
 
 - Narrow Escape
+Reduces the amount of gold lost on death.
+In any case you die or pass out, you'll only lose 1000g at most.
 
+For Mod Authors: There's nothing you need to do add compatibility with this talent.
 - Trashed Treasure
+More valuable items can be found in trash cans.
 
+For Mod Authors: There's nothing you need to do add compatibility with this talent.
 - Butterfly Effect
+On bad luck days, a void butterfly spawns in distant locations (sewers, swamp, secret woods, etc) and gives a +10 luck buff when found.
 
+For Mod Authors: There's nothing you need to do add compatibility with this talent.
 - Gift of The Talented
 Gives you a stardrop. This stardrop doesn't count towards perfection.
+
+For Mod Authors: There's nothing you need to do add compatibility with this talent.
