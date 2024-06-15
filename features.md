@@ -407,108 +407,118 @@ It adds a grand total of 141 talents divided across 6 skill trees, 25 for each v
 ## Fishing Talents
 ## Combat Talents
 ## Daily Life Talents
-- Mate's Rates
+### Mate's Rates
 
-- Monumental Discount
+### Monumental Discount
 Obelisks are cheaper to purchase.
 All vanilla obelisks are re-priced as 100,000g.
 
 For Mod Authors: If you add custom obelisks, you should lower your money prices of your obelisks when this talent is acquired. It's mail flag is ``Misc_MonumentalDiscount``.
-- Craft Supplies
-New craftables gained by skill level-up\nare sold at shops after being unlocked. There's nothing you should do for compatibiliy with this talent.
+### Craft Supplies
+New craftables gained by skill level-up are sold at shops after being unlocked. There's nothing you should do for compatibiliy with this talent.
 
-- Admiration
+### Admiration
 Halves the friendship decay. There's nothing you should do for compatibiliy with this talent.
 
-- Insider Info
+### Insider Info
 The price increases for the vanilla NPCs are listed below:
-
-- 
--
--
-- 
--
--
--
--
--
--
--
--
--
--
--
--
--
--
--
--
--
--
+- Abigail: "66 276 608 611",
+- Alex: "139 201 210 211",
+- Caroline: "593 614 815",
+- Clint: "378 380 384 386 909 334 335 336 337 910",
+- Demetrius: "420 422 635 613",
+- Dwarf: "96 97 98 99 121 122 78 286 287 288",
+- Elliott: "393 397 372 719 718 394",
+- Emily: "428 440",
+- Evelyn: "591 597 223",
+- George: "20 86 205",
+- Gus: "216 224 213",
+- Haley: "88 421",
+- Harvey: "342 395 349 351",
+- Jas: "595 221",
+- Jodi: "220 222 231 214 225",
+- Kent: "259 649 408 607",
+- Krobus: "305 308 203",
+- Leah: "22 257 404, 281",
+- Lewis: "235 208 200 260",
+- Leo: "829 830 834 444"
+- Linus: "296 410 396 406",
+- Marnie: "184 186 436 438 424 426",
+- Maru: "400 787",
+- Penny": "Book_Artifact PurpleBook 376",
+- Pierre": "419 247 246 245 423",
+- Robin": "636 709 390 380",
+- Sam: "206 90 562",
+- Sandy: "418 18 402",
+- Sebastian: "84 227 236 575",
+- Shane: "176 174 180 182",
+- Vincent: "721 722 612 399",
+- Willy: "DeluxeBait 774 685 703 686 687 691 692 693 694 695 856 877 SonarBobber",
+- Wizard: "768 769 155",
 
 For Mod Authors: If you're a custom NPC author and want your NPC(s) affected by this talent, you need to add an entry to Insider Info's data. The format DOES NOT accept context tags or category IDs. You can get the target path for the data by using the ``ContentPaths`` token. The key must be the NPC's internal name, and the value should be a space-delimited list of UNQUALIFIED item IDs. For exp: ``"Abigail": "123 456 789 102 425"``
-- Gift of Friendship
+### Gift of Friendship
 The villagers will start giving you gifts after you're close enough to them to show their gratitude. The gifts are usually the villagers' loved and liked gifts.
 
 For Mod Authors: If you're a custom NPC author and want your NPC(s) affected by this talent, you should add a CT response for ``VPP.GiftOfFriendship`` in their dialogue file, with a when condition if they have 8 hearts or above with the farmer. You're allowed to make it less or more than 8 hearts depending on how your character is like, its just what I set vanilla NPCs to react to.
-- Haute Cuisine
+### Haute Cuisine
 Increases sell prices of cooked food.
 Doubles the sell price of cooking category objects, there's nothing you need to do add compatibility with this talent.
 
-- Mini Fridge, Big Space
+### Mini Fridge, Big Space
 Increase storage space for mini-fridges.
 Makes it so that mini-fridges will act like big chests.
 
 For Mod Authors: There's nothing you need to do add compatibility with this talent.
-- Good Eats
+### Good Eats
 Allows for two food buffs and two drink buffs simultaneously.
 
 For Mod Authors: There's nothing you need to do add compatibility with this talent.
-- Lost And Found
+### Lost And Found
 Reading lost books after they've been found gives you daily buffs, reading another book while one will override the previous book buff and the buffs will be removed next day. Here are the buffs for vanilla lost books:
---
---
---
---
---
---
---
---
---
---
---
---
---
---
---
---
---
---
---
---
---
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
 
 For Mod Authors: There's nothing you need to do add compatibility with this talent.
-- Bookclub Bargains
+### Bookclub Bargains
 Reduces the bookseller's prices.
 
-- Cycle of Knowledge
+### Cycle of Knowledge
 Extra books can be recycled.
 
-- Narrow Escape
+### Narrow Escape
 Reduces the amount of gold lost on death.
 In any case you die or pass out, you'll only lose 1000g at most.
 
 For Mod Authors: There's nothing you need to do add compatibility with this talent.
-- Trashed Treasure
+### Trashed Treasure
 More valuable items can be found in trash cans.
 
 For Mod Authors: There's nothing you need to do add compatibility with this talent.
-- Butterfly Effect
+### Butterfly Effect
 On bad luck days, a void butterfly spawns in distant locations (sewers, swamp, secret woods, etc) and gives a +10 luck buff when found.
 
 For Mod Authors: There's nothing you need to do add compatibility with this talent.
-- Gift of The Talented
+### Gift of The Talented
 Gives you a stardrop. This stardrop doesn't count towards perfection.
 
 For Mod Authors: There's nothing you need to do add compatibility with this talent.
