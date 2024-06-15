@@ -1,19 +1,19 @@
 # Features
 VPP has a lot of features, but mainly divided in three groups:
-- Skill Changes
-- Professions
-  - [Farming Professions](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#farming)
-  - Mining Professions
-  - Foraging Professions
-  - Fishing Professions
-  - Combat Professions
-- Talents
-  - Farming Talents
-  - Mining Talents
-  - Foraging Talents
-  - Fishing Talents
-  - Combat Talents
-  - Daily Life Talents
+- [Skill Changes](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#skill-changes)
+- [Professions](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#professions)
+  - [Farming Professions](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#farming-professions)
+  - [Mining Professions](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#mining-professions)
+  - [Foraging Professions](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#foraging-professions)
+  - [Fishing Professions](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#fishing-professions)
+  - [Combat Professions](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#combat-professions)
+- [Talents](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#talents)
+  - [Farming Talents](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#farming-talents)
+  - [Mining Talents](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#mining-talents)
+  - [Foraging Talents](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#foraging-talents)
+  - [Fishing Talents](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#fishing-talents)
+  - [Combat Talents](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#combat-talents)
+  - [Daily Life Talents](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#daily-life-talents)
 
 Please click one of the titles to jump between sections.
 
