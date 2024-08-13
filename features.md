@@ -106,10 +106,10 @@ Which type of effect they give depends on their price and color:
 
 | Color                  | Effect             |
 |:----------------------:|:------------------:|
-| Green\black\dark brown | Tree Fertilizer    |
-| Red\Purple\pink        | Speed-Gro          |
-| Orange\Yellow\Brown    | Quality Fertilizer |
-| Blue\Cyan\White\gray   | Retaining Soil     |
+| Green<br/>black<br/>dark brown | Tree Fertilizer    |
+| Red<br/>Purple<br/>pink        | Speed-Gro          |
+| Orange<br/>Yellow<br/>Brown    | Quality Fertilizer |
+| Blue<br/>Cyan<br/>White<br/>gray   | Retaining Soil     |
 
 | Price Range      | Strength Of Effect |
 |:----------------:|:------------------:|
@@ -148,15 +148,15 @@ Some drops will be switched with others upon fishing these treasures with a rod.
 | Old Loot   | New Loot  |
 |:----------:|:---------:|
 | Fire Quartz | Fire Opal |
-| Earth Crystal\Glass Shards | Refined Quartz |
+| Earth Crystal<br/>Glass Shards | Refined Quartz |
 | Stone | Ocean Stone |
 | Wood | Hardwood |
 | Copper Ore | Gold Ore |
 | Iron Ore | Iridium Ore |
-| Coal\Rare Disc | Neptunite |
+| Coal<br/>Rare Disc | Neptunite |
 | Small Glow Ring | Glow Ring |
 | Small Magnet Ring | Magnet Ring |
-| Geode\Frozen Geode\Magma Geode | Omni Geode |
+| Geode<br/>Frozen Geode<br/>Magma Geode | Omni Geode |
 | Regular Bait | Deluxe Bait |
 | Dwarf Scrolls | One of Ruby, Emerald, Aquamarine or Topaz |
 | Chipped Amphora | Junimo Pot (Furniture) |
@@ -164,7 +164,7 @@ Some drops will be switched with others upon fishing these treasures with a rod.
 | Ancient/Strange Dolls | Ancient/Strange Doll Shirt |
 | Chewing Stick | Magic Rock Candy |
 | Ornamental Fan | Fairy Box[^1] |
-| Ancient Sword\Broken Trident | Wicked Kris |
+| Ancient Sword<br/>Broken Trident | Wicked Kris |
 | Rusty Spoon | Energy Tonic |
 | Rusty Spur | Golden Spur[^1] |
 | Rusty Cog | Copper Bar |
@@ -218,13 +218,13 @@ For Mod Authors: There's nothing you should do to add compatibility with this pr
 ### Recycler (Lv15)
 Chance for recycled trash to produce various tackles.
 There's a chance that putting trash in recycling machine will output tackles. Full drops are explained below:
-| Type of Trash   | Possible Drop |
-|:---------------:|:-------------:|
-| Trash           | Lead Bobber (%25)\Sonar Bobber (%10)|
-| Soggy Newspaper | Trap Bobber (%25)\Treasure Hunter (%10)|
-| Broken Glasses  | Trap Bobber (%25)\Treasure Hunter (%10)|
-| Broken CD       | Spinner (%25)\Dressed Spinner (%10)|
-| Driftwood       | Cork Bobber (%25)\Quality Bobber (%10)|
+| Type of Trash   | Possible Drop                               |
+|:---------------:|:-------------------------------------------:|
+| Trash           | Lead Bobber (%25)<br/>Sonar Bobber (%10)    |
+| Soggy Newspaper | Trap Bobber (%25)<br/>Treasure Hunter (%10) |
+| Broken Glasses  | Trap Bobber (%25)<br/>Treasure Hunter (%10) |
+| Broken CD       | Spinner (%25)<br/>Dressed Spinner (%10)     |
+| Driftwood       | Cork Bobber (%25)<br/>Quality Bobber (%10)  |
 
 For Mod Authors: If you aren't adding custom tackles, this shouldn't matter for your mod. If so, you should add machine rules to Recycling Machine to give your tackle as output. VPP adds rules for vanilla tackles, with a chance of %25 for common ones and %10 for rarer ones. You can use the ``HasProfession`` token to detect if the player has this profession.
 ### Hydrologist (Lv15)
@@ -326,12 +326,12 @@ Crafting recipes gained via the mining skill require less materials.
 The recipe changes are explained below:
 | Craftable Name | Old Recipe | New Recipe |
 |:--------------:|:----------:|:----------:|
-| Cherry Bomb    | 4 Copper Ore\1 Coal | 3 Copper Ore\1 Coal |
+| Cherry Bomb    | 4 Copper Ore<br/>1 Coal | 3 Copper Ore<br/>1 Coal |
 | Staircase      | 99 Stone | 66 stone |
-| Glowstone Ring | 5 Solar Essence\5 iron bars | 3 solar essence\4 iron bars |
-| Bomb           | 4 iron ore\1 Coal | 2 iron ore\1 coal |
-| Mega Bomb      | 4 gold ore\1 Solar Essence\1 Void Essence | 3 gold ore\1 solar essence\1 void essence |
-| Crystalarium   | 99 stone\5 gold bars\2 iridium bars\1 battery pack |60 stone\3 gold bars\1 iridium bars\1 battery pack|
+| Glowstone Ring | 5 Solar Essence<br/>5 iron bars | 3 solar essence<br/>4 iron bars |
+| Bomb           | 4 iron ore<br/>1 Coal | 2 iron ore<br/>1 coal |
+| Mega Bomb      | 4 gold ore<br/>1 Solar Essence<br/>1 Void Essence | 3 gold ore<br/>1 solar essence<br/>1 void essence |
+| Crystalarium   | 99 stone<br/>5 gold bars<br/>2 iridium bars<br/>1 battery pack |60 stone<br/>3 gold bars<br/>1 iridium bars<br/>1 battery pack|
 | Transmute (Fe) | 3 copper bars | 5 copper bars[^4] |
 | Transmute (Au) | 2 iron bars | 3 iron bars[^4] |
 
@@ -343,30 +343,30 @@ For Mod Authors: If you add custom crafting recipes to unlock with Mining skill,
 Artifacts can be recycled.
 Allows artifacts to be recycled via Recycling Machine. The full outputs are explained below:
 
-| Artifact                      | Output |
-|:-----------------------------:|:------:|
-| Chipped Amphora               | 3 Clay |
-| Arrowhead\Prehistoric Headaxe | 3 Stone |
-| Chewing Stick                 | 1 Wood |
-| Rusty Spoon                   | 3 Iron Ore |
-| Rusty Spur\Rusty Cog          | 3 Copper Ore |
-| Glass Shards                  | 1 Refined Quartz |
-| Anchor                        | 3 Iron Bar |
-| Ornamental Fan                | 2 Wood |
-| Golden Mask\Golden Relic      | 2 Gold Bar |
-| Non-Fossil Bones              | 5 Bone Fragment |
-| Prehistoric Tool              | 1 Stone |
-| Dried Starfish                | 1 Petrified Slime |
-| Nautilus Fossil               | 1 Nautilus Shell |
-| Fossils                       | 3 Clay or 2 Opal(%20 chance) |
-| Elven Jewelry                 | 1 Aquamarine (%20 chance) or 2 Gold Bars |
-| Dwarvish Helm\Dwarf Gadget    | 1 Star Shards (%20 chance) or 2 Iron Bar |
-| Dwarvish Scrolls              | 1 Ruby, Aquamarine, Topaz, Emerald or Jade depending on the scroll's color (%20 chance) or 1 Cloth|
-| Ancient & Strange Dolls       | 1 Cloth (%20 chance) or 2 Wool |
-| Rare Disc                     | 1 Helvite (%20 chance) or 2 Bixite |
-| Chicken Statue                | 1-2 Copper Bar |
-| Ancient Drum                  | 1 Cloth (%20 chance) or 2 Wood |
-| Ancient Sword                 | 2 Iron Ore (%20 chance) or 1 Copper Bar |
+| Artifact                          | Output |
+|:---------------------------------:|:------:|
+| Chipped Amphora                   | 3 Clay |
+| Arrowhead<br/>Prehistoric Headaxe | 3 Stone |
+| Chewing Stick                     | 1 Wood |
+| Rusty Spoon                       | 3 Iron Ore |
+| Rusty Spur<br/>Rusty Cog          | 3 Copper Ore |
+| Glass Shards                      | 1 Refined Quartz |
+| Anchor                            | 3 Iron Bar |
+| Ornamental Fan                    | 2 Wood |
+| Golden Mask<br/>Golden Relic      | 2 Gold Bar |
+| Non-Fossil Bones                  | 5 Bone Fragment |
+| Prehistoric Tool                  | 1 Stone |
+| Dried Starfish                    | 1 Petrified Slime |
+| Nautilus Fossil                   | 1 Nautilus Shell |
+| Fossils                           | 3 Clay or 2 Opal(%20 chance) |
+| Elven Jewelry                     | 1 Aquamarine (%20 chance) or 2 Gold Bars |
+| Dwarvish Helm<br/>Dwarf Gadget    | 1 Star Shards (%20 chance) or 2 Iron Bar |
+| Dwarvish Scrolls                  | 1 Ruby/Aquamarine/Topaz/Emerald/Jade (%20 chance)<br/>or 1 Cloth|
+| Ancient & Strange Dolls           | 1 Cloth (%20 chance) or 2 Wool |
+| Rare Disc                         | 1 Helvite (%20 chance) or 2 Bixite |
+| Chicken Statue                    | 1-2 Copper Bar |
+| Ancient Drum                      | 1 Cloth (%20 chance) or 2 Wood |
+| Ancient Sword                     | 2 Iron Ore (%20 chance) or 1 Copper Bar |
 
 For Mod Authors: If you add custom artifacts, then you can also add machine rules to Recycling Machine to process your artifacts. (or you can make your own recycling machine for them, up to you)
 
@@ -390,7 +390,7 @@ Every 100 stones you break will grant you ``stone amount / 100``+ Defense and at
 
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 ### Mining-Foraging (Lv20)
-Increased possibility for\nMushroom level spawn.
+Increased possibility for<br/>nMushroom level spawn.
 In vanilla, there are "mushroom levels" which spawn in the Mine, below level 80, has colorful lights on the walls and a lot of mushrooms.
 The chance for their appaearance is now at %15, while in vanilla this is %0.8.
 
@@ -703,11 +703,11 @@ The extra drops are explained below.
 
 | Type of Trash   | Possible Drops   |
 |:---------------:|:----------------:|
-| Trash           | 1-3 Copper Ore\1-3 Gold Ore |
+| Trash           | 1-3 Copper Ore<br/>1-3 Gold Ore |
 | Driftwood       | 1 Hardwood (%10) |
-| Soggy Newspaper | Squid Ink (%20)\Driftwood |
+| Soggy Newspaper | Squid Ink (%20)<br/>Driftwood |
 | Broken Cd       | Prismatic Shard (%10) |
-| Broken Glasses  | Aerinite (%10)\Ghost Crystal (%10) |
+| Broken Glasses  | Aerinite (%10)<br/>Ghost Crystal (%10) |
 
 ### Smokehouse
 Fish can be smoked multiple times to increase quality.
@@ -787,7 +787,7 @@ Slingshots can do critical damage.
 In vanilla, slingshots are blocked from dealing critical damage (for unknown reasons. It just is but it makes no sense.)
 
 ### Dazzling Strike
-Gems can be used as slingshot ammo.\nHigh chance for gem ammo\nto not be destroyed.
+Gems can be used as slingshot ammo.<br/>nHigh chance for gem ammo<br/>nto not be destroyed.
 
 ### Enchanting
 Slingshots have custom enchantments called Auto-Fire, Rapid, Bat Killer, and Thrifty.
@@ -795,10 +795,10 @@ The effects are listed below:
 
 | Name       | Effect |
 |:----------:|:------:|
-| Auto-Fire  | Slingshot will automatically fire while you aim |
-| Rapid      | Slingshot ammo will move faster |
-| Bat Killer | Double damage done to bats |
-| Thrifty    | Slingshot might not use ammo at times |
+| Auto-Fire  | Slingshot will automatically<br/>fire while you aim |
+| Rapid      | Slingshot ammo will<br/>move faster |
+| Bat Killer | Double damage<br/>done to bats |
+| Thrifty    | Slingshot might not use<br/>ammo at times |
 
 
 ### Accessorise
@@ -814,7 +814,7 @@ Rings of the same type can be forged together.
 There is only one exception to this. Combined Rings still can't be combined again.
 
 ### Hidden Benefits
-All vanilla trinkets will get\na second purpose.
+All vanilla trinkets will get<br/>na second purpose.
 
 There are 8 trinkets in vanilla, and one extra purpose for each.
 In case there are people who want to learn what it is themselves, only the hint locations are listed below:
@@ -888,12 +888,12 @@ Choose one of four pre-defined group of monsters and deal additional damage to t
 
 When you choose this talent in talent menu, you will get another menu with four more choices, the options and which monsters they affect are listed below.
 
-|Branch Name| Pre-defined Group of Monsters                           |
-|-----------|:-------------------------------------------------------:|
-| Ground    | Slime\Grub\Dust Sprite\Duggy\Lava Lurk\Spider           |
-| Humanoid  | Golem\Skeleton\Mummy\Shadow                             |
-| Flying    | Bat\Ghost\Serpent\Magma Sprite\Blue Squid\Squid kid\Fly |
-| Armoured  | Dwarvish Sentry\Hot Head\Metal Head\Rock Crab           |
+|Branch Name| Pre-defined Group of Monsters                                    |
+|-----------|:----------------------------------------------------------------:|
+| Ground    | Slime, Grub, Dust Sprite<br/>Duggy, Lava Lurk, Spider            |
+| Humanoid  | Golem, Skeleton<br/>Mummy, Shadow                                |
+| Flying    | Bat, Ghost, Serpent, Magma Sprite<br/>Blue Squid, Squid kid, Fly |
+| Armoured  | Dwarvish Sentry, Hot Head<br/>Metal Head, Rock Crab              |
 
 For Mod Authors: If you add custom monsters via C# (excluding FTM monsters), and if they're not a subclass of any vanilla monsters, contact me for compatibility.
 
@@ -929,41 +929,41 @@ There's nothing you should do for compatibiliy with this talent.
 
 ### Insider Info
 The price increases for the vanilla NPCs are listed below:
-| Villager | Items                                                              |
-|:--------:|:------------------------------------------------------------------:|
-|Abigail   | Amethyst\Pumpkin\Pumpkin Pie\Blackberry Cobbler                    |
-|Alex      | Salmon\Complete Breakfast\Hashbrowns\Pancakes                      |
-|Caroline  | Summer Spangle\Green Tea\Tea Leaves                                |
-|Clint     | All ores and bars                                                  |
-|Demetrius | Red Mushroom\Purple Mushroom\Orange\Apple                          |
-|Dwarf     | All Dwarf items\Cave Carrot\All Bombs                              |
-|Elliott   | All Beach Forage                                                   |
-|Emily     | Cloth\Wool                                                         |
-|Evelyn    | Tulip\Blue Jazz\Cookie                                             |
-|George    | Leek\Earth Crystal\Fried Mushroom                                  |
-|Gus       | Bread\Spaghetti\Fish Taco                                          |
-|Haley     | Coconut\Sunflower                                                  |
-|Harvey    | Pickles\Coffee\Energy Tonic\Muscle Remedy                          |
-|Jas       | Fairy Rose\Pink Cake                                               |
-|Jodi      | Chocolate Cake\Rhubarb Pie\Eggplant Parmesan\Crispy Bass\Fried Eel |
-|Kent      | Fiddlehead Fern\Fiddlehead Risotto\Hazelnut\Roasted Hazelnuts      |
-|Krobus    | Void Egg\Void Mayonnaise\Strange Bun                               |
-|Leah      | Dandelion\Morel\Common Mushroom\Chanterelle                        |
-|Lewis     | Autumn's Bounty\Glazed Yams\Vegetable Medley\Hot Pepper            |
-|Leo       | Ginger\Taro Root\Mango\Duck Feather                                |
-|Linus     | Salmonberry\Blackberry\Spice Berry\Wild Plum                       |
-|Marnie    | All milks and cheeses                                              |
-|Maru      | Strawberry\Battery Pack                                            |
-|Penny     | Treasure Appraisal Guide\Book Of Stars\Poppy                       |
-|Pierre    | Vinegar\Oil\Wheat\Flour\Sugar\Miner's Treat                        |
-|Robin     | Peach\Hardwood\Stone\Wood                                          |
-|Sam       | Pizza\Cactus Fruit\Tigerseye                                       |
-|Sandy     | Crocus\Daffodil\Sweet Pea                                          |
-|Sebastian | Frozen Tear\Sashimi\Pumpkin Soup\Obsidian                          |
-|Shane     | All regular chicken eggs                                           |
-|Vincent   | Snail\Periwinkle\Cranberry Candy\Spring Onion                      |
-|Willy     | All baits and tackles                                              |
-|Wizard    | Solar Essence\Void Essence\Super Cucumber                          |
+| Villager | Items                                                                        |
+|:--------:|:----------------------------------------------------------------------------:|
+|Abigail   | Amethyst, Pumpkin<br/>Pumpkin Pie, Blackberry Cobbler                        |
+|Alex      | Complete Breakfast<br/>Salmon, Hashbrowns, Pancakes                          |
+|Caroline  | Summer Spangle<br/>Green Tea & Tea Leaves                                    |
+|Clint     | All ores and bars                                                            |
+|Demetrius | Red Mushroom<br/>Purple Mushroom, Orange, Apple                              |
+|Dwarf     | All Dwarf items, Cave Carrot<br/>All Bombs                                   |
+|Elliott   | All Beach Forage                                                             |
+|Emily     | Cloth & Wool                                                                 |
+|Evelyn    | Tulip, Blue Jazz & Cookie                                                    |
+|George    | Leek, Earth Crystal<br/>Fried Mushroom                                       |
+|Gus       | Bread & Spaghetti<br/>Fish Taco                                              |
+|Haley     | Coconut & Sunflower                                                          |
+|Harvey    | Pickles, Coffee<br/>Energy Tonic & Muscle Remedy                             |
+|Jas       | Fairy Rose & Pink Cake                                                       |
+|Jodi      | Chocolate Cake, Rhubarb Pie<br/>Eggplant Parmesan<br/>Crispy Bass, Fried Eel |
+|Kent      | Fiddlehead Fern<br/>Fiddlehead Risotto<br/>Hazelnut & Roasted Hazelnuts      |
+|Krobus    | Void Egg & Void Mayonnaise<br/>Strange Bun                                   |
+|Leah      | Dandelion & Morel<br/>Common Mushroom & Chanterelle                          |
+|Lewis     | Autumn's Bounty & Glazed Yams<br/>Vegetable Medley & Hot Pepper              |
+|Leo       | Ginger & Taro Root<br/>Mango & Duck Feather                                  |
+|Linus     | Salmonberry & Blackberry<br/>Spice Berry & Wild Plum                         |
+|Marnie    | All milks and cheeses                                                        |
+|Maru      | Strawberry & Battery Pack                                                    |
+|Penny     | Treasure Appraisal Guide<br/>Book Of Stars & Poppy                           |
+|Pierre    | Vinegar, Oil, Wheat<br/>Flour, Sugar, Miner's Treat                          |
+|Robin     | Stone, Wood, Peach<br/>Hardwood                                              |
+|Sam       | Pizza, Cactus Fruit & Tigerseye                                              |
+|Sandy     | Crocus, Daffodil & Sweet Pea                                                 |
+|Sebastian | Frozen Tear & Sashimi<br/>Pumpkin Soup & Obsidian                            |
+|Shane     | All regular chicken eggs                                                     |
+|Vincent   | Snail & Periwinkle<br/>Cranberry Candy, Spring Onion                         |
+|Willy     | All baits and tackles                                                        |
+|Wizard    | Solar Essence & Void Essence<br/>Super Cucumber                              |
 
 For Mod Authors: If you're a custom NPC author and want your NPC(s) affected by this talent, you need to add an entry to Insider Info's data. The format DOES NOT accept context tags or category IDs. You can get the target path for the data by using the ``ContentPaths`` token. The key must be the NPC's internal name, and the value should be a space-delimited list of UNQUALIFIED item IDs. For exp: ``"Abigail": "123 456 789 102 425"``
 ### Gift of Friendship
