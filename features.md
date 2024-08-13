@@ -104,9 +104,9 @@ For Mod Authors: Crop modders do not have to do anything, but for mods that add 
 This profession allows you to use the Geode Crusher to produce Gem Dusts out of minerals, which you can use in place of fertilizers (gem dusts are affected by Agronomist profession as well.)
 Which type of effect they give depends on their price and color:
 
-| Color                  | Effect             |
-|:----------------------:|:------------------:|
-| Green, black<br/>dark brown | Tree Fertilizer    |
+| Color                        | Effect             |
+|:----------------------------:|:------------------:|
+| Green, black<br/>dark brown  | Tree Fertilizer    |
 | Red<br/>Purple & Pink        | Speed-Gro          |
 | Orange<br/>Yellow & Brown    | Quality Fertilizer |
 | Blue, Cyan<br/>White, Gray   | Retaining Soil     |
@@ -145,63 +145,63 @@ For Mod Authors: There's nothing you should do to add compatibility with this pr
 Treasure chests contain rarer and more valuable items.
 Some drops will be switched with others upon fishing these treasures with a rod. The artifact drops will be replaced only if you have donated them to the museum already. Full drops are explained below:
 
-| Old Loot   | New Loot  |
-|:----------:|:---------:|
-| Fire Quartz | Fire Opal |
-| Earth Crystal<br/>Glass Shards | Refined Quartz |
-| Stone | Ocean Stone |
-| Wood | Hardwood |
-| Copper Ore | Gold Ore |
-| Iron Ore | Iridium Ore |
-| Coal<br/>Rare Disc | Neptunite |
-| Small Glow Ring | Glow Ring |
-| Small Magnet Ring | Magnet Ring |
-| Geode<br/>Frozen Geode<br/>Magma Geode | Omni Geode |
-| Regular Bait | Deluxe Bait |
-| Dwarf Scrolls | One of Ruby, Emerald, Aquamarine or Topaz |
-| Chipped Amphora | Junimo Pot (Furniture) |
-| Arrowhead | Magic Quiver[^1] |
-| Ancient/Strange Dolls | Ancient/Strange Doll Shirt |
-| Chewing Stick | Magic Rock Candy |
-| Ornamental Fan | Fairy Box[^1] |
-| Ancient Sword<br/>Broken Trident | Wicked Kris |
-| Rusty Spoon | Energy Tonic |
-| Rusty Spur | Golden Spur[^1] |
-| Rusty Cog | Copper Bar |
-| Chicken Statue | Parrot Egg[^1] |
-| Prehistoric Tool | Ice Rod[^1] |
-| Dried Starfish | Junimo Star (furniture) |
-| Anchor (the artifact) | Anchor (the wall decor) |
-| Bone Flute | Flute Block |
-| Prehistoric Handaxe | Miner's Crest (wall decor) |
-| Dwarvish Helm | Wearable Dwarf Helmet |
-| Dwarf Gadget | Battery Pack |
-| Ancient Drum | Drum Block |
-| Prehistoric Scapula | Deluxe Fertilizer |
-| Prehistoric Tibia | Bone Sword |
-| Prehistoric Skull | Skeleton Shirt |
-| Skeletal Hand | Basilisk Paw[^1] |
-| Prehistoric Rib | Tree Fertilizer |
-| Prehistoric Vertebra | Deluxe Retaining Soil |
-| Skeletal Tail | Hyper Speed-Gro |
-| Nautilus Fossil | Nautilus Shell |
-| Amphibian Fossil | Frog Egg[^1] |
-| Palm Fossil | Golden Coconut |
-| Triobite | Crab |
-| Sneakers | Mermaid Boots |
-| Rubber Boots | Dragonscale Boots |
-| Leather Boots | Crystal Shoes |
-| Work Boots | Pirate Hat |
-| Combat Boots | Eye Patch (hat) |
-| Tundra Boots | Swashbuckler Hat |
-| Thermal Boots | Cinderclown Shoes |
-| Amethyst Ring | Lucky Ring |
-| Topaz Ring | Hot Java Ring |
-| Aquamarine Ring | Protection Ring |
-| Jade Ring | Soul Sapper Ring |
-| Emerald Ring | Phoenix Ring |
-| Ruby Ring | Immunity Band |
-| Neptune's Glaive | Obsidian Edge |
+|                Old Loot                | New Loot                                  |
+|:--------------------------------------:|:-----------------------------------------:|
+| Fire Quartz                            | Fire Opal                                 |
+| Earth Crystal<br/>Glass Shards         | Refined Quartz                            |
+| Stone                                  | Ocean Stone                               |
+| Wood                                   | Hardwood                                  |
+| Copper Ore                             | Gold Ore                                  |
+| Iron Ore                               | Iridium Ore                               |
+| Coal<br/>Rare Disc                     | Neptunite                                 |
+| Small Glow Ring                        | Glow Ring                                 |
+| Small Magnet Ring                      | Magnet Ring                               |
+| Geode<br/>Frozen Geode<br/>Magma Geode | Omni Geode                                |
+| Regular Bait                           | Deluxe Bait                               |
+| Dwarf Scrolls                          | One of Ruby, Emerald, Aquamarine or Topaz |
+| Chipped Amphora                        | Junimo Pot (Furniture)                    |
+| Arrowhead                              | Magic Quiver[^1]                          |
+| Ancient/Strange Dolls                  | Ancient/Strange Doll Shirt                |
+| Chewing Stick                          | Magic Rock Candy                          |
+| Ornamental Fan                         | Fairy Box[^1]                             |
+| Ancient Sword<br/>Broken Trident       | Wicked Kris                               |
+| Rusty Spoon                            | Energy Tonic                              |
+| Rusty Spur                             | Golden Spur[^1]                           |
+| Rusty Cog                              | Copper Bar                                |
+| Chicken Statue                         | Parrot Egg[^1]                            |
+| Prehistoric Tool                       | Ice Rod[^1]                               |
+| Dried Starfish                         | Junimo Star (furniture)                   |
+| Anchor (the artifact)                  | Anchor (the wall decor)                   |
+| Bone Flute                             | Flute Block                               |
+| Prehistoric Handaxe                    | Miner's Crest (wall decor)                |
+| Dwarvish Helm                          | Wearable Dwarf Helmet                     |
+| Dwarf Gadget                           | Battery Pack                              |
+| Ancient Drum                           | Drum Block                                |
+| Prehistoric Scapula                    | Deluxe Fertilizer                         |
+| Prehistoric Tibia                      | Bone Sword                                |
+| Prehistoric Skull                      | Skeleton Shirt                            |
+| Skeletal Hand                          | Basilisk Paw[^1]                          |
+| Prehistoric Rib                        | Tree Fertilizer                           |
+| Prehistoric Vertebra                   | Deluxe Retaining Soil                     |
+| Skeletal Tail                          | Hyper Speed-Gro                           |
+| Nautilus Fossil                        | Nautilus Shell                            |
+| Amphibian Fossil                       | Frog Egg[^1]                              |
+| Palm Fossil                            | Golden Coconut                            |
+| Triobite                               | Crab                                      |
+| Sneakers                               | Mermaid Boots                             |
+| Rubber Boots                           | Dragonscale Boots                         |
+| Leather Boots                          | Crystal Shoes                             |
+| Work Boots                             | Pirate Hat                                |
+| Combat Boots                           | Eye Patch (hat)                           |
+| Tundra Boots                           | Swashbuckler Hat                          |
+| Thermal Boots                          | Cinderclown Shoes                         |
+| Amethyst Ring                          | Lucky Ring                                |
+| Topaz Ring                             | Hot Java Ring                             |
+| Aquamarine Ring                        | Protection Ring                           |
+| Jade Ring                              | Soul Sapper Ring                          |
+| Emerald Ring                           | Phoenix Ring                              |
+| Ruby Ring                              | Immunity Band                             |
+| Neptune's Glaive                       | Obsidian Edge                             |
  
 [^1]: if you aren't eligible for obtaining trinkets yet, you'll still get the artifact even if you donated it.
  
@@ -343,30 +343,30 @@ For Mod Authors: If you add custom crafting recipes to unlock with Mining skill,
 Artifacts can be recycled.
 Allows artifacts to be recycled via Recycling Machine. The full outputs are explained below:
 
-| Artifact                          | Output |
-|:---------------------------------:|:------:|
-| Chipped Amphora                   | 3 Clay |
-| Arrowhead<br/>Prehistoric Headaxe | 3 Stone |
-| Chewing Stick                     | 1 Wood |
-| Rusty Spoon                       | 3 Iron Ore |
-| Rusty Spur<br/>Rusty Cog          | 3 Copper Ore |
-| Glass Shards                      | 1 Refined Quartz |
-| Anchor                            | 3 Iron Bar |
-| Ornamental Fan                    | 2 Wood |
-| Golden Mask<br/>Golden Relic      | 2 Gold Bar |
-| Non-Fossil Bones                  | 5 Bone Fragment |
-| Prehistoric Tool                  | 1 Stone |
-| Dried Starfish                    | 1 Petrified Slime |
-| Nautilus Fossil                   | 1 Nautilus Shell |
-| Fossils                           | 3 Clay or 2 Opal(%20 chance) |
-| Elven Jewelry                     | 1 Aquamarine (%20 chance) or 2 Gold Bars |
-| Dwarvish Helm<br/>Dwarf Gadget    | 1 Star Shards (%20 chance) or 2 Iron Bar |
-| Dwarvish Scrolls                  | 1 Ruby/Aquamarine/Topaz/Emerald/Jade (%20 chance)<br/>or 1 Cloth|
-| Ancient & Strange Dolls           | 1 Cloth (%20 chance) or 2 Wool |
-| Rare Disc                         | 1 Helvite (%20 chance) or 2 Bixite |
-| Chicken Statue                    | 1-2 Copper Bar |
-| Ancient Drum                      | 1 Cloth (%20 chance) or 2 Wood |
-| Ancient Sword                     | 2 Iron Ore (%20 chance) or 1 Copper Bar |
+| Artifact                          | Output                                                           |
+|:---------------------------------:|:----------------------------------------------------------------:|
+| Chipped Amphora                   | 3 Clay                                                           |
+| Arrowhead<br/>Prehistoric Headaxe | 3 Stone                                                          |
+| Chewing Stick                     | 1 Wood                                                           |
+| Rusty Spoon                       | 3 Iron Ore                                                       |
+| Rusty Spur<br/>Rusty Cog          | 3 Copper Ore                                                     |
+| Glass Shards                      | 1 Refined Quartz                                                 |
+| Anchor                            | 3 Iron Bar                                                       |
+| Ornamental Fan                    | 2 Wood                                                           |
+| Golden Mask<br/>Golden Relic      | 2 Gold Bar                                                       |
+| Non-Fossil Bones                  | 5 Bone Fragment                                                  |
+| Prehistoric Tool                  | 1 Stone                                                          |
+| Dried Starfish                    | 1 Petrified Slime                                                |
+| Nautilus Fossil                   | 1 Nautilus Shell                                                 |
+| Fossils                           | 3 Clay or 2 Opal(%20 chance)                                     |
+| Elven Jewelry                     | 1 Aquamarine (%20 chance) or 2 Gold Bars                         |
+| Dwarvish Helm<br/>Dwarf Gadget    | 1 Star Shards (%20 chance) or 2 Iron Bar                         |
+| Dwarvish Scrolls                  | 1 Ruby/Aquamarine/Topaz/Emerald/Jade (%20 chance)<br/>or 1 Cloth |
+| Ancient & Strange Dolls           | 1 Cloth (%20 chance) or 2 Wool                                   |
+| Rare Disc                         | 1 Helvite (%20 chance) or 2 Bixite                               |
+| Chicken Statue                    | 1-2 Copper Bar                                                   |
+| Ancient Drum                      | 1 Cloth (%20 chance) or 2 Wood                                   |
+| Ancient Sword                     | 2 Iron Ore (%20 chance) or 1 Copper Bar                          |
 
 For Mod Authors: If you add custom artifacts, then you can also add machine rules to Recycling Machine to process your artifacts. (or you can make your own recycling machine for them, up to you)
 
@@ -828,12 +828,12 @@ Worm Bin has a 50% chance of producing Wild Bait instead of normal Bait.
 Recycling machines produce an increased variety of items.
 The extra drops are explained below.
 
-| Type of Trash   | Possible Drops   |
-|:---------------:|:----------------:|
-| Trash           | 1-3 Copper Ore<br/>1-3 Gold Ore |
-| Driftwood       | 1 Hardwood (%10) |
-| Soggy Newspaper | Squid Ink (%20)<br/>Driftwood |
-| Broken Cd       | Prismatic Shard (%10) |
+| Type of Trash   | Possible Drops                         |
+|:---------------:|:--------------------------------------:|
+| Trash           | 1-3 Copper Ore<br/>1-3 Gold Ore        |
+| Driftwood       | 1 Hardwood (%10)                       |
+| Soggy Newspaper | Squid Ink (%20)<br/>Driftwood          |
+| Broken Cd       | Prismatic Shard (%10)                  |
 | Broken Glasses  | Aerinite (%10)<br/>Ghost Crystal (%10) |
 
 ### Smokehouse
