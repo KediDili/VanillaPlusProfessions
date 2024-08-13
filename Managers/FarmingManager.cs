@@ -2,6 +2,7 @@
 using StardewValley;
 using StardewValley.Tools;
 using System.Collections.Generic;
+using VanillaPlusProfessions.Utilities;
 
 namespace VanillaPlusProfessions.Managers
 {
@@ -13,22 +14,43 @@ namespace VanillaPlusProfessions.Managers
 
         public void ApplyPatches()
         {
-            ModEntry.Harmony.Patch(
-                original: AccessTools.Method(typeof(NPC), nameof(NPC.getGiftTasteForThisItem)),
-                postfix: new HarmonyMethod(typeof(FarmingManager), nameof(FarmingManager.getGiftTasteForThisItem_Postfix))
-            );
-            ModEntry.Harmony.Patch(
-                original: AccessTools.Method(typeof(MilkPail), nameof(MilkPail.DoFunction)),
-                prefix: new HarmonyMethod(typeof(FarmingManager), nameof(FarmingManager.DoFunction_Prefix))
-            );
-            ModEntry.Harmony.Patch(
-                original: AccessTools.Method(typeof(Shears), nameof(Shears.DoFunction)),
-                prefix: new HarmonyMethod(typeof(FarmingManager), nameof(FarmingManager.DoFunction_Prefix))
-            );            
+            try
+            {
+                ModEntry.Harmony.Patch(
+                    original: AccessTools.Method(typeof(NPC), nameof(NPC.getGiftTasteForThisItem)),
+                    postfix: new HarmonyMethod(typeof(FarmingManager), nameof(FarmingManager.getGiftTasteForThisItem_Postfix))
+                );
+            }
+            catch (System.Exception e)
+            {
+                CoreUtility.PrintError(e, nameof(FarmingManager), nameof(NPC.getGiftTasteForThisItem), "postfixing");
+            }
+            try
+            {
+                ModEntry.Harmony.Patch(
+                    original: AccessTools.Method(typeof(MilkPail), nameof(MilkPail.DoFunction)),
+                    prefix: new HarmonyMethod(typeof(FarmingManager), nameof(FarmingManager.DoFunction_Prefix))
+                );
+            }
+            catch (System.Exception e)
+            {
+                CoreUtility.PrintError(e, nameof(FarmingManager), nameof(MilkPail.DoFunction), "postfixing");
+            }
+            try
+            {
+                ModEntry.Harmony.Patch(
+                   original: AccessTools.Method(typeof(Shears), nameof(Shears.DoFunction)),
+                   prefix: new HarmonyMethod(typeof(FarmingManager), nameof(FarmingManager.DoFunction_Prefix))
+                );
+            }
+            catch (System.Exception e)
+            {
+                CoreUtility.PrintError(e, nameof(FarmingManager), nameof(Shears.DoFunction), "postfixing");
+            }
         }
         public static void DoFunction_Prefix(Farmer who)
         {
-            if (CoreUtility.CurrentPlayerHasProfession(33, who))
+            if (CoreUtility.CurrentPlayerHasProfession(33, useThisInstead: who))
                 who.Stamina += 4;
         }
         
@@ -37,10 +59,10 @@ namespace VanillaPlusProfessions.Managers
             if (CoreUtility.CurrentPlayerHasProfession(35))
             {
                 var obj = __instance.GetData();
-                obj.CustomFields.TryGetValue("Kedi.SMP.ExcludeFromConnoisseur", out var field); 
-                if (item.Category is -26 && !item.HasContextTag("alcohol_item") && __result > 3 && (string.IsNullOrEmpty(field) || field.ToLower() == "false"))
+                if (obj.CustomFields?.TryGetValue("Kedi.VPP.ExcludeFromConnoisseur", out var field) is true && item.Category is -26 && !item.HasContextTag("alcohol_item") && __result > 3 && (string.IsNullOrEmpty(field) || field.ToLower() == "false"))
                     __result = 0;
             }
         }
+        
     }
 }

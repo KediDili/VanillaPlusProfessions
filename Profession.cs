@@ -2,8 +2,6 @@
 {
     public class Profession
     {
-        //public string Name; //Unique name, not translated
-
         public int ID; //Unique name, not translated
 
         public int Requires = -2; //Vanilla profession, should be ignored for combo professions

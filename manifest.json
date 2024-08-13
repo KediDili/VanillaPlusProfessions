@@ -2,14 +2,18 @@
   "Name": "Vanilla Plus Professions",
   "Author": "KediDili",
   "Description": "Adds further branches to vanilla professions.",
-  "Version": "1.0.0",
+  "Version": "1.0.0-alpha.20240805",
   "UniqueID": "KediDili.VanillaPlusProfessions",
   "EntryDLL": "VanillaPlusProfessions.dll",
-  "MinimumApiVersion": "4.0.0-alpha.20231209",
+  "MinimumApiVersion": "4.0.0",
   "Dependencies": [
     {
       "UniqueID": "Pathoschild.ContentPatcher",
       "IsRequired": false
+    },
+    {
+      "UniqueID": "spacechase0.SpaceCore",
+      "IsRequired": true
     }
   ]
 }

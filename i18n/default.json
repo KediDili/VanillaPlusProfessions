@@ -1,47 +1,47 @@
 {
 	//Farming
 	"Profession.Nutritionist.Name": "Nutritionist",
-	"Profession.Nutritionist.Desc": "Machines using coop animal produce_might give double output.",
+	"Profession.Nutritionist.Desc": "Machines that take coop animal goods_have a chance to double their output.",
 	"Profession.Breeder.Name": "Breeder",
 	"Profession.Breeder.Desc": "Coop animals are worth more when sold.",
 	"Profession.Musterer.Name": "Musterer",
-	"Profession.Musterer.Desc": "Machines using barn animal produces_work faster.",
+	"Profession.Musterer.Desc": "Machines that take barn_animal goods work faster.",
 	"Profession.Caretaker.Name": "Caretaker",
-	"Profession.Caretaker.Desc": "Milk pail and shears take no energy,_and animals might not eat hay for the day.",
+	"Profession.Caretaker.Desc": "Milk pail and shears take no energy._Chance for hay eaten by animals to not be consumed.",
 
 	"Profession.Machinist.Name": "Machinist",
-	"Profession.Machinist.Desc": "Machines using crop harvest work faster.",
+	"Profession.Machinist.Desc": "Machines that take harvested crops work faster.",
 	"Profession.Connoisseur.Name": "Connoisseur",
-	"Profession.Connoisseur.Desc": "Artisan goods are much more liked_by NPCs now.",
+	"Profession.Connoisseur.Desc": "Artisan goods are loved by NPCs.",
 	"Profession.Horticulturist.Name": "Horticulturist",
-	"Profession.Horticulturist.Desc": "Trees in greenhouses will give_iridium product.",
+	"Profession.Horticulturist.Desc": "Trees grown in greenhouses will_give iridium-quality produce.",
 	"Profession.Agronomist.Name": "Agronomist",
-	"Profession.Agronomist.Desc": "Fertilizers might not be consumed_if the crop is outside of a greenhouse.",
+	"Profession.Agronomist.Desc": "If a crop is grown outside of a greenhouse,_chance for fertilizer to not be consumed.",
 
 	//Fishing
 	"Profession.Oceanologist.Name": "Oceanologist",
-	"Profession.Oceanologist.Desc": "No more trash caught on fishing_rod if you have a bait attached.",
+	"Profession.Oceanologist.Desc": "Attaching bait to a fishing rod_will prevent trash from being caught.",
 	"Profession.Artificer.Name": "Artificer",
-	"Profession.Artificer.Desc": "Tackles last even longer.",
+	"Profession.Artificer.Desc": "Tackles last longer before breaking.",
 	"Profession.Plunderer.Name": "Plunderer",
-	"Profession.Plunderer.Desc": "Treasure chest is guaranteed while_fishing with a rod.",
+	"Profession.Plunderer.Desc": "Guaranteed treasure chest_with every fishing rod cast.",
 	"Profession.Buccaneer.Name": "Buccaneer",
-	"Profession.Buccaneer.Desc": "Treasure chest content is rarer.",
+	"Profession.Buccaneer.Desc": "Treasure chests contain rarer_and more valuable items.",
 
 	"Profession.Aquaculturalist.Name": "Aquaculturalist",
-	"Profession.Aquaculturalist.Desc": "There's a chance fish ponds will_give double roe.",
+	"Profession.Aquaculturalist.Desc": "Chance for fish ponds_to produce double roe.",
 	"Profession.Trawler.Name": "Trawler",
-	"Profession.Trawler.Desc": "If you have a bait on a crab pot,_high-quality catch is guaranteed.",
+	"Profession.Trawler.Desc": "Adding bait to a crab pot_guarantees a high-quality catch.",
 	"Profession.Recycler.Name": "Recycler",
-	"Profession.Recycler.Desc": "Recycling trash might give tackles.",
+	"Profession.Recycler.Desc": "Chance for recycled trash to produce various tackles.",
 	"Profession.Hydrologist.Name": "Hydrologist",
-	"Profession.Hydrologist.Desc": "Crab pots might give double catch.",
+	"Profession.Hydrologist.Desc": "Chance for crab pots to produce a double catch.",
 
 	//Foraging
 	"Profession.Arborist.Name": "Arborist",
 	"Profession.Arborist.Desc": "Wild trees grow faster.",
 	"Profession.Shaker.Name": "Shaker",
-	"Profession.Shaker.Desc": "Shaking trees might drop goods.",
+	"Profession.Shaker.Desc": "Chance for wild trees to drop items when shaken.",
 	"Profession.Sapper.Name": "Sapper",
 	"Profession.Sapper.Desc": "Tappers work faster.",
 	"Profession.Orchardist.Name": "Orchardist",
@@ -52,45 +52,45 @@
 	"Profession.Adventurer.Name": "Adventurer",
 	"Profession.Adventurer.Desc": "Non-forest forage worth more.",
 	"Profession.Gleaner.Name": "Gleaner",
-	"Profession.Gleaner.Desc": "Seeds are wild-forageable.",
+	"Profession.Gleaner.Desc": "Crop seeds can be found as forage.",
 	"Profession.Wayfarer.Name": "Wayfarer",
-	"Profession.Wayfarer.Desc": "There's a chance out of season_forage can be found.",
+	"Profession.Wayfarer.Desc": "Chance for forage to be_found out of season.",
 
 	//Mining
 	"Profession.Metallurgist.Name": "Metallurgist",
-	"Profession.Metallurgist.Desc": "Metal bars take less materials.",
+	"Profession.Metallurgist.Desc": "Metal bars require less_materials to produce.",
 	"Profession.Ironmonger.Name": "Ironmonger",
-	"Profession.Ironmonger.Desc": "Price boost for ores.",
+	"Profession.Ironmonger.Desc": "Ores are worth more.",
 	"Profession.Ignitor.Name": "Ignitor",
-	"Profession.Ignitor.Desc": "Furnaces work even faster.",
+	"Profession.Ignitor.Desc": "Furnaces work faster.",
 	"Profession.Crafter.Name": "Crafter",
-	"Profession.Crafter.Desc": "Mining skill craftables take less_resources.",
+	"Profession.Crafter.Desc": "Crafting recipes gained via the_mining skill require less materials.",
 
 	"Profession.Archeologist.Name": "Archeologist",
-	"Profession.Archeologist.Desc": "Artifacts are recycleable.",
+	"Profession.Archeologist.Desc": "Artifacts can be recycled.",
 	"Profession.Mineralogist.Name": "Mineralogist",
-	"Profession.Mineralogist.Desc": "All vanilla geodes will act like omnigeodes, and wont give default drops.",
+	"Profession.Mineralogist.Desc": "All vanilla geodes hold_the same items as omni-geodes.",
 	"Profession.Appraiser.Name": "Appraiser",
-	"Profession.Appraiser.Desc": "Cinder shard drop amount increased.",
+	"Profession.Appraiser.Desc": "Cinder shard nodes drop more cinder shards.",
 	"Profession.Enchanter.Name": "Enchanter",
-	"Profession.Enchanter.Desc": "It's cheaper to enchant weapons_and tools.",
+	"Profession.Enchanter.Desc": "Cheaper enchantment of weapons and tools.",
 
 	//Combat
 	"Profession.Warrior.Name": "Warrior",
-	"Profession.Warrior.Desc": "Undamageable monsters will become_damageable.",
+	"Profession.Warrior.Desc": "Invincible monsters can be damaged.",
 	"Profession.Berserker.Name": "Berserker",
 	"Profession.Berserker.Desc": "Damage dealt increases at low health.",
 	"Profession.Survivalist.Name": "Survivalist",
-	"Profession.Survivalist.Desc": "Positive buff length is increased.",
+	"Profession.Survivalist.Desc": "Length of positive buffs increased.",
 	"Profession.Healer.Name": "Healer",
-	"Profession.Healer.Desc": "Length of negative buffs is decreased.",
+	"Profession.Healer.Desc": "Length of negative buffs decreased.",
 
 	"Profession.Technician.Name": "Technician",
 	"Profession.Technician.Desc": "Grants invulnerability during_special weapon cooldown.",
 	"Profession.Speedster.Name": "Speedster",
-	"Profession.Speedster.Desc": "Weapon use speed and cooldowns are_both faster.",
+	"Profession.Speedster.Desc": "Increased speed of weapon_attacks and cooldowns.",
 	"Profession.Assassin.Name": "Assassin",
-	"Profession.Assassin.Desc": "Critical hits are guaranteed toward_monsters with high defense.",
+	"Profession.Assassin.Desc": "Guaranteed critical hits_against monsters with high defense.",
 	"Profession.Assailant.Name": "Assailant",
 	"Profession.Assailant.Desc": "No cooldowns after critical hits.",
 
@@ -98,27 +98,27 @@
 	"Profession.Farm-Forage.Name": "Combo: Foraging",
 	"Profession.Farm-Forage.Desc": "Fruit trees and giant crops are tappable.",
 	"Profession.Farm-Mine.Name": "Combo: Mining",
-	"Profession.Farm-Mine.Desc": "Minerals can be crushed into dust, which can be used as fertilizer.",
+	"Profession.Farm-Mine.Desc": "Minerals can be crushed into dust_which can be used as fertilizer.",
 
 	"Profession.Mine-Combat.Name": "Combo: Combat",
-	"Profession.Mine-Combat.Desc": "For every 100 stones you break, you'll get combat-related buffs, but this will reset daily. (Bombs allowed)",
+	"Profession.Mine-Combat.Desc": "Gain combat buffs for every 100 stones broken_that day via pickaxe or bombs.",
 	"Profession.Mine-Forage.Name": "Combo: Foraging",
-	"Profession.Mine-Forage.Desc": "Increased possibility for Mushroom level spawn.",
+	"Profession.Mine-Forage.Desc": "Increased possibility for_Mushroom level spawn.",
 
 	"Profession.Forage-Fish.Name": "Combo: Fishing",
-	"Profession.Forage-Fish.Desc": "Adds a minigame where a random forage is selected, and if you throw the correct one to the water, it'll make fishing bubbles appear.",
+	"Profession.Forage-Fish.Desc": "Every four days, a randomly-selected_forage item will be able to summon_fishing bubbles when tossed in the water.",
 	"Profession.Forage-Combat.Name": "Combo: Combat",
-	"Profession.Forage-Combat.Desc": "You can track monsters while they're out of your screen.",
+	"Profession.Forage-Combat.Desc": "Off-screen monsters can be tracked.",
 
 	"Profession.Fish-Farm.Name": "Combo: Farming",
-	"Profession.Fish-Farm.Desc": "Full fish ponds will keep giving you quests every week, if completed, their yield is doubled for the rest of the week.",
+	"Profession.Fish-Farm.Desc": "Full fish ponds will continue_making item requests. If completed,_double yield for the rest of the week.",
 	"Profession.Fish-Mine.Name": "Combo: Mining",
-	"Profession.Fish-Mine.Desc": "You can use gems in place of tackles.",
+	"Profession.Fish-Mine.Desc": "Gems can be used as tackles.",
 
 	"Profession.Combat-Farm.Name": "Combo: Farming",
-	"Profession.Combat-Farm.Desc": "Slimes in your hutches will yield valuables/items other than just big slime balls.",
+	"Profession.Combat-Farm.Desc": "Slimes in the slime hutch also produce valuable items.",
 	"Profession.Combat-Fish.Name": "Combo: Fishing",
-	"Profession.Combat-Fish.Desc": "You can use fish as slingshot ammo.",
+	"Profession.Combat-Fish.Desc": "Fish can be used as slingshot ammo.",
 
 	//Talents
 	"Talent.Farming.Title": "Farming Talents",
@@ -126,127 +126,488 @@
 	"Talent.Foraging.Title": "Foraging Talents",
 	"Talent.Mining.Title": "Mining Talents",
 	"Talent.Combat.Title": "Combat Talents",
+	"Talent.Misc.Title": "Daily Life Talents",
+
 	"Talent.LockedTalent.Name": "Locked",
 	"Talent.LockedTalent.Desc": "Gain other\ntalents first!",
+	"Talent.LockedTalent.Numbered": " (Buy {0} talents to unlock)",
+
+	"Talent.ResetMessages.ItemMissing": "Required item missing for reset",
+	"Talent.ResetMessages.SettleTreeFirst": "Settle the tree\nreset first",
+	"Talent.ResetMessages.SettleFullFirst": "Settle the full\nreset first",
+	"Talent.ResetMessages.ResetAll": "Reset all talents",
+	"Talent.ResetMessages.ResetTree": "Reset this tree's talents",
+	"Talent.ResetMessages.Confirm": "Confirm reset?",
+	"Talent.ResetMessages.BoughtNone": "You haven't bought\nany talents.",
+	"Talent.ResetMessages.AbortReset": "Abort reset",
 
 	"Talent.Resurgence.Name": "Resurgence",
-	"Talent.Resurgence.Desc": "Automatically refills a part of the watering can every one and a half hours.",
+	"Talent.Resurgence.Desc": "Watering can automatically\npartially refills every 90 minutes.",
+
 	"Talent.RefreshingWaters.Name": "Refreshing Waters",
-	"Talent.RefreshingWaters.Desc": "Wake up each morning with a refilled watering can",
+	"Talent.RefreshingWaters.Desc": "Watering can is refilled\nevery morning upon waking.",
+
 	"Talent.GoodSoaking.Name": "Good Soaking",
 	"Talent.GoodSoaking.Desc": "Soil is automatically watered the day after rain.",
+
 	"Talent.NourishingRain.Name": "Nourishing Rain",
-	"Talent.NourishingRain.Desc": "Reduces time outdoor crops take to grow by 2 days for each rainy day.",
+	"Talent.NourishingRain.Desc": "For each rainy day, growth time for\noutdoor crops is reduced by 2 days.",
 
 	"Talent.WildGrowth.Name": "Wild Growth",
 	"Talent.WildGrowth.Desc": "Chance for animals to produce both deluxe & normal items.",
+
 	"Talent.Overcrowding.Name": "Overcrowding",
-	"Talent.Overcrowding.Desc": "Coops & barns can now house more animals",
+	"Talent.Overcrowding.Desc": "Coops & barns can house more animals.",
+
 	"Talent.Bio-Engineering.Name": "Bio-Engineering",
 	"Talent.Bio-Engineering.Desc": "Large animal produce will result in doubled artisan goods.",
+
 	"Talent.Pastoralism.Name": "Pastoralism",
 	"Talent.Pastoralism.Desc": "Quality animal produce will result in quality artisan goods.",
+
 	"Talent.BreedLikeRabbits.Name": "Breed Like Rabbits",
-	"Talent.BreedLikeRabbits.Desc": "Rabbits are now able to reproduce.",
+	"Talent.BreedLikeRabbits.Desc": "Rabbits are able to reproduce.",
+
 	"Talent.BrimmingWithLife.Name": "Brimming With Life",
-	"Talent.BrimmingWithLife.Desc": "Doubled the chance for animal pregnancy.",
+	"Talent.BrimmingWithLife.Desc": "Double chance for animal pregnancy.",
 
 	"Talent.CycleOfLife.Name": "Cycle of Life",
-	"Talent.CycleOfLife.Desc": "50% chance to receive back a seed of a harvested non-regrowable crop",
+	"Talent.CycleOfLife.Desc": "50% chance to receive back a seed of a harvested non-regrowable crop.",
+
 	"Talent.Effloresence.Name": "Effloresence",
-	"Talent.Effloresence.Desc": "Reduces time flowers take to grow",
+	"Talent.Effloresence.Desc": "Reduces time flowers take to grow.",
+
 	"Talent.HarmoniousBlooming.Name": "Harmonious Blooming",
 	"Talent.HarmoniousBlooming.Desc": "Receive additional honey depending on the number of flowers around a bee house (honey type from a random flower)",
+
 	"Talent.Abundance.Name": "Abundance",
-	"Talent.Abundance.Desc": "Increased chance each day for honey to increase quality while not harvested",
+	"Talent.Abundance.Desc": "Chance for honey to increase\nin quality for each day not harvested",
+
 	"Talent.FairysKiss.Name": "Fairy's Kiss",
 	"Talent.FairysKiss.Desc": "Every full-grown fairy rose increases the chance for crop fairy to appear.",
+
 	"Talent.FaeBlessings.Name": "Fae Blessings",
 	"Talent.FaeBlessings.Desc": "The crop fairy will instantly grow a giant crop if it's possible for one to grow.",
 
 	"Talent.FineGrind.Name": "Fine Grind",
-	"Talent.FineGrind.Desc": "Milled rice/flour/sugar has the quality of the ingredient.",
+	"Talent.FineGrind.Desc": "Milled rice/flour/sugar matches the ingredient quality.",
+
 	"Talent.DriftFencing.Name": "Drift Fencing",
-	"Talent.DriftFencing.Desc": "Double fences when crafting fences.",
+	"Talent.DriftFencing.Desc": "Crafting fences produces double items.",
+
 	"Talent.StormSurge.Name": "Storm Surge",
-	"Talent.StormSurge.Desc": "Lightning rods have a radius that protects crops and fruit trees from lightning strikes",
+	"Talent.StormSurge.Desc": "Lightning rods protect more crops and\nfruit trees even when producing.",
+
 	"Talent.ColdPress.Name": "Cold Press",
 	"Talent.ColdPress.Desc": "Oil makers produce additional types of oils.",
+
 	"Talent.Upcycling.Name": "Upcycling",
 	"Talent.Upcycling.Desc": "Higher-tier sprinklers require lower ones as materials.",
+
 	"Talent.Fertigation.Name": "Fertigation",
 	"Talent.Fertigation.Desc": "Both pressure nozzles and enrichers can be added to sprinklers.",
+
 	"Talent.Trickster.Name": "Trickster",
-	"Talent.Trickster.Desc": "Crows won't eat crops any more",
+	"Talent.Trickster.Desc": "Crows wont eat full-grown crops anymore.",
+
 	"Talent.TropicalBliss.Name": "Tropical Bliss",
 	"Talent.TropicalBliss.Desc": "Summer & multi-season crops grow faster on Ginger Island.",
+
 	"Talent.HarvestSeason.Name": "Harvest Season",
 	"Talent.HarvestSeason.Desc": "Junimos harvest faster.",
 
 	"Talent.DownInTheDepths.Name": "Down in the Depths",
-	"Talent.DownInTheDepths.Desc": "You are going to find a ladder\nafter breaking 8 stones if you\nhaven't already.",
+	"Talent.DownInTheDepths.Desc": "If no ladder has spawned,\nguaranteed chance of finding\none after breaking 8 stones.",
+
 	"Talent.ShadowBuddies.Name": "Shadow Buddies",
-	"Talent.ShadowBuddies.Desc": "",
+	"Talent.ShadowBuddies.Desc": "If befriended, Krobus will gift you\n1-3 geodes via mail each week.",
+
 	"Talent.DwarvenBuddies.Name": "Dwarven Buddies",
-	"Talent.DwarvenBuddies.Desc": "",
+	"Talent.DwarvenBuddies.Desc": "If befriended, the Dwarf will gift you\n1-3 metal bars via mail each week.",
+
 	"Talent.EssenceInfusion.Name": "Essence Infusion",
-	"Talent.EssenceInfusion.Desc": "Sign of the Vessel will give Solar\nEssence, and Wicked Statue will\ngive Void Essences everyday.",
+	"Talent.EssenceInfusion.Desc": "Each day, Signs of the Vessel\nwill produce Solar Essence and\nWicked Statues will produce Void Essence.",
+
 	"Talent.ElderScrolls.Name": "Elder Scrolls",
-	"Talent.ElderScrolls.Desc": "Dwarf scrolls are readable if you\nhave the dwarvish dictionary thingy\nand give mining experience.",
+	"Talent.ElderScrolls.Desc": "If the Dwarvish Translation Guide has been obtained,\ndwarf scrolls can be read for mining experience.",
+
 	"Talent.SpeedOfDarkness.Name": "Speed of Darkness",
 	"Talent.SpeedOfDarkness.Desc": "Receive a speed boost after 12 AM.",
+
 	"Talent.AncestralWeaponry.Name": "Ancestral Weaponry",
-	"Talent.AncestralWeaponry.Desc": "The Dwarf now sells Dwarf Weaponry,\nif you unlocked Ginger Island.",
+	"Talent.AncestralWeaponry.Desc": "If Ginger Island has been unlocked,\nthe Dwarf sells dwarven weaponry.",
+
 	"Talent.SharedFocus.Name": "Shared Focus",
 	"Talent.SharedFocus.Desc": "Time is slower in any mines.",
 
 	"Talent.MuseumPiece.Name": "Museum Piece",
-	"Talent.MuseumPiece.Desc": "",
+	"Talent.MuseumPiece.Desc": "Double chance of receiving\nundonated artifacts or minerals\nfrom geodes & artifact troves.",
+
 	"Talent.ExplosivePersonality.Name": "Explosive Personality",
-	"Talent.ExplosivePersonality.Desc": "",
+	"Talent.ExplosivePersonality.Desc": "Rocks destroyed by bombs have increased chance to drop additional geodes.",
+
 	"Talent.Synthesis.Name": "Synthesis",
-	"Talent.Synthesis.Desc": "",
+	"Talent.Synthesis.Desc": "Crystalariums can copy geodes.",
+
 	"Talent.Upheaval.Name": "Upheaval",
-	"Talent.Upheaval.Desc": "",
+	"Talent.Upheaval.Desc": "Low chance for all stones on a mine floor\nto be replaced by geode nodes.",
+
 	"Talent.Matryoshka.Name": "Matryoshka",
-	"Talent.Matryoshka.Desc": "",
+	"Talent.Matryoshka.Desc": "Chance for geodes to contain another geode.",
+
 	"Talent.X-ray.Name": "X-ray",
-	"Talent.X-ray.Desc": "",
+	"Talent.X-ray.Desc": "View what item the next geode contains.\nGeodes worth more.",
+
 	"Talent.Geometry.Name": "Geometry",
-	"Talent.Geometry.Desc": "",
+	"Talent.Geometry.Desc": "Crystalariums work faster.",
+
 	"Talent.Dazzle.Name": "Dazzle",
-	"Talent.Dazzle.Desc": "",
+	"Talent.Dazzle.Desc": "Chance for crystalariums to improve item quality by one.",
 
 	"Talent.StraightRun.Name": "Straight Run",
-	"Talent.StraightRun.Desc": "",
-	"Talent.DetonationDampener.Name": "Detonation Dampener",
-	"Talent.DetonationDampener.Desc": "",
-	"Talent.Volatility.Name": "Volatility",
-	"Talent.Volatility.Desc": "",
-	"Talent.AlchemicReversal.Name": "Alchemic Reversal",
-	"Talent.AlchemicReversal.Desc": "",
-	"Talent.RoomAndPillar.Name": "Room and Pillar",
-	"Talent.RoomAndPillar.Desc": "",
-	"Talent.Fallout.Name": "Fallout",
-	"Talent.Fallout.Desc": "Radioactive ore nodes are in Skull Cavern and Mountain Mines, regardless of they're dangerous or not.",
-	"Talent.EveryonesBestFriend.Name": "Everyone's Best Friend",
-	"Talent.EveryonesBestFriend.Desc": "",
-	"Talent.CrystalCavern.Name": "Crystal Cavern",
-	"Talent.CrystalCavern.Desc": "",
-	"Talent.OverTheRainbow.Name": "Over the Rainbow",
-	"Talent.OverTheRainbow.Desc": "",
+	"Talent.StraightRun.Desc": "Robin sells staircases for 2000g each.",
 
-	//Items
-	"Item.Syrup.DisplayName": "Fruit Syrup",
-	"Item.Syrup.ProduceNameFormat": "{0} Syrup",
-	"Item.Syrup.Description": "Syrup tapped out of a fruit tree or a giant crop.",
-	"Item.Dust.DisplayName": "Gem Dust",
-	"Item.Dust.ProduceNameFormat": "{0} Dust",
-	"Item.Dust.Description": "Grinded gem dust, ready to be used on soil.",
+	"Talent.DetonationDampener.Name": "Detonation Dampener",
+	"Talent.DetonationDampener.Desc": "Bombs won't destroy forage, machinery, or artifact spots.",
+
+	"Talent.Volatility.Name": "Volatility",
+	"Talent.Volatility.Desc": "Chance for ore nodes to drop higher tier ore as well.",
+
+	"Talent.AlchemicReversal.Name": "Alchemic Reversal",
+	"Talent.AlchemicReversal.Desc": "Higher tier metal bars can be converted into lower ones.",
+
+	"Talent.RoomAndPillar.Name": "Room and Pillar",
+	"Talent.RoomAndPillar.Desc": "All ore nodes can spawn in the quarry mine.",
+
+	"Talent.Fallout.Name": "Fallout",
+	"Talent.Fallout.Desc": "Radioactive ore nodes spawn in the\nnon-dangerous mines and Skull Cavern.",
+
+	"Talent.EveryonesBestFriend.Name": "Everyone's Best Friend",
+	"Talent.EveryonesBestFriend.Desc": "Diamond, tigerseye, opal, fire opal, jasper,\nand star shards will become universal loved gifts.",
+
+	"Talent.CrystalCavern.Name": "Crystal Cavern",
+	"Talent.CrystalCavern.Desc": "Low chance for all stones on a mine floor\nto be replaced by gem nodes.",
+
+	"Talent.OverTheRainbow.Name": "Over the Rainbow",
+	"Talent.OverTheRainbow.Desc": "Add prismatic shard crafting recipe.",
+
+	"Talent.NatureSecrets.Name": "Nature Secrets",
+	"Talent.NatureSecrets.Desc": "Chance for chopped tree stumps to drop forage items.",
+
+	"Talent.PrimrosePath.Name": "Primrose Path",
+	"Talent.PrimrosePath.Desc": "Flowers give more friendship when gifted.",
+
+	"Talent.Berry-mania.Name": "Berry-mania",
+	"Talent.Berry-mania.Desc": "Berry seasons last for one week.",
+
+	"Talent.DiamondOfTheKitchen.Name": "Diamond of the Kitchen",
+	"Talent.DiamondOfTheKitchen.Desc": "Truffles spawn in forests.",
+
+	"Talent.LocalKnowledge.Name": "Local Knowledge",
+	"Talent.LocalKnowledge.Desc": "Forage is reset every day.",
+
+	"Talent.SeaChange.Name": "Sea Change",
+	"Talent.SeaChange.Desc": "Once per week, beach forage is doubled.",
+
+	"Talent.Starfall.Name": "Starfall",
+	"Talent.Starfall.Desc": "Chance for star shards to spawn\nas forage in the evening for 1-7 days.",
+
+	"Talent.DesertBloom.Name": "Desert Bloom",
+	"Talent.DesertBloom.Desc": "Chance for flowers to spawn in Calico Desert\non rainy days in Pelican Town.",
+
+	"Talent.BountifulBoletes.Name": "Bountiful Boletes",
+	"Talent.BountifulBoletes.Desc": "High chance for mushrooms to spawn after rainy days.",
+
+	"Talent.RenewingMist.Name": "Renewing Mist",
+	"Talent.RenewingMist.Desc": "Double forage spawns on the first sunny day after rain.",
+
+	"Talent.Reforestation.Name": "Reforestation",
+	"Talent.Reforestation.Desc": "Hand-planted wild tree seeds produce double harvest.",
+
+	"Talent.SapSipper.Name": "Sap Sipper",
+	"Talent.SapSipper.Desc": "Sap is edible and recovers health.",
+
+	"Talent.SpringThaw.Name": "Spring Thaw",
+	"Talent.SpringThaw.Desc": "Large tapper produce can be harvested from tappers.",
+
+	"Talent.Accumulation.Name": "Accumulation",
+	"Talent.Accumulation.Desc": "Chance for tapper products to increase\nin quality if left uncollected overnight.",
+
+	"Talent.ExoticTapping.Name": "Exotic Tapping",
+	"Talent.ExoticTapping.Desc": "Palm trees can be tapped for Oil.\nMahogany trees can be tapped for Sugar.",
+
+	"Talent.GroveTending.Name": "Grove Tending",
+	"Talent.GroveTending.Desc": "Double effects of Tree Fertilizer.",
+
+	"Talent.SurgeProtection.Name": "Surge Protection",
+	"Talent.SurgeProtection.Desc": "Wild trees become coal trees when struck by lightning.",
+
+	"Talent.WelcomeToTheJungle.Name": "Welcome to the Jungle",
+	"Talent.WelcomeToTheJungle.Desc": "Coconuts can be planted to grow a palm tree. Golden coconuts can drop anywhere.",
+
+	"Talent.ClearAsMud.Name": "Clear as Mud",
+	"Talent.ClearAsMud.Desc": "High chance to find clay when tilling.",
+
+	"Talent.SleepUnderTheStars.Name": "Sleep Under the Stars",
+	"Talent.SleepUnderTheStars.Desc": "No penalty for falling asleep at 2AM\nif at the beach, mountain, or forest.",
+
+	"Talent.CampSpirit.Name": "Camp Spirit",
+	"Talent.CampSpirit.Desc": "Food made with a Cookout Kit restores more energy and health than food made in a kitchen.",
+
+	"Talent.SurvivalCooking.Name": "Survival Cooking",
+	"Talent.SurvivalCooking.Desc": "Adds unique recipes to Cookout Kits.",
+
+	"Talent.Pyrolysis.Name": "Pyrolysis",
+	"Talent.Pyrolysis.Desc": "Charcoal Kilns will be more efficient.",
+
+	"Talent.StaticCharge.Name": "Static Charge",
+	"Talent.StaticCharge.Desc": "Lightning Rods can accumulate two charges at once. Solar Panels take 2 less days to produce a battery.",
+
+	"Talent.EyeSpy.Name": "Eye Spy",
+	"Talent.EyeSpy.Desc": "Increased chance of finding Living Hats and similar items.",
+
+	"Talent.FisheryGrant.Name": "Fishery Grant",
+	"Talent.FisheryGrant.Desc": "Fish ponds are cheaper to build.",
+
+	"Talent.InTheWeeds.Name": "In the Weeds",
+	"Talent.InTheWeeds.Desc": "Seaweed and Green Algae can be added to fish ponds.",
+
+	"Talent.Roe-mance.Name": "Roe-mance",
+	"Talent.Roe-mance.Desc": "Roe, Aged Roe, and Caviar worth more.",
+
+	"Talent.BigFishSmallPond.Name": "Big Fish, Small Pond",
+	"Talent.BigFishSmallPond.Desc": "Allows legendary fish to be added to fish ponds.\nThey cannot increase in number.",
+
+	"Talent.SpawningSeason.Name": "Spawning Season",
+	"Talent.SpawningSeason.Desc": "Chance for roe yield in\nfish ponds is increased.",
+
+	"Talent.Ex-squid-site.Name": "Ex-squid-site",
+	"Talent.Ex-squid-site.Desc": "Chance for roe to increase in quality\nif left uncollected overnight. Roe quality\nwill apply to Aged Roe, Caviar, and Squid Ink.",
+
+	"Talent.DoubleHook.Name": "Double Hook",
+	"Talent.DoubleHook.Desc": "Bait bins will produce twice in a day.",
+
+	"Talent.Clickbait.Name": "Clickbait",
+	"Talent.Clickbait.Desc": "Worm Bin has a 50% chance\nof producing Wild Bait\ninstead of normal Bait.",
+
+	"Talent.CanIt.Name": "Can It",
+	"Talent.CanIt.Desc": "Recycling machines produce an increased variety of items.",
+
+	"Talent.Smokehouse.Name": "Smokehouse",
+	"Talent.Smokehouse.Desc": "Fish can be smoked multiple\ntimes to increase quality.",
+
+	"Talent.FitForACzar.Name": "Fit for a Czar",
+	"Talent.FitForACzar.Desc": "Aged Roe can be aged in\na cask to increase quality.",
+
+	"Talent.TakeItSlow.Name": "Take it Slow",
+	"Talent.TakeItSlow.Desc": "Fishing casting bar will move more slowly if you have the Snail Tackle equipped.",
+
+	"Talent.A-fish-ionado.Name": "A-fish-ionado",
+	"Talent.A-fish-ionado.Desc": "Receive a random tackle via mail every week.",
+
+	"Talent.ItWasThisBig.Name": "It Was This Big",
+	"Talent.ItWasThisBig.Desc": "If catching a new size record for\na fish, quality will increase.",
+
+	"Talent.DeadMansChest.Name": "Dead Man's Chest",
+	"Talent.DeadMansChest.Desc": "Chance for crab pots to produce artifact troves.",
+
+	"Talent.Diversification.Name": "Diversification",
+	"Talent.Diversification.Desc": "Wild Bait now doubles Crab Pot produce.",
+
+	"Talent.FishTrap.Name": "Fish Trap",
+	"Talent.FishTrap.Desc": "Crab pots will sometimes catch regular fish.",
+
+	"Talent.BaitAndSwitch.Name": "Bait and Switch",
+	"Talent.BaitAndSwitch.Desc": "Chance for crab pot fish to increase in quality\nif left uncollected overnight.",
+
+	"Talent.CrabRave.Name": "Crab Rave",
+	"Talent.CrabRave.Desc": "Increased chance to find crabs, crayfish,\nand lobsters if wearing a Crabshell Ring.",
+
+	"Talent.FishsWishes.Name": "Fish's Wishes",
+	"Talent.FishsWishes.Desc": "Allows using Magic Bait on crab pots.\nIf you have Luremaster, basic Bait acts like Magic Bait.",
+
+	"Talent.HereFishyFishy.Name": "Here Fishy Fishy",
+	"Talent.HereFishyFishy.Desc": "Failing to catch a fish 3 times in a\nrow greatly increases the bobber bar\nheight for the next fish.",
+
+	"Talent.VastDomain.Name": "Vast Domain",
+	"Talent.VastDomain.Desc": "Legendary fish can be caught in\nan increased location range.",
+
+	"Talent.OneFishTwoFish.Name": "One Fish, Two Fish",
+	"Talent.OneFishTwoFish.Desc": "Challenge Bait can be used to\ncatch four fish at once.",
+
+	"Talent.TakeABreak.Name": "Take a Break",
+	"Talent.TakeABreak.Desc": "Fish do not run away when reeling in\na treasure chest.",
+
+	"Talent.BubbleTrouble.Name": "Bubble Trouble",
+	"Talent.BubbleTrouble.Desc": "Bubbles will always be within\n4 tiles of land.",
+
+	"Talent.Slimeshot.Name": "Slimeshot",
+	"Talent.Slimeshot.Desc": "Slime can be used as slingshot ammo.\nIf slime hits a monster,\nit will be slowed down.",
+
+	"Talent.TripleShot.Name": "Triple Shot",
+	"Talent.TripleShot.Desc": "Gives slingshots a special attack that\nshoots three projectiles at once.",
+
+	"Talent.Bullseye.Name": "Bullseye",
+	"Talent.Bullseye.Desc": "Slingshots can do critical damage.",
+
+	"Talent.DazzlingStrike.Name": "Dazzling Strike",
+	"Talent.DazzlingStrike.Desc": "Gems can be used as slingshot ammo.\nHigh chance for gem ammo\nto not be destroyed.",
+
+	"Talent.Enchanting.Name": "Enchanting",
+	"Talent.Enchanting.Desc": "Slingshots have custom enchantments\ncalled Auto-Fire, Rapid, Bat Killer, and Thrifty.",
+
+	"Talent.Accessorise.Name": "Accessorise",
+	"Talent.Accessorise.Desc": "Trinkets can be converted into rings.",
+
+	"Talent.Consolidation.Name": "Consolidation",
+	"Talent.Consolidation.Desc": "Rings of the same type can be forged together.",
+
+	"Talent.HiddenBenefits.Name": "Hidden Benefits",
+	"Talent.HiddenBenefits.Desc": "All vanilla trinkets will get\na second purpose.",
+
+	"Talent.RendingStrike.Name": "Rending Strike",
+	"Talent.RendingStrike.Desc": "4 consecutive strikes against a monster\nwill reduce damage dealt by that monster.",
+
+	"Talent.DebiliatingStab.Name": "Debiliating Stab",
+	"Talent.DebiliatingStab.Desc": "Damaging monsters with a dagger will reduce their speed.",
+
+	"Talent.SeveringSwipe.Name": "Severing Swipe",
+	"Talent.SeveringSwipe.Desc": "Damaging monsters with a sword will reduce their attack.",
+
+	"Talent.ConcussiveImpact.Name": "Concussive Impact",
+	"Talent.ConcussiveImpact.Desc": "Damaging monsters with a club will make them take additional damage for 3 seconds following the hit.",
+
+	"Talent.Aftershock.Name": "Aftershock",
+	"Talent.Aftershock.Desc": "Club attacks hit a second time.\nThe second strike deals reduced damage.",
+
+	"Talent.Champion.Name": "Champion",
+	"Talent.Champion.Desc": "Grants +2 Defense for 6 seconds after striking an enemy with a sword.",
+
+	"Talent.Flurry.Name": "Flurry",
+	"Talent.Flurry.Desc": "Consecutive dagger strikes against the same target\ndeal half additional damage,\nstacking up to 5 times.",
+
+	"Talent.Ferocity.Name": "Ferocity",
+	"Talent.Ferocity.Desc": "Critical hits add a short 10% crit damage buff.",
+
+	"Talent.Starburst.Name": "Starburst",
+	"Talent.Starburst.Desc": "Adds a melee weapon enchantment named Starburst,\nwhich throws projectiles when swung.",
+
+	"Talent.Grit.Name": "Grit",
+	"Talent.Grit.Desc": "Increases damage immunity period\nafter taking damage.",
+
+	"Talent.Sidestep.Name": "Sidestep",
+	"Talent.Sidestep.Desc": "Chance to dodge enemy attacks.",
+
+	"Talent.Slippery.Name": "Slippery",
+	"Talent.Slippery.Desc": "Changes the Slimy debuff into a +1 Speed buff.",
+
+	"Talent.Fortified.Name": "Fortified",
+	"Talent.Fortified.Desc": "For every monster in the current location,\ngain +1 Defense to a limit of +8.",
+
+	"Talent.FullKnowledge.Name": "Full Knowledge",
+	"Talent.FullKnowledge.Desc": "Gives full exp for monsters killed on the farm.",
+
+	"Talent.MonsterSpecialist.Name": "Monster Specialist",
+	"Talent.MonsterSpecialist.Desc": "Choose one of four pre-defined group\nof monsters and deal additional damage to them.",
+	"Talent.Branch.Ground.Name": "Ground",
+	"Talent.Branch.Ground.Desc": "Do more damage to slimes, grubs, dust\nsprites, duggies, lava lurks, and spiders",
+	"Talent.Branch.Humanoid.Name": "Humanoid",
+	"Talent.Branch.Humanoid.Desc": "Do more damage to golems, skeletons,\nmummies and shadows",
+	"Talent.Branch.Flying.Name": "Flying",
+	"Talent.Branch.Flying.Desc": "Do more damage to bats, ghosts, serpents,\nmagma sprites, blue squids, squid kids and flies",
+	"Talent.Branch.Armoured.Name": "Armoured",
+	"Talent.Branch.Armoured.Desc": "Do more damage to dwarvish sentries,\nhot heads, metal heads and rock crabs",
+
+	"Talent.SugarRush.Name": "Sugar Rush",
+	"Talent.SugarRush.Desc": "Foods cooked with sugar will remove the Nauseated debuff.\nIf you have Survival Cooking, its recipes will remove Nauseated as well.",
+
+	"Talent.Meditation.Name": "Meditation",
+	"Talent.Meditation.Desc": "Passive health regeneration\nwhile standing still.",
+
+	"Talent.LostAndFound.Name": "Lost And Found",
+	"Talent.LostAndFound.Desc": "Reading lost books in the library gives buffs.",
+
+	"Talent.BookclubBargains.Name": "Bookclub Bargains",
+	"Talent.BookclubBargains.Desc": "Reduces the bookseller's prices.",
+
+	"Talent.CycleOfKnowledge.Name": "Cycle of Knowledge",
+	"Talent.CycleOfKnowledge.Desc": "Extra books can be recycled.",
+
+	"Talent.NarrowEscape.Name": "Narrow Escape",
+	"Talent.NarrowEscape.Desc": "Reduces the amount of gold lost on death.",
+
+	"Talent.TrashedTreasure.Name": "Trashed Treasure",
+	"Talent.TrashedTreasure.Desc": "More valuable items can be found in trash cans.",
+
+	"Talent.ButterflyEffect.Name": "Butterfly Effect",
+	"Talent.ButterflyEffect.Desc": "On bad luck days, a void butterfly spawns in distant\nlocations (sewers, swamp, secret woods, etc) and gives\na +10 luck buff when found.",
+
+	"Talent.Admiration.Name": "Admiration",
+	"Talent.Admiration.Desc": "Friendship decay is halved.",
+
+	"Talent.InsiderInfo.Name": "Insider Info",
+	"Talent.InsiderInfo.Desc": "Friendship with townspeople increases\nthe shipping price of specific associated items.",
+
+	"Talent.GiftOfFriendship.Name": "Gift of Friendship",
+	"Talent.GiftOfFriendship.Desc": "Chance for townspeople to give loved gifts\nwhen at 8 hearts or higher.",
+
+	"Talent.MatesRates.Name": "Mate's Rates",
+	"Talent.MatesRates.Desc": "Friendship with shopkeepers reduces prices.",
+
+	"Talent.MonumentalDiscount.Name": "Monumental Discount",
+	"Talent.MonumentalDiscount.Desc": "Obelisks are cheaper to purchase.",
+
+	"Talent.CraftSupplies.Name": "Craft Supplies",
+	"Talent.CraftSupplies.Desc": "New craftables gained by skill level-up\nare sold at shops after being unlocked.",
+
+	"Talent.HauteCuisine.Name": "Haute Cuisine",
+	"Talent.HauteCuisine.Desc": "Increases sell prices of cooked food.",
+
+	"Talent.MiniFridgeBigSpace.Name": "Mini Fridge, Big Space",
+	"Talent.MiniFridgeBigSpace.Desc": "Increase storage space for mini-fridges.",
+
+	"Talent.GoodEats.Name": "Good Eats",
+	"Talent.GoodEats.Desc": "Allows for two food buffs and two drink buffs simultaneously.",
+
+	"Talent.GiftOfTheTalented.Name": "Gift of the Talented",
+	"Talent.GiftOfTheTalented.Desc": "Gives the gift of a stardrop.",
+
+	//Messages
+	"Message.FairyBreak": "Give the fairy a break!",
+	"Message.AlreadyFertilized": "The crop is already fertilized.",
+	"Message.Fertilized": "The crop has been fertiilized.",
+	"Message.TalentPoint": "Congratulations, you've got new talent points to spend!",
+	"Message.ReadDwarfScroll": "You've learnt a few things about mining from the ancient dwarven scroll.",
+	"Message.ForageBubbleReset": "Bubble-spawning forage has been reset.",
+	"Message.RabbitBirth": "A new baby rabbit has been born!",
+	"Message.StoneBroken": "You've broke {{Stones}} stones today. Your attack and defense are increased by {{Buff}}.",
+	"Message.MasteryCave": "Only a grand master who has reached level 20 in all of the five ways may enter. ({0}/5)",
+
+	//Buffs
+	"Buff.Slippery.Name": "Slippery",
+	"Buff.Slippery.Desc": "The slime on your skin feels gross... but it's easy to slide around too.",
+	"Buff.Ferocity.Name": "Ferocity",
+	"Buff.Ferocity.Desc": "Your savage strikes deal increased critical damage!",
+	"Buff.Fortified.Name": "Fortified",
+	"Buff.Fortified.Desc": "You're on your guard around the monsters here.",
+	"Buff.Champion.Name": "Champion",
+	"Buff.Champion.Desc": "You're prepared for a counter-attack.",
+	"Buff.SpeedOfDarkness.Name": "Speed Of Darkness",
+	"Buff.SpeedOfDarkness.Desc": "Run! Make it to your bed!",
 
 	//Config
 	"GMCM.ColorBlindnessChanges.Name": "Color Blindness Changes",
-	"GMCM.ColorBlindnessChanges.Desc": "Retextures SMP and vanilla skill bar icons into striped versions.",
+	"GMCM.ColorBlindnessChanges.Desc": "Retextures VPP and vanilla skill bar icons into striped versions.",
+	"GMCM.MasteryCaveChanges.Name": "Mastery Cave Changes",
+	"GMCM.MasteryCaveChanges.Desc": "Changes Mastery Cave to be unlocked when you level up skills to levels 20 instead of 10.",
+	"GMCM.TalentHintLevel.Name": "Talent Hint Level",
+	"GMCM.TalentHintLevel.Desc": "Configures how many talent hints will talent menu give about its unobtained talents.\n'Hidden' hides all talents except ones you bought and unlocked\n'Partial' only hides talents that you haven't unlocked the one before them\n'Full' just shows every talent.",
+	"GMCM.TalentHintLevel.Options.Hidden": "Hidden",
+	"GMCM.TalentHintLevel.Options.Partial": "Partial",
+	"GMCM.TalentHintLevel.Options.Full": "Full",
 	"GMCM.DeveloperOrTestingMode.Name": "Developer Or Testing Mode",
-	"GMCM.DeveloperOrTestingMode.Desc": "This option should be kept turned off by most users."
+	"GMCM.DeveloperOrTestingMode.Desc": "This option should be kept turned off by most users. Enable only if you know what this option does.",
+
+	//Items
+	"Item.Xray.GeodeDrop": "(X-ray Geode Drop: {{dropName}})"
 }

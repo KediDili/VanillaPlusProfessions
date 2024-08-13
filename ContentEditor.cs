@@ -1,5 +1,4 @@
 ﻿using StardewValley.GameData.Locations;
-using StardewValley.GameData.Machines;
 using StardewValley.GameData.Objects;
 using StardewValley;
 using System.Collections.Generic;
@@ -11,162 +10,35 @@ using StardewModdingAPI.Events;
 using StardewValley.GameData.FarmAnimals;
 using StardewValley.GameData.Weapons;
 using StardewValley.Menus;
+using VanillaPlusProfessions.Utilities;
+using System.Data;
+using StardewValley.GameData.GarbageCans;
+using StardewModdingAPI.Utilities;
+using VanillaPlusProfessions.Talents;
 
 namespace VanillaPlusProfessions
 {
-    //Class used to manage professions that are data related.
-    //Classes under VanillaPlusProfessions.Skills namespace are used to manage professions that are not doable without Harmony (or I have a skill issue, which is more likely)
-    //ModEntry and Patches classes contain things that are generic to all professions, both data and code wise, and professions that don't require Harmony.
-    internal static class ContentEditor
+    static class ContentEditor
     {
         private static List<WildTreeItemData> ShakerData = new();
-        private static Dictionary<string, bool?> RangerAdventurerData = new();
-        private static List<MachineOutputRule> ArcheologistData = new();
-        private static List<MachineItemOutput> RecyclerData = new();
-        private static List<SpawnForageData> GleanerData = new();
-        private static List<SpawnForageData> WayfarerData = new();
-        private static Dictionary<string, string> CrafterData = new();
-        private static Dictionary<string, ObjectData> CustomObjectData = new();
         internal static Dictionary<string, string> BuccaneerData = new();
+        internal static Dictionary<string, string> ContentPaths = new();
+
         internal static void Initialize()
         {
             ModEntry.Helper.Events.Content.AssetRequested += OnAssetRequested;
-            ModEntry.Helper.Events.Content.AssetRequested += OnAssetRequested_LowPriority;
             ShakerData = ModEntry.Helper.ModContent.Load<List<WildTreeItemData>>("assets\\ShakerData.json");
-            RangerAdventurerData = ModEntry.Helper.ModContent.Load<Dictionary<string, bool?>>("assets\\RangerAdventurerData.json");
-            ArcheologistData = ModEntry.Helper.ModContent.Load<List<MachineOutputRule>>("assets\\ArcheologistData.json");
-            RecyclerData = ModEntry.Helper.ModContent.Load<List<MachineItemOutput>>("assets\\RecyclerData.json");
-            GleanerData = ModEntry.Helper.ModContent.Load<List<SpawnForageData>>("assets\\GleanerData.json");
-            WayfarerData = ModEntry.Helper.ModContent.Load<List<SpawnForageData>>("assets\\WayfarerData.json");
-            CrafterData = ModEntry.Helper.ModContent.Load<Dictionary<string, string>>("assets\\CrafterData.json");
-            CustomObjectData = ModEntry.Helper.ModContent.Load<Dictionary<string, ObjectData>>("assets\\CustomObjectData.json");
             BuccaneerData = ModEntry.Helper.ModContent.Load<Dictionary<string, string>>("assets\\BuccaneerData.json");
-        }
-        internal static void HandleRecycleMachine(ref IDictionary<string, MachineData> editor)
-        {
-            if (CoreUtility.AnyPlayerHasProfession(44)) //Recycling Machine +/+/+/+/+
+            ContentPaths = new()
             {
-                for (int i = 0; i < editor["(BC)20"].OutputRules.Count; i++)
-                {
-                    switch (editor["(BC)20"].OutputRules[i].Id)
-                    {
-                        case "Default_Trash":
-                            editor["(BC)20"].OutputRules[i].UseFirstValidOutput = false;
-                            editor["(BC)20"].OutputRules[i].OutputItem.Add(RecyclerData[0]);
-                            editor["(BC)20"].OutputRules[i].OutputItem.Add(RecyclerData[1]);
-                            break;
-                        case "Default_Driftwood":
-                            editor["(BC)20"].OutputRules[i].UseFirstValidOutput = false;
-                            editor["(BC)20"].OutputRules[i].OutputItem.Add(RecyclerData[2]);
-                            editor["(BC)20"].OutputRules[i].OutputItem.Add(RecyclerData[3]);
-                            break;
-                        case "Default_SoggyNewspaper":
-                            editor["(BC)20"].OutputRules[i].UseFirstValidOutput = false;
-                            editor["(BC)20"].OutputRules[i].OutputItem.Add(RecyclerData[4]);
-                            editor["(BC)20"].OutputRules[i].OutputItem.Add(RecyclerData[5]);
-                            break;
-                        case "Default_BrokenCd":
-                            editor["(BC)20"].OutputRules[i].UseFirstValidOutput = false;
-                            editor["(BC)20"].OutputRules[i].OutputItem.Add(RecyclerData[6]);
-                            editor["(BC)20"].OutputRules[i].OutputItem.Add(RecyclerData[7]);
-                            break;
-                        case "Default_BrokenGlasses":
-                            editor["(BC)20"].OutputRules[i].UseFirstValidOutput = false;
-                            editor["(BC)20"].OutputRules[i].OutputItem.Add(RecyclerData[8]);
-                            editor["(BC)20"].OutputRules[i].OutputItem.Add(RecyclerData[9]);
-                            break;
-                    }
-                }
-            }
-            if (CoreUtility.AnyPlayerHasProfession(58)) //Recycling Machine
-            {
-                editor["(BC)20"].OutputRules.AddRange(ArcheologistData);
-            }
-        }
-        internal static void HandleFurnaces(ref IDictionary<string, MachineData> editor)
-        {
-            if (CoreUtility.AnyPlayerHasProfession(54)) //Furnace +
-            {
-                //Furnaces require less resources. +
-                editor["(BC)13"].OutputRules[0].Triggers[0].RequiredCount = 3;
-                editor["(BC)13"].OutputRules[1].Triggers[0].RequiredCount = 3;
-                editor["(BC)13"].OutputRules[2].Triggers[0].RequiredCount = 3;
-                editor["(BC)13"].OutputRules[3].Triggers[0].RequiredCount = 3;
-                editor["(BC)13"].OutputRules[7].Triggers[0].RequiredCount = 3;
-
-                if (Game1.versionLabel.Contains("beta"))
-                {
-                    editor["(BC)HeavyFurnace"].OutputRules[0].Triggers[0].RequiredCount = 20;
-                    editor["(BC)HeavyFurnace"].OutputRules[1].Triggers[0].RequiredCount = 20;
-                    editor["(BC)HeavyFurnace"].OutputRules[2].Triggers[0].RequiredCount = 20;
-                    editor["(BC)HeavyFurnace"].OutputRules[3].Triggers[0].RequiredCount = 20;
-                    editor["(BC)HeavyFurnace"].OutputRules[4].Triggers[0].RequiredCount = 4;
-                    editor["(BC)HeavyFurnace"].OutputRules[5].Triggers[0].RequiredCount = 4;
-                    editor["(BC)HeavyFurnace"].OutputRules[7].Triggers[0].RequiredCount = 20;
-                }
-            }
-            if (CoreUtility.AnyPlayerHasProfession(56)) //Furnace +
-            {
-                for (int i = 0; i < 8; i++)
-                {
-                    editor["(BC)13"].OutputRules[i].MinutesUntilReady *= 3 / 4;
-                    if (Game1.versionLabel.Contains("beta"))
-                    {
-                        editor["(BC)HeavyFurnace"].OutputRules[i].MinutesUntilReady *= 3 / 4;
-                    }
-                }
-            }
-        }
-        internal static void HandleCropBasedMachinery(ref IDictionary<string, MachineData> editor)
-        {
-            if (CoreUtility.AnyPlayerHasProfession(34)) //Preserves Jar, Keg, Oil maker, Cask
-            {
-                //12 keg
-                for (int i = 0; i < editor["(BC)15"].OutputRules.Count; i++)
-                    if (!editor["(BC)15"].OutputRules[i].Id.Contains("Roe")) //Preserves Jar +
-                        editor["(BC)15"].OutputRules[i].MinutesUntilReady *= 3 / 4;
-
-                for (int i = 0; i < editor["(BC)12"].OutputRules.Count; i++) //Keg +
-                    editor["(BC)12"].OutputRules[i].MinutesUntilReady *= 3 / 4;
-
-                for (int i = 0; i < editor["(BC)19"].OutputRules.Count; i++)
-                    if (!editor["(BC)19"].OutputRules[i].Id.Contains("Truffle")) //Oil maker +
-                        editor["(BC)19"].OutputRules[i].MinutesUntilReady *= 3 / 4;
-            }
-        }
-        internal static void HandleAnimalProductMachinery(ref IDictionary<string, MachineData> editor)
-        {
-            if (CoreUtility.AnyPlayerHasProfession(30)) //Mayonnaise Machine/Loom ++
-            {
-                for (int i = 0; i < editor["(BC)17"].OutputRules.Count; i++)
-                    editor["(BC)17"].OutputRules[i].OutputItem[0].MaxStack++;
-
-                for (int i = 0; i < editor["(BC)24"].OutputRules.Count; i++)
-                    if (!editor["(BC)24"].OutputRules[i].Id.Contains("Ostrich"))
-                        editor["(BC)24"].OutputRules[i].OutputItem[0].MaxStack++;
-            }
-            if (CoreUtility.AnyPlayerHasProfession(32)) //Cheese Press/Loom + + +
-            {
-                if (Game1.player?.professions.Contains(30) is false)
-                    for (int i = 0; i < editor["(BC)17"].OutputRules.Count; i++)
-                        editor["(BC)17"].OutputRules[i].MinutesUntilReady *= 3 / 4;
-
-                for (int i = 0; i < editor["(BC)16"].OutputRules.Count; i++)
-                    editor["(BC)16"].OutputRules[i].MinutesUntilReady *= 3 / 4;
-
-                for (int i = 0; i < editor["(BC)24"].OutputRules.Count; i++)
-                {
-                    if (editor["(BC)24"].OutputRules[i].Id.Contains("Ostrich"))
-                    {
-                        editor["(BC)24"].OutputRules[i].MinutesUntilReady *= 3 / 4;
-                        break;
-                    }
-                }
-
-                //17 loom
-                //16 cheese press
-                //24 mayonnaise machine -- only ostrich eggs
-            }
+                { "ItemSpritesheet", "TileSheets/Kedi.VPP.Items" },
+                { "ProfessionIcons", "VanillaPlusProfessions/ProfessionIcons" },
+                { "InsiderInfo", "VanillaPlusProfessions/InsiderInfo" },
+                { "TalentBG", "VanillaPlusProfessions/TalentBG" },
+                { "TalentSchema", "VanillaPlusProfessions/TalentSchema" },
+                { "BundleIcons", "VanillaPlusProfessions/BundleIcons" },
+                { "SkillBars", "VanillaPlusProfessions/SkillBars" },
+            };
         }
         internal static void HandleWildTrees(ref IDictionary<string, WildTreeData> editor)
         {
@@ -185,28 +57,41 @@ namespace VanillaPlusProfessions
                 foreach (var item in editor)
                     if (item.Value.GrowthChance * 3 / 2 <= 1)
                         item.Value.GrowthChance *= 3 / 2;
+            WildTreeChopItemData data = new()
+            {
+                Id = "Kedi.VPP.NatureTalents",
+                ItemId = "RANDOM_ITEMS (O)",
+                ForStump = false,
+                PerItemCondition = "ITEM_CONTEXT_TAG Target category_forage",
+                Condition = "PLAYER_HAS_MAIL Current Foraging_Nature_Secrets"
+            };
+            foreach (var item in editor)
+            {
+                item.Value.ChopItems ??= new();
+                item.Value.ChopItems.Add(data);
+            }
         }
         internal static void HandleObjects(ref IDictionary<string, ObjectData> editor)
         {
             if (CoreUtility.CurrentPlayerHasProfession(50)) //Ranger ++
             {
-                foreach (var item in RangerAdventurerData)
-                    if (item.Value is not false)
-                        editor[item.Key].Price *= 2;
+                var list = (from element in editor
+                            where element.Value.Category == Object.GreensCategory && element.Value.ContextTags.Contains("forage_item")
+                            select element.Key).ToList();
+                for (int i = 0; i < list.Count; i++)
+                {
+                    editor[list[i]].Price *= 2;
+                }
             }
             if (CoreUtility.CurrentPlayerHasProfession(51)) //Adventurer ++
             {
-                foreach (var item in RangerAdventurerData)
-                    if (item.Value is true)
-                        editor[item.Key].Price *= 2;
-            }
-            if (CoreUtility.CurrentPlayerHasProfession(55)) //Ironmonger ++
-            {
-                var ores = from KeyValuePair<string, ObjectData> item in editor
-                           where item.Value.Name.ToLower().EndsWith("ore")
-                           select item;
-                foreach (var ore in ores)
-                    editor[ore.Key].Price *= 2;
+                var list = (from element in editor
+                           where element.Value.Category == Object.sellAtFishShopCategory || element.Value.ContextTags.Contains("forage_item_beach") || element.Value.ContextTags.Contains("forage_item_secret") || element.Value.ContextTags.Contains("forage_item_mines")
+                           select element.Key).ToList();
+                for (int i = 0; i < list.Count; i++)
+                {
+                    editor[list[i]].Price *= 2;
+                }
             }
             if (CoreUtility.CurrentPlayerHasProfession(59)) //Mineralogist
             {
@@ -217,44 +102,88 @@ namespace VanillaPlusProfessions
                 editor["537"].GeodeDrops = editor["749"].GeodeDrops;
                 editor["536"].GeodeDrops = editor["749"].GeodeDrops;
                 editor["535"].GeodeDrops = editor["749"].GeodeDrops;
-            }
-            CustomObjectData["Kedi.SMP.FruitSyrup"].Description = ModEntry.Helper.Translation.Get("Item.Syrup.Description");
-            CustomObjectData["Kedi.SMP.GemDust"].Description = ModEntry.Helper.Translation.Get("Item.Dust.Description");
-
-            CustomObjectData["Kedi.SMP.FruitSyrup"].DisplayName = ModEntry.Helper.Translation.Get("Item.Syrup.DisplayName");
-            CustomObjectData["Kedi.SMP.GemDust"].DisplayName = ModEntry.Helper.Translation.Get("Item.Dust.DisplayName");
-
-            foreach (var item in CustomObjectData)
+            }            
+            if (TalentUtility.CurrentPlayerHasTalent("Fishing_Roemance"))
             {
-                editor.Add(item.Key, item.Value);
+                editor["812"].Price *= 5 / 4;
             }
+            if (TalentUtility.CurrentPlayerHasTalent("Misc_HauteCuisine"))
+            {
+                foreach (var item in editor)
+                    if (item.Value.Category == Object.CookingCategory)
+                        item.Value.Price *= 2;
+            }
+            if (TalentUtility.CurrentPlayerHasTalent("Misc_InsiderInfo"))
+            {
+                Dictionary<string, string> InsiderInfo = ModEntry.Helper.GameContent.Load<Dictionary<string, string>>(ContentPaths["InsiderInfo"]);
+                foreach (var item in InsiderInfo)
+                {
+                    if (Game1.player.friendshipData.TryGetValue(item.Key, out Friendship val) && val.Points >= 1500)
+                    {
+                        string[] items = ArgUtility.SplitBySpace(item.Value.Replace(",", " "));
+                        for (int i = 0; i < items.Length; i++)
+                        {
+                            editor[items[i]].Price = (int)(editor[items[i]].Price * 0.8f);
+                        }
+                    }
+                }
+            }
+            editor["420"].ContextTags.Add(TalentCore.ContextTag_PoisonousMushroom);
         }
         internal static void HandleLocations(ref IDictionary<string, LocationData> editor)
         {
-            if (CoreUtility.AnyPlayerHasProfession(52)) //+
+            if (TalentUtility.AnyPlayerHasTalent("Foraging_Clear_As_Mud") || (TalentUtility.AnyPlayerHasTalent("Fishing_Crab_Rave") && Game1.MasterPlayer?.isWearingRing("(O)810") is true))
             {
-                editor["Forest"].Forage.AddRange(GleanerData);
-                editor["Backwoods"].Forage.AddRange(GleanerData);
-                editor["Mountain"].Forage.AddRange(GleanerData);
+                foreach (var loc in editor)
+                {
+                    if (TalentUtility.HostHasTalent("Fishing_Crab_Rave") && Game1.MasterPlayer?.isWearingRing("(O)810") is true)
+                    {
+                        foreach (var fish in loc.Value.Fish)
+                        {
+                            if (fish.Chance * 2 <= 1f && fish.ItemId is "(O)717" or "(O)716" or "(O)715")
+                            {
+                                fish.Chance *= 2;
+                            }
+                        }
+                    }
+                    if (TalentUtility.HostHasTalent("Foraging_Clear_As_Mud"))
+                    {
+                        loc.Value.ChanceForClay = 0.1;
+                    }
+                }
             }
-            if (CoreUtility.AnyPlayerHasProfession(53)) //+
+            if (TalentUtility.AnyPlayerHasTalent("Foraging_Sea_Change") && Game1.Date?.DayOfWeek is System.DayOfWeek.Friday)
             {
-                editor["Forest"].Forage.AddRange(WayfarerData);
-                editor["Backwoods"].Forage.AddRange(WayfarerData);
-                editor["Mountain"].Forage.AddRange(WayfarerData);
+                editor["Beach"].MaxDailyForageSpawn *= 2;
+                editor["Beach"].MaxSpawnedForageAtOnce *= 2;
+                foreach (var item in editor["Beach"].Forage)
+                {
+                    if (item.Chance * 2 < 1)
+                        item.Chance *= 2;
+                    else
+                        item.Chance = 1;
+                }
             }
-        }
-        internal static void HandleCraftingRecipes(ref IDictionary<string,string> editor)
-        {
-            if (CoreUtility.CurrentPlayerHasProfession(57)) //Crafter ++
+            if (TalentUtility.AnyPlayerHasTalent("Foraging_Renewing_Mist") && !Game1.isFestival())
             {
-                foreach (var item in CrafterData)
-                    editor[item.Key] = item.Value;
+                foreach (var item in Game1.locations)
+                {
+                    if (GameStateQuery.CheckConditions($"{ModEntry.Manifest.UniqueID}_WasRainingHereYesterday", item))
+                    {
+                        var data = item.GetData();
+                        if (data is not null && item.currentEvent?.isFestival is false)
+                        {
+                            data.MaxDailyForageSpawn *= 2;
+                            data.MinDailyForageSpawn *= 2;
+                            data.MaxSpawnedForageAtOnce *= 2;
+                        }
+                    }
+                }
             }
         }
         internal static void HandlFishPonds(ref List<FishPondData> editor)
         {
-            if (CoreUtility.AnyPlayerHasProfession(42)) //
+            if (CoreUtility.AnyPlayerHasProfession(42))
             {
                 for (int i = 0; i < editor.Count; i++)
                 {
@@ -269,31 +198,32 @@ namespace VanillaPlusProfessions
                 }
             }
         }
-        [EventPriority(EventPriority.Low - 1)]
-        private static void OnAssetRequested_LowPriority(object sender, AssetRequestedEventArgs e)
+
+        internal static void HandleGiftTastes(ref IDictionary<string, string> editor)
         {
-            if (e.NameWithoutLocale.IsEquivalentTo("LooseSprites/Cursors"))
+            if (TalentUtility.AnyPlayerHasTalent("Mining_Everyones_Best_Friend"))
+            {
+                editor["Universal_Love"] += " 72 565 564 562 563 578";
+            }
+        }
+        private static void OnAssetRequested(object sender, AssetRequestedEventArgs e)
+        {
+            if (e.NameWithoutLocale.IsEquivalentTo(PathUtilities.NormalizeAssetName("LooseSprites/Cursors")))
             {
                 e.Edit(asset =>
                 {
                     var editor = asset.AsImage();
-                    if (Game1.activeClickableMenu is LevelUpMenu)
+                    if (Game1.activeClickableMenu is LevelUpMenu && !DisplayHandler.WasSkillMenuRaised.Value)
+                    {
                         editor.PatchImage(DisplayHandler.ProfessionIcons, null, new(0, 704, 96, 144));
+                    }
 
                     if (ModEntry.ModConfig.Value.ColorBlindnessChanges)
                         editor.PatchImage(DisplayHandler.SkillIcons, new(0, 18, 43, 9), new(129, 338, 43, 9));
 
                 }, AssetEditPriority.Late);
             }
-        }
-        [EventPriority(EventPriority.High + 1)]
-        private static void OnAssetRequested(object sender, AssetRequestedEventArgs e)
-        {
-            if (e.NameWithoutLocale.IsEquivalentTo("TileSheets\\Kedi.SMP.Items"))
-            {
-                e.LoadFromModFile<Texture2D>("assets\\ItemIcons.png", AssetLoadPriority.Exclusive);
-            }
-            if (e.NameWithoutLocale.IsEquivalentTo("Strings/UI"))
+            if (e.NameWithoutLocale.IsEquivalentTo(PathUtilities.NormalizeAssetName("Strings/UI")))
             {
                 e.Edit(asset =>
                 {
@@ -306,7 +236,26 @@ namespace VanillaPlusProfessions
                     }
                 });
             }
-            if (e.NameWithoutLocale.IsEquivalentTo("Data/Objects"))
+            if (e.NameWithoutLocale.IsEquivalentTo(PathUtilities.NormalizeAssetName("Strings/1_6_Strings")) && ModEntry.ModConfig.Value.MasteryCaveChanges)
+            {
+                e.Edit(asset =>
+                {
+                    var editor = asset.AsDictionary<string,string>();
+
+                    editor.Data["MasteryCave"] = ModEntry.Helper.Translation.Get("Message.MasteryCave");
+
+                });
+            }
+            if (e.NameWithoutLocale.IsEquivalentTo(PathUtilities.NormalizeAssetName("Data/NPCGiftTastes")))
+            {
+                e.Edit(asset =>
+                {
+                    var editor = asset.AsDictionary<string, string>().Data;
+
+                    HandleGiftTastes(ref editor);
+                });
+            }
+            if (e.NameWithoutLocale.IsEquivalentTo(PathUtilities.NormalizeAssetName("Data/Objects")))
             {
                 e.Edit(asset =>
                 {
@@ -315,19 +264,7 @@ namespace VanillaPlusProfessions
                     HandleObjects(ref editor);
                 });
             }
-            if (e.NameWithoutLocale.IsEquivalentTo("Data/Machines"))
-            {
-                e.Edit(asset =>
-                {
-                    var editor = asset.AsDictionary<string, MachineData>().Data;
-
-                    HandleAnimalProductMachinery(ref editor);
-                    HandleCropBasedMachinery(ref editor);
-                    HandleFurnaces(ref editor);
-                    HandleRecycleMachine(ref editor);
-                });
-            }
-            if (e.NameWithoutLocale.IsEquivalentTo("Data/WildTrees"))
+            if (e.NameWithoutLocale.IsEquivalentTo(PathUtilities.NormalizeAssetName("Data/WildTrees")))
             {
                 e.Edit(asset =>
                 {
@@ -335,7 +272,7 @@ namespace VanillaPlusProfessions
                     HandleWildTrees(ref editor);
                 });
             }
-            if (e.NameWithoutLocale.IsEquivalentTo("Data/FishPondData"))
+            if (e.NameWithoutLocale.IsEquivalentTo(PathUtilities.NormalizeAssetName("Data/FishPondData")))
             {
                 e.Edit(asset =>
                 {
@@ -343,7 +280,7 @@ namespace VanillaPlusProfessions
                     HandlFishPonds(ref editor);
                 });
             }
-            if (e.NameWithoutLocale.IsEquivalentTo("Data/Weapons") && CoreUtility.CurrentPlayerHasProfession(67))
+            if (e.NameWithoutLocale.IsEquivalentTo(PathUtilities.NormalizeAssetName("Data/Weapons")) && CoreUtility.CurrentPlayerHasProfession(67))
             {
                 e.Edit(asset =>
                 {
@@ -353,27 +290,28 @@ namespace VanillaPlusProfessions
                         item.Value.Speed *= 2;
                 });
             }
-            if (e.NameWithoutLocale.IsEquivalentTo("Data/FarmAnimals") && CoreUtility.CurrentPlayerHasProfession(31))
+            if (e.NameWithoutLocale.IsEquivalentTo(PathUtilities.NormalizeAssetName("Data/FarmAnimals")))
             {
                 e.Edit(asset =>
                 {
-                    var editor = asset.AsDictionary<string, FarmAnimalData>();
+                    var editor = asset.AsDictionary<string, FarmAnimalData>().Data;
 
-                    foreach (var animal in editor.Data)
-                        if (animal.Value.House.EndsWith("Coop"))
-                            animal.Value.SellPrice *= 2;
+                    if (CoreUtility.CurrentPlayerHasProfession(31))
+                    {
+                        var list = from animal in editor
+                                   where animal.Value.House is "Coop" or "Big Coop" or "Deluxe Coop"
+                                   select animal.Key;
+                        foreach (var animal in list)
+                            editor[animal].SellPrice *= 2;
+                    }
+                    if (TalentUtility.AnyPlayerHasTalent("Farming_Breed_Like_Rabbits"))
+                    {
+                        editor["Rabbit"].CanGetPregnant = true;
+                        editor["Rabbit"].BirthText = ModEntry.Helper.Translation.Get("Message.RabbitBirth");
+                    }
                 });
             }
-            if (e.NameWithoutLocale.IsEquivalentTo("Data/CraftingRecipes"))
-            {
-                e.Edit(asset =>
-                {
-                    var editor = asset.AsDictionary<string, string>().Data;
-
-                    HandleCraftingRecipes(ref editor);
-                });
-            }
-            if (e.NameWithoutLocale.IsEquivalentTo("Data/Locations"))
+            if (e.NameWithoutLocale.IsEquivalentTo(PathUtilities.NormalizeAssetName("Data/Locations")))
             {
                 e.Edit(asset =>
                 {
@@ -381,6 +319,39 @@ namespace VanillaPlusProfessions
 
                     HandleLocations(ref editor);
                 });
+            }
+
+            if (e.NameWithoutLocale.IsEquivalentTo(ContentPaths["InsiderInfo"]))
+            {
+                e.LoadFrom(() => new Dictionary<string, string>(), AssetLoadPriority.Exclusive);
+            }
+            if (e.NameWithoutLocale.IsEquivalentTo(ContentPaths["ItemSpritesheet"]))
+            {
+                e.LoadFromModFile<Texture2D>(PathUtilities.NormalizePath("assets\\ItemIcons.png"), AssetLoadPriority.Exclusive);
+            }
+            
+            if (e.NameWithoutLocale.IsEquivalentTo(ContentPaths["SkillBars"]))
+            {
+                e.LoadFromModFile<Texture2D>(PathUtilities.NormalizePath("assets\\skillbars.png"), AssetLoadPriority.Exclusive);
+            }
+            
+            if (e.NameWithoutLocale.IsEquivalentTo(ContentPaths["ProfessionIcons"]))
+            {
+                e.LoadFromModFile<Texture2D>(PathUtilities.NormalizePath("assets\\ProfessionIcons.png"), AssetLoadPriority.Exclusive);
+            }
+            
+            if (e.NameWithoutLocale.IsEquivalentTo(ContentPaths["TalentBG"]))
+            {
+                e.LoadFromModFile<Texture2D>(PathUtilities.NormalizePath("assets\\TalentBG.png"), AssetLoadPriority.Exclusive);
+            }
+
+            if (e.NameWithoutLocale.IsEquivalentTo(ContentPaths["TalentSchema"]))
+            {
+                e.LoadFromModFile<Texture2D>(PathUtilities.NormalizePath("assets\\TalentSchema.png"), AssetLoadPriority.Exclusive);
+            }
+            if (e.NameWithoutLocale.IsEquivalentTo(ContentPaths["BundleIcons"]))
+            {
+                e.LoadFromModFile<Texture2D>(PathUtilities.NormalizePath("assets\\BundleIcons.png"), AssetLoadPriority.Exclusive);
             }
         }
     }

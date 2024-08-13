@@ -20,18 +20,46 @@ Please click one of the titles to jump between sections.
 # Skill Changes
 Following is the changes VPP adds for skills:
 - Changes the skill leveling limit to be 20 instead of 10
-- Adds an overlay in skills page to display your progress (Shown only if you have at least one vanilla skill above level 10)
+- Adds an overlay in skills page to display your progress (Shown only if you have at least one skill above level 10)
 - Adds craftables between levels 11-14 and 16-19 (Vanilla skills only)
-- Locks Mastery Cave to be behind leveling up all skills to level 20.
+- Locks Mastery Cave to be behind leveling up all skills to level 20. (Can be changed via config.json or GMCM menu)
+
+## New Skill Levels
+VPP changes the highest skill level for vanilla skills to 20 from 10. This is not configurable due to a lot of mod features rely on this.
+The vanilla and custom level experiences needed are listed below.
+
+| Level | Experience Needed | Total Experience |
+|:-----:|:-----------------:|:----------------:|
+|1      | +100              | 100              |
+|2      | +280              | 380              |
+|3      | +390              | 770              |
+|4      | +530              | 1300             |
+|5      | +850              | 2150             |
+|6      | +1150             | 3300             |
+|7      | +1500             | 4800             |
+|8      | +2100             | 6900             |
+|9      | +3100             | 10000            |
+|10     | +5000             | 15000            |
+|11     | +6000             | 21000            |
+|12     | +7000             | 28000            |
+|13     | +8000             | 36000            |
+|14     | +9000             | 45000            |
+|15     | +10000            | 55000            |
+|16     | +11000            | 66000            |
+|17     | +12000            | 78000            |
+|18     | +13000            | 91000            |
+|19     | +14000            | 105000           |
+|20     | +15000            | 120000           |
 
 # Professions
 VPP adds a total of 50 professions for all vanilla skills:
 - 40 of these can be chosen at level 15 but your options will depend on what have you chosen at level 5 and 10. 
 - The rest 10 of them (which are named Combined or Combo Professions) can be chosen at level 20, but will ignore what you chose at levels 5, 10 and 15.
 
-Every profession you see with '(Lv15)' might be chosen at level 15, and '(Lv20)' means that it will appear in level 20.
+Every profession you see with '(Lv15)' can be chosen at level 15, and '(Lv20)' means that it will appear in level 20.
 
 ## Farming Professions
+
 ### Nutritionist (Lv15)
 Machines that take coop animal goods have a chance to double their output. (Machinery as in Mayonnaise machine or loom, but VPP doesn't try to keep track of wool comes from whether a sheep or a rabbit as that'd require effort that isn't worth it imho.)
 
@@ -75,13 +103,21 @@ For Mod Authors: Crop modders do not have to do anything, but for mods that add 
 ### Farming-Mining (Lv20)
 This profession allows you to use the Geode Crusher to produce Gem Dusts out of minerals, which you can use in place of fertilizers (gem dusts are affected by Agronomist profession as well.)
 Which type of effect they give depends on their price and color:
-- Greenish colors, black and dark brown: Tree fertilizer behaivor
-- Red, purple and pink colors: Speed-Gro behaivor
-- Orange, yellow, brown: Quality Fertilizer behaivor
-- Blue, cyan, white and gray: Retaining Soil behaivor
-- Price lower than 120g: Low-level fertilizer behaivor (doesn't affect green gem dusts)
-- Price between 120g and 280g: Mid-level fertilizer behaivor (doesn't affect green gem dusts)
-- Price higher than 280g: High-level fertilizer behaivor (doesn't affect green gem dusts)
+
+| Color                  | Effect             |
+|:----------------------:|:------------------:|
+| Green\black\dark brown | Tree Fertilizer    |
+| Red\Purple\pink        | Speed-Gro          |
+| Orange\Yellow\Brown    | Quality Fertilizer |
+| Blue\Cyan\White\gray   | Retaining Soil     |
+
+| Price Range      | Strength Of Effect |
+|:----------------:|:------------------:|
+| < 120g           | Low[^3]            |
+| >= 120g & <=280g | Medium[^3]         |
+| > 280g           | High[^3]           |
+
+[^3]: Doesn't affect Tree Fertilizer Gem Dusts
 
 For Mod Authors: If you add custom minerals, they should have an appropriate color tag and be in the minerals category. If both of those are met, VPP will make gem dusts of your custom mineral too.
 ### Farming-Foraging (Lv20)
@@ -90,6 +126,7 @@ You can now tap any giant crop and fruit tree with any tapper. Every 5 days that
 
 - For Mod Authors: If you want your fruit tree or giant crop to give a custom item instead of a Fruit Syrup, you should add an entry like ``"Kedi.VPP.DoesUseCustomItem": "Example.ModID_UnqualifiedItemID"`` to the fruit tree/giant crop data's CustomFields. Otherwise you don't have to do anything other than giving your fruit tree or giant crop at least one fruit/crop.
 ## Fishing Professions
+
 ### Oceanologist (Lv15)
 Attaching bait to a fishing rod will prevent trash from being caught.
 If the first catch is a trash item, the catch determination process is re-run up to 100 times, then the mod lets it go to prevent infinite loops even if its a trash.
@@ -107,64 +144,67 @@ For Mod Authors: There's nothing you should do to add compatibility with this pr
 ### Buccaneer (Lv15)
 Treasure chests contain rarer and more valuable items.
 Some drops will be switched with others upon fishing these treasures with a rod. The artifact drops will be replaced only if you have donated them to the museum already. Full drops are explained below:
-- Fire Quartz -> Fire Opal
-- Earth Crystal & Glass Shards -> Refined Quartz
-- Stone -> Ocean Stone
-- Wood -> Hardwood
-- Copper Ore -> Gold Ore
-- Iron Ore -> Iridium Ore
-- Coal and Rare Disc -> Neptunite
-- Small Glow Ring -> Glow Ring
-- Small Magnet Ring -> Magnet Ring
-- Geode, Frozen Geode & Magma Geode -> Omni Geode
-- Regular Bait -> Deluxe Bait
-- Dwarf Scrolls -> One of Ruby, Emerald, Aquamarine or Topaz, depending on the color
-- Chipped Amphora -> Junimo Pot (furniture from junimo catalogue)
-- Arrowhead -> Magic Quiver**
-- Ancient/Strange Dolls -> Ancient/Strange Doll Shirt
-- Chewing Stick -> Magic Rock Candy
-- Ornamental Fan -> Fairy Box**
-- Ancient Sword & Broken Trident -> Wicked Kris
-- Rusty Spoon -> Energy Tonic
-- Rusty Spur -> Golden Spur**
-- Rusty Cog -> Copper Bar
-- Chicken Statue -> Parrot Egg**
-- Prehistoric Tool -> Ice Rod**
-- Dried Starfish -> Junimo Star (furniture from junimo catalogue)
-- Anchor (the artifact) -> Anchor (the wall decor)
-- Bone Flute -> Flute Block
-- Prehistoric Handaxe -> Miner's Crest (wall decor)
-- Dwarvish Helm -> Wearable Dwarf Helmet
-- Dwarf Gadget -> Battery Pack
-- Ancient Drum -> Drum Block
-- Prehistoric Scapula -> Deluxe Fertilizer
-- Prehistoric Tibia -> Bone Sword
-- Prehistoric Skull -> Skeleton Shirt
-- Skeletal Hand -> Basilisk Paw**
-- Prehistoric Rib -> Tree Fertilizer
-- Prehistoric Vertebra -> Deluxe Retaining Soil
-- Skeletal Tail -> Hyper Speed-Gro
-- Nautilus Fossil -> Nautilus Shell
-- Amphibian Fossil -> Frog Egg**
-- Palm Fossil -> Golden Coconut
-- Triobite -> Crab
-- Sneakers -> Mermaid Boots
-- Rubber Boots -> Dragonscale Boots
-- Leather Boots -> Crystal Shoes
-- Work Boots -> Pirate Hat
-- Combat Boots -> Eye Patch (hat)
-- Tundra Boots -> Swashbuckler Hat
-- Thermal Boots -> Cinderclown Shoes
--	Amethyst Ring -> Lucky Ring
--	Topaz Ring -> Hot Java Ring
-- Aquamarine Ring -> Protection Ring
--	Jade Ring -> Soul Sapper Ring
--	Emerald Ring -> Phoenix Ring
--	Ruby Ring -> Immunity Band
--	Neptune's Glaive -> Obsidian Edge
 
-** if you aren't eligible for obtaining trinkets yet, you'll still get the artifact even if you donated it.
-
+| Old Loot   | New Loot  |
+|:----------:|:---------:|
+| Fire Quartz | Fire Opal |
+| Earth Crystal\Glass Shards | Refined Quartz |
+| Stone | Ocean Stone |
+| Wood | Hardwood |
+| Copper Ore | Gold Ore |
+| Iron Ore | Iridium Ore |
+| Coal\Rare Disc | Neptunite |
+| Small Glow Ring | Glow Ring |
+| Small Magnet Ring | Magnet Ring |
+| Geode\Frozen Geode\Magma Geode | Omni Geode |
+| Regular Bait | Deluxe Bait |
+| Dwarf Scrolls | One of Ruby, Emerald, Aquamarine or Topaz |
+| Chipped Amphora | Junimo Pot (Furniture) |
+| Arrowhead | Magic Quiver[^1] |
+| Ancient/Strange Dolls | Ancient/Strange Doll Shirt |
+| Chewing Stick | Magic Rock Candy |
+| Ornamental Fan | Fairy Box[^1] |
+| Ancient Sword\Broken Trident | Wicked Kris |
+| Rusty Spoon | Energy Tonic |
+| Rusty Spur | Golden Spur[^1] |
+| Rusty Cog | Copper Bar |
+| Chicken Statue | Parrot Egg[^1] |
+| Prehistoric Tool | Ice Rod[^1] |
+| Dried Starfish | Junimo Star (furniture) |
+| Anchor (the artifact) | Anchor (the wall decor) |
+| Bone Flute | Flute Block |
+| Prehistoric Handaxe | Miner's Crest (wall decor) |
+| Dwarvish Helm | Wearable Dwarf Helmet |
+| Dwarf Gadget | Battery Pack |
+| Ancient Drum | Drum Block |
+| Prehistoric Scapula | Deluxe Fertilizer |
+| Prehistoric Tibia | Bone Sword |
+| Prehistoric Skull | Skeleton Shirt |
+| Skeletal Hand | Basilisk Paw[^1] |
+| Prehistoric Rib | Tree Fertilizer |
+| Prehistoric Vertebra | Deluxe Retaining Soil |
+| Skeletal Tail | Hyper Speed-Gro |
+| Nautilus Fossil | Nautilus Shell |
+| Amphibian Fossil | Frog Egg[^1] |
+| Palm Fossil | Golden Coconut |
+| Triobite | Crab |
+| Sneakers | Mermaid Boots |
+| Rubber Boots | Dragonscale Boots |
+| Leather Boots | Crystal Shoes |
+| Work Boots | Pirate Hat |
+| Combat Boots | Eye Patch (hat) |
+| Tundra Boots | Swashbuckler Hat |
+| Thermal Boots | Cinderclown Shoes |
+| Amethyst Ring | Lucky Ring |
+| Topaz Ring | Hot Java Ring |
+| Aquamarine Ring | Protection Ring |
+| Jade Ring | Soul Sapper Ring |
+| Emerald Ring | Phoenix Ring |
+| Ruby Ring | Immunity Band |
+| Neptune's Glaive | Obsidian Edge |
+ 
+[^1]: if you aren't eligible for obtaining trinkets yet, you'll still get the artifact even if you donated it.
+ 
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 ### Aquaculturalist (Lv15)
 Chance for fish ponds to produce double roe.
@@ -178,11 +218,13 @@ For Mod Authors: There's nothing you should do to add compatibility with this pr
 ### Recycler (Lv15)
 Chance for recycled trash to produce various tackles.
 There's a chance that putting trash in recycling machine will output tackles. Full drops are explained below:
-- Trash -> Lead Bobber (%25) or Sonar Bobber (%10)
-- Soggy Newspaper -> Trap Bobber (%25) or Treasure Hunter (%10)
-- Broken Glasses -> Barbed Hook (%25) or Curiosity Lure (%10)
-- Broken CD -> Spinner (%25) or Dressed Spinner (%10)
-- Driftwood -> Cork Bobber (%25) or Quality Bobber (%10)
+| Type of Trash   | Possible Drop |
+|:---------------:|:-------------:|
+| Trash           | Lead Bobber (%25)\Sonar Bobber (%10)|
+| Soggy Newspaper | Trap Bobber (%25)\Treasure Hunter (%10)|
+| Broken Glasses  | Trap Bobber (%25)\Treasure Hunter (%10)|
+| Broken CD       | Spinner (%25)\Dressed Spinner (%10)|
+| Driftwood       | Cork Bobber (%25)\Quality Bobber (%10)|
 
 For Mod Authors: If you aren't adding custom tackles, this shouldn't matter for your mod. If so, you should add machine rules to Recycling Machine to give your tackle as output. VPP adds rules for vanilla tackles, with a chance of %25 for common ones and %10 for rarer ones. You can use the ``HasProfession`` token to detect if the player has this profession.
 ### Hydrologist (Lv15)
@@ -197,17 +239,19 @@ Fish ponds that are full will ask for quest items, just as they did while wantin
 For Mod Authors: Your fish must have at least one ``PopulationGate`` entry to be compatible with this profession.
 ### Fishing-Mining (Lv20)
 Gems can be used as tackles.
-Every vanilla gem will act like a certain vanilla tackle when placed to the fishing rod. The matches are:
-- Prismatic shard -> Curiosity Lure
-- Diamond -> Quality Bobber
-- Ruby -> Treasure Hunter
-- Emerald -> Barbed Hook
-- Jade -> Trap Bobber
-- Aquamarine -> Lead Bobber
-- Amethyst -> Dressed Spinner
-- Topaz -> Cork Bobber
+Every vanilla gem will act like a certain vanilla tackle when placed to the fishing rod[^2]. The matches are:
+| Gem           | Tackle it Acts Like |
+|:-------------:|:-------------------:|
+|Prismatic Shard| Curiosity Lure      |
+|Diamond        | Quality Bobber      |
+|Ruby           | Treasure Hunter     |
+|Emerald        | Barbed Hook         |
+|Jade           | Trap Bobber         |
+|Aquamarine     | Lead Bobber         |
+|Amethyst       | Dressed Spinner     |
+|Topaz          | Cork Cobber         |
 
-**After being used at least once, they WILL NOT stack with other gems, even if they're of the same type!**
+[^2]: After being used at least once, they WILL NOT stack with other gems, even if they're of the same type!
 
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 ## Foraging Professions
@@ -223,27 +267,40 @@ For Mod Authors: You can add items as drops for your custom wild trees' ``ShakeI
 Tappers work faster.
 All tappers will output %20 faster.
 
-For Mod Authors: If you add custom tappers, add ``tapper_multiplier_<speed>`` context tag to your item. Vanilla takes the speed bit and sets the minutes-until-ready to `` daysUntilReady * 1 / speed``. You can use the ``HasProfession`` token to see if the player has the profession.
+For Mod Authors: If you add custom tappers, add ``tapper_multiplier_<speed>`` context tag to your item. Vanilla takes the speed bit and sets the minutes-until-ready to ``daysUntilReady x 1 / speed`` . You can use the ``HasProfession`` token to see if the player has the profession.
 ### Orchardist (Lv15)
 Tappers give double harvest.
 
 For Mod Authors: There's nothing you need to do to add compatibility with this profession.
 ### Ranger (Lv15)
-Forest forage worth more.
+Forest forage worth more. The prices will be doubled.
 
+For Mod Authors: If you add custom forage, make its category -81 (greens category) and add the ``forage_item`` context tag if you want it to be affected by this.
 ### Adventurer (Lv15)
-Non-forest forage worth more.
+Non-forest forage worth more. The prices will be doubled.
 
+For Mod Authors: If you add custom forage, make its category -23 ("to-be sold at Willy's" category) OR add any of ``forage_item_beach``, ``forage_item_secret``, ``forage_item_mines`` context tags if you want it to be affected by this.
 ### Gleaner (Lv15)
 Crop seeds can be found as forage.
+
+Any vanilla seed may be found during their growing seasons in Forest, Mountain and Backwoods. (VPP will only affect vanilla seeds, but other mods can add theirs too.)
+
+For Mod Authors: If you add custom crops, you can add your seeds as forage with a chance of 0.1, if you wish.
 
 ### Wayfarer (Lv15)
 Chance for forage to be found out of season.
 
+Any vanilla forage may be found OUT OF their regular seasons as well, for example a Holly may appear in Summer, Fall and Spring as well with this profession.
+VPP affects only vanilla forage on its own, but other mods may add theirs too.
+
+For Mod Authors: If you add custom forage, you can add your forage with a chance of 0.1 out of their regular seasons, if you wish.
+
 ### Foraging-Fishing (Lv20)
 Every four days, a randomly-selected forage item will be able to summon fishing bubbles when tossed in the water.
 
-For Mod Authors: If you want your forage to be included by this, make sure it has the ``forage_item`` context tag. If you want your forage to be excluded, make sure it has ``vpp_forageThrowGame_banned`` context tag.
+For Mod Authors: If you want your forage to be included by this, make sure it has the ``forage_item`` context tag.
+If you want your forage to be excluded, make sure it has ``vpp_forageThrowGame_banned`` context tag.
+
 ### Foraging-Combat (Lv20)
 Off-screen monsters can be tracked.
 Similar to the Tracker Profession in vanilla, when you choose this profession you'll be shown small and moving red arrows that points at monsters.
@@ -267,42 +324,52 @@ For Mod Authors: If you add custom ores and metal bars, you should also make fur
 ### Crafter (Lv15)
 Crafting recipes gained via the mining skill require less materials.
 The recipe changes are explained below:
-- Cherry Bomb: 3 copper ore + 1 coal -> 1 cherry bomb
-- Staircase: 66 stone -> 1 staircase
-- Glowstone Ring: 3 solar essence + 4 iron bars -> 1 glowstone ring
-- Bomb: 2 iron ore + 1 coal -> 1 bomb
-- Mega Bomb: 3 gol ore + 1 solar essence + 1 void essence -> 1 mega bomb
-- Crystalarium: 99 stone + 5 gold bars + 2 iridium bars + 1 battery pack -> 1 crystalarium
-- Transmute (Fe): 5 copper bars -> 2 iron bars
-- Transmute (Au): 3 iron bars -> 2 gold bars
+| Craftable Name | Old Recipe | New Recipe |
+|:--------------:|:----------:|:----------:|
+| Cherry Bomb    | 4 Copper Ore\1 Coal | 3 Copper Ore\1 Coal |
+| Staircase      | 99 Stone | 66 stone |
+| Glowstone Ring | 5 Solar Essence\5 iron bars | 3 solar essence\4 iron bars |
+| Bomb           | 4 iron ore\1 Coal | 2 iron ore\1 coal |
+| Mega Bomb      | 4 gold ore\1 Solar Essence\1 Void Essence | 3 gold ore\1 solar essence\1 void essence |
+| Crystalarium   | 99 stone\5 gold bars\2 iridium bars\1 battery pack |60 stone\3 gold bars\1 iridium bars\1 battery pack|
+| Transmute (Fe) | 3 copper bars | 5 copper bars[^4] |
+| Transmute (Au) | 2 iron bars | 3 iron bars[^4] |
+
+[^4]: The output is doubled.
+
 
 For Mod Authors: If you add custom crafting recipes to unlock with Mining skill, you should lower the materials required.
 ### Archeologist (Lv15)
 Artifacts can be recycled.
 Allows artifacts to be recycled via Recycling Machine. The full outputs are explained below:
-- Chipped Amphora -> 3 Clay
-- Arrowhead & Prehistoric Headaxe -> 3 Stone
-- Chewing Stick -> 1 Wood
-- Rusty Spoon -> 3 Iron Ore
-- Rusty Spur & Rusty Cog -> 3 Copper Ore
-- Glass Shards -> 1 Refined Quartz
-- Anchor -> 3 Iron Bar
-- Ornamental Fan -> 2 Wood
-- Golden Mask & Golden Relic -> 2 Gold Bar
-- Non Fossil Bones -> 5 Bone Fragment
-- Prehistoric Tool -> 1 Stone
-- Dried Starfish
-- Fossils (Trilobite, Palm Fossil, etc.) -> Nautilus Shell (if input is Nautilus Fossil) / 3 Clay or 2 Opal(%20 chance) (Applies only if input isnt Nautilus Fossil)
-- Elven Jewelry -> 1 Aquamarine (%20 chance) or 2 Gold Bars
-- Dwarvish Helm & Dwarf Gadget -> 1 Star Shards (%20 chance) or 2 Iron Bar
-- Dwarvish Scrolls -> One of Ruby, Aquamarine, Topaz, Emerald or Jade depending on the scroll's color (%20 chance) / 1 Cloth
-- Ancient & Strange Dolls -> 1 Cloth (%20 chance) or 2 Wool
-- Rare Disc -> 1 Helvite (%20 chance) or 2 Bixite
-- Chicken Statue -> 1-2 Copper Bar
-- Ancient Drum -> 1 Cloth (%20 chance) or 2 Wood
-- Ancient Sword -> 2 Iron Ore (%20 chance) or 1 Copper Bar
 
-For Mod Authors: If you add custom artifacts, then you should also add machine rules to Recycling Machine to process your artifacts.
+| Artifact                      | Output |
+|:-----------------------------:|:------:|
+| Chipped Amphora               | 3 Clay |
+| Arrowhead\Prehistoric Headaxe | 3 Stone |
+| Chewing Stick                 | 1 Wood |
+| Rusty Spoon                   | 3 Iron Ore |
+| Rusty Spur\Rusty Cog          | 3 Copper Ore |
+| Glass Shards                  | 1 Refined Quartz |
+| Anchor                        | 3 Iron Bar |
+| Ornamental Fan                | 2 Wood |
+| Golden Mask\Golden Relic      | 2 Gold Bar |
+| Non-Fossil Bones              | 5 Bone Fragment |
+| Prehistoric Tool              | 1 Stone |
+| Dried Starfish                | 1 Petrified Slime |
+| Nautilus Fossil               | 1 Nautilus Shell |
+| Fossils                       | 3 Clay or 2 Opal(%20 chance) |
+| Elven Jewelry                 | 1 Aquamarine (%20 chance) or 2 Gold Bars |
+| Dwarvish Helm\Dwarf Gadget    | 1 Star Shards (%20 chance) or 2 Iron Bar |
+| Dwarvish Scrolls              | 1 Ruby, Aquamarine, Topaz, Emerald or Jade depending on the scroll's color (%20 chance) or 1 Cloth|
+| Ancient & Strange Dolls       | 1 Cloth (%20 chance) or 2 Wool |
+| Rare Disc                     | 1 Helvite (%20 chance) or 2 Bixite |
+| Chicken Statue                | 1-2 Copper Bar |
+| Ancient Drum                  | 1 Cloth (%20 chance) or 2 Wood |
+| Ancient Sword                 | 2 Iron Ore (%20 chance) or 1 Copper Bar |
+
+For Mod Authors: If you add custom artifacts, then you can also add machine rules to Recycling Machine to process your artifacts. (or you can make your own recycling machine for them, up to you)
+
 ### Mineralogist (Lv15)
 All vanilla geodes hold the same items as omni-geodes.
 
@@ -329,6 +396,7 @@ The chance for their appaearance is now at %15, while in vanilla this is %0.8.
 
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 ## Combat Professions
+
 ### Warrior (Lv15)
 Invincible monsters can be damaged.
 Monsters like armored bugs, rock crabs, mummies, or pupating grubs can be damaged.
@@ -343,12 +411,12 @@ For Mod Authors: There's nothing you should do to add compatibility with this pr
 Length of positive buffs increased.
 The length of the positive buffs are doubled.
 
-For Mod Authors: If you're adding a custom debuff, make sure you set its IsDebuff field to false.
+For Mod Authors: If you're adding a custom buff that's not a debuff, make sure you set its IsDebuff field to false.
 ### Healer (Lv15)
 Length of negative buffs decreased.
 The length of the negative buffs are halved.
 
-For Mod Authors: If you're adding a custom debuff, make sure you set its IsDebuff field to true.
+For Mod Authors: If you're adding a custom buff that's a debuff, make sure you set its IsDebuff field to true.
 ### Technician (Lv15)
 Grants invulnerability during special weapon cooldown.
 You will temporarily be invulnerable to any enemy attack while any of your weapons are on cooldown.
@@ -384,31 +452,469 @@ VPP adds a skill point system named 'talents' which is built from ground to the 
 Its said to be alike Skyrim's skill trees, but to be quite honest I haven't played it so I can't confirm nor deny.
 
 ## How do I get talent points?
-There are four sources of them:
-- Levelling up in any skill, vanilla or not (1 point for each level up)
-- Completing Achievements (1 point for each achievement)
-- Succeeding in Qi's Challenges (1 point for each special order)
-- Achieving Perfection (10 points given at once)
+
+|         Way to obtain         |  Talent points obtainable |
+|:-----------------------------:|:-------------------------:|
+|Levelling up in any skill      | 1 (each level up)         |
+|Completing Achievements        | 1 (each achievement)      |
+|Succeeding in Qi's Challenges  | 1 (only once per SO)      |
+|Achieving Perfection           | 10                        |
 
 ## Can I reset my talents?
 You are allowed to reset the trees as often as you want, but you have to use one of:
 - Stardrop Tea: To reset the tree you're currently viewing
 - Prismatic Shard: To reset all trees at once
 
-Not to worry, VPP wont allow you to reset if you haven't used any points yet (at all or since the last reset),
+VPP wont allow you to reset if you haven't used any points yet (at all or since the last reset),
 and after requesting the reset you have to confirm or abort so you can't accidentally waste items or initiate using both items.
 
 ## What do each talent do exactly? I'd like to spoil myself.
 It adds a grand total of 141 talents divided across 6 skill trees, 25 for each vanilla skill and 16 extras for one tree that isn't spesific to any skills.
 
 ## Farming Talents
-## Mining Talents
-## Foraging Talents
-## Fishing Talents
-## Combat Talents
-## Daily Life Talents
-### Mate's Rates
 
+### Resurgence
+
+
+### Refreshing Waters
+
+
+### Good Soaking
+
+
+### Nourishing Rain
+
+
+### Wild Growth
+
+
+### Overcrowding
+
+
+### Bio-Engineering
+
+
+### Pastoralism
+
+
+### Breed Like Rabbits
+
+
+### BrimmingWithLife
+
+
+### CycleOfLife
+
+
+### Effloresence
+
+
+### HarmoniousBlooming
+
+
+### Abundance
+
+
+### FairysKiss
+
+
+### FaeBlessings
+
+
+### FineGrind
+
+
+### DriftFencing
+
+
+### StormSurge
+
+
+### ColdPress
+
+
+### Upcycling
+
+
+### Fertigation
+
+
+### Trickster
+
+
+### TropicalBliss
+
+
+### HarvestSeason
+
+
+## Mining Talents
+
+### DownInTheDepths
+
+
+### ShadowBuddies
+
+
+### DwarvenBuddies
+
+
+### EssenceInfusion
+
+
+### ElderScrolls
+
+
+### SpeedOfDarkness
+
+
+### AncestralWeaponry
+
+
+### SharedFocus
+
+
+### MuseumPiece
+
+
+### ExplosivePersonality
+
+
+### Synthesis
+
+
+### Upheaval
+
+
+### Matryoshka
+
+
+### X-ray
+
+
+### Geometry
+
+
+### Dazzle
+
+
+### StraightRun
+
+
+### DetonationDampener
+
+
+### Volatility
+
+
+### AlchemicReversal
+
+
+### RoomAndPillar
+
+
+### Fallout
+
+
+### EveryonesBestFriend
+
+
+### CrystalCavern
+
+
+### OverTheRainbow
+
+
+## Foraging Talents
+
+### Resurgence
+### Refreshing Waters
+### Good Soaking
+### Nourishing Rain
+### Wild Growth
+### Overcrowding
+### Bio-Engineering
+### Pastoralism
+### Breed Like Rabbits
+### BrimmingWithLife
+### CycleOfLife
+### Effloresence
+### HarmoniousBlooming
+### Abundance
+### FairysKiss
+### FaeBlessings
+### FineGrind
+### DriftFencing
+### StormSurge
+### ColdPress
+### Upcycling
+### Fertigation
+### Trickster
+### TropicalBliss
+### HarvestSeason
+
+## Fishing Talents
+
+### Fishery Grant
+Fish ponds are cheaper to build.
+The old and new building requirements are listed below:
+| Old           | New           |
+|:-------------:|:-------------:|
+| 5000g         | 2000g         |
+| 200 Stone     | 100 Stones    |
+| 5 Seaweed     | 5 Seaweed     |
+| 5 Green Algae | 5 Green Algae |
+
+### In the Weeds
+Seaweed and Green Algae can be added to fish ponds.
+
+Seaweed may only produce more seaweed and Clay,
+Green Algae may only produce Green Algae and White Algae, with all of them having %50 chance.
+
+### Roe-mance
+Roe, Aged Roe, and Caviar worth more.
+
+### Big Fish, Small Pond
+Allows legendary fish to be added to fish ponds. They cannot increase in number.
+Any vanilla legendary fish can be added to the fish ponds, but they all only produce roe.
+
+For mod authors: If you want your legendary fish to be affected, all vanilla fish normally have the ``fish_pond_banned`` tag. When the talent is obtained, set your mod to remove this tag from your fish.
+
+### Spawning Season
+Chance for roe yield in fish ponds is increased.
+
+If there's no output for the day or if it's not roe, there's a %50 chance the next might be roe.
+
+### Ex-squid-site
+Chance for roe to increase in quality if left uncollected overnight. Roe quality will apply to Aged Roe, Caviar, and Squid Ink.
+
+The chance for this is %24.
+
+### Double Hook
+Worm bins will produce twice in a day.
+This applies only to the regular worm bins.
+
+### Clickbait
+Worm Bin has a 50% chance of producing Wild Bait instead of normal Bait.
+
+### Can It
+Recycling machines produce an increased variety of items.
+The extra drops are explained below.
+
+| Type of Trash   | Possible Drops   |
+|:---------------:|:----------------:|
+| Trash           | 1-3 Copper Ore\1-3 Gold Ore |
+| Driftwood       | 1 Hardwood (%10) |
+| Soggy Newspaper | Squid Ink (%20)\Driftwood |
+| Broken Cd       | Prismatic Shard (%10) |
+| Broken Glasses  | Aerinite (%10)\Ghost Crystal (%10) |
+
+### Smokehouse
+Fish can be smoked multiple times to increase quality.
+
+So if you have a fish with lowest quality, 
+Then you can smoke it once to turn it into a smoked fish with lowest quality,
+If you smoke it again, you will get a silver quality one. If you smoke it again, it'll be gold quality and so on.
+
+### Fit for a Czar
+Aged Roe can be aged in a cask to increase quality.
+This also affects Caviar as well.
+
+### Take it Slow
+Fishing casting bar will move more slowly if you have the Snail Tackle equipped.
+
+After you purchase the talent, a new crafting recipe will be available which is named Snail Tackle.
+It will require one Snail and one iron bar. After equipped to the rod, it'll slow the casting bar.
+
+### A-fish-ionado
+Receive a random tackle via mail every week.
+
+### It Was This Big
+If catching a new size record for a fish, quality will increase.
+
+### Dead Man's Chest
+Chance for crab pots to produce artifact troves.
+If your crab pots are empty, there's a %10 chance your crab pot will have an artifact trove.
+
+### Diversification
+Wild Bait now doubles Crab Pot produce.
+(This doesn't apply to Dead Man's Chest, obviously)
+
+### Fish Trap
+Crab pots will sometimes catch regular fish.
+If your crab pots are empty or they have trash, there's a %25 chance your crab pot will have a non-crab-pot fish.
+
+### Bait and Switch
+Chance for crab pot fish to increase in quality if left uncollected overnight.
+
+### Crab Rave
+Increased chance to find crabs, crayfish and lobsters if wearing a Crabshell Ring.
+
+### Fish's Wishes
+Allows using Magic Bait on crab pots. If you have Luremaster, basic Bait acts like Magic Bait.
+
+### Here Fishy Fishy
+Failing to catch any fish 3 times in a row greatly increases the bobber bar height for the next fish.
+If you fail more than 3 times, the bobber bar height will also keep increasing in size until you catch at least one fish.
+
+### Vast Domain
+Legendary fish can be caught in an increased location range.
+
+### One Fish, Two Fish
+Challenge Bait can be used to catch four fish at once.
+
+### Take a Break
+Fish do not run away when reeling in a treasure chest.
+The "progress bar" just stops until you're complete collecting the chest or stop reeling it.
+
+### Bubble Trouble
+Bubbles will always be within 4 tiles of land.
+In other words, bubbles wont be further than 4 tiles away from the land.
+
+## Combat Talents
+
+### Slimeshot
+Slime can be used as slingshot ammo. If slime hits a monster, it will be slowed down.
+But the effect will be applied only once.
+
+### Triple Shot
+Gives slingshots a special attack that shoots three projectiles at once.
+
+Note: The talent automatically disables itself if the slingshot has the auto-fire enchantment from the Enchanting talent, for the sake of balance.
+
+### Bullseye
+Slingshots can do critical damage.
+In vanilla, slingshots are blocked from dealing critical damage (for unknown reasons. It just is but it makes no sense.)
+
+### Dazzling Strike
+Gems can be used as slingshot ammo.\nHigh chance for gem ammo\nto not be destroyed.
+
+### Enchanting
+Slingshots have custom enchantments called Auto-Fire, Rapid, Bat Killer, and Thrifty.
+The effects are listed below:
+
+| Name       | Effect |
+|:----------:|:------:|
+| Auto-Fire  | Slingshot will automatically fire while you aim |
+| Rapid      | Slingshot ammo will move faster |
+| Bat Killer | Double damage done to bats |
+| Thrifty    | Slingshot might not use ammo at times |
+
+
+### Accessorise
+Trinkets can be converted into rings.
+A new big craftable recipe is added into your crafting recipes, which is named "Trinket Workbench" and is craftable for 50 hardwood & 3 iron bars.
+
+Note: Said rings spawned from CJB or SMAPI console will not be functional because both of those wont do some necessary changes VPP does.
+
+For Mod Authors: If you add custom trinkets, you need to add a custom ring item, and add an entry like ``"Kedi.VPP.AccessoriseRing": "ExampleAuthor.ExampleMod_UnqualifiedItemIDForMyRing"`` to your trinket's TrinketMetadata field. This is needed for VPP to match your trinket to your ring.
+
+### Consolidation
+Rings of the same type can be forged together.
+There is only one exception to this. Combined Rings still can't be combined again.
+
+### Hidden Benefits
+All vanilla trinkets will get\na second purpose.
+
+There are 8 trinkets in vanilla, and one extra purpose for each.
+In case there are people who want to learn what it is themselves, only the hint locations are listed below:
+
+| Trinket name   | Location          |
+|:--------------:|:-----------------:|
+| Golden Spur    | Marnie's Shop     |
+| Frog Egg       | Sebastian's Room  |
+| Parrot Egg     | Emily's Room      |
+| Fairy Box      | Jas' Room         |
+| Ice Rod        | Pierre's Shop     |
+| Basilisk Paw   | Wizard's Basement |
+| Magic Quiver   | Adventurer Guild  |
+| Magic Hair Gel | Alex's Room       |
+
+
+### Rending Strike
+4 consecutive strikes against a monster will reduce damage dealt by that monster.
+
+### Debiliating Stab
+Damaging monsters with a dagger will reduce their speed.
+
+### Severing Swipe
+Damaging monsters with a sword will reduce their attack.
+
+### Concussive Impact
+Damaging monsters with a club will make them take additional damage for 3 seconds following the hit.
+
+### Aftershock
+Club attacks hit a second time. The second strike deals reduced damage.
+
+### Champion
+Grants +2 Defense for 6 seconds after striking an enemy with a sword.
+
+### Flurry
+Consecutive dagger strikes against the same target deal half additional damage, stacking up to 5 times.
+
+### Ferocity
+Critical hits add a short 10% crit damage buff.
+
+The buff lasts 10 seconds.
+
+### Starburst
+Adds a melee weapon enchantment named Starburst which throws projectiles when swung.
+
+### Grit
+Increases damage immunity period after taking damage.
+
+Increases the damage invulneravility period by %20.
+
+### Sidestep
+Chance to dodge enemy attacks.
+
+Every time a monster hits you, there's a %10 chance that you wont be damaged and the talent will give you a temporary invulnerability. The farmer will flash, but its to show the invulnerability.
+If you have slime charmer ring, the talent wont be effectful against slimes.
+
+### Slippery
+Changes the Slimy debuff into a +1 Speed buff.
+
+### Fortified
+For every monster in the current location, gain +1 Defense to a limit of +8.
+(aka capped at 8, so if there is 15 monsters there, the buff will still be +8.)
+
+### Full Knowledge
+Gives full exp for monsters killed on the farm.
+
+In vanilla, slain farm monsters give you only 1/3 of the original XP (since 1.6). This talent restores it to full.
+
+### Monster Specialist
+Choose one of four pre-defined group of monsters and deal additional damage to them.
+
+When you choose this talent in talent menu, you will get another menu with four more choices, the options and which monsters they affect are listed below.
+
+|Branch Name| Pre-defined Group of Monsters                           |
+|-----------|:-------------------------------------------------------:|
+| Ground    | Slime\Grub\Dust Sprite\Duggy\Lava Lurk\Spider           |
+| Humanoid  | Golem\Skeleton\Mummy\Shadow                             |
+| Flying    | Bat\Ghost\Serpent\Magma Sprite\Blue Squid\Squid kid\Fly |
+| Armoured  | Dwarvish Sentry\Hot Head\Metal Head\Rock Crab           |
+
+For Mod Authors: If you add custom monsters via C# (excluding FTM monsters), and if they're not a subclass of any vanilla monsters, contact me for compatibility.
+
+### Sugar Rush
+Foods cooked with sugar will remove the Nauseated debuff. If you have Survival Cooking, its recipes will remove Nauseated as well.
+For Vanilla, VPP will only cover anything that contains sugar in their recipe.
+
+For Mod Authors: If you add custom desserts, you should add the ``ginger_item`` context tag ONLy if the farmer has the talent, you can check it by ``Combat_Sugar_Rush`` mail flag.
+
+### Meditation
+Passive health regeneration while standing still.
+
+ever 10 in-game minutes, you will gain 15 points of health.
+
+## Daily Life Talents
+
+### Mate's Rates
+Friendship with shopkeepers reduces prices.
+Affects all shops except Desert Festival shops and will be triggered only when you have 6 hearts with the shopkeeper. Prices will be reduced by %20
+
+For Mod Authors: There is nothing you should do. Even if you add custom items to vanilla shops, they will be affected automatically.
 ### Monumental Discount
 Obelisks are cheaper to purchase.
 All vanilla obelisks are re-priced as 100,000g.
@@ -418,43 +924,46 @@ For Mod Authors: If you add custom obelisks, you should lower your money prices 
 New craftables gained by skill level-up are sold at shops after being unlocked. There's nothing you should do for compatibiliy with this talent.
 
 ### Admiration
-Halves the friendship decay. There's nothing you should do for compatibiliy with this talent.
+Halves the friendship decay due to not interacting with characters, doesn't affect things like disliked gifts or negative event choices. 
+There's nothing you should do for compatibiliy with this talent.
 
 ### Insider Info
 The price increases for the vanilla NPCs are listed below:
-- Abigail: "66 276 608 611",
-- Alex: "139 201 210 211",
-- Caroline: "593 614 815",
-- Clint: "378 380 384 386 909 334 335 336 337 910",
-- Demetrius: "420 422 635 613",
-- Dwarf: "96 97 98 99 121 122 78 286 287 288",
-- Elliott: "393 397 372 719 718 394",
-- Emily: "428 440",
-- Evelyn: "591 597 223",
-- George: "20 86 205",
-- Gus: "216 224 213",
-- Haley: "88 421",
-- Harvey: "342 395 349 351",
-- Jas: "595 221",
-- Jodi: "220 222 231 214 225",
-- Kent: "259 649 408 607",
-- Krobus: "305 308 203",
-- Leah: "22 257 404, 281",
-- Lewis: "235 208 200 260",
-- Leo: "829 830 834 444"
-- Linus: "296 410 396 406",
-- Marnie: "184 186 436 438 424 426",
-- Maru: "400 787",
-- Penny": "Book_Artifact PurpleBook 376",
-- Pierre": "419 247 246 245 423",
-- Robin": "636 709 390 380",
-- Sam: "206 90 562",
-- Sandy: "418 18 402",
-- Sebastian: "84 227 236 575",
-- Shane: "176 174 180 182",
-- Vincent: "721 722 612 399",
-- Willy: "DeluxeBait 774 685 703 686 687 691 692 693 694 695 856 877 SonarBobber",
-- Wizard: "768 769 155",
+| Villager | Items                                                              |
+|:--------:|:------------------------------------------------------------------:|
+|Abigail   | Amethyst\Pumpkin\Pumpkin Pie\Blackberry Cobbler                    |
+|Alex      | Salmon\Complete Breakfast\Hashbrowns\Pancakes                      |
+|Caroline  | Summer Spangle\Green Tea\Tea Leaves                                |
+|Clint     | All ores and bars                                                  |
+|Demetrius | Red Mushroom\Purple Mushroom\Orange\Apple                          |
+|Dwarf     | All Dwarf items\Cave Carrot\All Bombs                              |
+|Elliott   | All Beach Forage                                                   |
+|Emily     | Cloth\Wool                                                         |
+|Evelyn    | Tulip\Blue Jazz\Cookie                                             |
+|George    | Leek\Earth Crystal\Fried Mushroom                                  |
+|Gus       | Bread\Spaghetti\Fish Taco                                          |
+|Haley     | Coconut\Sunflower                                                  |
+|Harvey    | Pickles\Coffee\Energy Tonic\Muscle Remedy                          |
+|Jas       | Fairy Rose\Pink Cake                                               |
+|Jodi      | Chocolate Cake\Rhubarb Pie\Eggplant Parmesan\Crispy Bass\Fried Eel |
+|Kent      | Fiddlehead Fern\Fiddlehead Risotto\Hazelnut\Roasted Hazelnuts      |
+|Krobus    | Void Egg\Void Mayonnaise\Strange Bun                               |
+|Leah      | Dandelion\Morel\Common Mushroom\Chanterelle                        |
+|Lewis     | Autumn's Bounty\Glazed Yams\Vegetable Medley\Hot Pepper            |
+|Leo       | Ginger\Taro Root\Mango\Duck Feather                                |
+|Linus     | Salmonberry\Blackberry\Spice Berry\Wild Plum                       |
+|Marnie    | All milks and cheeses                                              |
+|Maru      | Strawberry\Battery Pack                                            |
+|Penny     | Treasure Appraisal Guide\Book Of Stars\Poppy                       |
+|Pierre    | Vinegar\Oil\Wheat\Flour\Sugar\Miner's Treat                        |
+|Robin     | Peach\Hardwood\Stone\Wood                                          |
+|Sam       | Pizza\Cactus Fruit\Tigerseye                                       |
+|Sandy     | Crocus\Daffodil\Sweet Pea                                          |
+|Sebastian | Frozen Tear\Sashimi\Pumpkin Soup\Obsidian                          |
+|Shane     | All regular chicken eggs                                           |
+|Vincent   | Snail\Periwinkle\Cranberry Candy\Spring Onion                      |
+|Willy     | All baits and tackles                                              |
+|Wizard    | Solar Essence\Void Essence\Super Cucumber                          |
 
 For Mod Authors: If you're a custom NPC author and want your NPC(s) affected by this talent, you need to add an entry to Insider Info's data. The format DOES NOT accept context tags or category IDs. You can get the target path for the data by using the ``ContentPaths`` token. The key must be the NPC's internal name, and the value should be a space-delimited list of UNQUALIFIED item IDs. For exp: ``"Abigail": "123 456 789 102 425"``
 ### Gift of Friendship
@@ -476,6 +985,41 @@ Allows for two food buffs and two drink buffs simultaneously.
 For Mod Authors: There's nothing you need to do add compatibility with this talent.
 ### Lost And Found
 Reading lost books after they've been found gives you daily buffs, reading another book while one will override the previous book buff and the buffs will be removed next day. Here are the buffs for vanilla lost books:
+
+|Starts With                  | Type of Buff | Strength of Buff |
+|:---------------------------:|:------------:|:----------------:|
+|Tips on Farming              | Farming      | +1               |
+|...This is a book by Marnie. | Farming      | +2               |
+|On Foraging                  | Foraging     | +2               |
+|The Fisherman, Act I         | Fishing      | +1               |
+|How deep do the mines go?    | Mining       | +1               |
+|An Old Farmer's Journal      | Magnetism    | +40              |
+|Scarecrows                   | Farming      | +3               |
+|The Secret of the Stardrop   | Max Stamina  | +40              |
+|Journey of the Prairie King  | Attack       | +2               |
+|A Study on Diamond Yields    | Mining       | +3               |
+|Brewmaster's Guide           | Farming      | +4               |
+|Mysteries of the Dwarves     | Mining       | +3               |
+|From The Book of Yoba        | Foraging     | +4               |
+|Marriage Guide for Farmers   | Luck         | +3               |
+|The Fisherman, Act II        | Fishing      | +3               |
+|Technology Report!           | Mining       | +4               |
+|Secrets of the Legendary Fish| Fishing      | +4               |
+|The Bus Tunnel               | Luck         | +3               |
+|Note From Gunther            | Speed        | +4               |
+|'Goblins' by M. Jasper       | Defense      | +4               |
+|Solok Ulan Paa Eno Ra        | Speed        | +4               |
+
+
+
+
+
+
+
+
+
+
+
 -
 -
 -

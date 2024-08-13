@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using StardewValley;
 using VanillaPlusProfessions.Talents;
+using VanillaPlusProfessions.Talents.UI;
 
 namespace VanillaPlusProfessions.Compatibility
 {
@@ -13,23 +13,40 @@ namespace VanillaPlusProfessions.Compatibility
 
         internal Dictionary<string, SkillTree> CustomTalentTrees = new();
 
-        public void RegisterCustomSkillTree(string skillID, Func<string> displayTitle, int bundleID, Texture2D texture, Rectangle rectangle, int lockedID)
+        internal Dictionary<string, Talent> CustomTalents = new();
+        public void RegisterCustomSkillTree(string skillID, Func<string> displayTitle, Texture2D texture, Rectangle rectangle, int bundleID = -1, Color? tintColor = null)
         {
             string[] skills = ModEntry.SpaceCoreAPI.Value.GetCustomSkills();
             if (skills.Contains(skillID))
             {
-                var talentList = (from talent in TalentCore.Talents
-                                  where talent.Skill == skillID
-                                  select talent).ToList();
+                if (bundleID is <= (-1) or > 6)
+                {
+                    if (!tintColor.HasValue)
+                    {
+                        ModEntry.ModMonitor.Log("SpaceCore-registered skill with the ID of " + skillID + " has chosen an invalid color option. They haven't specified neither of bundleID and tintColor. Please let the custom skill mod author know of this.", StardewModdingAPI.LogLevel.Error);
+                        return;
+                    }
+                }
+                else
+                {
+                    if (tintColor.HasValue)
+                    {
+                        ModEntry.ModMonitor.Log("SpaceCore-registered skill with the ID of " + skillID + " has chosen an invalid color option. They can't specify both bundleID and tintColor at once. Please let the custom skill mod author know of this.", StardewModdingAPI.LogLevel.Error);
+                        return;
+                    }
+                }
+                var talentList = (from talent in CustomTalents
+                                  where talent.Value.Skill == skillID
+                                  select talent.Value).ToList();
 
-                CustomTalentTrees.Add(skillID, new(skillID, bundleID, displayTitle.Invoke(), texture, talentList, rectangle, lockedID));
+                CustomTalentTrees.Add(skillID, new(skillID, displayTitle.Invoke(), texture, talentList, rectangle, bundleID, tintColor));
             }
             else
             {
-                ModEntry.ModMonitor.Log("There is no such SpaceCore-registered skill with the ID of " + skillID + ". Please let the custom skill mod author know of this.", StardewModdingAPI.LogLevel.Error);
+                ModEntry.ModMonitor.Log("There is no such SpaceCore-registered skill with the ID of " + skillID + ". Please let the custom skill mod author know of this.", StardewModdingAPI.LogLevel.Error);                
             }
         }
-        public void RegisterCustomSkillTalent(string skillID, string name, Func<string> displayName, Func<string> tooltip, Vector2 position, string requiresTalent1 = "", string requiresTalent2 = "")
+        public void RegisterCustomSkillTalent(string skillID, string name, Func<string,string> displayName, Func<string, string> tooltip, Vector2 position, string[] requirements, int amountToBuyFirst = 0)
         {
             string[] skills = ModEntry.SpaceCoreAPI.Value.GetCustomSkills();
             if (skills.Contains(skillID))
@@ -40,51 +57,16 @@ namespace VanillaPlusProfessions.Compatibility
                     Name = name,
                     DisplayName = displayName,
                     Description = tooltip,
-                    RequiresTalent = requiresTalent1,
-                    RequiresTalent2 = requiresTalent2,
+                    Requirements = requirements,
+                    AmountToBuyFirst = amountToBuyFirst,
                     Position = position
                 };
-
-                TalentCore.Talents.Add(talent);
+                if (!CustomTalents.TryAdd(name, talent))
+                    CustomTalents[name] = talent;
             }
             else
             {
                 ModEntry.ModMonitor.Log("There is no such SpaceCore-registered skill with the ID of " + skillID + ". Please let the custom skill mod author know of this.", StardewModdingAPI.LogLevel.Error);
-            }
-        }
-        public bool IsTalentGained(string name, long farmerID = -1, Farmer who = null)
-        {
-            if (who is null)
-            {
-                if (farmerID is -1)
-                {
-                    return TalentCore.GainedTalents.Value.Contains(name);
-                }
-                else
-                {
-                    who = Game1.getFarmer(farmerID);
-                    if (who.modData.TryGetValue(TalentCore.Key_GainedTalents, out string talents))
-                    {
-                        if (talents is not null)
-                        {
-                            string[] strings = talents.Split(TalentCore.Seperator_GainedTalents, StringSplitOptions.RemoveEmptyEntries);
-                            return strings.Contains(name);
-                        }
-                    }
-                    return false;
-                }
-            }
-            else
-            {
-                if (who.modData.TryGetValue(TalentCore.Key_GainedTalents, out string talents))
-                {
-                    if (talents is not null)
-                    {
-                        string[] strings = talents.Split(TalentCore.Seperator_GainedTalents, StringSplitOptions.RemoveEmptyEntries);
-                        return strings.Contains(name);
-                    }
-                }
-                return false;
             }
         }
     }

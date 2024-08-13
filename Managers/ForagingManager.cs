@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using StardewValley;
 using StardewValley.TerrainFeatures;
 using System.Collections.Generic;
 
@@ -12,18 +13,7 @@ namespace VanillaPlusProfessions.Managers
 
         public void ApplyPatches()
         {
-            ModEntry.Harmony.Patch(
-                original: AccessTools.Method(typeof(Tree), "TryGetTapperOutput"),
-                prefix: new HarmonyMethod(AccessTools.Method(typeof(ForagingManager), nameof(ForagingManager.TryGetTapperOutput_Prefix)))
-            );
-            
+
         }
-        public static void TryGetTapperOutput_Prefix(ref float timeMultiplier)
-        {
-            if (CoreUtility.CurrentPlayerHasProfession(48))
-            {
-                timeMultiplier *= 3 / 4;
-            }
-        }        
     }
 }

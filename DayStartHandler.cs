@@ -11,6 +11,10 @@ using StardewValley;
 using StardewValley.Extensions;
 using StardewValley.Monsters;
 using Microsoft.Xna.Framework;
+using VanillaPlusProfessions.Talents;
+using StardewValley.GameData.GiantCrops;
+using VanillaPlusProfessions.Utilities;
+using xTile.Dimensions;
 
 namespace VanillaPlusProfessions
 {
@@ -19,8 +23,63 @@ namespace VanillaPlusProfessions
         internal static void OnDayStarted(object sender, DayStartedEventArgs e)
         {
             DisplayHandler.ShouldHandleSkillPage.Value = true;
-            ComboManager.StonesBroken = 0;
+            ComboManager.StonesBroken.Value = 0;
+            DisplayHandler.WasSkillMenuRaised.Value = false;
+            TalentCore.IsDayStartOrEnd = true;
 
+            if (TalentUtility.AnyPlayerHasTalent("Farming_Refreshing_Waters"))
+            {
+                foreach (var item in Game1.player.Items)
+                {
+                    if (item is WateringCan can && !can.IsBottomless)
+                    {
+                        can.WaterLeft = can.waterCanMax;
+                        break;
+                    }
+                }
+            }
+
+            if (TalentUtility.AnyPlayerHasTalent("Farming_Good_Soaking"))
+            {
+                Utility.ForEachLocation(loc =>
+                {
+                    if (loc.modData.TryGetValue(TalentCore.Key_WasRainingHere, out string value) && value is "true")
+                    {
+                        foreach (var item in loc.terrainFeatures.Pairs)
+                        {
+                            if (item.Value is HoeDirt dirt && dirt.crop is not null and Crop crop && !crop.dead.Value)
+                            {
+                                dirt.state.Value = 1;
+                                dirt.updateNeighbors();
+                            }
+                        }
+                    }
+
+                    return true;
+                }, false, false);
+            }
+            if (Game1.getFarm().modData.TryGetValue(TalentCore.Key_FaeBlessings, out string value))
+            {
+                string[] strings = value.Split('+');
+                Vector2 vector = new(int.Parse(strings[0]), int.Parse(strings[1]));
+                if (Game1.getFarm().terrainFeatures.TryGetValue(vector, out TerrainFeature terrainFeature) && terrainFeature is HoeDirt dirt && dirt.crop is not null and Crop crop)
+                {
+                    HandleCropFairy(ref crop);
+                    Game1.getFarm().modData.Remove(TalentCore.Key_FaeBlessings);
+                }
+            }
+            if (TalentUtility.CurrentPlayerHasTalent("Combat_Hidden_Benefits"))
+            {
+                Utility.ForEachCrop(crop =>
+                {
+                    if (crop.modData.TryGetValue(TalentCore.Key_HiddenBenefit_Crop, out string val) && val == "true")
+                    {
+                        crop.growCompletely();
+                    }
+
+                    return true;
+                });
+            }
             if (CoreUtility.CurrentPlayerHasProfession(39))
                 FishingRod.maxTackleUses = 40;
 
@@ -32,7 +91,7 @@ namespace VanillaPlusProfessions
                 var list = Game1.getOnlineFarmers();
 
                 IList<string> list2 = (from obj in DataLoader.Objects(Game1.content)
-                                       where obj.Value.Category is StardewValley.Object.GreensCategory && !obj.Value.ContextTags.Contains("smp_forageThrowGame_banned")
+                                       where obj.Value.ContextTags?.Contains("forage_item") is true && obj.Value.ContextTags?.Contains("vpp_forageThrowGame_banned") is false
                                        select "(O)" + obj.Key).ToList();
 
                 string chosenNewForage = Game1.random.ChooseFrom(list2);
@@ -53,173 +112,389 @@ namespace VanillaPlusProfessions
                         if (!farmer.modData.TryAdd(ModEntry.Key_ForageGuessItemID, chosenNewForage))
                             farmer.modData[ModEntry.Key_ForageGuessItemID] = chosenNewForage;
 
-                        if (!Game1.doesHUDMessageExist("Forage bubble minigame has been reset."))
-                            Game1.addHUDMessage(new("Forage bubble minigame has been reset.", HUDMessage.newQuest_type));
+                        if (!Game1.doesHUDMessageExist(ModEntry.Helper.Translation.Get("Message.ForageBubbleReset")))
+                            
+                            Game1.addHUDMessage(new(ModEntry.Helper.Translation.Get("Message.ForageBubbleReset"), HUDMessage.newQuest_type));
                     }
                 }
             }
             if (CoreUtility.CurrentPlayerHasProfession(36))
             {
-                var loc = Game1.getLocationFromName("Greenhouse");
-                foreach (var item in loc.terrainFeatures.Values)
+                
+                foreach (var location in Game1.locations)
                 {
-                    if (item is FruitTree tree)
+                    if (!location.IsGreenhouse)
+                        continue;
+                    foreach (var item in location.terrainFeatures.Values)
                     {
-                        for (int i = 0; i < tree.fruit.Count; i++)
-                            tree.fruit[i].Quality = 4;
+                        if (item is FruitTree tree)
+                        {
+                            for (int i = 0; i < tree.fruit.Count; i++)
+                                tree.fruit[i].Quality = 4;
+                        }
                     }
                 }
             }
-            if (CoreUtility.CurrentPlayerHasProfession(33) || CoreUtility.AnyPlayerHasProfession(78) || CoreUtility.AnyPlayerHasProfession(76))
+            Utility.ForEachBuilding<Building>(building =>
             {
-                Utility.ForEachBuilding<Building>(building =>
+                if (CoreUtility.CurrentPlayerHasProfession(33) || TalentUtility.AnyPlayerHasTalent("Farming_Wild_Growth"))
                 {
-                    if (CoreUtility.CurrentPlayerHasProfession(33))
+                    if (building.GetIndoors() is AnimalHouse animalHouse)
                     {
-                        if (building.GetIndoors() is AnimalHouse animalHouse)
+                        bool shouldUseAutoGrabber = false;
+                        StardewValley.Object autoGrabber = null;
+                        if (TalentUtility.AnyPlayerHasTalent("WildGrowth"))
                         {
-                            foreach (var (id, animal) in animalHouse.Animals.Pairs)
+                            foreach (var item in animalHouse.Objects.Pairs)
                             {
-                                if (!animalHouse.animalsThatLiveHere.Contains(id))
-                                    continue;
+                                if (item.Value is not null and StardewValley.Object obj_Autograbber && obj_Autograbber.QualifiedItemId == "(BC)165")
+                                {
+                                    shouldUseAutoGrabber = true;
+                                    autoGrabber = item.Value;
+                                    break;
+                                }
+                            }
+                        }
+                        foreach (var (id, animal) in animalHouse.Animals.Pairs)
+                        {
+                            if (!animalHouse.animalsThatLiveHere.Contains(id))
+                                continue;
+
+                            if (CoreUtility.CurrentPlayerHasProfession(33))
+                            {
                                 if (Game1.random.NextBool(0.35))
                                     animal.fullness.Value = 255;
                             }
-                        }
-                    }
-                    if (CoreUtility.AnyPlayerHasProfession(78))
-                    {
-                        if (building.GetIndoors() is SlimeHutch slimeHutch)
-                        {
-                            foreach (var item in slimeHutch.characters)
+                            if (TalentUtility.AnyPlayerHasTalent("WildGrowth"))
                             {
-                                if (item is GreenSlime slime)
+                                foreach (var item in animalHouse.Objects.Pairs)
                                 {
-                                    IList<Vector2> nullobjs = (from obj in slimeHutch.Objects.Pairs
-                                                               where obj.Value is null
-                                                               select obj.Key).ToList();
-                                    int number = 0;
+                                    if (item.Value is not null and StardewValley.Object obj_Autograbber && obj_Autograbber.QualifiedItemId == "(BC)165")
+                                    {
+                                        shouldUseAutoGrabber = true;
+                                        autoGrabber = item.Value;
+                                        break;
+                                    }
+                                }
+                                if (animal.modData.TryGetValue(TalentCore.Key_WildGrowth, out string value) && value is not null && animal.GetHarvestType() == StardewValley.GameData.FarmAnimals.FarmAnimalHarvestType.DropOvernight)
+                                {
+                                    var data = animal.GetAnimalData();
+                                    if (data is null)
+                                        continue;
 
-                                    if (ManagerUtility.IsSlimeWhite(slime) && Game1.random.NextBool(0.15))
+                                    if (value is "true" && data.ProduceItemIds is not null && data.ProduceItemIds.Count > 0)
                                     {
-                                        slime.makePrismatic();
-                                    }
-                                    else if (slime.prismatic.Value && Game1.random.NextBool(0.15) && number < 3)
-                                    {
-                                        Vector2 key1 = Game1.random.ChooseFrom(nullobjs);
-                                        slimeHutch.Objects[key1] = ItemRegistry.Create<StardewValley.Object>("Kedi.SMP.FakePrismaticJelly");
-                                        number++;
-                                    }
-                                    else if (slime.hasSpecialItem.Value && number < 3)
-                                    {
-                                        Vector2 key1 = Game1.random.ChooseFrom(nullobjs);
-                                        IList<string> randobjs = new List<string>() { "60", "62", "64", "66", "68", "70", "72" };
-                                        slimeHutch.Objects[key1] = ItemRegistry.Create<StardewValley.Object>(Game1.random.ChooseFrom(randobjs));
-                                        number++;
-                                    }
-                                    else if (slime.modData.TryGetValue(ModEntry.Key_SlimeWateredDaysSince, out string value))
-                                    {
-                                        if (int.TryParse(value, out int val) && val > 7 && Game1.random.NextBool(0.15) && number < 3)
+                                        var obj = ItemRegistry.Create<StardewValley.Object>(Game1.random.ChooseFrom(data?.ProduceItemIds).ItemId);
+                                        obj.CanBeSetDown = false;
+                                        obj.Quality = animal.produceQuality.Value;
+                                        if (animal.hasEatenAnimalCracker.Value)
+                                            obj.Stack = 2;
+                                        if (shouldUseAutoGrabber && autoGrabber is not null)
                                         {
-                                            Vector2 key1 = Game1.random.ChooseFrom(nullobjs);
-                                            slimeHutch.Objects[key1] = ManagerUtility.CreateColoredPetrifiedSlime(slime.color.Value);
-                                            number++;
+                                            Chest chest = autoGrabber.heldObject.Value as Chest;
+
+                                            if (chest is not null && chest.addItem(obj) is null)
+                                                autoGrabber.showNextIndex.Value = true;
                                         }
-                                        slime.modData[ModEntry.Key_SlimeWateredDaysSince] = slimeHutch.modData.TryGetValue(ModEntry.Key_IsSlimeHutchWatered, out string wall) && wall == "false" ? (++val).ToString() : "0";
+                                        else
+                                        {
+                                            var tile = animal.Tile;
+                                            Utility.spawnObjectAround(tile, obj, animalHouse);
+                                        }
                                     }
-                                    else
+                                    else if (value is "false" && data.DeluxeProduceItemIds is not null && data.DeluxeProduceItemIds.Count > 0)
                                     {
-                                        slime.modData.TryAdd(ModEntry.Key_SlimeWateredDaysSince, "0");
+                                        var obj = ItemRegistry.Create<StardewValley.Object>(Game1.random.ChooseFrom(data?.DeluxeProduceItemIds).ItemId);
+                                        obj.CanBeSetDown = false;
+                                        obj.Quality = animal.produceQuality.Value;
+                                        if (animal.hasEatenAnimalCracker.Value)
+                                            obj.Stack = 2;
+                                        if (shouldUseAutoGrabber && autoGrabber is not null)
+                                        {
+                                            Chest chest = autoGrabber.heldObject.Value as Chest;
+
+                                            if (chest is not null && chest.addItem(obj) is null)
+                                                autoGrabber.showNextIndex.Value = true;
+                                        }
+                                        else
+                                        {
+                                            var tile = animal.Tile;
+                                            Utility.spawnObjectAround(tile, obj, animalHouse);
+                                        }
                                     }
                                 }
                             }
                         }
-                    }
-                    if (CoreUtility.AnyPlayerHasProfession(76))
-                    {
-                        if (building is FishPond pond && pond.currentOccupants == pond.maxOccupants)
+                        if (shouldUseAutoGrabber)
                         {
-                            var data = pond.GetFishPondData();
-                            if (data.PopulationGates?.Count! > 0)
-                                return true;
-                            if (pond.modData.TryGetValue(ModEntry.Key_FishRewardOrQuestDayLeft, out string value) && value is not null)
+                            foreach (var item in animalHouse.Objects.Pairs)
                             {
-                                if (value is not "0" && pond.neededItem.Value is null && pond.neededItemCount.Value is -1)
-                                {
-                                    if (pond.output is not null)
-                                        pond.output.Value.Stack *= 2;
-                                    pond.modData[ModEntry.Key_FishRewardOrQuestDayLeft] = (int.Parse(value) - 1).ToString();
-                                    return true;
-                                }
-                                else if (value is "0" && pond.neededItem.Value is not null)
-                                    pond.neededItem.Value = null;
-                            }
-                            else
-                            {
-                                pond.modData.TryAdd(ModEntry.Key_FishRewardOrQuestDayLeft, "6");
-                            }
-                            if (pond.neededItem.Value == null)
-                            {
-                                pond.hasCompletedRequest.Value = false;
-                                IList<List<string>> list = data.PopulationGates.Values.ToList();
-                                var newQuestlist = Game1.random.ChooseFrom(list);
-                                var ActualQuest = ArgUtility.SplitBySpace(Game1.random.ChooseFrom(newQuestlist));
-                                pond.neededItem.Value = ItemRegistry.Create(ActualQuest[0]);
-                                pond.neededItemCount.Value = int.Parse(ActualQuest[1]);
+                                if (item.Value is not null and StardewValley.Object obj_Autograbber && obj_Autograbber.QualifiedItemId == "(BC)165")
+                                    item.Value.DayUpdate();
                             }
                         }
                     }
-                    return true;
-                });
-            }
-            if (CoreUtility.AnyPlayerHasProfession(43) || CoreUtility.AnyPlayerHasProfession(45) || CoreUtility.AnyPlayerHasProfession(49) || CoreUtility.AnyPlayerHasProfession(70))
-            {
-                StardewValley.Utility.ForEachItem(item =>
+                }
+                if (CoreUtility.AnyPlayerHasProfession(78))
                 {
-                    if (item is not null and StardewValley.Object bigcraftable)
+                    if (building.GetIndoors() is SlimeHutch slimeHutch)
                     {
-                        if (CoreUtility.AnyPlayerHasProfession(43) || CoreUtility.AnyPlayerHasProfession(45))
+                        int number = 0;
+                        List<Vector2> nullobjs = new();
+                        for (int XX = 0; XX < slimeHutch.Map.Layers[0].LayerWidth; XX++)
                         {
-                            if (bigcraftable is CrabPot crabPot && crabPot.heldObject.Value is StardewValley.Object obj)
+                            //Utility.getSurroundingTileLocationsArray
+                            for (int YY = 0; YY < slimeHutch.Map.Layers[0].LayerHeight; YY++)
                             {
-                                if (CoreUtility.AnyPlayerHasProfession(43))
-                                    obj.Quality = Game1.random.NextBool(0.6) ? 2 : 4;
+                                if (slimeHutch.isTilePlaceable(new(XX, YY), false) && !slimeHutch.isTileOnWall(XX, YY) && slimeHutch.isTileLocationOpen(new Location(XX, YY)))
+                                    nullobjs.Add(new(XX, YY));
+                            }
+                        }
+                        foreach (var item in slimeHutch.characters)
+                        {
+                            if (item is GreenSlime slime)
+                            {
+                                Random r = new();
+                                if (ManagerUtility.IsSlimeWhite(slime) && r.NextBool(0.01))
+                                {
+                                    slime.makePrismatic();
+                                }
+                                else if (slime.prismatic.Value && r.NextBool(0.05) && number < 3)
+                                {
+                                    Vector2 key1 = Game1.random.ChooseFrom(nullobjs);
+                                    nullobjs.Remove(key1);
+                                    slimeHutch.Objects[key1] = ItemRegistry.Create<StardewValley.Object>("Kedi.VPP.FakePrismaticJelly");
+                                    slimeHutch.Objects[key1].CanBeGrabbed = true;
+                                    slimeHutch.Objects[key1].IsSpawnedObject = true;
+                                    number++;
+                                }
+                                else if (slime.hasSpecialItem.Value && number < 3)
+                                {
+                                    Vector2 key1 = r.ChooseFrom(nullobjs);
+                                    IList<string> randobjs = new List<string>() { "60", "62", "64", "66", "68", "70", "72" };
+                                    nullobjs.Remove(key1);
+                                    slimeHutch.Objects[key1] = ItemRegistry.Create<StardewValley.Object>(Game1.random.ChooseFrom(randobjs));
+                                    slimeHutch.Objects[key1].CanBeGrabbed = true;
+                                    slimeHutch.Objects[key1].IsSpawnedObject = true;
+                                    number++;
+                                }
+                                else if (slime.modData.TryGetValue(ModEntry.Key_SlimeWateredDaysSince, out string value) && !slime.prismatic.Value)
+                                {
+                                    if (int.TryParse(value, out int val) && val > 7 && Game1.random.NextBool(0.15) && number < 3)
+                                    {
+                                        Vector2 key1 = r.ChooseFrom(nullobjs);
+                                        nullobjs.Remove(key1);
+                                        slimeHutch.Objects[key1] = ManagerUtility.CreateColoredPetrifiedSlime(slime.color.Value);
+                                        slimeHutch.Objects[key1].CanBeGrabbed = true; number++;
+                                        slimeHutch.Objects[key1].IsSpawnedObject = true;
+                                    }
+                                    slime.modData[ModEntry.Key_SlimeWateredDaysSince] = slimeHutch.modData.TryGetValue(ModEntry.Key_IsSlimeHutchWatered, out string wall) && wall == "false" ? (++val).ToString() : "0";
+                                }
+                                else
+                                {
+                                    slime.modData.TryAdd(ModEntry.Key_SlimeWateredDaysSince, "0");
+                                }
+                            }
+                        }
+                    }
+                }
+                if (CoreUtility.AnyPlayerHasProfession(76))
+                {
+                    if (building is FishPond pond && pond.currentOccupants.Value == pond.maxOccupants.Value)
+                    {
+                        var data = pond.GetFishPondData();
+                        if (data.PopulationGates?.Count! > 0)
+                            return true;
+                        if (pond.modData.TryGetValue(ModEntry.Key_FishRewardOrQuestDayLeft, out string value) && value is not null)
+                        {
+                            if (value is not "0" && pond.neededItem.Value is null && pond.neededItemCount.Value is -1)
+                            {
+                                if (pond.output is not null)
+                                    pond.output.Value.Stack *= 2;
+                                pond.modData[ModEntry.Key_FishRewardOrQuestDayLeft] = (int.Parse(value) - 1).ToString();
+                                return true;
+                            }
+                            else if (value is "0" && pond.neededItem.Value is not null)
+                                pond.neededItem.Value = null;
+                        }
+                        else
+                        {
+                            pond.modData.TryAdd(ModEntry.Key_FishRewardOrQuestDayLeft, "6");
+                        }
+                        if (pond.neededItem.Value == null)
+                        {
+                            pond.hasCompletedRequest.Value = false;
+                            IList<List<string>> list = data?.PopulationGates?.Values.ToList();
+                            var newQuestlist = Game1.random.ChooseFrom(list);
+                            var ActualQuest = ArgUtility.SplitBySpace(Game1.random.ChooseFrom(newQuestlist));
+                            pond.neededItem.Value = ItemRegistry.Create(ActualQuest[0]);
+                            pond.neededItemCount.Value = int.Parse(ActualQuest[1]);
+                        }
+                    }
+                }
+                return true;
+            });
+
+            Utility.ForEachItem(item =>
+            {
+                if (item is not null and StardewValley.Object bigcraftable)
+                {
+                    if (CoreUtility.AnyPlayerHasProfession(43) || CoreUtility.AnyPlayerHasProfession(45) || TalentUtility.AnyPlayerHasTalent("Fishing_Fish_Trap") ||
+                        TalentUtility.AnyPlayerHasTalent("Fishing_Diversification") || TalentUtility.AnyPlayerHasTalent("Fishing_Dead_Mans_Chest") || TalentUtility.AnyPlayerHasTalent("Fishing_Bait_And_Switch"))
+                    {
+                        if (bigcraftable is not null and CrabPot crabPot)
+                        {
+                            Random r = new();
+                            var list = crabPot.Location.GetData().Fish;
+
+                            var normalData = (from keyvaluepair in DataLoader.Fish(Game1.content)
+                                              where !keyvaluepair.Value.Contains("trap")
+                                              select keyvaluepair.Key).ToList();
+
+                            var locFishList = (from fesh in list
+                                               where TalentUtility.AreConditionsTrueForFish(fesh.Condition, crabPot.bait?.Value, crabPot.owner.Value, fesh.Season, crabPot.Location) && ItemRegistry.GetTypeDefinition(fesh.ItemId)?.Identifier is not null and "(O)"
+                                               select fesh.ItemId).ToList();
+
+                            var endList = normalData.Intersect(locFishList).ToList();
+
+                            if (TalentUtility.AnyPlayerHasTalent("Fishing_Fish_Trap") && (crabPot.heldObject.Value is null || crabPot.heldObject.Value?.HasContextTag("trash_item") is true) && r.NextBool(0.25) && endList.Count > 0)
+                                crabPot.heldObject.Value = ItemRegistry.Create<StardewValley.Object>(r.ChooseFrom(endList), quality: 1);
+                            if (crabPot.heldObject?.Value is null)
+                            {
+                                if (TalentUtility.AnyPlayerHasTalent("Fishing_Dead_Mans_Chest") && r.NextBool(0.1))
+                                    crabPot.heldObject.Value = ItemRegistry.Create("(O)275") as StardewValley.Object;
+                            }
+
+                            if (crabPot.heldObject?.Value is not null)
+                            {
+                                if (CoreUtility.AnyPlayerHasProfession(43) && crabPot.bait.Value is not null)
+                                    crabPot.heldObject.Value.Quality = r.NextBool(0.7) ? 2 : 4;
 
                                 if (CoreUtility.AnyPlayerHasProfession(45))
-                                    obj.Stack *= Game1.random.NextBool(0.6) ? 1 : 2;
+                                    crabPot.heldObject.Value.Stack *= (r.NextBool(0.7) ? 1 : 2);
 
-                                return true;
+                                if (TalentUtility.AnyPlayerHasTalent("Fishing_Diversification") && crabPot.heldObject.Value?.QualifiedItemId != "(O)275")
+                                    if (crabPot.bait?.Value?.QualifiedItemId is "(O)774")
+                                        crabPot.heldObject.Value.Stack *= 2;
                             }
-                        }
-                        if (CoreUtility.AnyPlayerHasProfession(70) || CoreUtility.AnyPlayerHasProfession(49))
-                        {
-                            if (bigcraftable.IsTapper())
-                            {
-                                if (CoreUtility.AnyPlayerHasProfession(70) && bigcraftable.modData.TryGetValue(ModEntry.Key_TFTapperDaysLeft, out string value) && value is not "0")
-                                {
-                                    bigcraftable.modData[ModEntry.Key_TFTapperDaysLeft] = (Convert.ToInt32(value) - 1).ToString();
-                                    if (bigcraftable.modData[ModEntry.Key_TFTapperDaysLeft] is "0")
-                                        bigcraftable.heldObject.Value = ManagerUtility.CreateFlavoredSyrupOrDust(bigcraftable.lastInputItem.Value as StardewValley.Object);
-                                }
-                                if (CoreUtility.AnyPlayerHasProfession(49) && bigcraftable.heldObject.Value is not null && bigcraftable.Location.terrainFeatures.TryGetValue(bigcraftable.TileLocation, out TerrainFeature terrainFeature) && terrainFeature is Tree or FruitTree or GiantCrop)
-                                {
-                                    bigcraftable.heldObject.Value.Stack += Game1.random.Next(1, 3);
-                                }
-                                return true;
-                            }
+                            
+                            return true;
                         }
                     }
-                    return true;
-                });
+
+                    if (bigcraftable is not null && bigcraftable.IsTapper() is true)
+                    {
+                        if (CoreUtility.AnyPlayerHasProfession(70) && bigcraftable.modData.TryGetValue(ModEntry.Key_TFTapperDaysLeft, out string value))
+                        {
+                            bigcraftable.modData[ModEntry.Key_TFTapperDaysLeft] = (Convert.ToInt32(value) - 1).ToString();
+                            if (bigcraftable.modData[ModEntry.Key_TFTapperDaysLeft] is "0")
+                            {
+                                if (bigcraftable.heldObject.Value is null)
+                                {
+                                    bigcraftable.heldObject.Value = ManagerUtility.CreateFlavoredSyrupOrDust(bigcraftable.lastInputItem.Value as StardewValley.Object);
+                                }
+                                else
+                                {
+                                    bigcraftable.heldObject.Value.Stack++;
+                                    bigcraftable.heldObject.Value.FixStackSize();
+                                }
+                                 
+                                if (bigcraftable.Location.terrainFeatures.TryGetValue(bigcraftable.TileLocation, out TerrainFeature terrainFeature) && terrainFeature is FruitTree tree)
+                                {
+                                    bigcraftable.modData[ModEntry.Key_TFTapperDaysLeft] = ManagerUtility.GetProduceTimeBasedOnPrice(tree, out StardewValley.Object _);
+                                }
+                                else if (bigcraftable.Location.resourceClumps?.Count > 0 is true)
+                                {
+                                    foreach (var resourceClump in bigcraftable.Location.resourceClumps)
+                                    {
+                                        if (resourceClump is GiantCrop crop && crop.getBoundingBox().Contains(bigcraftable.TileLocation))
+                                        {
+                                            bigcraftable.modData[ModEntry.Key_TFTapperDaysLeft] = ManagerUtility.GetProduceTimeBasedOnPrice(crop, out StardewValley.Object _);
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        return true;
+                    }
+
+                    if (bigcraftable.QualifiedItemId == "(BC)10" && bigcraftable.heldObject.Value is not null)
+                    {
+                        int tiles = TalentUtility.FlowersInBeeHouseRange(bigcraftable.Location, bigcraftable.TileLocation);
+                        if (TalentUtility.AnyPlayerHasTalent("Farming_Harmonious_Blooming") && Game1.random.NextBool(tiles * 0.05))
+                        {
+                            bigcraftable.heldObject.Value.Stack += tiles / 6;
+                            bigcraftable.heldObject.Value.FixStackSize();
+                        }
+                        return true;
+                    }
+                    if (bigcraftable.QualifiedItemId == "(BC)217" && bigcraftable is Chest chest)
+                    {
+                        chest.SpecialChestType = TalentUtility.AnyPlayerHasTalent("Misc_MiniFridgeBigSpace")
+                            ? Chest.SpecialChestTypes.BigChest
+                            : chest.SpecialChestType;
+                    }
+                }
+                return true;
+            });
+        }
+        private static void HandleCropFairy(ref Crop crop)
+        {
+            if (crop.currentPhase.Value == crop.phaseDays.Count - 1 && crop.TryGetGiantCrops(out var possibleGiantCrops))
+            {
+                Farm farm = Game1.getFarm();
+                foreach (KeyValuePair<string, GiantCropData> pair in possibleGiantCrops)
+                {
+                    string giantCropId = pair.Key;
+                    GiantCropData giantCrop = pair.Value;
+                    if ((giantCrop.Chance < 1f && !Utility.CreateDaySaveRandom((int)crop.Dirt.Tile.X, (int)crop.Dirt.Tile.Y, Game1.hash.GetDeterministicHashCode(giantCropId)).NextBool(giantCrop.Chance)) || !GameStateQuery.CheckConditions(giantCrop.Condition, farm))
+                    {
+                        continue;
+                    }
+                    bool valid = true;
+                    for (int y2 = (int)crop.Dirt.Tile.Y; y2 < (int)crop.Dirt.Tile.Y + giantCrop.TileSize.Y; y2++)
+                    {
+                        int x2 = (int)crop.Dirt.Tile.X;
+                        while (x2 < (int)crop.Dirt.Tile.X + giantCrop.TileSize.X)
+                        {
+                            Vector2 v2 = new(x2, y2);
+                            if (farm.terrainFeatures.TryGetValue(v2, out var terrainFeature2))
+                            {
+                                if (terrainFeature2 is HoeDirt dirt2)
+                                {
+                                    Crop crop2 = dirt2.crop;
+                                    if (crop2?.indexOfHarvest.Value == crop.indexOfHarvest.Value)
+                                    {
+                                        x2++;
+                                        continue;
+                                    }
+                                }
+                            }
+                            valid = false;
+                            break;
+                        }
+                        if (!valid)
+                        {
+                            break;
+                        }
+                    }
+                    if (!valid)
+                    {
+                        continue;
+                    }
+                    for (int y = (int)crop.Dirt.Tile.Y; y < (int)crop.Dirt.Tile.Y + giantCrop.TileSize.Y; y++)
+                    {
+                        for (int x = (int)crop.Dirt.Tile.X; x < (int)crop.Dirt.Tile.X + giantCrop.TileSize.X; x++)
+                        {
+                            Vector2 v = new(x, y);
+                            ((HoeDirt)farm.terrainFeatures[v]).crop = null;
+                        }
+                    }
+                    farm.resourceClumps.Add(new GiantCrop(giantCropId, crop.Dirt.Tile));
+                    break;
+                }
             }
-            ModEntry.Helper.GameContent.InvalidateCache("LooseSprites/Cursors");
-            ModEntry.Helper.GameContent.InvalidateCache("Data/Machines");
-            ModEntry.Helper.GameContent.InvalidateCache("Data/FishPondData");
-            ModEntry.Helper.GameContent.InvalidateCache("Data/Weapons");
-            ModEntry.Helper.GameContent.InvalidateCache("Data/FarmAnimals");
-            ModEntry.Helper.GameContent.InvalidateCache("Data/CraftingRecipes");
-            ModEntry.Helper.GameContent.InvalidateCache("Data/Locations");
-            ModEntry.Helper.GameContent.InvalidateCache("Data/Objects");
         }
     }
 }

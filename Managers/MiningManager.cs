@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using StardewValley;
 using System.Linq;
 using System.Reflection.Emit;
+using VanillaPlusProfessions.Utilities;
+using StardewValley.Extensions;
 
 namespace VanillaPlusProfessions.Managers
 {
@@ -17,39 +19,73 @@ namespace VanillaPlusProfessions.Managers
 
         public void ApplyPatches()
         {
-            ModEntry.Harmony.Patch(
-                original: AccessTools.Method(typeof(ForgeMenu), nameof(ForgeMenu.receiveLeftClick)),
-                transpiler: new HarmonyMethod(typeof(MiningManager), nameof(MiningManager.Transpiler))
-            );
-            ModEntry.Harmony.Patch(
-                original: AccessTools.Method(typeof(ForgeMenu), "_UpdateDescriptionText"),
-                transpiler: new HarmonyMethod(typeof(MiningManager), nameof(MiningManager.Transpiler))
-            );
-            ModEntry.Harmony.Patch(
-                original: AccessTools.Method(typeof(ForgeMenu), nameof(ForgeMenu.draw), new System.Type[] { typeof(SpriteBatch)}),
-                transpiler: new HarmonyMethod(typeof(MiningManager), nameof(MiningManager.Transpiler))
-            );
-            ModEntry.Harmony.Patch(
+            try
+            {
+                ModEntry.Harmony.Patch(
+                    original: AccessTools.Method(typeof(ForgeMenu), nameof(ForgeMenu.receiveLeftClick)),
+                    transpiler: new HarmonyMethod(typeof(MiningManager), nameof(MiningManager.Transpiler))
+                );
+            }
+            catch (System.Exception e)
+            {
+                CoreUtility.PrintError(e, nameof(MiningManager), nameof(ForgeMenu.receiveLeftClick), "transpiling");
+            }
+            try
+            {
+                ModEntry.Harmony.Patch(
+                    original: AccessTools.Method(typeof(ForgeMenu), "_UpdateDescriptionText"),
+                    transpiler: new HarmonyMethod(typeof(MiningManager), nameof(MiningManager.Transpiler))
+                );
+            }
+            catch (System.Exception e)
+            {
+                CoreUtility.PrintError(e, nameof(MiningManager), "'ForgeMenu._UpdateDescriptionText'", "transpiling");
+            }
+            try
+            {
+                ModEntry.Harmony.Patch(
+                    original: AccessTools.Method(typeof(ForgeMenu), nameof(ForgeMenu.draw), new System.Type[] { typeof(SpriteBatch) }),
+                    transpiler: new HarmonyMethod(typeof(MiningManager), nameof(MiningManager.Transpiler))
+                );
+            }
+            catch (System.Exception e)
+            {
+                CoreUtility.PrintError(e, nameof(MiningManager), nameof(ForgeMenu.draw), "transpiling");
+            }
+            try
+            {
+                ModEntry.Harmony.Patch(
                 original: AccessTools.Method(typeof(ForgeMenu), nameof(ForgeMenu.update)),
                 transpiler: new HarmonyMethod(typeof(MiningManager), nameof(MiningManager.Transpiler))
             );
-            ModEntry.Harmony.Patch(
-                original: AccessTools.Method(typeof(ForgeMenu), nameof(ForgeMenu.GenerateHighlightDictionary)),
-                postfix: new HarmonyMethod(typeof(MiningManager), nameof(MiningManager.GenerateHighlightDictionary_Postfix))
-            );
-           /* ModEntry.Harmony.Patch(
-                original: AccessTools.Method(typeof(ForgeMenu), nameof(ForgeMenu.SpendRightItem)),
-                postfix: new HarmonyMethod(typeof(MiningManager), nameof(MiningManager.SpendRightItem_Postfix))
-            );*/
-            ModEntry.Harmony.Patch(
+            }
+            catch (System.Exception e)
+            {
+                CoreUtility.PrintError(e, nameof(MiningManager), "'ForgeMenu.update'", "transpiling");
+            }
+            try
+            {
+                ModEntry.Harmony.Patch(
                 original: AccessTools.Method(typeof(Game1), "createMultipleObjectDebris", new System.Type[] { typeof(string), typeof(int), typeof(int), typeof(int), typeof(long), typeof(GameLocation) }),
                 prefix: new HarmonyMethod(typeof(MiningManager), nameof(MiningManager.createMultipleObjectDebris_Prefix))
             );
+            }
+            catch (System.Exception e)
+            {
+                CoreUtility.PrintError(e, nameof(MiningManager), "'Game1.createMultipleObjectDebris'", "prefixing");
+            }
             TypeBeingPatched = typeof(BaseEnchantment);
-            ModEntry.Harmony.Patch(
-                original: AccessTools.Method(typeof(BaseEnchantment), nameof(BaseEnchantment.GetEnchantmentFromItem)),
-                transpiler: new HarmonyMethod(typeof(MiningManager), nameof(MiningManager.Transpiler))
-            );
+            try
+            {
+                ModEntry.Harmony.Patch(
+                    original: AccessTools.Method(typeof(BaseEnchantment), nameof(BaseEnchantment.GetEnchantmentFromItem)),
+                    transpiler: new HarmonyMethod(typeof(MiningManager), nameof(MiningManager.Transpiler))
+                );
+            }
+            catch (System.Exception e)
+            {
+                CoreUtility.PrintError(e, nameof(MiningManager), "'BaseEnchantment.GetEnchantmentFromItem'", "transpiling");
+            }
             TypeBeingPatched = null;
         }
 
@@ -100,23 +136,10 @@ namespace VanillaPlusProfessions.Managers
                 }
             }
         }
-        public static void GenerateHighlightDictionary_Postfix(Dictionary<Item, bool> ____highlightDictionary, ForgeMenu __instance)
-        {
-            List<Item> item_list = new(__instance.inventory.actualInventory);
-            foreach (var item in item_list)
-            {
-                if (item is null)
-                    continue;
-                if (item.QualifiedItemId == "(O)82" && item.Stack >= 5)
-                {
-                    ____highlightDictionary[item] = true;
-                }
-            }
-        }
-        public static void createMultipleObjectDebris_Prefix(string id, ref int number, long who)
+        public static void createMultipleObjectDebris_Prefix(string id, int xTile, int yTile, ref int number, long who)
         {
             Farmer farmer = Game1.getFarmer(who);
-            if (CoreUtility.CurrentPlayerHasProfession(60, farmer) && id == "(O)848")
+            if (CoreUtility.CurrentPlayerHasProfession(60, useThisInstead: farmer) && id == "(O)848")
             {
                 number = 0;
 
@@ -126,19 +149,26 @@ namespace VanillaPlusProfessions.Managers
                     number++;
                 number += Game1.random.Next(2, 5);
             }
-        }
-        /*public static void SpendRightItem_Postfix(ForgeMenu __instance)
-        {
-            if (__instance.rightIngredientSpot.item != null && Utility.CurrentPlayerHasProfession(61))
+            if (TalentUtility.AnyPlayerHasTalent("Mining_Volatile") && Game1.random.NextBool())
             {
-                if (__instance.rightIngredientSpot.item.QualifiedItemId == "(O)82" && __instance.rightIngredientSpot.item.Stack >= 4)
+                if (id == "(O)378")
                 {
-                    __instance.rightIngredientSpot.item.Stack -= 4;
-                    if (__instance.rightIngredientSpot.item.Stack == 0)
-                        __instance.rightIngredientSpot.item = null;
+                    Game1.createObjectDebris("(O)380", xTile, yTile);
+                }
+                else if (id == "(O)380")
+                {
+                    Game1.createObjectDebris("(O)384", xTile, yTile);
+                }
+                else if (id == "(O)384")
+                {
+                    Game1.createObjectDebris("(O)386", xTile, yTile);
+                }
+                else if (id == "(O)386")
+                {
+                    Game1.createObjectDebris("(O)909", xTile, yTile);
                 }
             }
-        }*/
+        }
         public static bool Conditions(Item item, bool doesStackMatter = true)
         {
             return doesStackMatter
