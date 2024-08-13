@@ -1,11 +1,8 @@
 # Compatibility
 
-**Warning: This guide might assume you're already familiar with JSON format, Content Patcher packs and/or C# based mods depending on the part of the guide.**
+**Warning: This guide might assume you're already familiar with JSON format, Content Patcher packs, Game State Queries and/or C# based mods depending on the part of the guide.**
 
-There's three main sections in this guide, please click the 
-
-
-## Content Packs (Most CP, though)
+## Content Packs (Mostly CP, though)
 VPP offers two custom CP tokens and one custom GSQ for compatibility purposes at the moment.
 The queries/tokens, and the formats are listed below:
 
