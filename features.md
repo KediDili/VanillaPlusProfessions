@@ -106,10 +106,10 @@ Which type of effect they give depends on their price and color:
 
 | Color                  | Effect             |
 |:----------------------:|:------------------:|
-| Green<br/>black<br/>dark brown | Tree Fertilizer    |
-| Red<br/>Purple<br/>pink        | Speed-Gro          |
-| Orange<br/>Yellow<br/>Brown    | Quality Fertilizer |
-| Blue<br/>Cyan<br/>White<br/>gray   | Retaining Soil     |
+| Green, black<br/>dark brown | Tree Fertilizer    |
+| Red<br/>Purple & Pink        | Speed-Gro          |
+| Orange<br/>Yellow & Brown    | Quality Fertilizer |
+| Blue, Cyan<br/>White, Gray   | Retaining Soil     |
 
 | Price Range      | Strength Of Effect |
 |:----------------:|:------------------:|
