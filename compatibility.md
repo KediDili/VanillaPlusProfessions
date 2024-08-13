@@ -36,6 +36,7 @@ An example patch for both of them is written below:
 }
 ```
 
+### Game State Queries
 |                                Format                                  |                         Details                         |
 |:----------------------------------------------------------------------:|:-------------------------------------------------------:|
 | ``KediDili.VanillaPlusProfessions_WasRainingHereYesterday <location>`` | Checks if it was raining the said location YESTERDAY.<br/>This can be used for compatibility with talents such as Bountiful Boletes or Renewing Mist that need this check. |
