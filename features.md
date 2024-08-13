@@ -596,107 +596,172 @@ They will be twice as fast.
 ## Mining Talents
 
 ### Down In The Depths
-
+If no ladder has spawned, guaranteed chance of finding one after breaking 8 stones.
 
 ### Shadow Buddies
-
+If befriended, Krobus will gift you 1-3 geodes via mail each week.
 
 ### Dwarven Buddies
-
+If befriended, the Dwarf will gift you 1-3 metal bars via mail each week.
 
 ### Essence Infusion
-
+Each day, Sign of the Vessels will produce Solar Essence and Wicked Statues will produce Void Essence.
 
 ### Elder Scrolls
-
+If the Dwarvish Translation Guide has been obtained, dwarf scrolls can be read for mining experience.
 
 ### Speed Of Darkness
-
+Receive a speed boost after 12 AM.
 
 ### Ancestral Weaponry
-
+If Ginger Island has been unlocked,\nthe Dwarf sells dwarven weaponry.
 
 ### Shared Focus
-
+Time is slower in any mines.
 
 ### Museum Piece
-
+Double chance of receiving\nundonated artifacts or minerals\nfrom geodes & artifact troves.
 
 ### Explosive Personality
-
+Rocks destroyed by bombs have increased chance to drop additional geodes.
 
 ### Synthesis
-
+Crystalariums can copy geodes.
 
 ### Upheaval
-
+Low chance for all stones on a mine floor\nto be replaced by geode nodes.
 
 ### Matryoshka
-
+Chance for geodes to contain another geode.
 
 ### X-ray
-
+View what item the next geode contains.\nGeodes worth more.
 
 ### Geometry
-
+Crystalariums work faster.
 
 ### Dazzle
-
+Chance for crystalariums to improve item quality by one.
 
 ### Straight Run
-
+Robin sells staircases for 2000g each.
 
 ### Detonation Dampener
-
+Bombs won't destroy forage, machinery, or artifact spots.
 
 ### Volatility
-
+Chance for ore nodes to drop higher tier ore as well.
 
 ### Alchemic Reversal
-
+Higher tier metal bars can be converted into lower ones.
 
 ### Room And Pillar
-
+All ore nodes can spawn in the quarry mine.
 
 ### Fallout
-
+Radioactive ore nodes spawn in the non-dangerous mines and Skull Cavern.
 
 ### Everyone's Best Friend
-
+Diamond, tigerseye, opal, fire opal, jasper, and star shards will become universal loved gifts.
 
 ### Crystal Cavern
-
+Low chance for all stones on a mine floor\nto be replaced by gem nodes.
 
 ### Over The Rainbow
-
+Add prismatic shard crafting recipe.
 
 ## Foraging Talents
 
-### Resurgence
-### Refreshing Waters
-### Good Soaking
-### Nourishing Rain
-### Wild Growth
-### Overcrowding
-### Bio-Engineering
-### Pastoralism
-### Breed Like Rabbits
-### BrimmingWithLife
-### CycleOfLife
-### Effloresence
-### HarmoniousBlooming
-### Abundance
-### FairysKiss
-### FaeBlessings
-### FineGrind
-### DriftFencing
-### StormSurge
-### ColdPress
-### Upcycling
-### Fertigation
-### Trickster
-### TropicalBliss
-### HarvestSeason
+### Nature Secrets
+Chance for chopped tree stumps to drop forage items.
+
+### Primrose Path
+Flowers give more friendship when gifted.
+
+### Berry-mania
+Berry seasons last for one week.
+
+### Diamond of the Kitchen
+Truffles spawn in forests.
+
+### Local Knowledge
+Forage is reset every day.
+
+### Sea Change
+Once per week, beach forage is doubled.
+
+### Starfall
+Chance for star shards to spawn as forage in the evening for 1-7 days.
+
+### Desert Bloom
+Chance for flowers to spawn in Calico Desert on rainy days in Pelican Town.
+
+### Bountiful Boletes
+High chance for mushrooms to spawn after rainy days.
+
+### Renewing Mist
+Double forage spawns on the first sunny day after rain.
+
+### Reforestation
+Hand-planted wild tree seeds produce double harvest.
+
+### Sap Sipper
+Sap is edible and recovers health.
+
+### Spring Thaw
+Large tapper produce can be harvested from tappers.
+
+### Accumulation
+Chance for tapper products to increase\nin quality if left uncollected overnight.
+
+### Exotic Tapping
+Palm trees can be tapped for Oil. Mahogany trees can be tapped for Sugar.
+
+### Grove Tending
+Double effects of Tree Fertilizer.
+
+### Surge Protection
+Wild trees become coal trees when struck by lightning.
+
+### Welcome to the Jungle
+Coconuts can be planted to grow a palm tree. Golden coconuts can drop anywhere.
+
+### Clear as Mud
+High chance to find clay when tilling.
+
+### Sleep Under the Stars
+No penalty for falling asleep at 2AM if at the beach, mountain, or forest.
+
+### Camp Spirit
+Food made with a Cookout Kit restores more energy and health than food made in a kitchen.
+
+### Survival Cooking
+Adds unique recipes to Cookout Kits.
+There will be new 10 cooking recipes that will be only available from Cookout Kits.
+So you wont be able to cook them in regular kitchens.
+
+The new recipes and their ingredients are listed below:
+|        Food         |             Recipe             |
+|:-------------------:|:------------------------------:|
+| Grilled Leek        | 1 Leek                         |
+| Seaweed Salad       | 2 Seaweed                      |
+| Trail Mix           | 1 Hazelnut<br/>1 Spice Berry   |
+| Roasted Fiddleheads | 1 Fiddlehead Fern              |
+| Wild Fruit Salad    | 1 Blackberry<br/>1 Salmonberry |
+| Grilled Fish        | 1 Any Fish                     |
+| Baked Tubers        | 1 Snow Yam<br/>1 Winter Root   |
+| Mushroom Kebab      | 2 Common Mushroom              |
+| Fried Bug Steak     | 1 Bug Steak                    |
+| Steamed Clams       | 2 Clam                         |
+
+### Pyrolysis
+Charcoal Kilns will be more efficient.
+
+### Static Charge
+Lightning Rods can accumulate two charges at once. Solar Panels take 2 less days to produce a battery.
+
+### Eye Spy
+Increased chance of finding Living Hats and similar items.
 
 ## Fishing Talents
 
