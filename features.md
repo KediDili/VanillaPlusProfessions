@@ -665,6 +665,9 @@ an iron node to drop gold, etc.
 
 ### Alchemic Reversal
 Higher tier metal bars can be converted into lower ones.
+The talent will add two crafting recipes, similar to the Transmute bars added by Mining skill.
+You will be able to have 5 gold bars for 2 iridium bars
+and 5 iron bars for 2 gold bars.
 
 ### Room And Pillar
 All ore nodes can spawn in the quarry mine.
