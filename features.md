@@ -1010,38 +1010,6 @@ Reading lost books after they've been found gives you daily buffs, reading anoth
 |'Goblins' by M. Jasper       | Defense      | +4               |
 |Solok Ulan Paa Eno Ra        | Speed        | +4               |
 
-
-
-
-
-
-
-
-
-
-
--
--
--
--
--
--
--
--
--
--
--
--
--
--
--
--
--
--
--
--
--
-
 For Mod Authors: There's nothing you need to do add compatibility with this talent.
 ### Bookclub Bargains
 Reduces the bookseller's prices.
