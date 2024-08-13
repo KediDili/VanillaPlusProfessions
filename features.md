@@ -453,12 +453,12 @@ Its said to be alike Skyrim's skill trees, but to be quite honest I haven't play
 
 ## How do I get talent points?
 
-|         Way to obtain         |  Talent points obtainable |
-|:-----------------------------:|:-------------------------:|
-|Levelling up in any skill      | 1 (each level up)         |
-|Completing Achievements        | 1 (each achievement)      |
-|Succeeding in Qi's Challenges  | 1 (only once per SO)      |
-|Achieving Perfection           | 10                        |
+|         Way to obtain          |  Talent points obtainable |
+|:------------------------------:|:-------------------------:|
+| Levelling up in any skill      | 1 (each level up)         |
+| Completing Achievements        | 1 (each achievement)      |
+| Succeeding in Qi's Challenges  | 1 (only once per SO)      |
+| Achieving Perfection           | 10                        |
 
 ## Can I reset my talents?
 You are allowed to reset the trees as often as you want, but you have to use one of:
@@ -474,110 +474,155 @@ It adds a grand total of 141 talents divided across 6 skill trees, 25 for each v
 ## Farming Talents
 
 ### Resurgence
-
+Watering can automatically partially refills every 90 minutes.
 
 ### Refreshing Waters
-
+Watering can is refilled every morning upon waking.
 
 ### Good Soaking
-
+Soil is automatically watered the day after rain.
 
 ### Nourishing Rain
-
+For each rainy day, growth time for outdoor crops is reduced by 1 day.[^5]
 
 ### Wild Growth
-
+Chance for animals to produce both deluxe & normal items.
 
 ### Overcrowding
+Coops & barns can house more animals.
+Vanilla coops and barns will increase in size to house more animals by %20.
 
+Note: In case you're using a barn/coop replacer mod, there's an option in the CP part of the mod to turn the map edits off so that you can use the replacer.
 
 ### Bio-Engineering
-
+Large animal produce will result in doubled artisan goods.
 
 ### Pastoralism
-
+Quality animal produce will result in quality artisan goods.
 
 ### Breed Like Rabbits
+Rabbits are able to reproduce.
 
+### Brimming With Life
+Double chance for animal pregnancy.
 
-### BrimmingWithLife
+In vanilla, the base chance is ``currentAnimalAmount * 0.0055`` every night, the talent changes it to ``currentAnimalAmount * 0.011``
 
+### Cycle Of Life
+50% chance to receive back a seed of a harvested non-regrowable crop.
 
-### CycleOfLife
-
+Note for Mod Authors: This talent doesn't act well with SpaceCore's YieldOverrides feature for Crops, this is due to SpaceCore and not me.
+Simply you wont get the seeds that this talent is supposed to give.
 
 ### Effloresence
+Reduces time flowers take to grow.[^5]
 
-
-### HarmoniousBlooming
-
+### Harmonious Blooming
+Receive additional honey depending on the number of flowers around a bee house (honey type from a random flower)
 
 ### Abundance
+Chance for honey to increase in quality for each day not harvested.
 
+### Fairy's Kiss
+Every full-grown fairy rose increases the chance for crop fairy to appear.
 
-### FairysKiss
+### Fae Blessings
+The crop fairy will instantly grow a giant crop if it's possible for one to grow.
 
+### Fine Grind
+Milled rice/flour/sugar matches the ingredient quality.
 
-### FaeBlessings
+### Drift Fencing
+Crafting fences produces double items.
 
+### Storm Surge
+Lightning rods protect more crops and fruit trees even when producing.
 
-### FineGrind
+### Cold Press
+Oil makers produce additional types of oils.
 
+You can use the oil maker to make oils from:
+- Tomato
+- All seasonal wild seed packs
+- Summer Squash
+- Mango
+- Apricot
+- Pine Cone
+- Orange
+- Apple
+- Amaranth
+- Carrot
+- Pomegranate
+- Hazelnut
+- Coconut
+- Artichoke
+- Pumpkin
+- Poppy
+- Wheat
+- Unmilled Rice
+- Radish
 
-### DriftFencing
-
-
-### StormSurge
-
-
-### ColdPress
-
+All of these will have names such as Tomato Oil but will act like the vanilla regular oil and can be used in such recipes.
 
 ### Upcycling
+Higher-tier sprinklers require lower ones as materials.
 
+This talent will changes the recipes of Iridium sprinkler and Quality Sprinkler, the old and new recipes are listed below
+
+|     Sprinkler     |                    Old Recipe                   |                       New Recipe                         |
+|:-----------------:|:-----------------------------------------------:|:--------------------------------------------------------:|
+| Quality Sprinkler | 1 Iron Bar<br/>1 Gold Bar<br/>1 Refined Quartz  | 1 Gold Bar<br/>1 Coal<br/>1 Sprinkler                    |
+| Iridium Sprinkler | 1 Gold Bar<br/>1 Iridium Bar<br/>1 Battery Pack | 1 Iridium Bar<br/>1 Battery Pack<br/>1 Quality Sprinkler |
 
 ### Fertigation
+Both pressure nozzles and enrichers can be added to sprinklers.
 
+Upon purchasing the talent, you will get a new crafting recipe for an item named "Fertigator" which requires one Pressure Nozzle and one Enricher.
+When you place it to the sprinkler, you will get effects of both.
 
 ### Trickster
+Crows wont eat full-grown crops anymore.
 
+### Tropical Bliss
+Summer & multi-season crops grow faster on Ginger Island.[^5]
 
-### TropicalBliss
+[^5]: This talent works in sync with the other two of Nourishing Rain, Efflorescence and Tropical Bliss; They are checked in the order they're listed here and if one of them apply, others will be ignored, also only one of them takes effect per plant phase.
 
+### Harvest Season
+Junimos harvest faster.
 
-### HarvestSeason
-
+They will be twice as fast.
 
 ## Mining Talents
 
-### DownInTheDepths
+### Down In The Depths
 
 
-### ShadowBuddies
+### Shadow Buddies
 
 
-### DwarvenBuddies
+### Dwarven Buddies
 
 
-### EssenceInfusion
+### Essence Infusion
 
 
-### ElderScrolls
+### Elder Scrolls
 
 
-### SpeedOfDarkness
+### Speed Of Darkness
 
 
-### AncestralWeaponry
+### Ancestral Weaponry
 
 
-### SharedFocus
+### Shared Focus
 
 
-### MuseumPiece
+### Museum Piece
 
 
-### ExplosivePersonality
+### Explosive Personality
 
 
 ### Synthesis
@@ -598,31 +643,31 @@ It adds a grand total of 141 talents divided across 6 skill trees, 25 for each v
 ### Dazzle
 
 
-### StraightRun
+### Straight Run
 
 
-### DetonationDampener
+### Detonation Dampener
 
 
 ### Volatility
 
 
-### AlchemicReversal
+### Alchemic Reversal
 
 
-### RoomAndPillar
+### Room And Pillar
 
 
 ### Fallout
 
 
-### EveryonesBestFriend
+### Everyone's Best Friend
 
 
-### CrystalCavern
+### Crystal Cavern
 
 
-### OverTheRainbow
+### Over The Rainbow
 
 
 ## Foraging Talents
