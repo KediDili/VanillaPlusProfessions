@@ -622,6 +622,8 @@ Time is slower in any mines.
 ### Museum Piece
 Double chance of receiving\nundonated artifacts or minerals\nfrom geodes & artifact troves.
 
+Note: This talent will automatically disable itself when you complete the vanilla museum.
+
 ### Explosive Personality
 Rocks destroyed by bombs have increased chance to drop additional geodes.
 
@@ -629,19 +631,26 @@ Rocks destroyed by bombs have increased chance to drop additional geodes.
 Crystalariums can copy geodes.
 
 ### Upheaval
-Low chance for all stones on a mine floor\nto be replaced by geode nodes.
+Low chance for all stones on a mine floor to be replaced by geode nodes.
+
+For Mod Authors: If you want your custom mines to be affected by this talent, add the ``Kedi.VPP.Upheaval`` key to your Data/Locations entry's CustomFields... field. Optionally, you can add a space-delimited list of UNQUALIFIED object IDs for the geode nodes you want your regular stones to be replaced with as value. If you don't set it, VPP will just use the vanilla ones instead. As a bonus, if you have custom nodes as well, add them the ``Kedi_VPP_Bland_Stone_Node`` context tag to your "stone items".
 
 ### Matryoshka
 Chance for geodes to contain another geode.
 
+For Mod Authors: If you add custom geodes and want your geodes to not be dropped by this talent, add the ``kedi_vpp_banned_from_being_dropped`` context tag to them, if you don't want your geode to not drop other geodes, add the ``kedi_vpp_banned_from_dropping`` context tag.
+
 ### X-ray
-View what item the next geode contains.\nGeodes worth more.
+View what item the next geode contains. Geodes worth more.
+
+For Mod Authors: If you add custom geodes and want your geodes' content to not be seen by this talent, add them the ``geode_crusher_ignored`` tag. But know that adding the tag will also prevent your geodes to be crushed by the Geode Crusher.
 
 ### Geometry
 Crystalariums work faster.
 
 ### Dazzle
 Chance for crystalariums to improve item quality by one.
+This affects minerals, and geodes if you have Synthesis talent. 
 
 ### Straight Run
 Robin sells staircases for 2000g each.
@@ -666,6 +675,8 @@ Diamond, tigerseye, opal, fire opal, jasper, and star shards will become univers
 
 ### Crystal Cavern
 Low chance for all stones on a mine floor\nto be replaced by gem nodes.
+
+For Mod Authors: If you want your custom mines to be affected by this talent, add the ``Kedi.VPP.CrystalCavern`` key to your Data/Locations entry's CustomFields... field. Optionally, you can add a space-delimited list of UNQUALIFIED object IDs for the gem nodes you want your regular stones to be replaced with as value. If you don't set it, VPP will just use the vanilla ones instead. As a bonus, if you have custom nodes as well, add them the ``Kedi_VPP_Bland_Stone_Node`` context tag to your "stone items".
 
 ### Over The Rainbow
 Add prismatic shard crafting recipe.
@@ -699,6 +710,8 @@ Chance for flowers to spawn in Calico Desert on rainy days in Pelican Town.
 ### Bountiful Boletes
 High chance for mushrooms to spawn after rainy days.
 
+For Mod Authors: If you add custom mushrooms and want them to be affected by this talent, you need to add one of these context tags to them; ``edible_mushroom`` or ``Kedi_VPP_Poisonous_Mushroom``, but the edible mushroom tag will make them available for Dehydrators' Dried Mushrooms as well which is not intended.
+
 ### Renewing Mist
 Double forage spawns on the first sunny day after rain.
 
@@ -710,6 +723,9 @@ Sap is edible and recovers health.
 
 ### Spring Thaw
 Large tapper produce can be harvested from tappers.
+
+This will only affect the vanilla pine tars, maple syrups and oak resins and turn them into their large versions added by VPP.
+This talent may be needed for some skill craftables added by VPP as well.
 
 ### Accumulation
 Chance for tapper products to increase\nin quality if left uncollected overnight.
@@ -737,8 +753,7 @@ Food made with a Cookout Kit restores more energy and health than food made in a
 
 ### Survival Cooking
 Adds unique recipes to Cookout Kits.
-There will be new 10 cooking recipes that will be only available from Cookout Kits.
-So you wont be able to cook them in regular kitchens.
+There will be new 10 cooking recipes that will be only available from Cookout Kits. So you wont be able to cook them in regular kitchens. Most of VPP-spesific ones use forage as ingredients because they're supposed to heal the player a middle amount while they're out in the wild.
 
 The new recipes and their ingredients are listed below:
 |        Food         |             Recipe             |
@@ -753,6 +768,8 @@ The new recipes and their ingredients are listed below:
 | Mushroom Kebab      | 2 Common Mushroom              |
 | Fried Bug Steak     | 1 Bug Steak                    |
 | Steamed Clams       | 2 Clam                         |
+
+For Mod Authors: If you have such recipes and want them to be added in this, add them the ``kedi_vpp_survival_cooking_food`` context tag.
 
 ### Pyrolysis
 Charcoal Kilns will be more efficient.
