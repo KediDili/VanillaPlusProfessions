@@ -660,6 +660,8 @@ Bombs won't destroy forage, machinery, or artifact spots.
 
 ### Volatility
 Chance for ore nodes to drop higher tier ore as well.
+There's a %50 chance for a copper node to additionally drop iron ore,
+an iron node to drop gold, etc.
 
 ### Alchemic Reversal
 Higher tier metal bars can be converted into lower ones.
@@ -676,10 +678,11 @@ Diamond, tigerseye, opal, fire opal, jasper, and star shards will become univers
 ### Crystal Cavern
 Low chance for all stones on a mine floor\nto be replaced by gem nodes.
 
-For Mod Authors: If you want your custom mines to be affected by this talent, add the ``Kedi.VPP.CrystalCavern`` key to your Data/Locations entry's CustomFields... field. Optionally, you can add a space-delimited list of UNQUALIFIED object IDs for the gem nodes you want your regular stones to be replaced with as value. If you don't set it, VPP will just use the vanilla ones instead. As a bonus, if you have custom nodes as well, add them the ``Kedi_VPP_Bland_Stone_Node`` context tag to your "stone items".
+For Mod Authors: If you want your custom mines to be affected by this talent, add the ``Kedi.VPP.CrystalCavern`` key to your Data/Locations entry's CustomFields... field. Optionally, you can add a space-delimited list of UNQUALIFIED object IDs for the gem nodes you want your regular stones to be replaced with as value. If you don't set it, VPP will just use the vanilla ones instead. As a bonus, if you have custom nodes as well, add them the ``Kedi_VPP_Bland_Stone_Node`` context tag to your "stone objects".
 
 ### Over The Rainbow
 Add prismatic shard crafting recipe.
+The recipe will require one of every gem.
 
 ## Foraging Talents
 
