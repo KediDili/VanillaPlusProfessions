@@ -291,6 +291,8 @@
 	"Talent.OverTheRainbow.Name": "Over the Rainbow",
 	"Talent.OverTheRainbow.Desc": "Add prismatic shard crafting recipe.",
 
+	//Foraging
+
 	"Talent.NatureSecrets.Name": "Nature Secrets",
 	"Talent.NatureSecrets.Desc": "Chance for chopped tree stumps to drop forage items.",
 
@@ -366,6 +368,8 @@
 	"Talent.EyeSpy.Name": "Eye Spy",
 	"Talent.EyeSpy.Desc": "Increased chance of finding Living Hats and similar items.",
 
+	//Fishing
+
 	"Talent.FisheryGrant.Name": "Fishery Grant",
 	"Talent.FisheryGrant.Desc": "Fish ponds are cheaper to build.",
 
@@ -427,7 +431,7 @@
 	"Talent.FishsWishes.Desc": "Allows using Magic Bait on crab pots.\nIf you have Luremaster, basic Bait acts like Magic Bait.",
 
 	"Talent.HereFishyFishy.Name": "Here Fishy Fishy",
-	"Talent.HereFishyFishy.Desc": "Failing to catch a fish 3 times in a\nrow greatly increases the bobber bar\nheight for the next fish.",
+	"Talent.HereFishyFishy.Desc": "Failing to catch any fish 3 times in a\nrow greatly increases the bobber bar\nheight for the next fish.",
 
 	"Talent.VastDomain.Name": "Vast Domain",
 	"Talent.VastDomain.Desc": "Legendary fish can be caught in\nan increased location range.",
@@ -441,6 +445,7 @@
 	"Talent.BubbleTrouble.Name": "Bubble Trouble",
 	"Talent.BubbleTrouble.Desc": "Bubbles will always be within\n4 tiles of land.",
 
+	//Combat
 	"Talent.Slimeshot.Name": "Slimeshot",
 	"Talent.Slimeshot.Desc": "Slime can be used as slingshot ammo.\nIf slime hits a monster,\nit will be slowed down.",
 

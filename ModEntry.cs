@@ -216,7 +216,7 @@ namespace VanillaPlusProfessions
                     {
                         BuffEffects buffEffects = new();
                         buffEffects.Defense.Value = Math.Min(8, monsters);
-                        Buff buff = new("VPP.Fortified.Defense", "Fortified", "Fortified", -2, Game1.buffsIcons, 10, buffEffects, false, Game1.parseText(Helper.Translation.Get("Buff.Fortified.Name")), Game1.parseText(Helper.Translation.Get("Buff.Fortified.Desc")));
+                        Buff buff = new("VPP.Fortified.Defense", "Fortified", "Fortified", -2, Game1.buffsIcons, 10, buffEffects, false, Helper.Translation.Get("Buff.Fortified.Name"), Game1.parseText(Helper.Translation.Get("Buff.Fortified.Desc"), Game1.smallFont, TalentUtility.BuffDescriptionLength(Helper.Translation.Get("Buff.Fortified.Name"))));
                         e.Player.buffs.Apply(buff);
                     }
                     else
@@ -437,9 +437,48 @@ namespace VanillaPlusProfessions
                     }
                     else if (menu2.pages[menu2.currentTab] is NewSkillsPage pagee)
                     {
+                        DisplayHandler.MyCustomSkillBars.Value = pagee.skillBars.ToArray();
+                        NewSkillsPage skillsPage2 = new(menu2.xPositionOnScreen, menu2.yPositionOnScreen, menu2.width + ((LocalizedContentManager.CurrentLanguageCode is LocalizedContentManager.LanguageCode.ru or LocalizedContentManager.LanguageCode.it) ? 64 : 0), menu2.height);
+                        DisplayHandler.VanillaSkillBars.Value = skillsPage2.skillBars.ToArray();
+
+                        List<(int, int)> IndexAndProfessions = new();
+                        List<int> AlreadyPickedProfessions = new();
+
+                        foreach (var item in Professions)
+                        {
+                            for (int i = 0; i < DisplayHandler.MyCustomSkillBars.Value.Length; i++)
+                            {
+                                DisplayHandler.MyCustomSkillBars.Value[i].texture = DisplayHandler.SkillIcons;
+                                DisplayHandler.MyCustomSkillBars.Value[i].sourceRect = DisplayHandler.CorrectNewSourceRect(item.Value.Skill.ToString(), pagee.skillAreas, DisplayHandler.MyCustomSkillBars.Value.ToList(), DisplayHandler.MyCustomSkillBars.Value[i]);
+                                DisplayHandler.MyCustomSkillBars.Value[i].startingSourceRect = DisplayHandler.MyCustomSkillBars.Value[i].sourceRect;
+                                if (DisplayHandler.IsInCorrectLine(DisplayHandler.MyCustomSkillBars.Value[i].bounds, pagee.skillAreas, item.Value.Skill.ToString()))
+                                {
+                                    if (CoreUtility.CurrentPlayerHasProfession(item.Value.ID, ignoreMode: true) && !AlreadyPickedProfessions.Contains(item.Value.ID))
+                                    {
+                                        IndexAndProfessions.Add((i, item.Value.ID));
+                                        AlreadyPickedProfessions.Add(item.Value.ID);
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        DisplayHandler.MyCustomSkillBars.Value[i].name = "-1";
+                                    }
+                                }
+                            }
+                        }
+
+                        for (int i = 0; i < DisplayHandler.MyCustomSkillBars.Value.Length; i++)
+                        {
+                            int index = i;
+                            if (IndexAndProfessions.Find(a => a.Item1 == index) is (int, int) tuple && !tuple.Equals(default))
+                            {
+                                DisplayHandler.MyCustomSkillBars.Value[tuple.Item1].name = tuple.Item2.ToString();
+                            }
+                        }
                         if (CoreUtility.IsOverlayValid() && DisplayHandler.LittleArrow.Value.containsPoint(Game1.getMouseX(true), Game1.getMouseY(true)))
                         {
                             DisplayHandler.IsOverlayActive.Value = !DisplayHandler.IsOverlayActive.Value;
+                            pagee.skillBars = DisplayHandler.IsOverlayActive.Value ? DisplayHandler.MyCustomSkillBars.Value.ToList() : DisplayHandler.VanillaSkillBars.Value.ToList();
                         }
                     }
                 }

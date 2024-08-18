@@ -80,12 +80,12 @@ namespace VanillaPlusProfessions.Talents.Patchers
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(Crop), nameof(Crop.harvest)),
-                    transpiler: new HarmonyMethod(typeof(FarmingPatcher), nameof(FarmingPatcher.harvest_Transpiler))
+                    postfix: new HarmonyMethod(typeof(FarmingPatcher), nameof(FarmingPatcher.harvest_Postfix))
                 );
             }
             catch (System.Exception e)
             {
-                CoreUtility.PrintError(e, nameof(FarmingPatcher), nameof(Crop.harvest), "transpiling");
+                CoreUtility.PrintError(e, nameof(FarmingPatcher), nameof(Crop.harvest), "postfixing");
             }
             
             try
@@ -125,7 +125,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             }
         }
 
-        public static IEnumerable<CodeInstruction> harvest_Transpiler(IEnumerable<CodeInstruction> codeInstructions)
+       /* public static IEnumerable<CodeInstruction> harvest_Transpiler(IEnumerable<CodeInstruction> codeInstructions)
         {
             bool close = false;
             bool found = false;
@@ -143,7 +143,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
                 }
                 yield return item;
             }
-        }
+        }*/
         public static IEnumerable<CodeInstruction> dayUpdate_Transpiler(IEnumerable<CodeInstruction> codeInstructions)
         {
             bool found = false;
@@ -161,13 +161,13 @@ namespace VanillaPlusProfessions.Talents.Patchers
             }
         }
 
-        public static void DropSeedsIfShould(Crop crop)
+        public static void harvest_Postfix(Crop __instance, bool __result)
         {
-            if (crop.netSeedIndex.Value is not null or "")
+            if (__instance.netSeedIndex.Value is not null or "" && !__instance.dead.Value)
             {
-                if (TalentUtility.CurrentPlayerHasTalent("Farming_Cycle_Of_Life") && Game1.random.NextBool() && !crop.RegrowsAfterHarvest())
+                if (TalentUtility.CurrentPlayerHasTalent("Farming_Cycle_Of_Life") && __result && Game1.random.NextBool() && !__instance.RegrowsAfterHarvest())
                 {
-                    Game1.createObjectDebris(ItemRegistry.QualifyItemId(crop.netSeedIndex.Value), (int)crop.tilePosition.X, (int)crop.tilePosition.Y, Game1.player.UniqueMultiplayerID, crop.currentLocation);
+                    Game1.createObjectDebris(ItemRegistry.QualifyItemId(__instance.netSeedIndex.Value), (int)__instance.tilePosition.X, (int)__instance.tilePosition.Y, Game1.player.UniqueMultiplayerID, __instance.currentLocation);
                 }
             }
         }

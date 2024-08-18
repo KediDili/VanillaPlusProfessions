@@ -1,0 +1,36 @@
+{
+	"16": true, //wild horseradish
+	"18": true, //daffodil
+	"20": true, //leek
+	"22": true, //dandelion
+	"257": true, //Morel
+	"281": true, //chanterelle
+	"283": true, //Holly
+	"296": true, //Salmonberry
+	"396": true, //Spice berry
+	"398": true, //Grape
+	"399": true, //spring onion
+	"402": true, //sweet pea
+	"404": true, //common shroom
+	"408": true, //Hazelnut
+	"410": true, //blackberry
+	"414": true, //Crystal fruit
+	"420": null, //red shroom
+	"422": null, //purple shroom
+	"412": false, //Winter root
+	"416": false, //snow yam
+	"78": false, //cave carrot
+	"88": false, //coconut
+	"90": false, //cactus fruit
+	"92": false, //sap
+	"829": false, //ginger
+	"851": false, //magma cap
+	"372": false, //clam
+	"392": false, //nautilus shell
+	"393": false, //coral
+	"394": false, //rainbow shell
+	"397": false, //sea urchin
+	"718": false, //cockle
+	"719": false, //mussle
+	"723": false //oyster
+}

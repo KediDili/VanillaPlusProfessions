@@ -405,7 +405,7 @@ namespace VanillaPlusProfessions.Managers
                 BuffEffects sdsdsd = new();
                 sdsdsd.Defense.Value = 2;
                 
-                Buff buff = new("VPP.Champion.Defense", "Champion talent", "Champion talent", 6000, Game1.buffsIcons, 10, sdsdsd, false, Game1.parseText(ModEntry.Helper.Translation.Get("Buff.Champion.Name")), Game1.parseText(ModEntry.Helper.Translation.Get("Buff.Champion.Desc")));
+                Buff buff = new("VPP.Champion.Defense", "Champion talent", "Champion talent", 6000, Game1.buffsIcons, 10, sdsdsd, false, ModEntry.Helper.Translation.Get("Buff.Champion.Name"), Game1.parseText(ModEntry.Helper.Translation.Get("Buff.Champion.Desc"), Game1.smallFont, TalentUtility.BuffDescriptionLength(ModEntry.Helper.Translation.Get("Buff.Champion.Name"))));
                 who.buffs.Apply(buff);
             }
 
@@ -458,7 +458,7 @@ namespace VanillaPlusProfessions.Managers
             {
                 BuffEffects buffEffects2 = new();
                 buffEffects2.CriticalPowerMultiplier.Value += 0.1f;
-                who.buffs.Apply(new("VPP.Ferocity.Speed", "VPP.Ferocity.Talent", "Ferocity", 10000, Game1.buffsIcons, 11, buffEffects2, false, Game1.parseText(ModEntry.Helper.Translation.Get("Buff.Ferocity.Name")), Game1.parseText(ModEntry.Helper.Translation.Get("Buff.Ferocity.Desc"))));
+                who.buffs.Apply(new("VPP.Ferocity.Speed", "VPP.Ferocity.Talent", "Ferocity", 10000, Game1.buffsIcons, 11, buffEffects2, false, ModEntry.Helper.Translation.Get("Buff.Ferocity.Name"), Game1.parseText(ModEntry.Helper.Translation.Get("Buff.Ferocity.Desc"), Game1.smallFont, TalentUtility.BuffDescriptionLength(ModEntry.Helper.Translation.Get("Buff.Ferocity.Name")))));
             }
             return OnCrit;
         }

@@ -12,7 +12,6 @@ using StardewValley.GameData.Weapons;
 using StardewValley.Menus;
 using VanillaPlusProfessions.Utilities;
 using System.Data;
-using StardewValley.GameData.GarbageCans;
 using StardewModdingAPI.Utilities;
 using VanillaPlusProfessions.Talents;
 

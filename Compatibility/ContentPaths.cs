@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using StardewModdingAPI;
+﻿using System.Collections.Generic;
 
 namespace VanillaPlusProfessions.Compatibility
 {
@@ -21,7 +16,7 @@ namespace VanillaPlusProfessions.Compatibility
                 yield return output;
                 yield break;
             }
-            yield return "Place/Holder";
+            yield return null;
         }
     }
 }

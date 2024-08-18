@@ -7,6 +7,8 @@ namespace VanillaPlusProfessions.Compatibility
 {
     public interface IVanillaPlusProfessions
     {
+        //OLD API METHODS
+
         /// <summary>
         /// Registers a custom skill talent tree for a custom skill added via SpaceCore.
         /// </summary>
@@ -31,102 +33,7 @@ namespace VanillaPlusProfessions.Compatibility
         /// <remarks>Note: You must call this method for registering all of your talents first, then call <see cref="RegisterCustomSkillTree(string, Func{string}, Texture2D, Rectangle, int, Color?)"/> to initialize your SkillTree without bugs.</remarks>
         public void RegisterCustomSkillTalent(string skillID, string name, Func<string, string> displayName, Func<string, string> tooltip, Vector2 position, string[] requirements, int amountToBuyFirst = 0);
 
-        /// <summary>
-        /// Constructs a skill tree of talents.
-        /// </summary>
-      /*  public class SkillTree
-        {
-            /// <summary>
-            /// The ID of this tree's skill. This is expected to be your SpaceCore skill ID.
-            /// </summary>
-            public string SkillID;
 
-            /// <summary>
-            /// The texture you want to use, it should contain both of your branch lines and skill icon.
-            /// </summary>
-            public Texture2D TreeTexture;
-
-            /// <summary>
-            /// Source rect to use on <see cref="TreeTexture"/> while drawing the skill tree. For ease of positioning, width and height should be 320 and 180.
-            /// </summary>
-            public Rectangle Rectangle;
-
-            /// <summary>
-            /// The talents this tree should own.
-            /// </summary>
-            public List<Talent> Talents;
-
-            /// <summary>
-            /// The color code that you want to use for your tree, must be set if <see cref="BundleID"/> isn't set.
-            /// </summary>
-            public Color? BundleColor = null;
-
-            /// <summary>
-            /// 
-            /// </summary>
-            public int BundleID = -1;
-
-            public class Talent
-            {
-                /// <summary>
-                /// The ID of this tree's skill. This is expected to be your SpaceCore skill ID.
-                /// </summary>
-                public string SkillID;
-                
-                /// <summary>
-                /// Internal name of your talent. It must be unique among all talents.
-                /// </summary>
-                public string Name;
-
-                /// <summary>
-                /// A function that returns a display name for the talent.
-                /// </summary>
-                public Func<string, string> DisplayName;
-
-                /// <summary>
-                /// A function that returns a translated tooltip for the talent.
-                /// </summary>
-                public Func<string, string> Tooltip;
-
-                /// <summary>
-                /// 
-                /// </summary>
-                public string MailFlag;
-
-                /// <summary>
-                /// The position for where this talent should appear on talent selection menu. For ease of positioning, this will be multiplied with 4.
-                /// </summary>
-                public Vector2 Position;
-
-                /// <summary>
-                /// 
-                /// </summary>
-                public Branch[] Branches = Array.Empty<Branch>();
-
-                /// <summary>
-                /// Required talents for this talent to be unlocked and purchasable. Keep in mind it is always an 'or', and never an 'and'. Elements should be match to their <see cref="Name"/> field.
-                /// </summary>
-                public string[] Requirements = Array.Empty<string>();
-
-                /// <summary>
-                /// Locks this talent behind buying specified number of talents from its own tree, regardless of what they are named.
-                /// </summary>
-                public int AmountToBuyFirst = 0;
-
-                /// <summary>
-                /// 
-                /// </summary>
-                public class Branch
-                {
-                    public string Name;
-
-                    public Func<string, string> displayName;
-
-                    public Func<string, string> tooltip;
-
-                    public string MailFlag;
-                }
-            }
-        }*/
+        //NEW API STUFF
     }
 }

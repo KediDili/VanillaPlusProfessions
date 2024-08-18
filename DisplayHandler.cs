@@ -354,22 +354,38 @@ namespace VanillaPlusProfessions
                                     {
                                         if (level < (11 + i))
                                             e.SpriteBatch.Draw(SkillIcons, new Vector2(item.bounds.X + item.bounds.Width + 24 + (36 * i) + (i is 9 ? 24 : 0), item.bounds.Y - (skillScrollOffset * 56)), new Rectangle(16, ModEntry.ModConfig.Value.ColorBlindnessChanges ? 9 : 0, 13, 9), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.5f);
+                                        else
+                                        {
+                                            e.SpriteBatch.Draw(SkillIcons, new Vector2(item.bounds.X + item.bounds.Width + 24 + (36 * i) + (i is 9 ? 24 : 0), item.bounds.Y - (skillScrollOffset * 56)), new Rectangle(30, ModEntry.ModConfig.Value.ColorBlindnessChanges ? 9 : 0, 13, 9), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.5f);
+                                        }
                                     }
                                     else
                                     {
-                                        if (level < (11 + i))
+                                       if (level < (11 + i))
                                             e.SpriteBatch.Draw(SkillIcons, new Vector2(item.bounds.X + item.bounds.Width + 24 + (36 * i) + (i > 3 ? 24 : 0), item.bounds.Y - (skillScrollOffset * 56)), new Rectangle(0, ModEntry.ModConfig.Value.ColorBlindnessChanges ? 9 : 0, 7, 9), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.5f);
-                                        else
-                                        {
-                                            e.SpriteBatch.Draw(SkillIcons,
-                                            new Vector2(item.bounds.X + item.bounds.Width + 24 + (36 * i) + (i > 3 ? 24 : 0), item.bounds.Y - (skillScrollOffset * 56)),
-                                            new Rectangle(8, ModEntry.ModConfig.Value.ColorBlindnessChanges ? 9 : 0, 7, 9), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.5f);
-                                        }
+                                       else
+                                       {
+                                           e.SpriteBatch.Draw(SkillIcons,
+                                           new Vector2(item.bounds.X + item.bounds.Width + 24 + (36 * i) + (i > 3 ? 24 : 0), item.bounds.Y - (skillScrollOffset * 56)),
+                                           new Rectangle(8, ModEntry.ModConfig.Value.ColorBlindnessChanges ? 9 : 0, 7, 9), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.5f);
+                                       }
                                     }
                                 }
                             }
                         }
+                        if (MyCustomSkillBars.Value is not null && MyCustomSkillBars.Value.Length > 0)
+                        {
+                            foreach (ClickableTextureComponent c in MyCustomSkillBars.Value)
+                            {
+                                if (c.scale == 0f)
+                                {
+                                    IClickableMenu.drawTextureBox(e.SpriteBatch, Game1.menuTexture, new Rectangle(0, 256, 60, 60), c.bounds.X - 16 - 8, c.bounds.Y - 16 - 16, 96, 96, Color.White, drawShadow: false);
+                                    e.SpriteBatch.Draw(ProfessionIcons, new Vector2(c.bounds.X - 8, c.bounds.Y - 16), new Rectangle((Convert.ToInt32(c.name) - 30) % 6 * 16, (Convert.ToInt32(c.name) - 30) / 6 * 16, 16, 16), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 1f);
+                                }
+                            }
+                        }
                     }
+
                     if (CoreUtility.IsOverlayValid())
                     {
                         LittleArrow.Value.draw(e.SpriteBatch);
@@ -413,77 +429,42 @@ namespace VanillaPlusProfessions
         {
             ShouldHandleSkillPage.Value = false;
             
-            if (page is SkillsPage skillsPage)
-            {
-                MyCustomSkillBars.Value = skillsPage.skillBars.ToArray();
-                SkillsPage skillsPage2 = new(menu.xPositionOnScreen, menu.yPositionOnScreen, menu.width + ((LocalizedContentManager.CurrentLanguageCode is LocalizedContentManager.LanguageCode.ru or LocalizedContentManager.LanguageCode.it) ? 64 : 0), menu.height);
-                VanillaSkillBars.Value = skillsPage2.skillBars.ToArray();
-
-                for (int x = 0; x < MyCustomSkillBars.Value.Length; x++)
-                {
-                    for (int a = 0; a < skillsPage.skillAreas.Count; a++)
-                    {
-                        if (skillsPage.skillAreas[a].bounds.Y == MyCustomSkillBars.Value[x].bounds.Y)
-                        {
-                            MyCustomSkillBars.Value[x].label = a.ToString();
-                            break;
-                        }
-                        else if (x is 0)
-                        {
-                            continue;
-                        }
-                        if (MyCustomSkillBars.Value[x].bounds.Y == MyCustomSkillBars.Value[x - 1].bounds.Y)
-                        {
-                            MyCustomSkillBars.Value[x].label = MyCustomSkillBars.Value[x - 1].label;
-                            break;
-                        }
-                    }
-                }
-                List<int> dsdsds = new();
-                for (int i = 0; i < MyCustomSkillBars.Value.Length; i++)
-                {
-                    foreach (var item in ModEntry.Professions)
-                    {
-                        MyCustomSkillBars.Value[i].texture = SkillIcons;
-                        if (CoreUtility.CurrentPlayerHasProfession(item.Value.ID, ignoreMode: true) || Game1.player.newLevels.Contains(new(item.Value.Skill, item.Value.LevelRequirement)))
-                        {
-                            if (IsPreProfessionsMet(item, ref MyCustomSkillBars.Value[i]))
-                            {
-                                if (CoreUtility.CurrentPlayerHasProfession(item.Value.ID, ignoreMode: true) && !dsdsds.Contains(item.Value.ID))
-                                {
-                                    MyCustomSkillBars.Value[i].name = item.Value.ID.ToString();
-                                    MyCustomSkillBars.Value[i].hoverText = ModEntry.Helper.Translation.Get("Profession." + item.Key + ".Desc").ToString().Replace("_", "\n").ReplaceLineEndings();
-                                    dsdsds.Add(item.Value.ID);
-                                }
-                                else if (Game1.player.newLevels.Contains(new(item.Value.Skill, item.Value.LevelRequirement)))
-                                    MyCustomSkillBars.Value[i].name = "-1";
-                            }
-
-                            MyCustomSkillBars.Value[i].sourceRect = ModEntry.ModConfig.Value.ColorBlindnessChanges ? new(30, 9, 13, 9) : new(30, 0, 13, 9);
-                            MyCustomSkillBars.Value[i].label = null;
-                            break;
-                        }
-                    }
-                }
-                for (int i = 0; i < MyCustomSkillBars.Value.Length; i++)
-                {
-                    if (!CoreUtility.DoesDictHaveID(MyCustomSkillBars.Value[i].name, out var result))
-                        MyCustomSkillBars.Value[i].name = "-1";
-
-                    else if (result.Value is not null && !(Game1.player.newLevels.Contains(new(result.Value.Skill, result.Value.LevelRequirement)) || CoreUtility.CurrentPlayerHasProfession(result.Value.ID, ignoreMode: true)))
-                        MyCustomSkillBars.Value[i].sourceRect = ModEntry.ModConfig.Value.ColorBlindnessChanges ? new(16, 9, 13, 9) : new(16, 0, 13, 9);
-
-                    else
-                        MyCustomSkillBars.Value[i].sourceRect = ModEntry.ModConfig.Value.ColorBlindnessChanges ? new(30, 9, 13, 9) : new(30, 0, 13, 9);
-                }
-                ((Game1.activeClickableMenu as GameMenu).pages[1] as SkillsPage).skillBars = VanillaSkillBars.Value.ToList();
-            }
-            else if (page is NewSkillsPage newSkillsPage)
+            if (page is NewSkillsPage newSkillsPage)
             {
                 MyCustomSkillBars.Value = newSkillsPage.skillBars.ToArray();
                 NewSkillsPage skillsPage2 = new(menu.xPositionOnScreen, menu.yPositionOnScreen, menu.width + ((LocalizedContentManager.CurrentLanguageCode is LocalizedContentManager.LanguageCode.ru or LocalizedContentManager.LanguageCode.it) ? 64 : 0), menu.height);
-                Dictionary<int, int> skillBarSkillIndexes = ModEntry.Helper.Reflection.GetField<Dictionary<int, int>>(newSkillsPage, "skillBarSkillIndexes").GetValue();
                 VanillaSkillBars.Value = skillsPage2.skillBars.ToArray();
+
+                List<(int, int)> IndexAndProfessions = new();
+
+                foreach (var item in ModEntry.Professions)
+                {
+                    for (int i = 0; i < MyCustomSkillBars.Value.Length; i++)
+                    {
+                        if (IsInCorrectLine(MyCustomSkillBars.Value[i].bounds, newSkillsPage.skillAreas, item.Value.Skill.ToString()))
+                        {
+                            if (CoreUtility.CurrentPlayerHasProfession(item.Value.ID, ignoreMode: true))
+                            {
+                                IndexAndProfessions.Add((i, item.Value.ID));
+                            }
+                            else
+                            {
+                                MyCustomSkillBars.Value[i].name = "-1";
+                            }
+                        }
+                        MyCustomSkillBars.Value[i].texture = SkillIcons;
+                        MyCustomSkillBars.Value[i].sourceRect = CorrectNewSourceRect(item.Value.Skill.ToString(), newSkillsPage.skillAreas, MyCustomSkillBars.Value.ToList(), MyCustomSkillBars.Value[i]);
+                    }
+                }
+
+                for (int i = 0; i < MyCustomSkillBars.Value.Length; i++)
+                {
+                    int index = i;
+                    if (IndexAndProfessions.Find(a => a.Item1 == index) is (int, int) tuple && !tuple.Equals(default))
+                    {
+                        MyCustomSkillBars.Value[tuple.Item1].name = tuple.Item2.ToString();
+                    }
+                }
             }
             LittleArrow.Value = new(menu.upperRightCloseButton.bounds, Game1.mouseCursors, new Rectangle(392, 361, 10, 11), 4f, false);
             LittleArrow.Value.bounds.Y += 100;
@@ -606,19 +587,49 @@ namespace VanillaPlusProfessions
             }
         }
         public static string AreSkillConditionsMet(string str, int integer) => integer is -1 ? str : str is null ? integer.ToString() : null;
-        public static bool IsPreProfessionsMet(KeyValuePair<string, Profession> keyValuePair, ref ClickableTextureComponent component)
+
+        public static bool IsInCorrectLine(Rectangle IconBounds, List<ClickableTextureComponent> skillAreas, string skill)
         {
-            if (keyValuePair.Value.LevelRequirement is 15)
+            foreach (var area in skillAreas)
             {
-                return component.name == keyValuePair.Value.FirstRequires.ToString();
+                if (IconBounds.Y == area.bounds.Y && area.name == skill)
+                {
+                    return true;
+                }
             }
-            else
-            {
-                string lab = component.label;
-                component.label = null;
-                return lab == keyValuePair.Value.Skill.ToString();
-            }
+            return false;
         }
+
+        public static Rectangle CorrectNewSourceRect(string skill, List<ClickableTextureComponent> skillAreas, List<ClickableTextureComponent> skillBars, ClickableTextureComponent bar)
+        {
+            if (int.TryParse(skill, out int result) && IsInCorrectLine(bar.bounds, skillAreas, skill))
+            {
+                int is15or20 = 0;
+                foreach (var item in skillBars)
+                {
+                    if (item.bounds.Y == bar.bounds.Y)
+                    {
+                        if (item.bounds.X < bar.bounds.X)
+                        {
+                            is15or20 = 20;
+                        }
+                        else
+                        {
+                            is15or20 = 15;
+                        }
+                    }
+                }
+//                if (is15or20 == 0)
+  //                  is15or20 = 15;
+
+                if (Game1.player.GetUnmodifiedSkillLevel(result) >= is15or20 || bar.name != "-1")
+                {
+                    return ModEntry.ModConfig.Value.ColorBlindnessChanges ? new(30, 9, 13, 9) : new(30, 0, 13, 9);
+                }
+            }
+            return new(16, 0, 13, 9); //the not filled rectangle
+        }
+
         public static int StandardizeSkillIndexes(int FF)
         {
             return FF switch

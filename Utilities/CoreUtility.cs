@@ -199,10 +199,10 @@ namespace VanillaPlusProfessions.Utilities
                         {
                             for (int i = 0; i < item.Value.Branches.Length; i++)
                                 if (Game1.player.mailReceived.Contains(item.Value.Branches[i].Flag))
-                                    stringBuilder.AppendLine($"{item.Value.Name}: {item.Value.Branches[i].Flag}");
+                                    stringBuilder.AppendLine($"{item.Value.Name}: {item.Value.Branches[i].Name}");
                         }
                         else
-                            stringBuilder.AppendLine($"{item.Value.Name}: {item.Value.MailFlag}");
+                            stringBuilder.AppendLine($"{item.Value.Name}");
                     }
                 }
                 foreach (var item in ModEntry.GetProfessions())
@@ -269,16 +269,6 @@ namespace VanillaPlusProfessions.Utilities
         public static int GetMaxLevel()
         {
             return ModEntry.ModConfig.Value.MasteryCaveChanges ? 20 : 10;
-        }
-
-        public static bool DoesDictHaveID(string value, out KeyValuePair<string, Profession> result)
-        {
-            var list = from profession in ModEntry.Professions
-                       where profession.Value.ID.ToString() == value
-                       select profession;
-            result = list.FirstOrDefault();
-
-            return list.Any();
         }
 
         public static bool CurrentPlayerHasProfession(int profession, long farmerID = -1, Farmer useThisInstead = null, bool ignoreMode = false)

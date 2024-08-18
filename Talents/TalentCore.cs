@@ -60,6 +60,8 @@ namespace VanillaPlusProfessions.Talents
         internal const string ContextTag_PoisonousMushroom = "Kedi_VPP_Poisonous_Mushroom";
         internal const string ContextTag_BlandStone = "Kedi_VPP_Bland_Stone_Node";
         internal const string ContextTag_SurvivalCooking = "kedi_vpp_survival_cooking_food";
+        internal const string ContextTag_Matryoshka_Banned_FromDropping = "kedi_vpp_banned_from_dropping";
+        internal const string ContextTag_Matryoshka_Banned_FromBeingDropped = "kedi_vpp_banned_from_being_dropped";
 
         internal static Dictionary<string, Talent> Talents = new();
         internal static Dictionary<string, SkillTree> TalentTrees = new();
@@ -182,7 +184,7 @@ namespace VanillaPlusProfessions.Talents
                 {
                     BuffEffects buffEffects = new();
                     buffEffects.Speed.Value = 1;
-                    Buff buff = new("VPP.SpeedOfDarkness.Speed", "VPP.SpeedOfDarkness", "Speed Of Darkness", -2, ModEntry.Helper.GameContent.Load<Texture2D>(ContentEditor.ContentPaths["ItemSpritesheet"]), 27, buffEffects, false, Game1.parseText(ModEntry.Helper.Translation.Get("Buff.SpeedOfDarkness.Name")), Game1.parseText(ModEntry.Helper.Translation.Get("Buff.SpeedOfDarkness.Desc")));
+                    Buff buff = new("VPP.SpeedOfDarkness.Speed", "VPP.SpeedOfDarkness", "Speed Of Darkness", -2, ModEntry.Helper.GameContent.Load<Texture2D>(ContentEditor.ContentPaths["ItemSpritesheet"]), 27, buffEffects, false, ModEntry.Helper.Translation.Get("Buff.SpeedOfDarkness.Name"), Game1.parseText(ModEntry.Helper.Translation.Get("Buff.SpeedOfDarkness.Desc"), Game1.smallFont, TalentUtility.BuffDescriptionLength(ModEntry.Helper.Translation.Get("Buff.SpeedOfDarkness.Name"))));
                     Game1.player.buffs.Apply(buff);
                 }
             }

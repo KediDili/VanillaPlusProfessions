@@ -149,7 +149,7 @@ namespace VanillaPlusProfessions.Managers
                     number++;
                 number += Game1.random.Next(2, 5);
             }
-            if (TalentUtility.AnyPlayerHasTalent("Mining_Volatile") && Game1.random.NextBool())
+            if (TalentUtility.AnyPlayerHasTalent("Mining_Volatility") && Game1.random.NextBool())
             {
                 if (id == "(O)378")
                 {

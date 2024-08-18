@@ -111,11 +111,11 @@ namespace VanillaPlusProfessions.Talents.Patchers
                         }
                     }
                 }
-                else if (TalentUtility.CurrentPlayerHasTalent("Mining_Matryoshka") && Game1.random.NextBool(0.15))
+                else if (TalentUtility.CurrentPlayerHasTalent("Mining_Matryoshka") && Game1.random.NextBool(0.15) && !geode.HasContextTag(TalentCore.ContextTag_Matryoshka_Banned_FromDropping))
                 {
-                    var geodes = (from string @object in Game1.objectData.Keys
-                                  where (Game1.objectData[@object].GeodeDropsDefaultItems || (Game1.objectData[@object].GeodeDrops is not null && Game1.objectData[@object].GeodeDrops?.Count > 0) ) && geode.ItemId != @object
-                                  select @object).ToList();
+                    var geodes = (from KeyValuePair<string, ObjectData> @object in Game1.objectData
+                                  where (@object.Value.GeodeDropsDefaultItems || @object.Value.GeodeDrops?.Count > 0 is true) && !@object.Value.ContextTags.Contains(TalentCore.ContextTag_Matryoshka_Banned_FromBeingDropped) && geode.ItemId != @object.Key
+                                  select @object.Key).ToList();
                     __result = ItemRegistry.Create(Game1.random.ChooseFrom(geodes), 1, geode.Quality);
                 }
                 else if (TalentUtility.CurrentPlayerHasTalent("Mining_Museum_Piece") && LibraryMuseum.totalArtifacts != Game1.player.archaeologyFound.Keys.Count() && geode.ItemId is not null)

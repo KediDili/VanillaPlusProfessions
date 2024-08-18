@@ -1,0 +1,1448 @@
+[
+	//Tree branch 1
+	{
+		"Name": "Resurgence",
+		"Skill": "Farming",
+		"MailFlag": "Farming_Resurgence",
+		"Position": {
+			"X": 121,
+			"Y": 129
+		}
+	},
+	{
+		"Name": "RefreshingWaters",
+		"Skill": "Farming",
+		"Requirements": [ "Resurgence" ],
+		"MailFlag": "Farming_Refreshing_Waters",
+		"Position": {
+			"X": 100,
+			"Y": 113
+		}
+	},
+	{
+		"Name": "GoodSoaking",
+		"Skill": "Farming",
+		"Requirements": [ "RefreshingWaters" ],
+		"MailFlag": "Farming_Good_Soaking",
+		"Position": {
+			"X": 76,
+			"Y": 110
+		}
+	},
+	{
+		"Name": "NourishingRain",
+		"Skill": "Farming",
+		"Requirements": [ "GoodSoaking" ],
+		"MailFlag": "Farming_Nourishing_Rain",
+		"Position": {
+			"X": 55,
+			"Y": 89
+		}
+	},
+	//Tree branch 2
+	{
+		"Name": "WildGrowth",
+		"Skill": "Farming",
+		"MailFlag": "Farming_Wild_Growth",
+		"Position": {
+			"X": 179,
+			"Y": 132
+		}
+	},
+	{
+		"Name": "Overcrowding",
+		"Skill": "Farming",
+		"Requirements": [ "WildGrowth" ],
+		"MailFlag": "Farming_Overcrowding",
+		"Position": {
+			"X": 180,
+			"Y": 110
+		}
+	},
+	{
+		"Name": "Bio-Engineering",
+		"Skill": "Farming",
+		"Requirements": [ "Overcrowding" ],
+		"MailFlag": "Farming_Bio-Engineering",
+		"Position": {
+			"X": 186,
+			"Y": 85
+		}
+	},
+	{
+		"Name": "Pastoralism",
+		"Skill": "Farming",
+		"Requirements": [ "Overcrowding" ],
+		"MailFlag": "Farming_Pastoralism",
+		"Position": {
+			"X": 206,
+			"Y": 110
+		}
+	},
+	{
+		"Name": "BreedLikeRabbits",
+		"Skill": "Farming",
+		"Requirements": [ "Pastoralism", "Bio-Engineering" ],
+		"MailFlag": "Farming_Breed_Like_Rabbits",
+		"Position": {
+			"X": 215,
+			"Y": 84
+		}
+	},
+	{
+		"Name": "BrimmingWithLife",
+		"Skill": "Farming",
+		"Requirements": [ "BreedLikeRabbits" ],
+		"MailFlag": "Farming_Brimming_With_Life",
+		"Position": {
+			"X": 242,
+			"Y": 85
+		}
+	},
+	//Tree Branch 3
+	{
+		"Name": "CycleOfLife",
+		"Skill": "Farming",
+		"MailFlag": "Farming_Cycle_Of_Life",
+		"Position": {
+			"X": 146,
+			"Y": 127
+		}
+	},
+	{
+		"Name": "Effloresence",
+		"Skill": "Farming",
+		"Requirements": [ "CycleOfLife" ],
+		"MailFlag": "Farming_Effloresence",
+		"Position": {
+			"X": 123,
+			"Y": 103
+		}
+	},
+	{
+		"Name": "HarmoniousBlooming",
+		"Skill": "Farming",
+		"Requirements": [ "Effloresence" ],
+		"MailFlag": "Farming_Harmonious_Blooming",
+		"Position": {
+			"X": 110,
+			"Y": 80
+		}
+	},
+	{
+		"Name": "Abundance",
+		"Skill": "Farming",
+		"Requirements": [ "HarmoniousBlooming" ],
+		"MailFlag": "Farming_Abundance",
+		"Position": {
+			"X": 123,
+			"Y": 60
+		}
+	},
+	{
+		"Name": "FairysKiss",
+		"Skill": "Farming",
+		"Requirements": [ "HarmoniousBlooming" ],
+		"MailFlag": "Farming_Fairys_Kiss",
+		"Position": {
+			"X": 87,
+			"Y": 65
+		}
+	},
+	{
+		"Name": "FaeBlessings",
+		"Skill": "Farming",
+		"Requirements": [ "FairysKiss" ],
+		"MailFlag": "Farming_Fae_Blessings",
+		"Position": {
+			"X": 62,
+			"Y": 49
+		}
+	},
+	{
+		"Name": "FineGrind",
+		"Skill": "Farming",
+		"Requirements": [ "CycleOfLife" ],
+		"MailFlag": "Farming_Fine_Grind",
+		"Position": {
+			"X": 156,
+			"Y": 106
+		}
+	},
+	{
+		"Name": "DriftFencing",
+		"Skill": "Farming",
+		"Requirements": [ "FineGrind" ],
+		"MailFlag": "Farming_Drift_Fencing",
+		"Position": {
+			"X": 166,
+			"Y": 77
+		}
+	},
+	{
+		"Name": "StormSurge",
+		"Skill": "Farming",
+		"Requirements": [ "DriftFencing" ],
+		"MailFlag": "Farming_Storm_Surge",
+		"Position": {
+			"X": 168,
+			"Y": 55
+		}
+	},
+	{
+		"Name": "ColdPress",
+		"Skill": "Farming",
+		"Requirements": [ "StormSurge" ],
+		"MailFlag": "Farming_Cold_Press",
+		"Position": {
+			"X": 179,
+			"Y": 31
+		}
+	},
+	{
+		"Name": "Upcycling",
+		"Skill": "Farming",
+		"Requirements": [ "DriftFencing" ],
+		"MailFlag": "Farming_Upcycling",
+		"Position": {
+			"X": 189,
+			"Y": 63
+		}
+	},
+	{
+		"Name": "Fertigation",
+		"Skill": "Farming",
+		"Requirements": [ "Upcycling" ],
+		"MailFlag": "Farming_Fertigation",
+		"Position": {
+			"X": 213,
+			"Y": 59
+		}
+	},
+	{
+		"Name": "Trickster",
+		"Skill": "Farming",
+		"Requirements": [ "Effloresence", "FineGrind" ],
+		"MailFlag": "Farming_Trickster",
+		"Position": {
+			"X": 144,
+			"Y": 82
+		}
+	},
+	{
+		"Name": "TropicalBliss",
+		"Skill": "Farming",
+		"Requirements": [ "Trickster" ],
+		"MailFlag": "Farming_Tropical_Bliss",
+		"Position": {
+			"X": 144,
+			"Y": 55
+		}
+	},
+	{
+		"Name": "HarvestSeason",
+		"Skill": "Farming",
+		"Requirements": [ "TropicalBliss" ],
+		"MailFlag": "Farming_Harvest_Season",
+		"Position": {
+			"X": 144,
+			"Y": 33
+		}
+	},
+	//Mining
+	//Tree 1
+	{
+		"Name": "DownInTheDepths",
+		"Skill": "Mining",
+		"MailFlag": "Mining_Down_In_The_Depths",
+		"Position": {
+			"X": 125,
+			"Y": 129
+		}
+	},
+	{
+		"Name": "ShadowBuddies",
+		"Skill": "Mining",
+		"Requirements": [ "DownInTheDepths" ],
+		"MailFlag": "Mining_Shadow_Buddies",
+		"Position": {
+			"X": 94,
+			"Y": 125
+		}
+	},
+	{
+		"Name": "DwarvenBuddies",
+		"Skill": "Mining",
+		"Requirements": [ "DownInTheDepths" ],
+		"MailFlag": "Mining_Dwarven_Buddies",
+		"Position": {
+			"X": 115,
+			"Y": 105
+		}
+	},
+	{
+		"Name": "EssenceInfusion",
+		"Skill": "Mining",
+		"Requirements": [ "ShadowBuddies" ],
+		"MailFlag": "Mining_Essence_Infusion",
+		"Position": {
+			"X": 67,
+			"Y": 119
+		}
+	},
+	{
+		"Name": "ElderScrolls",
+		"Skill": "Mining",
+		"Requirements": [ "DwarvenBuddies" ],
+		"MailFlag": "Mining_Elder_Scrolls",
+		"Position": {
+			"X": 105,
+			"Y": 81
+		}
+	},
+	{
+		"Name": "SpeedOfDarkness",
+		"Skill": "Mining",
+		"Requirements": [ "EssenceInfusion" ],
+		"MailFlag": "Mining_Speed_Of_Darkness",
+		"Position": {
+			"X": 56,
+			"Y": 96
+		}
+	},
+	{
+		"Name": "AncestralWeaponry",
+		"Skill": "Mining",
+		"Requirements": [ "ElderScrolls" ],
+		"MailFlag": "Mining_Ancestral_Weaponry",
+		"Position": {
+			"X": 78,
+			"Y": 77
+		}
+	},
+	{
+		"Name": "SharedFocus",
+		"Skill": "Mining",
+		"Requirements": [ "SpeedOfDarkness", "AncestralWeaponry" ],
+		"MailFlag": "Mining_Shared_Focus",
+		"Position": {
+			"X": 47,
+			"Y": 73
+		}
+	},
+	//Tree 2
+	{
+		"Name": "MuseumPiece",
+		"Skill": "Mining",
+		"MailFlag": "Mining_Museum_Piece",
+		"Position": {
+			"X": 147,
+			"Y": 118
+		}
+	},
+	{
+		"Name": "ExplosivePersonality",
+		"Skill": "Mining",
+		"Requirements": [ "MuseumPiece" ],
+		"MailFlag": "Mining_Explosive_Personality",
+		"Position": {
+			"X": 147,
+			"Y": 97
+		}
+	},
+	{
+		"Name": "Synthesis",
+		"Skill": "Mining",
+		"Requirements": [ "ExplosivePersonality" ],
+		"MailFlag": "Mining_Synthesis",
+		"Position": {
+			"X": 147,
+			"Y": 78
+		}
+	},
+	{
+		"Name": "Upheaval",
+		"Skill": "Mining",
+		"Requirements": [ "Synthesis" ],
+		"MailFlag": "Mining_Upheaval",
+		"Position": {
+			"X": 121,
+			"Y": 69
+		}
+	},
+	{
+		"Name": "Matryoshka",
+		"Skill": "Mining",
+		"Requirements": [ "Upheaval" ],
+		"MailFlag": "Mining_Matryoshka",
+		"Position": {
+			"X": 102,
+			"Y": 51
+		}
+	},
+	{
+		"Name": "X-ray",
+		"Skill": "Mining",
+		"Requirements": [ "Matryoshka" ],
+		"MailFlag": "Mining_Xray",
+		"Position": {
+			"X": 75,
+			"Y": 51
+		}
+	},
+	{
+		"Name": "Geometry",
+		"Skill": "Mining",
+		"Requirements": [ "Synthesis" ],
+		"MailFlag": "Mining_Geometry",
+		"Position": {
+			"X": 147,
+			"Y": 56
+		}
+	},
+	{
+		"Name": "Dazzle",
+		"Skill": "Mining",
+		"Requirements": [ "Geometry" ],
+		"MailFlag": "Mining_Dazzle",
+		"Position": {
+			"X": 147,
+			"Y": 35
+		}
+	},
+	// Tree 3
+	{
+		"Name": "StraightRun",
+		"Skill": "Mining",
+		"MailFlag": "Mining_Straight_Run",
+		"Position": {
+			"X": 168,
+			"Y": 127
+		}
+	},
+	{
+		"Name": "DetonationDampener",
+		"Skill": "Mining",
+		"Requirements": [ "StraightRun" ],
+		"MailFlag": "Mining_Detonation_Dampener",
+		"Position": {
+			"X": 168,
+			"Y": 107
+		}
+	},
+	{
+		"Name": "Volatility",
+		"Skill": "Mining",
+		"Requirements": [ "DetonationDampener" ],
+		"MailFlag": "Mining_Volatility",
+		"Position": {
+			"X": 175,
+			"Y": 84
+		}
+	},
+	{
+		"Name": "AlchemicReversal",
+		"Skill": "Mining",
+		"Requirements": [ "Volatility" ],
+		"MailFlag": "Mining_Alchemic_Reversal",
+		"Position": {
+			"X": 185,
+			"Y": 63
+		}
+	},
+	{
+		"Name": "RoomAndPillar",
+		"Skill": "Mining",
+		"Requirements": [ "AlchemicReversal" ],
+		"MailFlag": "Mining_Room_And_Pillar",
+		"Position": {
+			"X": 196,
+			"Y": 44
+		}
+	},
+	{
+		"Name": "Fallout",
+		"Skill": "Mining",
+		"Requirements": [ "RoomAndPillar" ],
+		"MailFlag": "Mining_Fallout",
+		"Position": {
+			"X": 219,
+			"Y": 44
+		}
+	},
+	{
+		"Name": "EveryonesBestFriend",
+		"Skill": "Mining",
+		"Requirements": [ "DetonationDampener" ],
+		"MailFlag": "Mining_Everyones_Best_Friend",
+		"Position": {
+			"X": 198,
+			"Y": 107
+		}
+	},
+	{
+		"Name": "CrystalCavern",
+		"Skill": "Mining",
+		"Requirements": [ "EveryonesBestFriend" ],
+		"MailFlag": "Mining_Crystal_Cavern",
+		"Position": {
+			"X": 214,
+			"Y": 87
+		}
+	},
+	{
+		"Name": "OverTheRainbow",
+		"Skill": "Mining",
+		"Requirements": [ "CrystalCavern" ],
+		"MailFlag": "Mining_Over_The_Rainbow",
+		"Position": {
+			"X": 239,
+			"Y": 87
+		}
+	},
+	//Foraging Tree 1
+	{
+		"Name": "NatureSecrets",
+		"Skill": "Foraging",
+		"MailFlag": "Foraging_Nature_Secrets",
+		"Position": {
+			"X": 174,
+			"Y": 130
+		}
+	},
+	{
+		"Name": "PrimrosePath",
+		"Skill": "Foraging",
+		"Requirements": [ "NatureSecrets" ],
+		"MailFlag": "Foraging_Primrose_Path",
+		"Position": {
+			"X": 188,
+			"Y": 109
+		}
+	},
+	{
+		"Name": "Berry-mania",
+		"Skill": "Foraging",
+		"Requirements": [ "PrimrosePath" ],
+		"MailFlag": "Foraging_Berrymania",
+		"Position": {
+			"X": 208,
+			"Y": 84
+		}
+	},
+	{
+		"Name": "DiamondOfTheKitchen",
+		"Skill": "Foraging",
+		"Requirements": [ "PrimrosePath" ],
+		"MailFlag": "Foraging_Diamond_Of_The_Kitchen",
+		"Position": {
+			"X": 179,
+			"Y": 79
+		}
+	},
+	{
+		"Name": "LocalKnowledge",
+		"Skill": "Foraging",
+		"Requirements": [ "Berry-mania", "DiamondOfTheKitchen" ],
+		"MailFlag": "Foraging_Local_Knowledge",
+		"Position": {
+			"X": 195,
+			"Y": 58
+		}
+	},
+	{
+		"Name": "SeaChange",
+		"Skill": "Foraging",
+		"Requirements": [ "LocalKnowledge" ],
+		"MailFlag": "Foraging_Sea_Change",
+		"Position": {
+			"X": 220,
+			"Y": 51
+		}
+	},
+	{
+		"Name": "Starfall",
+		"Skill": "Foraging",
+		"Requirements": [ "LocalKnowledge" ],
+		"MailFlag": "Foraging_Starfall",
+		"Position": {
+			"X": 190,
+			"Y": 34
+		}
+	},
+	{
+		"Name": "DesertBloom",
+		"Skill": "Foraging",
+		"Requirements": [ "PrimrosePath" ],
+		"MailFlag": "Foraging_Desert_Bloom",
+		"Position": {
+			"X": 214,
+			"Y": 110
+		}
+	},
+	{
+		"Name": "BountifulBoletes",
+		"Skill": "Foraging",
+		"Requirements": [ "DesertBloom" ],
+		"MailFlag": "Foraging_Bountiful_Boletes",
+		"Position": {
+			"X": 229,
+			"Y": 88
+		}
+	},
+	{
+		"Name": "RenewingMist",
+		"Skill": "Foraging",
+		"Requirements": [ "BountifulBoletes" ],
+		"MailFlag": "Foraging_Renewing_Mist",
+		"Position": {
+			"X": 251,
+			"Y": 88
+		}
+	},
+	//Tree 2
+	{
+		"Name": "Reforestation",
+		"Skill": "Foraging",
+		"MailFlag": "Foraging_Reforestation",
+		"Position": {
+			"X": 145,
+			"Y": 124
+		}
+	},
+	{
+		"Name": "SapSipper",
+		"Skill": "Foraging",
+		"Requirements": [ "Reforestation" ],
+		"MailFlag": "Foraging_Sap_Sipper",
+		"Position": {
+			"X": 145,
+			"Y": 102
+		}
+	},
+	{
+		"Name": "SpringThaw",
+		"Skill": "Foraging",
+		"Requirements": [ "SapSipper" ],
+		"MailFlag": "Foraging_Spring_Thaw",
+		"Position": {
+			"X": 128,
+			"Y": 82
+		}
+	},
+	{
+		"Name": "Accumulation",
+		"Skill": "Foraging",
+		"Requirements": [ "SpringThaw" ],
+		"MailFlag": "Foraging_Accumulation",
+		"Position": {
+			"X": 118,
+			"Y": 58
+		}
+	},
+	{
+		"Name": "ExoticTapping",
+		"Skill": "Foraging",
+		"Requirements": [ "Accumulation" ],
+		"MailFlag": "Foraging_Exotic_Tapping",
+		"Position": {
+			"X": 104,
+			"Y": 37
+		}
+	},
+	{
+		"Name": "GroveTending",
+		"Skill": "Foraging",
+		"Requirements": [ "SapSipper" ],
+		"MailFlag": "Foraging_Grove_Tending",
+		"Position": {
+			"X": 156,
+			"Y": 85
+		}
+	},
+	{
+		"Name": "SurgeProtection",
+		"Skill": "Foraging",
+		"Requirements": [ "GroveTending" ],
+		"MailFlag": "Foraging_Surge_Protection",
+		"Position":{
+			"X": 156,
+			"Y": 60
+		}
+	},
+	{
+		"Name": "WelcomeToTheJungle",
+		"Skill": "Foraging",
+		"Requirements": [ "SurgeProtection" ],
+		"MailFlag": "Foraging_Welcome_To_The_Jungle",
+		"Position": {
+			"X": 156,
+			"Y": 37
+		}
+	},
+	//Tree 3
+	{
+		"Name": "ClearAsMud",
+		"Skill": "Foraging",
+		"MailFlag": "Foraging_Clear_As_Mud",
+		"Position": {
+			"X": 123,
+			"Y": 127
+		}
+	},
+	{
+		"Name": "SleepUnderTheStars",
+		"Skill": "Foraging",
+		"Requirements": [ "ClearAsMud" ],
+		"MailFlag": "Foraging_Sleep_Under_The_Stars",
+		"Position": {
+			"X": 108,
+			"Y": 110
+		}
+	},
+	{
+		"Name": "CampSpirit",
+		"Skill": "Foraging",
+		"Requirements": [ "SleepUnderTheStars" ],
+		"MailFlag": "Foraging_Camp_Spirit",
+		"Position": {
+			"X": 82,
+			"Y": 110
+		}
+	},
+	{
+		"Name": "SurvivalCooking",
+		"Skill": "Foraging",
+		"Requirements": [ "CampSpirit" ],
+		"MailFlag": "Foraging_Survival_Cooking",
+		"Position": {
+			"X": 53,
+			"Y": 110
+		}
+	},
+	{
+		"Name": "Pyrolysis",
+		"Skill": "Foraging",
+		"Requirements": [ "SleepUnderTheStars" ],
+		"MailFlag": "Foraging_Pyrolysis",
+		"Position": {
+			"X": 96,
+			"Y": 85
+		}
+	},
+	{
+		"Name": "StaticCharge",
+		"Skill": "Foraging",
+		"Requirements": [ "Pyrolysis" ],
+		"MailFlag": "Foraging_Static_Charge",
+		"Position": {
+			"X": 77,
+			"Y": 62
+		}
+	},
+	{
+		"Name": "EyeSpy",
+		"Skill": "Foraging",
+		"AmountToBuyFirst": 5,
+		"MailFlag": "Foraging_Eye_Spy",
+		"Position": {
+			"X": 77,
+			"Y": 90
+		}
+	},
+	//Fishing Tree 1
+	{
+		"Name": "FisheryGrant",
+		"Skill": "Fishing",
+		"MailFlag": "Fishing_Fishery_Grant",
+		"Position": {
+			"X": 91,
+			"Y": 130
+		}
+	},
+	{
+		"Name": "InTheWeeds",
+		"Skill": "Fishing",
+		"Requirements": [ "FisheryGrant" ],
+		"MailFlag": "Fishing_In_The_Weeds",
+		"Position": {
+			"X": 102,
+			"Y": 105
+		}
+	},
+	{
+		"Name": "Roe-mance",
+		"Skill": "Fishing",
+		"Requirements": [ "InTheWeeds" ],
+		"MailFlag": "Fishing_Roemance",
+		"Position": {
+			"X": 98,
+			"Y": 80
+		}
+	},
+	{
+		"Name": "BigFishSmallPond",
+		"Skill": "Fishing",
+		"Requirements": [ "Roe-mance" ],
+		"MailFlag": "Fishing_Big_Fish_Small_Pond",
+		"Position": {
+			"X": 67,
+			"Y": 95
+		}
+	},
+	{
+		"Name": "SpawningSeason",
+		"Skill": "Fishing",
+		"Requirements": [ "Roe-mance" ],
+		"MailFlag": "Fishing_Spawning_Season",
+		"Position": {
+			"X": 73,
+			"Y": 67
+		}
+	},
+	{
+		"Name": "Ex-squid-site",
+		"Skill": "Fishing",
+		"Requirements": [ "SpawningSeason" ],
+		"MailFlag": "Fishing_Exsquidsite",
+		"Position": {
+			"X": 47,
+			"Y": 68
+		}
+	},
+	//Tree 2
+	{
+		"Name": "DoubleHook",
+		"Skill": "Fishing",
+		"MailFlag": "Fishing_Double_Hook",
+		"Position": {
+			"X": 204,
+			"Y": 130
+		}
+	},
+	{
+		"Name": "Clickbait",
+		"Skill": "Fishing",
+		"Requirements": [ "DoubleHook" ],
+		"MailFlag": "Fishing_Clickbait",
+		"Position": {
+			"X": 196,
+			"Y": 107
+		}
+	},
+	{
+		"Name": "CanIt",
+		"Skill": "Fishing",
+		"Requirements": [ "Clickbait" ],
+		"MailFlag": "Fishing_Can_It",
+		"Position": {
+			"X": 203,
+			"Y": 86
+		}
+	},
+	{
+		"Name": "Smokehouse",
+		"Skill": "Fishing",
+		"Requirements": [ "CanIt" ],
+		"MailFlag": "Fishing_Smokehouse",
+		"Position": {
+			"X": 221,
+			"Y": 71
+		}
+	},
+	{
+		"Name": "FitForACzar",
+		"Skill": "Fishing",
+		"Requirements": [ "Smokehouse" ],
+		"MailFlag": "Fishing_Fit_For_A_Czar",
+		"Position": {
+			"X": 245,
+			"Y": 71
+		}
+	},
+	//Tree 3
+	{
+		"Name": "TakeItSlow",
+		"Skill": "Fishing",
+		"MailFlag": "Fishing_Take_It_Slow",
+		"Position": {
+			"X": 123,
+			"Y": 129
+		}
+	},
+	{
+		"Name": "A-fish-ionado",
+		"Skill": "Fishing",
+		"AmountToBuyFirst": 5,
+		"MailFlag": "Fishing_Afishionado",
+		"Position": {
+			"X": 146,
+			"Y": 115
+		}
+	},
+	{
+		"Name": "ItWasThisBig",
+		"Skill": "Fishing",
+		"Requirements": [ "TakeItSlow" ],
+		"MailFlag": "Fishing_It_Was_This_Big",
+		"Position": {
+			"X": 130,
+			"Y": 104
+		}
+	},
+	{
+		"Name": "DeadMansChest",
+		"Skill": "Fishing",
+		"MailFlag": "Fishing_Dead_Mans_Chest",
+		"Position": {
+			"X": 170,
+			"Y": 129
+		}
+	},
+	{
+		"Name": "Diversification",
+		"Skill": "Fishing",
+		"Requirements": [ "DeadMansChest" ],
+		"MailFlag": "Fishing_Diversification",
+		"Position": {
+			"X": 162,
+			"Y": 104
+		}
+	},
+	{
+		"Name": "FishTrap",
+		"Skill": "Fishing",
+		"Requirements": [ "ItWasThisBig", "Diversification" ],
+		"MailFlag": "Fishing_Fish_Trap",
+		"Position": {
+			"X": 145,
+			"Y": 84
+		}
+	},
+	{
+		"Name": "BaitAndSwitch",
+		"Skill": "Fishing",
+		"Requirements": [ "FishTrap" ],
+		"MailFlag": "Fishing_Bait_And_Switch",
+		"Position": {
+			"X": 130,
+			"Y": 69
+		}
+	},
+	{
+		"Name": "CrabRave",
+		"Skill": "Fishing",
+		"Requirements": [ "BaitAndSwitch" ],
+		"MailFlag": "Fishing_Crab_Rave",
+		"Position": {
+			"X": 115,
+			"Y": 50
+		}
+	},
+	{
+		"Name": "FishsWishes",
+		"Skill": "Fishing",
+		"Requirements": [ "CrabRave" ],
+		"MailFlag": "Fishing_Fishs_Wishes",
+		"Position": {
+			"X": 100,
+			"Y": 33
+		}
+	},
+	{
+		"Name": "HereFishyFishy",
+		"Skill": "Fishing",
+		"Requirements": [ "FishTrap" ],
+		"MailFlag": "Fishing_Here_Fishy_Fishy",
+		"Position": {
+			"X": 160,
+			"Y": 68
+		}
+	},
+	{
+		"Name": "VastDomain",
+		"Skill": "Fishing",
+		"Requirements": [ "HereFishyFishy" ],
+		"MailFlag": "Fishing_Vast_Domain",
+		"Position": {
+			"X": 162,
+			"Y": 47
+		}
+	},
+	{
+		"Name": "OneFishTwoFish",
+		"Skill": "Fishing",
+		"Requirements": [ "VastDomain" ],
+		"MailFlag": "Fishing_One_Fish_Two_Fish",
+		"Position": {
+			"X": 169,
+			"Y": 28
+		}
+	},
+	{
+		"Name": "TakeABreak",
+		"Skill": "Fishing",
+		"Requirements": [ "HereFishyFishy" ],
+		"MailFlag": "Fishing_Take_A_Break",
+		"Position": {
+			"X": 185,
+			"Y": 59
+		}
+	},
+	{
+		"Name": "BubbleTrouble",
+		"Skill": "Fishing",
+		"Requirements": [ "TakeABreak" ],
+		"MailFlag": "Fishing_Bubble_Trouble",
+		"Position": {
+			"X": 207,
+			"Y": 49
+		}
+	},
+	//Combat
+	//Tree 1
+	{
+		"Name": "Slimeshot",
+		"Skill": "Combat",
+		"MailFlag": "Combat_Slimeshot",
+		"Position": {
+			"X": 159,
+			"Y": 125
+		}
+	},
+	{
+		"Name": "TripleShot",
+		"Skill": "Combat",
+		"Requirements": [ "Slimeshot" ],
+		"MailFlag": "Combat_Triple_Shot",
+		"Position": {
+			"X": 179,
+			"Y": 105
+		}
+	},
+	{
+		"Name": "Bullseye",
+		"Skill": "Combat",
+		"Requirements": [ "TripleShot" ],
+		"MailFlag": "Combat_Bullseye",
+		"Position": {
+			"X": 188,
+			"Y": 82
+		}
+	},
+	{
+		"Name": "DazzlingStrike",
+		"Skill": "Combat",
+		"Requirements": [ "Bullseye" ],
+		"MailFlag": "Combat_Dazzling_Strike",
+		"Position": {
+			"X": 182,
+			"Y": 56
+		}
+	},
+	{
+		"Name": "Enchanting",
+		"Skill": "Combat",
+		"Requirements": [ "DazzlingStrike" ],
+		"MailFlag": "Combat_Enchanting",
+		"Position": {
+			"X": 175,
+			"Y": 33
+		}
+	},
+	// Misc branch
+	{
+		"Name": "Accessorise",
+		"Skill": "Combat",
+		"MailFlag": "Combat_Accessorise",
+		"Position": {
+			"X": 183,
+			"Y": 131
+		}
+	},
+	{
+		"Name": "Consolidation",
+		"Skill": "Combat",
+		"Requirements": [ "Accessorise" ],
+		"MailFlag": "Combat_Consolidation",
+		"Position": {
+			"X": 203,
+			"Y": 106
+		}
+	},
+	{
+		"Name": "HiddenBenefits",
+		"Skill": "Combat",
+		"Requirements": [ "Consolidation" ],
+		"MailFlag": "Combat_Hidden_Benefits",
+		"Position": {
+			"X": 213,
+			"Y": 78
+		}
+	},
+	//Melee tree
+	{
+		"Name": "RendingStrike",
+		"Skill": "Combat",
+		"MailFlag": "Combat_Rending_Strike",
+		"Position": {
+			"X": 133,
+			"Y": 125
+		}
+	},
+	{
+		"Name": "DebiliatingStab",
+		"Skill": "Combat",
+		"Requirements": [ "RendingStrike" ],
+		"MailFlag": "Combat_Debiliating_Stab",
+		"Position": {
+			"X": 133,
+			"Y": 98
+		}
+	},
+	{
+		"Name": "SeveringSwipe",
+		"Skill": "Combat",
+		"Requirements": [ "RendingStrike" ],
+		"MailFlag": "Combat_Severing_Swipe",
+		"Position": {
+			"X": 111,
+			"Y": 106
+		}
+	},
+	{
+		"Name": "ConcussiveImpact",
+		"Skill": "Combat",
+		"Requirements": [ "RendingStrike" ],
+		"MailFlag": "Combat_Concussive_Impact",
+		"Position": {
+			"X": 153,
+			"Y": 104
+		}
+	},
+	{
+		"Name": "Aftershock",
+		"Skill": "Combat",
+		"Requirements": [ "ConcussiveImpact" ],
+		"MailFlag": "Combat_Flurry",
+		"Position": {
+			"X": 153,
+			"Y": 65
+		}
+	},
+	{
+		"Name": "Champion",
+		"Skill": "Combat",
+		"Requirements": [ "SeveringSwipe" ],
+		"MailFlag": "Combat_Champion",
+		"Position": {
+			"X": 111,
+			"Y": 64
+		}
+	},
+	{
+		"Name": "Flurry",
+		"Skill": "Combat",
+		"Requirements": [ "DebiliatingStab" ],
+		"MailFlag": "Combat_Aftershock",
+		"Position": {
+			"X": 133,
+			"Y": 75
+		}
+	},
+	{
+		"Name": "Ferocity",
+		"Skill": "Combat",
+		"Requirements": [ "Flurry", "Champion", "Aftershock" ],
+		"MailFlag": "Combat_Ferocity",
+		"Position": {
+			"X": 133,
+			"Y": 47
+		}
+	},
+	{
+		"Name": "Starburst",
+		"Skill": "Combat",
+		"Requirements": [ "Ferocity" ],
+		"MailFlag": "Combat_Starburst",
+		"Position": {
+			"X": 133,
+			"Y": 27
+		}
+	},
+	//Defense branch
+	{
+		"Name": "Grit",
+		"Skill": "Combat",
+		"MailFlag": "Combat_Grit",
+		"Position": {
+			"X": 109,
+			"Y": 131
+		}
+	},
+	{
+		"Name": "Sidestep",
+		"Skill": "Combat",
+		"Requirements": [ "Grit" ],
+		"MailFlag": "Combat_Sidestep",
+		"Position": {
+			"X": 90,
+			"Y": 115
+		}
+	},
+	{
+		"Name": "Slippery",
+		"Skill": "Combat",
+		"Requirements": [ "Sidestep" ],
+		"MailFlag": "Combat_Slippery",
+		"Position": {
+			"X": 80,
+			"Y": 98
+		}
+	},
+	{
+		"Name": "Fortified",
+		"Skill": "Combat",
+		"Requirements": [ "Slippery" ],
+		"MailFlag": "Combat_Fortified",
+		"Position": {
+			"X": 79,
+			"Y": 78
+		}
+	},
+	{
+		"Name": "FullKnowledge",
+		"Skill": "Combat",
+		"Requirements": [ "Fortified" ],
+		"MailFlag": "Combat_Full_Knowledge",
+		"Position": {
+			"X": 58,
+			"Y": 91
+		}
+	},
+	{
+		"Name": "MonsterSpecialist",
+		"Skill": "Combat",
+		"Requirements": [ "FullKnowledge" ],
+		"MailFlag": "Combat_Monster_Specialist",
+		"Branches": [
+			{
+				"Name": "Ground",
+				"Flag": "Combat_Monster_Specialist_Ground",
+				"Position": {
+					"X": 400,
+					"Y": 130
+				}
+			},
+			{
+				"Name": "Humanoid",
+				"Flag": "Combat_Monster_Specialist_Humanoid",
+				"Position": {
+					"X": 600,
+					"Y": 130
+				}
+			},
+			{
+				"Name": "Flying",
+				"Flag": "Combat_Monster_Specialist_Flying",
+				"Position": {
+					"X": 400,
+					"Y": 260
+				}
+			},
+			{
+				"Name": "Armoured",
+				"Flag": "Combat_Monster_Specialist_Armoured",
+				"Position": {
+					"X": 600,
+					"Y": 260
+				}
+			}
+		],
+		"Position": {
+			"X": 39,
+			"Y": 106
+		}
+	},
+	{
+		"Name": "SugarRush",
+		"Skill": "Combat",
+		"Requirements": [ "Fortified" ],
+		"MailFlag": "Combat_Sugar_Rush",
+		"Position": {
+			"X": 83,
+			"Y": 54
+		}
+	},
+	{
+		"Name": "Meditation",
+		"Skill": "Combat",
+		"Requirements": [ "SugarRush" ],
+		"MailFlag": "Combat_Meditation",
+		"Position": {
+			"X": 93,
+			"Y": 35
+		}
+	},
+	//Misc Tree
+	{
+		"Name": "LostAndFound",
+		"Skill": "Misc",
+		"MailFlag": "Misc_LostAndFound",
+		"Position": {
+			"X": 94,
+			"Y": 49
+		}
+	},
+	{
+		"Name": "BookclubBargains",
+		"Skill": "Misc",
+		"Requirements": [ "LostAndFound" ],
+		"MailFlag": "Misc_BookclubBargains",
+		"Position": {
+			"X": 111,
+			"Y": 62
+		}
+	},
+	{
+		"Name": "CycleOfKnowledge",
+		"Skill": "Misc",
+		"Requirements": [ "BookclubBargains" ],
+		"MailFlag": "Misc_CycleOfKnowledge",
+		"Position": {
+			"X": 124,
+			"Y": 77
+		}
+	},
+	//Branch 2
+	{
+		"Name": "NarrowEscape",
+		"Skill": "Misc",
+		"MailFlag": "Misc_NarrowEscape",
+		"Position": {
+			"X": 165,
+			"Y": 26
+		}
+	},
+	{
+		"Name": "TrashedTreasure",
+		"Skill": "Misc",
+		"Requirements": [ "NarrowEscape" ],
+		"MailFlag": "Misc_TrashedTreasure",
+		"Position": {
+			"X": 157,
+			"Y": 45
+		}
+	},
+	{
+		"Name": "ButterflyEffect",
+		"Skill": "Misc",
+		"Requirements": [ "TrashedTreasure" ],
+		"MailFlag": "Misc_ButterflyEffect",
+		"Position": {
+			"X": 149,
+			"Y": 65
+		}
+	},
+	//Branch 3
+	{
+		"Name": "Admiration",
+		"Skill": "Misc",
+		"MailFlag": "Misc_Admiration",
+		"Position": {
+			"X": 202,
+			"Y": 60
+		}
+	},
+	{
+		"Name": "InsiderInfo",
+		"Skill": "Misc",
+		"Requirements": [ "Admiration" ],
+		"MailFlag": "Misc_InsiderInfo",
+		"Position": {
+			"X": 186,
+			"Y": 71
+		}
+	},
+	{
+		"Name": "GiftOfFriendship",
+		"Skill": "Misc",
+		"Requirements": [ "InsiderInfo" ],
+		"MailFlag": "Misc_GiftOfFriendship",
+		"Position": {
+			"X": 169,
+			"Y": 82
+		}
+	},
+	//Branch 4
+	{
+		"Name": "MatesRates",
+		"Skill": "Misc",
+		"MailFlag": "Misc_MatesRates",
+		"Position": {
+			"X": 191,
+			"Y": 142
+		}
+	},
+	{
+		"Name": "MonumentalDiscount",
+		"Skill": "Misc",
+		"Requirements": [ "MatesRates" ],
+		"MailFlag": "Misc_MonumentalDiscount",
+		"Position": {
+			"X": 172,
+			"Y": 128
+		}
+	},
+	{
+		"Name": "CraftSupplies",
+		"Skill": "Misc",
+		"Requirements": [ "MonumentalDiscount" ],
+		"MailFlag": "Misc_CraftSupplies",
+		"Position": {
+			"X": 161,
+			"Y": 110
+		}
+	},
+	//Branch 5
+	{
+		"Name": "HauteCuisine",
+		"Skill": "Misc",
+		"MailFlag": "Misc_HauteCuisine",
+		"Position": {
+			"X": 105,
+			"Y": 142
+		}
+	},
+	{
+		"Name": "MiniFridgeBigSpace",
+		"Skill": "Misc",
+		"Requirements": [ "HauteCuisine" ],
+		"MailFlag": "Misc_MiniFridgeBigSpace",
+		"Position": {
+			"X": 121,
+			"Y": 127
+		}
+	},
+	{
+		"Name": "GoodEats",
+		"Skill": "Misc",
+		"Requirements": [ "MiniFridgeBigSpace" ],
+		"MailFlag": "Misc_GoodEats",
+		"Position": {
+			"X": 127,
+			"Y": 108
+		}
+	},
+	//Stardrop
+	{
+		"Name": "GiftOfTheTalented",
+		"Skill": "Misc",
+		"AmountToBuyFirst": 15,
+		"MailFlag": "Misc_GiftOfTheTalented",
+		"Position": {
+			"X": 146,
+			"Y": 90
+		}
+	}
+]

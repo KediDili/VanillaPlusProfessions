@@ -253,6 +253,7 @@ namespace VanillaPlusProfessions.Managers
                             "(O)62" => "(O)692", //Aquamarine -> lead bobber
                             "(O)66" => "(O)687", //Amethyst -> dressed spinner
                             "(O)68" => "(O)695", //Topaz -> cork bobber
+                            "(O)82" => "(O)Kedi.VPP.SnailTackle", //Fire Quartz -> Snail Tackle
                             _ => __result[i]
                         };
                     }

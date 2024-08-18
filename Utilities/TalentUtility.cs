@@ -249,6 +249,19 @@ namespace VanillaPlusProfessions.Utilities
             return null;
         }
 
+        public static int BuffDescriptionLength(string name)
+        {
+            int minimum_size = 272;
+            if (LocalizedContentManager.CurrentLanguageCode == LocalizedContentManager.LanguageCode.fr)
+            {
+                minimum_size = 384;
+            }
+            if (LocalizedContentManager.CurrentLanguageCode == LocalizedContentManager.LanguageCode.tr)
+            {
+                minimum_size = 336;
+            }
+            return Math.Max(minimum_size, (int)Game1.dialogueFont.MeasureString(name ?? "").X);
+        }
         public static List<TrinketRing> GetAllTrinketRings(Farmer who)
         {
             List<TrinketRing> result = new();
@@ -329,7 +342,7 @@ namespace VanillaPlusProfessions.Utilities
             }
             else
             {
-                string locdata = Game1.player.currentLocation.GetData().CustomFields[flag ? "" : ""].Trim();
+                string locdata = Game1.player.currentLocation.GetData().CustomFields[flag ? TalentCore.Key_CrystalCavern : TalentCore.Key_Upheaval].Trim();
                 if (!string.IsNullOrEmpty(locdata))
                 {
                     string[] strings = locdata.Split('/', StringSplitOptions.TrimEntries);
