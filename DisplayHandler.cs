@@ -20,6 +20,7 @@ using StardewValley.Buildings;
 using VanillaPlusProfessions.Talents.Patchers;
 using StardewValley.Objects;
 using SpaceCore.Interface;
+using static SpaceCore.Skills.Skill;
 
 namespace VanillaPlusProfessions
 {
@@ -377,7 +378,7 @@ namespace VanillaPlusProfessions
                         {
                             foreach (ClickableTextureComponent c in MyCustomSkillBars.Value)
                             {
-                                if (c.scale == 0f)
+                                if (c.scale == 0f && c.containsPoint(Game1.getMouseX(true), Game1.getMouseY(true)))
                                 {
                                     IClickableMenu.drawTextureBox(e.SpriteBatch, Game1.menuTexture, new Rectangle(0, 256, 60, 60), c.bounds.X - 16 - 8, c.bounds.Y - 16 - 16, 96, 96, Color.White, drawShadow: false);
                                     e.SpriteBatch.Draw(ProfessionIcons, new Vector2(c.bounds.X - 8, c.bounds.Y - 16), new Rectangle((Convert.ToInt32(c.name) - 30) % 6 * 16, (Convert.ToInt32(c.name) - 30) / 6 * 16, 16, 16), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 1f);
@@ -429,41 +430,46 @@ namespace VanillaPlusProfessions
         {
             ShouldHandleSkillPage.Value = false;
             
-            if (page is NewSkillsPage newSkillsPage)
+            if (page is NewSkillsPage newSkillsPage && Game1.activeClickableMenu is GameMenu menu2)
             {
                 MyCustomSkillBars.Value = newSkillsPage.skillBars.ToArray();
-                NewSkillsPage skillsPage2 = new(menu.xPositionOnScreen, menu.yPositionOnScreen, menu.width + ((LocalizedContentManager.CurrentLanguageCode is LocalizedContentManager.LanguageCode.ru or LocalizedContentManager.LanguageCode.it) ? 64 : 0), menu.height);
+                NewSkillsPage skillsPage2 = new(menu2.xPositionOnScreen, menu2.yPositionOnScreen, menu2.width + ((LocalizedContentManager.CurrentLanguageCode is LocalizedContentManager.LanguageCode.ru or LocalizedContentManager.LanguageCode.it) ? 64 : 0), menu2.height);
                 VanillaSkillBars.Value = skillsPage2.skillBars.ToArray();
 
                 List<(int, int)> IndexAndProfessions = new();
+                List<int> AlreadyPickedProfessions = new();
 
-                foreach (var item in ModEntry.Professions)
+
+                for (int i = 0; i < MyCustomSkillBars.Value.Length; i++)
                 {
-                    for (int i = 0; i < MyCustomSkillBars.Value.Length; i++)
+                    foreach (var item in ModEntry.Professions)
                     {
                         if (IsInCorrectLine(MyCustomSkillBars.Value[i].bounds, newSkillsPage.skillAreas, item.Value.Skill.ToString()))
                         {
-                            if (CoreUtility.CurrentPlayerHasProfession(item.Value.ID, ignoreMode: true))
+                            if (CoreUtility.CurrentPlayerHasProfession(item.Value.ID, ignoreMode: true) && !AlreadyPickedProfessions.Contains(item.Value.ID))
                             {
                                 IndexAndProfessions.Add((i, item.Value.ID));
+                                AlreadyPickedProfessions.Add(item.Value.ID);
+                                break;
                             }
                             else
                             {
                                 MyCustomSkillBars.Value[i].name = "-1";
                             }
                         }
-                        MyCustomSkillBars.Value[i].texture = SkillIcons;
-                        MyCustomSkillBars.Value[i].sourceRect = CorrectNewSourceRect(item.Value.Skill.ToString(), newSkillsPage.skillAreas, MyCustomSkillBars.Value.ToList(), MyCustomSkillBars.Value[i]);
                     }
                 }
 
-                for (int i = 0; i < MyCustomSkillBars.Value.Length; i++)
+                for (int i = 0; i < IndexAndProfessions.Count; i++)
                 {
                     int index = i;
-                    if (IndexAndProfessions.Find(a => a.Item1 == index) is (int, int) tuple && !tuple.Equals(default))
-                    {
-                        MyCustomSkillBars.Value[tuple.Item1].name = tuple.Item2.ToString();
-                    }
+
+                    MyCustomSkillBars.Value[IndexAndProfessions[index].Item1].name = IndexAndProfessions[index].Item2.ToString();
+
+                    List<string> description = LevelUpMenu.getProfessionDescription(IndexAndProfessions[index].Item2);
+                    description.RemoveAt(0);
+
+                    MyCustomSkillBars.Value[IndexAndProfessions[index].Item1].hoverText = Game1.parseText(description.Join(delimiter: "\n"), Game1.smallFont, (int)Game1.dialogueFont.MeasureString(LevelUpMenu.getProfessionTitleFromNumber(IndexAndProfessions[index].Item2)).X + 100);
                 }
             }
             LittleArrow.Value = new(menu.upperRightCloseButton.bounds, Game1.mouseCursors, new Rectangle(392, 361, 10, 11), 4f, false);
@@ -598,36 +604,6 @@ namespace VanillaPlusProfessions
                 }
             }
             return false;
-        }
-
-        public static Rectangle CorrectNewSourceRect(string skill, List<ClickableTextureComponent> skillAreas, List<ClickableTextureComponent> skillBars, ClickableTextureComponent bar)
-        {
-            if (int.TryParse(skill, out int result) && IsInCorrectLine(bar.bounds, skillAreas, skill))
-            {
-                int is15or20 = 0;
-                foreach (var item in skillBars)
-                {
-                    if (item.bounds.Y == bar.bounds.Y)
-                    {
-                        if (item.bounds.X < bar.bounds.X)
-                        {
-                            is15or20 = 20;
-                        }
-                        else
-                        {
-                            is15or20 = 15;
-                        }
-                    }
-                }
-//                if (is15or20 == 0)
-  //                  is15or20 = 15;
-
-                if (Game1.player.GetUnmodifiedSkillLevel(result) >= is15or20 || bar.name != "-1")
-                {
-                    return ModEntry.ModConfig.Value.ColorBlindnessChanges ? new(30, 9, 13, 9) : new(30, 0, 13, 9);
-                }
-            }
-            return new(16, 0, 13, 9); //the not filled rectangle
         }
 
         public static int StandardizeSkillIndexes(int FF)

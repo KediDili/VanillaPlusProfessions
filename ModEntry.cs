@@ -444,20 +444,18 @@ namespace VanillaPlusProfessions
                         List<(int, int)> IndexAndProfessions = new();
                         List<int> AlreadyPickedProfessions = new();
 
-                        foreach (var item in Professions)
+
+                        for (int i = 0; i < DisplayHandler.MyCustomSkillBars.Value.Length; i++)
                         {
-                            for (int i = 0; i < DisplayHandler.MyCustomSkillBars.Value.Length; i++)
-                            {
-                                DisplayHandler.MyCustomSkillBars.Value[i].texture = DisplayHandler.SkillIcons;
-                                DisplayHandler.MyCustomSkillBars.Value[i].sourceRect = DisplayHandler.CorrectNewSourceRect(item.Value.Skill.ToString(), pagee.skillAreas, DisplayHandler.MyCustomSkillBars.Value.ToList(), DisplayHandler.MyCustomSkillBars.Value[i]);
-                                DisplayHandler.MyCustomSkillBars.Value[i].startingSourceRect = DisplayHandler.MyCustomSkillBars.Value[i].sourceRect;
+                            foreach (var item in Professions)
+                            {                             
                                 if (DisplayHandler.IsInCorrectLine(DisplayHandler.MyCustomSkillBars.Value[i].bounds, pagee.skillAreas, item.Value.Skill.ToString()))
                                 {
                                     if (CoreUtility.CurrentPlayerHasProfession(item.Value.ID, ignoreMode: true) && !AlreadyPickedProfessions.Contains(item.Value.ID))
                                     {
                                         IndexAndProfessions.Add((i, item.Value.ID));
                                         AlreadyPickedProfessions.Add(item.Value.ID);
-                                        continue;
+                                        break;
                                     }
                                     else
                                     {
@@ -467,13 +465,16 @@ namespace VanillaPlusProfessions
                             }
                         }
 
-                        for (int i = 0; i < DisplayHandler.MyCustomSkillBars.Value.Length; i++)
+                        for (int i = 0; i < IndexAndProfessions.Count; i++)
                         {
                             int index = i;
-                            if (IndexAndProfessions.Find(a => a.Item1 == index) is (int, int) tuple && !tuple.Equals(default))
-                            {
-                                DisplayHandler.MyCustomSkillBars.Value[tuple.Item1].name = tuple.Item2.ToString();
-                            }
+
+                            DisplayHandler.MyCustomSkillBars.Value[IndexAndProfessions[index].Item1].name = IndexAndProfessions[index].Item2.ToString();
+
+                            List<string> description = LevelUpMenu.getProfessionDescription(IndexAndProfessions[index].Item2);
+                            description.RemoveAt(0);
+                            
+                            DisplayHandler.MyCustomSkillBars.Value[IndexAndProfessions[index].Item1].hoverText = Game1.parseText(description.Join(delimiter: "\n"), Game1.smallFont, (int)Game1.dialogueFont.MeasureString(LevelUpMenu.getProfessionTitleFromNumber(IndexAndProfessions[index].Item2)).X + 100);
                         }
                         if (CoreUtility.IsOverlayValid() && DisplayHandler.LittleArrow.Value.containsPoint(Game1.getMouseX(true), Game1.getMouseY(true)))
                         {
