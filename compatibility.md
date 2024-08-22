@@ -42,7 +42,10 @@ An example patch for both of them is written below:
 | ``KediDili.VanillaPlusProfessions_WasRainingHereYesterday <location>`` | Checks if it was raining the said location YESTERDAY.<br/>This can be used for compatibility with talents such as Bountiful Boletes or Renewing Mist that need this check. |
 
 ## C# Mods
-VPP offers an API ~~currently only to add talents which I'm going to completely revamp...~~
+VPP offers an API to only add custom talent trees for SpaceCore skill mods and getting professions a player currently has.
+
+If you want to use the VPP API, copy ``IVanillaPlusProfessions.cs`` in Compatibility folder to your project.
+Delete the elements that you don't need, the API may change
 
 ### Skill Mods by SpaceCore
 VPP will recognize your custom skill for features like the skill overlay, but will NOT try to manage your professions or add new ones for levels 15 and 20.
