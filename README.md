@@ -17,5 +17,8 @@ If you're here for a detailed documentation of talents, professions and other sk
 ## Compatibility
 How to add compatibility with various talents and professions of this mod is documented in [here](https://github.com/KediDili/VanillaPlusProfessions/blob/main/compatibility.md)
 
+## Installation
+blablabla
+
 ## Translations
-Every translator 
+Every translator will be credited on Nexus.
