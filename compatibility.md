@@ -4,7 +4,7 @@
 
 ## Content Packs (Mostly CP, though)
 VPP offers two custom CP tokens and one custom GSQ for compatibility purposes at the moment.
-Additionally, if you need to know whether your custom X is compatible with Y feature of VPP, every talent and profession section in ``features.md`` tells how to add compatibility or do they need anything at all!
+Additionally, if you need to know whether your custom X is compatible with Y feature of VPP, every talent and profession section in [``features.md``](https://github.com/KediDili/VanillaPlusProfessions/blob/main/compatibility.md) tells how to add compatibility or do they need anything at all!
 
 The queries/tokens, and the formats are listed below:
 
@@ -47,9 +47,9 @@ An example patch for both of them is written below:
 VPP offers an API to do things like adding custom talent trees for SpaceCore skill mods, getting VPP's config values for Mastery Cave Changes and Color Blindness Changes, and getting VPP professions a player currently has.
 
 If you want to use the VPP API:
-1) Copy ``IVanillaPlusProfessions.cs`` in Compatibility folder to your project.
+1) Copy [``IVanillaPlusProfessions.cs``](https://github.com/KediDili/VanillaPlusProfessions/blob/main/Compatibility/IVanillaPlusProfessions.cs) in Compatibility folder to your project.
 2) Delete the elements that you don't need, as the API may change anytime this will help your version to be compatible as long as possible.
-3) Copy ``Talent.cs`` in Talents folder to your project (Do this only if you are a custom skill mod author who wants to add a custom talent tree for VPP. Otherwise, ignore this step.)
+3) Copy [``Talent.cs``](https://github.com/KediDili/VanillaPlusProfessions/blob/main/Talents/Talent.cs) in Talents folder to your project (Do this only if you are a custom skill mod author who wants to add a custom talent tree for VPP. Otherwise, ignore this step.)
 4) Request it through SMAPI's ModRegistry.
 
 ### Skill Mods by SpaceCore
@@ -66,7 +66,7 @@ There are also some guidelines to keep in mind that aren't necessarily technical
 - Level 20 professions are "combo" professions, which are special professions that do not care what you chose at level 15 and that are always a crossover of another skill and your skill. (or in VPP's case, two different vanilla skills).
 
 ***If you DO want to create a talent tree***
-- Add the VPP API to your project.
+- [Add the VPP API to your project.](https://github.com/KediDili/VanillaPlusProfessions/blob/main/compatibility.md#c-mods)
 - Create all of your talents as ``Talent`` instances. (You can do this however you may like, so you can read them from a .json file -which is the way VPP does it- or hardcode them in C# if that's your way.)
 - Register them by using the ``RegisterCustomSkillTree`` method.
 <br/><br/>
