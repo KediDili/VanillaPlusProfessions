@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework;
 using VanillaPlusProfessions.Enchantments;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
+using StardewValley.Menus;
 
 namespace VanillaPlusProfessions.Utilities
 {
@@ -285,8 +286,10 @@ namespace VanillaPlusProfessions.Utilities
 
             return useThisInstead.professions.Contains(profession) is true || (ModEntry.ModConfig.Value.DeveloperOrTestingMode && !ignoreMode);
         }
-        public static Texture2D GetProfessionIconImage(int skill, int level)
+        public static Texture2D GetProfessionIconImage(LevelUpMenu menu)
         {
+            int skill = ModEntry.Helper.Reflection.GetField<int>(menu, "currentSkill").GetValue();
+            int level = ModEntry.Helper.Reflection.GetField<int>(menu, "currentLevel").GetValue();
             if (skill >= 0 && skill < 5 && level is 15 or 20)
             {
                 return DisplayHandler.ProfessionIcons;
@@ -294,15 +297,15 @@ namespace VanillaPlusProfessions.Utilities
             return Game1.mouseCursors;
         }
 
-        public static Rectangle? GetProfessionSourceRect(int x, int y, int width, int height, int whichProfession)
+        public static Rectangle? GetProfessionSourceRect(int whichProfession)
         {
             if (whichProfession > 467800)
             {
                 int realID = whichProfession - 467800;
-                x = (realID - 30) % 6 * 16;
-                y = (realID - 30) / 6 * 16;
+           //     x = (realID - 30) % 6 * 16;
+            //    y = (realID - 30) / 6 * 16;
             }
-            return new(x, y, width, height);
+            return new(0, 0, 16, 16);
         }
     }
 }
