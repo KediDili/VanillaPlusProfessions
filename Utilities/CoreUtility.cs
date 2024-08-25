@@ -9,10 +9,11 @@ using StardewValley.Tools;
 using Microsoft.Xna.Framework;
 using VanillaPlusProfessions.Enchantments;
 using System.Text;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace VanillaPlusProfessions.Utilities
 {
-    public static class CoreUtility
+    public class CoreUtility
     {
         public static bool IsOverlayValid()
         {
@@ -283,6 +284,25 @@ namespace VanillaPlusProfessions.Utilities
                 return false;
 
             return useThisInstead.professions.Contains(profession) is true || (ModEntry.ModConfig.Value.DeveloperOrTestingMode && !ignoreMode);
-        }        
+        }
+        public static Texture2D GetProfessionIconImage(int skill, int level)
+        {
+            if (skill >= 0 && skill < 5 && level is 15 or 20)
+            {
+                return DisplayHandler.ProfessionIcons;
+            }
+            return Game1.mouseCursors;
+        }
+
+        public static Rectangle? GetProfessionSourceRect(int x, int y, int width, int height, int whichProfession)
+        {
+            if (whichProfession > 467800)
+            {
+                int realID = whichProfession - 467800;
+                x = (realID - 30) % 6 * 16;
+                y = (realID - 30) / 6 * 16;
+            }
+            return new(x, y, width, height);
+        }
     }
 }

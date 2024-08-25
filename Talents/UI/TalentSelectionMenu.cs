@@ -104,7 +104,7 @@ namespace VanillaPlusProfessions.Talents.UI
 
             foreach (var branch in TalentCore.Talents["MonsterSpecialist"].Branches)
             {
-                Branch branch2 = branch;
+                Talent.Branch branch2 = branch;
                 branch.DisplayName = str => ModEntry.Helper.Translation.Get($"Talent.Branch.{branch2.Name}.Name");
                 branch.Desc = str => ModEntry.Helper.Translation.Get($"Talent.Branch.{branch2.Name}.Desc");
             }
@@ -166,6 +166,11 @@ namespace VanillaPlusProfessions.Talents.UI
                     talentbutton.UpdateSprite();
                 }
             }
+
+            UI.BundleIcon.LockedName = ModEntry.Helper.Translation.Get("Talent.LockedTalent.Name");
+            UI.BundleIcon.LockedDesc = ModEntry.Helper.Translation.Get("Talent.LockedTalent.Desc");
+            UI.BundleIcon.NumberLocked = ModEntry.Helper.Translation.Get("Talent.LockedTalent.Numbered");
+
             FixBaseButtonNeighborIDs();
             populateClickableComponentList();
             snapToDefaultClickableComponent();
@@ -209,7 +214,7 @@ namespace VanillaPlusProfessions.Talents.UI
                 for (int i = 0; i < skillTrees[CurrentSkill].Bundles.Count; i++)
                 {
                     if (skillTrees[CurrentSkill].Bundles[i].button.containsPoint(Game1.getMouseX(), Game1.getMouseY()))
-                        drawHoverText(b, skillTrees[CurrentSkill].Bundles[i].GetTalentDescription(), Game1.smallFont, boldTitleText: skillTrees[CurrentSkill].Bundles[i].Availability ? skillTrees[CurrentSkill].Bundles[i].button.name : Talent.LockedName);
+                        drawHoverText(b, skillTrees[CurrentSkill].Bundles[i].GetTalentDescription(), Game1.smallFont, boldTitleText: skillTrees[CurrentSkill].Bundles[i].Availability ? skillTrees[CurrentSkill].Bundles[i].button.name : UI.BundleIcon.LockedName);
                 }
                 if (ResetItemAll.containsPoint(Game1.getMouseX(), Game1.getMouseY()))
                 {

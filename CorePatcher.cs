@@ -5,9 +5,9 @@ using System.Reflection;
 using System.Reflection.Emit;
 using HarmonyLib;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
 using StardewValley.Menus;
-using VanillaPlusProfessions.Managers;
 using VanillaPlusProfessions.Utilities;
 
 namespace VanillaPlusProfessions
@@ -20,79 +20,79 @@ namespace VanillaPlusProfessions
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(Farmer), nameof(Farmer.getProfessionForSkill)),
-                    postfix: new HarmonyMethod(AccessTools.Method(typeof(CorePatcher), nameof(CorePatcher.getProfessionForSkill_Postfix)))
+                    postfix: new HarmonyMethod(AccessTools.Method(typeof(CorePatcher), nameof(getProfessionForSkill_Postfix)))
                 );
             }
             catch (Exception e)
             {
                 CoreUtility.PrintError(e, nameof(CorePatcher), "Farmer.getProfessionForSkill", "postfixing");
             }
-            
+
             try
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(Farmer), nameof(Farmer.checkForLevelGain)),
-                    postfix: new HarmonyMethod(AccessTools.Method(typeof(CorePatcher), nameof(CorePatcher.checkForLevelGain_Postfix)))
+                    postfix: new HarmonyMethod(AccessTools.Method(typeof(CorePatcher), nameof(checkForLevelGain_Postfix)))
                 );
             }
             catch (Exception e)
             {
                 CoreUtility.PrintError(e, nameof(CorePatcher), "Farmer.checkForLevelGain", "postfixing");
             }
-            
+
             try
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Constructor(typeof(LevelUpMenu), new Type[] { typeof(int), typeof(int) }),
-                    transpiler: new HarmonyMethod(AccessTools.Method(typeof(CorePatcher), nameof(CorePatcher.Transpiler)))
+                    transpiler: new HarmonyMethod(AccessTools.Method(typeof(CorePatcher), nameof(Transpiler)))
                 );
             }
             catch (Exception e)
             {
                 CoreUtility.PrintError(e, nameof(CorePatcher), "LevelUpMenu constructor", "transpiling");
             }
-            
+
             try
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(GameLocation), nameof(GameLocation.performAction), new Type[] { typeof(string[]), typeof(Farmer), typeof(xTile.Dimensions.Location) }),
-                    transpiler: new HarmonyMethod(AccessTools.Method(typeof(CorePatcher), nameof(CorePatcher.Transpiler)))
+                    transpiler: new HarmonyMethod(AccessTools.Method(typeof(CorePatcher), nameof(Transpiler)))
                 );
             }
-            catch (Exception e) 
-            { 
+            catch (Exception e)
+            {
                 CoreUtility.PrintError(e, nameof(CorePatcher), "GameLocation.performAction", "transpiling");
             }
-            
+
             try
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(LevelUpMenu), "getProfessionName"),
-                    postfix: new HarmonyMethod(AccessTools.Method(typeof(CorePatcher), nameof(CorePatcher.getProfessionName_Postfix)))
+                    postfix: new HarmonyMethod(AccessTools.Method(typeof(CorePatcher), nameof(getProfessionName_Postfix)))
                 );
             }
             catch (Exception e)
             {
                 CoreUtility.PrintError(e, nameof(CorePatcher), "LevelUpMenu.getProfessionName", "postfixing");
             }
-            
+
             try
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(GameLocation), nameof(GameLocation.answerDialogueAction)),
-                    postfix: new HarmonyMethod(AccessTools.Method(typeof(CorePatcher), nameof(CorePatcher.answerDialogueAction_Postfix)))
+                    postfix: new HarmonyMethod(AccessTools.Method(typeof(CorePatcher), nameof(answerDialogueAction_Postfix)))
                 );
             }
             catch (Exception e)
             {
                 CoreUtility.PrintError(e, nameof(CorePatcher), "GameLocation.answerDialogueAction", "postfixing");
             }
-            
+
             try
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(GameLocation), nameof(GameLocation.canRespec)),
-                    postfix: new HarmonyMethod(AccessTools.Method(typeof(CorePatcher), nameof(CorePatcher.canRespec_Postfix)))
+                    postfix: new HarmonyMethod(AccessTools.Method(typeof(CorePatcher), nameof(canRespec_Postfix)))
                 );
             }
             catch (Exception e)
@@ -104,12 +104,23 @@ namespace VanillaPlusProfessions
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(Farmer), nameof(Farmer.gainExperience)),
-                    transpiler: new HarmonyMethod(AccessTools.Method(typeof(CorePatcher), nameof(CorePatcher.gainExperience_Transpiler)))
+                    transpiler: new HarmonyMethod(AccessTools.Method(typeof(CorePatcher), nameof(gainExperience_Transpiler)))
                 );
             }
             catch (Exception e)
             {
                 CoreUtility.PrintError(e, nameof(CorePatcher), "Farmer.gainExperience", "transpiling");
+            }
+            try
+            {
+                ModEntry.Harmony.Patch(
+                    original: AccessTools.Method(typeof(LevelUpMenu), nameof(LevelUpMenu.draw), new Type[] { typeof(SpriteBatch) }),
+                    transpiler: new HarmonyMethod(AccessTools.Method(typeof(CorePatcher), nameof(draw_LevelUpMenu_Transpiler)))
+                );
+            }
+            catch (Exception e)
+            {
+                CoreUtility.PrintError(e, nameof(CorePatcher), "LevelUpMenu.draw", "transpiling");
             }
         }
 
@@ -132,9 +143,66 @@ namespace VanillaPlusProfessions
                 yield return item;
             }
         }
-        public static bool TryOverride() //Listen, I'm lazy and this works anyway, there's label business I don't want to fiddle with
+
+        public static IEnumerable<CodeInstruction> draw_LevelUpMenu_Transpiler(IEnumerable<CodeInstruction> instructions)
         {
-            return ModEntry.Helper.ModRegistry.IsLoaded("KediDili.VanillaPlusProfessions");
+            int index = 0;
+            bool done = false;
+            FieldInfo mouseCursors = AccessTools.Field(typeof(Game1), nameof(Game1.mouseCursors));
+            ConstructorInfo rectangleConstructor = AccessTools.Constructor(typeof(Rectangle), parameters: new Type[] { typeof(int), typeof(int), typeof(int), typeof(int) });
+            List<CodeInstruction> toReturn = instructions.ToList();
+
+            for (int i = 0; i < 2; i++)
+            {
+                index = 0;
+                foreach (var instruct in toReturn)
+                {
+                    index++;
+                    if (instruct.opcode == OpCodes.Ldsfld && (FieldInfo)instruct.operand == mouseCursors)
+                    {
+                        toReturn.Insert(index - 5, new(OpCodes.Ldarg_0));
+                        toReturn.Insert(index - 4, new(OpCodes.Ldfld, AccessTools.Field(typeof(LevelUpMenu), "currentSkill")));
+                        toReturn.Insert(index - 3, new(OpCodes.Ldarg_0));
+                        toReturn.Insert(index - 2, new(OpCodes.Ldfld, AccessTools.Field(typeof(LevelUpMenu), "currentLevel")));
+                        instruct.operand = AccessTools.Method(typeof(CoreUtility), nameof(CoreUtility.GetProfessionIconImage));
+                        instruct.opcode = OpCodes.Call;
+                        break;
+                    }
+                }
+            }
+            index = 0;
+            int whichCtor = 0;
+            for (int i = 0; i < 2; i++)
+            {
+                foreach (var instruct2 in toReturn)
+                {
+                    index++;
+                    if (instruct2.opcode == OpCodes.Newobj && (ConstructorInfo)instruct2.operand == rectangleConstructor)
+                    {
+                        if (whichCtor == 0)
+                        {
+                            whichCtor++;
+                            continue;
+                        }
+                        else
+                        {
+                            toReturn.Insert(index - 4, new(OpCodes.Ldarg_0));
+                            toReturn.Insert(index - 3, new(OpCodes.Ldfld, AccessTools.Field(typeof(LevelUpMenu), "professionsToChoose")));
+                            toReturn.Insert(index - 2, new(i == 0 ? OpCodes.Ldc_I4_0 : OpCodes.Ldc_I4_1));
+
+                            instruct2.opcode = OpCodes.Callvirt;
+                            instruct2.operand = AccessTools.PropertyGetter(typeof(List<int>), "get_Item");
+
+                            toReturn[index].opcode = OpCodes.Call;
+                            toReturn[index].operand = AccessTools.Method(typeof(CoreUtility), nameof(CoreUtility.GetProfessionSourceRect));
+                            break;
+                        }
+                    }
+                    //GetProfessionSourceRect
+                }
+                whichCtor = 0;
+            }
+            return toReturn;
         }
 
         //Patched

@@ -10,7 +10,7 @@ namespace VanillaPlusProfessions.Talents.UI
     {
         public Rectangle button;
 
-        public Branch branch;
+        public Talent.Branch branch;
 
         public void draw(SpriteBatch b)
         {

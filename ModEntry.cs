@@ -25,6 +25,7 @@ using StardewValley.Menus;
 using StardewValley.Internal;
 using SpaceCore.Interface;
 using VanillaPlusProfessions.Talents.UI;
+using SpaceCore;
 
 namespace VanillaPlusProfessions
 {
@@ -441,9 +442,8 @@ namespace VanillaPlusProfessions
                         NewSkillsPage skillsPage2 = new(menu2.xPositionOnScreen, menu2.yPositionOnScreen, menu2.width + ((LocalizedContentManager.CurrentLanguageCode is LocalizedContentManager.LanguageCode.ru or LocalizedContentManager.LanguageCode.it) ? 64 : 0), menu2.height);
                         DisplayHandler.VanillaSkillBars.Value = skillsPage2.skillBars.ToArray();
 
-                        List<(int, int)> IndexAndProfessions = new();
-                        List<int> AlreadyPickedProfessions = new();
-
+                        List<(int, string)> IndexAndProfessions = new();
+                        List<string> AlreadyPickedProfessions = new();
 
                         for (int i = 0; i < DisplayHandler.MyCustomSkillBars.Value.Length; i++)
                         {
@@ -451,15 +451,43 @@ namespace VanillaPlusProfessions
                             {                             
                                 if (DisplayHandler.IsInCorrectLine(DisplayHandler.MyCustomSkillBars.Value[i].bounds, pagee.skillAreas, item.Value.Skill.ToString()))
                                 {
-                                    if (CoreUtility.CurrentPlayerHasProfession(item.Value.ID, ignoreMode: true) && !AlreadyPickedProfessions.Contains(item.Value.ID))
+                                    if (CoreUtility.CurrentPlayerHasProfession(item.Value.ID, ignoreMode: true) && !AlreadyPickedProfessions.Contains(item.Value.ID.ToString()))
                                     {
-                                        IndexAndProfessions.Add((i, item.Value.ID));
-                                        AlreadyPickedProfessions.Add(item.Value.ID);
+                                        IndexAndProfessions.Add((i, item.Value.ID.ToString()));
+                                        AlreadyPickedProfessions.Add(item.Value.ID.ToString());
                                         break;
                                     }
                                     else
                                     {
                                         DisplayHandler.MyCustomSkillBars.Value[i].name = "-1";
+                                    }
+                                }
+                            }
+                            foreach (var item in TalentCore.SkillsByName.Values)
+                            {
+                                if (DisplayHandler.IsInCorrectLine(DisplayHandler.MyCustomSkillBars.Value[i].bounds, pagee.skillAreas, item.Id))
+                                {
+                                    foreach (var pair in item.ProfessionsForLevels)
+                                    {
+                                        if (pair.Level >= SpaceCoreAPI.Value.GetLevelForCustomSkill(Game1.player, item.Id))
+                                        {
+                                            if (CoreUtility.CurrentPlayerHasProfession(pair.First.GetVanillaId(), ignoreMode: true) && !AlreadyPickedProfessions.Contains(NewSkillsPage.CustomSkillPrefix + pair.First.GetVanillaId()))
+                                            {
+                                                IndexAndProfessions.Add((i, NewSkillsPage.CustomSkillPrefix + pair.First.Id + "/" + item.Id));
+                                                AlreadyPickedProfessions.Add(NewSkillsPage.CustomSkillPrefix + pair.First.Id);
+                                                break;
+                                            }
+                                            else if (CoreUtility.CurrentPlayerHasProfession(pair.Second.GetVanillaId(), ignoreMode: true) && !AlreadyPickedProfessions.Contains(NewSkillsPage.CustomSkillPrefix + pair.Second.GetVanillaId()))
+                                            {
+                                                IndexAndProfessions.Add((i, NewSkillsPage.CustomSkillPrefix + pair.Second.Id + "/" + item.Id));
+                                                AlreadyPickedProfessions.Add(NewSkillsPage.CustomSkillPrefix + pair.Second.Id);
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                DisplayHandler.MyCustomSkillBars.Value[i].name = "-1";
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -469,12 +497,31 @@ namespace VanillaPlusProfessions
                         {
                             int index = i;
 
-                            DisplayHandler.MyCustomSkillBars.Value[IndexAndProfessions[index].Item1].name = IndexAndProfessions[index].Item2.ToString();
+                            List<string> description = new();
+                            string toBeMeasured = "";
+                            string[] splitted = IndexAndProfessions[index].Item2.Split('/');
+                            if (IndexAndProfessions[index].Item2.StartsWith(NewSkillsPage.CustomSkillPrefix))
+                            {
+                                foreach (var item in Skills.GetSkill(splitted[1]).Professions)
+                                {
+                                    if (NewSkillsPage.CustomSkillPrefix + item.Id == splitted[0])
+                                    {
+                                        toBeMeasured = item.GetName();
+                                        description.Add(item.GetDescription());
+                                        break;
+                                    }
+                                }
+                                DisplayHandler.MyCustomSkillBars.Value[IndexAndProfessions[index].Item1].name = splitted[0];
+                            }
+                            else
+                            {
+                                DisplayHandler.MyCustomSkillBars.Value[IndexAndProfessions[index].Item1].name = IndexAndProfessions[index].Item2;
+                                description = LevelUpMenu.getProfessionDescription(int.Parse(IndexAndProfessions[index].Item2));
+                                description.RemoveAt(0);
+                                toBeMeasured = LevelUpMenu.getProfessionTitleFromNumber(int.Parse(IndexAndProfessions[index].Item2));
+                            }
 
-                            List<string> description = LevelUpMenu.getProfessionDescription(IndexAndProfessions[index].Item2);
-                            description.RemoveAt(0);
-                            
-                            DisplayHandler.MyCustomSkillBars.Value[IndexAndProfessions[index].Item1].hoverText = Game1.parseText(description.Join(delimiter: "\n"), Game1.smallFont, (int)Game1.dialogueFont.MeasureString(LevelUpMenu.getProfessionTitleFromNumber(IndexAndProfessions[index].Item2)).X + 100);
+                            DisplayHandler.MyCustomSkillBars.Value[IndexAndProfessions[index].Item1].hoverText = Game1.parseText(description.Join(delimiter: "\n"), Game1.smallFont, (int)Game1.dialogueFont.MeasureString(toBeMeasured).X + 100);
                         }
                         if (CoreUtility.IsOverlayValid() && DisplayHandler.LittleArrow.Value.containsPoint(Game1.getMouseX(true), Game1.getMouseY(true)))
                         {

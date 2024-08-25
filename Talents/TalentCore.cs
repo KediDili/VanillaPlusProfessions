@@ -20,6 +20,7 @@ using StardewModdingAPI;
 using StardewValley.Menus;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley.Locations;
+using SpaceCore;
 
 namespace VanillaPlusProfessions.Talents
 {
@@ -64,7 +65,7 @@ namespace VanillaPlusProfessions.Talents
         internal const string ContextTag_Matryoshka_Banned_FromBeingDropped = "kedi_vpp_banned_from_being_dropped";
 
         internal static Dictionary<string, Talent> Talents = new();
-        internal static Dictionary<string, SkillTree> TalentTrees = new();
+        internal static Dictionary<string, Skills.Skill> SkillsByName = new();
 
         internal static void Initialize()
         {
@@ -339,6 +340,10 @@ namespace VanillaPlusProfessions.Talents
             {
                 Game1.player.modData.TryAdd(Key_TalentPoints, "0");
             }
+            if (ModEntry.SpaceCoreAPI.Value?.GetCustomSkills().Length > 0)
+            {
+                SkillsByName = ModEntry.Helper.Reflection.GetField<Dictionary<string, Skills.Skill>>(typeof(Skills), "SkillsByName").GetValue();
+            }
             Game1.player.achievements.OnValueAdded += OnAchievementAdded;
             Game1.player.team.specialOrders.OnElementChanged += OnSpecialOrderChanged;
             Game1.player.mailReceived.OnValueAdded += OnMailFlagGiven;
@@ -383,7 +388,6 @@ namespace VanillaPlusProfessions.Talents
         }
         internal static void OnReturnedToTitle(object sender, ReturnedToTitleEventArgs e)
         {
-            TalentTrees = new();
             TalentPointCount.Value = 0;
         }
     }

@@ -1,20 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using StardewValley;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VanillaPlusProfessions.Talents;
 using VanillaPlusProfessions.Talents.UI;
+using StardewModdingAPI;
+using VanillaPlusProfessions.Utilities;
 
 namespace VanillaPlusProfessions.Compatibility
 {
     public class VanillaPlusProfessionsAPI : IVanillaPlusProfessions
     {
-
         internal Dictionary<string, SkillTree> CustomTalentTrees = new();
+        internal List<CustomMonsterData> CustomMonsters = new();
 
-        internal Dictionary<string, Talent> CustomTalents = new();
-        public void RegisterCustomSkillTree(string skillID, Func<string> displayTitle, Texture2D texture, Rectangle rectangle, int bundleID = -1, Color? tintColor = null)
+        public void RegisterCustomSkillTree(string skillID, Func<string> displayTitle, List<Talent> talents, Texture2D treeTexture, Rectangle sourceRect, int bundleID = -1, Color? tintColor = null)
         {
             string[] skills = ModEntry.SpaceCoreAPI.Value.GetCustomSkills();
             if (skills.Contains(skillID))
@@ -35,38 +37,62 @@ namespace VanillaPlusProfessions.Compatibility
                         return;
                     }
                 }
-                var talentList = (from talent in CustomTalents
-                                  where talent.Value.Skill == skillID
-                                  select talent.Value).ToList();
-
-                CustomTalentTrees.Add(skillID, new(skillID, displayTitle.Invoke(), texture, talentList, rectangle, bundleID, tintColor));
+                if (true)
+                {
+                    //wtf was i gonna do here
+                }
+                CustomTalentTrees.Add(skillID, new(skillID, displayTitle.Invoke(), treeTexture, talents, sourceRect, bundleID, tintColor));
             }
             else
             {
                 ModEntry.ModMonitor.Log("There is no such SpaceCore-registered skill with the ID of " + skillID + ". Please let the custom skill mod author know of this.", StardewModdingAPI.LogLevel.Error);                
             }
         }
-        public void RegisterCustomSkillTalent(string skillID, string name, Func<string,string> displayName, Func<string, string> tooltip, Vector2 position, string[] requirements, int amountToBuyFirst = 0)
+
+        public IEnumerable<string> GetProfessionsForPlayer(Farmer who = null)
         {
-            string[] skills = ModEntry.SpaceCoreAPI.Value.GetCustomSkills();
-            if (skills.Contains(skillID))
+            if (who is null)
             {
-                Talent talent = new()
-                {
-                    Skill = skillID,
-                    Name = name,
-                    DisplayName = displayName,
-                    Description = tooltip,
-                    Requirements = requirements,
-                    AmountToBuyFirst = amountToBuyFirst,
-                    Position = position
-                };
-                if (!CustomTalents.TryAdd(name, talent))
-                    CustomTalents[name] = talent;
+                who = Game1.player;
             }
-            else
+            List<string> professions = new();
+            if (!Context.IsWorldReady)
             {
-                ModEntry.ModMonitor.Log("There is no such SpaceCore-registered skill with the ID of " + skillID + ". Please let the custom skill mod author know of this.", StardewModdingAPI.LogLevel.Error);
+                return professions;
+            }
+            foreach (var item in ModEntry.Professions)
+            {
+                if (CoreUtility.CurrentPlayerHasProfession(item.Value.ID, useThisInstead: who, ignoreMode: true))
+                {
+                    professions.Add(item.Key);
+                }
+            };
+            return professions;
+        }
+        public void RegisterCustomMonster(Type monsterType, bool isSlimy, IVanillaPlusProfessions.MonsterType type)
+        {
+            var newData = new CustomMonsterData()
+            {
+                Type = monsterType,
+                MonsterType = type,
+                isSlimy = isSlimy,
+            };
+            CustomMonsters.Add(newData);
+        }
+
+        public bool MasteryCaveChanges 
+        {
+            get
+            {
+                return ModEntry.ModConfig.Value.MasteryCaveChanges;
+            }    
+        }
+        
+        public bool ColorBlindnessChanges
+        {
+            get
+            {
+                return ModEntry.ModConfig.Value.ColorBlindnessChanges;
             }
         }
     }

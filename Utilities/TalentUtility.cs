@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using StardewModdingAPI;
 using StardewValley;
+using StardewValley.Characters;
 using StardewValley.Extensions;
 using StardewValley.GameData;
 using StardewValley.GameData.Machines;
@@ -12,6 +13,7 @@ using StardewValley.Locations;
 using StardewValley.Monsters;
 using StardewValley.Objects;
 using StardewValley.TerrainFeatures;
+using VanillaPlusProfessions.Compatibility;
 using VanillaPlusProfessions.Talents;
 using VanillaPlusProfessions.Talents.Patchers;
 
@@ -167,17 +169,44 @@ namespace VanillaPlusProfessions.Utilities
 
         public static bool isFavoredMonster(Monster monster, Farmer who)
         {
+            CustomMonsterData monsterData = null;
+            foreach (var item in ModEntry.VanillaPlusProfessionsAPI.CustomMonsters)
+            {
+                if (item.Type.Equals(monster.GetType()))
+                {
+                    monsterData = item;
+                    break;
+                }
+            }
+
             if (who.mailReceived.Contains("Combat_Monster_Specialist_Ground"))
-                return monster is GreenSlime or BigSlime or Grub or Duggy or LavaLurk or Leaper;
-         
+            {
+                if (monsterData is not null)
+                    return monsterData.MonsterType == IVanillaPlusProfessions.MonsterType.Ground;
+                else
+                    return monster is GreenSlime or BigSlime or Grub or Duggy or LavaLurk or Leaper;
+            }
             else if (who.mailReceived.Contains("Combat_Monster_Specialist_Humanoid"))
-                return monster is RockGolem or Skeleton or Mummy or ShadowBrute or Shooter or ShadowShaman;
-            
+            {
+                if (monsterData is not null)
+                    return monsterData.MonsterType == IVanillaPlusProfessions.MonsterType.Humanoid;
+                else
+                    return monster is RockGolem or Skeleton or Mummy or ShadowBrute or Shooter or ShadowShaman;
+            }
             else if (who.mailReceived.Contains("Combat_Monster_Specialist_Flying"))
-                return monster is Bat or Ghost or AngryRoger or Serpent or BlueSquid or SquidKid or Fly;
-            
+            {
+                if (monsterData is not null)
+                    return monsterData.MonsterType == IVanillaPlusProfessions.MonsterType.Flying;
+                else
+                    return monster is Bat or Ghost or AngryRoger or Serpent or BlueSquid or SquidKid or Fly;
+            }
             else if (who.mailReceived.Contains("Combat_Monster_Specialist_Armoured"))
-                return monster is DwarvishSentry or RockCrab or HotHead or MetalHead or DinoMonster;
+            {
+                if (monsterData is not null)
+                    return monsterData.MonsterType == IVanillaPlusProfessions.MonsterType.Armoured;
+                else
+                    return monster is DwarvishSentry or RockCrab or HotHead or MetalHead or DinoMonster;
+            }
 
             return false;
         }
@@ -202,8 +231,8 @@ namespace VanillaPlusProfessions.Utilities
 
         internal static void OnItemBasedTalentBoughtOrRefunded(string name, bool appliedOrUnapplied)
         {
-            if (name is "SapSipper" or "SugarRush" or "BigFishSmallPond")
-            {                
+            if (name is "SapSipper" or "SugarRush" or "BigFishSmallPond" or "Accessorise")
+            {
                 Utility.ForEachItem(item =>
                 {
                     if (item is StardewValley.Object obj)
@@ -224,8 +253,22 @@ namespace VanillaPlusProfessions.Utilities
                             }
                         }
                     }
+                    else if (!appliedOrUnapplied && name is "Accessorise" && item is TrinketRing ring)
+                    {
+                        Game1.player.team.returnedDonations.Add(ring.Trinket);
+                        Game1.player.team.newLostAndFoundItems.Value = true;
+                        item.ConsumeStack(1);
+                    }
                     return true;
                 });
+            }
+            if (name is "Accessorise")
+            {
+                foreach (var trinketRing in GetAllTrinketRings(Game1.player))
+                {
+                    Game1.player.team.returnedDonations.Add(trinketRing.Trinket);
+                    Game1.player.team.newLostAndFoundItems.Value = true;
+                }
             }
         }
 

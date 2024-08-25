@@ -15,6 +15,12 @@ namespace VanillaPlusProfessions.Talents.UI
 
         Color? BundleColor;
 
+        internal static string LockedName;
+
+        internal static string LockedDesc;
+
+        internal static string NumberLocked;
+
         int TalentsBought;
 
         Rectangle LockedRect;
@@ -81,7 +87,7 @@ namespace VanillaPlusProfessions.Talents.UI
             {
                 if (ModEntry.ModConfig.Value.TalentHintLevel == "Hidden")
                 {
-                    return Talent.LockedDesc;
+                    return LockedDesc;
                 }
                 else if (ModEntry.ModConfig.Value.TalentHintLevel == "Partial")
                 {
@@ -112,7 +118,7 @@ namespace VanillaPlusProfessions.Talents.UI
                     {
                         return button.hoverText;
                     }
-                    return Talent.LockedDesc + (talent.AmountToBuyFirst > 0 ? string.Format(Talent.NumberLocked, talent.AmountToBuyFirst) : "");
+                    return LockedDesc + (talent.AmountToBuyFirst > 0 ? string.Format(NumberLocked, talent.AmountToBuyFirst) : "");
                 }
             }
             return button.hoverText;
