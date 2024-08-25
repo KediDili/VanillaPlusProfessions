@@ -143,7 +143,7 @@ namespace VanillaPlusProfessions
                 yield return item;
             }
         }
-
+        [HarmonyDebug]
         public static IEnumerable<CodeInstruction> draw_LevelUpMenu_Transpiler(IEnumerable<CodeInstruction> instructions)
         {
             int index = 0;
@@ -151,6 +151,10 @@ namespace VanillaPlusProfessions
             FieldInfo mouseCursors = AccessTools.Field(typeof(Game1), nameof(Game1.mouseCursors));
             ConstructorInfo rectangleConstructor = AccessTools.Constructor(typeof(Rectangle), parameters: new Type[] { typeof(int), typeof(int), typeof(int), typeof(int) });
             List<CodeInstruction> toReturn = instructions.ToList();
+            object obj = null;
+            object obj2 = null;
+
+            var list = AccessTools.GetDeclaredMethods(typeof(List<int>));
 
             for (int i = 0; i < 2; i++)
             {
@@ -160,10 +164,7 @@ namespace VanillaPlusProfessions
                     index++;
                     if (instruct.opcode == OpCodes.Ldsfld && (FieldInfo)instruct.operand == mouseCursors)
                     {
-                        toReturn.Insert(index - 5, new(OpCodes.Ldarg_0));
-                        toReturn.Insert(index - 4, new(OpCodes.Ldfld, AccessTools.Field(typeof(LevelUpMenu), "currentSkill")));
-                        toReturn.Insert(index - 3, new(OpCodes.Ldarg_0));
-                        toReturn.Insert(index - 2, new(OpCodes.Ldfld, AccessTools.Field(typeof(LevelUpMenu), "currentLevel")));
+                        toReturn.Insert(index - 1, new(OpCodes.Ldarg_0));
                         instruct.operand = AccessTools.Method(typeof(CoreUtility), nameof(CoreUtility.GetProfessionIconImage));
                         instruct.opcode = OpCodes.Call;
                         break;
@@ -171,7 +172,24 @@ namespace VanillaPlusProfessions
                 }
             }
             index = 0;
+            int whichCallvirt = 0;
             int whichCtor = 0;
+            foreach (var instruct in toReturn)
+            {
+                if (instruct.opcode == OpCodes.Callvirt)
+                {
+                    if (whichCallvirt < 16)
+                    {
+                        whichCallvirt++;
+                    }
+                    else
+                    {
+                        obj = instruct.operand;
+                        obj2 = instruct.operand;
+                        break;
+                    }
+                }
+            }
             for (int i = 0; i < 2; i++)
             {
                 foreach (var instruct2 in toReturn)
@@ -189,9 +207,9 @@ namespace VanillaPlusProfessions
                             toReturn.Insert(index - 4, new(OpCodes.Ldarg_0));
                             toReturn.Insert(index - 3, new(OpCodes.Ldfld, AccessTools.Field(typeof(LevelUpMenu), "professionsToChoose")));
                             toReturn.Insert(index - 2, new(i == 0 ? OpCodes.Ldc_I4_0 : OpCodes.Ldc_I4_1));
-
+                            
                             instruct2.opcode = OpCodes.Callvirt;
-                            instruct2.operand = AccessTools.PropertyGetter(typeof(List<int>), "get_Item");
+                            instruct2.operand = obj ?? obj2;
 
                             toReturn[index].opcode = OpCodes.Call;
                             toReturn[index].operand = AccessTools.Method(typeof(CoreUtility), nameof(CoreUtility.GetProfessionSourceRect));
