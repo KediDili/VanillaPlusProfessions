@@ -32,13 +32,13 @@ Please send the translation files to me through Discord(@kedidili4678), GitHub, 
 
 ## Credits
 **Airyn**: Art assets, proofreading, the scope creep, ideas and everything else he contributed. I can thank him a thousand times but that wouldn't be enough.
-**Shekurika**: Helping to spot issues and fix bugs, not sure what I'd do without him.
-**HimeTarts**: The syrup icons for Fruit Syrups!
-**Wildflour**: She helped VPP modpage to be better and cleaner!
-**Skellady/Max & sophiesalacia**: Thanks to them, VPP had a private beta test space!
-**Cam/pneuma163, Logophile, Vinilla, Tiakall and Lumisteria**: They were the most active beta testers!
-**Shockah**: For allowing me to take over his abandoned Talented mod conceptually.
-**Atravita**: For allowing me to make tapped giant crops, while their mod already exists.
+<br/>**Shekurika**: Helping to spot issues and fix bugs, not sure what I'd do without him.
+<br/>**HimeTarts**: The syrup icons for Fruit Syrups!
+<br/>**Wildflour**: She helped VPP modpage to be better and cleaner!
+<br/>**Skellady/Max & sophiesalacia**: Thanks to them, VPP had a private beta test space!
+<br/>**Cam/pneuma163, Logophile, Vinilla, Tiakall and Lumisteria**: They were the most active beta testers!
+<br/>**Shockah**: For allowing me to take over his abandoned Talented mod conceptually.
+<br/>**Atravita**: For allowing me to make tapped giant crops, while their mod already exists.
 
 ### Translators
 
