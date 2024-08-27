@@ -44,34 +44,39 @@ An example patch for both of them is written below:
 | ``KediDili.VanillaPlusProfessions_WasRainingHereYesterday <location>`` | Checks if it was raining the said location YESTERDAY.<br/>This can be used for compatibility with talents such as Bountiful Boletes or Renewing Mist that need this check. |
 
 ### What you can/need to add compatibility depending on what your mod adds:
-| Mod feature     | VPP Feature                                     |
-|:---------------:|:-----------------------------------------------:|
-| NPCs            | Gift Of Friendship, Insider Info, Connoisseur   |
-| ores/metals     | Ironmonger                                      |
-| Fruit Trees     | Farming-Foraging                                |
-| Giant Crops     | Farming-Foraging                                |
-| Wild Trees      | - |
-| Forage          | - |
-| Crops           | - |
-| Tappers         | - |
-| Furnaces        | Metallurgist |
-| Animals         | - |
-| Geodes          | - |
-| Barn/Coop maps  | Overcrowding |
-| Mines           | Crystal Cavern, Upheaval, Shared Focus |
-| Other Machinery | Machinist, Nutritionist |
-| Shops           | Mate's Rates |
-| Ore Nodes       | - |
-| Buffs           | Healer, Survivor |
-| Cooked foods    | Survival Cooking, Sugar Rush |
-| s | - |
-| s | - |
-| s | - |
-| s | - |
-| s | - |
-| s | - |
-| s | - |
-| s | - |
+| Added by mods            | VPP Feature                                     |
+|:------------------------:|:-----------------------------------------------:|
+| NPCs                     | Gift Of Friendship, Insider Info, Connoisseur   |
+| ores/metals              | Ironmonger, Metallurgist, Alchemic Reversal     |
+| Fruit Trees              | Farming-Foraging                                |
+| Giant Crops              | Farming-Foraging                                |
+| Wild Trees               | Exotic Tapping, Welcome to the Jungle |
+| Forage                   | Ranger, Adventurer, Wayfarer, Foraging-Fishing, Bountiful Boletes  |
+| Crops                    | Gleaner |
+| Tappers                  | Sapper, Farming-Foraging |
+| Furnaces                 | Metallurgist, Ignitor |
+| Crafting recipes         | Crafter(only if its for Mining Skill) |
+| Artifacts                | Archaeologist |
+| Animals                  | Breed Like Rabbits, |
+| Geodes                   | Matryoshka, X-ray |
+| Barn/Coop maps           | Overcrowding |
+| Animal Produce Machinery | Nutritionist, Pastoralism, |
+| Crop Machinery           | Machinist, Cold Press |
+| Trash                    | Recycler, Can It |
+| Other Machinery          | Pyrolysis, Static Charge, Double Hook, Clickbait |
+| Shops                    | Mate's Rates, Bookclub Bargains |
+| Ore Nodes                | Crystal Cavern, Upheaval |
+| Buffs                    | Healer, Survivalist |
+| Cooked foods             | Survival Cooking, Sugar Rush |
+| Fertilizers              | Horticulturist |
+| Minerals                 | Farming-Mining |
+| Fishing Tackles          | Recycler |
+| Fish                     | Farming-Fishing, Vast Domain, Big Fish Small Pond |
+| Mill Produce             | Fine Grind |
+| Crystalariums            | Dazzle, Geometry, Synthesis |
+| Obelisks                 | Monumental Discount |
+| Readable Books           | Cycle of Knowledge |
+| Locations                | Ranger, Adventurer, Gleaner, Wayfarer,<br/>Crystal Cavern, Upheaval, Shared Focus,<br/>Diamond of the Kitchen, Starfall, Bountiful Boletes, Trashed Treasure |
 
 
 ## C# Mods
@@ -82,6 +87,15 @@ If you want to use the VPP API:
 2) Delete the elements that you don't need, as the API may change anytime this will help your version to be compatible as long as possible.
 3) Copy [``Talent.cs``](https://github.com/KediDili/VanillaPlusProfessions/blob/main/Talents/Talent.cs) in Talents folder to your project (Do this only if you are a custom skill mod author who wants to add a custom talent tree for VPP. Otherwise, ignore this step.)
 4) Request it through SMAPI's ModRegistry.
+
+If your add any new things of these following things, you might need to use the API for compatibility with these features:
+| Mod Feature     | VPP Feature                   |
+|:---------------:|:-----------------------------:|
+| Fishing Tackles | Recycler                      |
+| Monsters        | Slimeshot, Monster Specialist |
+| Fertilizers     | Horticulturist                |
+| Trinkets        | Accessorise, Hidden Benefits  |
+| Lost Books      | Lost And Found                |
 
 ### Skill Mods by SpaceCore
 VPP will recognize your custom skill for features like the skill overlay, but will NOT try to manage your professions or add new ones for levels 15 and 20.
