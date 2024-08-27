@@ -39,9 +39,40 @@ An example patch for both of them is written below:
 ```
 
 ### Game State Queries
-|                                Format                                  |                         Details                         |
-|:----------------------------------------------------------------------:|:-------------------------------------------------------:|
+|                                Format                                  |                         Details                      |
+|:----------------------------------------------------------------------:|:----------------------------------------------------:|
 | ``KediDili.VanillaPlusProfessions_WasRainingHereYesterday <location>`` | Checks if it was raining the said location YESTERDAY.<br/>This can be used for compatibility with talents such as Bountiful Boletes or Renewing Mist that need this check. |
+
+### What you can/need to add compatibility depending on what your mod adds:
+| Mod feature     | VPP Feature                                     |
+|:---------------:|:-----------------------------------------------:|
+| NPCs            | Gift Of Friendship, Insider Info, Connoisseur   |
+| ores/metals     | Ironmonger                                      |
+| Fruit Trees     | Farming-Foraging                                |
+| Giant Crops     | Farming-Foraging                                |
+| Wild Trees      | - |
+| Forage          | - |
+| Crops           | - |
+| Tappers         | - |
+| Furnaces        | Metallurgist |
+| Animals         | - |
+| Geodes          | - |
+| Barn/Coop maps  | Overcrowding |
+| Mines           | Crystal Cavern, Upheaval, Shared Focus |
+| Other Machinery | Machinist, Nutritionist |
+| Shops           | Mate's Rates |
+| Ore Nodes       | - |
+| Buffs           | Healer, Survivor |
+| Cooked foods    | Survival Cooking, Sugar Rush |
+| s | - |
+| s | - |
+| s | - |
+| s | - |
+| s | - |
+| s | - |
+| s | - |
+| s | - |
+
 
 ## C# Mods
 VPP offers an API to do things like adding custom talent trees for SpaceCore skill mods, getting VPP's config values for Mastery Cave Changes and Color Blindness Changes, and getting VPP professions a player currently has.
