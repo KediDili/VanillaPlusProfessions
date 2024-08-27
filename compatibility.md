@@ -44,39 +44,39 @@ An example patch for both of them is written below:
 | ``KediDili.VanillaPlusProfessions_WasRainingHereYesterday <location>`` | Checks if it was raining the said location YESTERDAY.<br/>This can be used for compatibility with talents such as Bountiful Boletes or Renewing Mist that need this check. |
 
 ### What you can/need to add compatibility depending on what your mod adds:
-| Added by mods            | VPP Feature                                     |
-|:------------------------:|:-----------------------------------------------:|
-| NPCs                     | Gift Of Friendship, Insider Info, Connoisseur   |
-| ores/metals              | Ironmonger, Metallurgist, Alchemic Reversal     |
-| Fruit Trees              | Farming-Foraging                                |
-| Giant Crops              | Farming-Foraging                                |
-| Wild Trees               | Exotic Tapping, Welcome to the Jungle |
-| Forage                   | Ranger, Adventurer, Wayfarer, Foraging-Fishing, Bountiful Boletes  |
-| Crops                    | Gleaner |
-| Tappers                  | Sapper, Farming-Foraging |
-| Furnaces                 | Metallurgist, Ignitor |
-| Crafting recipes         | Crafter(only if its for Mining Skill) |
-| Artifacts                | Archaeologist |
-| Animals                  | Breed Like Rabbits, |
-| Geodes                   | Matryoshka, X-ray |
-| Barn/Coop maps           | Overcrowding |
-| Animal Produce Machinery | Nutritionist, Pastoralism, |
-| Crop Machinery           | Machinist, Cold Press |
-| Trash                    | Recycler, Can It |
-| Other Machinery          | Pyrolysis, Static Charge, Double Hook, Clickbait |
-| Shops                    | Mate's Rates, Bookclub Bargains |
-| Ore Nodes                | Crystal Cavern, Upheaval |
-| Buffs                    | Healer, Survivalist |
-| Cooked foods             | Survival Cooking, Sugar Rush |
-| Fertilizers              | Horticulturist |
-| Minerals                 | Farming-Mining |
-| Fishing Tackles          | Recycler |
-| Fish                     | Farming-Fishing, Vast Domain, Big Fish Small Pond |
-| Mill Produce             | Fine Grind |
-| Crystalariums            | Dazzle, Geometry, Synthesis |
-| Obelisks                 | Monumental Discount |
-| Readable Books           | Cycle of Knowledge |
-| Locations                | Ranger, Adventurer, Gleaner, Wayfarer,<br/>Crystal Cavern, Upheaval, Shared Focus,<br/>Diamond of the Kitchen, Starfall, Bountiful Boletes, Trashed Treasure |
+| Added by mods          | VPP Feature                                     |
+|:-----------------------|:------------------------------------------------|
+| NPCs                   | Gift Of Friendship, Insider Info, Connoisseur   |
+| ores/metals            | Ironmonger, Metallurgist, Alchemic Reversal     |
+| Fruit Trees            | Farming-Foraging                                |
+| Giant Crops            | Farming-Foraging                                |
+| Wild Trees             | Exotic Tapping, Welcome to the Jungle |
+| Forage                 | Ranger, Adventurer, Wayfarer,<br/>Foraging-Fishing, Bountiful Boletes  |
+| Crops                  | Gleaner |
+| Tappers                | Sapper, Farming-Foraging |
+| Furnaces               | Metallurgist, Ignitor |
+| Crafting recipes       | Crafter(only if its for Mining Skill) |
+| Artifacts              | Archaeologist |
+| Animals                | Breed Like Rabbits, |
+| Geodes                 | Matryoshka, X-ray |
+| Barn/Coop maps         | Overcrowding |
+| Animal Prod. Machinery | Nutritionist, Pastoralism, Bio-Engineering |
+| Crop Machinery         | Machinist, Cold Press |
+| Trash                  | Recycler, Can It |
+| Other Machinery        | Pyrolysis, Static Charge, Double Hook, Clickbait |
+| Shops                  | Mate's Rates, Bookclub Bargains |
+| Ore Nodes              | Crystal Cavern, Upheaval |
+| Buffs                  | Healer, Survivalist |
+| Cooked foods           | Survival Cooking, Sugar Rush |
+| Fertilizers            | Horticulturist |
+| Minerals               | Farming-Mining |
+| Fishing Tackles        | Recycler |
+| Fish                   | Farming-Fishing, Vast Domain, Big Fish Small Pond |
+| Mill Produce           | Fine Grind |
+| Crystalariums          | Dazzle, Geometry, Synthesis |
+| Obelisks               | Monumental Discount |
+| Readable Books         | Cycle of Knowledge |
+| Locations              | Ranger, Adventurer, Gleaner, Wayfarer, Bountiful Boletes,<br/>Crystal Cavern, Upheaval, Starfall, Shared Focus,<br/>Diamond of the Kitchen, Trashed Treasure |
 
 
 ## C# Mods
@@ -122,4 +122,4 @@ There are also a couple of guidelines to keep in mind that aren't necessarily te
 
 
 ### Skill mods that don't use SpaceCore's API to add their skills
-Unfortunately I haven't got any feature that is going to help your mod as of yet, I am very sorry for any inconvenience this may cause.
+Unfortunately I haven't got any feature that is for such type of mods, I am very sorry for any inconvenience this may cause.
