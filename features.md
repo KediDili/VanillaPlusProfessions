@@ -511,9 +511,6 @@ In vanilla, the base chance is ``currentAnimalAmount * 0.0055`` every night, the
 ### Cycle Of Life
 50% chance to receive back a seed of a harvested non-regrowable crop.
 
-Note for Mod Authors: This talent doesn't act well with SpaceCore's YieldOverrides feature for Crops, this is due to SpaceCore and not me.
-Simply you wont get the seeds that this talent is supposed to give.
-
 ### Effloresence
 Reduces time flowers take to grow.[^5]
 
