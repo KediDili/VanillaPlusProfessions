@@ -46,15 +46,15 @@ Please send the translation files to me through Discord(@kedidili4678), GitHub, 
 All unnamed assets/asset parts are added by KediDili
 
 ``assets/BundleIcons.png``: Airyn
-``assets/ProfessionIcons.png``: Airyn for the fish on slingshot
-``assets/ItemIcons.png``: HimeTarts for the syrup icons
-``assets/skillbars.png``: Airyn for the frog egg button
+<br/>``assets/ProfessionIcons.png``: Airyn for the fish on slingshot and Speed of Darkness icon
+<br/>``assets/ItemIcons.png``: HimeTarts for the syrup icons
+<br/>``assets/skillbars.png``: Airyn for the frog egg button
 
 ## Asset Permissions/License
 All code assets (.cs, .csproj) are licensed under MIT license.
-All art/image assets(.png, .xcf, .gif) are unlicensed and require permission from their contributors/artists to use.
-All translation files (some .json files) are unlicensed and require permission from their contributors/translators to use.
-All non-translation .json files are fine to use as examples, but you may not copy-paste and put them out publicly without permission from me(KediDili).
+<br/>All art/image assets(.png, .xcf, .gif) are unlicensed and require permission from their contributors/artists to use.
+<br/>All translation files (some .json files) are unlicensed and require permission from their contributors/translators to use.
+<br/>All non-translation .json files are fine to use as examples, but you may not copy-paste and put them out publicly without permission from me(KediDili).
 
 
 
