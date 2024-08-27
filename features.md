@@ -472,6 +472,7 @@ and after requesting the reset you have to confirm or abort so you can't acciden
 It adds a grand total of 141 talents divided across 6 skill trees, 25 for each vanilla skill and 16 extras for one tree that isn't spesific to any skills.
 
 ## Farming Talents
+![FarmingTalents](https://github.com/user-attachments/assets/4cc761a5-321a-4ffe-ba9b-ea9be6116b3c)
 
 ### Resurgence
 Watering can automatically partially refills every 90 minutes.
@@ -591,6 +592,7 @@ Junimos harvest faster.
 They will be twice as fast.
 
 ## Mining Talents
+![MiningTalents](https://github.com/user-attachments/assets/623adbc6-587c-4c45-b6e9-34ede8dfadcf)
 
 ### Down In The Depths
 If no ladder has spawned, guaranteed chance of finding one after breaking 8 stones.
@@ -685,6 +687,7 @@ Add prismatic shard crafting recipe.
 The recipe will require one of every gem.
 
 ## Foraging Talents
+![ForagingTalents](https://github.com/user-attachments/assets/c77b4061-72e1-4f15-9abb-f9f20c115dfa)
 
 ### Nature Secrets
 Chance for chopped tree stumps to drop forage items.
@@ -784,8 +787,10 @@ Lightning Rods can accumulate two charges at once. Solar Panels take 2 less days
 Increased chance of finding Living Hats and similar items.
 
 ## Fishing Talents
+[FishingTalents](https://github.com/user-attachments/assets/c6011b80-a076-4ae7-b4f8-a237a1610c9a)
 
-### Fishery Grant
+### Fishery Grant!
+
 Fish ponds are cheaper to build.
 The old and new building requirements are listed below:
 | Old           | New           |
@@ -902,6 +907,7 @@ Bubbles will always be within 4 tiles of land.
 In other words, bubbles wont be further than 4 tiles away from the land.
 
 ## Combat Talents
+![Combat Talents](https://github.com/user-attachments/assets/fb961c55-72cc-48a2-91cb-53a540b53f71)
 
 ### Slimeshot
 Slime can be used as slingshot ammo. If slime hits a monster, it will be slowed down.
@@ -1039,10 +1045,12 @@ Passive health regeneration while standing still.
 ever 10 in-game minutes, you will gain 15 points of health.
 
 ## Daily Life Talents
+![DailyLifeTalents](https://github.com/user-attachments/assets/1eb3e255-dbdd-456e-985c-a8254f98d73b)
 
 ### Mate's Rates
 Friendship with shopkeepers reduces prices.
 Affects all shops except Desert Festival shops and will be triggered only when you have 6 hearts with the shopkeeper. Prices will be reduced by %20
+
 
 For Mod Authors: There is nothing you should do. Even if you add custom items to vanilla shops, they will be affected automatically.
 ### Monumental Discount
