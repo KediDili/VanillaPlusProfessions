@@ -146,6 +146,26 @@ You can now tap any giant crop and fruit tree with any tapper. Every 5 days that
 - For Mod Authors: If you want your fruit tree or giant crop to give a custom item instead of a Fruit Syrup, you should add an entry like ``"Kedi.VPP.DoesUseCustomItem": "Example.ModID_UnqualifiedItemID"`` to the fruit tree/giant crop data's CustomFields. Otherwise you don't have to do anything other than giving your fruit tree or giant crop at least one fruit/crop.
 ## Fishing Professions
 
+```
+ Level 10               Level 15      _____
+                |-------> Oceanologist     \
+ Angler --------|                           |
+                |-------> Artificer         |
+                                            |
+                |-------> Plunderer         |        ____       Level 20
+ Pirate --------|                           |        \   \
+                |-------> Buccaneer         |         \   \     |--------> Fishing-Farming
+                                            |==========\   \====|
+                |-------> Aquaculturalist   |==========/   /====|
+ Mariner -------|                           |         /   /     |--------> Fishing-Mining
+                |-------> Trawler           |        /___/
+                                            |
+                |-------> Recycler          |
+ Luremaster ----|                           |
+                |-------> Hydrologist   ____/
+
+```
+
 ### Oceanologist (Lv15)
 Attaching bait to a fishing rod will prevent trash from being caught.
 If the first catch is a trash item, the catch determination process is re-run up to 100 times, then the mod lets it go to prevent infinite loops even if its a trash.
@@ -274,6 +294,26 @@ Every vanilla gem will act like a certain vanilla tackle when placed to the fish
 
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 ## Foraging Professions
+
+```
+ Level 10               Level 15      _____
+                |-------> Arborist          \
+ Lumberjack ----|                           |
+                |-------> Shaker            |
+                                            |
+                |-------> Sapper            |        ____       Level 20
+ Tapper --------|                           |        \   \
+                |-------> Orchardist        |         \   \     |--------> Foraging-Fishing
+                                            |==========\   \====|
+                |-------> Ranger            |==========/   /====|
+ Botanist ------|                           |         /   /     |--------> Foraging-Combat
+                |-------> Adventurer        |        /___/
+                                            |
+                |-------> Gleaner           |
+ Tracker -------|                           |
+                |-------> Wayfarer      ____/
+
+```
 ### Arborist (Lv15)
 Wild trees grow faster.
 
@@ -326,6 +366,27 @@ Similar to the Tracker Profession in vanilla, when you choose this profession yo
 
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 ## Mining Professions
+
+```
+ Level 10               Level 15      _____
+                |-------> Metallurgist     \
+ Blacksmith ----|                           |
+                |-------> Ironmonger        |
+                                            |
+                |-------> Ignitor           |        ____       Level 20
+ Prospector ----|                           |        \   \
+                |-------> Crafter           |         \   \     |--------> Mining-Combat
+                                            |==========\   \====|
+                |-------> Archeologist      |==========/   /====|
+ Excavator -----|                           |         /   /     |--------> Mining-Foraging
+                |-------> Mineralogist      |        /___/
+                                            |
+                |-------> Appraiser         |
+ Gemologist ----|                           |
+                |-------> Enchanter    ____/
+
+```
+
 ### Metallurgist (Lv15)
 Metal bars require less materials to produce.
 For all vanilla bars and for Furnace and Heavy Furnaces, the amount of ores are reduced by %20
@@ -415,6 +476,25 @@ The chance for their appaearance is now at %15, while in vanilla this is %0.8.
 
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 ## Combat Professions
+
+```
+ Level 10               Level 15      _____
+                |-------> Warrior          \
+ Brute ---------|                           |
+                |-------> Berserker         |
+                                            |
+                |-------> Survivalist       |        ____       Level 20
+ Defender ------|                           |        \   \
+                |-------> Healer            |         \   \     |--------> Combat-Farming
+                                            |==========\   \====|
+                |-------> Technician        |==========/   /====|
+ Acrobat -------|                           |         /   /     |--------> Combat-Fishing
+                |-------> Speedster         |        /___/
+                                            |
+                |-------> Assassin          |
+ Desperado  ----|                           |
+                |-------> Assailant    ____/
+```
 
 ### Warrior (Lv15)
 Invincible monsters can be damaged.
