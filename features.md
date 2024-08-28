@@ -59,6 +59,25 @@ VPP adds a total of 50 professions for all vanilla skills:
 Every profession you see with '(Lv15)' can be chosen at level 15, and '(Lv20)' means that it will appear in level 20.
 
 ## Farming Professions
+```
+ Level 10               Level 15      _____
+                |-------> Nutritionist     \
+ Coopmaster ----|                           |
+                |-------> Breeder           |
+                                            |
+                |-------> Musterer          |        ____       Level 20
+ Shepherd ------|                           |        \   \
+                |-------> Caretaker         |         \   \     |--------> Farming-Foraging
+                                            |==========\   \====|
+                |-------> Machinist         |==========/   /====|
+ Artisan -------|                           |         /   /     |--------> Farming-Mining
+                |-------> Connoisseur       |        /___/
+                                            |
+                |-------> Horticulturist    |
+ Agriculturist -|                           |
+                |-------> Agronomist   ____/
+
+```
 
 ### Nutritionist (Lv15)
 Machines that take coop animal goods have a chance to double their output. (Machinery as in Mayonnaise machine or loom, but VPP doesn't try to keep track of wool comes from whether a sheep or a rabbit as that'd require effort that isn't worth it imho.)
