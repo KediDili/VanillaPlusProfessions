@@ -57,7 +57,7 @@ An example patch for both of them is written below:
 | Furnaces               | Metallurgist, Ignitor |
 | Crafting recipes       | Crafter(only if its for Mining Skill) |
 | Artifacts              | Archaeologist |
-| Animals                | Breed Like Rabbits, |
+| Animals                | Breed Like Rabbits, Nutritionist, Pastoralism, Bio-Engineering |
 | Geodes                 | Matryoshka, X-ray |
 | Barn/Coop maps         | Overcrowding |
 | Animal Prod. Machinery | Nutritionist, Pastoralism, Bio-Engineering |
