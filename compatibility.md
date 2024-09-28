@@ -46,37 +46,38 @@ An example patch for both of them is written below:
 ### What you can/need to add compatibility depending on what your mod adds:
 | Added by mods          | VPP Feature                                     |
 |:-----------------------|:------------------------------------------------|
-| NPCs                   | Gift Of Friendship, Insider Info, Connoisseur   |
-| ores/metals            | Ironmonger, Metallurgist, Alchemic Reversal     |
-| Fruit Trees            | Farming-Foraging                                |
-| Giant Crops            | Farming-Foraging                                |
-| Wild Trees             | Exotic Tapping, Welcome to the Jungle |
-| Forage                 | Ranger, Adventurer, Wayfarer,<br/>Foraging-Fishing, Bountiful Boletes  |
-| Crops                  | Gleaner |
-| Tappers                | Sapper, Farming-Foraging |
-| Furnaces               | Metallurgist, Ignitor |
-| Crafting recipes       | Crafter(only if its for Mining Skill) |
-| Artifacts              | Archaeologist |
-| Animals                | Breed Like Rabbits, Nutritionist, Pastoralism, Bio-Engineering |
-| Geodes                 | Matryoshka, X-ray |
-| Barn/Coop maps         | Overcrowding |
-| Animal Prod. Machinery | Nutritionist, Pastoralism, Bio-Engineering |
-| Crop Machinery         | Machinist, Cold Press |
-| Trash                  | Recycler, Can It |
-| Other Machinery        | Pyrolysis, Static Charge, Double Hook, Clickbait |
-| Shops                  | Mate's Rates, Bookclub Bargains |
-| Ore Nodes              | Crystal Cavern, Upheaval |
-| Buffs                  | Healer, Survivalist |
-| Cooked foods           | Survival Cooking, Sugar Rush |
-| Fertilizers            | Horticulturist |
-| Minerals               | Farming-Mining |
+| NPCs                   | [Gift Of Friendship](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#gift-of-friendship), [Insider Info](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#insider-info), [Connoisseur](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#connoisseur-lv15)   |
+| Ores/Metals            | [Ironmonger](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#ironmonger-lv15), [Metallurgist](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#metallurgist-lv15), [Alchemic Reversal](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#alchemic-reversal)     |
+| Fruit Trees            | [Farming-Foraging](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#farming-foraging-lv20) |
+| Giant Crops            | [Farming-Foraging](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#farming-foraging-lv20) |
+| Wild Trees             | [Exotic Tapping](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#exotic-tapping), [Welcome to the Jungle](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#welcome-to-the-jungle), [Spring Thaw](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#spring-thaw) |
+| Forage                 | [Ranger](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#ranger-lv15), [Adventurer](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#adventurer-lv15), [Wayfarer](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#wayfarer-lv15),<br/>[Foraging-Fishing](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#foraging-fishing-lv20), [Bountiful Boletes](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#bountiful-boletes)  |
+| Crops                  | [Gleaner](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#gleaner-lv15) |
+| Tappers                | [Sapper](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#sapper-lv15) |
+| Furnaces               | [Metallurgist](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#metallurgist-lv15), [Ignitor](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#ironmonger-lv15) |
+| Crafting recipes       | [Crafter](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#crafter-lv15), [Drift Fencing](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#drift-fencing), [Upcycling](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#upcycling), [Alchemic Reversal](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#alchemic-reversal) |
+| Artifacts              | [Archaeologist](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#archeologist-lv15) |
+| Animals                | [Breed Like Rabbits](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#breed-like-rabbits), [Nutritionist](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#nutritionist-lv15), [Musterer](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#musterer-lv15), [Pastoralism](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#pastoralism), [Bio-Engineering](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#bio-engineering) |
+| Geodes                 | [Matryoshka](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#matryoshka), [X-ray](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#x-ray) |
+| Barn/Coop maps         | [Overcrowding](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#overcrowding) |
+| Animal Prod. Machinery | [Nutritionist](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#nutritionist-lv15), [Musterer](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#musterer-lv15), [Pastoralism](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#pastoralism), [Bio-Engineering](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#bio-engineering) |
+| Crop Machinery         | [Machinist](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#machinist-lv15), [Cold Press](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#cold-press) |
+| Trash                  | [Recycler](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#recycler-lv15), [Can It](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#can-it) |
+| Other Machinery        | [Pyrolysis](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#pyrolysis), [Static Charge](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#static-charge), [Double Hook](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#double-hook), [Clickbait](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#clickbait) |
+| Shops                  | [Mate's Rates](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#mates-rates), Bookclub Bargains |
+| Ore Nodes              | [Crystal Cavern](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#crystal-cavern), [Upheaval](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#upheaval) |
+| Buffs                  | [Healer](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#healer-lv15), [Survivalist](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#survivalist-lv15) |
+| Cooked foods           | [Survival Cooking](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#survival-cooking), [Sugar Rush](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#sugar-rush) |
+| Minerals               | [Farming-Mining](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#farming-mining-lv20) |
 | Fishing Tackles        | Recycler |
-| Fish                   | Farming-Fishing, Vast Domain, Big Fish Small Pond |
-| Mill Produce           | Fine Grind |
-| Crystalariums          | Dazzle, Geometry, Synthesis |
-| Obelisks               | Monumental Discount |
-| Readable Books         | Cycle of Knowledge |
-| Locations              | Ranger, Adventurer, Gleaner, Wayfarer, Bountiful Boletes,<br/>Crystal Cavern, Upheaval, Starfall, Shared Focus,<br/>Diamond of the Kitchen, Trashed Treasure |
+| Fish                   | [Fishing-Farming](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#fishing-farming-lv20), [Vast Domain](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#vast-domain), [A-fish-ionado](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#a-fish-ionado) [Legendary Variety] |
+| Mill Produce           | [Fine Grind](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#fine-grind) |
+| Garbage Cans           | [Trashed Treasure](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#trashed-treasure)
+| Crystalariums          | [Dazzle](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#dazzle), [Geometry](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#geometry), [Synthesis](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#synthesis) |
+| Obelisks               | [Monumental Discount](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#monumental-discount) |
+| Weapons | [Ancestral Weaponry](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#ancestral-weaponry) |
+| Readable Books         | [Cycle of Knowledge](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#cycle-of-knowledge), [Bookclub Bargains](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#bookclub-bargains) |
+| Locations              | [Ranger](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#ranger-lv15), [Adventurer](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#adventurer-lv15), [Gleaner](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#gleaner-lv15), [Wayfarer](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#wayfarer-lv15), [Bountiful Boletes](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#bountiful-boletes),<br/>[Crystal Cavern](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#crystal-cavern), [Upheaval](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#upheaval), [Starfall](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#starfall), [Shared Focus](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#shared-focus),<br/>[Diamond of the Kitchen](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#diamond-of-the-kitchen), [Vast Domain](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#vast-domain) |
 
 
 ## C# Mods
@@ -91,11 +92,11 @@ If you want to use the VPP API:
 If your add any new things of these following things, you might need to use the API for compatibility with these features:
 | Mod Feature     | VPP Feature                   |
 |:---------------:|:-----------------------------:|
-| Fishing Tackles | Recycler                      |
-| Monsters        | Slimeshot, Monster Specialist |
-| Fertilizers     | Horticulturist                |
-| Trinkets        | Accessorise, Hidden Benefits  |
-| Lost Books      | Lost And Found                |
+| Fishing Tackles | [Recycler](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#recycler-lv15) |
+| Monsters        | [Slimeshot](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#slimeshot), [Monster Specialist](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#monster-specialist) |
+| Fertilizers     | [Agronomist](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#agronomist-lv15) |
+| Trinkets        | [Accessorise](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#accessorise), [Hidden Benefits](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#hidden-benefits) |
+| Lost Books      | [Lost And Found](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#lost-and-found) |
 
 ### Skill Mods by SpaceCore
 VPP will recognize your custom skill for features like the skill overlay, but will NOT try to manage your professions or add new ones for levels 15 and 20.
