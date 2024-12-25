@@ -62,7 +62,7 @@ namespace VanillaPlusProfessions.Compatibility
             }
             foreach (var item in ModEntry.Professions)
             {
-                if (CoreUtility.CurrentPlayerHasProfession(item.Value.ID, useThisInstead: who, ignoreMode: true))
+                if (CoreUtility.CurrentPlayerHasProfession(item.Key, useThisInstead: who, ignoreMode: true))
                 {
                     professions.Add(item.Key);
                 }
@@ -87,7 +87,14 @@ namespace VanillaPlusProfessions.Compatibility
                 return ModEntry.ModConfig.Value.MasteryCaveChanges;
             }    
         }
-        
+        public bool ProfessionsOnly
+        {
+            get
+            {
+                return ModEntry.ModConfig.Value.ProfessionsOnly;
+            }
+        }
+
         public bool ColorBlindnessChanges
         {
             get

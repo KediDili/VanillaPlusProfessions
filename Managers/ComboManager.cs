@@ -13,7 +13,7 @@ using VanillaPlusProfessions.Talents.Patchers;
 using VanillaPlusProfessions.Talents;
 using VanillaPlusProfessions.Utilities;
 using StardewValley.Locations;
-using StardewValley.Objects;
+using StardewValley.Objects.Trinkets;
 
 namespace VanillaPlusProfessions.Managers
 {
@@ -29,7 +29,7 @@ namespace VanillaPlusProfessions.Managers
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(FishingRod), "canThisBeAttached", new Type[] { typeof(StardewValley.Object), typeof(int) }),
-                    postfix: new HarmonyMethod(typeof(ComboManager), nameof(ComboManager.canThisBeAttached_FishingRod_Postfix))
+                    postfix: new HarmonyMethod(typeof(ComboManager), nameof(canThisBeAttached_FishingRod_Postfix))
                 );
             }
             catch (Exception e)
@@ -40,7 +40,7 @@ namespace VanillaPlusProfessions.Managers
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(Slingshot), "canThisBeAttached", new Type[] { typeof(StardewValley.Object), typeof(int) }),
-                    postfix: new HarmonyMethod(typeof(ComboManager), nameof(ComboManager.canThisBeAttached_Slingshot_Postfix))
+                    postfix: new HarmonyMethod(typeof(ComboManager), nameof(canThisBeAttached_Slingshot_Postfix))
                 );
             }
             catch (Exception e)
@@ -51,7 +51,7 @@ namespace VanillaPlusProfessions.Managers
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(GameLocation), nameof(GameLocation.OnStoneDestroyed)),
-                    postfix: new HarmonyMethod(typeof(ComboManager), nameof(ComboManager.OnStoneDestroyed_Postfix))
+                    postfix: new HarmonyMethod(typeof(ComboManager), nameof(OnStoneDestroyed_Postfix))
                 );
             }
             catch (Exception e)
@@ -62,7 +62,7 @@ namespace VanillaPlusProfessions.Managers
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(StardewValley.Object), nameof(StardewValley.Object.DrawIconBar), new Type[] { typeof(SpriteBatch), typeof(Vector2), typeof(float), typeof(float), typeof(float), typeof(StackDrawType), typeof(Color) }),
-                    postfix: new HarmonyMethod(typeof(ComboManager), nameof(ComboManager.DrawIconBar_Postfix))
+                    postfix: new HarmonyMethod(typeof(ComboManager), nameof(DrawIconBar_Postfix))
               );
             }
             catch (Exception e)
@@ -73,7 +73,7 @@ namespace VanillaPlusProfessions.Managers
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(StardewValley.Object), nameof(StardewValley.Object.maximumStackSize)),
-                    postfix: new HarmonyMethod(typeof(ComboManager), nameof(ComboManager.maximumStackSize_Postfix))
+                    postfix: new HarmonyMethod(typeof(ComboManager), nameof(maximumStackSize_Postfix))
                 );
             }
             catch (Exception e)
@@ -84,7 +84,7 @@ namespace VanillaPlusProfessions.Managers
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(FishingRod), nameof(FishingRod.GetTackleQualifiedItemIDs)),
-                    postfix: new HarmonyMethod(typeof(ComboManager), nameof(ComboManager.GetTackleQualifiedItemIDs_Postfix))
+                    postfix: new HarmonyMethod(typeof(ComboManager), nameof(GetTackleQualifiedItemIDs_Postfix))
                 );
             }
             catch (Exception e)
@@ -95,7 +95,7 @@ namespace VanillaPlusProfessions.Managers
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(Slingshot), nameof(Slingshot.GetAmmoDamage)),
-                    postfix: new HarmonyMethod(typeof(ComboManager), nameof(ComboManager.GetAmmoDamage_Postfix))
+                    postfix: new HarmonyMethod(typeof(ComboManager), nameof(GetAmmoDamage_Postfix))
                 );
             }
             catch (Exception e)
@@ -106,7 +106,7 @@ namespace VanillaPlusProfessions.Managers
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(Slingshot), nameof(Slingshot.GetAmmoCollisionSound)),
-                    postfix: new HarmonyMethod(typeof(ComboManager), nameof(ComboManager.GetAmmoCollisionSound_Postfix))
+                    postfix: new HarmonyMethod(typeof(ComboManager), nameof(GetAmmoCollisionSound_Postfix))
                 );
             }
             catch (Exception e)
@@ -117,7 +117,7 @@ namespace VanillaPlusProfessions.Managers
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(StardewValley.Object), "CheckForActionOnMachine"),
-                    postfix: new HarmonyMethod(AccessTools.Method(typeof(ComboManager), nameof(ComboManager.CheckForActionOnMachine_Postfix)))
+                    postfix: new HarmonyMethod(AccessTools.Method(typeof(ComboManager), nameof(CheckForActionOnMachine_Postfix)))
                 );
             }
             catch (Exception e)
@@ -128,7 +128,7 @@ namespace VanillaPlusProfessions.Managers
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(StardewValley.Object), nameof(StardewValley.Object.OutputGeodeCrusher)),
-                    postfix: new HarmonyMethod(typeof(ComboManager), nameof(ComboManager.OutputGeodeCrusher_Postfix))
+                    postfix: new HarmonyMethod(typeof(ComboManager), nameof(OutputGeodeCrusher_Postfix))
                 );
             }
             catch (Exception e)
@@ -139,7 +139,7 @@ namespace VanillaPlusProfessions.Managers
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(GameLocation), nameof(GameLocation.sinkDebris)),
-                    postfix: new HarmonyMethod(AccessTools.Method(typeof(ComboManager), nameof(ComboManager.sinkDebris_Postfix)))
+                    postfix: new HarmonyMethod(AccessTools.Method(typeof(ComboManager), nameof(sinkDebris_Postfix)))
                 );
             }
             catch (Exception e)
@@ -150,7 +150,7 @@ namespace VanillaPlusProfessions.Managers
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(FruitTree), nameof(FruitTree.draw)),
-                    postfix: new HarmonyMethod(AccessTools.Method(typeof(ComboManager), nameof(ComboManager.FruitTree_Draw_Postfix)))
+                    postfix: new HarmonyMethod(AccessTools.Method(typeof(ComboManager), nameof(FruitTree_Draw_Postfix)))
                 );
             }
             catch (Exception e)
@@ -163,7 +163,7 @@ namespace VanillaPlusProfessions.Managers
 
         public static void sinkDebris_Postfix(Debris debris, GameLocation __instance, bool __result)
         {
-            if (__result is true && CoreUtility.AnyPlayerHasProfession(74) && debris.item is not null && debris.item.HasContextTag("category_forage") && Game1.player.modData.TryGetValue(ModEntry.Key_HasFoundForage, out var str))
+            if (__result is true && CoreUtility.AnyPlayerHasProfession("Forage-Fish") && debris.item is not null && debris.item.HasContextTag("category_forage") && Game1.player.modData.TryGetValue(ModEntry.Key_HasFoundForage, out var str))
             {
                 if (str == "false")
                 {
@@ -209,7 +209,7 @@ namespace VanillaPlusProfessions.Managers
 
         public static void OutputGeodeCrusher_Postfix(StardewValley.Object machine, Item inputItem, bool probe, ref Item __result)
         {
-            if ((inputItem.HasContextTag("category_minerals") || inputItem.HasContextTag("category_gem")) && inputItem is StardewValley.Object obj && CoreUtility.CurrentPlayerHasProfession(71))
+            if ((inputItem.HasContextTag("category_minerals") || inputItem.HasContextTag("category_gem")) && inputItem is StardewValley.Object obj && CoreUtility.CurrentPlayerHasProfession("Farm-Mine"))
             {
                 var oneofObj = obj.getOne();
                 oneofObj.modData.TryAdd("Kedi.VPP.CurrentPreserveType", "Kedi.VPP.GemDust");
@@ -237,7 +237,7 @@ namespace VanillaPlusProfessions.Managers
         }
         public static void GetTackleQualifiedItemIDs_Postfix(ref List<string> __result, FishingRod __instance)
         {
-            if (CoreUtility.CurrentPlayerHasProfession(77))
+            if (CoreUtility.CurrentPlayerHasProfession("Fish-Mine"))
             {
                 if (__result.Count > 0 && __instance.CanUseTackle())
                 {
@@ -276,7 +276,7 @@ namespace VanillaPlusProfessions.Managers
             if (who is null)
                 return;
 
-            if (CoreUtility.CurrentPlayerHasProfession(72, useThisInstead: who))
+            if (CoreUtility.CurrentPlayerHasProfession("Mine-Combat", useThisInstead: who))
             {
                 StonesBroken.Value++;
             }
@@ -320,7 +320,7 @@ namespace VanillaPlusProfessions.Managers
         {
             if (slot is not 0)
             {
-                if (o.HasContextTag("category_gem") && CoreUtility.CurrentPlayerHasProfession(77))
+                if (o.HasContextTag("category_gem") && CoreUtility.CurrentPlayerHasProfession("Fish-Mine"))
                 {
                     __result = __instance.CanUseTackle();
                 }
@@ -328,7 +328,7 @@ namespace VanillaPlusProfessions.Managers
         }
         public static void canThisBeAttached_Slingshot_Postfix(StardewValley.Object o, ref bool __result)
         {
-            if (o.Category == -4 && CoreUtility.CurrentPlayerHasProfession(79))
+            if (o.Category == -4 && CoreUtility.CurrentPlayerHasProfession("Combat-Fish"))
             {
                 __result = true;
             }
@@ -381,7 +381,7 @@ namespace VanillaPlusProfessions.Managers
         }
         public static void GetAmmoDamage_Postfix(StardewValley.Object ammunition, ref int __result)
         {
-            if (CoreUtility.CurrentPlayerHasProfession(54))
+            if (CoreUtility.CurrentPlayerHasProfession("Combat-Fish"))
             {
                 __result = ammunition.Price * 5;
             }

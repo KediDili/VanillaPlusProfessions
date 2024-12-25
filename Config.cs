@@ -9,6 +9,8 @@ namespace VanillaPlusProfessions
 
         public bool MasteryCaveChanges = true;
 
-        public string TalentHintLevel = "Hidden"; 
+        public bool ProfessionsOnly = false;
+
+        public string TalentHintLevel = "Hidden";
     }
 }

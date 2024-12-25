@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using StardewValley;
 using StardewValley.Extensions;
 using StardewValley.GameData.WildTrees;
+using StardewValley.Locations;
 using StardewValley.Menus;
 using StardewValley.Monsters;
 using StardewValley.Objects;
@@ -24,7 +25,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(Tree), "performTreeFall"),
-                    postfix: new HarmonyMethod(typeof(ForagingPatcher), nameof(ForagingPatcher.performTreeFall_Postfix))
+                    postfix: new HarmonyMethod(typeof(ForagingPatcher), nameof(performTreeFall_Postfix))
                 );
             }
             catch (Exception e)
@@ -36,7 +37,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(Tree), nameof(Tree.shake)),
-                    postfix: new HarmonyMethod(typeof(ForagingPatcher), nameof(ForagingPatcher.shake_Prefix))
+                    postfix: new HarmonyMethod(typeof(ForagingPatcher), nameof(shake_Prefix))
                 );
             }
             catch (Exception e)
@@ -48,7 +49,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(Tree), nameof(Tree.dayUpdate)),
-                    postfix: new HarmonyMethod(typeof(ForagingPatcher), nameof(ForagingPatcher.dayUpdate_Prefix))
+                    postfix: new HarmonyMethod(typeof(ForagingPatcher), nameof(dayUpdate_Prefix))
                 );
             }
             catch (Exception e)
@@ -60,7 +61,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(Bush), nameof(Bush.inBloom)),
-                    postfix: new HarmonyMethod(typeof(ForagingPatcher), nameof(ForagingPatcher.inBloom_Postfix))
+                    postfix: new HarmonyMethod(typeof(ForagingPatcher), nameof(inBloom_Postfix))
                 );
             }
             catch (Exception e)
@@ -72,7 +73,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(StardewValley.Object), nameof(StardewValley.Object.OutputSolarPanel)),
-                    postfix: new HarmonyMethod(typeof(ForagingPatcher), nameof(ForagingPatcher.OutputSolarPanel_Postfix))
+                    postfix: new HarmonyMethod(typeof(ForagingPatcher), nameof(OutputSolarPanel_Postfix))
                 );
             }
             catch (Exception e)
@@ -84,7 +85,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(RockGolem), nameof(RockGolem.getExtraDropItems)),
-                    postfix: new HarmonyMethod(typeof(ForagingPatcher), nameof(ForagingPatcher.LivingHat_RockGolem_Postfix))
+                    postfix: new HarmonyMethod(typeof(ForagingPatcher), nameof(LivingHat_RockGolem_Postfix))
                 );
             }
             catch (Exception e)
@@ -96,7 +97,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(StardewValley.Object), nameof(StardewValley.Object.cutWeed)),
-                    postfix: new HarmonyMethod(typeof(ForagingPatcher), nameof(ForagingPatcher.LivingHat_Object_Postfix))
+                    postfix: new HarmonyMethod(typeof(ForagingPatcher), nameof(LivingHat_Object_Postfix))
                 );
             }
             catch (Exception e)
@@ -108,7 +109,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(Torch), nameof(Torch.checkForAction)),
-                    prefix: new HarmonyMethod(typeof(ForagingPatcher), nameof(ForagingPatcher.checkForAction_Prefix))
+                    prefix: new HarmonyMethod(typeof(ForagingPatcher), nameof(checkForAction_Prefix))
                 );
             }
             catch (Exception e)
@@ -120,7 +121,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(CraftingPage), "GetRecipesToDisplay"),
-                    prefix: new HarmonyMethod(typeof(ForagingPatcher), nameof(ForagingPatcher.GetRecipesToDisplay_Prefix))
+                    prefix: new HarmonyMethod(typeof(ForagingPatcher), nameof(GetRecipesToDisplay_Prefix))
                 );
             }
             catch (Exception e)
@@ -128,16 +129,50 @@ namespace VanillaPlusProfessions.Talents.Patchers
                 CoreUtility.PrintError(e, nameof(ForagingPatcher), "CraftingPage.GetRecipesToDisplay", "prefixing");
             }
             
-            try
+            try //Keep this under watch
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(CraftingRecipe), nameof(CraftingRecipe.createItem)),
-                    prefix: new HarmonyMethod(typeof(ForagingPatcher), nameof(ForagingPatcher.createItem_Postfix))
+                    prefix: new HarmonyMethod(typeof(ForagingPatcher), nameof(createItem_Postfix))
                 );
             }
             catch (Exception e)
             {
-                CoreUtility.PrintError(e, nameof(ForagingPatcher), "CraftingPage.GetRecipesToDisplay", "postfixing");
+                CoreUtility.PrintError(e, nameof(ForagingPatcher), "CraftingRecipe.createItem", "postfixing");
+            }
+
+            try
+            {
+                ModEntry.Harmony.Patch(
+                    original: AccessTools.Method(typeof(GameLocation), nameof(GameLocation.DayUpdate)),
+                    prefix: new HarmonyMethod(typeof(ForagingPatcher), nameof(GameLocation_DayUpdate_Prefix))
+                );
+            }
+            catch (Exception e)
+            {
+                CoreUtility.PrintError(e, nameof(ForagingPatcher), "GameLocation.DayUpdate", "prefixing");
+            }
+        }
+
+        public static void GameLocation_DayUpdate_Prefix(GameLocation __instance)
+        {
+            if (!__instance.modData.TryAdd(TalentCore.Key_WasRainingHere, __instance.IsRainingHere().ToString().ToLower()))
+            {
+                __instance.modData[TalentCore.Key_WasRainingHere] = __instance.IsRainingHere().ToString().ToLower();
+            }
+            if (TalentUtility.HostHasTalent("LocalKnowledge") && __instance is not SlimeHutch and AnimalHouse && __instance.Objects.Length > 0)
+            {
+                var locdata = __instance.GetData()?.CustomFields ?? new();
+                if (locdata?.ContainsKey(TalentCore.Key_LocalKnowledge) is true || __instance is Forest or Mountain or Beach)
+                {
+                    foreach (var item in __instance.Objects.Pairs)
+                    {
+                        if (item.Value.isForage())
+                        {
+                            __instance.Objects.Remove(item.Key);
+                        }
+                    }
+                }
             }
         }
 
@@ -147,7 +182,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             {
                 if (TalentCore.IsCookoutKit.Value)
                 {
-                    @object.Edibility += (int)(@object.Edibility * 0.5f);
+                    @object.Edibility += (int)(@object.Edibility / 0.5f);
                     @object.Quality = 1;
                 }
                 if (TalentUtility.CurrentPlayerHasTalent("Combat_HiddenBenefits") && Game1.random.NextBool(0.1))

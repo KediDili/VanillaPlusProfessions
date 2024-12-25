@@ -19,19 +19,19 @@ namespace VanillaPlusProfessions.Utilities
         {
             if (args.Length < 2)
             {
-                //log error
+                ModEntry.ModMonitor.Log("Insufficient arguments.", LogLevel.Warn);
                 return;
             }
             if (!Context.IsWorldReady)
             {
-                //log error
+                ModEntry.ModMonitor.Log("Load a save first (or wait until your save loads).", LogLevel.Warn);
                 return;
             }
             if (args[0] is "15")
             {
                 foreach (var item in ModEntry.Professions.Values)
                 {
-                    if (item.Skill.ToString() == args[1])
+                    if (item.Skill.ToString() == args[1] && item.ID < 467870)
                     {
                         Game1.player.professions.Remove(item.ID);
                     }
@@ -42,17 +42,23 @@ namespace VanillaPlusProfessions.Utilities
             {
                 foreach (var item in ModEntry.Managers[5].RelatedProfessions.Values)
                 {
-                    if (item.Skill.ToString() == args[1])
+                    if (item.Skill.ToString() == args[1] && item.ID >= 467870)
                     {
                         Game1.player.professions.Remove(item.ID);
                     }
                 }
                 Game1.player.newLevels.Add(new(int.Parse(args[1]), 20));
             }
-            if (Game1.activeClickableMenu is null)
+            for (int i = 0; i < Game1.player.newLevels.Count; i++)
             {
-                for (int i = 0; i < Game1.player.newLevels.Count; i++)
+                if (Game1.activeClickableMenu is null)
+                {
+                    Game1.activeClickableMenu = new LevelUpMenu(Game1.player.newLevels[i].X, Game1.player.newLevels[i].Y);
+                }
+                else
+                {
                     Game1.nextClickableMenu.Add(new LevelUpMenu(Game1.player.newLevels[i].X, Game1.player.newLevels[i].Y));
+                }
             }
         }
 
@@ -62,7 +68,7 @@ namespace VanillaPlusProfessions.Utilities
             produce = null;
             if (feature is FruitTree tree)
             {
-                ItemQueryContext context = new(feature.Location, Game1.player, Game1.random);
+                ItemQueryContext context = new(feature.Location, Game1.player, Game1.random, "Farming-Foraging FruitTree context");
 
                 var chosenData = Game1.random.ChooseFrom(tree.GetData().Fruit);
                 if (GameStateQuery.CheckConditions(chosenData.Condition, feature.Location, Game1.player) && Game1.random.NextBool(chosenData.Chance) && !chosenData.IsRecipe)
@@ -80,7 +86,7 @@ namespace VanillaPlusProfessions.Utilities
             }
             else if (feature is GiantCrop crop)
             {
-                ItemQueryContext context = new(feature.Location, Game1.player, Game1.random);
+                ItemQueryContext context = new(feature.Location, Game1.player, Game1.random, "Farming-Foraging GiantCrop context");
 
                 var chosenData = Game1.random.ChooseFrom(crop.GetData().HarvestItems);
                 if (GameStateQuery.CheckConditions(chosenData.Condition, feature.Location, Game1.player) && Game1.random.NextBool(chosenData.Chance) && chosenData.ForShavingEnchantment is not true && !chosenData.IsRecipe)
@@ -96,7 +102,7 @@ namespace VanillaPlusProfessions.Utilities
                     }
                 }
             }
-            return ((int)(price / 20)).ToString();
+            return (price / 20).ToString();
         }
 
         public static Vector2 GetFeatureTile(TerrainFeature terrainFeature)
@@ -143,7 +149,7 @@ namespace VanillaPlusProfessions.Utilities
 
         public static void FertilizerStackEffects()
         {
-            if (!CoreUtility.CurrentPlayerHasProfession(37) || (CoreUtility.CurrentPlayerHasProfession(37) && !Game1.random.NextBool(0.3)))
+            if (!CoreUtility.CurrentPlayerHasProfession("Agronomist") || (CoreUtility.CurrentPlayerHasProfession("Agronomist") && !Game1.random.NextBool(0.3)))
                 Game1.player.ActiveObject.Stack--;
             if (Game1.player.ActiveObject.Stack == 0)
                 Game1.player.ActiveObject = null;

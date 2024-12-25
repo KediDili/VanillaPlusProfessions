@@ -15,6 +15,9 @@ using VanillaPlusProfessions.Talents;
 using StardewValley.GameData.GiantCrops;
 using VanillaPlusProfessions.Utilities;
 using xTile.Dimensions;
+using StardewValley.GameData.Objects;
+using VanillaPlusProfessions.Compatibility;
+using VanillaPlusProfessions.Craftables;
 
 namespace VanillaPlusProfessions
 {
@@ -26,6 +29,8 @@ namespace VanillaPlusProfessions
             ComboManager.StonesBroken.Value = 0;
             DisplayHandler.WasSkillMenuRaised.Value = false;
             TalentCore.IsDayStartOrEnd = true;
+
+            CraftableHandler.OnDayStarted();
 
             if (TalentUtility.AnyPlayerHasTalent("Farming_Refreshing_Waters"))
             {
@@ -58,6 +63,59 @@ namespace VanillaPlusProfessions
                     return true;
                 }, false, false);
             }
+            MachineryEventHandler.DrillLocations = new();
+            MachineryEventHandler.ThermalReactorLocations = new();
+            MachineryEventHandler.NodeMakerLocations = new();
+
+            Utility.ForEachLocation(location =>
+            {
+                if (GameStateQuery.CheckConditions("KediDili.VanillaPlusProfessions_IsConsistentMineLocation " + location.NameOrUniqueName))
+                {
+                    List<Vector2> TileLocations = new();
+                    foreach (var item in location.Objects.Values)
+                    {
+                        if (item.QualifiedItemId == "(BC)KediDili.VPPData.CP_ProgrammableDrill")
+                        {
+                            TileLocations.Add(item.TileLocation);
+                        }
+                    }
+                    if (TileLocations.Count > 0)
+                    {
+                        MachineryEventHandler.DrillLocations.Add(location.NameOrUniqueName, TileLocations);
+                    }
+                }
+                if (GameStateQuery.CheckConditions("KediDili.VanillaPlusProfessions_IsLavaLocation " + location.NameOrUniqueName))
+                {
+                    List<Vector2> TileLocations = new();
+                    foreach (var item in location.Objects.Values)
+                    {
+                        if (item.QualifiedItemId == "(BC)KediDili.VPPData.CP_ThermalReactor")
+                        {
+                            TileLocations.Add(item.TileLocation);
+                        }
+                    }
+                    if (TileLocations.Count > 0)
+                    {
+                        MachineryEventHandler.ThermalReactorLocations.Add(location.NameOrUniqueName, TileLocations);
+                    }
+                }
+                List<Vector2> TileLocations2 = new();
+                foreach (var item in location.Objects.Values)
+                {
+                    if (item.QualifiedItemId == "(BC)KediDili.VPPData.CP_NodeMaker")
+                    {
+                        TileLocations2.Add(item.TileLocation);
+                    }
+                }
+                if (TileLocations2.Count > 0)
+                {
+                    MachineryEventHandler.NodeMakerLocations.Add(location.NameOrUniqueName, TileLocations2);
+                }
+
+                return true;
+
+            }, false, false);
+
             if (Game1.getFarm().modData.TryGetValue(TalentCore.Key_FaeBlessings, out string value))
             {
                 string[] strings = value.Split('+');
@@ -80,13 +138,13 @@ namespace VanillaPlusProfessions
                     return true;
                 });
             }
-            if (CoreUtility.CurrentPlayerHasProfession(39))
+            if (CoreUtility.CurrentPlayerHasProfession("Artificer"))
                 FishingRod.maxTackleUses = 40;
 
-            if (CoreUtility.CurrentPlayerHasProfession(40))
+            if (CoreUtility.CurrentPlayerHasProfession("Plunderer"))
                 FishingRod.baseChanceForTreasure = 1;
 
-            if (CoreUtility.AnyPlayerHasProfession(74))
+            if (CoreUtility.AnyPlayerHasProfession("Forage-Fish"))
             {
                 var list = Game1.getOnlineFarmers();
 
@@ -113,21 +171,19 @@ namespace VanillaPlusProfessions
                             farmer.modData[ModEntry.Key_ForageGuessItemID] = chosenNewForage;
 
                         if (!Game1.doesHUDMessageExist(ModEntry.Helper.Translation.Get("Message.ForageBubbleReset")))
-                            
                             Game1.addHUDMessage(new(ModEntry.Helper.Translation.Get("Message.ForageBubbleReset"), HUDMessage.newQuest_type));
                     }
                 }
             }
-            if (CoreUtility.CurrentPlayerHasProfession(36))
+            if (CoreUtility.CurrentPlayerHasProfession("Horticulturist"))
             {
-                
                 foreach (var location in Game1.locations)
                 {
                     if (!location.IsGreenhouse)
                         continue;
                     foreach (var item in location.terrainFeatures.Values)
                     {
-                        if (item is FruitTree tree)
+                        if (item is FruitTree tree) 
                         {
                             for (int i = 0; i < tree.fruit.Count; i++)
                                 tree.fruit[i].Quality = 4;
@@ -137,7 +193,7 @@ namespace VanillaPlusProfessions
             }
             Utility.ForEachBuilding<Building>(building =>
             {
-                if (CoreUtility.CurrentPlayerHasProfession(33) || TalentUtility.AnyPlayerHasTalent("Farming_Wild_Growth"))
+                if (CoreUtility.CurrentPlayerHasProfession("Caretaker") || TalentUtility.AnyPlayerHasTalent("Farming_Wild_Growth"))
                 {
                     if (building.GetIndoors() is AnimalHouse animalHouse)
                     {
@@ -160,7 +216,7 @@ namespace VanillaPlusProfessions
                             if (!animalHouse.animalsThatLiveHere.Contains(id))
                                 continue;
 
-                            if (CoreUtility.CurrentPlayerHasProfession(33))
+                            if (CoreUtility.CurrentPlayerHasProfession("Caretaker"))
                             {
                                 if (Game1.random.NextBool(0.35))
                                     animal.fullness.Value = 255;
@@ -235,7 +291,7 @@ namespace VanillaPlusProfessions
                         }
                     }
                 }
-                if (CoreUtility.AnyPlayerHasProfession(78))
+                if (CoreUtility.AnyPlayerHasProfession("Combat-Farm"))
                 {
                     if (building.GetIndoors() is SlimeHutch slimeHutch)
                     {
@@ -243,7 +299,7 @@ namespace VanillaPlusProfessions
                         List<Vector2> nullobjs = new();
                         for (int XX = 0; XX < slimeHutch.Map.Layers[0].LayerWidth; XX++)
                         {
-                            //Utility.getSurroundingTileLocationsArray
+                            
                             for (int YY = 0; YY < slimeHutch.Map.Layers[0].LayerHeight; YY++)
                             {
                                 if (slimeHutch.isTilePlaceable(new(XX, YY), false) && !slimeHutch.isTileOnWall(XX, YY) && slimeHutch.isTileLocationOpen(new Location(XX, YY)))
@@ -298,7 +354,7 @@ namespace VanillaPlusProfessions
                         }
                     }
                 }
-                if (CoreUtility.AnyPlayerHasProfession(76))
+                if (CoreUtility.AnyPlayerHasProfession("Fish-Farm"))
                 {
                     if (building is FishPond pond && pond.currentOccupants.Value == pond.maxOccupants.Value)
                     {
@@ -332,6 +388,7 @@ namespace VanillaPlusProfessions
                         }
                     }
                 }
+                BuildingHandler.OnDayStarted(building);
                 return true;
             });
 
@@ -339,43 +396,39 @@ namespace VanillaPlusProfessions
             {
                 if (item is not null and StardewValley.Object bigcraftable)
                 {
-                    if (CoreUtility.AnyPlayerHasProfession(43) || CoreUtility.AnyPlayerHasProfession(45) || TalentUtility.AnyPlayerHasTalent("Fishing_Fish_Trap") ||
+                    if (CoreUtility.AnyPlayerHasProfession("Trawler") || CoreUtility.AnyPlayerHasProfession("Hydrologist") || TalentUtility.AnyPlayerHasTalent("Fishing_Fish_Trap") ||
                         TalentUtility.AnyPlayerHasTalent("Fishing_Diversification") || TalentUtility.AnyPlayerHasTalent("Fishing_Dead_Mans_Chest") || TalentUtility.AnyPlayerHasTalent("Fishing_Bait_And_Switch"))
                     {
                         if (bigcraftable is not null and CrabPot crabPot)
                         {
                             Random r = new();
-                            var list = crabPot.Location.GetData().Fish;
+                            string bait = crabPot.bait.Value?.ItemId ?? "";
+                            Farmer who = Game1.GetPlayer(crabPot.owner.Value, true) ?? Game1.MasterPlayer;
+                            StardewValley.Object @object = (StardewValley.Object)crabPot.Location.getFish(1f, bait, r.Next(1, 5), who, 5, crabPot.TileLocation);
+                            do
+                            {
+                                @object = (StardewValley.Object)crabPot.Location.getFish(1f, bait, r.Next(1, 5), who, 5, crabPot.TileLocation);
+                            } while (@object.HasContextTag("fish_legendary") || @object.HasContextTag("trash_item")); //so that you dont get legendaries in crabpots 
 
-                            var normalData = (from keyvaluepair in DataLoader.Fish(Game1.content)
-                                              where !keyvaluepair.Value.Contains("trap")
-                                              select keyvaluepair.Key).ToList();
-
-                            var locFishList = (from fesh in list
-                                               where TalentUtility.AreConditionsTrueForFish(fesh.Condition, crabPot.bait?.Value, crabPot.owner.Value, fesh.Season, crabPot.Location) && ItemRegistry.GetTypeDefinition(fesh.ItemId)?.Identifier is not null and "(O)"
-                                               select fesh.ItemId).ToList();
-
-                            var endList = normalData.Intersect(locFishList).ToList();
-
-                            if (TalentUtility.AnyPlayerHasTalent("Fishing_Fish_Trap") && (crabPot.heldObject.Value is null || crabPot.heldObject.Value?.HasContextTag("trash_item") is true) && r.NextBool(0.25) && endList.Count > 0)
-                                crabPot.heldObject.Value = ItemRegistry.Create<StardewValley.Object>(r.ChooseFrom(endList), quality: 1);
+                            if (TalentUtility.AnyPlayerHasTalent("Fishing_Fish_Trap") && (crabPot.heldObject.Value is null || crabPot.heldObject.Value?.HasContextTag("trash_item") is true) && r.NextBool(0.45))
+                                crabPot.heldObject.Value = @object;
                             if (crabPot.heldObject?.Value is null)
                             {
                                 if (TalentUtility.AnyPlayerHasTalent("Fishing_Dead_Mans_Chest") && r.NextBool(0.1))
                                     crabPot.heldObject.Value = ItemRegistry.Create("(O)275") as StardewValley.Object;
                             }
 
-                            if (crabPot.heldObject?.Value is not null)
+                            if (crabPot.heldObject.Value is not null)
                             {
-                                if (CoreUtility.AnyPlayerHasProfession(43) && crabPot.bait.Value is not null)
+                                if (CoreUtility.AnyPlayerHasProfession("Trawler") && crabPot.bait.Value is not null)
                                     crabPot.heldObject.Value.Quality = r.NextBool(0.7) ? 2 : 4;
 
-                                if (CoreUtility.AnyPlayerHasProfession(45))
-                                    crabPot.heldObject.Value.Stack *= (r.NextBool(0.7) ? 1 : 2);
+                                if (CoreUtility.AnyPlayerHasProfession("Hydrologist"))
+                                    crabPot.heldObject.Value.Stack += (r.NextBool(0.7) ? 0 : 1);
 
                                 if (TalentUtility.AnyPlayerHasTalent("Fishing_Diversification") && crabPot.heldObject.Value?.QualifiedItemId != "(O)275")
                                     if (crabPot.bait?.Value?.QualifiedItemId is "(O)774")
-                                        crabPot.heldObject.Value.Stack *= 2;
+                                        crabPot.heldObject.Value.Stack += 1;
                             }
                             
                             return true;
@@ -384,7 +437,7 @@ namespace VanillaPlusProfessions
 
                     if (bigcraftable is not null && bigcraftable.IsTapper() is true)
                     {
-                        if (CoreUtility.AnyPlayerHasProfession(70) && bigcraftable.modData.TryGetValue(ModEntry.Key_TFTapperDaysLeft, out string value))
+                        if (CoreUtility.AnyPlayerHasProfession("Farm-Forage") && bigcraftable.modData.TryGetValue(ModEntry.Key_TFTapperDaysLeft, out string value))
                         {
                             bigcraftable.modData[ModEntry.Key_TFTapperDaysLeft] = (Convert.ToInt32(value) - 1).ToString();
                             if (bigcraftable.modData[ModEntry.Key_TFTapperDaysLeft] is "0")

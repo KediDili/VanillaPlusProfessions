@@ -1,0 +1,627 @@
+{
+	//Farming
+	"Profession.Nutritionist.Name": "Diyetisyen",
+	"Profession.Nutritionist.Desc": "Kümes hayvanı ürünü işleyen makinelerin ürün sayısını ikiye katlama ihtimali vardır.",
+	"Profession.Breeder.Name": "Yetiştirici",
+	"Profession.Breeder.Desc": "Kümes hayvanları satıldıklarında daha değerli olurlar.",
+	"Profession.Musterer.Name": "Ürün Toplayıcı",
+	"Profession.Musterer.Desc": "Ahır hayvanı ürünü işleyen makineler daha hızlı çalışır.",
+	"Profession.Caretaker.Name": "Bakıcı",
+	"Profession.Caretaker.Desc": "Süt kovası ve makas enerji tüketmez._Hayvanların saman tüketmeme ihtimali vardır.",
+
+	"Profession.Machinist.Name": "Makinist",
+	"Profession.Machinist.Desc": "Hasat edilmiş ekinleri işleyen makineler daha hızlı çalışır.",
+	"Profession.Connoisseur.Name": "Tadımcı",
+	"Profession.Connoisseur.Desc": "Zanaat ürünleri kasabalılar tarafından sevilir.",
+	"Profession.Horticulturist.Name": "Bahçıvan",
+	"Profession.Horticulturist.Desc": "Seralarda yetişen ağaçlar iridyum kalite ürün verir.",
+	"Profession.Agronomist.Name": "Tarım Uzmanı",
+	"Profession.Agronomist.Desc": "Sera dışındaki bir ekinin gübreyi azaltmama ihtimali var.",
+
+	//Fishing
+	"Profession.Oceanologist.Name": "Okyanusbilimci",
+	"Profession.Oceanologist.Desc": "Bir oltaya yem tutturmak çöp yakalanmasını engelleyecektir.",
+	"Profession.Artificer.Name": "Sanatkâr",
+	"Profession.Artificer.Desc": "Olta takımları bozulmadan önce daha uzun süre dayanır.",
+	"Profession.Plunderer.Name": "Yağmacı",
+	"Profession.Plunderer.Desc": "Her olta atıldığında hazine sandığı bulmak garantilidir.",
+	"Profession.Buccaneer.Name": "Deli Vurguncu",
+	"Profession.Buccaneer.Desc": "Hazine sandıkları daha nadir ve değerli nesneler içerir.",
+
+	"Profession.Aquaculturalist.Name": "Su Ürünleri Uzmanı",
+	"Profession.Aquaculturalist.Desc": "Balık havuzlarının normalin iki katı yumurta üretme ihtimali vardır.",
+	"Profession.Trawler.Name": "Tarak Ağlı Balıkçı",
+	"Profession.Trawler.Desc": "Bir yengeç çömleğine yem eklemek, yüksek kalite bir ürünü garantiler.",
+	"Profession.Recycler.Name": "Geri Dönüşümcü",
+	"Profession.Recycler.Desc": "Geri dönüştürülen çöplerin çeşitli olta takımları üretme ihtimali vardır.",
+	"Profession.Hydrologist.Name": "Hidrolog",
+	"Profession.Hydrologist.Desc": "Yengeç çömlekleri iki katı ürün verebilir.",
+
+	//Foraging
+	"Profession.Arborist.Name": "Ağaç Uzmanı",
+	"Profession.Arborist.Desc": "Yabani ağaçlar daha hızlı yetişir.",
+	"Profession.Shaker.Name": "Sallayıcı",
+	"Profession.Shaker.Desc": "Yabani ağaçlar sallandıklarında çeşitli nesneler verebilir.",
+	"Profession.Sapper.Name": "Özcü",
+	"Profession.Sapper.Desc": "Akıtaçlar daha hızlı çalışır.",
+	"Profession.Orchardist.Name": "Bağcı",
+	"Profession.Orchardist.Desc": "Akıtaçlar iki katı ürün verir.",
+
+	"Profession.Ranger.Name": "Korucu",
+	"Profession.Ranger.Desc": "Orman toplamaları daha değerlidir.",
+	"Profession.Adventurer.Name": "Maceraperest",
+	"Profession.Adventurer.Desc": "Orman dışı toplamaları daha değerlidir.",
+	"Profession.Gleaner.Name": "Daneçin",
+	"Profession.Gleaner.Desc": "Ekin tohumları toplama olarak bulunabilir.",
+	"Profession.Wayfarer.Name": "Seyahatçi",
+	"Profession.Wayfarer.Desc": "Mevsim dışı toplamalar bulunabilir.",
+
+	//Mining
+	"Profession.Metallurgist.Name": "Metalbilimci",
+	"Profession.Metallurgist.Desc": "Metal külçeler daha az malzeme gerektirir.",
+	"Profession.Ironmonger.Name": "Hırdavatçı",
+	"Profession.Ironmonger.Desc": "Metal cevherler daha değerlidir.",
+	"Profession.Ignitor.Name": "Harlayıcı",
+	"Profession.Ignitor.Desc": "Fırınlar daha hızlı çalışır.",
+	"Profession.Crafter.Name": "Zanaatçi",
+	"Profession.Crafter.Desc": "Madencilik becerisiyle öğrenilen oluşturma tarifleri daha az malzeme gerektirir.",
+
+	"Profession.Archeologist.Name": "Arkeolog",
+	"Profession.Archeologist.Desc": "Tarihi eserler geri dönüştürülebilir.",
+	"Profession.Mineralogist.Name": "Mineralog",
+	"Profession.Mineralogist.Desc": "Tüm vanilla jeotlar, çoklujeotlar ile aynı nesneleri verir.",
+	"Profession.Appraiser.Name": "Muhammin",
+	"Profession.Appraiser.Desc": "Köz parçacığı taşları daha çok köz parçacığı verir.",
+	"Profession.Enchanter.Name": "Efsunlayıcı",
+	"Profession.Enchanter.Desc": "Silahlar ve aletler daha ucuza efsunlanabilir.",
+
+	//Combat
+	"Profession.Warrior.Name": "Cengaver",
+	"Profession.Warrior.Desc": "Hasar almayan canavarlar hasar alır.",
+	"Profession.Berserker.Name": "Deli",
+	"Profession.Berserker.Desc": "Canın düşükken verilen hasar artar.",
+	"Profession.Survivalist.Name": "Sörvayvır",
+	"Profession.Survivalist.Desc": "Pozitif buff'ların süresi uzar.",
+	"Profession.Healer.Name": "İyileştirici",
+	"Profession.Healer.Desc": "Negatif buff'ların süresi kısalır.",
+
+	"Profession.Technician.Name": "Teknik Ustası",
+	"Profession.Technician.Desc": "Özel silah bekleme süresi içerisinde dokunulmazlık verir.",
+	"Profession.Speedster.Name": "Sürat Tutkunu",
+	"Profession.Speedster.Desc": "Silah saldırma hızları ve bekleme süreleri artar.",
+	"Profession.Assassin.Name": "Suikastçı",
+	"Profession.Assassin.Desc": "Yüksek savunmalı canavarlara karşı kritik vuruşlar garantilidir.",
+	"Profession.Assailant.Name": "Saldırgan",
+	"Profession.Assailant.Desc": "Kritik vuruşlardan sonra bekleme süresi olmaz.",
+
+	//Combo
+	"Profession.Farm-Forage.Name": "Kombo: Toplama",
+	"Profession.Farm-Forage.Desc": "Meyve ağaçlarına ve dev ekinlere akıtaç takabilirsin.",
+	"Profession.Farm-Mine.Name": "Kombo: Madencilik",
+	"Profession.Farm-Mine.Desc": "Mineraller toza çevrilebilir ve_gübre olarak kullanılabilir.",
+
+	"Profession.Mine-Combat.Name": "Kombo: Savaşma",
+	"Profession.Mine-Combat.Desc": "Kazma veya bombayla kırılan her 100 taş için savaş güçlendirmesi kazan.",
+	"Profession.Mine-Forage.Name": "Kombo: Toplama",
+	"Profession.Mine-Forage.Desc": "Mantar katı oluşma_ihtimali artar.",
+
+	"Profession.Forage-Fish.Name": "Kombo: Balıkçılık",
+	"Profession.Forage-Fish.Desc": "Dört günde bir, rastgele seçilen bir_toplama suya atıldığında baloncuk_oluşturabilir.",
+	"Profession.Forage-Combat.Name": "Kombo: Savaşma",
+	"Profession.Forage-Combat.Desc": "Ekran dışındaki canavarlar takip edilebilir.",
+
+	"Profession.Fish-Farm.Name": "Kombo: Çiftçilik",
+	"Profession.Fish-Farm.Desc": "Dolu balık havuzları nesne istemeye devam edecek. Eğer nesne verilirse, hafta boyunca normalin iki katı ürün verecek.",
+	"Profession.Fish-Mine.Name": "Kombo: Madencilik",
+	"Profession.Fish-Mine.Desc": "Mücevherler olta takımı olarak kullanabilir.",
+
+	"Profession.Combat-Farm.Name": "Kombo: Çiftçilik",
+	"Profession.Combat-Farm.Desc": "Balçıkça kümesindeki balçıkçalar değerli ürünler üretir.",
+	"Profession.Combat-Fish.Name": "Kombo: Balıkçılık",
+	"Profession.Combat-Fish.Desc": "Balıklar sapan mühimmatı olarak kullanılabilir.",
+
+	//Talents
+	"Talent.Farming.Title": "Çiftçilik Maharetleri",
+	"Talent.Fishing.Title": "Balıkçılık Maharetleri",
+	"Talent.Foraging.Title": "Toplayıcılık Maharetleri",
+	"Talent.Mining.Title": "Madencilik Maharetleri",
+	"Talent.Combat.Title": "Savaş Maharetleri",
+	"Talent.Misc.Title": "Günlük Hayat Maharetleri",
+
+	"Talent.LockedTalent.Name": "Kilitli",
+	"Talent.LockedTalent.Desc": "Önce diğer\nmaharetleri al!",
+	"Talent.LockedTalent.Numbered": " (Açmak için {0} maharet seç)",
+
+	"Talent.ResetMessages.ItemMissing": "Yenilemek için nesne eksik",
+	"Talent.ResetMessages.SettleTreeFirst": "Önce ağaç\nyenilemesini bitir",
+	"Talent.ResetMessages.SettleFullFirst": "Önce tam\nyenilemeyi bitir",
+	"Talent.ResetMessages.ResetAll": "Tüm maharetleri yenile",
+	"Talent.ResetMessages.ResetTree": "Bu ağacın maharetlerini yenile",
+	"Talent.ResetMessages.Confirm": "Yenilemeyi kabul et?",
+	"Talent.ResetMessages.BoughtNone": "Hiç maharet almadın.",
+	"Talent.ResetMessages.AbortReset": "Yenilemeyi iptal et",
+
+	"Talent.Resurgence.Name": "Canlanma",
+	"Talent.Resurgence.Desc": "90 dakikada bir su kabı kısmen yeniden dolar.",
+
+	"Talent.RefreshingWaters.Name": "Canlandıran Sular",
+	"Talent.RefreshingWaters.Desc": "Uyandığında su kabı tamamen yeniden dolar.",
+
+	"Talent.GoodSoaking.Name": "İyi Islanma",
+	"Talent.GoodSoaking.Desc": "Yağmurdan sonraki gün toprak ıslak kalır.",
+
+	"Talent.NourishingRain.Name": "Doyurucu Yağmur",
+	"Talent.NourishingRain.Desc": "Her yağmurlu gün için, dışarıdaki ekinlerin yetişme süresi kısalır.",
+
+	"Talent.WildGrowth.Name": "Çılgın Büyüme",
+	"Talent.WildGrowth.Desc": "Hayvanların aynı anda lüks ve normal nesneleri üretme ihtimali vardır.",
+
+	"Talent.Overcrowding.Name": "Aşırı Kalabalık",
+	"Talent.Overcrowding.Desc": "Kümes ve ahırlar daha fazla hayvan bulundurabilir.",
+
+	"Talent.Bio-Engineering.Name": "Biyoteknoloji",
+	"Talent.Bio-Engineering.Desc": "Büyük hayvan ürünleri işlendiğinde iki katı ürün verir.",
+
+	"Talent.Pastoralism.Name": "Çoban Hayatı",
+	"Talent.Pastoralism.Desc": "Kaliteli hayvan ürünleri işlendiğinde kaliteli ürün verir.",
+
+	"Talent.BreedLikeRabbits.Name": "Tavşan Gibi Çoğalın",
+	"Talent.BreedLikeRabbits.Desc": "Tavşanlar çoğalabilir.",
+
+	"Talent.BrimmingWithLife.Name": "Hayat Dolu",
+	"Talent.BrimmingWithLife.Desc": "Hayvan hamileliği ihtimali iki katına çıkar.",
+
+	"Talent.CycleOfLife.Name": "Hayatın Döngüsü",
+	"Talent.CycleOfLife.Desc": "Yeniden büyüyemeyen ekinler, hasat edildiklerinde %50 ihtimalle tohum da verir.",
+
+	"Talent.Effloresence.Name": "Çiçeksime",
+	"Talent.Effloresence.Desc": "Çiçeklerin yetişme süresini kısaltır.",
+
+	"Talent.HarmoniousBlooming.Name": "Ahenk Tomurcukları",
+	"Talent.HarmoniousBlooming.Desc": "Bir kovanın etrafındaki çiçek sayısına göre fazladan bal elde et (bal türü rastgele belirlenir)",
+
+	"Talent.Abundance.Name": "Bolluk ve Bereket",
+	"Talent.Abundance.Desc": "Toplanmadığı her gün için, kovandaki balın artması ihtimali vardır.",
+
+	"Talent.FairysKiss.Name": "Peri Öpücüğü",
+	"Talent.FairysKiss.Desc": "Her tam büyümüş perigülü, ekin perisinin gelme ihtimalini artırır.",
+
+	"Talent.FaeBlessings.Name": "Peri Hediyeleri",
+	"Talent.FaeBlessings.Desc": "Eğer büyümesi mümkünse, ekin perisi geldiğinde ekini dev ekine çevirir.",
+
+	"Talent.FineGrind.Name": "İnce Öğütülmüş",
+	"Talent.FineGrind.Desc": "Değirmene konulan pirinç/un/şeker malzemesi kadar kaliteli olur.",
+
+	"Talent.DriftFencing.Name": "Serbest Çitleme",
+	"Talent.DriftFencing.Desc": "Çitler normalden iki katı olarak üretilir.",
+
+	"Talent.StormSurge.Name": "Fırtına Fırlatma",
+	"Talent.StormSurge.Desc": "Paratonerler pil üretirken bile daha çok ekini ve meyve ağacını korur.",
+
+	"Talent.ColdPress.Name": "Soğuk Pres",
+	"Talent.ColdPress.Desc": "Yağ makineleri daha fazla tür yağ üretebilir.",
+
+	"Talent.Upcycling.Name": "İleri Dönüşüm",
+	"Talent.Upcycling.Desc": "Yüksek fıskiyeler materyal olarak daha düşük fıskiyeleri gerektirir.",
+
+	"Talent.Fertigation.Name": "Fertigasyon",
+	"Talent.Fertigation.Desc": "Basınç memeleri ve gübreleyiciler aynı anda fıskiyelere eklenebilir.",
+
+	"Talent.Trickster.Name": "Düzenbaz",
+	"Talent.Trickster.Desc": "Kargalar tamamen yetişmişe ekinleri yemeyecek.",
+
+	"Talent.TropicalBliss.Name": "Tropikal Saadet",
+	"Talent.TropicalBliss.Desc": "Yazın veya çok mevsimli ekinler Zencefil Adası'nda daha çabuk yetişir.",
+
+	"Talent.HarvestSeason.Name": "Hasat Zamanı",
+	"Talent.HarvestSeason.Desc": "Junimolar daha hızlı çalışır.",
+
+	"Talent.DownInTheDepths.Name": "Derinliklerde",
+	"Talent.DownInTheDepths.Desc": "Eğer merdiven ortaya çıkmadıysa, 8 taş kırdıktan sonra bir tane çıkacaktır.",
+
+	"Talent.ShadowBuddies.Name": "Gölge Dostları",
+	"Talent.ShadowBuddies.Desc": "Eğer arkadaş olunursa, Krobus sana mektupla her hafta 1-3 jeot gönderecek.",
+
+	"Talent.DwarvenBuddies.Name": "Cüce Dostları",
+	"Talent.DwarvenBuddies.Desc": "Eğer arkadaş olunursa, Cüce sana mektupla her hafta 1-3 metal külçe gönderecek.",
+
+	"Talent.EssenceInfusion.Name": "Öz Demleme",
+	"Talent.EssenceInfusion.Desc": "Her gün; İşaret Heykeli biraz Güneş Özü, Uğursuz Heykel biraz Boşluk Özü üretir.",
+
+	"Talent.ElderScrolls.Name": "Yüce Parşömenler",
+	"Talent.ElderScrolls.Desc": "Cüce Dili Çeviri Rehberi bulunduysa, cüce parşömenleri madencilik deneyimi için okunabilir.",
+
+	"Talent.SpeedOfDarkness.Name": "Karanlığın Sürati",
+	"Talent.SpeedOfDarkness.Desc": "Gece 12'den sonra bir hız güçlendirmesi al.",
+
+	"Talent.AncestralWeaponry.Name": "Ataların Silahları",
+	"Talent.AncestralWeaponry.Desc": "Eğer Zencefil Adası açıldıysa Cüce, cüce silahları satar.",
+
+	"Talent.SharedFocus.Name": "Ortak Odak",
+	"Talent.SharedFocus.Desc": "Madenlerde zaman yavaşlar.",
+
+	"Talent.MuseumPiece.Name": "Müze Parçası",
+	"Talent.MuseumPiece.Desc": "Jeotlar ve definelerden henüz bağışlanmamış mineraller veya eserler çıkma olasılığı iki katına çıkar.",
+
+	"Talent.ExplosivePersonality.Name": "Patlayıcı Karakter",
+	"Talent.ExplosivePersonality.Desc": "Bombalar tarafından kırılan taşlar fazladan jeot verebilir.",
+
+	"Talent.Synthesis.Name": "Sentez",
+	"Talent.Synthesis.Desc": "Kristalaryumlar jeotları kopyalayabilir.",
+
+	"Talent.Upheaval.Name": "Çalkantı",
+	"Talent.Upheaval.Desc": "Düşük ihtimalle, bir maden katındaki bütün taşlar jeot taşlarıyla değiştirilir.",
+
+	"Talent.Matryoshka.Name": "Matruşka",
+	"Talent.Matryoshka.Desc": "Bir jeotun içinden başka bir jeot çıkabilir.",
+
+	"Talent.X-ray.Name": "X-ray",
+	"Talent.X-ray.Desc": "Sonraki jeotun içinde ne olduğunu gör. Jeotlar daha değerlidir.",
+
+	"Talent.Geometry.Name": "Geometri",
+	"Talent.Geometry.Desc": "Kristalaryumlar daha hızlı çalışır.",
+
+	"Talent.Dazzle.Name": "Göz Kamaştırıcı",
+	"Talent.Dazzle.Desc": "Kristalaryumların nesne kalitesini bir derece artırma ihtimali var.",
+
+	"Talent.StraightRun.Name": "Düz Rota",
+	"Talent.StraightRun.Desc": "Robin tanesi 2000 altına merdiven satar.",
+
+	"Talent.DetonationDampener.Name": "Patlayıcı Bastırıcı",
+	"Talent.DetonationDampener.Desc": "Bombalar toplamaları, makineleri ve kazılabilir eserleri yok etmeyecek.",
+
+	"Talent.Volatility.Name": "İstikrarsız",
+	"Talent.Volatility.Desc": "Cevher taşları bir derece üst cevherden de verebilir.",
+
+	"Talent.AlchemicReversal.Name": "Simyasal Tersinim",
+	"Talent.AlchemicReversal.Desc": "Üst derece metal külçeler daha düşük dereceli külçelere çevrilebilir.",
+
+	"Talent.RoomAndPillar.Name": "Oda-Topuk",
+	"Talent.RoomAndPillar.Desc": "Taş ocağında her tür cevher taşı bulunabilir.",
+
+	"Talent.Fallout.Name": "Nükleer Sızıntı",
+	"Talent.Fallout.Desc": "Radyoaktif cevher taşları tehlikeli olmayan madenler ve Kafatası Mağarası'nda ortaya çıkacak.",
+
+	"Talent.EveryonesBestFriend.Name": "Herkesin Kankası",
+	"Talent.EveryonesBestFriend.Desc": "Elmas, kaplangözü, opal, kızıl opal, balgamtaşı ve yıldız parçaçığı evrensel olarak sevilen hediyeler olur.",
+
+	"Talent.CrystalCavern.Name": "Kristal Mağara",
+	"Talent.CrystalCavern.Desc": "Düşük ihtimalle, bir maden katındaki bütün taşlar mücevher taşlarıyla değiştirilir.",
+
+	"Talent.OverTheRainbow.Name": "Gökkuşağının Üstünde",
+	"Talent.OverTheRainbow.Desc": "Prizma parçası için oluşturma tarifi ekler.",
+
+	//Foraging
+
+	"Talent.NatureSecrets.Name": "Doğa Sırları",
+	"Talent.NatureSecrets.Desc": "Kesilen ağaç kütükleri toplama nesneleri verebilir.",
+
+	"Talent.PrimrosePath.Name": "Çuha Yolu",
+	"Talent.PrimrosePath.Desc": "Hediye edildiklerinde çiçekler daha fazla arkadaşlık verir.",
+
+	"Talent.Berry-mania.Name": "Yemiş Çılgınlığı",
+	"Talent.Berry-mania.Desc": "Yemiş sezonları bir hafta sürer.",
+
+	"Talent.DiamondOfTheKitchen.Name": "Mutfak Elması",
+	"Talent.DiamondOfTheKitchen.Desc": "Yermantarları ormanlarda ortaya çıkar.",
+
+	"Talent.LocalKnowledge.Name": "Yerel Bilgelik",
+	"Talent.LocalKnowledge.Desc": "Toplamalar her gün yenilenir.",
+
+	"Talent.SeaChange.Name": "Deniz Değişimi",
+	"Talent.SeaChange.Desc": "Haftada bir, kumsaldaki toplamaların sayısı iki katına çıkar.",
+
+	"Talent.Starfall.Name": "Yıldızdüşümü",
+	"Talent.Starfall.Desc": "1-7 akşam boyunca yıldız parçaları toplama olarak belirebilir.",
+
+	"Talent.DesertBloom.Name": "Çöl Çiçekleri",
+	"Talent.DesertBloom.Desc": "Pelikan Kasabası'nda yağmur yağdığında Patisko Çölü'nde çiçekler belirebilir.",
+
+	"Talent.BountifulBoletes.Name": "Verimli Mantarlar",
+	"Talent.BountifulBoletes.Desc": "Yağmurlu günlerden sonra High chance for mushrooms to spawn after rainy days.",
+
+	"Talent.RenewingMist.Name": "Yenileyici Sis",
+	"Talent.RenewingMist.Desc": "Yağmurdan sonraki ilk güneşli gün normalin iki katı toplama belirir.",
+
+	"Talent.Reforestation.Name": "Yeniden Yeşillenme",
+	"Talent.Reforestation.Desc": "Elle ekilmiş yabani ağaçlar iki katı tohum verir.",
+
+	"Talent.SapSipper.Name": "Öz İçici",
+	"Talent.SapSipper.Desc": "Öz yenilebilir ve birazcık can verir.",
+
+	"Talent.SpringThaw.Name": "Bahar Sıcağı",
+	"Talent.SpringThaw.Desc": "Büyük akıtaç ürünleri akıtaçlardan hasat edilebilir.",
+
+	"Talent.Accumulation.Name": "Birikim",
+	"Talent.Accumulation.Desc": "Eğer gece toplanmazsa, akıtaç ürünlerinin kalitesi artabilir.",
+
+	"Talent.ExoticTapping.Name": "Egzotik Akıtma",
+	"Talent.ExoticTapping.Desc": "Palmiyelere Yağ için akıtaç takılabilir.\nMahun ağaçlarına Şeker için akıtaç takılabilir.",
+
+	"Talent.GroveTending.Name": "Koru Bakımı",
+	"Talent.GroveTending.Desc": "Ağaç Gübresinin etkileri ikiye katlanır.",
+
+	"Talent.SurgeProtection.Name": "Yıldırım Koruması",
+	"Talent.SurgeProtection.Desc": "Yabani ağaçlar yıldırım düştüğünde kömür verir.",
+
+	"Talent.WelcomeToTheJungle.Name": "Ormana Hoşgeldin",
+	"Talent.WelcomeToTheJungle.Desc": "Hindistan cevizleri, bir palmiye yetiştirmek için ekilebilir. Altın Hindistan Cevizleri her yerde bulunabilir.",
+
+	"Talent.ClearAsMud.Name": "Toprak Kadar Saf",
+	"Talent.ClearAsMud.Desc": "Yeri kazarken kil bulma ihtimali artar.",
+
+	"Talent.SleepUnderTheStars.Name": "Yıldızlar Altında Uyu",
+	"Talent.SleepUnderTheStars.Desc": "Kumsalda, dağda veya ormanda gece 2'de uyuyakalınca para kaybetmezsiniz.",
+
+	"Talent.CampSpirit.Name": "Kamp Ruhu",
+	"Talent.CampSpirit.Desc": "Kamp ocağı ile yapılan yemekler, mutfakta yapılan yemeklerden daha fazla enerji ve can yeniler.",
+
+	"Talent.SurvivalCooking.Name": "Hayati Pişirme",
+	"Talent.SurvivalCooking.Desc": "Kamp ocağına özel tarifler ekler.",
+
+	"Talent.Pyrolysis.Name": "Isıl Dönüşüm",
+	"Talent.Pyrolysis.Desc": "Kömür Fırınları daha verimli çalışır.",
+
+	"Talent.StaticCharge.Name": "Statik Elektrik",
+	"Talent.StaticCharge.Desc": "Paratonerler tek seferde iki tane yıldıırm alabilir. Güneş Panelleri iki gün daha erken hazır olur.",
+
+	"Talent.EyeSpy.Name": "Göz Perdesi",
+	"Talent.EyeSpy.Desc": "Canlı Şapka ve benzeri nesneler bulma ihtimali artar.",
+
+	//Fishing
+
+	"Talent.FisheryGrant.Name": "Balıkçılık Ruhsatı",
+	"Talent.FisheryGrant.Desc": "Balık havuzları daha ucuza inşa edilir.",
+
+	"Talent.InTheWeeds.Name": "Otların İçinde",
+	"Talent.InTheWeeds.Desc": "Su Yosunu ve Deniz Yosunu balık havuzlarına eklenebilir.",
+
+	"Talent.Roe-mance.Name": "Yumurta Aşkı",
+	"Talent.Roe-mance.Desc": "Balık yumurtası, olgun balık yumurtası, ve havyar daha değerlidir.",
+
+	"Talent.BigFishSmallPond.Name": "Efsanevi Çeşitlilik",
+	"Talent.BigFishSmallPond.Desc": "Efsanevi balıklar, balık yumurtası dışında ürünler verebilir.",
+
+	"Talent.SpawningSeason.Name": "Üreme Dönemi",
+	"Talent.SpawningSeason.Desc": "Balık havuzlarının yumurta verme ihtimali artar.",
+
+	"Talent.Ex-squid-site.Name": "Muntazam Mürekkep",
+	"Talent.Ex-squid-site.Desc": "Eğer gece toplanmazsa, balık yumurtasının kalitesi artabilir. Yumurta kalitesi Olgun Yumurta, Havyar ve Mürekkepbalığı Mürekkebi'ni etkiler.",
+
+	"Talent.DoubleHook.Name": "Çifte Av",
+	"Talent.DoubleHook.Desc": "Solucan kutuları günde iki defa ürün verir.",
+
+	"Talent.Clickbait.Name": "Clickbait",
+	"Talent.Clickbait.Desc": "Solucan kutusu, %50 ihtimalle normal yem yerine yabani yem üretir.",
+
+	"Talent.CanIt.Name": "Türlü Türlü Teneke",
+	"Talent.CanIt.Desc": "Geri dönüşüm makinelerinin ürettiği ürün yelpazesi genişler.",
+
+	"Talent.Smokehouse.Name": "Tütsüleyici",
+	"Talent.Smokehouse.Desc": "Balık, kaliteyi artırmak için birden fazla defa tütsülenebilir.",
+
+	"Talent.FitForACzar.Name": "Çarlara Layık",
+	"Talent.FitForACzar.Desc": "Olgun Yumurta, kaliteyi artırmak için fıçılarda olgunlaştırılabilir.",
+
+	"Talent.TakeItSlow.Name": "Ağırdan Al",
+	"Talent.TakeItSlow.Desc": "Eğer Salyangoz Takımı oltana takılıysa, olta atma barı daha yavaş hareket eder.",
+
+	"Talent.A-fish-ionado.Name": "Balıksever",
+	"Talent.A-fish-ionado.Desc": "Her hafta posta yoluyla rastgele bir olta takımı al.",
+
+	"Talent.ItWasThisBig.Name": "Aha Şu Kadardı",
+	"Talent.ItWasThisBig.Desc": "Eğer bir balığın yeni bir boy rekoru kırılıyorsa, kalitesi artacak.",
+
+	"Talent.DeadMansChest.Name": "Ölü Adamın Sandığı",
+	"Talent.DeadMansChest.Desc": "Yengeç çömlekleri define verebilir.",
+
+	"Talent.Diversification.Name": "Çeşitlendirme",
+	"Talent.Diversification.Desc": "Yabani Yem artık Yengeç Çömleği ürününü iki katına çıkarır.",
+
+	"Talent.FishTrap.Name": "Balık Tuzağı",
+	"Talent.FishTrap.Desc": "Yengeç Çömlekleri arada sırada normal balık yakalayacak.",
+
+	"Talent.BaitAndSwitch.Name": "Yemle Sonra Kandır",
+	"Talent.BaitAndSwitch.Desc": "Eğer gece toplanmazsa, yengeç çömleği ürünlerinin kalitesi artabilir.",
+
+	"Talent.CrabRave.Name": "Yengeç Dansı",
+	"Talent.CrabRave.Desc": "Yengeçkabuğu Yüzüğü takıyorsan yengeç çömleğinde; yengeç, kerevit ve ıstakoz yakalama ihtimalin artae.",
+
+	"Talent.FishsWishes.Name": "Derya Rüyası",
+	"Talent.FishsWishes.Desc": "Yengeç çömleklerinde büyülü yem kullanılabilir. Eğer Yemci varsa basit yem, büyülü yem gibi davranır.",
+
+	"Talent.HereFishyFishy.Name": "Gel Buraya Balıkçık",
+	"Talent.HereFishyFishy.Desc": "Arka arkaya üç defa balık yakalayamazsan, sonraki balık için 'balıkçılık barı'nı bayağı uzatır.",
+
+	"Talent.VastDomain.Name": "Engin Mıntıka",
+	"Talent.VastDomain.Desc": "Efsanevi balıklar daha geniş bir alan içerisinde yakalanabilir.",
+
+	"Talent.OneFishTwoFish.Name": "Bir Balık, İki Balık",
+	"Talent.OneFishTwoFish.Desc": "Meydan Okuma Yemi tek seferde 4 balık yakalamak için kullanılabilir.",
+
+	"Talent.TakeABreak.Name": "Bir Mola Ver",
+	"Talent.TakeABreak.Desc": "Balık tutarken, hazine sandığını toplarken balık kaçmaz.",
+
+	"Talent.BubbleTrouble.Name": "Baloncuk Belası",
+	"Talent.BubbleTrouble.Desc": "Baloncuklar karaya 4 kareden daha uzak olmayacak.",
+
+	//Combat
+	"Talent.Slimeshot.Name": "Balçıkatışı",
+	"Talent.Slimeshot.Desc": "Balçık, sapan mühimmatı olarak kullanılabilir. Eğer bir canavar balçıkla vurulursa, hızı azalır.",
+
+	"Talent.TripleShot.Name": "Üçlü Atış",
+	"Talent.TripleShot.Desc": "Sapanlara tek seferde üç atış yapabilen özel bir saldırı verir.",
+
+	"Talent.Bullseye.Name": "Tam İsabet",
+	"Talent.Bullseye.Desc": "Sapanlar kritik hasar verebilir.",
+
+	"Talent.DazzlingStrike.Name": "Göz Kamaştıran Darbe",
+	"Talent.DazzlingStrike.Desc": "Mücevherler sapan mühimmatı olarak kullanılabilir. Yüksek ihtimalle mücevherler yok olmaz.",
+
+	"Talent.Enchanting.Name": "Efsunlama",
+	"Talent.Enchanting.Desc": "Sapanlar Oto-Ateş, Seri, Yarasa Katili ve İdareli isminde özel efsunlamalar kazanır.",
+
+	"Talent.Accessorise.Name": "Süslü Püslü",
+	"Talent.Accessorise.Desc": "Aksesuarlar yüzüklere çevrilebilir.",
+
+	"Talent.Consolidation.Name": "Güçlendirme",
+	"Talent.Consolidation.Desc": "Aynı türdeki yüzükler dökümhanede bir araya getirilebilir.",
+
+	"Talent.HiddenBenefits.Name": "Gizli Faydalar",
+	"Talent.HiddenBenefits.Desc": "Bütün vanilla aksesuarlar ikinci bir amaç kazanır.",
+
+	"Talent.RendingStrike.Name": "Deviren Darbe",
+	"Talent.RendingStrike.Desc": "Bir canavarı 4 defa art arda vurmak, o canavarın saldırı gücünü azaltır.",
+
+	"Talent.DebiliatingStab.Name": "Yırtıcı Hançer",
+	"Talent.DebiliatingStab.Desc": "Bir canavarı hançerlemek hızını azaltır.",
+
+	"Talent.SeveringSwipe.Name": "Sert Savuruş",
+	"Talent.SeveringSwipe.Desc": "Bir canavara kılıçla vurmak hasarını azaltır.",
+
+	"Talent.ConcussiveImpact.Name": "Sarsıcı Vuruş",
+	"Talent.ConcussiveImpact.Desc": "Bir canavara sopayla vurmak, saldırıdan sonraki 3 saniye boyunca fazladan hasar almasına neden olur.",
+
+	"Talent.Aftershock.Name": "Şok Etkisi",
+	"Talent.Aftershock.Desc": "Sopa saldırıları ikinci bir hasar verir.\nİkinci darbe daha az hasar verir.",
+
+	"Talent.Champion.Name": "Şampiyon",
+	"Talent.Champion.Desc": "Bir canavara kılıçla vurduktan sonra, 6 saniyeliğine +2 Savunma verir.",
+
+	"Talent.Flurry.Name": "Aceleci",
+	"Talent.Flurry.Desc": "Aynı hedefe karşı art arda hançer vuruşları fazladan yarım hasar verir ve 5 defaya kadar katlanır.",
+
+	"Talent.Ferocity.Name": "Gaddar",
+	"Talent.Ferocity.Desc": "Kritik vuruşlar kısa bir %10 kritik hasar güçlendirmesi verir.",
+
+	"Talent.Starburst.Name": "Yıldız Patlaması",
+	"Talent.Starburst.Desc": "Yıldız Patlaması isminde yeni bir yakın silah efsunu ekler ve sallandığında toplar atar.",
+
+	"Talent.Grit.Name": "Cesaret",
+	"Talent.Grit.Desc": "Hasar aldıktan sonraki hasar almazlık süresini uzatır.",
+
+	"Talent.Sidestep.Name": "Yana Kaçma",
+	"Talent.Sidestep.Desc": "Düşman saldırılarından kaçma ihtimali vardır.",
+
+	"Talent.Slippery.Name": "Kaygan",
+	"Talent.Slippery.Desc": "Balçıklanmış debuff'ını +1 Hız buff'ına çevirir.",
+
+	"Talent.Fortified.Name": "Korumalı",
+	"Talent.Fortified.Desc": "Girildiğinde mevcut konumdaki her canavar için, +8'e kadar +1 Savunma kazan.",
+
+	"Talent.FullKnowledge.Name": "Tam Bilgi",
+	"Talent.FullKnowledge.Desc": "Çiftlikte öldürülen canavarlar için tam deneyim verir.",
+
+	"Talent.MonsterSpecialist.Name": "Canavar Uzmanı",
+	"Talent.MonsterSpecialist.Desc": "Önceden belirlenmiş dört canavar grubundan birini seç ve onlara falzadan hasar ver.",
+	"Talent.Branch.Ground.Name": "Yerde",
+	"Talent.Branch.Ground.Desc": "Balçıkçalar, larvalar, toz parçacıkları, duggies, lava lurks ve örümceklere daha fazla hasar ver.",
+	"Talent.Branch.Humanoid.Name": "İnsansı",
+	"Talent.Branch.Humanoid.Desc": "Golemlere, iskeletlere, mumyalara ve gölgeliklere daha fazla hasar ver.",
+	"Talent.Branch.Flying.Name": "Uçan",
+	"Talent.Branch.Flying.Desc": "Yarasalar, hayaletler, yılanlar, magma parçaları, mavi mürekkepbalıkları, mürekkep çocuklar ve uçan böceklere daha fazla hasar ver.",
+	"Talent.Branch.Armoured.Name": "Zırhlı",
+	"Talent.Branch.Armoured.Desc": "Nöbetçi cücelere, delifişeklere, metal kafalara ve taş yengeçlerinde daha fazla hasar ver.",
+
+	"Talent.SugarRush.Name": "Şeker Çılgınlığı",
+	"Talent.SugarRush.Desc": "Şekerle pişirilmiş yemekler 'Mide Bulantısı' debuff'ını giderir.\nEğer Hayati Pişirme de varsa, onun tarifleri de debuff'ı kaldıracak.",
+
+	"Talent.Meditation.Name": "Meditasyon",
+	"Talent.Meditation.Desc": "Sabit dururken pasif olarak can yeniler.",
+
+	"Talent.LostAndFound.Name": "Kayıp ve Bulunmuş",
+	"Talent.LostAndFound.Desc": "Müzede kayıp kitapları okumak güçlendirme verir.",
+
+	"Talent.BookclubBargains.Name": "Kitap Kulübü İskontosu",
+	"Talent.BookclubBargains.Desc": "Kitapçı'daki fiyatları düşürür.",
+
+	"Talent.CycleOfKnowledge.Name": "Bilgi Döngüsü",
+	"Talent.CycleOfKnowledge.Desc": "Gereksiz kitaplar geri dönüştürülebilir.",
+
+	"Talent.NarrowEscape.Name": "Ucuz Kurtuluş",
+	"Talent.NarrowEscape.Desc": "Ölümde kaybedilen altın miktarını azaltır.",
+
+	"Talent.TrashedTreasure.Name": "Çöpte Define",
+	"Talent.TrashedTreasure.Desc": "Çöp tenekelerinde daha fazla değerli nesne çıkar.",
+
+	"Talent.ButterflyEffect.Name": "Kelebek Etkisi",
+	"Talent.ButterflyEffect.Desc": "Kötü şans günlerinde, uzak yerlerde bir boşluk kelebeği belirir (lağım, bataklık, gizli koru vb.) ve bulunduğunda +10 şans güçlendirmesi verir.",
+
+	"Talent.Admiration.Name": "Hayranlık",
+	"Talent.Admiration.Desc": "Arkadaşlık kaybı yarıya iner.",
+
+	"Talent.InsiderInfo.Name": "İçeriden İstihbarat",
+	"Talent.InsiderInfo.Desc": "Kasabalı ile arkadaşlık, belirli alakalı nesnelerin satış fiyatını arttırır.",
+
+	"Talent.GiftOfFriendship.Name": "Dostluk Hediyesi",
+	"Talent.GiftOfFriendship.Desc": "8 kalp veya daha yüksek kasabalılar sevilen hediyeler verebilirler.",
+
+	"Talent.MatesRates.Name": "Tanıdık İndirimi",
+	"Talent.MatesRates.Desc": "Dükkan sahipleriyle arkadaşlık, fiyatlarını düşürür.",
+
+	"Talent.MonumentalDiscount.Name": "Dev Kampanya",
+	"Talent.MonumentalDiscount.Desc": "Dikilitaşlar daha ucuza inşa edilebilir.",
+
+	"Talent.CraftSupplies.Name": "Üretilmiş Malzemeler",
+	"Talent.CraftSupplies.Desc": "Beceri seviyelerinden elde edilen yeni oluşturulabilir nesneler açıldıktan sonra dükkanlarda satılır.",
+
+	"Talent.HauteCuisine.Name": "Nitelikli Mutfak",
+	"Talent.HauteCuisine.Desc": "Pişirilmiş yemeklerin satış fiyatlarını artırır.",
+
+	"Talent.MiniFridgeBigSpace.Name": "Mini Buzdolabı, Büyük Alan",
+	"Talent.MiniFridgeBigSpace.Desc": "Mini buzdolapları için envanter alanını artırır.",
+
+	"Talent.GoodEats.Name": "Güzel Yemekler",
+	"Talent.GoodEats.Desc": "Eğer farklı türlerde buff'lar verirlerse, yiyecek ve içecek buff'larının birikmesine izin verir.",
+
+	"Talent.GiftOfTheTalented.Name": "Hamarat'ın Armağanı",
+	"Talent.GiftOfTheTalented.Desc": "Bir Yıldızkaydı verir.",
+
+	//Messages
+	"Message.FairyBreak": "Periye biraz zaman ver!",
+	"Message.AlreadyFertilized": "Ekin zaten gübrelenmiş.",
+	"Message.Fertilized": "Ekin gübrelendi.",
+	"Message.TalentPoint": "Tebrikler, yeni maharet puanların var!",
+	"Message.ReadDwarfScroll": "Eski cüce parşömeninden madencilikle ilgili birkaç şey öğrendin.",
+	"Message.ForageBubbleReset": "Baloncuk oluşturan toplama yenilendi.",
+	"Message.RabbitBirth": "Yeni bir bebek tavşan doğdu!",
+	"Message.StoneBroken": "Bugün {{Stones}} taş kırdın. Saldırın ve savunman {{Buff}} arttı.",
+	"Message.MasteryCave": "Ancak beş yolun tamamında 20. seviyeye gelmiş büyük bir usta içeri girebilir. ({0}/5)",
+	"Message.ParrotPerch": "Bu sadece hayvan binalarına yerleştirilebilir!",
+	"Message.MossyFertilizer": "Bu ağaçta zaten Yosunlu Gübre var!",
+	"Message.TotemFailed": "Totem, toplama çağırmak için uygun bir yer bulamadı.",
+
+	//Buffs
+	"Buff.Slippery.Name": "Kaygan",
+	"Buff.Slippery.Desc": "Cildindeki balçık iğrenç geliyor... ama etrafta kaymak da kolaylaştı.",
+	"Buff.Ferocity.Name": "Gaddar",
+	"Buff.Ferocity.Desc": "Acımasız darbelerin fazladan kritik hasar veriyor!",
+	"Buff.Fortified.Name": "Korumalı",
+	"Buff.Fortified.Desc": "Etraftaki canavarlar için tetiktesin.",
+	"Buff.Champion.Name": "Şampiyon",
+	"Buff.Champion.Desc": "Karşı saldırı için hazırsın.",
+	"Buff.SpeedOfDarkness.Name": "Karanlığın Sürati",
+	"Buff.SpeedOfDarkness.Desc": "Koş! Yatağına yetiş!",
+
+	//Config
+	"GMCM.ColorBlindnessChanges.Name": "Renk Körlüğü Değişimleri",
+	"GMCM.ColorBlindnessChanges.Desc": "VPP ve vanilla beceri barlarını çizgili versiyonlarla değiştirir.",
+	"GMCM.MasteryCaveChanges.Name": "Ustalık Mağarası Değişimleri",
+	"GMCM.MasteryCaveChanges.Desc": "Ustalık Mağarası'nı bütün becerilerde seviye 10 yerine 20'ye gelindiğinde açılacak şekilde değiştirir.",
+	"GMCM.ProfessionsOnly.Name": "Sadece Uzmanlıklar",
+	"GMCM.ProfessionsOnly.Desc": "VPP'yi sadece uzmanlıkları oyuna ekleyecek şekilde değiştirir, maharet sistemine dair her şeyi kapatır. Değiştirildiğinde etkiye girmesi için yeniden başlatma gerekir.",
+	"GMCM.TalentHintLevel.Name": "Maharet İpucu Seviyesi",
+	"GMCM.TalentHintLevel.Desc": "Açılmamış maharetlerin ipuçlarının ne seviyede olacağını ayarlar.\n'Gizli' açtığın ve aldığın maharetler dışındaki hepsini gizler\n'Kısmen' sadece öncesidekini açmadığın maharetleri gizler\n'Tam' her mahareti gösterir.",
+	"GMCM.TalentHintLevel.Options.Hidden": "Gizli",
+	"GMCM.TalentHintLevel.Options.Partial": "Kısmen",
+	"GMCM.TalentHintLevel.Options.Full": "Tam",
+	"GMCM.DeveloperOrTestingMode.Name": "Geliştirici Modu",
+	"GMCM.DeveloperOrTestingMode.Desc": "Birçok kullanıcı tarafından bu seçenek kapalı tutulmalıdır. Sadece ne yaptığını biliyorsanız bunu açın.",
+
+	//Items
+	"Item.Xray.GeodeDrop": "(X-ray Jeot Ürünü: {{dropName}})",
+
+	//Extra Info
+	"ExtraInfo.MinecartRepository": "Artık Robin'in dükkanından Maden Deposu inşa edebilirsin.",
+	"ExtraInfo.MineralCavern": "Artık Robin'in dükkanından Mineral Mağarası inşa edebilirsin."
+}

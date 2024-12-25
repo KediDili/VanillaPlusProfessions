@@ -11,7 +11,7 @@ namespace VanillaPlusProfessions.Compatibility
         public bool UpdateContext() => true;
         public IEnumerable<string> GetValues(string input)
         {
-            if (ContentEditor.ContentPaths.TryGetValue(input, out string output) && !string.IsNullOrEmpty(output))
+            if (ContentEditor.ContentPaths.TryGetValue(input, out string output) && !string.IsNullOrEmpty(output.Trim()))
             {
                 yield return output;
                 yield break;

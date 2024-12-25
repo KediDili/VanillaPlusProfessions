@@ -379,8 +379,8 @@
 	"Talent.Roe-mance.Name": "Roe-mance",
 	"Talent.Roe-mance.Desc": "Roe, Aged Roe, and Caviar worth more.",
 
-	"Talent.BigFishSmallPond.Name": "Big Fish, Small Pond",
-	"Talent.BigFishSmallPond.Desc": "Allows legendary fish to be added to fish ponds.\nThey cannot increase in number.",
+	"Talent.BigFishSmallPond.Name": "Legendary Variety",
+	"Talent.BigFishSmallPond.Desc": "Allows legendary fish to yield additional produce other than roe.",
 
 	"Talent.SpawningSeason.Name": "Spawning Season",
 	"Talent.SpawningSeason.Desc": "Chance for roe yield in\nfish ponds is increased.",
@@ -572,7 +572,7 @@
 	"Talent.MiniFridgeBigSpace.Desc": "Increase storage space for mini-fridges.",
 
 	"Talent.GoodEats.Name": "Good Eats",
-	"Talent.GoodEats.Desc": "Allows for two food buffs and two drink buffs simultaneously.",
+	"Talent.GoodEats.Desc": "Allows food and drink buffs to stack if they give different kinds of buffs.",
 
 	"Talent.GiftOfTheTalented.Name": "Gift of the Talented",
 	"Talent.GiftOfTheTalented.Desc": "Gives the gift of a stardrop.",
@@ -587,6 +587,9 @@
 	"Message.RabbitBirth": "A new baby rabbit has been born!",
 	"Message.StoneBroken": "You've broke {{Stones}} stones today. Your attack and defense are increased by {{Buff}}.",
 	"Message.MasteryCave": "Only a grand master who has reached level 20 in all of the five ways may enter. ({0}/5)",
+	"Message.ParrotPerch": "This can be placed only to animal buildings!",
+	"Message.MossyFertilizer": "This tree already has Mossy Fertilizer!",
+	"Message.TotemFailed": "The wild totem found no place suitable for forage spawning.",
 
 	//Buffs
 	"Buff.Slippery.Name": "Slippery",
@@ -605,6 +608,8 @@
 	"GMCM.ColorBlindnessChanges.Desc": "Retextures VPP and vanilla skill bar icons into striped versions.",
 	"GMCM.MasteryCaveChanges.Name": "Mastery Cave Changes",
 	"GMCM.MasteryCaveChanges.Desc": "Changes Mastery Cave to be unlocked when you level up skills to levels 20 instead of 10.",
+	"GMCM.ProfessionsOnly.Name": "Professions Only",
+	"GMCM.ProfessionsOnly.Desc": "Changes VPP to only apply changes to your game for VPP's professions, this deactives everything related to talent system. Changes require a restart to take effect.",
 	"GMCM.TalentHintLevel.Name": "Talent Hint Level",
 	"GMCM.TalentHintLevel.Desc": "Configures how many talent hints will talent menu give about its unobtained talents.\n'Hidden' hides all talents except ones you bought and unlocked\n'Partial' only hides talents that you haven't unlocked the one before them\n'Full' just shows every talent.",
 	"GMCM.TalentHintLevel.Options.Hidden": "Hidden",
@@ -614,5 +619,9 @@
 	"GMCM.DeveloperOrTestingMode.Desc": "This option should be kept turned off by most users. Enable only if you know what this option does.",
 
 	//Items
-	"Item.Xray.GeodeDrop": "(X-ray Geode Drop: {{dropName}})"
+	"Item.Xray.GeodeDrop": "(X-ray Geode Drop: {{dropName}})",
+
+	//Extra Info
+	"ExtraInfo.MinecartRepository": "You can build a Minecart Repository from Robin's shop now.",
+	"ExtraInfo.MineralCavern": "You can build Mineral Caverns from Robin's shop."
 }

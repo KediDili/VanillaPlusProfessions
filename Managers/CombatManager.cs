@@ -29,7 +29,7 @@ namespace VanillaPlusProfessions.Managers
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(Grub), nameof(Grub.takeDamage), new Type[] { typeof(int), typeof(int), typeof(int), typeof(bool), typeof(double), typeof(Farmer) }),
-                    postfix: new HarmonyMethod(typeof(CombatManager), nameof(CombatManager.takeDamage_Postfix_Grub))
+                    postfix: new HarmonyMethod(typeof(CombatManager), nameof(takeDamage_Postfix_Grub))
                 );
             }
             catch (Exception e)
@@ -40,7 +40,7 @@ namespace VanillaPlusProfessions.Managers
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(Bug), nameof(Bug.takeDamage), new Type[] { typeof(int), typeof(int), typeof(int), typeof(bool), typeof(double), typeof(Farmer) }),
-                    postfix: new HarmonyMethod(typeof(CombatManager), nameof(CombatManager.takeDamage_Postfix_Bug))
+                    postfix: new HarmonyMethod(typeof(CombatManager), nameof(takeDamage_Postfix_Bug))
                 );
             }
             catch (Exception e)
@@ -51,7 +51,7 @@ namespace VanillaPlusProfessions.Managers
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(Mummy), nameof(Mummy.takeDamage), new Type[] { typeof(int), typeof(int), typeof(int), typeof(bool), typeof(double), typeof(Farmer) }),
-                    postfix: new HarmonyMethod(typeof(CombatManager), nameof(CombatManager.takeDamage_Postfix_Bug))
+                    postfix: new HarmonyMethod(typeof(CombatManager), nameof(takeDamage_Postfix_Bug))
                 );
             }
             catch (Exception e)
@@ -62,29 +62,29 @@ namespace VanillaPlusProfessions.Managers
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(Bug), nameof(Bug.takeDamage), new Type[] { typeof(int), typeof(int), typeof(int), typeof(bool), typeof(double), typeof(Farmer) }),
-                    postfix: new HarmonyMethod(typeof(CombatManager), nameof(CombatManager.takeDamage_Postfix_Bug))
+                    postfix: new HarmonyMethod(typeof(CombatManager), nameof(takeDamage_Postfix_Bug))
                 );
             }
             catch (Exception e)
             {
-                CoreUtility.PrintError(e, nameof(CombatManager), nameof(Bug.takeDamage), "postfixing");
+                CoreUtility.PrintError(e, nameof(CombatManager), "Bug.takeDamage", "postfixing");
             }
             try
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(RockCrab), nameof(RockCrab.takeDamage), new Type[] { typeof(int), typeof(int), typeof(int), typeof(bool), typeof(double), typeof(Farmer) }),
-                    postfix: new HarmonyMethod(typeof(CombatManager), nameof(CombatManager.takeDamage_Postfix_RockCrab))
+                    postfix: new HarmonyMethod(typeof(CombatManager), nameof(takeDamage_Postfix_RockCrab))
                 );
             }
             catch (Exception e)
             {
-                CoreUtility.PrintError(e, nameof(CombatManager), nameof(RockCrab.takeDamage), "postfixing");
+                CoreUtility.PrintError(e, nameof(CombatManager), "RockCrab.takeDamage", "postfixing");
             }
             try
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method("StardewValley.Tools.MeleeWeapon:doAnimateSpecialMove"),
-                    postfix: new HarmonyMethod(typeof(CombatManager), nameof(CombatManager.doAnimateSpecialMove_Postfix))
+                    postfix: new HarmonyMethod(typeof(CombatManager), nameof(doAnimateSpecialMove_Postfix))
                 );
             }
             catch (Exception e)
@@ -95,7 +95,7 @@ namespace VanillaPlusProfessions.Managers
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(Farmer), nameof(Farmer.CanBeDamaged)),
-                    prefix: new HarmonyMethod(typeof(CombatManager), nameof(CombatManager.CanBeDamaged_Postfix))
+                    prefix: new HarmonyMethod(typeof(CombatManager), nameof(CanBeDamaged_Postfix))
                 );
             }
             catch (Exception e)
@@ -106,12 +106,12 @@ namespace VanillaPlusProfessions.Managers
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(GameLocation), nameof(GameLocation.damageMonster), new Type[] { typeof(Rectangle), typeof(int), typeof(int), typeof(bool), typeof(float), typeof(int), typeof(float), typeof(float), typeof(bool), typeof(Farmer), typeof(bool) }),
-                    transpiler: new HarmonyMethod(typeof(CombatManager), nameof(CombatManager.Transpiler))
+                    transpiler: new HarmonyMethod(typeof(CombatManager), nameof(Transpiler))
                 );
             }
             catch (Exception e)
             {
-                CoreUtility.PrintError(e, nameof(CombatManager), nameof(GameLocation.damageMonster), "transpiling");
+                CoreUtility.PrintError(e, nameof(CombatManager), "GameLocation.damageMonster", "transpiling");
             }
         }
 
@@ -120,7 +120,7 @@ namespace VanillaPlusProfessions.Managers
         
         public static void takeDamage_Postfix_Mummy(Mummy __instance, int damage, int xTrajectory, int yTrajectory, bool isBomb, double addedPrecision, Farmer who, ref int __result)
         {
-            if (CoreUtility.CurrentPlayerHasProfession(62, useThisInstead: who))
+            if (CoreUtility.CurrentPlayerHasProfession("Warrior", useThisInstead: who))
             {
                 int actualDamage = Math.Max(1, damage - __instance.resilience.Value);
                 if (Game1.random.NextDouble() < __instance.missChance.Value - __instance.missChance.Value * addedPrecision)
@@ -161,7 +161,7 @@ namespace VanillaPlusProfessions.Managers
 
         public static void takeDamage_Postfix_Bug(Bug __instance, int damage, int xTrajectory, int yTrajectory, double addedPrecision, Farmer who, ref int __result)
         {
-            if (__instance.isArmoredBug.Value && CoreUtility.CurrentPlayerHasProfession(62, useThisInstead: who))
+            if (__instance.isArmoredBug.Value && CoreUtility.CurrentPlayerHasProfession("Warrior", useThisInstead: who))
             {
                 int actualDamage = Math.Max(1, damage - __instance.resilience.Value);
                 if (Game1.random.NextDouble() < __instance.missChance.Value - __instance.missChance.Value * addedPrecision)
@@ -190,7 +190,7 @@ namespace VanillaPlusProfessions.Managers
 
         public static void takeDamage_Postfix_Grub(Grub __instance, NetBool ___pupating, int damage, int xTrajectory, int yTrajectory, ref int __result)
         {
-            if (___pupating.Value && CoreUtility.CurrentPlayerHasProfession(62))
+            if (___pupating.Value && CoreUtility.CurrentPlayerHasProfession("Warrior"))
             {
                 int actualDamage = Math.Max(1, damage - __instance.resilience.Value);
                 __instance.Health -= actualDamage;
@@ -210,7 +210,7 @@ namespace VanillaPlusProfessions.Managers
         }
         public static void takeDamage_Postfix_RockCrab(RockCrab __instance, NetBool ___shellGone, int damage, int xTrajectory, int yTrajectory, ref int __result)
         {
-            if (!___shellGone.Value && __instance.Sprite.currentFrame % 4 == 0 && CoreUtility.CurrentPlayerHasProfession(62))
+            if (!___shellGone.Value && __instance.Sprite.currentFrame % 4 == 0 && CoreUtility.CurrentPlayerHasProfession("Warrior"))
             {
                 int actualDamage = Math.Max(1, damage - __instance.resilience.Value);
                 __instance.Health -= actualDamage;
@@ -233,7 +233,7 @@ namespace VanillaPlusProfessions.Managers
         }
         public static void CanBeDamaged_Postfix(Farmer __instance, ref bool __result)
         {
-            if (CoreUtility.CurrentPlayerHasProfession(66, useThisInstead: __instance) && (MeleeWeapon.defenseCooldown > 0 || MeleeWeapon.daggerCooldown > 0 || MeleeWeapon.clubCooldown > 0 || MeleeWeapon.attackSwordCooldown > 0))
+            if (CoreUtility.CurrentPlayerHasProfession("Technician", useThisInstead: __instance) && ((MeleeWeapon.defenseCooldown > 0 && MeleeWeapon.defenseCooldown < 4000) || (MeleeWeapon.daggerCooldown > 0 && MeleeWeapon.daggerCooldown < 4000) || (MeleeWeapon.clubCooldown > 0 && MeleeWeapon.clubCooldown < 4000) || (MeleeWeapon.attackSwordCooldown < 4000 && MeleeWeapon.attackSwordCooldown > 0)))
             {
                 TalentUtility.MakeFarmerInvincible(__instance);
                 __result = false;
@@ -246,7 +246,7 @@ namespace VanillaPlusProfessions.Managers
         }
         public static void doAnimateSpecialMove_Postfix()
         {
-            if (OnCrit && CoreUtility.CurrentPlayerHasProfession(69))
+            if (OnCrit && CoreUtility.CurrentPlayerHasProfession("Assailant"))
             {
                 MeleeWeapon.clubCooldown = 0;
                 MeleeWeapon.daggerCooldown = 0;
@@ -255,7 +255,7 @@ namespace VanillaPlusProfessions.Managers
                 Game1.playSound("objectiveComplete");
                 OnCrit = false;
             }
-            if (CoreUtility.CurrentPlayerHasProfession(67))
+            if (CoreUtility.CurrentPlayerHasProfession("Speedster"))
             {
                 MeleeWeapon.clubCooldown /= 2;
                 MeleeWeapon.daggerCooldown /= 2;
@@ -281,7 +281,7 @@ namespace VanillaPlusProfessions.Managers
                     list.Insert(index + 4, new(OpCodes.Ldloc_S, 4));
                     list.Insert(index + 5, new(OpCodes.Ldarg, 10));
                     list.Insert(index + 6, new(OpCodes.Ldloc_2));
-                    list.Insert(index + 7, new(OpCodes.Call, AccessTools.Method(typeof(CombatManager), nameof(CombatManager.TryOverrideVanillaDamage))));
+                    list.Insert(index + 7, new(OpCodes.Call, AccessTools.Method(typeof(CombatManager), nameof(TryOverrideVanillaDamage))));
                     list.Insert(index + 8, new(OpCodes.Stloc_S, 9));
                     break;
                 }
@@ -431,7 +431,7 @@ namespace VanillaPlusProfessions.Managers
 
             foreach (var trinketRing in TalentUtility.GetAllTrinketRings(who))
             {
-                trinketRing.Trinket.OnDamageMonster(who, monster, result);
+                trinketRing.Trinket.OnDamageMonster(who, monster, result, false, OnCrit);
             }
 
             return result;
@@ -439,7 +439,7 @@ namespace VanillaPlusProfessions.Managers
 
         public static bool TryOverrideVanillaCritChance(Farmer who, float critChance, Monster monster)
         {
-            if (CoreUtility.CurrentPlayerHasProfession(68, useThisInstead:who))
+            if (CoreUtility.CurrentPlayerHasProfession("Assassin", useThisInstead:who))
             {
                 if (monster is MetalHead or HotHead or DwarvishSentry or RockCrab)
                 {

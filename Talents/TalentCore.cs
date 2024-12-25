@@ -10,7 +10,6 @@ using StardewValley.SpecialOrders;
 using StardewValley.TerrainFeatures;
 using StardewValley.Tools;
 using VanillaPlusProfessions.Talents.Patchers;
-using VanillaPlusProfessions.Talents.UI;
 using System;
 using StardewValley.Events;
 using StardewValley.Extensions;
@@ -21,10 +20,12 @@ using StardewValley.Menus;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley.Locations;
 using SpaceCore;
+using StardewValley.GameData.Objects;
+using VanillaPlusProfessions.Craftables;
 
 namespace VanillaPlusProfessions.Talents
 {
-    internal class TalentCore
+    public class TalentCore
     {
         internal static readonly PerScreen<int> TalentPointCount = new(createNewState: () => 0);
         internal static readonly PerScreen<bool> HasWaterCan = new();
@@ -63,6 +64,7 @@ namespace VanillaPlusProfessions.Talents
         internal const string ContextTag_SurvivalCooking = "kedi_vpp_survival_cooking_food";
         internal const string ContextTag_Matryoshka_Banned_FromDropping = "kedi_vpp_banned_from_dropping";
         internal const string ContextTag_Matryoshka_Banned_FromBeingDropped = "kedi_vpp_banned_from_being_dropped";
+        internal const string ContextTag_Banned_Node = "kedi_vpp_banned_node";
 
         internal static Dictionary<string, Talent> Talents = new();
         internal static Dictionary<string, Skills.Skill> SkillsByName = new();
@@ -72,28 +74,36 @@ namespace VanillaPlusProfessions.Talents
             HasWaterCan.Value = false;
             ModEntry.Helper.Events.GameLoop.SaveLoaded += OnSaveLoaded;
             ModEntry.Helper.Events.GameLoop.ReturnedToTitle += OnReturnedToTitle;
-            ModEntry.Helper.Events.GameLoop.TimeChanged += OnTimeChanged;
-            ModEntry.Helper.Events.Player.InventoryChanged += OnInventoryChanged;
-            ModEntry.Helper.Events.World.NpcListChanged += OnNPCListChanged;
-            ModEntry.Helper.Events.World.TerrainFeatureListChanged += OnTerrainFeatureListChanged;
             ModEntry.Helper.Events.GameLoop.SaveCreated += OnSaveCreated;
 
-            List<Talent> Talentlist = ModEntry.Helper.ModContent.Load<List<Talent>>("assets\\talents.json");
-
-            for (int i = 0; i < Talentlist.Count; i++)
+            if (!ModEntry.ModConfig.Value.ProfessionsOnly)
             {
-                Talents.Add(Talentlist[i].Name, Talentlist[i]);
-            }
-           
-            SpaceEvents.AfterGiftGiven += OnAfterGiftGiven;
-            SpaceEvents.ChooseNightlyFarmEvent += OnChooseNightlyFarmEvent;
+                ModEntry.Helper.Events.GameLoop.TimeChanged += OnTimeChanged;
+                ModEntry.Helper.Events.Player.InventoryChanged += OnInventoryChanged;
+                ModEntry.Helper.Events.World.NpcListChanged += OnNPCListChanged;
+                ModEntry.Helper.Events.World.TerrainFeatureListChanged += OnTerrainFeatureListChanged;
 
-            FarmingPatcher.ApplyPatches();
-            MiningPatcher.ApplyPatches();
-            ForagingPatcher.ApplyPatches();
-            CombatPatcher.ApplyPatches();
-            FishingPatcher.ApplyPatches();
-            MiscPatcher.ApplyPatches();
+                List<Talent> Talentlist = ModEntry.Helper.ModContent.Load<List<Talent>>("assets\\talents.json");
+
+                for (int i = 0; i < Talentlist.Count; i++)
+                {
+                    Talents.Add(Talentlist[i].Name, Talentlist[i]);
+                }
+
+                SpaceEvents.AfterGiftGiven += OnAfterGiftGiven;
+                SpaceEvents.ChooseNightlyFarmEvent += OnChooseNightlyFarmEvent;
+
+                FarmingPatcher.ApplyPatches();
+                MiningPatcher.ApplyPatches();
+                ForagingPatcher.ApplyPatches();
+                CombatPatcher.ApplyPatches();
+                FishingPatcher.ApplyPatches();
+                MiscPatcher.ApplyPatches();
+            }
+            else
+            {
+                ModEntry.ModMonitor.LogOnce("Talent system is disabled, and only VPP professions will work. If you didn't intend this, turn the ProfessionsOnly config off.", LogLevel.Info);
+            }
         }
 
         internal static void OnSaveCreated(object sender, SaveCreatedEventArgs e)
@@ -179,6 +189,7 @@ namespace VanillaPlusProfessions.Talents
         }
         internal static void OnTimeChanged(object sender, TimeChangedEventArgs e)
         {
+            MachineryEventHandler.OnTimeChanged(e);
             if (TalentUtility.AllPlayersHaveTalent("Mining_Speed_Of_Darkness"))
             {
                 if (e.NewTime is 2400 && e.OldTime is 2350)
@@ -204,7 +215,7 @@ namespace VanillaPlusProfessions.Talents
             {
                 foreach (var item in Game1.player.Items)
                 {
-                    if (item is WateringCan can && can.modData.TryGetValue(Key_Resurgence, out string val) && can.getLastFarmerToUse() == Game1.player)
+                    if (item is WateringCan can && can.modData.TryGetValue(Key_Resurgence, out string val))
                     {
                         if (val != "90" && can.WaterLeft < can.waterCanMax)
                         {
@@ -329,6 +340,7 @@ namespace VanillaPlusProfessions.Talents
         }
         internal static void OnSaveLoaded(object sender, SaveLoadedEventArgs e)
         {
+            ModEntry.Helper.GameContent.InvalidateCache(PathUtilities.NormalizeAssetName("Strings/UI"));
             if (Game1.player.modData.TryGetValue(Key_TalentPoints, out string value))
             {
                 if (int.TryParse(value, out int result) && result >= 0)
@@ -344,9 +356,59 @@ namespace VanillaPlusProfessions.Talents
             {
                 SkillsByName = ModEntry.Helper.Reflection.GetField<Dictionary<string, Skills.Skill>>(typeof(Skills), "SkillsByName").GetValue();
             }
+            if (TalentUtility.CurrentPlayerHasTalent("Accessorise"))
+            {
+                foreach (var item in TalentUtility.GetAllTrinketRings(Game1.player))
+                {
+                    item.onEquip(Game1.player);
+                }
+            }
             Game1.player.achievements.OnValueAdded += OnAchievementAdded;
             Game1.player.team.specialOrders.OnElementChanged += OnSpecialOrderChanged;
             Game1.player.mailReceived.OnValueAdded += OnMailFlagGiven;
+            if (!ModEntry.Helper.ModRegistry.IsLoaded("spacechase0.LuckSkill"))
+            {
+                if (Game1.player.professions.Count > 0)
+                {
+                    List<int> copy = new();
+                    foreach (var item in Game1.player.professions)
+                    {
+                        copy.Add(item);
+                    }
+                    foreach (var item in copy)
+                    {
+                        if (item > 29 && item < 467800)
+                        {
+                            Game1.player.professions.Add(item + 467800);
+                            Game1.player.professions.Remove(item);
+                        }
+                    }
+                }
+            }
+            if (ModEntry.ItemExtensionsAPI.Value is not null)
+            {
+                var nodeList = from obj in DataLoader.Objects(Game1.content)
+                               where ModEntry.ItemExtensionsAPI.Value.IsStone(obj.Key) && !ModEntry.ItemExtensionsAPI.Value.IsClump(obj.Key)
+                               select obj;
+
+                foreach (var item in nodeList)
+                {
+                    if (ModEntry.ItemExtensionsAPI.Value.IsResource(item.Key, out int? _, out string itemDropped) && itemDropped is not null)
+                    {
+                        if (ItemRegistry.GetData(itemDropped).RawData is not ObjectData objectData || objectData?.ContextTags?.Contains(ContextTag_Banned_Node) is true)
+                            continue;
+
+                        if (objectData is ObjectData && objectData.Category == StardewValley.Object.GemCategory)
+                        {
+                            TalentUtility.ItemExtensions_GemNodeList.Add(item.Key);
+                        }
+                        else if (objectData.GeodeDrops is not null || objectData.GeodeDropsDefaultItems)
+                        {
+                            TalentUtility.ItemExtensions_GeodeNodeList.Add(item.Key);
+                        }
+                    }
+                }
+            }
         }
         internal static void OnMailFlagGiven(string flag)
         {
@@ -365,10 +427,10 @@ namespace VanillaPlusProfessions.Talents
             }
         }
 
-        internal static void AddTalentPoint(int increase = 1, bool postMessage = true)
+        public static void AddTalentPoint(int increase = 1, bool postMessage = true)
         {
             TalentPointCount.Value += increase;
-            if (postMessage)
+            if (postMessage && !ModEntry.ModConfig.Value.ProfessionsOnly)
                 Game1.showGlobalMessage(ModEntry.Helper.Translation.Get("Message.TalentPoint"));
         }
 

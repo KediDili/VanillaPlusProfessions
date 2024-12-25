@@ -19,7 +19,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(Utility), nameof(Utility.getTreasureFromGeode)),
-                    postfix: new HarmonyMethod(typeof(MiningPatcher), nameof(MiningPatcher.getTreasureFromGeode_Postfix))
+                    postfix: new HarmonyMethod(typeof(MiningPatcher), nameof(getTreasureFromGeode_Postfix))
                 );
             }
             catch (System.Exception e)
@@ -59,9 +59,12 @@ namespace VanillaPlusProfessions.Talents.Patchers
             IsExplosionForExplosivePersonality = true;
             if ((__instance.isForage() || __instance.bigCraftable.Value || __instance.QualifiedItemId is "(O)590" or "(O)SeedSpot") && TalentUtility.CurrentPlayerHasTalent("Mining_Detonation_Dampener", who: who))
             {
-                IsExploding = true;
-                __result = false;
-                return false;
+                if (__instance.QualifiedItemId is not "(BC)78")
+                {
+                    IsExploding = true;
+                    __result = false;
+                    return false;
+                }
             }
             IsExploding = false;
             return true;
@@ -91,14 +94,13 @@ namespace VanillaPlusProfessions.Talents.Patchers
                             {
                                 if (GameStateQuery.CheckConditions(data1.GeodeDrops[i].Condition) && Game1.random.NextBool(data1.GeodeDrops[i].Chance))
                                 {
-                                    ItemQueryContext context = new(Game1.player.currentLocation, Game1.player, Game1.random);
-                                    Item queryResults = ItemQueryResolver.TryResolveRandomItem(data1.GeodeDrops[i], new ItemQueryContext(Game1.player.currentLocation, Game1.player, Game1.random), avoidRepeat: false);
+                                    Item queryResults = ItemQueryResolver.TryResolveRandomItem(data1.GeodeDrops[i], new(Game1.player.currentLocation, Game1.player, Game1.random, "X-ray context"), avoidRepeat: false);
                                     if (queryResults is not null)
                                     {
                                         if (data1.GeodeDrops[i].SetFlagOnPickup != null)
                                             queryResults.SetFlagOnPickup = data1.GeodeDrops[i].SetFlagOnPickup;
                                         queryResults.Quality = __result.Quality;
-                                        queryResults.Stack = geode.Category == __result.Category ? __result.Stack : 1;
+                                        queryResults.Stack = 1;
                                         __result = queryResults ?? __result;
                                         break;
                                     }
@@ -129,7 +131,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
                             if ((!Game1.random.NextBool(dropx.Chance) || (dropx.Condition != null && !GameStateQuery.CheckConditions(dropx.Condition, Game1.player.currentLocation, Game1.player, null, null, Game1.random))))
                                 continue;
 
-                            Item item = ItemQueryResolver.TryResolveRandomItem(dropx, new ItemQueryContext(Game1.player.currentLocation, Game1.player, Game1.random), avoidRepeat: false);
+                            Item item = ItemQueryResolver.TryResolveRandomItem(dropx, new ItemQueryContext(Game1.player.currentLocation, Game1.player, Game1.random, "Museum Piece context"), avoidRepeat: false);
                             if (item is not null && (!LibraryMuseum.HasDonatedArtifact(item.ItemId) || Game1.random.NextBool(0.40)))
                             {
                                 if (dropx.SetFlagOnPickup != null)
@@ -137,7 +139,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
                                     item.SetFlagOnPickup = dropx.SetFlagOnPickup;
                                 }
                                 item.Quality = __result.Quality;
-                                item.Stack = geode.Category == __result.Category ? __result.Stack : 1;
+                                item.Stack = 1;
                                 __result = item;
                             }
                         }

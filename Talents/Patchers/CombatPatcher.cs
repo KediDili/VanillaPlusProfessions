@@ -13,12 +13,14 @@ using StardewValley.Tools;
 using VanillaPlusProfessions.Enchantments;
 using Microsoft.Xna.Framework;
 using StardewValley.Objects;
+using StardewValley.Objects.Trinkets;
 using StardewValley.Extensions;
 using StardewValley.Network;
 using Microsoft.Xna.Framework.Graphics;
 using System.Reflection.Emit;
 using VanillaPlusProfessions.Utilities;
 using StardewValley.Buffs;
+using VanillaPlusProfessions.Craftables;
 
 namespace VanillaPlusProfessions.Talents.Patchers
 {
@@ -30,220 +32,239 @@ namespace VanillaPlusProfessions.Talents.Patchers
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(BaseEnchantment), nameof(BaseEnchantment.GetAvailableEnchantments)),
-                    postfix: new HarmonyMethod(typeof(CombatPatcher), nameof(CombatPatcher.GetAvailableEnchantments_Postfix))
+                    postfix: new HarmonyMethod(typeof(CombatPatcher), nameof(GetAvailableEnchantments_Postfix))
                 );
             }
             catch (Exception e)
             {
-                CoreUtility.PrintError(e, nameof(CombatPatcher), nameof(BaseEnchantment.GetAvailableEnchantments), "postfixing");
+                CoreUtility.PrintError(e, nameof(CombatPatcher), "BaseEnchantment.GetAvailableEnchantments", "postfixing");
             }
             try
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(Slingshot), nameof(Slingshot.CanAutoFire)),
-                    postfix: new HarmonyMethod(typeof(CombatPatcher), nameof(CombatPatcher.CanAutoFire_Postfix))
+                    postfix: new HarmonyMethod(typeof(CombatPatcher), nameof(CanAutoFire_Postfix))
                 );
             }
             catch (Exception e)
             {
-                CoreUtility.PrintError(e, nameof(CombatPatcher), nameof(Slingshot.CanAutoFire), "postfixing");
+                CoreUtility.PrintError(e, nameof(CombatPatcher), "Slingshot.CanAutoFire", "postfixing");
             }
             try
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(Slingshot), nameof(Slingshot.PerformFire)),
-                    transpiler: new HarmonyMethod(typeof(CombatPatcher), nameof(CombatPatcher.Transpiler))
+                    transpiler: new HarmonyMethod(typeof(CombatPatcher), nameof(Transpiler))
                 );
             }
             catch (Exception e)
             {
-                CoreUtility.PrintError(e, nameof(CombatPatcher), nameof(Slingshot.PerformFire), "transpiling");
+                CoreUtility.PrintError(e, nameof(CombatPatcher), "Slingshot.PerformFire", "transpiling");
             }
             try
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(Slingshot), nameof(Slingshot.draw)),
-                    postfix: new HarmonyMethod(typeof(CombatPatcher), nameof(CombatPatcher.draw_Postfix))
+                    postfix: new HarmonyMethod(typeof(CombatPatcher), nameof(draw_Postfix))
                 );
             }
             catch (Exception e)
             {
-                CoreUtility.PrintError(e, nameof(CombatPatcher), nameof(Slingshot.draw), "postfixing");
+                CoreUtility.PrintError(e, nameof(CombatPatcher), "Slingshot.draw", "postfixing");
             }
             try
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(BasicProjectile), nameof(BasicProjectile.behaviorOnCollisionWithMonster)),
-                    postfix: new HarmonyMethod(typeof(CombatPatcher), nameof(CombatPatcher.behaviorOnCollisionWithMonster_Postfix))
+                    postfix: new HarmonyMethod(typeof(CombatPatcher), nameof(behaviorOnCollisionWithMonster_Postfix))
                 );
             }
             catch (Exception e)
             {
-                CoreUtility.PrintError(e, nameof(CombatPatcher), nameof(BasicProjectile.behaviorOnCollisionWithMonster), "postfixing");
+                CoreUtility.PrintError(e, nameof(CombatPatcher), "BasicProjectile.behaviorOnCollisionWithMonster", "postfixing");
             }
             try
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(BasicProjectile), nameof(BasicProjectile.behaviorOnCollisionWithOther)),
-                    postfix: new HarmonyMethod(typeof(CombatPatcher), nameof(CombatPatcher.behaviorOnCollisionWithOther_Postfix))
+                    postfix: new HarmonyMethod(typeof(CombatPatcher), nameof(behaviorOnCollisionWithOther_Postfix))
                 );
             }
             catch (Exception e)
             {
-                CoreUtility.PrintError(e, nameof(CombatPatcher), nameof(BasicProjectile.behaviorOnCollisionWithOther), "postfixing");
+                CoreUtility.PrintError(e, nameof(CombatPatcher), "BasicProjectile.behaviorOnCollisionWithOther", "postfixing");
             }
             try
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(BasicProjectile), nameof(BasicProjectile.behaviorOnCollisionWithPlayer)),
-                    postfix: new HarmonyMethod(typeof(CombatPatcher), nameof(CombatPatcher.behaviorOnCollisionWithOther_Postfix))
+                    postfix: new HarmonyMethod(typeof(CombatPatcher), nameof(behaviorOnCollisionWithOther_Postfix))
                 );
             }
             catch (Exception e)
             {
-                CoreUtility.PrintError(e, nameof(CombatPatcher), nameof(BasicProjectile.behaviorOnCollisionWithPlayer), "postfixing");
+                CoreUtility.PrintError(e, nameof(CombatPatcher), "BasicProjectile.behaviorOnCollisionWithPlayer", "postfixing");
             }
             try
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(BasicProjectile), nameof(BasicProjectile.behaviorOnCollisionWithTerrainFeature)),
-                    postfix: new HarmonyMethod(typeof(CombatPatcher), nameof(CombatPatcher.behaviorOnCollisionWithOther_Postfix))
+                    postfix: new HarmonyMethod(typeof(CombatPatcher), nameof(behaviorOnCollisionWithOther_Postfix))
                 );
             }
             catch (Exception e)
             {
-                CoreUtility.PrintError(e, nameof(CombatPatcher), nameof(BasicProjectile.behaviorOnCollisionWithTerrainFeature), "postfixing");
+                CoreUtility.PrintError(e, nameof(CombatPatcher), "BasicProjectile.behaviorOnCollisionWithTerrainFeature", "postfixing");
             }
             try
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(Ring), nameof(Ring.CanCombine)),
-                    postfix: new HarmonyMethod(typeof(CombatPatcher), nameof(CombatPatcher.CanCombine_Postfix))
+                    postfix: new HarmonyMethod(typeof(CombatPatcher), nameof(CanCombine_Postfix))
                 );
             }
             catch (Exception e)
             {
-                CoreUtility.PrintError(e, nameof(CombatPatcher), nameof(Ring.CanCombine), "postfixing");
+                CoreUtility.PrintError(e, nameof(CombatPatcher), "Ring.CanCombine", "postfixing");
             }
             try
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(GreenSlime), nameof(GreenSlime.onDealContactDamage)),
-                    postfix: new HarmonyMethod(typeof(CombatPatcher), nameof(CombatPatcher.onDealContactDamage_Postfix))
+                    postfix: new HarmonyMethod(typeof(CombatPatcher), nameof(onDealContactDamage_Postfix))
                 );
             }
             catch (Exception e)
             {
-                CoreUtility.PrintError(e, nameof(CombatPatcher), nameof(GreenSlime.onDealContactDamage), "postfixing");
+                CoreUtility.PrintError(e, nameof(CombatPatcher), "GreenSlime.onDealContactDamage", "postfixing");
             }
             try
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(Farmer), nameof(Farmer.gainExperience)),
-                    prefix: new HarmonyMethod(typeof(CombatPatcher), nameof(CombatPatcher.gainExperience_Prefix))
+                    prefix: new HarmonyMethod(typeof(CombatPatcher), nameof(gainExperience_Prefix))
                 );
             }
             catch (Exception e)
             {
-                CoreUtility.PrintError(e, nameof(CombatPatcher), nameof(Farmer.gainExperience), "postfixing");
+                CoreUtility.PrintError(e, nameof(CombatPatcher), "Farmer.gainExperience", "postfixing");
             }
             try
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(Stats), nameof(Stats.takeStep)),
-                    prefix: new HarmonyMethod(typeof(CombatPatcher), nameof(CombatPatcher.takeStep_Postfix))
+                    prefix: new HarmonyMethod(typeof(CombatPatcher), nameof(takeStep_Postfix))
                 );
             }
             catch (Exception e)
             {
-                CoreUtility.PrintError(e, nameof(CombatPatcher), nameof(Stats.takeStep), "postfixing");
+                CoreUtility.PrintError(e, nameof(CombatPatcher), "Stats.takeStep", "postfixing");
             }
             try
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(Boots), nameof(Boots.onEquip)),
-                    prefix: new HarmonyMethod(typeof(CombatPatcher), nameof(CombatPatcher.onEquip_Postfix))
+                    prefix: new HarmonyMethod(typeof(CombatPatcher), nameof(onEquip_Postfix))
                 );
             }
             catch (Exception e)
             {
-                CoreUtility.PrintError(e, nameof(CombatPatcher), nameof(Boots.onEquip), "postfixing");
+                CoreUtility.PrintError(e, nameof(CombatPatcher), "Boots.onEquip", "postfixing");
             }
             try
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(Boots), nameof(Boots.onUnequip)),
-                    prefix: new HarmonyMethod(typeof(CombatPatcher), nameof(CombatPatcher.onUnequip_Postfix))
+                    prefix: new HarmonyMethod(typeof(CombatPatcher), nameof(onUnequip_Postfix))
                 );
             }
             catch (Exception e)
             {
-                CoreUtility.PrintError(e, nameof(CombatPatcher), nameof(Boots.onUnequip), "postfixing");
+                CoreUtility.PrintError(e, nameof(CombatPatcher), "Boots.onUnequip", "postfixing");
             }
             try
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(GameLocation), nameof(GameLocation.damageMonster), new Type[] { typeof(Rectangle), typeof(int), typeof(int), typeof(bool), typeof(Farmer), typeof(bool) }),
-                    transpiler: new HarmonyMethod(typeof(CombatPatcher), nameof(CombatPatcher.damageMonster_Transpiler_2))
+                    transpiler: new HarmonyMethod(typeof(CombatPatcher), nameof(damageMonster_Transpiler_2))
                 );
             }
             catch (Exception e)
             {
-                CoreUtility.PrintError(e, nameof(CombatPatcher), nameof(GameLocation.damageMonster), "transpiling");
+                CoreUtility.PrintError(e, nameof(CombatPatcher), "GameLocation.damageMonster", "transpiling");
             }
             try
             {
                 ModEntry.Harmony.Patch(
                    original: AccessTools.Method(typeof(RainbowHairTrinketEffect), nameof(RainbowHairTrinketEffect.Apply)),
-                   postfix: new HarmonyMethod(typeof(CombatPatcher), nameof(CombatPatcher.OnApply_RainbowHairTrinketEffect_Postfix))
+                   postfix: new HarmonyMethod(typeof(CombatPatcher), nameof(OnApply_RainbowHairTrinketEffect_Postfix))
                );
             }
             catch (Exception e)
             {
-                CoreUtility.PrintError(e, nameof(CombatPatcher), nameof(RainbowHairTrinketEffect.Apply), "postfixing");
+                CoreUtility.PrintError(e, nameof(CombatPatcher), "RainbowHairTrinketEffect.Apply", "postfixing");
             }
             try
             {
                 ModEntry.Harmony.Patch(
                    original: AccessTools.Method(typeof(RainbowHairTrinketEffect), nameof(RainbowHairTrinketEffect.Unapply)),
-                   postfix: new HarmonyMethod(typeof(CombatPatcher), nameof(CombatPatcher.OnUnApply_RainbowHairTrinketEffect_Postfix))
+                   postfix: new HarmonyMethod(typeof(CombatPatcher), nameof(OnUnApply_RainbowHairTrinketEffect_Postfix))
                );
             }
             catch (Exception e)
             {
-                CoreUtility.PrintError(e, nameof(CombatPatcher), nameof(RainbowHairTrinketEffect.Unapply), "postfixing");
+                CoreUtility.PrintError(e, nameof(CombatPatcher), "RainbowHairTrinketEffect.Unapply", "postfixing");
             }
             try
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(Farmer), nameof(Farmer.takeDamage)),
-                    postfix: new HarmonyMethod(typeof(CombatPatcher), nameof(CombatPatcher.TakeDamage))
+                    postfix: new HarmonyMethod(typeof(CombatPatcher), nameof(TakeDamage))
                 );
             }
             catch (Exception e)
             {
-                CoreUtility.PrintError(e, nameof(CombatPatcher), nameof(Farmer.takeDamage), "postfixing");
+                CoreUtility.PrintError(e, nameof(CombatPatcher), "Farmer.takeDamage", "postfixing");
             }
             try
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(StardewValley.Object), nameof(StardewValley.Object.placementAction)),
-                    postfix: new HarmonyMethod(typeof(CombatPatcher), nameof(CombatPatcher.placementAction))
+                    postfix: new HarmonyMethod(typeof(CombatPatcher), nameof(placementAction))
                 );
             }
             catch (Exception e)
             {
-                CoreUtility.PrintError(e, nameof(CombatPatcher), nameof(StardewValley.Object.placementAction), "postfixing");
+                CoreUtility.PrintError(e, nameof(CombatPatcher), "StardewValley.Object.placementAction", "postfixing");
+            }
+            try
+            {
+                ModEntry.Harmony.Patch(
+                    original: AccessTools.Method(typeof(Trinket), nameof(Trinket.CanSpawnTrinket)),
+                    postfix: new HarmonyMethod(typeof(CombatPatcher), nameof(CanSpawnTrinket_Postfix))
+                );
+            }
+            catch (Exception e)
+            {
+                CoreUtility.PrintError(e, nameof(CombatPatcher), "Trinket.CanSpawnTrinket", "postfixing");
+            }
+        }
+
+        public static void CanSpawnTrinket_Postfix(Farmer f, ref bool __result)
+        {
+            if (TalentUtility.CurrentPlayerHasTalent("Accessorise", who: f) && ModEntry.ModConfig.Value.MasteryCaveChanges)
+            {
+                __result = f.CombatLevel >= 10;
             }
         }
 
         public static void placementAction(StardewValley.Object __instance, int x, int y, ref bool __result, GameLocation location)
         {
-            if (__instance.QualifiedItemId == "(BC)Kedi.VPP.perch")
+            if (__instance.QualifiedItemId == "(BC)Kedi.VPP.HiddenBenefits.ParrotPerch")
             {
                 if (location is AnimalHouse)
                 {
-                    Vector2 placementTile = new Vector2(x / 64, y / 64);
+                    Vector2 placementTile = new(x / 64, y / 64);
                     if (!location.Objects.TryAdd(placementTile, new ParrotPerch(placementTile, "", false)))
                     {
                         location.Objects[placementTile] = new ParrotPerch(placementTile, "", false);
@@ -252,15 +273,49 @@ namespace VanillaPlusProfessions.Talents.Patchers
                 }
                 else
                 {
-                    Game1.addHUDMessage(new("This can be placed only to animal buildings!", HUDMessage.error_type));
+                    Game1.addHUDMessage(new(ModEntry.Helper.Translation.Get("Message.ParrotPerch"), HUDMessage.error_type));
                     __result = false;
                 }
             }
-            else if (__instance.QualifiedItemId == "(BC)217" && __instance is Chest chest)
+            else if (__instance.QualifiedItemId == "(BC)KediDili.VPPData.CP_ProgrammableDrill")
             {
-                if (TalentUtility.AnyPlayerHasTalent("Misc_MiniFridgeBigSpace"))
+                MachineryEventHandler.DrillLocations.TryAdd(Game1.player.currentLocation.Name, new());
+                if (!MachineryEventHandler.DrillLocations[Game1.player.currentLocation.Name].Contains(new Vector2(x / 64, y / 64)))
                 {
-                    chest.SpecialChestType = Chest.SpecialChestTypes.BigChest;
+                    MachineryEventHandler.DrillLocations[Game1.player.currentLocation.Name].Add(new Vector2(x / 64, y / 64));
+                }
+            }
+            else if (__instance.QualifiedItemId == "(BC)KediDili.VPPData.CP_ThermalReactor")
+            {
+                MachineryEventHandler.ThermalReactorLocations.TryAdd(Game1.player.currentLocation.Name, new());
+                if (!MachineryEventHandler.ThermalReactorLocations[Game1.player.currentLocation.Name].Contains(new Vector2(x / 64, y / 64)))
+                {
+                    MachineryEventHandler.ThermalReactorLocations[Game1.player.currentLocation.Name].Add(new Vector2(x / 64, y / 64));
+                }
+            }
+            else if (__instance.QualifiedItemId == "(BC)KediDili.VPPData.CP_NodeMaker")
+            {
+                MachineryEventHandler.NodeMakerLocations.TryAdd(Game1.player.currentLocation.Name, new());
+                if (!MachineryEventHandler.NodeMakerLocations[Game1.player.currentLocation.Name].Contains(new Vector2(x / 64, y / 64)))
+                {
+                    MachineryEventHandler.NodeMakerLocations[Game1.player.currentLocation.Name].Add(new Vector2(x / 64, y / 64));
+                }
+            }
+            else if (__instance.QualifiedItemId == "(BC)KediDili.VPPData.CP_MinecartChest" || __instance.QualifiedItemId == "(BC)KediDili.VPPData.CP_DrillCollector")
+            {
+                Vector2 placementTile = new(x / 64, y / 64);
+                var chest = new Chest(true, __instance.ItemId);
+                chest.modData.Add("Pathoschild.Automate/StoreItems", "Disabled");
+                chest.modData.Add("Pathoschild.Automate/TakeItems", "Disabled");
+                chest.modData.Add("Pathoschild.ChestsAnywhere/IsIgnored", "true");
+                if (!location.Objects.TryAdd(placementTile, chest))
+                {
+                    location.Objects[placementTile] = chest;
+                    __result = true;
+                }
+                else
+                {
+                    __result = true;
                 }
             }
         }

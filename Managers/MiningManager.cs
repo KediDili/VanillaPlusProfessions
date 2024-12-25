@@ -138,8 +138,8 @@ namespace VanillaPlusProfessions.Managers
         }
         public static void createMultipleObjectDebris_Prefix(string id, int xTile, int yTile, ref int number, long who)
         {
-            Farmer farmer = Game1.getFarmer(who);
-            if (CoreUtility.CurrentPlayerHasProfession(60, useThisInstead: farmer) && id == "(O)848")
+            Farmer farmer = Game1.GetPlayer(who) ?? Game1.MasterPlayer;
+            if (CoreUtility.CurrentPlayerHasProfession("Appraiser", useThisInstead: farmer) && id == "(O)848")
             {
                 number = 0;
 
@@ -172,8 +172,8 @@ namespace VanillaPlusProfessions.Managers
         public static bool Conditions(Item item, bool doesStackMatter = true)
         {
             return doesStackMatter
-                ? item?.QualifiedItemId == "(O)82" && item?.Stack >= 5 && CoreUtility.CurrentPlayerHasProfession(61)
-                : item?.QualifiedItemId == "(O)82" && CoreUtility.CurrentPlayerHasProfession(61);
+                ? item?.QualifiedItemId == "(O)82" && item?.Stack >= 5 && CoreUtility.CurrentPlayerHasProfession("Enchanter")
+                : item?.QualifiedItemId == "(O)82" && CoreUtility.CurrentPlayerHasProfession("Enchanter");
         }
     }
 }

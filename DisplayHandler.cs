@@ -19,8 +19,9 @@ using HarmonyLib;
 using StardewValley.Buildings;
 using VanillaPlusProfessions.Talents.Patchers;
 using StardewValley.Objects;
+using StardewValley.Objects.Trinkets;
 using SpaceCore.Interface;
-using static SpaceCore.Skills.Skill;
+using VanillaPlusProfessions.Craftables;
 
 namespace VanillaPlusProfessions
 {
@@ -157,7 +158,16 @@ namespace VanillaPlusProfessions
             {
                 if (menu is null)
                     return;
-                if (menu.context is FishingRod && CoreUtility.CurrentPlayerHasProfession(41) is true)
+                if (menu.context is Chest chest && TalentUtility.AnyPlayerHasTalent("MiniFridgeBigSpace"))
+                {
+                    if (chest?.QualifiedItemId == "(BC)216")
+                    {
+                        menu.source = 1;
+                        menu.setSourceItem(chest);
+
+                    }
+                }
+                if (menu.context is FishingRod && CoreUtility.CurrentPlayerHasProfession("Buccaneer") is true)
                 {
                     for (int i = 0; i < menu.ItemsToGrabMenu.actualInventory.Count; i++)
                     {
@@ -199,10 +209,12 @@ namespace VanillaPlusProfessions
                     ? new( new(querye.xPositionOnScreen, querye.yPositionOnScreen, 64, 64), SkillIcons, new(0, 27, 16, 16), 4f, false)
                     : null;
             }
+
+            MachineryEventHandler.OnMenuChanged(e);
         }
         private static void OnRenderedHud(object sender, RenderedHudEventArgs e)
         {
-            if (Game1.activeClickableMenu is null && CoreUtility.CurrentPlayerHasProfession(75))
+            if (Game1.activeClickableMenu is null && CoreUtility.CurrentPlayerHasProfession("Forage-Combat"))
             {
                 foreach (NPC @char in Game1.player.currentLocation.characters)
                 {
@@ -299,7 +311,7 @@ namespace VanillaPlusProfessions
                             if (c.scale == 0f)
                             {
                                 IClickableMenu.drawTextureBox(e.SpriteBatch, Game1.menuTexture, new Rectangle(0, 256, 60, 60), c.bounds.X - 16 - 8, c.bounds.Y - 16 - 16, 96, 96, Color.White, drawShadow: false);
-                                e.SpriteBatch.Draw(ProfessionIcons, new Vector2(c.bounds.X - 8, c.bounds.Y - 16), new Rectangle((Convert.ToInt32(c.name) - 30) % 6 * 16, (Convert.ToInt32(c.name) - 30) / 6 * 16, 16, 16), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 1f);
+                                e.SpriteBatch.Draw(ProfessionIcons, new Vector2(c.bounds.X - 8, c.bounds.Y - 16), new Rectangle((Convert.ToInt32(c.name) - 467830) % 6 * 16, (Convert.ToInt32(c.name) - 467830) / 6 * 16, 16, 16), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 1f);
                             }
                         }
                     }
@@ -381,7 +393,7 @@ namespace VanillaPlusProfessions
                                 if (c.containsPoint(Game1.getMouseX(true), Game1.getMouseY(true) + (skillScrollOffset * 56)) && c.hoverText.Length > 0 && !c.name.Equals("-1"))
                                 {
                                     IClickableMenu.drawTextureBox(e.SpriteBatch, Game1.menuTexture, new Rectangle(0, 256, 60, 60), c.bounds.X - 24, c.bounds.Y - 32 - (skillScrollOffset * 56), 96, 96, Color.White, drawShadow: false);
-                                    e.SpriteBatch.Draw(ProfessionIcons, new Vector2(c.bounds.X - 8, c.bounds.Y - 16 - (skillScrollOffset * 56)), new Rectangle((Convert.ToInt32(c.name) - 30) % 6 * 16, (Convert.ToInt32(c.name) - 30) / 6 * 16, 16, 16), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 1f);
+                                    e.SpriteBatch.Draw(ProfessionIcons, new Vector2(c.bounds.X - 8, c.bounds.Y - 16 - (skillScrollOffset * 56)), new Rectangle((Convert.ToInt32(c.name) - 467830) % 6 * 16, (Convert.ToInt32(c.name) - 467830) / 6 * 16, 16, 16), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 1f);
                                 }
                             }
                         }
@@ -446,7 +458,7 @@ namespace VanillaPlusProfessions
                     {
                         if (IsInCorrectLine(MyCustomSkillBars.Value[i].bounds, newSkillsPage.skillAreas, item.Value.Skill.ToString()))
                         {
-                            if (CoreUtility.CurrentPlayerHasProfession(item.Value.ID, ignoreMode: true) && !AlreadyPickedProfessions.Contains(item.Value.ID))
+                            if (CoreUtility.CurrentPlayerHasProfession(item.Key, ignoreMode: true) && !AlreadyPickedProfessions.Contains(item.Value.ID))
                             {
                                 IndexAndProfessions.Add((i, item.Value.ID));
                                 AlreadyPickedProfessions.Add(item.Value.ID);
@@ -590,6 +602,44 @@ namespace VanillaPlusProfessions
                     }
                     ModEntry.Helper.Reflection.GetField<List<int>>(levelUpMenu, "professionsToChoose").SetValue(_professionsToChoose);
                 }
+                /*else if (currentLevel < 10)
+                {
+                    List<CraftingRecipe> newCraftingRecipes = ModEntry.Helper.Reflection.GetField<List<CraftingRecipe>>(levelUpMenu, "newCraftingRecipes").GetValue();
+                    var extraInfoForLevel = ModEntry.Helper.Reflection.GetField<List<string>>(levelUpMenu, "extraInfoForLevel").GetValue();
+                    int newHeight = 0;
+                    for (int i = 0; i < newCraftingRecipes.Count; i++)
+                    {
+                        Game1.player.craftingRecipes.Remove(newCraftingRecipes[i].name);
+                        Game1.player.cookingRecipes.Remove(newCraftingRecipes[i].name);
+                    }
+                    newCraftingRecipes.Clear();
+                    foreach (var v in CraftingRecipe.craftingRecipes)
+                    {
+                        string[] conditions = ArgUtility.Get(v.Value.Split('/'), 4, "").Split(" ");
+                        if (conditions[0] == (currentskill_string ?? Farmer.getSkillNameFromIndex(currentskill_int)) && conditions[1] == (currentLevel.ToString() ?? ""))
+                        {
+                            CraftingRecipe recipe = new CraftingRecipe(v.Key, isCookingRecipe: false);
+                            newCraftingRecipes.Add(recipe);
+                            Game1.player.craftingRecipes.TryAdd(v.Key, 0);
+                            newHeight += (recipe.bigCraftable ? 128 : 64);
+                        }
+                    }
+                    foreach (var v in CraftingRecipe.cookingRecipes)
+                    {
+                        string[] conditions = ArgUtility.Get(v.Value.Split('/'), 3, "").Split(" ");
+                        if (conditions[0] == (currentskill_string ?? Farmer.getSkillNameFromIndex(currentskill_int)) && conditions[1] == (currentLevel.ToString() ?? ""))
+                        {
+                            CraftingRecipe recipe = new CraftingRecipe(v.Key, isCookingRecipe: true);
+                            newCraftingRecipes.Add(recipe);
+                            Game1.player.cookingRecipes.TryAdd(v.Key, 0);
+                            newHeight += (recipe.bigCraftable ? 128 : 64);
+                        }
+                    }
+                    int val = newHeight + 256 + extraInfoForLevel.Count * 64 * 3 / 4;
+                    ModEntry.Helper.Reflection.GetField<int>(levelUpMenu, "height").SetValue(val);
+                    ModEntry.Helper.Reflection.GetField<List<CraftingRecipe>>(levelUpMenu, "newCraftingRecipes").SetValue(newCraftingRecipes);
+                    levelUpMenu.gameWindowSizeChanged(new(), new());
+                }*/
             }
         }
         public static string AreSkillConditionsMet(string str, int integer) => integer is -1 ? str : str is null ? integer.ToString() : null;

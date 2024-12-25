@@ -1,249 +1,249 @@
 {
 	//Farming
 	"Nutritionist": {
-		"ID": 30,
+		"ID": 467830,
 		"Requires": 2,
 		"Skill": 0
 	},
 	"Breeder": {
-		"ID": 31,
+		"ID": 467831,
 		"Requires": 2,
 		"Skill": 0
 	},
 	"Musterer": {
-		"ID": 32,
+		"ID": 467832,
 		"Requires": 3,
 		"Skill": 0
 	},
 	"Caretaker": {
-		"ID": 33,
+		"ID": 467833,
 		"Requires": 3,
 		"Skill": 0
 	},
 	"Machinist": {
-		"ID": 34,
+		"ID": 467834,
 		"Requires": 4,
 		"Skill": 0
 	},
 	"Connoisseur": {
-		"ID": 35,
+		"ID": 467835,
 		"Requires": 4,
 		"Skill": 0
 	},
 	"Horticulturist": {
-		"ID": 36,
+		"ID": 467836,
 		"Requires": 5,
 		"Skill": 0
 	},
 	"Agronomist": {
-		"ID": 37,
+		"ID": 467837,
 		"Requires": 5,
 		"Skill": 0
 	},
 
 	//Fishing
 	"Oceanologist": {
-		"ID": 38,
+		"ID": 467838,
 		"Requires": 8,
 		"Skill": 1
 	},
 	"Artificer": {
-		"ID": 39,
+		"ID": 467839,
 		"Requires": 8,
 		"Skill": 1
 	},
 	"Plunderer": {
-		"ID": 40,
+		"ID": 467840,
 		"Requires": 9,
 		"Skill": 1
 	},
 	"Buccaneer": {
-		"ID": 41,
+		"ID": 467841,
 		"Requires": 9,
 		"Skill": 1
 	},
 	"Aquaculturalist": {
-		"ID": 42,
+		"ID": 467842,
 		"Requires": 10,
 		"Skill": 1
 	},
 	"Trawler": {
-		"ID": 43,
+		"ID": 467843,
 		"Requires": 10,
 		"Skill": 1
 	},
 	"Recycler": {
-		"ID": 44,
+		"ID": 467844,
 		"Requires": 11,
 		"Skill": 1
 	},
 	"Hydrologist": {
-		"ID": 45,
+		"ID": 467845,
 		"Requires": 11,
 		"Skill": 1
 	},
 	//Foraging
 	"Arborist": {
-		"ID": 46,
+		"ID": 467846,
 		"Requires": 14,
 		"Skill": 2
 	},
 	"Shaker": {
-		"ID": 47,
+		"ID": 467847,
 		"Requires": 14,
 		"Skill": 2
 	},
 	"Sapper": {
-		"ID": 48,
+		"ID": 467848,
 		"Requires": 15,
 		"Skill": 2
 	},
 	"Orchardist": {
-		"ID": 49,
+		"ID": 467849,
 		"Requires": 15,
 		"Skill": 2
 	},
 	"Ranger": {
-		"ID": 50,
+		"ID": 467850,
 		"Requires": 16,
 		"Skill": 2
 	},
 	"Adventurer": {
-		"ID": 51,
+		"ID": 467851,
 		"Requires": 16,
 		"Skill": 2
 	},
 	"Gleaner": {
-		"ID": 52,
+		"ID": 467852,
 		"Requires": 17,
 		"Skill": 2
 	},
 	"Wayfarer": {
-		"ID": 53,
+		"ID": 467853,
 		"Requires": 17,
 		"Skill": 2
 	},
 	//Mining
 	"Metallurgist": {
-		"ID": 54,
+		"ID": 467854,
 		"Requires": 20,
 		"Skill": 3
 	},
 	"Ironmonger": {
-		"ID": 55,
+		"ID": 467855,
 		"Requires": 20,
 		"Skill": 3
 	},
 	"Ignitor": {
-		"ID": 56,
+		"ID": 467856,
 		"Requires": 21,
 		"Skill": 3
 	},
 	"Crafter": {
-		"ID": 57,
+		"ID": 467857,
 		"Requires": 21,
 		"Skill": 3
 	},
 	"Archeologist": {
-		"ID": "58",
+		"ID": 467858,
 		"Requires": 22,
 		"Skill": 3
 	},
 	"Mineralogist": {
-		"ID": 59,
+		"ID": 467859,
 		"Requires": 22,
 		"Skill": 3
 	},
 	"Appraiser": {
-		"ID": 60,
+		"ID": 467860,
 		"Requires": 23,
 		"Skill": 3
 	},
 	"Enchanter": {
-		"ID": 61,
+		"ID": 467861,
 		"Requires": 23,
 		"Skill": 3
 	},
 	//Combat
 	"Warrior": {
-		"ID": 62,
+		"ID": 467862,
 		"Requires": 26,
 		"Skill": 4
 	},
 	"Berserker": {
-		"ID": 63,
+		"ID": 467863,
 		"Requires": 26,
 		"Skill": 4
 	},
 	"Survivalist": {
-		"ID": 64,
+		"ID": 467864,
 		"Requires": 27,
 		"Skill": 4
 	},
 	"Healer": {
-		"ID": 65,
+		"ID": 467865,
 		"Requires": 27,
 		"Skill": 4
 	},
 	"Technician": {
-		"ID": 66,
+		"ID": 467866,
 		"Requires": 28,
 		"Skill": 4
 	},
 	"Speedster": {
-		"ID": 67,
+		"ID": 467867,
 		"Requires": 28,
 		"Skill": 4
 	},
 	"Assassin": {
-		"ID": 68,
+		"ID": 467868,
 		"Requires": 29,
 		"Skill": 4
 	},
 	"Assailant": {
-		"ID": 69,
+		"ID": 467869,
 		"Requires": 29,
 		"Skill": 4
 	},
 	//Combo professions
 	"Farm-Forage": {
-		"ID": 70,
+		"ID": 467870,
 		"Skill": 0
 	},
 	"Farm-Mine": {
-		"ID": 71,
+		"ID": 467871,
 		"Skill": 0
 	},
 	"Mine-Combat": {
-		"ID": 72,
+		"ID": 467872,
 		"Skill": 3
 	},
 	"Mine-Forage": {
-		"ID": 73,
+		"ID": 467873,
 		"Skill": 3
 	},
 	"Forage-Fish": {
-		"ID": 74,
+		"ID": 467874,
 		"Skill": 2
 	},
 	"Forage-Combat": {
-		"ID": 75,
+		"ID": 467875,
 		"Skill": 2
 	},
 	"Fish-Farm": {
-		"ID": 76,
+		"ID": 467876,
 		"Skill": 1
 	},
 	"Fish-Mine": {
-		"ID": 77,
+		"ID": 467877,
 		"Skill": 1
 	},
 	"Combat-Farm": {
-		"ID": 78,
+		"ID": 467878,
 		"Skill": 4
 	},
 	"Combat-Fish": {
-		"ID": 79,
+		"ID": 467879,
 		"Skill": 4
 	}
 }

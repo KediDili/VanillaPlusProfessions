@@ -1,6 +1,12 @@
 ﻿using StardewValley;
 using StardewValley.Delegates;
+using StardewValley.Internal;
+using System.Collections.Generic;
+using System;
 using VanillaPlusProfessions.Talents;
+using VanillaPlusProfessions.Utilities;
+using StardewValley.Locations;
+using VanillaPlusProfessions.Craftables;
 
 namespace VanillaPlusProfessions.Compatibility
 {
@@ -9,22 +15,84 @@ namespace VanillaPlusProfessions.Compatibility
         public void Initialize()
         {
             GameStateQuery.Register(ModEntry.Manifest.UniqueID + "_WasRainingHereYesterday", WasRainingHereYesterday);
+            GameStateQuery.Register(ModEntry.Manifest.UniqueID + "_PlayerHasTalent", PlayerHasTalent);
+            GameStateQuery.Register(ModEntry.Manifest.UniqueID + "_PlayerHasProfession", PlayerHasProfession);
+            GameStateQuery.Register(ModEntry.Manifest.UniqueID + "_IsLavaLocation", IsLavaLocation);
+            GameStateQuery.Register(ModEntry.Manifest.UniqueID + "_IsConsistentMineLocation", IsConsistentMineLocation);
         }
-
-        public bool WasRainingHereYesterday(string[] query, GameStateQueryContext context)
+        
+        bool WasRainingHereYesterday(string[] query, GameStateQueryContext context)
         {
             if (context.Location is null)
             {
-                ModEntry.ModMonitor.Log($"Null location was provided to {ModEntry.Manifest.UniqueID + "_" + nameof(WasRainingHereYesterday)} query.\n - Query string: {string.Join(',', query)}", StardewModdingAPI.LogLevel.Warn);
+                ModEntry.ModMonitor.Log($"Null location was provided to {ModEntry.Manifest.UniqueID + "_" + nameof(WasRainingHereYesterday)} query.\n - Query string: {string.Join(" ", query)}", StardewModdingAPI.LogLevel.Warn);
                 return false;
             }
 
-            if (context.Location.modData.TryGetValue(TalentCore.Key_WasRainingHere, out string val))
+            if (context.Location.modData.TryGetValue(TalentCore.Key_WasRainingHere, out string val) && bool.TryParse(val, out bool result))
             {
-                return bool.TryParse(val, out bool result) && result;
+                return result;
             }
 
-            ModEntry.ModMonitor.Log($"Location named {context.Location.NameOrUniqueName} doesn't have the metadata for VPP to know but it was passed to the {nameof(WasRainingHereYesterday)} query. This message might not always mean there is a bug with the mod that adds this location.\n - Query string: {string.Join(',',query)}");
+            ModEntry.ModMonitor.Log($"Location named {context.Location.NameOrUniqueName} doesn't have the metadata for VPP to know whether it rained yesterday or not but it was passed to the {nameof(WasRainingHereYesterday)} query. This message is not an error and only intended for troubleshooting purposes in case of bugs.\n - Query string: {string.Join(" ", query)}", StardewModdingAPI.LogLevel.Warn);
+            return false;
+        }
+
+        bool PlayerHasTalent(string[] query, GameStateQueryContext context)
+        {
+            if (ArgUtility.TryGet(query, 1, out var farmer, out var error) || ArgUtility.TryGet(query, 1, out var talentToCheck, out error))
+            {
+                ModEntry.ModMonitor.Log($"Invalid values were provided to {ModEntry.Manifest.UniqueID + "_" + nameof(PlayerHasTalent)} query.\n - Query string: {string.Join(" ", query)}\n - Error: {error}", StardewModdingAPI.LogLevel.Warn);
+                return false;
+            }
+
+            return GameStateQuery.Helpers.WithPlayer(context.Player ?? Game1.player, farmer, farmer =>
+            {
+                return TalentUtility.CurrentPlayerHasTalent(talentToCheck, who: farmer);
+            });
+        }
+
+        bool PlayerHasProfession(string[] query, GameStateQueryContext context)
+        {
+            if (ArgUtility.TryGet(query, 1, out var farmer, out var error) || ArgUtility.TryGet(query, 1, out var professionToCheck, out error))
+            {
+                ModEntry.ModMonitor.Log($"Invalid values were provided to {ModEntry.Manifest.UniqueID + "_" + nameof(PlayerHasProfession)} query.\n - Query string: {string.Join(" ", query)}\n - Error: {error}", StardewModdingAPI.LogLevel.Warn);
+                return false;
+            }
+
+            return GameStateQuery.Helpers.WithPlayer(context.Player ?? Game1.player, farmer, farmer =>
+            {
+                return CoreUtility.CurrentPlayerHasProfession(professionToCheck, useThisInstead: farmer);
+            });
+        }
+
+        bool IsLavaLocation(string[] query, GameStateQueryContext context)
+        {
+            GameLocation location = null;
+            if (!GameStateQuery.Helpers.TryGetLocationArg(query, 1, ref location, out string error))
+            {
+                ModEntry.ModMonitor.Log($"Invalid values were provided to {ModEntry.Manifest.UniqueID + "_" + nameof(PlayerHasProfession)} query.\n - Query string: {string.Join(" ", query)}\n - Error: {error}", StardewModdingAPI.LogLevel.Warn);
+                ModEntry.ModMonitor.Log(error, StardewModdingAPI.LogLevel.Warn);
+            }
+            else if (location is Caldera || (location.GetData()?.CustomFields?.TryGetValue(MachineryEventHandler.Key_IsLavaLocation, out string value) is true && value.ToLower() is "true"))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        bool IsConsistentMineLocation(string[] query, GameStateQueryContext context)
+        {
+            GameLocation location = null;
+            if (!GameStateQuery.Helpers.TryGetLocationArg(query, 1, ref location, out string error))
+            {
+                ModEntry.ModMonitor.Log($"Invalid values were provided to {ModEntry.Manifest.UniqueID + "_" + nameof(PlayerHasProfession)} query.\n - Query string: {string.Join(" ", query)}\n - Error: {error}", StardewModdingAPI.LogLevel.Warn);
+                ModEntry.ModMonitor.Log(error, StardewModdingAPI.LogLevel.Warn);
+            }
+            else if (location is Mine || (location.GetData()?.CustomFields?.TryGetValue(MachineryEventHandler.Key_IsConsistentMineLocation, out string value) is true && value.ToLower() is "true"))
+            {
+                return true;
+            }
             return false;
         }
     }

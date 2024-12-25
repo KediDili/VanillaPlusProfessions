@@ -14,6 +14,7 @@ using VanillaPlusProfessions.Utilities;
 using System.Data;
 using StardewModdingAPI.Utilities;
 using VanillaPlusProfessions.Talents;
+using VanillaPlusProfessions.Craftables;
 
 namespace VanillaPlusProfessions
 {
@@ -23,25 +24,31 @@ namespace VanillaPlusProfessions
         internal static Dictionary<string, string> BuccaneerData = new();
         internal static Dictionary<string, string> ContentPaths = new();
 
+        internal static Dictionary<string, string> NodeMakerData = new();
+        internal static Dictionary<string, ClumpData> ResourceClumpData = new();
+
         internal static void Initialize()
         {
             ModEntry.Helper.Events.Content.AssetRequested += OnAssetRequested;
             ShakerData = ModEntry.Helper.ModContent.Load<List<WildTreeItemData>>("assets\\ShakerData.json");
             BuccaneerData = ModEntry.Helper.ModContent.Load<Dictionary<string, string>>("assets\\BuccaneerData.json");
+            NodeMakerData = ModEntry.Helper.ModContent.Load<Dictionary<string, string>>("assets\\NodeMakerData.json");
+            ResourceClumpData = ModEntry.Helper.ModContent.Load<Dictionary<string, ClumpData>> ("assets\\ResourceClumpData.json");
             ContentPaths = new()
             {
-                { "ItemSpritesheet", "TileSheets/Kedi.VPP.Items" },
-                { "ProfessionIcons", "VanillaPlusProfessions/ProfessionIcons" },
-                { "InsiderInfo", "VanillaPlusProfessions/InsiderInfo" },
-                { "TalentBG", "VanillaPlusProfessions/TalentBG" },
-                { "TalentSchema", "VanillaPlusProfessions/TalentSchema" },
-                { "BundleIcons", "VanillaPlusProfessions/BundleIcons" },
-                { "SkillBars", "VanillaPlusProfessions/SkillBars" },
+                { "ItemSpritesheet", "TileSheets\\KediDili.VPPData.CP\\ItemIcons" },
+                { "MachinerySpritesheet", "TileSheets\\KediDili.VPPData.CP\\Machinery" },
+                { "ProfessionIcons", "VanillaPlusProfessions\\ProfessionIcons" },
+                { "InsiderInfo", "VanillaPlusProfessions\\InsiderInfo" },
+                { "TalentBG", "VanillaPlusProfessions\\TalentBG" },
+                { "TalentSchema", "VanillaPlusProfessions\\TalentSchema" },
+                { "BundleIcons", "VanillaPlusProfessions\\BundleIcons" },
+                { "SkillBars", "VanillaPlusProfessions\\SkillBars" },
             };
         }
         internal static void HandleWildTrees(ref IDictionary<string, WildTreeData> editor)
         {
-            if (CoreUtility.AnyPlayerHasProfession(47) is true) //Shaker ++
+            if (CoreUtility.AnyPlayerHasProfession("Shaker") is true) //Shaker ++
             {
                 foreach (var item in editor)
                     if (item.Value.IsLeafy || item.Value.IsLeafyInWinter)
@@ -52,7 +59,7 @@ namespace VanillaPlusProfessions
                             item.Value.ShakeItems.AddRange(ShakerData);
                     }
             }
-            if (CoreUtility.AnyPlayerHasProfession(46) is true) //Arborist ++
+            if (CoreUtility.AnyPlayerHasProfession("Arborist") is true) //Arborist ++
                 foreach (var item in editor)
                     if (item.Value.GrowthChance * 3 / 2 <= 1)
                         item.Value.GrowthChance *= 3 / 2;
@@ -62,7 +69,8 @@ namespace VanillaPlusProfessions
                 ItemId = "RANDOM_ITEMS (O)",
                 ForStump = false,
                 PerItemCondition = "ITEM_CONTEXT_TAG Target category_forage",
-                Condition = "PLAYER_HAS_MAIL Current Foraging_Nature_Secrets"
+                Condition = "PLAYER_HAS_MAIL Current Foraging_Nature_Secrets",
+                Chance = 1
             };
             foreach (var item in editor)
             {
@@ -72,7 +80,7 @@ namespace VanillaPlusProfessions
         }
         internal static void HandleObjects(ref IDictionary<string, ObjectData> editor)
         {
-            if (CoreUtility.CurrentPlayerHasProfession(50)) //Ranger ++
+            if (CoreUtility.CurrentPlayerHasProfession("Ranger")) //Ranger ++
             {
                 var list = (from element in editor
                             where element.Value.Category == Object.GreensCategory && element.Value.ContextTags.Contains("forage_item")
@@ -82,7 +90,7 @@ namespace VanillaPlusProfessions
                     editor[list[i]].Price *= 2;
                 }
             }
-            if (CoreUtility.CurrentPlayerHasProfession(51)) //Adventurer ++
+            if (CoreUtility.CurrentPlayerHasProfession("Adventurer")) //Adventurer ++
             {
                 var list = (from element in editor
                            where element.Value.Category == Object.sellAtFishShopCategory || element.Value.ContextTags.Contains("forage_item_beach") || element.Value.ContextTags.Contains("forage_item_secret") || element.Value.ContextTags.Contains("forage_item_mines")
@@ -92,7 +100,7 @@ namespace VanillaPlusProfessions
                     editor[list[i]].Price *= 2;
                 }
             }
-            if (CoreUtility.CurrentPlayerHasProfession(59)) //Mineralogist
+            if (CoreUtility.CurrentPlayerHasProfession("Mineralogist")) //Mineralogist
             {
                 editor["749"].GeodeDropsDefaultItems = false;
                 editor["537"].GeodeDropsDefaultItems = false;
@@ -182,7 +190,7 @@ namespace VanillaPlusProfessions
         }
         internal static void HandlFishPonds(ref List<FishPondData> editor)
         {
-            if (CoreUtility.AnyPlayerHasProfession(42))
+            if (CoreUtility.AnyPlayerHasProfession("Aquaculturalist"))
             {
                 for (int i = 0; i < editor.Count; i++)
                 {
@@ -190,19 +198,11 @@ namespace VanillaPlusProfessions
                     {
                         if (editor[i].ProducedItems[f].ItemId.Contains("812"))
                         {
-                            editor[i].ProducedItems[f].MinQuantity *= 2;
-                            editor[i].ProducedItems[f].MaxQuantity *= 2;
+                            editor[i].ProducedItems[f].MinStack *= 2;
+                            editor[i].ProducedItems[f].MinStack *= 2;
                         }
                     }
                 }
-            }
-        }
-
-        internal static void HandleGiftTastes(ref IDictionary<string, string> editor)
-        {
-            if (TalentUtility.AnyPlayerHasTalent("Mining_Everyones_Best_Friend"))
-            {
-                editor["Universal_Love"] += " 72 565 564 562 563 578";
             }
         }
         private static void OnAssetRequested(object sender, AssetRequestedEventArgs e)
@@ -245,15 +245,6 @@ namespace VanillaPlusProfessions
 
                 });
             }
-            if (e.NameWithoutLocale.IsEquivalentTo(PathUtilities.NormalizeAssetName("Data/NPCGiftTastes")))
-            {
-                e.Edit(asset =>
-                {
-                    var editor = asset.AsDictionary<string, string>().Data;
-
-                    HandleGiftTastes(ref editor);
-                });
-            }
             if (e.NameWithoutLocale.IsEquivalentTo(PathUtilities.NormalizeAssetName("Data/Objects")))
             {
                 e.Edit(asset =>
@@ -279,7 +270,7 @@ namespace VanillaPlusProfessions
                     HandlFishPonds(ref editor);
                 });
             }
-            if (e.NameWithoutLocale.IsEquivalentTo(PathUtilities.NormalizeAssetName("Data/Weapons")) && CoreUtility.CurrentPlayerHasProfession(67))
+            if (e.NameWithoutLocale.IsEquivalentTo(PathUtilities.NormalizeAssetName("Data/Weapons")) && CoreUtility.CurrentPlayerHasProfession("Speedster"))
             {
                 e.Edit(asset =>
                 {
@@ -295,7 +286,7 @@ namespace VanillaPlusProfessions
                 {
                     var editor = asset.AsDictionary<string, FarmAnimalData>().Data;
 
-                    if (CoreUtility.CurrentPlayerHasProfession(31))
+                    if (CoreUtility.CurrentPlayerHasProfession("Breeder"))
                     {
                         var list = from animal in editor
                                    where animal.Value.House is "Coop" or "Big Coop" or "Deluxe Coop"
@@ -319,14 +310,40 @@ namespace VanillaPlusProfessions
                     HandleLocations(ref editor);
                 });
             }
+            /*if (e.NameWithoutLocale.IsEquivalentTo(PathUtilities.NormalizeAssetName("Data/Buffs")))
+            {
+                e.Edit(asset =>
+                {
+                    var editor = asset.AsDictionary<string, BuffData>().Data;
+
+                    foreach (var buffData in editor)
+                    {
+                        if (!buffData.Value.IsDebuff && CoreUtility.CurrentPlayerHasProfession(467867))
+                        {
+                            if (buffData.Value.Duration != -2)
+                            {
+                                buffData.Value.Duration *= 2;
+                            }
+                        }
+                        else if (buffData.Value.IsDebuff && CoreUtility.CurrentPlayerHasProfession(467867))
+                        {
+                            if (buffData.Value.Duration != -2)
+                            {
+                                buffData.Value.Duration /= 2;
+                            }
+                        }
+                    }
+                });
+            }*/
+
+            /*if (e.NameWithoutLocale.IsEquivalentTo(ContentPaths["ItemSpritesheet"]))
+            {
+                e.LoadFromModFile<Texture2D>(PathUtilities.NormalizePath("assets\\ItemIcons.png"), AssetLoadPriority.Exclusive);
+            }*/
 
             if (e.NameWithoutLocale.IsEquivalentTo(ContentPaths["InsiderInfo"]))
             {
                 e.LoadFrom(() => new Dictionary<string, string>(), AssetLoadPriority.Exclusive);
-            }
-            if (e.NameWithoutLocale.IsEquivalentTo(ContentPaths["ItemSpritesheet"]))
-            {
-                e.LoadFromModFile<Texture2D>(PathUtilities.NormalizePath("assets\\ItemIcons.png"), AssetLoadPriority.Exclusive);
             }
             
             if (e.NameWithoutLocale.IsEquivalentTo(ContentPaths["SkillBars"]))

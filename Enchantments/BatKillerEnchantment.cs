@@ -10,8 +10,7 @@ namespace VanillaPlusProfessions.Enchantments
 
         public BatKillerEnchantment() { }
         public override string GetName() => "Bat Killer";
-
-        protected override void _OnDealDamage(Monster monster, GameLocation location, Farmer who, ref int amount)
+        public override void OnCalculateDamage(Monster monster, GameLocation location, Farmer who, bool isBomb, ref int amount)
         {
             if (monster is Bat)
             {

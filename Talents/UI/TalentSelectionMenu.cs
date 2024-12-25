@@ -18,8 +18,6 @@ namespace VanillaPlusProfessions.Talents.UI
 
         internal static int CurrentSkill;
 
-        internal GameMenu menu;
-
         internal ClickableTextureComponent RightArrow;
 
         internal ClickableTextureComponent LeftArrow;
@@ -48,10 +46,9 @@ namespace VanillaPlusProfessions.Talents.UI
 
         internal string[] ResetMessages;
 
-        public TalentSelectionMenu(int skill, GameMenu gamemenu)
+        public TalentSelectionMenu(int skill)
         {
             JunimoNote = ModEntry.Helper.GameContent.Load<Texture2D>("LooseSprites\\JunimoNote");
-            menu = gamemenu;
 
             TalentBG = ModEntry.Helper.GameContent.Load<Texture2D>(ContentEditor.ContentPaths["TalentBG"]);
             BundleIcon = ModEntry.Helper.GameContent.Load<Texture2D>(ContentEditor.ContentPaths["BundleIcons"]);
@@ -139,7 +136,7 @@ namespace VanillaPlusProfessions.Talents.UI
             skillTrees.Add(new("Fishing", ModEntry.Helper.Translation.Get("Talent.Fishing.Title"), AllTrees, fishingList, new(320, 180, 320, 180), 3));
             skillTrees.Add(new("Combat", ModEntry.Helper.Translation.Get("Talent.Combat.Title"), AllTrees, combatList, new(0, 360, 320, 180), 4));
 
-            Game1.nextClickableMenu.Add(menu);
+            Game1.nextClickableMenu.Add(new GameMenu(GameMenu.skillsTab));
             xPositionOnScreen = XPos;
             yPositionOnScreen = YPos;
             initializeUpperRightCloseButton();

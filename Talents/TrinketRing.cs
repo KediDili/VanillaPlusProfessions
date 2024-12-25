@@ -4,6 +4,7 @@ using StardewValley;
 using StardewValley.GameData.Objects;
 using StardewValley.Monsters;
 using StardewValley.Objects;
+using StardewValley.Objects.Trinkets;
 using VanillaPlusProfessions.Utilities;
 
 namespace VanillaPlusProfessions.Talents

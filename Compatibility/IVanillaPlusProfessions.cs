@@ -46,5 +46,7 @@ namespace VanillaPlusProfessions.Compatibility
         public bool MasteryCaveChanges { get; }
 
         public bool ColorBlindnessChanges { get; }
+
+        public bool ProfessionsOnly { get; }
     }
 }

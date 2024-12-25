@@ -18,7 +18,7 @@ namespace VanillaPlusProfessions.Managers
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(GameLocation), nameof(GameLocation.getFish)),
-                    postfix: new HarmonyMethod(typeof(FishingManager), nameof(FishingManager.getFish_Postfix))
+                    postfix: new HarmonyMethod(typeof(FishingManager), nameof(getFish_Postfix))
                 );
             }
             catch (System.Exception e)
@@ -31,7 +31,7 @@ namespace VanillaPlusProfessions.Managers
 
         public static void getFish_Postfix(ref Item __result, float millisecondsAfterNibble, string bait, int waterDepth, Farmer who, double baitPotency, Vector2 bobberTile, GameLocation __instance)
         {
-            if (!string.IsNullOrEmpty(bait) && CoreUtility.CurrentPlayerHasProfession(38, useThisInstead: who))
+            if (!string.IsNullOrEmpty(bait) && CoreUtility.CurrentPlayerHasProfession("Oceanologist", useThisInstead: who))
             {
                 if (FailAmount < 100 && (__result is null || __result?.HasContextTag("trash_item") == true))
                 {

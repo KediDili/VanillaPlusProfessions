@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
-using StardewValley.Objects;
+using StardewValley.Objects.Trinkets;
 using StardewValley.Tools;
 using System.Xml.Serialization;
 

@@ -4,14 +4,14 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using StardewModdingAPI;
 using StardewValley;
-using StardewValley.Characters;
 using StardewValley.Extensions;
 using StardewValley.GameData;
 using StardewValley.GameData.Machines;
+using StardewValley.GameData.Objects;
 using StardewValley.ItemTypeDefinitions;
 using StardewValley.Locations;
 using StardewValley.Monsters;
-using StardewValley.Objects;
+using StardewValley.Objects.Trinkets;
 using StardewValley.TerrainFeatures;
 using VanillaPlusProfessions.Compatibility;
 using VanillaPlusProfessions.Talents;
@@ -24,14 +24,10 @@ namespace VanillaPlusProfessions.Utilities
         private readonly static string[] GemNodes = new string[] { "2", "4", "6", "8", "10", "12", "14", "44", "46" };
         private readonly static string[] GeodeNodes = new string[] { "75", "76", "77" };
         private readonly static string[] OreNodes = new string[] { "290", "752", "764", "765", "95"};
-        public readonly static string[] BlandStones = new string[] { "32", "34", "36", "38", "40", "42", "48", "50", "52", "54", "56", "58", "343", "450", "760" };
+        public readonly static string[] BlandStones = new string[] { "32", "668", "670", "34", "36", "38", "40", "42", "48", "50", "52", "54", "56", "58", "343", "450", "760", "845", "846", "844" };
 
-        public static StardewValley.Object GetBigTapperOutput(in StardewValley.Object smallOutput)
-        {
-            return smallOutput.QualifiedItemId is "(O)724" or "(O)725" or "(O)726"
-                ? ItemRegistry.Create<StardewValley.Object>("Kedi.VPP.Large" + smallOutput.Name.Replace(" ", ""))
-                : smallOutput;
-        }
+        public static List<string> ItemExtensions_GeodeNodeList = new();
+        public static List<string> ItemExtensions_GemNodeList = new();
 
         public static void MakeFarmerInvincible(Farmer player)
         {
@@ -55,16 +51,40 @@ namespace VanillaPlusProfessions.Utilities
             }
             return validCrops.Count;
         }
-
+        public static void RemoveAndReapplyAllTrinketEffects(string command, string[] args)
+        {
+            if (Context.IsWorldReady)
+            {
+                ModEntry.ModMonitor.Log("Clearing 'echo' companions...", LogLevel.Info);
+                Game1.player.companions.Clear();
+                ModEntry.ModMonitor.Log("Removing and reapplying all trinket ring effects...", LogLevel.Info);
+                foreach (var item in GetAllTrinketRings(Game1.player))
+                {
+                    item.onUnequip(Game1.player);
+                    item.onEquip(Game1.player);
+                }
+                ModEntry.ModMonitor.Log("Removing and reapplying all regular trinket effects...", LogLevel.Info);
+                foreach (var item in Game1.player.trinketItems)
+                {
+                    item.onUnequip(Game1.player);
+                    item.onEquip(Game1.player);
+                }
+                ModEntry.ModMonitor.Log("Done!", LogLevel.Info);
+            }
+            else
+            {
+                ModEntry.ModMonitor.Log("Load a save first!", LogLevel.Warn);
+            }
+        }
         public static bool CurrentPlayerHasTalent(string flag, long farmerID = -1, Farmer who = null)
         {
-            if (!Context.IsWorldReady)
+            if (!Context.IsWorldReady || ModEntry.ModConfig.Value.ProfessionsOnly)
             {
                 return false;
             }
             if (farmerID is not -1)
             {
-                who = Game1.getFarmer(farmerID);
+                who = Game1.GetPlayer(farmerID) ?? Game1.MasterPlayer;
             }
             if (who is null)
             {
@@ -77,9 +97,19 @@ namespace VanillaPlusProfessions.Utilities
 
         static string GetFlag(string name) => TalentCore.Talents.TryGetValue(name, out Talent talent) ? talent.MailFlag : name;
 
+        public static int GetStoneHealth(string ID)
+        {
+            return ID switch
+            {
+                "2" => 10,
+                "4" or "6" or "8" or "10" or "12" or "14" => 10,
+                _ => 1
+            };
+        }
+
         public static bool AllPlayersHaveTalent(string flag)
         {
-            if (!Context.IsWorldReady)
+            if (!Context.IsWorldReady || ModEntry.ModConfig.Value.ProfessionsOnly)
             {
                 return false;
             }
@@ -94,14 +124,21 @@ namespace VanillaPlusProfessions.Utilities
             }
             return bools.Count > 0 && !bools.Contains(false);
         }
+        public static bool ShouldCropGrowByOneDay(HoeDirt dirt, Crop crop)
+        {
+            bool Efflorescence = HostHasTalent("Farming_Efflorescence") && !ItemRegistry.GetData(crop.GetData().HarvestItemId).IsErrorItem && ItemRegistry.GetData(crop.GetData().HarvestItemId).Category == StardewValley.Object.flowersCategory;
+            bool Nourishing_Rain = HostHasTalent("Farming_Nourishing_Rain") && dirt.Location.modData.TryGetValue(TalentCore.Key_WasRainingHere, out string value2) && value2 is "true";
+            bool Tropical_Bliss = HostHasTalent("Farming_Tropical_Bliss") && dirt.Location.InIslandContext() && (crop.GetData()?.Seasons.Contains(Season.Summer) is true || crop.GetData()?.Seasons.Count > 1);
+            
+            return Efflorescence || Nourishing_Rain || Tropical_Bliss;
+        }
         public static bool AnyPlayerHasTalent(string flag)
         {
-            if (!Context.IsWorldReady)
+            if (!Context.IsWorldReady || ModEntry.ModConfig.Value.ProfessionsOnly)
             {
                 return false;
             }
 
-            List<bool> bools = new();
             foreach (var farmer in Game1.getOnlineFarmers())
             {
                 if (flag is not null)
@@ -111,7 +148,7 @@ namespace VanillaPlusProfessions.Utilities
             }
             return false;
         }
-        public static bool HostHasTalent(string flag) => Game1.MasterPlayer?.mailReceived.Contains(GetFlag(flag)) is true;
+        public static bool HostHasTalent(string flag) => Game1.MasterPlayer?.mailReceived.Contains(GetFlag(flag)) is true && !ModEntry.ModConfig.Value.ProfessionsOnly;
 
         public static List<Vector2> GetTilesAroundBeeHouse(float xStart, float yStart)
         {
@@ -144,27 +181,6 @@ namespace VanillaPlusProfessions.Utilities
                     geode.modData[TalentCore.Key_XrayDrop] = drop.QualifiedItemId;
                 }
             }
-        }
-
-        public static bool AreConditionsTrueForFish(string query, StardewValley.Object bait, long whoID, Season? season, GameLocation gameLocation)
-        {
-            Farmer who = Game1.getFarmer(whoID);
-            if (who is null)
-                return false;
-
-            if (query is null or "")
-                return true;
-
-            bool fallback = GameStateQuery.CheckConditions(query, gameLocation) && (season is null || (season is not null && Game1.season == season));
-
-            if (CurrentPlayerHasTalent("Fishing_Fishs_Wishes", farmerID:whoID))
-            {
-                if (who.professions.Contains(10))
-                    return bait is not null;
-                else if (bait is not null)
-                    return bait.QualifiedItemId == "(O)908" || fallback;
-            }
-            return fallback;
         }
 
         public static bool isFavoredMonster(Monster monster, Farmer who)
@@ -262,7 +278,7 @@ namespace VanillaPlusProfessions.Utilities
                     return true;
                 });
             }
-            if (name is "Accessorise")
+            if (name is "Accessorise" && !appliedOrUnapplied)
             {
                 foreach (var trinketRing in GetAllTrinketRings(Game1.player))
                 {
@@ -272,7 +288,14 @@ namespace VanillaPlusProfessions.Utilities
             }
         }
 
-        public static bool IsBlandStone(this StardewValley.Object obj) => BlandStones.Contains(obj.ItemId) || obj.HasContextTag(TalentCore.ContextTag_BlandStone);
+        public static bool IsBlandStone(this StardewValley.Object obj)
+        {
+            if (ModEntry.ItemExtensionsAPI.Value is not null && ModEntry.ItemExtensionsAPI.Value.IsResource(obj.ItemId, out int? _, out string itemDropped))
+            {
+                return itemDropped is "390" or "(O)390";
+            }
+            return BlandStones.Contains(obj.ItemId) || obj.HasContextTag(TalentCore.ContextTag_BlandStone);
+        }
 
         public static string GetNodeForRoomAndPillar()
         {
@@ -283,7 +306,7 @@ namespace VanillaPlusProfessions.Utilities
         {
             TrinketData data = trinket.GetTrinketData();
 
-            if (data.TrinketMetadata?.TryGetValue(TalentCore.Key_AccessoriseRing, out string value) is true && !string.IsNullOrEmpty(value))
+            if (data.CustomFields?.TryGetValue(TalentCore.Key_AccessoriseRing, out string value) is true && !string.IsNullOrEmpty(value))
             {
                 return value;
             }
@@ -312,7 +335,7 @@ namespace VanillaPlusProfessions.Utilities
             {
                 for (int i = 0; i < ModEntry.WearMoreRingsAPI.Value.RingSlotCount(); i++)
                 {
-                    if (ModEntry.WearMoreRingsAPI.Value.GetRing(i) is TrinketRing trinketRing)
+                    if (ModEntry.WearMoreRingsAPI.Value.GetRing(i) is not null and TrinketRing trinketRing) //UPDATE: Added null check here
                         result.Add(trinketRing);
                 }
             }
@@ -330,7 +353,7 @@ namespace VanillaPlusProfessions.Utilities
             return result;
         }
 
-        public static Item AccessoriseMachineRule(StardewValley.Object machine, Item inputItem, bool probe, MachineItemOutput outputData, out int? overrideMinutesUntilReady)
+        public static Item AccessoriseMachineRule(StardewValley.Object machine, Item inputItem, bool probe, MachineItemOutput outputData, Farmer player, out int? overrideMinutesUntilReady)
         {
             overrideMinutesUntilReady = null;
             
@@ -356,32 +379,97 @@ namespace VanillaPlusProfessions.Utilities
             return null;
         }
 
-        public static void GemAndGeodeNodes(bool flag, List<Vector2> list)
+        public static void GemAndGeodeNodes(bool flag, List<Vector2> list, GameLocation mine)
         {
             for (int i = 0; i < list.Count; i++)
             {
-                string str = nodeID(flag);
+                string str = nodeID(flag, mine, out int? health);
                 if (str is not "-1")
-                    Game1.player.currentLocation.Objects[list[i]] = ItemRegistry.Create<StardewValley.Object>(str);
+                {
+                    var obj = ItemRegistry.Create<StardewValley.Object>(str);
+                    //Do something proper for the stones
+                    obj.setHealth(health.Value);
+                    obj.MinutesUntilReady = health.Value;
+                    obj.Flipped = Game1.random.NextBool();
+                    mine.Objects[list[i]] = obj;
+                }
             }
         }
 
-        private static string nodeID(bool flag)
+        private static bool ShouldAddToThePool(string node, bool flag, MineShaft mineShaft)
         {
-            if (Game1.player.currentLocation is MineShaft shaft)
+            if (ModEntry.ItemExtensionsAPI.Value.GetResourceData(node, false, out object resourceData))
             {
-                return shaft.getMineArea(shaft.mineLevel) switch
+                string SpawnOnFloors = ModEntry.Helper.Reflection.GetProperty<string>(resourceData, "SpawnOnFloors").GetValue();
+                double SpawnFrequency = ModEntry.Helper.Reflection.GetProperty<double>(resourceData, "SpawnFrequency").GetValue();
+                
+                if (SpawnOnFloors is not null)
                 {
-                    10 => flag ? Game1.random.ChooseFrom(GemNodes) : GeodeNodes[0],
-                    40 => flag ? Game1.random.ChooseFrom(GemNodes) : GeodeNodes[1],
-                    80 => flag ? Game1.random.ChooseFrom(GemNodes) : GeodeNodes[2],
-                    121 => Game1.random.ChooseFrom(flag ? GemNodes : GeodeNodes),
+                    string[] strings = SpawnOnFloors.Split('-');
+                    if (int.TryParse(strings[0], out int minFloor) && int.TryParse(strings[1], out int maxFloor))
+                    {
+                        if (mineShaft.mineLevel < minFloor || mineShaft.mineLevel > maxFloor)
+                        {
+                            return false;
+                        }
+                    }
+                }
+                if (Game1.random.NextBool(SpawnFrequency))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private static string nodeID(bool flag, GameLocation mine, out int? health)
+        {
+            List<string> GemNodeList = new();
+            
+            List<string> GeodeNodeList = new();
+
+            MineShaft mineShaft = mine as MineShaft;
+
+            health = null;
+            string result = "-1";
+
+            if (flag)
+            {
+                GemNodeList.AddRange(GemNodes);
+                foreach (string gemNode in ItemExtensions_GemNodeList)
+                {
+                    if (ShouldAddToThePool(gemNode, flag, mineShaft))
+                    {
+                        GemNodeList.Add(gemNode);
+                    }
+                }
+            }
+            else
+            {
+                GeodeNodeList.AddRange(GeodeNodes);
+                foreach (string geodeNode in ItemExtensions_GeodeNodeList)
+                {
+                    if (ShouldAddToThePool(geodeNode, flag, mineShaft))
+                    {
+                        GeodeNodeList.Add(geodeNode);
+                    }
+                }
+            }
+
+            if (mineShaft is not null)
+            {
+                result = mineShaft.getMineArea(mineShaft.mineLevel) switch
+                {
+                    10 or 0 => flag ? Game1.random.ChooseFrom(GemNodeList) : GeodeNodeList[0],
+                    40 => flag ? Game1.random.ChooseFrom(GemNodeList) : GeodeNodeList[1],
+                    80 => flag ? Game1.random.ChooseFrom(GemNodeList) : GeodeNodeList[2],
+                    121 => Game1.random.ChooseFrom(flag ? GemNodeList : GeodeNodeList),
                     _ => "-1",
                 };
             }
-            else if (Game1.player.currentLocation is VolcanoDungeon)
-            {                
-                return flag ? Game1.random.ChooseFrom(GemNodes) : "819";
+            else if (mine is VolcanoDungeon)
+            {
+                result = flag ? Game1.random.ChooseFrom(GemNodeList) : "819";
             }
             else
             {
@@ -389,13 +477,22 @@ namespace VanillaPlusProfessions.Utilities
                 if (!string.IsNullOrEmpty(locdata))
                 {
                     string[] strings = locdata.Split('/', StringSplitOptions.TrimEntries);
-                    return Game1.random.ChooseFrom(strings);
+                    result = Game1.random.ChooseFrom(strings);
                 }
                 else
                 {
-                    return Game1.random.ChooseFrom(flag ? GemNodes : GeodeNodes);
+                    result = Game1.random.ChooseFrom(flag ? GemNodeList : GeodeNodeList);
                 }
             }
+            if (ItemExtensions_GemNodeList.Contains(result) || ItemExtensions_GeodeNodeList.Contains(result))
+            {
+                if (ModEntry.ItemExtensionsAPI.Value.IsResource(result, out int? nodeHealth, out string _))
+                {
+                    health = nodeHealth;
+                }
+            }
+            health ??= GetStoneHealth(result);
+            return result;
         } 
     }
 }

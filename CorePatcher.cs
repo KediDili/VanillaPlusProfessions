@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
 using StardewValley.Menus;
 using VanillaPlusProfessions.Utilities;
+using static SpaceCore.Skills.Skill;
 
 namespace VanillaPlusProfessions
 {
@@ -20,7 +21,7 @@ namespace VanillaPlusProfessions
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(Farmer), nameof(Farmer.getProfessionForSkill)),
-                    postfix: new HarmonyMethod(AccessTools.Method(typeof(CorePatcher), nameof(getProfessionForSkill_Postfix)))
+                    prefix: new HarmonyMethod(AccessTools.Method(typeof(CorePatcher), nameof(getProfessionForSkill_Prefix)))
                 );
             }
             catch (Exception e)
@@ -43,7 +44,7 @@ namespace VanillaPlusProfessions
             try
             {
                 ModEntry.Harmony.Patch(
-                    original: AccessTools.Constructor(typeof(LevelUpMenu), new Type[] { typeof(int), typeof(int) }),
+                    original: AccessTools.Method(typeof(Stats), nameof(Stats.checkForSkillAchievements)),
                     transpiler: new HarmonyMethod(AccessTools.Method(typeof(CorePatcher), nameof(Transpiler)))
                 );
             }
@@ -87,7 +88,7 @@ namespace VanillaPlusProfessions
             {
                 CoreUtility.PrintError(e, nameof(CorePatcher), "GameLocation.answerDialogueAction", "postfixing");
             }
-
+            
             try
             {
                 ModEntry.Harmony.Patch(
@@ -122,6 +123,18 @@ namespace VanillaPlusProfessions
             {
                 CoreUtility.PrintError(e, nameof(CorePatcher), "LevelUpMenu.draw", "transpiling");
             }
+
+            try
+            {
+                ModEntry.Harmony.Patch(
+                    original: AccessTools.Method(typeof(LevelUpMenu), nameof(LevelUpMenu.draw), new Type[] { typeof(SpriteBatch) }),
+                    transpiler: new HarmonyMethod(AccessTools.Method(typeof(CorePatcher), nameof(draw_LevelUpMenu_Transpiler)))
+                );
+            }
+            catch (Exception e)
+            {
+                CoreUtility.PrintError(e, nameof(CorePatcher), "LevelUpMenu.draw", "transpiling");
+            }
         }
 
         public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
@@ -143,13 +156,12 @@ namespace VanillaPlusProfessions
                 yield return item;
             }
         }
-        [HarmonyDebug]
         public static IEnumerable<CodeInstruction> draw_LevelUpMenu_Transpiler(IEnumerable<CodeInstruction> instructions)
         {
             int index = 0;
-            bool done = false;
+            int expected_cursors = 0;
             FieldInfo mouseCursors = AccessTools.Field(typeof(Game1), nameof(Game1.mouseCursors));
-            ConstructorInfo rectangleConstructor = AccessTools.Constructor(typeof(Rectangle), parameters: new Type[] { typeof(int), typeof(int), typeof(int), typeof(int) });
+            ConstructorInfo rectangleConstructor = AccessTools.Constructor(typeof(Rectangle?), parameters: new Type[] { typeof(Rectangle) });
             List<CodeInstruction> toReturn = instructions.ToList();
             object obj = null;
             object obj2 = null;
@@ -162,14 +174,22 @@ namespace VanillaPlusProfessions
                 foreach (var instruct in toReturn)
                 {
                     index++;
-                    if (instruct.opcode == OpCodes.Ldsfld && (FieldInfo)instruct.operand == mouseCursors)
+                    if (instruct.opcode.Equals(OpCodes.Ldsfld) && instruct.operand.Equals(mouseCursors))
                     {
-                        toReturn.Insert(index - 1, new(OpCodes.Ldarg_0));
-                        instruct.operand = AccessTools.Method(typeof(CoreUtility), nameof(CoreUtility.GetProfessionIconImage));
-                        instruct.opcode = OpCodes.Call;
-                        break;
+                        if (expected_cursors is not 0)
+                        {
+                            toReturn.Insert(index - 1, new(OpCodes.Ldarg_0));
+                            instruct.operand = AccessTools.Method(typeof(CoreUtility), nameof(CoreUtility.GetProfessionIconImage));
+                            instruct.opcode = OpCodes.Call;
+                            break;
+                        }
+                        else
+                        {
+                            expected_cursors++;
+                        }
                     }
                 }
+                expected_cursors = 0;
             }
             index = 0;
             int whichCallvirt = 0;
@@ -204,20 +224,23 @@ namespace VanillaPlusProfessions
                         }
                         else
                         {
-                            toReturn.Insert(index - 4, new(OpCodes.Ldarg_0));
-                            toReturn.Insert(index - 3, new(OpCodes.Ldfld, AccessTools.Field(typeof(LevelUpMenu), "professionsToChoose")));
-                            toReturn.Insert(index - 2, new(i == 0 ? OpCodes.Ldc_I4_0 : OpCodes.Ldc_I4_1));
-                            
-                            instruct2.opcode = OpCodes.Callvirt;
-                            instruct2.operand = obj ?? obj2;
+                            toReturn[index - 2].opcode = OpCodes.Callvirt;
+                            toReturn[index - 2].operand = obj ?? obj2;
 
-                            toReturn[index].opcode = OpCodes.Call;
-                            toReturn[index].operand = AccessTools.Method(typeof(CoreUtility), nameof(CoreUtility.GetProfessionSourceRect));
+                            toReturn[index - 1].opcode = OpCodes.Call;
+                            toReturn[index - 1].operand = AccessTools.Method(typeof(CoreUtility), nameof(CoreUtility.GetProfessionSourceRect));
+                           
+                            toReturn.Insert(index - 2, new(OpCodes.Ldarg_0));
+                            toReturn.Insert(index - 1, new(OpCodes.Ldfld, AccessTools.Field(typeof(LevelUpMenu), "professionsToChoose")));
+                            toReturn.Insert(index, new(i == 0 ? OpCodes.Ldc_I4_0 : OpCodes.Ldc_I4_1));
+
+
                             break;
                         }
                     }
                     //GetProfessionSourceRect
                 }
+                index = 0;
                 whichCtor = 0;
             }
             return toReturn;
@@ -266,7 +289,7 @@ namespace VanillaPlusProfessions
             }
         }
         //Patched
-        public static void getProfessionForSkill_Postfix(Farmer __instance, int skillType, int skillLevel, ref int __result)
+        public static void getProfessionForSkill_Prefix(Farmer __instance, int skillType, int skillLevel, ref int __result)
         {
             int result = skillLevel / 5;
             if (result == 3)

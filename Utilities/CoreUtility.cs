@@ -11,10 +11,11 @@ using VanillaPlusProfessions.Enchantments;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley.Menus;
+using StardewValley.GameData.Objects;
 
 namespace VanillaPlusProfessions.Utilities
 {
-    public class CoreUtility
+    public static class CoreUtility
     {
         public static bool IsOverlayValid()
         {
@@ -35,16 +36,31 @@ namespace VanillaPlusProfessions.Utilities
             }
         }
 
-        public static void PrintError(Exception e, string @class, string method, string typeOfPatch)
+        public static void PrintError(Exception e, string @class, string method, string typeOfPatch, bool isRunning = false)
         {
-            ModEntry.ModMonitor.Log($"There has been an error while {typeOfPatch} {method} in {@class}, details below:", LogLevel.Error);
+            if (isRunning)
+            {
+                ModEntry.ModMonitor.Log($"There has been an error while running {method} in {@class} which has been {typeOfPatch}, details below:", LogLevel.Error);
+            }
+            else
+            {
+                ModEntry.ModMonitor.Log($"There has been an error while {typeOfPatch} {method} in {@class}, details below:", LogLevel.Error);
+            }
             ModEntry.ModMonitor.Log(e.ToString(), LogLevel.Error);
         }
-        public static bool AnyPlayerHasProfession(int profession)
+        public static bool AnyPlayerHasProfession(string prof)
         {
             if (!Context.IsWorldReady)
                 return ModEntry.ModConfig.Value.DeveloperOrTestingMode;
-
+            int profession = 0;
+            foreach (var item in ModEntry.Professions)
+            {
+                if (prof == item.Key)
+                {
+                    profession = item.Value.ID;
+                    break;
+                }
+            }
             var team = Game1.getOnlineFarmers();
             foreach (var farmer in team)
                 if (farmer.isActive() && farmer.professions.Contains(profession))
@@ -162,6 +178,7 @@ namespace VanillaPlusProfessions.Utilities
             if (Context.IsWorldReady)
             {
                 StringBuilder stringBuilder = new();
+                stringBuilder.AppendLine("");
                 stringBuilder.AppendLine("    - Skill Levels -    ");
                 stringBuilder.AppendLine("Farming: " + Game1.player.farmingLevel.Value);
                 stringBuilder.AppendLine("Fishing: " + Game1.player.fishingLevel.Value);
@@ -188,6 +205,7 @@ namespace VanillaPlusProfessions.Utilities
                 stringBuilder.AppendLine($"Color Blindness Changes: {ModEntry.ModConfig.Value.ColorBlindnessChanges}");
                 stringBuilder.AppendLine($"Developer Or Testing Mode: {ModEntry.ModConfig.Value.DeveloperOrTestingMode}");
                 stringBuilder.AppendLine($"Mastery Cave Changes: {ModEntry.ModConfig.Value.MasteryCaveChanges}");
+                stringBuilder.AppendLine($"Professions Only: {ModEntry.ModConfig.Value.ProfessionsOnly}");
                 stringBuilder.AppendLine($"Talent Hint Level: {ModEntry.ModConfig.Value.TalentHintLevel}");
                 stringBuilder.AppendLine("");
                 stringBuilder.AppendLine("    - Talents & Professions -    ");
@@ -273,18 +291,41 @@ namespace VanillaPlusProfessions.Utilities
             return ModEntry.ModConfig.Value.MasteryCaveChanges ? 20 : 10;
         }
 
-        public static bool CurrentPlayerHasProfession(int profession, long farmerID = -1, Farmer useThisInstead = null, bool ignoreMode = false)
+        public static bool CurrentPlayerHasProfession(string prof, long farmerID = -1, Farmer useThisInstead = null, bool ignoreMode = false)
         {
             if (farmerID is not -1)
             {
-                useThisInstead = Game1.getFarmer(farmerID);
+                useThisInstead = Game1.GetPlayer(farmerID) ?? Game1.MasterPlayer;
             }
             useThisInstead ??= Game1.player;
 
             if (useThisInstead is null)
                 return false;
+            int profession = -1;
+            foreach (var item in ModEntry.Professions)
+            {
+                if (prof == item.Key)
+                {
+                    profession = item.Value.ID;
+                    break;
+                }
+            }
+            if (profession == -1 && int.TryParse(prof, out int result))
+            {
+                profession = result;
+            }
 
             return useThisInstead.professions.Contains(profession) is true || (ModEntry.ModConfig.Value.DeveloperOrTestingMode && !ignoreMode);
+        }
+
+        public static bool IsGeode(this StardewValley.Object obj)
+        {
+            var data = ItemRegistry.GetData(obj.QualifiedItemId).RawData;
+            if (data is ObjectData objData)
+            {
+                return objData.GeodeDrops is not null || objData.GeodeDropsDefaultItems;
+            }
+            return false;
         }
         public static Texture2D GetProfessionIconImage(LevelUpMenu menu)
         {
@@ -297,15 +338,15 @@ namespace VanillaPlusProfessions.Utilities
             return Game1.mouseCursors;
         }
 
-        public static Rectangle? GetProfessionSourceRect(int whichProfession)
+        public static Rectangle? GetProfessionSourceRect(int x, int y, int width, int height, int whichProfession)
         {
             if (whichProfession > 467800)
             {
                 int realID = whichProfession - 467800;
-           //     x = (realID - 30) % 6 * 16;
-            //    y = (realID - 30) / 6 * 16;
+                x = (realID - 30) % 6 * 16;
+                y = (realID - 30) / 6 * 16;
             }
-            return new(0, 0, 16, 16);
+            return new(x, y, width, height);
         }
     }
 }
