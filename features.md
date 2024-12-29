@@ -21,7 +21,7 @@ Please click one of the titles to jump between sections.
 Following is the changes VPP adds for skills:
 - Changes the skill leveling limit to be 20 instead of 10
 - Adds an overlay in skills page to display your progress (Shown only if you have at least one skill above level 10)
-- Adds craftables between levels 11-14 and 16-19 (Vanilla skills only)
+- Adds craftables between levels 11-14 and 16-19 (Vanilla skills only, to be documented)
 - Locks Mastery Cave to be behind leveling up all skills to level 20. (Can be changed via config.json or GMCM menu)
 
 ## New Skill Levels
@@ -559,6 +559,8 @@ Its said to be alike Skyrim's skill trees, but to be quite honest I haven't play
 | Succeeding in Qi's Challenges  | 1 (only once per SO)      |
 | Achieving Perfection           | 10                        |
 
+Once obtained, all talent points are shared across all skill trees so for example if you gained one point from levelling up Farming, you can use it in the Foraging or Combat trees etc. with no restrictions.
+
 ## Can I reset my talents?
 You are allowed to reset the trees as often as you want, but you have to use one of:
 - Stardrop Tea: To reset the tree you're currently viewing
@@ -666,9 +668,9 @@ Higher-tier sprinklers require lower ones as materials.
 
 This talent will changes the recipes of Iridium sprinkler and Quality Sprinkler, the old and new recipes are listed below
 
-|     Sprinkler     |                    Old Recipe                   |                       New Recipe                         |
-|:-----------------:|:-----------------------------------------------:|:--------------------------------------------------------:|
-| Quality Sprinkler | 1 Iron Bar<br/>1 Gold Bar<br/>1 Refined Quartz  | 1 Gold Bar<br/>1 Coal<br/>1 Sprinkler                    |
+|     Sprinkler     |                    Old Recipe                   |                       New Recipe                      |
+|:-----------------:|:-----------------------------------------------:|:-----------------------------------------------------:|
+| Quality Sprinkler | 1 Iron Bar<br/>1 Gold Bar<br/>1 Refined Quartz  | 1 Gold Bar<br/>1 Coal<br/>1 Sprinkler                 |
 | Iridium Sprinkler | 1 Gold Bar<br/>1 Iridium Bar<br/>1 Battery Pack | 1 Iridium Bar<br/>1 Battery Pack<br/>1 Quality Sprinkler |
 
 ### Fertigation
@@ -683,7 +685,7 @@ Crows wont eat full-grown crops anymore.
 ### Tropical Bliss
 Summer & multi-season crops grow faster on Ginger Island.[^5]
 
-[^5]: This talent works in sync with the other two of Nourishing Rain, Efflorescence and Tropical Bliss; They are checked in the order they're listed here and if one of them apply, others will be ignored, also only one of them takes effect per plant phase.
+[^5]: This talent works in sync with the other two of Nourishing Rain, Efflorescence and Tropical Bliss; only one of them will apply to one crop.
 
 ### Harvest Season
 Junimos harvest faster.
@@ -713,6 +715,8 @@ Receive a speed boost after 12 AM.
 
 ### Ancestral Weaponry
 If Ginger Island has been unlocked,\nthe Dwarf sells dwarven weaponry.
+
+Note: The Dwarf that sells it is the one in the mines, not Ginger Island Volcano.
 
 ### Shared Focus
 Time is slower in any mines.
@@ -912,6 +916,7 @@ Roe, Aged Roe, and Caviar worth more.
 Allows legendary fish to be added to fish ponds. They cannot increase in number.
 Any vanilla legendary fish can be added to the fish ponds, but they all only produce roe.
 
+Note: I'm aware this talent's mechanic is already added by 1.6.9. I'm working on an alternative.
 For mod authors: If you want your legendary fish to be affected, all vanilla fish normally have the ``fish_pond_banned`` tag. When the talent is obtained, set your mod to remove this tag from your fish.
 
 ### Spawning Season
@@ -1042,14 +1047,14 @@ A new big craftable recipe is added into your crafting recipes, which is named "
 
 Note: Said rings spawned from CJB or SMAPI console will not be functional because both of those wont do some necessary changes VPP does.
 
-For Mod Authors: If you add custom trinkets, you need to add a custom ring item, and add an entry like ``"Kedi.VPP.AccessoriseRing": "ExampleAuthor.ExampleMod_UnqualifiedItemIDForMyRing"`` to your trinket's TrinketMetadata field. This is needed for VPP to match your trinket to your ring.
+For Mod Authors: If you add custom trinkets, you need to add a custom ring item, and add an entry like ``"Kedi.VPP.AccessoriseRing": "ExampleAuthor.ExampleMod_UnqualifiedItemIDForMyRing"`` to your trinket's CustomFields field. This is needed for VPP to match your trinket to your ring.
 
 ### Consolidation
 Rings of the same type can be forged together.
 There is only one exception to this. Combined Rings still can't be combined again.
 
 ### Hidden Benefits
-All vanilla trinkets will get<br/>na second purpose.
+All vanilla trinkets will get a second purpose.
 
 There are 8 trinkets in vanilla, and one extra purpose for each.
 In case there are people who want to learn what it is themselves, only the hint locations are listed below:
@@ -1148,8 +1153,7 @@ ever 10 in-game minutes, you will gain 15 points of health.
 
 ### Mate's Rates
 Friendship with shopkeepers reduces prices.
-Affects all shops except Desert Festival shops and will be triggered only when you have 6 hearts with the shopkeeper. Prices will be reduced by %20
-
+Affects all shops except Desert Festival shops and will be triggered only when you have 6 hearts with the shopkeeper. Prices will be reduced by %20.
 
 For Mod Authors: There is nothing you should do. Even if you add custom items to vanilla shops, they will be affected automatically.
 ### Monumental Discount
@@ -1166,41 +1170,41 @@ There's nothing you should do for compatibiliy with this talent.
 
 ### Insider Info
 The price increases for the vanilla NPCs are listed below:
-| Villager | Items                                                                        |
-|:--------:|:----------------------------------------------------------------------------:|
-|Abigail   | Amethyst, Pumpkin<br/>Pumpkin Pie, Blackberry Cobbler                        |
-|Alex      | Complete Breakfast<br/>Salmon, Hashbrowns, Pancakes                          |
-|Caroline  | Summer Spangle<br/>Green Tea & Tea Leaves                                    |
-|Clint     | All ores and bars                                                            |
-|Demetrius | Red Mushroom<br/>Purple Mushroom, Orange, Apple                              |
-|Dwarf     | All Dwarf items, Cave Carrot<br/>All Bombs                                   |
-|Elliott   | All Beach Forage                                                             |
-|Emily     | Cloth & Wool                                                                 |
-|Evelyn    | Tulip, Blue Jazz & Cookie                                                    |
-|George    | Leek, Earth Crystal<br/>Fried Mushroom                                       |
-|Gus       | Bread & Spaghetti<br/>Fish Taco                                              |
-|Haley     | Coconut & Sunflower                                                          |
-|Harvey    | Pickles, Coffee<br/>Energy Tonic & Muscle Remedy                             |
-|Jas       | Fairy Rose & Pink Cake                                                       |
-|Jodi      | Chocolate Cake, Rhubarb Pie<br/>Eggplant Parmesan<br/>Crispy Bass, Fried Eel |
-|Kent      | Fiddlehead Fern<br/>Fiddlehead Risotto<br/>Hazelnut & Roasted Hazelnuts      |
-|Krobus    | Void Egg & Void Mayonnaise<br/>Strange Bun                                   |
-|Leah      | Dandelion & Morel<br/>Common Mushroom & Chanterelle                          |
-|Lewis     | Autumn's Bounty & Glazed Yams<br/>Vegetable Medley & Hot Pepper              |
-|Leo       | Ginger & Taro Root<br/>Mango & Duck Feather                                  |
-|Linus     | Salmonberry & Blackberry<br/>Spice Berry & Wild Plum                         |
-|Marnie    | All milks and cheeses                                                        |
-|Maru      | Strawberry & Battery Pack                                                    |
-|Penny     | Treasure Appraisal Guide<br/>Book Of Stars & Poppy                           |
-|Pierre    | Vinegar, Oil, Wheat<br/>Flour, Sugar, Miner's Treat                          |
-|Robin     | Stone, Wood, Peach<br/>Hardwood                                              |
-|Sam       | Pizza, Cactus Fruit & Tigerseye                                              |
-|Sandy     | Crocus, Daffodil & Sweet Pea                                                 |
-|Sebastian | Frozen Tear & Sashimi<br/>Pumpkin Soup & Obsidian                            |
-|Shane     | All regular chicken eggs                                                     |
-|Vincent   | Snail & Periwinkle<br/>Cranberry Candy, Spring Onion                         |
-|Willy     | All baits and tackles                                                        |
-|Wizard    | Solar Essence & Void Essence<br/>Super Cucumber                              |
+| Villager  | Items                                                                        |
+|:---------:|:----------------------------------------------------------------------------:|
+| Abigail   | Amethyst, Pumpkin<br/>Pumpkin Pie, Blackberry Cobbler                        |
+| Alex      | Complete Breakfast<br/>Salmon, Hashbrowns, Pancakes                          |
+| Caroline  | Summer Spangle<br/>Green Tea & Tea Leaves                                    |
+| Clint     | All ores and bars                                                            |
+| Demetrius | Red Mushroom<br/>Purple Mushroom, Orange, Apple                              |
+| Dwarf     | All Dwarf items, Cave Carrot<br/>All Bombs                                   |
+| Elliott   | All Beach Forage                                                             |
+| Emily     | Cloth & Wool                                                                 |
+| Evelyn    | Tulip, Blue Jazz & Cookie                                                    |
+| George    | Leek, Earth Crystal<br/>Fried Mushroom                                       |
+| Gus       | Bread & Spaghetti<br/>Fish Taco                                              |
+| Haley     | Coconut & Sunflower                                                          |
+| Harvey    | Pickles, Coffee<br/>Energy Tonic & Muscle Remedy                             |
+| Jas       | Fairy Rose & Pink Cake                                                       |
+| Jodi      | Chocolate Cake, Rhubarb Pie<br/>Eggplant Parmesan<br/>Crispy Bass, Fried Eel |
+| Kent      | Fiddlehead Fern<br/>Fiddlehead Risotto<br/>Hazelnut & Roasted Hazelnuts      |
+| Krobus    | Void Egg & Void Mayonnaise<br/>Strange Bun                                   |
+| Leah      | Dandelion & Morel<br/>Common Mushroom & Chanterelle                          |
+| Lewis     | Autumn's Bounty & Glazed Yams<br/>Vegetable Medley & Hot Pepper              |
+| Leo       | Ginger & Taro Root<br/>Mango & Duck Feather                                  |
+| Linus     | Salmonberry & Blackberry<br/>Spice Berry & Wild Plum                         |
+| Marnie    | All milks and cheeses                                                        |
+| Maru      | Strawberry & Battery Pack                                                    |
+| Penny     | Treasure Appraisal Guide<br/>Book Of Stars & Poppy                           |
+| Pierre    | Vinegar, Oil, Wheat<br/>Flour, Sugar, Miner's Treat                          |
+| Robin     | Stone, Wood, Peach<br/>Hardwood                                              |
+| Sam       | Pizza, Cactus Fruit & Tigerseye                                              |
+| Sandy     | Crocus, Daffodil & Sweet Pea                                                 |
+| Sebastian | Frozen Tear & Sashimi<br/>Pumpkin Soup & Obsidian                            |
+| Shane     | All regular chicken eggs                                                     |
+| Vincent   | Snail & Periwinkle<br/>Cranberry Candy, Spring Onion                         |
+| Willy     | All baits and tackles                                                        |
+| Wizard    | Solar Essence & Void Essence<br/>Super Cucumber                              |
 
 For Mod Authors: If you're a custom NPC author and want your NPC(s) affected by this talent, you need to add an entry to Insider Info's data. The format DOES NOT accept context tags or category IDs. You can get the target path for the data by using the ``ContentPaths`` token. The key must be the NPC's internal name, and the value should be a space-delimited list of UNQUALIFIED item IDs. For exp: ``"Abigail": "123 456 789 102 425"``
 ### Gift of Friendship
@@ -1253,6 +1257,22 @@ Reduces the bookseller's prices.
 
 ### Cycle of Knowledge
 Extra books can be recycled.
+Recycle outputs are listed below:
+
+| Book Name              | Output           |
+|:----------------------:|:----------------:|
+| Book of Stars          | 1-3 Stardrop Tea |
+| Stardew Valley Almanac | 10-20 Grass Starter</br>5-10 Blue Grass Starter (%10)</br>1-2 Golden Animal Cracker (%10, requires Farming Mastery) |
+| Woodcutter Weekly      | 10-20 Hardwood   |
+| Bait And Bobber        | 5-10 Deluxe Bait or Wild Bait or Magic Bait</br>1 of any tackle (%5) |
+| Mining Monthly         | 5-10 of any ore  |
+| Combat Quarterly       | 3-5 Life Elixir or Oil of Garlic or Monster Musk |
+| Jewels Of The Sea      | 3-5 Roe</br>2-4 Treasure Chest |
+| Woody's Secret         | 3-5 of any wild tree seed</br>1 of any vanilla fruit tree sapling |
+| Monster Compendium     | 5-10 of Any Monster Loot |
+| Jack Be Nimble,</br>Jack Be Thick | 5-10 Eggplant Parmesan or Autumn's Bounty or Pumpkin Soup or Stuffing or Crab Cakes or Banana Pudding or Mango Sticky Rice |
+| Treasure Appraisal Guide | 5-10 Artifact Trove |
+| Book Of Mysteries | 15-25 Mystery Box</br>15-25 Golden Mystery Box (%10) |
 
 ### Narrow Escape
 Reduces the amount of gold lost on death.
