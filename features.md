@@ -1,6 +1,15 @@
 # Features
 VPP has a lot of features, but mainly divided in three groups:
 - [Skill Changes](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#skill-changes)
+  - New Skill Levels
+  - Skills Display
+  - Mastery Cave Changes
+  - Skill Craftables
+    - Farming (To be Implemented)
+    - Mining
+    - Foraging (To be Implemented)
+    - Fishing (To be Implemented)
+    - Combat (To be Implemented)
 - [Professions](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#professions)
   - [Farming Professions](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#farming-professions)
   - [Mining Professions](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#mining-professions)
@@ -20,9 +29,9 @@ Please click one of the titles to jump between sections.
 # Skill Changes
 Following is the changes VPP adds for skills:
 - Changes the skill leveling limit to be 20 instead of 10
-- Adds an overlay in skills page to display your progress (Shown only if you have at least one skill above level 10)
-- Adds craftables between levels 11-14 and 16-19 (Vanilla skills only, to be documented)
+- Adds an overlay in skills page to display your progress
 - Locks Mastery Cave to be behind leveling up all skills to level 20. (Can be changed via config.json or GMCM menu)
+- Adds craftables between levels 11-14 and 16-19 (Vanilla skills only, to be documented)
 
 ## New Skill Levels
 VPP changes the highest skill level for vanilla skills to 20 from 10. This is not configurable due to a lot of mod features rely on this.
@@ -50,6 +59,43 @@ The vanilla and custom level experiences needed are listed below.
 |18     | +13000            | 91000            |
 |19     | +14000            | 105000           |
 |20     | +15000            | 120000           |
+
+## Skills Display
+It's available ONLY if you have at least one skill above level 10 (doesn't matter whether vanilla or modded). If you can't see it still, try resizing your window. If that doesn't work too, submit a bug report. It's accessed by clicking the little plus button that appears next to the menu's border. For striped versions, it comes with a color-blindness config.
+
+TODO - ADD PICTURES HERE WITH CONFIG ON AND OFF
+
+## Mastery Cave Changes
+VPP changes Mastery Cave to unlock at when all skills are levelled up to 20, unless the config is turned off. It locks "Singular Mastery" and "Master of Five Ways" achievements behind that along with any and all Mastery experience to be gained.
+Additionally, if you have Accessorise talent, you will be able to find trinkets even if you haven't obtained Combat Mastery yet, but you will still need the Combat Mastery to get any trinket slots.
+
+## Skill Craftables
+
+### Farming 
+(To be Implemented)
+
+### Mining
+VPP adds a total of 9 unlockables for Mining skill. What they are and unlocking levels are listed below:
+
+| Level | Unlockable Name | Type |
+|:-----:|:---------------:|:----:|
+| 11 | Glowing Crystal | Big Craftable |
+| 12 | Programmable Drill | Big Craftable |
+| 13 | Thermal Reactor | Big Craftable |
+| 14 | Node Maker | Big Craftable |
+| 16 | Minecart Chest & Minecart Repository | Big Craftable & Building |
+| 17 | Machinery Collector | Big Craftable |
+| 18 | Mineral Cavern | Building |
+| 19 | Miner's Meal | Cooking |
+
+### Foraging 
+(To be Implemented)
+
+### Fishing 
+(To be Implemented)
+
+### Combat 
+(To be Implemented)
 
 # Professions
 VPP adds a total of 50 professions for all vanilla skills:
