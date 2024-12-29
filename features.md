@@ -1270,7 +1270,7 @@ Recycle outputs are listed below:
 | Jewels Of The Sea      | 3-5 Roe</br>2-4 Treasure Chest |
 | Woody's Secret         | 3-5 of any wild tree seed</br>1 of any vanilla fruit tree sapling |
 | Monster Compendium     | 5-10 of Any Monster Loot |
-| Jack Be Nimble,</br>Jack Be Thick | 5-10 Eggplant Parmesan or Autumn's Bounty or Pumpkin Soup or Stuffing or Crab Cakes or Banana Pudding or Mango Sticky Rice |
+| Jack Be Nimble,</br>Jack Be Thick | 5-10 Eggplant Parmesan or Stuffing</br>or Pumpkin Soup or Crab Cakes or Banana Pudding</br>or Mango Sticky Rice or Autumn's Bounty |
 | Treasure Appraisal Guide | 5-10 Artifact Trove |
 | Book Of Mysteries | 15-25 Mystery Box</br>15-25 Golden Mystery Box (%10) |
 
