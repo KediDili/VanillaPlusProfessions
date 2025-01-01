@@ -1,12 +1,12 @@
 # Features
 VPP has a lot of features, but mainly divided in three groups:
 - [Skill Changes](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#skill-changes)
-  - New Skill Levels
-  - Skills Display
-  - Mastery Cave Changes
-  - Skill Craftables
+  - [New Skill Levels](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#new-skill-levels)
+  - [Skills Display](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#skills-display)
+  - [Mastery Cave Changes](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#mastery-cave-changes)
+  - [Skill Craftables](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#skill-craftables)
     - Farming (To be Implemented)
-    - Mining
+    - [Mining](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#mining)
     - Foraging (To be Implemented)
     - Fishing (To be Implemented)
     - Combat (To be Implemented)
@@ -83,10 +83,74 @@ VPP adds a total of 9 unlockables for Mining skill. What they are and unlocking 
 | 12 | Programmable Drill | Big Craftable |
 | 13 | Thermal Reactor | Big Craftable |
 | 14 | Node Maker | Big Craftable |
-| 16 | Minecart Chest & Minecart Repository | Big Craftable & Building |
+| 16 | Minecart Chest</br>Minecart Repository | Big Craftable</br>Building |
 | 17 | Machinery Collector | Big Craftable |
 | 18 | Mineral Cavern | Building |
 | 19 | Miner's Meal | Cooking |
+
+#### Glowing Crystal
+It's a lamp-like big craftable which is unlocked on level 11.
+Requires 35 quartz, 30 stone and 1 coal to craft.
+
+#### Programmable Drill
+It's a special machine which is unlocked on level 12.
+Requires a battery pack and one of any ore, gem, geode, coal or stone as input and works for 1 in-game week.
+As output, it gives more of the input, counts are listed below:
+| Type of Input | Count   |
+|:-------------:|:-------:|
+| Ores          | 35-70   |
+| Gemstones     | 2-10    |
+| Geodes        | 10-30   |
+| Coal          | 100-300 |
+| Stone         | 300-750 |
+
+It will not work if its not in an indoor "mine" location. (in vanilla, that's only the mine entrance)
+If any of the four adjacent tiles has a Machinery Collector; the drill will put any produced output into the collector, create extra drops (with %0.05 chance every 10 in-game minutes), pull inputs from the first possible collector detected. The initial input is prioritized while pulling input, if applicable. It can still take input even if batteries and ores/geodes/etc. are in different containers.
+Requires 1 dwarf gadget, 10 copper bars and 5 iron bars to craft.
+
+For Mod Authors: If you'd like programmable drills to work in your mine location, simply add the ``"KediDili.VanillaPlusProfessions_IsConsistentMineLocation": "true"`` in your location data's CustomFields. However, there currently isn't a way to exclude youre ores/geodes/etc. from being inputted into the drill.
+
+#### Thermal Reactor
+It's a solar panel-like machine unlocked on level 13.
+It does not require any input, but it requires being placed into any location with lava (for vanilla, the Caldera is the only place it works.) Takes 7 days to give output, which is 21-49 batteries.
+Requires 45 fire quartz, 1 Hematite and 3 frozen tears to craft.
+
+For Mod Authors: If you'd like thermal reactors to work in your mine location, simply add the ``"KediDili.VanillaPlusProfessions_IsLavaLocation": "true"`` in your location data's CustomFields.
+#### Node Maker
+It's a regular machine unlocked on level 14.
+It can take any ore/geode/gem as input along with 2 clay, as long as there's a corresponding stone node for it.
+Outputs 2-6 of the corresponding stone node, which can be placed down in Mineral Cavern indoors.
+Requires 1 Rusty Cog, 5 iron bars and 5 gold bars to craft.
+
+For Mod Authors: If you'd like node makers to work in your mine location, simply add the ``"KediDili.VanillaPlusProfessions_IsLavaLocation": "true"`` in your location data's CustomFields.
+
+#### Minecart Chest
+It's a special chest unlocked on level 16, along with the minecart repository.
+If there's a Minecart Repository built on the farm, warps any placed content to it. Otherwise has no function.
+Requires 25 hardwood, 16 stone and 1 large oak resin to craft.
+The large oak resin can be found via the Spring Thaw talent.
+
+#### Minecart Repository
+It's a special storage building unlocked on level 16, along with the minecart chest.
+If you build one on your farm and place anything in a minecart chest, any of its content will warp into this building.
+Only one of the repository can be built per save. If you want to build a new one, you need to demolish the existing one first.
+Requires 20 copper bars, 10 iron bars and 300 stones to build. It can be built from Robin's Carpenter shop for 10000g.
+
+#### Machinery Collector
+It's a special type of chest unlocked on level 17.
+It can work with programmable drills to collect output and put input into them.
+Any and all Machinery Collectors are disabled from Automate's interactions by default.
+Requirs 1 Dwarf gadget and 20 copper bars to craft.
+
+#### Mineral Cavern
+It's a special building unlocked on level 18.
+The nodes from Node Maker can be placed indoors of this building, and any applicable combination of 2x2 (four in total) nodes have a %30 chance to grow into a boulder/clump overnight if there's a matching one with the nodes.
+Requires 40 clay, 100 wood and 250 stones to build. It can be built from Robin's Carpenter shop for 20000g.
+
+#### Miner's Meal
+It's a cooked food unlocked on level 19.
+When eaten, gives 
+//TODO, COMPLETE THIS
 
 ### Foraging 
 (To be Implemented)
