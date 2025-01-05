@@ -39,8 +39,9 @@ An example patch for both of them is written below:
 ```
 
 ### Game State Queries
+VPP adds three GSQs to be used with VPP compatibility, their names, parameters and what they do are listed below:
 |                                Format                                  |                         Details                      |
-|:----------------------------------------------------------------------:|:----------------------------------------------------:|
+|:----------------------------------------------------------------------|:----------------------------------------------------|
 | ``KediDili.VanillaPlusProfessions_WasRainingHereYesterday <location>`` | Checks if it was raining the said location YESTERDAY.<br/>This can be used for compatibility with talents such as Bountiful Boletes or Renewing Mist that need this check. |
 | ``KediDili.VanillaPlusProfessions_PlayerHasTalent <player> <talentName>`` | Checks if the ``<player>`` has purchased ``<talentName>``. It's highly recommended to use this instead of mail flag checks to track talents, since this query also accounts for ``ProfessionsOnly`` config. |
 | ``KediDili.VanillaPlusProfessions_PlayerHasProfession <player> <professionName>`` | Checks if the ``<player>`` has obtained ``<professionName>``. It's recommended to use in fields such as ``Condition`` since they require GSQs. |
