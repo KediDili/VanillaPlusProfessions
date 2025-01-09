@@ -80,7 +80,7 @@ namespace VanillaPlusProfessions
         }
         internal static void HandleObjects(ref IDictionary<string, ObjectData> editor)
         {
-            if (CoreUtility.CurrentPlayerHasProfession("Ranger")) //Ranger ++
+            /*if (CoreUtility.CurrentPlayerHasProfession("Ranger")) //Ranger ++
             {
                 var list = (from element in editor
                             where element.Value.Category == Object.GreensCategory && element.Value.ContextTags.Contains("forage_item")
@@ -99,7 +99,7 @@ namespace VanillaPlusProfessions
                 {
                     editor[list[i]].Price *= 2;
                 }
-            }
+            }*/
             if (CoreUtility.CurrentPlayerHasProfession("Mineralogist")) //Mineralogist
             {
                 editor["749"].GeodeDropsDefaultItems = false;
@@ -109,32 +109,33 @@ namespace VanillaPlusProfessions
                 editor["537"].GeodeDrops = editor["749"].GeodeDrops;
                 editor["536"].GeodeDrops = editor["749"].GeodeDrops;
                 editor["535"].GeodeDrops = editor["749"].GeodeDrops;
-            }            
-            if (TalentUtility.CurrentPlayerHasTalent("Fishing_Roemance"))
-            {
-                editor["812"].Price *= 5 / 4;
             }
-            if (TalentUtility.CurrentPlayerHasTalent("Misc_HauteCuisine"))
+            /*             
+        if (TalentUtility.CurrentPlayerHasTalent("Fishing_Roemance"))
+        {
+            editor["812"].Price *= 5 / 4;
+        }
+        if (TalentUtility.CurrentPlayerHasTalent("Misc_HauteCuisine"))
+        {
+            foreach (var item in editor)
+                if (item.Value.Category == Object.CookingCategory)
+                    item.Value.Price *= 2;
+        }
+        if (TalentUtility.CurrentPlayerHasTalent("Misc_InsiderInfo"))
+        {
+            Dictionary<string, string> InsiderInfo = ModEntry.Helper.GameContent.Load<Dictionary<string, string>>(ContentPaths["InsiderInfo"]);
+            foreach (var item in InsiderInfo)
             {
-                foreach (var item in editor)
-                    if (item.Value.Category == Object.CookingCategory)
-                        item.Value.Price *= 2;
-            }
-            if (TalentUtility.CurrentPlayerHasTalent("Misc_InsiderInfo"))
-            {
-                Dictionary<string, string> InsiderInfo = ModEntry.Helper.GameContent.Load<Dictionary<string, string>>(ContentPaths["InsiderInfo"]);
-                foreach (var item in InsiderInfo)
+                if (Game1.player.friendshipData.TryGetValue(item.Key, out Friendship val) && val.Points >= 1500)
                 {
-                    if (Game1.player.friendshipData.TryGetValue(item.Key, out Friendship val) && val.Points >= 1500)
+                    string[] items = ArgUtility.SplitBySpace(item.Value.Replace(",", " "));
+                    for (int i = 0; i < items.Length; i++)
                     {
-                        string[] items = ArgUtility.SplitBySpace(item.Value.Replace(",", " "));
-                        for (int i = 0; i < items.Length; i++)
-                        {
-                            editor[items[i]].Price = (int)(editor[items[i]].Price * 0.8f);
-                        }
+                        editor[items[i]].Price = (int)(editor[items[i]].Price * 0.8f);
                     }
                 }
             }
+        }*/
             editor["420"].ContextTags.Add(TalentCore.ContextTag_PoisonousMushroom);
         }
         internal static void HandleLocations(ref IDictionary<string, LocationData> editor)
@@ -310,36 +311,6 @@ namespace VanillaPlusProfessions
                     HandleLocations(ref editor);
                 });
             }
-            /*if (e.NameWithoutLocale.IsEquivalentTo(PathUtilities.NormalizeAssetName("Data/Buffs")))
-            {
-                e.Edit(asset =>
-                {
-                    var editor = asset.AsDictionary<string, BuffData>().Data;
-
-                    foreach (var buffData in editor)
-                    {
-                        if (!buffData.Value.IsDebuff && CoreUtility.CurrentPlayerHasProfession(467867))
-                        {
-                            if (buffData.Value.Duration != -2)
-                            {
-                                buffData.Value.Duration *= 2;
-                            }
-                        }
-                        else if (buffData.Value.IsDebuff && CoreUtility.CurrentPlayerHasProfession(467867))
-                        {
-                            if (buffData.Value.Duration != -2)
-                            {
-                                buffData.Value.Duration /= 2;
-                            }
-                        }
-                    }
-                });
-            }*/
-
-            /*if (e.NameWithoutLocale.IsEquivalentTo(ContentPaths["ItemSpritesheet"]))
-            {
-                e.LoadFromModFile<Texture2D>(PathUtilities.NormalizePath("assets\\ItemIcons.png"), AssetLoadPriority.Exclusive);
-            }*/
 
             if (e.NameWithoutLocale.IsEquivalentTo(ContentPaths["InsiderInfo"]))
             {

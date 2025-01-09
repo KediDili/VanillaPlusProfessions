@@ -2,10 +2,11 @@
   "Name": "Vanilla Plus Professions",
   "Author": "KediDili",
   "Description": "Adds further branches to vanilla professions.",
-  "Version": "1.0.0-alpha.20241225",
+  "Version": "1.0.1",
   "UniqueID": "KediDili.VanillaPlusProfessions",
   "EntryDLL": "VanillaPlusProfessions.dll",
   "MinimumApiVersion": "4.0.0",
+  "UpdateKeys": [ "Nexus:20054" ],
   "Dependencies": [
     {
       "UniqueID": "Pathoschild.ContentPatcher",

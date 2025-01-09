@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
+using System.Xml.Linq;
 using HarmonyLib;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using SpaceCore.UI;
 using StardewModdingAPI;
 using StardewValley;
 using StardewValley.BellsAndWhistles;
@@ -100,7 +103,63 @@ namespace VanillaPlusProfessions.Talents.Patchers
             {
                 CoreUtility.PrintError(e, nameof(MiscPatcher), "Chest.ShowMenu", "transpiling");
             }
+            try
+            {
+                ModEntry.Harmony.Patch(
+                    original: AccessTools.Constructor(typeof(StardewValley.Object), new Type[] { typeof(string), typeof(int), typeof(bool), typeof(int) , typeof(int) }),
+                    postfix: new HarmonyMethod(typeof(MiscPatcher), nameof(Object_Constructor_Postfix))
+                );
+            }
+            catch (Exception e)
+            {
+                CoreUtility.PrintError(e, nameof(MiscPatcher), "Object constructor", "postfixing");
+            }
         }
+        public static void Object_Constructor_Postfix(ref StardewValley.Object __instance)
+        {
+            if (CoreUtility.CurrentPlayerHasProfession("Ranger")) //Ranger ++
+            {
+                if (__instance.Category == StardewValley.Object.GreensCategory && __instance.HasContextTag("forage_item"))
+                    __instance.Price *= 2;
+            }
+            if (CoreUtility.CurrentPlayerHasProfession("Adventurer")) //Adventurer ++
+            {
+                if (__instance.Category == StardewValley.Object.sellAtFishShopCategory || __instance.HasContextTag("forage_item_beach") || __instance.HasContextTag("forage_item_secret") || __instance.HasContextTag("forage_item_mines"))
+                    __instance.Price *= 2;
+            }
+            if (TalentUtility.CurrentPlayerHasTalent("Misc_HauteCuisine"))
+            {
+                if (__instance.Category == StardewValley.Object.CookingCategory)
+                    __instance.Price *= 2;
+            }
+            if (TalentUtility.CurrentPlayerHasTalent("Fishing_Roemance"))
+            {
+                if (__instance.ItemId is "812" or "447" or "445")
+                    __instance.Price *= 5 / 4;
+            }
+            if (CoreUtility.CurrentPlayerHasProfession("Ironmonger"))
+            {
+                if (__instance.HasContextTag("ore_item"))
+                    __instance.Price *= 2;
+            }
+            if (TalentUtility.CurrentPlayerHasTalent("Misc_InsiderInfo"))
+            {
+                Dictionary<string, string> InsiderInfo = ModEntry.Helper.GameContent.Load<Dictionary<string, string>>(ContentEditor.ContentPaths["InsiderInfo"]);
+                foreach (var item in InsiderInfo)
+                {
+                    if (Game1.player.friendshipData.TryGetValue(item.Key, out Friendship val) && val.Points >= 1500)
+                    {
+                        string[] items = ArgUtility.SplitBySpace(item.Value.Replace(",", " "));
+                        if (items.Contains(__instance.ItemId))
+                        {
+                            __instance.Price += (int)(__instance.Price * 0.2f);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
         public static IEnumerable<CodeInstruction> ShowMenu_Transpiler(IEnumerable<CodeInstruction> insns)
         {
             var list = insns.ToList();
@@ -359,63 +418,82 @@ namespace VanillaPlusProfessions.Talents.Patchers
 
         public static int TryOverrideFriendshipDecay(int oldDecay)
         {
-            if (Game1.player.mailReceived.Contains("Misc_Admiration"))
+            if (TalentUtility.CurrentPlayerHasTalent("Admiration"))
             {
                 return oldDecay / 2;
             }
             return oldDecay;
         }
 
-        public static void TryCreateBuffsFromData_Postfix(IEnumerable<Buff> __result, ObjectData obj)
+        public static void TryCreateBuffsFromData_Postfix(ref IEnumerable<Buff> __result, ObjectData obj, string name, string displayName, float durationMultiplier)
         {
             try
             {
-                if (TalentUtility.CurrentPlayerHasTalent("Misc_GoodEats") && __result.Any())
+                if (TalentUtility.CurrentPlayerHasTalent("Misc_GoodEats") && obj?.Buffs?.Any() is true)
                 {
-                    string bufftype = "";
-                    foreach (var item in __result)
+                    List<Buff> buffs = new();
+                    foreach (var item in obj.Buffs)
                     {
-                        if (item.effects.Immunity.Value > 0)
+                        string bufftype = "";
+                        if (item.CustomAttributes.Immunity > 0)
                             bufftype = "immunity";
-                        else if (item.effects.MaxStamina.Value > 0)
+                        else if (item.CustomAttributes.MaxStamina > 0)
                             bufftype = "maxstamina";
-                        else if (item.effects.Attack.Value > 0)
+                        else if (item.CustomAttributes.Attack > 0)
                             bufftype = "attack";
-                        else if (item.effects.Defense.Value > 0)
+                        else if (item.CustomAttributes.Defense > 0)
                             bufftype = "defense";
-                        else if (item.effects.Speed.Value > 0)
+                        else if (item.CustomAttributes.Speed > 0)
                             bufftype = "speed";
-                        else if (item.effects.MagneticRadius.Value > 0)
+                        else if (item.CustomAttributes.MagneticRadius > 0)
                             bufftype = "magnet";
 
-                        else if (item.effects.WeaponPrecisionMultiplier.Value > 0)
+                        else if (item.CustomAttributes.WeaponPrecisionMultiplier > 0)
                             bufftype = "weaponprecision";
-                        else if (item.effects.WeaponSpeedMultiplier.Value > 0)
+                        else if (item.CustomAttributes.WeaponSpeedMultiplier > 0)
                             bufftype = "weaponspeed";
-                        else if (item.effects.KnockbackMultiplier.Value > 0)
+                        else if (item.CustomAttributes.KnockbackMultiplier > 0)
                             bufftype = "knockback";
-                        else if (item.effects.AttackMultiplier.Value > 0)
+                        else if (item.CustomAttributes.AttackMultiplier > 0)
                             bufftype = "attackmultiplier";
-                        else if (item.effects.CriticalChanceMultiplier.Value > 0)
+                        else if (item.CustomAttributes.CriticalChanceMultiplier > 0)
                             bufftype = "critchancemultiplier";
-                        else if (item.effects.CriticalPowerMultiplier.Value > 0)
+                        else if (item.CustomAttributes.CriticalPowerMultiplier > 0)
                             bufftype = "critpowermultiplier";
 
-                        else if (item.effects.FarmingLevel.Value > 0)
+                        else if (item.CustomAttributes.FarmingLevel > 0)
                             bufftype = "farming";
-                        else if (item.effects.FishingLevel.Value > 0)
+                        else if (item.CustomAttributes.FishingLevel > 0)
                             bufftype = "fishing";
-                        else if (item.effects.ForagingLevel.Value > 0)
+                        else if (item.CustomAttributes.ForagingLevel > 0)
                             bufftype = "foraging";
-                        else if (item.effects.MiningLevel.Value > 0)
+                        else if (item.CustomAttributes.MiningLevel > 0)
                             bufftype = "mining";
-                        else if (item.effects.CombatLevel.Value > 0)
+                        else if (item.CustomAttributes.CombatLevel > 0)
                             bufftype = "combat";
-                        else if (item.effects.LuckLevel.Value > 0)
+                        else if (item.CustomAttributes.LuckLevel > 0)
                             bufftype = "luck";
 
-                        AccessTools.Field(typeof(Buff), "id").SetValue(item, item.id + "_" + bufftype);
+                        Texture2D texture = null;
+                        int spriteIndex = -1;
+                        if (item.IconTexture != null)
+                        {
+                            texture = Game1.content.Load<Texture2D>(item.IconTexture);
+                            spriteIndex = item.IconSpriteIndex;
+                        }
+                        int millisecondsDuration = -1;
+                        if (item.Duration == -2)
+                        {
+                            millisecondsDuration = -2;
+                        }
+                        else if (item.Duration != 0)
+                        {
+                            millisecondsDuration = (int)(item.Duration * durationMultiplier) * Game1.realMilliSecondsPerGameMinute;
+                        }
+
+                        buffs.Add(new Buff((obj.IsDrink ? "drink" : "food") + "_" + bufftype, name, displayName, millisecondsDuration, texture, spriteIndex, effects: new BuffEffects(item.CustomAttributes), item.IsDebuff));
                     }
+                    __result = buffs;
                 }
             }
             catch (Exception e)

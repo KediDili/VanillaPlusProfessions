@@ -262,6 +262,11 @@ namespace VanillaPlusProfessions.Talents.UI
                 {
                     Bundles[i].button.draw(b);
                 }
+                if (TalentCore.DisabledTalents.Contains(Bundles[i].talent.MailFlag))
+                {
+                    //b.Draw(TalentSelectionMenu.BundleIcon, new Vector2(Bundles[i].button.bounds.X, Bundles[i].button.bounds.Y - 8), new(48, 16, 16, 16), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.6f);
+                    b.Draw(TalentSelectionMenu.BundleIcon, new Vector2(Bundles[i].button.bounds.X, Bundles[i].button.bounds.Y - 32), new(64, 16, 16, 16), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.6f);
+                }
             }
         }
 
@@ -277,6 +282,8 @@ namespace VanillaPlusProfessions.Talents.UI
                         if (Game1.player.mailReceived.Remove(branch.Flag))
                         {
                             Game1.player.mailReceived.Remove(item.talent.MailFlag);
+                            TalentCore.DisabledTalents.Remove(item.talent.MailFlag);
+                            TalentCore.DisabledTalents.Remove(branch.Flag);
                             item.talent.OnTalentRemoved?.Invoke(item.talent.Name, false);
                             count++;
                             break;
@@ -285,6 +292,7 @@ namespace VanillaPlusProfessions.Talents.UI
                 }
                 else if (Game1.player.mailReceived.Remove(item.talent.MailFlag))
                 {
+                    TalentCore.DisabledTalents.Remove(item.talent.MailFlag);
                     item.talent.OnTalentRemoved?.Invoke(item.talent.Name, false);
                     count++;
                 }         

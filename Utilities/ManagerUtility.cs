@@ -27,37 +27,45 @@ namespace VanillaPlusProfessions.Utilities
                 ModEntry.ModMonitor.Log("Load a save first (or wait until your save loads).", LogLevel.Warn);
                 return;
             }
-            if (args[0] is "15")
+            int skill = -1;
+            if (int.TryParse(args[0], out int level) && (int.TryParse(args[1], out skill) || Farmer.getSkillNumberFromName(args[1]) is not -1))
             {
-                foreach (var item in ModEntry.Professions.Values)
+                if (Farmer.getSkillNumberFromName(args[1]) is not -1)
                 {
-                    if (item.Skill.ToString() == args[1] && item.ID < 467870)
+                    skill = Farmer.getSkillNumberFromName(args[1]);
+                }
+                if (level is 15)
+                {
+                    foreach (var item in ModEntry.Professions.Values)
                     {
-                        Game1.player.professions.Remove(item.ID);
+                        if (item.Skill.ToString() == args[1] && item.ID < 467870)
+                        {
+                            Game1.player.professions.Remove(item.ID);
+                        }
                     }
                 }
-                Game1.player.newLevels.Add(new(int.Parse(args[1]), 15));
-            }
-            else if (args[0] is "20")
-            {
-                foreach (var item in ModEntry.Managers[5].RelatedProfessions.Values)
+                else if (level is 20)
                 {
-                    if (item.Skill.ToString() == args[1] && item.ID >= 467870)
+                    foreach (var item in ModEntry.Managers[5].RelatedProfessions.Values)
                     {
-                        Game1.player.professions.Remove(item.ID);
+                        if (item.Skill.ToString() == args[1] && item.ID >= 467870)
+                        {
+                            Game1.player.professions.Remove(item.ID);
+                        }
                     }
                 }
-                Game1.player.newLevels.Add(new(int.Parse(args[1]), 20));
-            }
-            for (int i = 0; i < Game1.player.newLevels.Count; i++)
-            {
-                if (Game1.activeClickableMenu is null)
+
+                Game1.player.newLevels.Add(new(skill, level));
+                for (int i = 0; i < Game1.player.newLevels.Count; i++)
                 {
-                    Game1.activeClickableMenu = new LevelUpMenu(Game1.player.newLevels[i].X, Game1.player.newLevels[i].Y);
-                }
-                else
-                {
-                    Game1.nextClickableMenu.Add(new LevelUpMenu(Game1.player.newLevels[i].X, Game1.player.newLevels[i].Y));
+                    if (Game1.activeClickableMenu is null)
+                    {
+                        Game1.activeClickableMenu = new LevelUpMenu(Game1.player.newLevels[i].X, Game1.player.newLevels[i].Y);
+                    }
+                    else
+                    {
+                        Game1.nextClickableMenu.Add(new LevelUpMenu(Game1.player.newLevels[i].X, Game1.player.newLevels[i].Y));
+                    }
                 }
             }
         }

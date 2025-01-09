@@ -7,8 +7,6 @@ using StardewValley.BellsAndWhistles;
 using System.Linq;
 using VanillaPlusProfessions.Utilities;
 using Microsoft.Xna.Framework.Input;
-using StardewValley.TerrainFeatures;
-using System.Xml.Linq;
 
 namespace VanillaPlusProfessions.Talents.UI
 {
@@ -84,7 +82,7 @@ namespace VanillaPlusProfessions.Talents.UI
                 myID = 467804
             };
 
-            ID_Prefix += 4; 
+            ID_Prefix += 4;
 
             ResetMessages = new string[]
             {
@@ -154,8 +152,8 @@ namespace VanillaPlusProfessions.Talents.UI
             {
                 foreach (var talentbutton in tree.Bundles)
                 {
-                    if (TalentUtility.CurrentPlayerHasTalent(talentbutton.talent.MailFlag))
-                        tree.TalentsBought++;                    
+                    if (TalentUtility.CurrentPlayerHasTalent(talentbutton.talent.MailFlag, ignoreDisabledTalents: false))
+                        tree.TalentsBought++;
                 }
                 foreach (var talentbutton in tree.Bundles)
                 {
@@ -460,21 +458,38 @@ namespace VanillaPlusProfessions.Talents.UI
                 {
                     if (skillTrees[CurrentSkill].Bundles[i].button.containsPoint(x, y))
                     {
-                        if (skillTrees[CurrentSkill].Bundles[i].Availability && !Game1.player.mailReceived.Contains(skillTrees[CurrentSkill].Bundles[i].talent.MailFlag) && TalentCore.TalentPointCount.Value > 0)
+                        if (skillTrees[CurrentSkill].Bundles[i].Availability)
                         {
-                            Game1.player.currentLocation.playSound("wand");
-                            
-                            if (skillTrees[CurrentSkill].Bundles[i].talent.Branches is not null)
+                            if (!Game1.player.mailReceived.Contains(skillTrees[CurrentSkill].Bundles[i].talent.MailFlag) && TalentCore.TalentPointCount.Value > 0)
                             {
-                                BranchDisplayer branchDisplayer = new(skillTrees[CurrentSkill].Bundles[i].talent, i);
-                                SetChildMenu(branchDisplayer);
-                                AnyActiveBranches = true;
+                                Game1.player.currentLocation.playSound("wand");
+
+                                if (skillTrees[CurrentSkill].Bundles[i].talent.Branches is not null)
+                                {
+                                    BranchDisplayer branchDisplayer = new(skillTrees[CurrentSkill].Bundles[i].talent, i);
+                                    SetChildMenu(branchDisplayer);
+                                    AnyActiveBranches = true;
+                                }
+                                else
+                                {
+                                    Game1.player.mailReceived.Add(skillTrees[CurrentSkill].Bundles[i].talent.MailFlag);
+                                    skillTrees[CurrentSkill].Bundles[i].talent.OnTalentAdded?.Invoke(skillTrees[CurrentSkill].Bundles[i].talent.Name, true);
+                                    ReducePoints();
+                                    skillTrees[CurrentSkill].Bundles.ForEach(bundle => bundle.UpdateSprite());
+                                }
                             }
-                            else
+                            else if (Game1.player.mailReceived.Contains(skillTrees[CurrentSkill].Bundles[i].talent.MailFlag))
                             {
-                                Game1.player.mailReceived.Add(skillTrees[CurrentSkill].Bundles[i].talent.MailFlag);
-                                skillTrees[CurrentSkill].Bundles[i].talent.OnTalentAdded?.Invoke(skillTrees[CurrentSkill].Bundles[i].talent.Name, true);
-                                ReducePoints();
+                                Game1.player.currentLocation.playSound("wand");
+
+                                if (!TalentCore.DisabledTalents.Contains(skillTrees[CurrentSkill].Bundles[i].talent.MailFlag))
+                                {
+                                    TalentCore.DisabledTalents.Add(skillTrees[CurrentSkill].Bundles[i].talent.MailFlag);
+                                }
+                                else
+                                {
+                                    TalentCore.DisabledTalents.Remove(skillTrees[CurrentSkill].Bundles[i].talent.MailFlag);
+                                }
                                 skillTrees[CurrentSkill].Bundles.ForEach(bundle => bundle.UpdateSprite());
                             }
                         }

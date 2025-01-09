@@ -131,6 +131,7 @@
 	"Talent.LockedTalent.Name": "Kilitli",
 	"Talent.LockedTalent.Desc": "Önce diğer\nmaharetleri al!",
 	"Talent.LockedTalent.Numbered": " (Açmak için {0} maharet seç)",
+	"Talent.DisabledTalent": " (Kapalı. Yeniden açmak için tıkla.)",
 
 	"Talent.ResetMessages.ItemMissing": "Yenilemek için nesne eksik",
 	"Talent.ResetMessages.SettleTreeFirst": "Önce ağaç\nyenilemesini bitir",
@@ -336,7 +337,7 @@
 	"Talent.Accumulation.Desc": "Eğer gece toplanmazsa, akıtaç ürünlerinin kalitesi artabilir.",
 
 	"Talent.ExoticTapping.Name": "Egzotik Akıtma",
-	"Talent.ExoticTapping.Desc": "Palmiyelere Yağ için akıtaç takılabilir.\nMahun ağaçlarına Şeker için akıtaç takılabilir.",
+	"Talent.ExoticTapping.Desc": "Palmiyelere Yağ için akıtaç takılabilir. Mahun ağaçlarına Şeker için akıtaç takılabilir.",
 
 	"Talent.GroveTending.Name": "Koru Bakımı",
 	"Talent.GroveTending.Desc": "Ağaç Gübresinin etkileri ikiye katlanır.",
@@ -483,7 +484,7 @@
 	"Talent.ConcussiveImpact.Desc": "Bir canavara sopayla vurmak, saldırıdan sonraki 3 saniye boyunca fazladan hasar almasına neden olur.",
 
 	"Talent.Aftershock.Name": "Şok Etkisi",
-	"Talent.Aftershock.Desc": "Sopa saldırıları ikinci bir hasar verir.\nİkinci darbe daha az hasar verir.",
+	"Talent.Aftershock.Desc": "Sopa saldırıları ikinci bir hasar verir. İkinci darbe daha az hasar verir.",
 
 	"Talent.Champion.Name": "Şampiyon",
 	"Talent.Champion.Desc": "Bir canavara kılıçla vurduktan sonra, 6 saniyeliğine +2 Savunma verir.",
@@ -524,7 +525,7 @@
 	"Talent.Branch.Armoured.Desc": "Nöbetçi cücelere, delifişeklere, metal kafalara ve taş yengeçlerinde daha fazla hasar ver.",
 
 	"Talent.SugarRush.Name": "Şeker Çılgınlığı",
-	"Talent.SugarRush.Desc": "Şekerle pişirilmiş yemekler 'Mide Bulantısı' debuff'ını giderir.\nEğer Hayati Pişirme de varsa, onun tarifleri de debuff'ı kaldıracak.",
+	"Talent.SugarRush.Desc": "Şekerle pişirilmiş yemekler 'Mide Bulantısı' debuff'ını giderir. Eğer Hayati Pişirme de varsa, onun tarifleri de debuff'ı kaldıracak.",
 
 	"Talent.Meditation.Name": "Meditasyon",
 	"Talent.Meditation.Desc": "Sabit dururken pasif olarak can yeniler.",
@@ -608,6 +609,8 @@
 	"GMCM.ColorBlindnessChanges.Desc": "VPP ve vanilla beceri barlarını çizgili versiyonlarla değiştirir.",
 	"GMCM.MasteryCaveChanges.Name": "Ustalık Mağarası Değişimleri",
 	"GMCM.MasteryCaveChanges.Desc": "Ustalık Mağarası'nı bütün becerilerde seviye 10 yerine 20'ye gelindiğinde açılacak şekilde değiştirir.",
+	"GMCM.StaminaCostAdjustments.Name": "Enerji Kaybı Ayarlamaları", // New
+	"GMCM.StaminaCostAdjustments.Desc": "Balta, kazma, su kabı ve çapayı birazcık daha fazla enerji kullanacak şekilde değiştirir. Bu seçenek, bu durumu sevmeyen oyuncular için vanilla becerilerde seviye 20'nin aletlerde enerji kullanımı tamamen kaldırmamasını amaçlar.", // New
 	"GMCM.ProfessionsOnly.Name": "Sadece Uzmanlıklar",
 	"GMCM.ProfessionsOnly.Desc": "VPP'yi sadece uzmanlıkları oyuna ekleyecek şekilde değiştirir, maharet sistemine dair her şeyi kapatır. Değiştirildiğinde etkiye girmesi için yeniden başlatma gerekir.",
 	"GMCM.TalentHintLevel.Name": "Maharet İpucu Seviyesi",
@@ -620,6 +623,8 @@
 
 	//Items
 	"Item.Xray.GeodeDrop": "(X-ray Jeot Ürünü: {{dropName}})",
+	"Item.Syrup.ProduceNameFormat": "{0} Şurubu", //New
+	"Item.Dust.ProduceNameFormat": "{0} Tozu", //New
 
 	//Extra Info
 	"ExtraInfo.MinecartRepository": "Artık Robin'in dükkanından Maden Deposu inşa edebilirsin.",

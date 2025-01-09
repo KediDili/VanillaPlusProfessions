@@ -12,6 +12,7 @@ using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley.Menus;
 using StardewValley.GameData.Objects;
+using StardewValley.TerrainFeatures;
 
 namespace VanillaPlusProfessions.Utilities
 {
@@ -151,21 +152,93 @@ namespace VanillaPlusProfessions.Utilities
                 Utility.ForEachBuilding(Building =>
                 {
                     Building.modData.Remove(ModEntry.Key_FishRewardOrQuestDayLeft);
+                    Building.modData.Remove(TalentCore.Key_HiddenBenefit_FrogEggs);
                     Building.modData.Remove(ModEntry.Key_IsSlimeHutchWatered);
+                    if (Building.GetIndoors() is AnimalHouse house)
+                    {
+                        foreach (var (id, animal) in house.Animals.Pairs)
+                        {
+                            if (!house.animalsThatLiveHere.Contains(id))
+                                continue;
+
+                            animal.modData.Remove(TalentCore.Key_WildGrowth);
+                        }
+                    }
+                    else if (Building.GetIndoors() is SlimeHutch hutch)
+                    {
+                        foreach (var slime in hutch.characters)
+                        {
+                            slime.modData.Remove(ModEntry.Key_SlimeWateredDaysSince);
+                        }
+                    }
                     return true;
                 });
                 Utility.ForEachLocation(Loc =>
                 {
                     Loc.modData.Remove(TalentCore.Key_WasRainingHere);
                     Loc.modData.Remove(TalentCore.Key_FaeBlessings);
+                    foreach (var item in Loc.terrainFeatures.Pairs)
+                    {
+                        if (item.Value is FruitTree tree)
+                        {
+                            tree.modData.Remove(ModEntry.Key_TFHasTapper);
+                            tree.modData.Remove(ModEntry.Key_TFTapperID);
+                            tree.modData.Remove(ModEntry.Key_TFTapperDaysLeft);
+                        }
+                        else if (item.Value is GiantCrop crop)
+                        {
+                            crop.modData.Remove(ModEntry.Key_TFHasTapper);
+                            crop.modData.Remove(ModEntry.Key_TFTapperID);
+                            crop.modData.Remove(ModEntry.Key_TFTapperDaysLeft);
+                        }
+                        else if (item.Value is HoeDirt dirt)
+                        {
+                            dirt.modData.Remove(TalentCore.Key_FaeBlessings);
+                        }
+                    }
                     return true;
                 });
-                TalentCore.TalentPointCount.ResetAllScreens();
+                Utility.ForEachCrop(crop =>
+                {
+                    crop.modData.Remove(TalentCore.Key_HiddenBenefit_Crop);
+                    return true;
+                });
+                Utility.ForEachItem(item =>
+                {
+                    item.modData.Remove(TalentCore.Key_XrayDrop);
+                    item.modData.Remove(TalentCore.Key_HiddenBenefit_FairyBox);
+                    item.modData.Remove(TalentCore.Key_Resurgence);
+                    return true;
+                });
                 foreach (var farmer in Game1.getAllFarmers())
                 {
                     foreach (var item in ModEntry.Professions.Values)
                         farmer.professions.Remove(item.ID);
+
+                    foreach (var item in TalentCore.Talents.Values)
+                    {
+                        if (item.Branches is not null && item.Branches.Length > 0)
+                        {
+                            foreach (var branch in item.Branches)
+                            {
+                                farmer.mailReceived.Remove(branch.Flag);
+                            }
+                        }
+                        farmer.mailReceived.Remove(item.MailFlag);
+                    }
+                    farmer.modData.Remove(ModEntry.Key_ForageGuessItemID);
+                    farmer.modData.Remove(ModEntry.Key_DaysLeftForForageGuess);
+                    farmer.modData.Remove(ModEntry.Key_HasFoundForage);
+                    farmer.modData.Remove(TalentCore.Key_TalentPoints);
+                    farmer.modData.Remove(TalentCore.Key_DisabledTalents);
+                    farmer.mailReceived.Remove(TalentCore.Key_PointsCalculated);
+                    for (int i = 0; i < 6; i++)
+                    {
+                        SetSkillLevel(farmer, i, farmer.GetUnmodifiedSkillLevel(i), true);
+                    }
                 }
+                TalentCore.DisabledTalents.Clear();
+                TalentCore.TalentPointCount.ResetAllScreens();
             }
             else
             {
@@ -193,9 +266,9 @@ namespace VanillaPlusProfessions.Utilities
                 stringBuilder.AppendLine("    - Skill Experience -    ");
                 stringBuilder.AppendLine("Farming: " + Game1.player.experiencePoints[0]);
                 stringBuilder.AppendLine("Fishing: " + Game1.player.experiencePoints[1]);
+                stringBuilder.AppendLine("Foraging: " + Game1.player.experiencePoints[2]);
                 stringBuilder.AppendLine("Mining: " + Game1.player.experiencePoints[3]);
                 stringBuilder.AppendLine("Combat: " + Game1.player.experiencePoints[4]);
-                stringBuilder.AppendLine("Foraging: " + Game1.player.experiencePoints[2]);
                 foreach (var item in ModEntry.SpaceCoreAPI.Value.GetCustomSkills())
                 {
                     stringBuilder.AppendLine(item + ": " + ModEntry.SpaceCoreAPI.Value.GetExperienceForCustomSkill(Game1.player, item));
@@ -205,12 +278,14 @@ namespace VanillaPlusProfessions.Utilities
                 stringBuilder.AppendLine($"Color Blindness Changes: {ModEntry.ModConfig.Value.ColorBlindnessChanges}");
                 stringBuilder.AppendLine($"Developer Or Testing Mode: {ModEntry.ModConfig.Value.DeveloperOrTestingMode}");
                 stringBuilder.AppendLine($"Mastery Cave Changes: {ModEntry.ModConfig.Value.MasteryCaveChanges}");
+                stringBuilder.AppendLine($"Stamina Cost Adjustments: {ModEntry.ModConfig.Value.StaminaCostAdjustments}");
                 stringBuilder.AppendLine($"Professions Only: {ModEntry.ModConfig.Value.ProfessionsOnly}");
                 stringBuilder.AppendLine($"Talent Hint Level: {ModEntry.ModConfig.Value.TalentHintLevel}");
                 stringBuilder.AppendLine("");
                 stringBuilder.AppendLine("    - Talents & Professions -    ");
                 stringBuilder.AppendLine($"Talent Points: {TalentCore.TalentPointCount.Value}");
                 stringBuilder.AppendLine($"Save Changes Applied: {Game1.player.mailReceived.Contains(TalentCore.Key_PointsCalculated)}");
+                stringBuilder.Append($"Talents Bought:");
                 foreach (var item in TalentCore.Talents)
                 {
                     if (Game1.player.mailReceived.Contains(item.Value.MailFlag))
@@ -219,12 +294,20 @@ namespace VanillaPlusProfessions.Utilities
                         {
                             for (int i = 0; i < item.Value.Branches.Length; i++)
                                 if (Game1.player.mailReceived.Contains(item.Value.Branches[i].Flag))
-                                    stringBuilder.AppendLine($"{item.Value.Name}: {item.Value.Branches[i].Name}");
+                                    stringBuilder.Append($" {item.Value.Name}: {item.Value.Branches[i].Name},");
                         }
                         else
-                            stringBuilder.AppendLine($"{item.Value.Name}");
+                            stringBuilder.Append($" {item.Value.Name},");
                     }
                 }
+                stringBuilder.AppendLine("");
+                stringBuilder.AppendLine($"Disabled Talents:");
+                foreach (var item in TalentCore.DisabledTalents)
+                {
+                    stringBuilder.Append($" {item},");
+                }
+                stringBuilder.AppendLine("");
+                stringBuilder.AppendLine($"VPP Professions Chosen:");
                 foreach (var item in ModEntry.GetProfessions())
                 {
                     stringBuilder.AppendLine(item);
@@ -241,13 +324,13 @@ namespace VanillaPlusProfessions.Utilities
         {
             if (Context.IsWorldReady)
             {
-                if (!Game1.player.modData.TryGetValue(TalentCore.Key_PointsCalculated, out string _))
+                if (!Game1.player.mailReceived.Contains(TalentCore.Key_PointsCalculated))
                 {
-                    Game1.player.farmingLevel.Value = Farmer.checkForLevelGain(0, Game1.player.experiencePoints[0]);
-                    Game1.player.fishingLevel.Value = Farmer.checkForLevelGain(0, Game1.player.experiencePoints[1]);
-                    Game1.player.miningLevel.Value = Farmer.checkForLevelGain(0, Game1.player.experiencePoints[3]);
-                    Game1.player.combatLevel.Value = Farmer.checkForLevelGain(0, Game1.player.experiencePoints[4]);
-                    Game1.player.foragingLevel.Value = Farmer.checkForLevelGain(0, Game1.player.experiencePoints[2]);
+                    for (int i = 0; i < 6; i++) //So that if luck skill is installed, it'll take it into account too
+                    {
+                        int newLevels = Farmer.checkForLevelGain(0, Game1.player.experiencePoints[i]);
+                        SetSkillLevel(Game1.player, i, newLevels);
+                    }
 
                     TalentCore.TalentPointCount.Value = 0;
 
@@ -272,7 +355,7 @@ namespace VanillaPlusProfessions.Utilities
                     if (Game1.player.mailReceived.Contains("Farm_Eternal"))
                         number += 10;
 
-                    TalentCore.TalentPointCount.Value = number;
+                    TalentCore.AddTalentPoint(number, false);
                     Game1.player.mailReceived.Add(TalentCore.Key_PointsCalculated);
                 }
                 else
@@ -283,6 +366,66 @@ namespace VanillaPlusProfessions.Utilities
             else
             {
                 ModEntry.ModMonitor.Log("Load a save first!", LogLevel.Warn);
+            }
+        }
+
+        public static void SetSkillLevel(Farmer f, int index, int level, bool isUninstalling = false)
+        {
+            //There's a vanilla instance of this method, but it resets the skill XP into vanilla values (15000 max) which is something we dont want.
+            f ??= Game1.player ?? Game1.MasterPlayer;
+            if (f == null)
+                return;
+            if (!isUninstalling)
+            {
+                for (int i = f.GetUnmodifiedSkillLevel(index) + 1; i < level; i++)
+                {
+                    if (i > 10)
+                    {
+                        f.newLevels.Add(new Point(index, i));
+                    }
+                }
+                if (level + f.GetUnmodifiedSkillLevel(index) > 20)
+                {
+                    level -= 10;
+                }
+            }
+            else
+            {
+                if (level > 10)
+                {
+                    level = (level - 10) * -1;
+                }
+                else
+                {
+                    level = 0;
+                }
+            }
+            switch (index)
+            {
+                case 0:
+
+                    f.farmingLevel.Value += level;
+                    break;
+                case 1:
+                    f.fishingLevel.Value += level;
+                    break;
+                case 2:
+                    f.foragingLevel.Value += level;
+                    break;
+                case 3:
+                    f.miningLevel.Value += level;
+                    break;
+                case 4:
+                    f.combatLevel.Value += level;
+                    break;
+                case 5:
+                    if (ModEntry.Helper.ModRegistry.IsLoaded("spacechase0.LuckSkill"))
+                    {
+                        f.luckLevel.Value += level;
+                    }
+                    break;
+                default:
+                    break;
             }
         }
 

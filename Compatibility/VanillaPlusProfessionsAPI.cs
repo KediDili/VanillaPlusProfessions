@@ -8,6 +8,7 @@ using VanillaPlusProfessions.Talents;
 using VanillaPlusProfessions.Talents.UI;
 using StardewModdingAPI;
 using VanillaPlusProfessions.Utilities;
+using StardewValley.Menus;
 
 namespace VanillaPlusProfessions.Compatibility
 {
@@ -41,7 +42,7 @@ namespace VanillaPlusProfessions.Compatibility
                 {
                     //wtf was i gonna do here
                 }
-                CustomTalentTrees.Add(skillID, new(skillID, displayTitle.Invoke(), treeTexture, talents, sourceRect, bundleID, tintColor));
+                CustomTalentTrees.TryAdd(skillID, new(skillID, displayTitle.Invoke(), treeTexture, talents, sourceRect, bundleID, tintColor));
             }
             else
             {
@@ -80,27 +81,47 @@ namespace VanillaPlusProfessions.Compatibility
             CustomMonsters.Add(newData);
         }
 
-        public bool MasteryCaveChanges 
+        public string GetPathForAsset(string key)
         {
-            get
-            {
-                return ModEntry.ModConfig.Value.MasteryCaveChanges;
-            }    
+            if (ContentEditor.ContentPaths.ContainsKey(key))
+                return ContentEditor.ContentPaths[key];
+            return null;
         }
-        public bool ProfessionsOnly
+        public List<int> GetNextTierProfessions(Farmer who, int level, string skill)
         {
-            get
+            List<int> toReturn = new();
+            if (level == 15)
             {
-                return ModEntry.ModConfig.Value.ProfessionsOnly;
+                foreach (var item in ModEntry.Professions)
+                {
+                    if (Game1.player.professions.Contains(item.Value.Requires) && DisplayHandler.AreSkillConditionsMet(skill, -1) == item.Value.Skill.ToString())
+                        toReturn.Add(item.Value.ID);
+                }
             }
+            else if (level == 20)
+            {
+                foreach (var item in ModEntry.Professions)
+                {
+                    if (level == item.Value.LevelRequirement && DisplayHandler.AreSkillConditionsMet(skill, -1) == item.Value.Skill.ToString())
+                        toReturn.Add(item.Value.ID);
+                }
+            }
+            return toReturn;
         }
+        public void DrawProfessionIcon(SpriteBatch b, Vector2 position, int profession)
+        {
+            b.Draw(DisplayHandler.ProfessionIcons, position, new((profession - 467830) % 6 * 16, (profession - 467830) / 6 * 16, 16, 16), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 1f);
+        }
+        public ClickableTextureComponent[] CustomSkillBars => DisplayHandler.MyCustomSkillBars.Value;
 
-        public bool ColorBlindnessChanges
-        {
-            get
-            {
-                return ModEntry.ModConfig.Value.ColorBlindnessChanges;
-            }
-        }
+        public int[] LevelExperiences => ModEntry.levelExperiences;
+
+        public bool MasteryCaveChanges => ModEntry.ModConfig.Value.MasteryCaveChanges;
+
+        public bool ProfessionsOnly => ModEntry.ModConfig.Value.ProfessionsOnly;
+
+        public bool ColorBlindnessChanges => ModEntry.ModConfig.Value.ColorBlindnessChanges;
+
+        public bool StaminaCostAdjustments => ModEntry.ModConfig.Value.StaminaCostAdjustments;
     }
 }

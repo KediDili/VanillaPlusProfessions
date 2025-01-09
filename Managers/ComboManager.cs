@@ -273,7 +273,7 @@ namespace VanillaPlusProfessions.Managers
 
         public static void OnStoneDestroyed_Postfix(GameLocation __instance, Farmer who, int x, int y)
         {
-            if (who is null)
+            if (who is null || who != Game1.player)
                 return;
 
             if (CoreUtility.CurrentPlayerHasProfession("Mine-Combat", useThisInstead: who))

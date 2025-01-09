@@ -131,6 +131,7 @@
 	"Talent.LockedTalent.Name": "Locked",
 	"Talent.LockedTalent.Desc": "Gain other\ntalents first!",
 	"Talent.LockedTalent.Numbered": " (Buy {0} talents to unlock)",
+	"Talent.DisabledTalent": " (Disabled. Click to re-enable.)", //New
 
 	"Talent.ResetMessages.ItemMissing": "Required item missing for reset",
 	"Talent.ResetMessages.SettleTreeFirst": "Settle the tree\nreset first",
@@ -142,16 +143,16 @@
 	"Talent.ResetMessages.AbortReset": "Abort reset",
 
 	"Talent.Resurgence.Name": "Resurgence",
-	"Talent.Resurgence.Desc": "Watering can automatically\npartially refills every 90 minutes.",
+	"Talent.Resurgence.Desc": "Watering can automatically partially refills every 90 minutes.",
 
 	"Talent.RefreshingWaters.Name": "Refreshing Waters",
-	"Talent.RefreshingWaters.Desc": "Watering can is refilled\nevery morning upon waking.",
+	"Talent.RefreshingWaters.Desc": "Watering can is refilled every morning upon waking.",
 
 	"Talent.GoodSoaking.Name": "Good Soaking",
 	"Talent.GoodSoaking.Desc": "Soil is automatically watered the day after rain.",
 
 	"Talent.NourishingRain.Name": "Nourishing Rain",
-	"Talent.NourishingRain.Desc": "For each rainy day, growth time for\noutdoor crops is reduced by 2 days.",
+	"Talent.NourishingRain.Desc": "For each rainy day, growth time for outdoor crops is reduced by 2 days.",
 
 	"Talent.WildGrowth.Name": "Wild Growth",
 	"Talent.WildGrowth.Desc": "Chance for animals to produce both deluxe & normal items.",
@@ -181,7 +182,7 @@
 	"Talent.HarmoniousBlooming.Desc": "Receive additional honey depending on the number of flowers around a bee house (honey type from a random flower)",
 
 	"Talent.Abundance.Name": "Abundance",
-	"Talent.Abundance.Desc": "Chance for honey to increase\nin quality for each day not harvested",
+	"Talent.Abundance.Desc": "Chance for honey to increase in quality for each day not harvested",
 
 	"Talent.FairysKiss.Name": "Fairy's Kiss",
 	"Talent.FairysKiss.Desc": "Every full-grown fairy rose increases the chance for crop fairy to appear.",
@@ -196,7 +197,7 @@
 	"Talent.DriftFencing.Desc": "Crafting fences produces double items.",
 
 	"Talent.StormSurge.Name": "Storm Surge",
-	"Talent.StormSurge.Desc": "Lightning rods protect more crops and\nfruit trees even when producing.",
+	"Talent.StormSurge.Desc": "Lightning rods protect more crops and fruit trees even when producing.",
 
 	"Talent.ColdPress.Name": "Cold Press",
 	"Talent.ColdPress.Desc": "Oil makers produce additional types of oils.",
@@ -217,31 +218,31 @@
 	"Talent.HarvestSeason.Desc": "Junimos harvest faster.",
 
 	"Talent.DownInTheDepths.Name": "Down in the Depths",
-	"Talent.DownInTheDepths.Desc": "If no ladder has spawned,\nguaranteed chance of finding\none after breaking 8 stones.",
+	"Talent.DownInTheDepths.Desc": "If no ladder has spawned, guaranteed chance of finding one after breaking 8 stones.",
 
 	"Talent.ShadowBuddies.Name": "Shadow Buddies",
-	"Talent.ShadowBuddies.Desc": "If befriended, Krobus will gift you\n1-3 geodes via mail each week.",
+	"Talent.ShadowBuddies.Desc": "If befriended, Krobus will gift you 1-3 geodes via mail each week.",
 
 	"Talent.DwarvenBuddies.Name": "Dwarven Buddies",
-	"Talent.DwarvenBuddies.Desc": "If befriended, the Dwarf will gift you\n1-3 metal bars via mail each week.",
+	"Talent.DwarvenBuddies.Desc": "If befriended, the Dwarf will gift you 1-3 metal bars via mail each week.",
 
 	"Talent.EssenceInfusion.Name": "Essence Infusion",
-	"Talent.EssenceInfusion.Desc": "Each day, Signs of the Vessel\nwill produce Solar Essence and\nWicked Statues will produce Void Essence.",
+	"Talent.EssenceInfusion.Desc": "Each day, Signs of the Vessel will produce Solar Essence and Wicked Statues will produce Void Essence.",
 
 	"Talent.ElderScrolls.Name": "Elder Scrolls",
-	"Talent.ElderScrolls.Desc": "If the Dwarvish Translation Guide has been obtained,\ndwarf scrolls can be read for mining experience.",
+	"Talent.ElderScrolls.Desc": "If the Dwarvish Translation Guide has been obtained, dwarf scrolls can be read for mining experience.",
 
 	"Talent.SpeedOfDarkness.Name": "Speed of Darkness",
 	"Talent.SpeedOfDarkness.Desc": "Receive a speed boost after 12 AM.",
 
 	"Talent.AncestralWeaponry.Name": "Ancestral Weaponry",
-	"Talent.AncestralWeaponry.Desc": "If Ginger Island has been unlocked,\nthe Dwarf sells dwarven weaponry.",
+	"Talent.AncestralWeaponry.Desc": "If Ginger Island has been unlocked, the Dwarf sells dwarven weaponry.",
 
 	"Talent.SharedFocus.Name": "Shared Focus",
 	"Talent.SharedFocus.Desc": "Time is slower in any mines.",
 
 	"Talent.MuseumPiece.Name": "Museum Piece",
-	"Talent.MuseumPiece.Desc": "Double chance of receiving\nundonated artifacts or minerals\nfrom geodes & artifact troves.",
+	"Talent.MuseumPiece.Desc": "Double chance of receiving undonated artifacts or minerals from geodes & artifact troves.",
 
 	"Talent.ExplosivePersonality.Name": "Explosive Personality",
 	"Talent.ExplosivePersonality.Desc": "Rocks destroyed by bombs have increased chance to drop additional geodes.",
@@ -250,13 +251,13 @@
 	"Talent.Synthesis.Desc": "Crystalariums can copy geodes.",
 
 	"Talent.Upheaval.Name": "Upheaval",
-	"Talent.Upheaval.Desc": "Low chance for all stones on a mine floor\nto be replaced by geode nodes.",
+	"Talent.Upheaval.Desc": "Low chance for all stones on a mine floor to be replaced by geode nodes.",
 
 	"Talent.Matryoshka.Name": "Matryoshka",
 	"Talent.Matryoshka.Desc": "Chance for geodes to contain another geode.",
 
 	"Talent.X-ray.Name": "X-ray",
-	"Talent.X-ray.Desc": "View what item the next geode contains.\nGeodes worth more.",
+	"Talent.X-ray.Desc": "View what item the next geode contains. Geodes worth more.",
 
 	"Talent.Geometry.Name": "Geometry",
 	"Talent.Geometry.Desc": "Crystalariums work faster.",
@@ -280,13 +281,13 @@
 	"Talent.RoomAndPillar.Desc": "All ore nodes can spawn in the quarry mine.",
 
 	"Talent.Fallout.Name": "Fallout",
-	"Talent.Fallout.Desc": "Radioactive ore nodes spawn in the\nnon-dangerous mines and Skull Cavern.",
+	"Talent.Fallout.Desc": "Radioactive ore nodes spawn in the non-dangerous mines and Skull Cavern.",
 
 	"Talent.EveryonesBestFriend.Name": "Everyone's Best Friend",
-	"Talent.EveryonesBestFriend.Desc": "Diamond, tigerseye, opal, fire opal, jasper,\nand star shards will become universal loved gifts.",
+	"Talent.EveryonesBestFriend.Desc": "Diamond, tigerseye, opal, fire opal, jasper, and star shards will become universal loved gifts.",
 
 	"Talent.CrystalCavern.Name": "Crystal Cavern",
-	"Talent.CrystalCavern.Desc": "Low chance for all stones on a mine floor\nto be replaced by gem nodes.",
+	"Talent.CrystalCavern.Desc": "Low chance for all stones on a mine floor to be replaced by gem nodes.",
 
 	"Talent.OverTheRainbow.Name": "Over the Rainbow",
 	"Talent.OverTheRainbow.Desc": "Add prismatic shard crafting recipe.",
@@ -312,10 +313,10 @@
 	"Talent.SeaChange.Desc": "Once per week, beach forage is doubled.",
 
 	"Talent.Starfall.Name": "Starfall",
-	"Talent.Starfall.Desc": "Chance for star shards to spawn\nas forage in the evening for 1-7 days.",
+	"Talent.Starfall.Desc": "Chance for star shards to spawn as forage in the evening for 1-7 days.",
 
 	"Talent.DesertBloom.Name": "Desert Bloom",
-	"Talent.DesertBloom.Desc": "Chance for flowers to spawn in Calico Desert\non rainy days in Pelican Town.",
+	"Talent.DesertBloom.Desc": "Chance for flowers to spawn in Calico Desert on rainy days in Pelican Town.",
 
 	"Talent.BountifulBoletes.Name": "Bountiful Boletes",
 	"Talent.BountifulBoletes.Desc": "High chance for mushrooms to spawn after rainy days.",
@@ -333,10 +334,10 @@
 	"Talent.SpringThaw.Desc": "Large tapper produce can be harvested from tappers.",
 
 	"Talent.Accumulation.Name": "Accumulation",
-	"Talent.Accumulation.Desc": "Chance for tapper products to increase\nin quality if left uncollected overnight.",
+	"Talent.Accumulation.Desc": "Chance for tapper products to increase in quality if left uncollected overnight.",
 
 	"Talent.ExoticTapping.Name": "Exotic Tapping",
-	"Talent.ExoticTapping.Desc": "Palm trees can be tapped for Oil.\nMahogany trees can be tapped for Sugar.",
+	"Talent.ExoticTapping.Desc": "Palm trees can be tapped for Oil. Mahogany trees can be tapped for Sugar.",
 
 	"Talent.GroveTending.Name": "Grove Tending",
 	"Talent.GroveTending.Desc": "Double effects of Tree Fertilizer.",
@@ -351,7 +352,7 @@
 	"Talent.ClearAsMud.Desc": "High chance to find clay when tilling.",
 
 	"Talent.SleepUnderTheStars.Name": "Sleep Under the Stars",
-	"Talent.SleepUnderTheStars.Desc": "No penalty for falling asleep at 2AM\nif at the beach, mountain, or forest.",
+	"Talent.SleepUnderTheStars.Desc": "No penalty for falling asleep at 2AM if at the beach, mountain, or forest.",
 
 	"Talent.CampSpirit.Name": "Camp Spirit",
 	"Talent.CampSpirit.Desc": "Food made with a Cookout Kit restores more energy and health than food made in a kitchen.",
@@ -383,25 +384,25 @@
 	"Talent.BigFishSmallPond.Desc": "Allows legendary fish to yield additional produce other than roe.",
 
 	"Talent.SpawningSeason.Name": "Spawning Season",
-	"Talent.SpawningSeason.Desc": "Chance for roe yield in\nfish ponds is increased.",
+	"Talent.SpawningSeason.Desc": "Chance for roe yield in fish ponds is increased.",
 
 	"Talent.Ex-squid-site.Name": "Ex-squid-site",
-	"Talent.Ex-squid-site.Desc": "Chance for roe to increase in quality\nif left uncollected overnight. Roe quality\nwill apply to Aged Roe, Caviar, and Squid Ink.",
+	"Talent.Ex-squid-site.Desc": "Chance for roe to increase in quality if left uncollected overnight. Roe quality will apply to Aged Roe, Caviar, and Squid Ink.",
 
 	"Talent.DoubleHook.Name": "Double Hook",
 	"Talent.DoubleHook.Desc": "Bait bins will produce twice in a day.",
 
 	"Talent.Clickbait.Name": "Clickbait",
-	"Talent.Clickbait.Desc": "Worm Bin has a 50% chance\nof producing Wild Bait\ninstead of normal Bait.",
+	"Talent.Clickbait.Desc": "Worm Bin has a 50% chance of producing Wild Bait instead of normal Bait.",
 
 	"Talent.CanIt.Name": "Can It",
 	"Talent.CanIt.Desc": "Recycling machines produce an increased variety of items.",
 
 	"Talent.Smokehouse.Name": "Smokehouse",
-	"Talent.Smokehouse.Desc": "Fish can be smoked multiple\ntimes to increase quality.",
+	"Talent.Smokehouse.Desc": "Fish can be smoked multiple times to increase quality.",
 
 	"Talent.FitForACzar.Name": "Fit for a Czar",
-	"Talent.FitForACzar.Desc": "Aged Roe can be aged in\na cask to increase quality.",
+	"Talent.FitForACzar.Desc": "Aged Roe can be aged in a cask to increase quality.",
 
 	"Talent.TakeItSlow.Name": "Take it Slow",
 	"Talent.TakeItSlow.Desc": "Fishing casting bar will move more slowly if you have the Snail Tackle equipped.",
@@ -410,7 +411,7 @@
 	"Talent.A-fish-ionado.Desc": "Receive a random tackle via mail every week.",
 
 	"Talent.ItWasThisBig.Name": "It Was This Big",
-	"Talent.ItWasThisBig.Desc": "If catching a new size record for\na fish, quality will increase.",
+	"Talent.ItWasThisBig.Desc": "If catching a new size record for a fish, quality will increase.",
 
 	"Talent.DeadMansChest.Name": "Dead Man's Chest",
 	"Talent.DeadMansChest.Desc": "Chance for crab pots to produce artifact troves.",
@@ -422,44 +423,44 @@
 	"Talent.FishTrap.Desc": "Crab pots will sometimes catch regular fish.",
 
 	"Talent.BaitAndSwitch.Name": "Bait and Switch",
-	"Talent.BaitAndSwitch.Desc": "Chance for crab pot fish to increase in quality\nif left uncollected overnight.",
+	"Talent.BaitAndSwitch.Desc": "Chance for crab pot fish to increase in quality if left uncollected overnight.",
 
 	"Talent.CrabRave.Name": "Crab Rave",
-	"Talent.CrabRave.Desc": "Increased chance to find crabs, crayfish,\nand lobsters if wearing a Crabshell Ring.",
+	"Talent.CrabRave.Desc": "Increased chance to find crabs, crayfish, and lobsters if wearing a Crabshell Ring.",
 
 	"Talent.FishsWishes.Name": "Fish's Wishes",
-	"Talent.FishsWishes.Desc": "Allows using Magic Bait on crab pots.\nIf you have Luremaster, basic Bait acts like Magic Bait.",
+	"Talent.FishsWishes.Desc": "Allows using Magic Bait on crab pots. If you have Luremaster, basic Bait acts like Magic Bait.",
 
 	"Talent.HereFishyFishy.Name": "Here Fishy Fishy",
-	"Talent.HereFishyFishy.Desc": "Failing to catch any fish 3 times in a\nrow greatly increases the bobber bar\nheight for the next fish.",
+	"Talent.HereFishyFishy.Desc": "Failing to catch any fish 3 times in a row greatly increases the bobber bar height for the next fish.",
 
 	"Talent.VastDomain.Name": "Vast Domain",
-	"Talent.VastDomain.Desc": "Legendary fish can be caught in\nan increased location range.",
+	"Talent.VastDomain.Desc": "Legendary fish can be caught in an increased location range.",
 
 	"Talent.OneFishTwoFish.Name": "One Fish, Two Fish",
-	"Talent.OneFishTwoFish.Desc": "Challenge Bait can be used to\ncatch four fish at once.",
+	"Talent.OneFishTwoFish.Desc": "Challenge Bait can be used to catch four fish at once.",
 
 	"Talent.TakeABreak.Name": "Take a Break",
-	"Talent.TakeABreak.Desc": "Fish do not run away when reeling in\na treasure chest.",
+	"Talent.TakeABreak.Desc": "Fish do not run away when reeling in a treasure chest.",
 
 	"Talent.BubbleTrouble.Name": "Bubble Trouble",
-	"Talent.BubbleTrouble.Desc": "Bubbles will always be within\n4 tiles of land.",
+	"Talent.BubbleTrouble.Desc": "Bubbles will always be within 4 tiles of land.",
 
 	//Combat
 	"Talent.Slimeshot.Name": "Slimeshot",
-	"Talent.Slimeshot.Desc": "Slime can be used as slingshot ammo.\nIf slime hits a monster,\nit will be slowed down.",
+	"Talent.Slimeshot.Desc": "Slime can be used as slingshot ammo. If slime hits a monster, it will be slowed down.",
 
 	"Talent.TripleShot.Name": "Triple Shot",
-	"Talent.TripleShot.Desc": "Gives slingshots a special attack that\nshoots three projectiles at once.",
+	"Talent.TripleShot.Desc": "Gives slingshots a special attack that shoots three projectiles at once.",
 
 	"Talent.Bullseye.Name": "Bullseye",
 	"Talent.Bullseye.Desc": "Slingshots can do critical damage.",
 
 	"Talent.DazzlingStrike.Name": "Dazzling Strike",
-	"Talent.DazzlingStrike.Desc": "Gems can be used as slingshot ammo.\nHigh chance for gem ammo\nto not be destroyed.",
+	"Talent.DazzlingStrike.Desc": "Gems can be used as slingshot ammo. High chance for gem ammo to not be destroyed.",
 
 	"Talent.Enchanting.Name": "Enchanting",
-	"Talent.Enchanting.Desc": "Slingshots have custom enchantments\ncalled Auto-Fire, Rapid, Bat Killer, and Thrifty.",
+	"Talent.Enchanting.Desc": "Slingshots have custom enchantments called Auto-Fire, Rapid, Bat Killer, and Thrifty.",
 
 	"Talent.Accessorise.Name": "Accessorise",
 	"Talent.Accessorise.Desc": "Trinkets can be converted into rings.",
@@ -468,10 +469,10 @@
 	"Talent.Consolidation.Desc": "Rings of the same type can be forged together.",
 
 	"Talent.HiddenBenefits.Name": "Hidden Benefits",
-	"Talent.HiddenBenefits.Desc": "All vanilla trinkets will get\na second purpose.",
+	"Talent.HiddenBenefits.Desc": "All vanilla trinkets will get a second purpose.",
 
 	"Talent.RendingStrike.Name": "Rending Strike",
-	"Talent.RendingStrike.Desc": "4 consecutive strikes against a monster\nwill reduce damage dealt by that monster.",
+	"Talent.RendingStrike.Desc": "4 consecutive strikes against a monster will reduce damage dealt by that monster.",
 
 	"Talent.DebiliatingStab.Name": "Debiliating Stab",
 	"Talent.DebiliatingStab.Desc": "Damaging monsters with a dagger will reduce their speed.",
@@ -483,22 +484,22 @@
 	"Talent.ConcussiveImpact.Desc": "Damaging monsters with a club will make them take additional damage for 3 seconds following the hit.",
 
 	"Talent.Aftershock.Name": "Aftershock",
-	"Talent.Aftershock.Desc": "Club attacks hit a second time.\nThe second strike deals reduced damage.",
+	"Talent.Aftershock.Desc": "Club attacks hit a second time. The second strike deals reduced damage.",
 
 	"Talent.Champion.Name": "Champion",
 	"Talent.Champion.Desc": "Grants +2 Defense for 6 seconds after striking an enemy with a sword.",
 
 	"Talent.Flurry.Name": "Flurry",
-	"Talent.Flurry.Desc": "Consecutive dagger strikes against the same target\ndeal half additional damage,\nstacking up to 5 times.",
+	"Talent.Flurry.Desc": "Consecutive dagger strikes against the same target deal half additional damage, stacking up to 5 times.",
 
 	"Talent.Ferocity.Name": "Ferocity",
 	"Talent.Ferocity.Desc": "Critical hits add a short 10% crit damage buff.",
 
 	"Talent.Starburst.Name": "Starburst",
-	"Talent.Starburst.Desc": "Adds a melee weapon enchantment named Starburst,\nwhich throws projectiles when swung.",
+	"Talent.Starburst.Desc": "Adds a melee weapon enchantment named Starburst, which throws projectiles when swung.",
 
 	"Talent.Grit.Name": "Grit",
-	"Talent.Grit.Desc": "Increases damage immunity period\nafter taking damage.",
+	"Talent.Grit.Desc": "Increases damage immunity period after taking damage.",
 
 	"Talent.Sidestep.Name": "Sidestep",
 	"Talent.Sidestep.Desc": "Chance to dodge enemy attacks.",
@@ -507,27 +508,27 @@
 	"Talent.Slippery.Desc": "Changes the Slimy debuff into a +1 Speed buff.",
 
 	"Talent.Fortified.Name": "Fortified",
-	"Talent.Fortified.Desc": "For every monster in the current location,\ngain +1 Defense to a limit of +8.",
+	"Talent.Fortified.Desc": "For every monster in the current location, gain +1 Defense to a limit of +8.",
 
 	"Talent.FullKnowledge.Name": "Full Knowledge",
 	"Talent.FullKnowledge.Desc": "Gives full exp for monsters killed on the farm.",
 
 	"Talent.MonsterSpecialist.Name": "Monster Specialist",
-	"Talent.MonsterSpecialist.Desc": "Choose one of four pre-defined group\nof monsters and deal additional damage to them.",
+	"Talent.MonsterSpecialist.Desc": "Choose one of four pre-defined group of monsters and deal additional damage to them.",
 	"Talent.Branch.Ground.Name": "Ground",
-	"Talent.Branch.Ground.Desc": "Do more damage to slimes, grubs, dust\nsprites, duggies, lava lurks, and spiders",
+	"Talent.Branch.Ground.Desc": "Do more damage to slimes, grubs, dust sprites, duggies, lava lurks, and spiders",
 	"Talent.Branch.Humanoid.Name": "Humanoid",
-	"Talent.Branch.Humanoid.Desc": "Do more damage to golems, skeletons,\nmummies and shadows",
+	"Talent.Branch.Humanoid.Desc": "Do more damage to golems, skeletons, mummies and shadows",
 	"Talent.Branch.Flying.Name": "Flying",
-	"Talent.Branch.Flying.Desc": "Do more damage to bats, ghosts, serpents,\nmagma sprites, blue squids, squid kids and flies",
+	"Talent.Branch.Flying.Desc": "Do more damage to bats, ghosts, serpents, magma sprites, blue squids, squid kids and flies",
 	"Talent.Branch.Armoured.Name": "Armoured",
-	"Talent.Branch.Armoured.Desc": "Do more damage to dwarvish sentries,\nhot heads, metal heads and rock crabs",
+	"Talent.Branch.Armoured.Desc": "Do more damage to dwarvish sentries, hot heads, metal heads and rock crabs",
 
 	"Talent.SugarRush.Name": "Sugar Rush",
-	"Talent.SugarRush.Desc": "Foods cooked with sugar will remove the Nauseated debuff.\nIf you have Survival Cooking, its recipes will remove Nauseated as well.",
+	"Talent.SugarRush.Desc": "Foods cooked with sugar will remove the Nauseated debuff. If you have Survival Cooking, its recipes will remove Nauseated as well.",
 
 	"Talent.Meditation.Name": "Meditation",
-	"Talent.Meditation.Desc": "Passive health regeneration\nwhile standing still.",
+	"Talent.Meditation.Desc": "Passive health regeneration while standing still.",
 
 	"Talent.LostAndFound.Name": "Lost And Found",
 	"Talent.LostAndFound.Desc": "Reading lost books in the library gives buffs.",
@@ -545,16 +546,16 @@
 	"Talent.TrashedTreasure.Desc": "More valuable items can be found in trash cans.",
 
 	"Talent.ButterflyEffect.Name": "Butterfly Effect",
-	"Talent.ButterflyEffect.Desc": "On bad luck days, a void butterfly spawns in distant\nlocations (sewers, swamp, secret woods, etc) and gives\na +10 luck buff when found.",
+	"Talent.ButterflyEffect.Desc": "On bad luck days, a void butterfly spawns in distant locations (sewers, swamp, secret woods, etc) and gives a +10 luck buff when found.",
 
 	"Talent.Admiration.Name": "Admiration",
 	"Talent.Admiration.Desc": "Friendship decay is halved.",
 
 	"Talent.InsiderInfo.Name": "Insider Info",
-	"Talent.InsiderInfo.Desc": "Friendship with townspeople increases\nthe shipping price of specific associated items.",
+	"Talent.InsiderInfo.Desc": "Friendship with townspeople increases the shipping price of specific associated items.",
 
 	"Talent.GiftOfFriendship.Name": "Gift of Friendship",
-	"Talent.GiftOfFriendship.Desc": "Chance for townspeople to give loved gifts\nwhen at 8 hearts or higher.",
+	"Talent.GiftOfFriendship.Desc": "Chance for townspeople to give loved gifts when at 8 hearts or higher.",
 
 	"Talent.MatesRates.Name": "Mate's Rates",
 	"Talent.MatesRates.Desc": "Friendship with shopkeepers reduces prices.",
@@ -563,7 +564,7 @@
 	"Talent.MonumentalDiscount.Desc": "Obelisks are cheaper to purchase.",
 
 	"Talent.CraftSupplies.Name": "Craft Supplies",
-	"Talent.CraftSupplies.Desc": "New craftables gained by skill level-up\nare sold at shops after being unlocked.",
+	"Talent.CraftSupplies.Desc": "New craftables gained by skill level-up are sold at shops after being unlocked.",
 
 	"Talent.HauteCuisine.Name": "Haute Cuisine",
 	"Talent.HauteCuisine.Desc": "Increases sell prices of cooked food.",
@@ -608,6 +609,8 @@
 	"GMCM.ColorBlindnessChanges.Desc": "Retextures VPP and vanilla skill bar icons into striped versions.",
 	"GMCM.MasteryCaveChanges.Name": "Mastery Cave Changes",
 	"GMCM.MasteryCaveChanges.Desc": "Changes Mastery Cave to be unlocked when you level up skills to levels 20 instead of 10.",
+	"GMCM.StaminaCostAdjustments.Name": "Stamina Cost Adjustments", // New
+	"GMCM.StaminaCostAdjustments.Desc": "Changes axes, pickaxes, water cans and hoes to use slightly more energy. This option intends to prevent level 20 in any vanilla skill causing no energy cost for players who don't like this.", // New
 	"GMCM.ProfessionsOnly.Name": "Professions Only",
 	"GMCM.ProfessionsOnly.Desc": "Changes VPP to only apply changes to your game for VPP's professions, this deactives everything related to talent system. Changes require a restart to take effect.",
 	"GMCM.TalentHintLevel.Name": "Talent Hint Level",
@@ -620,6 +623,8 @@
 
 	//Items
 	"Item.Xray.GeodeDrop": "(X-ray Geode Drop: {{dropName}})",
+	"Item.Syrup.ProduceNameFormat": "{0} Syrup", //New
+	"Item.Dust.ProduceNameFormat": "{0} Dust", //New
 
 	//Extra Info
 	"ExtraInfo.MinecartRepository": "You can build a Minecart Repository from Robin's shop now.",

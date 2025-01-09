@@ -11,6 +11,8 @@ namespace VanillaPlusProfessions
 
         public bool ProfessionsOnly = false;
 
+        public bool StaminaCostAdjustments = true;
+
         public string TalentHintLevel = "Hidden";
     }
 }

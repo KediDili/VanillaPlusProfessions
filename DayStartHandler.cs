@@ -15,8 +15,6 @@ using VanillaPlusProfessions.Talents;
 using StardewValley.GameData.GiantCrops;
 using VanillaPlusProfessions.Utilities;
 using xTile.Dimensions;
-using StardewValley.GameData.Objects;
-using VanillaPlusProfessions.Compatibility;
 using VanillaPlusProfessions.Craftables;
 
 namespace VanillaPlusProfessions
@@ -32,18 +30,20 @@ namespace VanillaPlusProfessions
 
             CraftableHandler.OnDayStarted();
 
-            if (TalentUtility.AnyPlayerHasTalent("Farming_Refreshing_Waters"))
+
+            foreach (var item in Game1.player.Items)
             {
-                foreach (var item in Game1.player.Items)
+                if (item is WateringCan can && !can.IsBottomless)
                 {
-                    if (item is WateringCan can && !can.IsBottomless)
+                    if (TalentUtility.AnyPlayerHasTalent("Farming_Refreshing_Waters"))
                     {
                         can.WaterLeft = can.waterCanMax;
-                        break;
                     }
+                    TalentCore.HasWaterCan.Value = true;
+                    break;
                 }
             }
-
+        
             if (TalentUtility.AnyPlayerHasTalent("Farming_Good_Soaking"))
             {
                 Utility.ForEachLocation(loc =>
@@ -52,7 +52,7 @@ namespace VanillaPlusProfessions
                     {
                         foreach (var item in loc.terrainFeatures.Pairs)
                         {
-                            if (item.Value is HoeDirt dirt && dirt.crop is not null and Crop crop && !crop.dead.Value)
+                            if (item.Value is HoeDirt dirt)
                             {
                                 dirt.state.Value = 1;
                                 dirt.updateNeighbors();
@@ -380,7 +380,11 @@ namespace VanillaPlusProfessions
                         if (pond.neededItem.Value == null)
                         {
                             pond.hasCompletedRequest.Value = false;
-                            IList<List<string>> list = data?.PopulationGates?.Values.ToList();
+                            List<List<string>> list = new();
+
+                            foreach (var pondData in pond.GetFishPondData().PopulationGates.Values)
+                                list.Add(pondData);
+                            
                             var newQuestlist = Game1.random.ChooseFrom(list);
                             var ActualQuest = ArgUtility.SplitBySpace(Game1.random.ChooseFrom(newQuestlist));
                             pond.neededItem.Value = ItemRegistry.Create(ActualQuest[0]);

@@ -36,6 +36,7 @@ namespace VanillaPlusProfessions.Talents
 
         internal const string Key_TalentPoints = "Kedi.VPP.TalentPointCount";
         internal const string Key_PointsCalculated = "Kedi.VPP.TalentPointsCalculated";
+        internal const string Key_DisabledTalents = "Kedi.VPP.DisabledTalents";
 
         internal const string Key_XrayDrop = "Kedi.VPP.XrayDrop";
         internal const string Key_AccessoriseRing = "Kedi.VPP.AccessoriseRing";
@@ -56,8 +57,6 @@ namespace VanillaPlusProfessions.Talents
         internal const string Key_HiddenBenefit_FairyBox = "Kedi.VPP.HiddenBenefit";
         internal const string Key_HiddenBenefit_Crop = "Kedi.VPP.FairyBox";
         internal const string Key_HiddenBenefit_FrogEggs = "Kedi.VPP.FrogEgg";
-        internal const string Key_Efflorescence = "Kedi.VPP.Efflorescence";
-        internal const string Key_Tropical_Bliss = "Kedi.VPP.TropicalBliss";
 
         internal const string ContextTag_PoisonousMushroom = "Kedi_VPP_Poisonous_Mushroom";
         internal const string ContextTag_BlandStone = "Kedi_VPP_Bland_Stone_Node";
@@ -68,6 +67,8 @@ namespace VanillaPlusProfessions.Talents
 
         internal static Dictionary<string, Talent> Talents = new();
         internal static Dictionary<string, Skills.Skill> SkillsByName = new();
+
+        internal static List<string> DisabledTalents = new();
 
         internal static void Initialize()
         {
@@ -82,6 +83,7 @@ namespace VanillaPlusProfessions.Talents
                 ModEntry.Helper.Events.Player.InventoryChanged += OnInventoryChanged;
                 ModEntry.Helper.Events.World.NpcListChanged += OnNPCListChanged;
                 ModEntry.Helper.Events.World.TerrainFeatureListChanged += OnTerrainFeatureListChanged;
+                ModEntry.Helper.Events.World.ChestInventoryChanged += OnChestInventoryChanged;
 
                 List<Talent> Talentlist = ModEntry.Helper.ModContent.Load<List<Talent>>("assets\\talents.json");
 
@@ -103,6 +105,20 @@ namespace VanillaPlusProfessions.Talents
             else
             {
                 ModEntry.ModMonitor.LogOnce("Talent system is disabled, and only VPP professions will work. If you didn't intend this, turn the ProfessionsOnly config off.", LogLevel.Info);
+            }
+        }
+
+        internal static void OnChestInventoryChanged(object sender, ChestInventoryChangedEventArgs e)
+        {
+            if (e.QuantityChanged is not null)
+            {
+                foreach (var item in e.QuantityChanged)
+                {
+                    if (item.OldSize > item.NewSize)
+                    {
+                        TalentUtility.DetermineGeodeDrop(item.Item);
+                    }
+                }
             }
         }
 
@@ -187,50 +203,61 @@ namespace VanillaPlusProfessions.Talents
                 }
             }
         }
+        internal static bool IsTimeFollowing(TimeChangedEventArgs e)
+        {
+            if (e.OldTime.ToString().EndsWith("50"))
+            {
+                return e.NewTime.ToString().EndsWith("00");
+            }
+            return e.OldTime + 10 == e.NewTime;
+        }
         internal static void OnTimeChanged(object sender, TimeChangedEventArgs e)
         {
-            MachineryEventHandler.OnTimeChanged(e);
-            if (TalentUtility.AllPlayersHaveTalent("Mining_Speed_Of_Darkness"))
+            if (e.OldTime < e.NewTime && IsTimeFollowing(e))
             {
-                if (e.NewTime is 2400 && e.OldTime is 2350)
+                MachineryEventHandler.OnTimeChanged(e);
+                if (TalentUtility.AllPlayersHaveTalent("Mining_Speed_Of_Darkness"))
                 {
-                    BuffEffects buffEffects = new();
-                    buffEffects.Speed.Value = 1;
-                    Buff buff = new("VPP.SpeedOfDarkness.Speed", "VPP.SpeedOfDarkness", "Speed Of Darkness", -2, ModEntry.Helper.GameContent.Load<Texture2D>(ContentEditor.ContentPaths["ItemSpritesheet"]), 27, buffEffects, false, ModEntry.Helper.Translation.Get("Buff.SpeedOfDarkness.Name"), Game1.parseText(ModEntry.Helper.Translation.Get("Buff.SpeedOfDarkness.Desc"), Game1.smallFont, TalentUtility.BuffDescriptionLength(ModEntry.Helper.Translation.Get("Buff.SpeedOfDarkness.Name"))));
-                    Game1.player.buffs.Apply(buff);
-                }
-            }
-            if (TalentUtility.AllPlayersHaveTalent("Combat_Meditation") && !Game1.player.isMoving() && Context.IsPlayerFree)
-            {
-                if (Game1.player.health + 15 >= Game1.player.maxHealth)
-                {
-                    Game1.player.health = Game1.player.maxHealth;
-                }
-                else if (Game1.player.health < Game1.player.maxHealth)
-                {
-                    Game1.player.health += 15;
-                }
-            }
-            if (TalentUtility.CurrentPlayerHasTalent("Farming_Resurgence") && HasWaterCan.Value)
-            {
-                foreach (var item in Game1.player.Items)
-                {
-                    if (item is WateringCan can && can.modData.TryGetValue(Key_Resurgence, out string val))
+                    if (e.NewTime is 2400 && e.OldTime is 2350)
                     {
-                        if (val != "90" && can.WaterLeft < can.waterCanMax)
+                        BuffEffects buffEffects = new();
+                        buffEffects.Speed.Value = 1;
+                        Buff buff = new("VPP.SpeedOfDarkness.Speed", "VPP.SpeedOfDarkness", "Speed Of Darkness", -2, ModEntry.Helper.GameContent.Load<Texture2D>(ContentEditor.ContentPaths["ItemSpritesheet"]), 27, buffEffects, false, ModEntry.Helper.Translation.Get("Buff.SpeedOfDarkness.Name"), Game1.parseText(ModEntry.Helper.Translation.Get("Buff.SpeedOfDarkness.Desc"), Game1.smallFont, TalentUtility.BuffDescriptionLength(ModEntry.Helper.Translation.Get("Buff.SpeedOfDarkness.Name"))));
+                        Game1.player.buffs.Apply(buff);
+                    }
+                }
+                if (TalentUtility.AllPlayersHaveTalent("Combat_Meditation") && !Game1.player.isMoving() && Context.IsPlayerFree)
+                {
+                    if (Game1.player.health + 15 >= Game1.player.maxHealth)
+                    {
+                        Game1.player.health = Game1.player.maxHealth;
+                    }
+                    else if (Game1.player.health < Game1.player.maxHealth)
+                    {
+                        Game1.player.health += 15;
+                    }
+                }
+                if (TalentUtility.CurrentPlayerHasTalent("Farming_Resurgence") && HasWaterCan.Value)
+                {
+                    foreach (var item in Game1.player.Items)
+                    {
+                        if (item is WateringCan can && can.modData.TryGetValue(Key_Resurgence, out string val))
                         {
-                            can.modData[Key_Resurgence] = "0";
-                            can.WaterLeft += 15;
-                            if (can.waterCanMax < can.WaterLeft)
+                            if (val == "90" && can.WaterLeft < can.waterCanMax)
                             {
-                                can.WaterLeft = can.waterCanMax;
+                                can.modData[Key_Resurgence] = "0";
+                                can.WaterLeft += can.waterCanMax / 5;
+                                if (can.waterCanMax < can.WaterLeft)
+                                {
+                                    can.WaterLeft = can.waterCanMax;
+                                }
+                                break;
                             }
-                            break;
-                        }
-                        else if (!can.IsBottomless)
-                        {
-                            can.modData[Key_Resurgence] = (int.Parse(val) + 10).ToString();
-                            break;
+                            else if (!can.IsBottomless)
+                            {
+                                can.modData[Key_Resurgence] = (int.Parse(val) + 10).ToString();
+                                break;
+                            }
                         }
                     }
                 }
@@ -248,7 +275,7 @@ namespace VanillaPlusProfessions.Talents
                     Game1.gameTimeInterval = Game1.realMilliSecondsPerGameMinute * currentSecondAmount;
                     Game1.isTimePaused = false;
                 }
-                if ((Game1.MasterPlayer.currentLocation is not MineShaft or VolcanoDungeon || data?.ContainsKey(Key_SharedFocus) is false) && prevTimeSpeed.Value != 0)
+                else if ((Game1.MasterPlayer.currentLocation is not MineShaft or VolcanoDungeon || data?.ContainsKey(Key_SharedFocus) is false) && prevTimeSpeed.Value != 0)
                 {
                     Game1.isTimePaused = true;
                     Game1.realMilliSecondsPerGameTenMinutes = prevTimeSpeed.Value;
@@ -366,25 +393,12 @@ namespace VanillaPlusProfessions.Talents
             Game1.player.achievements.OnValueAdded += OnAchievementAdded;
             Game1.player.team.specialOrders.OnElementChanged += OnSpecialOrderChanged;
             Game1.player.mailReceived.OnValueAdded += OnMailFlagGiven;
-            if (!ModEntry.Helper.ModRegistry.IsLoaded("spacechase0.LuckSkill"))
+
+            if (Game1.player.modData.TryGetValue(Key_DisabledTalents, out string value2) && value is not null and "")
             {
-                if (Game1.player.professions.Count > 0)
-                {
-                    List<int> copy = new();
-                    foreach (var item in Game1.player.professions)
-                    {
-                        copy.Add(item);
-                    }
-                    foreach (var item in copy)
-                    {
-                        if (item > 29 && item < 467800)
-                        {
-                            Game1.player.professions.Add(item + 467800);
-                            Game1.player.professions.Remove(item);
-                        }
-                    }
-                }
+                DisabledTalents = value2.Split('|').ToList();
             }
+
             if (ModEntry.ItemExtensionsAPI.Value is not null)
             {
                 var nodeList = from obj in DataLoader.Objects(Game1.content)

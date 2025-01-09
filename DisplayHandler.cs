@@ -58,7 +58,7 @@ namespace VanillaPlusProfessions
                 if (GiveFrogEggBack?.Value?.containsPoint(Game1.getMouseX(true), Game1.getMouseY(true)) is true)
                 {
                     string s = (AccessTools.Field(typeof(PondQueryMenu), "_pond").GetValue(pondMenu) as FishPond).modData[TalentCore.Key_HiddenBenefit_FrogEggs];
-                    Game1.player.addItemByMenuIfNecessary(s.StringToTrinket()); //trinket here
+                    Game1.player.addItemByMenuIfNecessary(s.StringToTrinket());
                     (AccessTools.Field(typeof(PondQueryMenu), "_pond").GetValue(pondMenu) as FishPond).modData[TalentCore.Key_HiddenBenefit_FrogEggs] = "";
                 }
             }
@@ -450,7 +450,6 @@ namespace VanillaPlusProfessions
 
                 List<(int, int)> IndexAndProfessions = new();
                 List<int> AlreadyPickedProfessions = new();
-
 
                 for (int i = 0; i < MyCustomSkillBars.Value.Length; i++)
                 {

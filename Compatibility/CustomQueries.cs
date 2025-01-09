@@ -33,14 +33,16 @@ namespace VanillaPlusProfessions.Compatibility
             {
                 return result;
             }
-
-            ModEntry.ModMonitor.Log($"Location named {context.Location.NameOrUniqueName} doesn't have the metadata for VPP to know whether it rained yesterday or not but it was passed to the {nameof(WasRainingHereYesterday)} query. This message is not an error and only intended for troubleshooting purposes in case of bugs.\n - Query string: {string.Join(" ", query)}", StardewModdingAPI.LogLevel.Warn);
+            if (ModEntry.ModMonitor.IsVerbose)
+            {
+                ModEntry.ModMonitor.Log($"Location named {context.Location.NameOrUniqueName} doesn't have the metadata for VPP to know whether it rained yesterday or not but it was passed to the {nameof(WasRainingHereYesterday)} query. This message is not an error and only intended for troubleshooting purposes in case of bugs.\n - Query string: {string.Join(" ", query)}", StardewModdingAPI.LogLevel.Warn);
+            }
             return false;
         }
 
         bool PlayerHasTalent(string[] query, GameStateQueryContext context)
         {
-            if (ArgUtility.TryGet(query, 1, out var farmer, out var error) || ArgUtility.TryGet(query, 1, out var talentToCheck, out error))
+            if (!ArgUtility.TryGet(query, 1, out var farmer, out var error) || !ArgUtility.TryGet(query, 1, out var talentToCheck, out error))
             {
                 ModEntry.ModMonitor.Log($"Invalid values were provided to {ModEntry.Manifest.UniqueID + "_" + nameof(PlayerHasTalent)} query.\n - Query string: {string.Join(" ", query)}\n - Error: {error}", StardewModdingAPI.LogLevel.Warn);
                 return false;
@@ -48,13 +50,13 @@ namespace VanillaPlusProfessions.Compatibility
 
             return GameStateQuery.Helpers.WithPlayer(context.Player ?? Game1.player, farmer, farmer =>
             {
-                return TalentUtility.CurrentPlayerHasTalent(talentToCheck, who: farmer);
+                return !ModEntry.ModConfig.Value.ProfessionsOnly && TalentUtility.CurrentPlayerHasTalent(talentToCheck, who: farmer, ignoreDisabledTalents: false);
             });
         }
 
         bool PlayerHasProfession(string[] query, GameStateQueryContext context)
         {
-            if (ArgUtility.TryGet(query, 1, out var farmer, out var error) || ArgUtility.TryGet(query, 1, out var professionToCheck, out error))
+            if (!ArgUtility.TryGet(query, 1, out var farmer, out var error) || !ArgUtility.TryGet(query, 1, out var professionToCheck, out error))
             {
                 ModEntry.ModMonitor.Log($"Invalid values were provided to {ModEntry.Manifest.UniqueID + "_" + nameof(PlayerHasProfession)} query.\n - Query string: {string.Join(" ", query)}\n - Error: {error}", StardewModdingAPI.LogLevel.Warn);
                 return false;
@@ -71,7 +73,7 @@ namespace VanillaPlusProfessions.Compatibility
             GameLocation location = null;
             if (!GameStateQuery.Helpers.TryGetLocationArg(query, 1, ref location, out string error))
             {
-                ModEntry.ModMonitor.Log($"Invalid values were provided to {ModEntry.Manifest.UniqueID + "_" + nameof(PlayerHasProfession)} query.\n - Query string: {string.Join(" ", query)}\n - Error: {error}", StardewModdingAPI.LogLevel.Warn);
+                ModEntry.ModMonitor.Log($"Invalid values were provided to {ModEntry.Manifest.UniqueID + "_" + nameof(IsLavaLocation)} query.\n - Query string: {string.Join(" ", query)}\n - Error: {error}", StardewModdingAPI.LogLevel.Warn);
                 ModEntry.ModMonitor.Log(error, StardewModdingAPI.LogLevel.Warn);
             }
             else if (location is Caldera || (location.GetData()?.CustomFields?.TryGetValue(MachineryEventHandler.Key_IsLavaLocation, out string value) is true && value.ToLower() is "true"))
@@ -86,7 +88,7 @@ namespace VanillaPlusProfessions.Compatibility
             GameLocation location = null;
             if (!GameStateQuery.Helpers.TryGetLocationArg(query, 1, ref location, out string error))
             {
-                ModEntry.ModMonitor.Log($"Invalid values were provided to {ModEntry.Manifest.UniqueID + "_" + nameof(PlayerHasProfession)} query.\n - Query string: {string.Join(" ", query)}\n - Error: {error}", StardewModdingAPI.LogLevel.Warn);
+                ModEntry.ModMonitor.Log($"Invalid values were provided to {ModEntry.Manifest.UniqueID + "_" + nameof(IsConsistentMineLocation)} query.\n - Query string: {string.Join(" ", query)}\n - Error: {error}", StardewModdingAPI.LogLevel.Warn);
                 ModEntry.ModMonitor.Log(error, StardewModdingAPI.LogLevel.Warn);
             }
             else if (location is Mine || (location.GetData()?.CustomFields?.TryGetValue(MachineryEventHandler.Key_IsConsistentMineLocation, out string value) is true && value.ToLower() is "true"))

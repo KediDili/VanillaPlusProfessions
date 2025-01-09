@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
+	
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-	<EnableHarmony>true</EnableHarmony>
-	<PathMap>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)'))=D:/SpoileredPath/</PathMap>
+    <EnableHarmony>true</EnableHarmony>
+    <Configurations>Debug;Release</Configurations>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="4.1.1" />
-	<Reference Include="SpaceCore" HintPath="$(GameModsPath)\SpaceCore\SpaceCore.dll" Private="False"/>
+	<Reference Include="SpaceCore" HintPath="$(GameModsPath)\SpaceCore\SpaceCore.dll" Private="False" />
   </ItemGroup>
 	
 </Project>

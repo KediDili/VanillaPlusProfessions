@@ -67,7 +67,6 @@ namespace VanillaPlusProfessions.Craftables
             }
         }
 
-
         public static void OnTimeChanged(TimeChangedEventArgs e)
         {
             foreach (var item in DrillLocations)

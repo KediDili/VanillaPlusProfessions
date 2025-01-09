@@ -11,6 +11,7 @@ using StardewValley.GameData.Objects;
 using StardewValley.ItemTypeDefinitions;
 using StardewValley.Locations;
 using StardewValley.Monsters;
+using StardewValley.Objects;
 using StardewValley.Objects.Trinkets;
 using StardewValley.TerrainFeatures;
 using VanillaPlusProfessions.Compatibility;
@@ -23,7 +24,7 @@ namespace VanillaPlusProfessions.Utilities
     {
         private readonly static string[] GemNodes = new string[] { "2", "4", "6", "8", "10", "12", "14", "44", "46" };
         private readonly static string[] GeodeNodes = new string[] { "75", "76", "77" };
-        private readonly static string[] OreNodes = new string[] { "290", "752", "764", "765", "95"};
+        private readonly static string[] OreNodes = new string[] { "290", "751", "764", "765", "95"};
         public readonly static string[] BlandStones = new string[] { "32", "668", "670", "34", "36", "38", "40", "42", "48", "50", "52", "54", "56", "58", "343", "450", "760", "845", "846", "844" };
 
         public static List<string> ItemExtensions_GeodeNodeList = new();
@@ -76,7 +77,7 @@ namespace VanillaPlusProfessions.Utilities
                 ModEntry.ModMonitor.Log("Load a save first!", LogLevel.Warn);
             }
         }
-        public static bool CurrentPlayerHasTalent(string flag, long farmerID = -1, Farmer who = null)
+        public static bool CurrentPlayerHasTalent(string flag, long farmerID = -1, Farmer who = null, bool ignoreDisabledTalents = true)
         {
             if (!Context.IsWorldReady || ModEntry.ModConfig.Value.ProfessionsOnly)
             {
@@ -92,7 +93,15 @@ namespace VanillaPlusProfessions.Utilities
                 if (who is null)
                     return false;
             }
-            return who.mailReceived.Contains(GetFlag(flag));
+            flag = GetFlag(flag);
+            if (!ignoreDisabledTalents)
+            {
+                return who.mailReceived.Contains(flag);
+            }
+            else
+            {
+                return who.mailReceived.Contains(flag) && !TalentCore.DisabledTalents.Contains(flag);
+            }
         }
 
         static string GetFlag(string name) => TalentCore.Talents.TryGetValue(name, out Talent talent) ? talent.MailFlag : name;
@@ -119,7 +128,7 @@ namespace VanillaPlusProfessions.Utilities
             {
                 if (flag is not null)
                 {
-                    bools.Add(farmer.mailReceived.Contains(GetFlag(flag)));
+                    bools.Add(CurrentPlayerHasTalent(GetFlag(flag), who: farmer));
                 }
             }
             return bools.Count > 0 && !bools.Contains(false);
@@ -143,12 +152,12 @@ namespace VanillaPlusProfessions.Utilities
             {
                 if (flag is not null)
                 {
-                    return farmer.mailReceived.Contains(GetFlag(flag));
+                    return CurrentPlayerHasTalent(GetFlag(flag), who: farmer);
                 }
             }
             return false;
         }
-        public static bool HostHasTalent(string flag) => Game1.MasterPlayer?.mailReceived.Contains(GetFlag(flag)) is true && !ModEntry.ModConfig.Value.ProfessionsOnly;
+        public static bool HostHasTalent(string flag) => CurrentPlayerHasTalent(GetFlag(flag), who: Game1.MasterPlayer);
 
         public static List<Vector2> GetTilesAroundBeeHouse(float xStart, float yStart)
         {
@@ -194,29 +203,29 @@ namespace VanillaPlusProfessions.Utilities
                     break;
                 }
             }
-
-            if (who.mailReceived.Contains("Combat_Monster_Specialist_Ground"))
+            
+            if (CurrentPlayerHasTalent("Combat_Monster_Specialist_Ground"))
             {
                 if (monsterData is not null)
                     return monsterData.MonsterType == IVanillaPlusProfessions.MonsterType.Ground;
                 else
                     return monster is GreenSlime or BigSlime or Grub or Duggy or LavaLurk or Leaper;
             }
-            else if (who.mailReceived.Contains("Combat_Monster_Specialist_Humanoid"))
+            else if (CurrentPlayerHasTalent("Combat_Monster_Specialist_Humanoid"))
             {
                 if (monsterData is not null)
                     return monsterData.MonsterType == IVanillaPlusProfessions.MonsterType.Humanoid;
                 else
                     return monster is RockGolem or Skeleton or Mummy or ShadowBrute or Shooter or ShadowShaman;
             }
-            else if (who.mailReceived.Contains("Combat_Monster_Specialist_Flying"))
+            else if (CurrentPlayerHasTalent("Combat_Monster_Specialist_Flying"))
             {
                 if (monsterData is not null)
                     return monsterData.MonsterType == IVanillaPlusProfessions.MonsterType.Flying;
                 else
                     return monster is Bat or Ghost or AngryRoger or Serpent or BlueSquid or SquidKid or Fly;
             }
-            else if (who.mailReceived.Contains("Combat_Monster_Specialist_Armoured"))
+            else if (CurrentPlayerHasTalent("Combat_Monster_Specialist_Armoured"))
             {
                 if (monsterData is not null)
                     return monsterData.MonsterType == IVanillaPlusProfessions.MonsterType.Armoured;
@@ -230,9 +239,7 @@ namespace VanillaPlusProfessions.Utilities
         {
             if (name is "GiftOfTheTalented")
             {
-                Game1.activeClickableMenu.exitThisMenu(true);
-                Game1.activeClickableMenu.exitThisMenu(true);
-                Game1.player.addItemByMenuIfNecessaryElseHoldUp(ItemRegistry.Create("(O)434"), null, true);
+                Game1.player.addItemByMenuIfNecessary(ItemRegistry.Create("(O)434"), null, true);
             }
         }
         public static void GiftOfTheTalented_OnUnApply(string name, bool appliedOrUnapplied)
@@ -240,8 +247,15 @@ namespace VanillaPlusProfessions.Utilities
             if (name is "GiftOfTheTalented")
             {
                 Game1.player.maxStamina.Value -= 40;
-                Game1.player.Stamina -= 40;
+                if (Game1.player.Stamina > Game1.player.maxStamina.Value)
+                {
+                    Game1.player.Stamina = Game1.player.maxStamina.Value;
+                }
                 Game1.player.maxHealth -= 40;
+                if (Game1.player.health > Game1.player.maxHealth)
+                {
+                    Game1.player.health = Game1.player.maxHealth;
+                }
             }
         }
 
@@ -333,10 +347,21 @@ namespace VanillaPlusProfessions.Utilities
             List<TrinketRing> result = new();
             if (ModEntry.WearMoreRingsAPI.Value is not null)
             {
-                for (int i = 0; i < ModEntry.WearMoreRingsAPI.Value.RingSlotCount(); i++)
+                for (int i = 0; i < ModEntry.WearMoreRingsAPI.Value?.RingSlotCount(); i++)
                 {
-                    if (ModEntry.WearMoreRingsAPI.Value.GetRing(i) is not null and TrinketRing trinketRing) //UPDATE: Added null check here
-                        result.Add(trinketRing);
+                    if (ModEntry.WearMoreRingsAPI.Value?.GetRing(i) is not null)
+                    {
+                        if (ModEntry.WearMoreRingsAPI.Value?.GetRing(i) is CombinedRing combinedRing && combinedRing is not null)
+                        {
+                            if (combinedRing.combinedRings[0] is TrinketRing)
+                                result.Add(combinedRing.combinedRings[0] as TrinketRing);
+                            
+                            if (combinedRing.combinedRings[1] is TrinketRing)
+                                result.Add(combinedRing.combinedRings[1] as TrinketRing);
+                        }
+                        if (ModEntry.WearMoreRingsAPI.Value?.GetRing(i) is TrinketRing trinketRing && trinketRing != null)
+                            result.Add(trinketRing);
+                    }
                 }
             }
             else
@@ -345,9 +370,25 @@ namespace VanillaPlusProfessions.Utilities
                 {
                     result.Add(ring1);
                 }
+                else if (who.rightRing.Value is CombinedRing combinedRing1)
+                {
+                    if (combinedRing1.combinedRings[0] is TrinketRing)
+                        result.Add(combinedRing1.combinedRings[0] as TrinketRing);
+
+                    if (combinedRing1.combinedRings[1] is TrinketRing)
+                        result.Add(combinedRing1.combinedRings[1] as TrinketRing);
+                }
                 if (who.leftRing.Value is TrinketRing ring2)
                 {
                     result.Add(ring2);
+                }
+                else if (who.leftRing.Value is CombinedRing combinedRing2)
+                {
+                    if (combinedRing2.combinedRings[0] is TrinketRing)
+                        result.Add(combinedRing2.combinedRings[0] as TrinketRing);
+
+                    if (combinedRing2.combinedRings[1] is TrinketRing)
+                        result.Add(combinedRing2.combinedRings[1] as TrinketRing);
                 }
             }
             return result;

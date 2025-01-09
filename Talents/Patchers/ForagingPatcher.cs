@@ -141,7 +141,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
                 CoreUtility.PrintError(e, nameof(ForagingPatcher), "CraftingRecipe.createItem", "postfixing");
             }
 
-            try
+            /*try
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(GameLocation), nameof(GameLocation.DayUpdate)),
@@ -151,10 +151,10 @@ namespace VanillaPlusProfessions.Talents.Patchers
             catch (Exception e)
             {
                 CoreUtility.PrintError(e, nameof(ForagingPatcher), "GameLocation.DayUpdate", "prefixing");
-            }
+            }*/
         }
 
-        public static void GameLocation_DayUpdate_Prefix(GameLocation __instance)
+        /*public static void GameLocation_DayUpdate_Prefix(GameLocation __instance)
         {
             if (!__instance.modData.TryAdd(TalentCore.Key_WasRainingHere, __instance.IsRainingHere().ToString().ToLower()))
             {
@@ -174,7 +174,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
                     }
                 }
             }
-        }
+        }*/
 
         public static void createItem_Postfix(ref Item __result, CraftingRecipe __instance)
         {

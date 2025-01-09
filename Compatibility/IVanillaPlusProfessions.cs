@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
+using StardewValley.Menus;
 using VanillaPlusProfessions.Talents;
 
 namespace VanillaPlusProfessions.Compatibility
@@ -39,14 +40,31 @@ namespace VanillaPlusProfessions.Compatibility
         /// Registers a custom skill talent tree for a custom skill added via SpaceCore.
         /// </summary>
         /// <param name="monsterType">A <c>Type</c> instance of your custom monster.</param>
-        /// <param name="isSlimy">The player to get the VPP professions of. If not filled, it'll default to the current player.</param>
-        /// <param name="type">The player to get the VPP professions of. If not filled, it'll default to the current player.</param>
+        /// <param name="isSlimy">Whether if this is a 'slimy' monster. Affects how will the Slimeshot talent apply to it.</param>
+        /// <param name="type">The 'type' of your monster. Affects how will the Monster Specialist talent will apply to it</param>
         public void RegisterCustomMonster(Type monsterType, bool isSlimy, MonsterType type);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>The asset path equivalent to the given key, otherwise null.</returns>
+        /// <param name="key">The "Key" to provide the path of.</param>
+        public string GetPathForAsset(string key);
+
+        public void DrawProfessionIcon(SpriteBatch b, Vector2 position, int profession);
+
+        public List<int> GetNextTierProfessions(Farmer who, int level, string skill);
+
+        public ClickableTextureComponent[] CustomSkillBars { get; }
+ 
+        public int[] LevelExperiences { get; }
 
         public bool MasteryCaveChanges { get; }
 
         public bool ColorBlindnessChanges { get; }
 
         public bool ProfessionsOnly { get; }
+
+        public bool StaminaCostAdjustments { get; }
     }
 }

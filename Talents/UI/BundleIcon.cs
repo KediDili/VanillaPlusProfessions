@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using StardewValley;
+using StardewValley.BellsAndWhistles;
 using StardewValley.Menus;
 using VanillaPlusProfessions.Utilities;
 
@@ -21,6 +22,8 @@ namespace VanillaPlusProfessions.Talents.UI
 
         internal static string NumberLocked;
 
+       // internal static string Disabled;
+
         int TalentsBought;
 
         Rectangle LockedRect;
@@ -39,7 +42,7 @@ namespace VanillaPlusProfessions.Talents.UI
                 else
                 {
                     for (int i = 0; i < talent.Requirements.Length; i++)
-                        if (TalentUtility.CurrentPlayerHasTalent(TalentCore.Talents[talent.Requirements[i]].MailFlag))
+                        if (TalentUtility.CurrentPlayerHasTalent(TalentCore.Talents[talent.Requirements[i]].MailFlag, ignoreDisabledTalents: false))
                             return true;
                     return false;
                 }
@@ -48,6 +51,7 @@ namespace VanillaPlusProfessions.Talents.UI
         internal void UpdateSprite()
         {
             InitializeFully();
+            Rectangle rect = new();
             if (Game1.activeClickableMenu is TalentSelectionMenu { AnyActiveBranches: true })
             {
                 button.visible = false;
@@ -56,19 +60,25 @@ namespace VanillaPlusProfessions.Talents.UI
             if (!Availability)
             {
                 //locked
-                Rectangle rect = LockedRect;
+                rect = LockedRect;
                 button.texture = TalentSelectionMenu.BundleIcon;
                 button.sourceRect = rect;
             }
-            else if (TalentUtility.CurrentPlayerHasTalent(talent.MailFlag))
+            else if (TalentUtility.CurrentPlayerHasTalent(talent.MailFlag, ignoreDisabledTalents: true))
             {
                 //bloom
                 button.texture = BundleColor.HasValue
                     ? TalentSelectionMenu.BundleIcon
                     : TalentSelectionMenu.JunimoNote;
-
-                Rectangle rect = BoughtRect;
-                button.sourceRect = rect;
+                rect = BoughtRect;
+            }
+            else if (TalentUtility.CurrentPlayerHasTalent(talent.MailFlag, ignoreDisabledTalents: false))
+            {
+                //available - disabled
+                button.texture = BundleColor.HasValue
+                    ? TalentSelectionMenu.BundleIcon
+                    : TalentSelectionMenu.JunimoNote;
+                rect = AvailableRect;
             }
             else if (Availability)
             {
@@ -77,17 +87,19 @@ namespace VanillaPlusProfessions.Talents.UI
                     ? TalentSelectionMenu.BundleIcon
                     : TalentSelectionMenu.JunimoNote;
 
-                Rectangle rect =AvailableRect;
-                button.sourceRect = rect;
+                rect = AvailableRect;
             }
+            button.sourceRect = rect;
         }
         internal string GetTalentDescription()
         {
+            string desc = "";
             if (!Availability)
             {
                 if (ModEntry.ModConfig.Value.TalentHintLevel == "Hidden")
                 {
-                    return LockedDesc;
+                    desc = LockedDesc;
+                    return Game1.parseText(desc, Game1.smallFont, SpriteText.getWidthOfString(LockedName) + 100);
                 }
                 else if (ModEntry.ModConfig.Value.TalentHintLevel == "Partial")
                 {
@@ -101,27 +113,31 @@ namespace VanillaPlusProfessions.Talents.UI
                                 {
                                     foreach (var req2 in value.Requirements)
                                     {
-                                        if (TalentCore.Talents.TryGetValue(req2, out Talent value2) && value2 is not null && TalentUtility.CurrentPlayerHasTalent(value2.MailFlag))
+                                        if (TalentCore.Talents.TryGetValue(req2, out Talent value2) && value2 is not null && TalentUtility.CurrentPlayerHasTalent(value2.MailFlag, ignoreDisabledTalents: false))
                                         {
-                                            return button.hoverText;
+                                            desc = button.hoverText + (TalentCore.DisabledTalents.Contains(talent.MailFlag) ? ModEntry.Helper.Translation.Get("Talent.DisabledTalent") : "");
+                                            break;
                                         }
                                     }
                                 }
                                 else
                                 {
-                                    return button.hoverText;
+                                    desc = button.hoverText;
+                                    break;
                                 }
                             }
                         }
                     }
                     else
                     {
-                        return button.hoverText;
+                        desc = button.hoverText;
+                        return desc;
                     }
-                    return LockedDesc + (talent.AmountToBuyFirst > 0 ? string.Format(NumberLocked, talent.AmountToBuyFirst) : "");
+                    desc = LockedDesc + (talent.AmountToBuyFirst > 0 ? string.Format(NumberLocked, talent.AmountToBuyFirst) : "");
                 }
             }
-            return button.hoverText;
+            desc = button.hoverText + (TalentCore.DisabledTalents.Contains(talent.MailFlag) ? " (Disabled. Click to re-enable.)" : "");
+            return Game1.parseText(desc, Game1.smallFont, SpriteText.getWidthOfString(button.name) + 100);
         }
 
         public void GameWindowChanged()

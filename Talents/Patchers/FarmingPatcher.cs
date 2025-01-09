@@ -39,7 +39,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             }
             catch (System.Exception e)
             {
-                CoreUtility.PrintError(e, nameof(FarmingPatcher), nameof(Farm.addCrows), "prefixing");
+                CoreUtility.PrintError(e, nameof(FarmingPatcher), nameof(Farm.addCrows), "transpiling");
             }
             
             try
@@ -256,10 +256,12 @@ namespace VanillaPlusProfessions.Talents.Patchers
                 int index = 0;
                 foreach (var item in list)
                 {
-                    if (item.opcode == OpCodes.Ldloc_S && item.operand is 14)
+                    if (item.opcode == OpCodes.Stloc_S && (item.operand is 14 || (item.operand as LocalBuilder).LocalIndex == 14))
                     {
+                        list.Insert(index - 1, new(OpCodes.Ldloc_S, 13));
                         list.Insert(index, new(OpCodes.Call, AccessTools.Method(typeof(FarmingPatcher), nameof(TryOverridePhaseGrowth))));
-                        list.Insert(index, new(OpCodes.Ldloc_S, 13));
+                        list.Insert(index + 1, new(OpCodes.Brfalse_S, list[index - 2].operand));
+                        break;
                     }
                     index++;
                 }

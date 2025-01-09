@@ -341,7 +341,7 @@ namespace VanillaPlusProfessions.Managers
                 addedMaxDamage += maxDamage;
                 addedMinDamage += minDamage;
             }
-            if (TalentUtility.CurrentPlayerHasTalent("Combat_Flurry", who: who) && weapon is not null && weapon.type.Value is 5)
+            if (TalentUtility.CurrentPlayerHasTalent("Combat_Flurry", who: who) && weapon is not null && weapon.type.Value is 1)
             {
                 if (monster.modData.TryGetValue(TalentCore.Key_Flurry, out string val))
                 {
@@ -364,43 +364,54 @@ namespace VanillaPlusProfessions.Managers
 
             result = addedMaxDamage is 0 || addedMinDamage is 0 ? vanillaDamage : Game1.random.Next(minDamage + addedMinDamage, maxDamage + addedMaxDamage + 1);
 
-            if (TalentUtility.CurrentPlayerHasTalent("Combat_DebiliatingStab", who: who) && weapon is not null && weapon.type.Value is 5)
+            if (TalentUtility.CurrentPlayerHasTalent("Combat_Debiliating_Stab", who: who) && weapon is not null && weapon.type.Value is 1)
             {
                 monster.Speed--;
             }
-            else if (TalentUtility.CurrentPlayerHasTalent("Combat_SeveringSwipe", who: who) && weapon is not null && weapon.type.Value is 5)
+            else if (TalentUtility.CurrentPlayerHasTalent("Combat_Severing_Swipe", who: who) && weapon is not null && weapon.type.Value is 3)
             {
                 monster.DamageToFarmer = (int)(monster.DamageToFarmer * 0.60f);
             }
-            else if (TalentUtility.CurrentPlayerHasTalent("Combat_ConcussiveImpact", who: who) && weapon is not null && weapon.type.Value is 5)
+            else if (TalentUtility.CurrentPlayerHasTalent("Combat_Concussive_Impact", who: who) && weapon is not null && weapon.type.Value is 2)
             {
                 monster.startGlowing(Color.Red, false, 0.5f);
                 Monster fuckDelegates = monster;
                 DelayedAction.functionAfterDelay(() =>
                 {
+                    who.currentLocation.debris.Add(new Debris(fuckDelegates.Health / 40, fuckDelegates.StandingPixel.ToVector2(), Color.White, 3f, fuckDelegates));
                     monster.takeDamage(fuckDelegates.Health / 40, 1, 1, false, 1, who);
                 }, 1000
                 );
                 Monster fuckDelegates2 = fuckDelegates;
-                DelayedAction.functionAfterDelay(() =>
+                if ((fuckDelegates2.Health - fuckDelegates2.Health / 40) > 0)
                 {
-                    fuckDelegates2.takeDamage(fuckDelegates2.Health / 60, 1, 1, false, 1, who);
-                }, 1000
-                );
+                    DelayedAction.functionAfterDelay(() =>
+                    {
+                        who.currentLocation.debris.Add(new Debris(fuckDelegates2.Health / 60, fuckDelegates2.StandingPixel.ToVector2(), Color.White, 2f, fuckDelegates2));
+                        fuckDelegates2.takeDamage(fuckDelegates2.Health / 60, 1, 1, false, 1, who);
+                    }, 2000
+                    );
+
+                }
                 Monster fuckDelegates3 = fuckDelegates2;
-                DelayedAction.functionAfterDelay(() =>
+                if ((fuckDelegates3.Health - (fuckDelegates2.Health / 60 + fuckDelegates2.Health / 40))> 0)
                 {
-                    monster.takeDamage(fuckDelegates3.Health / 80, 1, 1, false, 1, who);
-                }, 1000
-                );
+                    DelayedAction.functionAfterDelay(() =>
+                    {
+                        who.currentLocation.debris.Add(new Debris(fuckDelegates3.Health / 80, fuckDelegates3.StandingPixel.ToVector2(), Color.White, 1f, fuckDelegates3));
+                        monster.takeDamage(fuckDelegates3.Health / 80, 1, 1, false, 1, who);
+                    }, 3000
+                    );
+                }
                 monster.stopGlowing();
             }
             
-            if (TalentUtility.CurrentPlayerHasTalent("Combat_Aftershock", who: who) && weapon is not null && weapon.type.Value is 5)
+            if (TalentUtility.CurrentPlayerHasTalent("Combat_Aftershock", who: who) && weapon is not null && weapon.type.Value is 2 && monster.Health > 0)
             {
+                who.currentLocation.debris.Add(new Debris(result / 10, monster.StandingPixel.ToVector2(), Color.White, 1f, who));
                 monster.takeDamage(result / 10, 1, 1, false, 1, who);
             }
-            else if (TalentUtility.CurrentPlayerHasTalent("Combat_Champion", who: who) && weapon is not null && weapon.type.Value is 5)
+            else if (TalentUtility.CurrentPlayerHasTalent("Combat_Champion", who: who) && weapon is not null && weapon.type.Value is 3)
             {
                 BuffEffects sdsdsd = new();
                 sdsdsd.Defense.Value = 2;

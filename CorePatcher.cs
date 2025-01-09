@@ -8,8 +8,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
 using StardewValley.Menus;
+using StardewValley.Tools;
 using VanillaPlusProfessions.Utilities;
-using static SpaceCore.Skills.Skill;
 
 namespace VanillaPlusProfessions
 {
@@ -135,6 +135,78 @@ namespace VanillaPlusProfessions
             {
                 CoreUtility.PrintError(e, nameof(CorePatcher), "LevelUpMenu.draw", "transpiling");
             }
+
+            try
+            {
+                ModEntry.Harmony.Patch(
+                    original: AccessTools.Method(typeof(Axe), nameof(Axe.DoFunction)),
+                    transpiler: new HarmonyMethod(AccessTools.Method(typeof(CorePatcher), nameof(DoFunction_Transpiler)))
+                );
+            }
+            catch (Exception e)
+            {
+                CoreUtility.PrintError(e, nameof(CorePatcher), "Axe.DoFunction", "transpiling");
+            }
+
+            try
+            {
+                ModEntry.Harmony.Patch(
+                    original: AccessTools.Method(typeof(Pickaxe), nameof(Pickaxe.DoFunction)),
+                    transpiler: new HarmonyMethod(AccessTools.Method(typeof(CorePatcher), nameof(DoFunction_Transpiler)))
+                );
+            }
+            catch (Exception e)
+            {
+                CoreUtility.PrintError(e, nameof(CorePatcher), "Pickaxe.DoFunction", "transpiling");
+            }
+
+            try
+            {
+                ModEntry.Harmony.Patch(
+                    original: AccessTools.Method(typeof(WateringCan), nameof(WateringCan.DoFunction)),
+                    transpiler: new HarmonyMethod(AccessTools.Method(typeof(CorePatcher), nameof(DoFunction_Transpiler)))
+                );
+            }
+            catch (Exception e)
+            {
+                CoreUtility.PrintError(e, nameof(CorePatcher), "WateringCan.DoFunction", "transpiling");
+            }
+
+            try
+            {
+                ModEntry.Harmony.Patch(
+                    original: AccessTools.Method(typeof(Hoe), nameof(Hoe.DoFunction)),
+                    transpiler: new HarmonyMethod(AccessTools.Method(typeof(CorePatcher), nameof(DoFunction_Transpiler)))
+                );
+            }
+            catch (Exception e)
+            {
+                CoreUtility.PrintError(e, nameof(CorePatcher), "Hoe.DoFunction", "transpiling");
+            }
+        }
+        public static IEnumerable<CodeInstruction> DoFunction_Transpiler(IEnumerable<CodeInstruction> insns)
+        {
+            try
+            {
+                foreach (var ins in insns)
+                {
+                    if (ins.opcode == OpCodes.Ldc_R4 && (float)ins.operand == 0.1f)
+                    {
+                        ins.opcode = OpCodes.Call;
+                        ins.operand = AccessTools.Method(typeof(CorePatcher), nameof(GetEnergyCostRate));
+                        break;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                CoreUtility.PrintError(e, nameof(CorePatcher), "<VanillaTool>.DoFunction", "transpiled", true);
+            }
+            return insns;
+        }
+        public static float GetEnergyCostRate()
+        {
+            return ModEntry.ModConfig.Value.StaminaCostAdjustments ? 0.08f : 0.1f;
         }
 
         public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
@@ -338,7 +410,10 @@ namespace VanillaPlusProfessions
             int result = 0;
             for (int i = 0; i < 5; i++)
             {
-                result += who.GetUnmodifiedSkillLevel(i) / (CoreUtility.GetMaxLevel() / 5);
+                if (who.GetUnmodifiedSkillLevel(i) >= CoreUtility.GetMaxLevel())
+                {
+                    result += 5;
+                }
             }
             return result;
         }
