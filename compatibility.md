@@ -11,7 +11,8 @@ The queries/tokens, and the formats are listed below:
 | Token Name    | Details |
 |:-------------:|:--------|
 | ContentPaths  | Accepts one of ``ItemSpritesheet``, ``ProfessionIcons``, ``InsiderInfo``, ``TalentBG``, ``TalentSchema``, ``BundleIcons`` and ``SkillBars``.<br/><br/>``ItemSpritesheet`` will give you sprites of any item VPP adds, but it also contains a few misc things that don't fit anywhere else.<br/>``ProfessionIcons`` contains all and only profession icons meant to be used by VPP.<br/>``InsiderInfo`` is only meant to be used for compatibility with the InsiderInfo talent.<br/>``TalentBG`` has only the generic elements that's supposed to be in every talent tree. such as the backgrounds for icons, resetting items and talent point display.<br/>``TalentSchema`` contains an image consisting of all "lines" and an icon of all VPP base talent trees.<br/>``BundleIcons`` is only the colored smaller bundles and greyscale bundles only meant for VPP to use.<br/>``SkillBars`` are the skill bars from VPP's Color Blindness config and skill overlay.<br/> depending on the input, it'll return a path to be used in the Target field.
-| HasProfession | Returns a list of the professions the farmer currently has. Best used in the When field. |
+| HasProfessions | Returns a list of the professions the farmer currently has. |
+| HasTalents | Returns a list of the talents the farmer currently has. Respects the Professions Only config and disabled talents feature. |
 
 An example patch for both of them is written below:
 ```json
