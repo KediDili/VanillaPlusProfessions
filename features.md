@@ -122,7 +122,7 @@ It can take any ore/geode/gem as input along with 2 clay, as long as there's a c
 Outputs 2-6 of the corresponding stone node, which can be placed down in Mineral Cavern indoors.
 Requires 1 Rusty Cog, 5 iron bars and 5 gold bars to craft.
 
-For Mod Authors: If you'd like node makers to work in your mine location, simply add the ``"KediDili.VanillaPlusProfessions_IsLavaLocation": "true"`` in your location data's CustomFields.
+For Mod Authors: If you'd like your nodes to be outputted with the node maker, add the "KediDili.VanillaPlusProfessions/NodeMakerData" key and the unqualified Ids of the nodes (I will find a better way later.)
 
 #### Minecart Chest
 It's a special chest unlocked on level 16, along with the minecart repository.
