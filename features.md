@@ -444,11 +444,11 @@ For Mod Authors: There's nothing you need to do to add compatibility with this p
 ### Ranger (Lv15)
 Forest forage worth more. The prices will be doubled.
 
-For Mod Authors: If you add custom forage, make its category -81 (greens category) and add the ``forage_item`` context tag if you want it to be affected by this.
+For Mod Authors: You can exclude your custom forage if you give it the ``kedi_vpp_banned_ranger`` context tag.
 ### Adventurer (Lv15)
 Non-forest forage worth more. The prices will be doubled.
 
-For Mod Authors: If you add custom forage, make its category -23 ("to-be sold at Willy's" category) OR add any of ``forage_item_beach``, ``forage_item_secret``, ``forage_item_mines`` context tags if you want it to be affected by this.
+For Mod Authors: You can exclude your custom forage if you give it the ``kedi_vpp_banned_adventurer`` context tag.
 ### Gleaner (Lv15)
 Crop seeds can be found as forage.
 
@@ -905,6 +905,7 @@ The recipe will require one of every gem.
 ### Nature Secrets
 Chance for chopped tree stumps to drop forage items.
 
+For Mod Authors: You can exclude your custom forage if you give it the ``kedi_vpp_banned_naturesecrets`` context tag.
 ### Primrose Path
 Flowers give more friendship when gifted.
 
@@ -1022,12 +1023,19 @@ Green Algae may only produce Green Algae and White Algae, with all of them havin
 ### Roe-mance
 Roe, Aged Roe, and Caviar worth more.
 
-### Big Fish, Small Pond
-Allows legendary fish to be added to fish ponds. They cannot increase in number.
-Any vanilla legendary fish can be added to the fish ponds, but they all only produce roe.
+### Legendary Variety
+Allows legendary fish to give non-roe drops when put in a fish pond.
+The full drops are listed below:
 
-Note: I'm aware this talent's mechanic is already added by 1.6.9. I'm working on an alternative.
-For mod authors: If you want your legendary fish to be affected, all vanilla fish normally have the ``fish_pond_banned`` tag. When the talent is obtained, set your mod to remove this tag from your fish.
+| Fish                               | Drops                                                       |
+|:----------------------------------:|:-----------------------------------------------------------:|
+| Legend</br>Legend II               | 20-50 Hardwood (%20), 5-10 Hyper Quality Fertilizer (%15)   |
+| Angler</br>Ms. Angler              | 1 Pearl (%10), 2-10 Magic Bait (%15)                        |
+| Crimsonfish</br>Son of Crimsonfish | 2-5 Ruby (%10), 10-20 Deluxe Speed Gro (%15)                |
+| Glacierfish</br>Glacierfish Jr.    | 2-5 Aquamarine (%10), 10-20 Deluxe Retaining Soil (%20)     |
+| Mutant Carp</br>Radioactive Carp   | 5-10 Radioactive Ore (%15), 25-30 Seaweed/Green Algae (%30) |
+
+For mod authors: Give non-roe drops for your legendary fish locked behind this talent normally.
 
 ### Spawning Season
 Chance for roe yield in fish ponds is increased.
@@ -1149,7 +1157,6 @@ The effects are listed below:
 | Rapid      | Slingshot ammo will<br/>move faster |
 | Bat Killer | Double damage<br/>done to bats |
 | Thrifty    | Slingshot might not use<br/>ammo at times |
-
 
 ### Accessorise
 Trinkets can be converted into rings.
