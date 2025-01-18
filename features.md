@@ -1035,7 +1035,7 @@ The full drops are listed below:
 | Glacierfish</br>Glacierfish Jr.    | 2-5 Aquamarine (%10), 10-20 Deluxe Retaining Soil (%20)     |
 | Mutant Carp</br>Radioactive Carp   | 5-10 Radioactive Ore (%15), 25-30 Seaweed/Green Algae (%30) |
 
-For mod authors: Give non-roe drops for your legendary fish locked behind this talent normally.
+For mod authors: Give non-roe drops for your legendary fish locked behind this talent normally. But you should use "BigFishSmallPond" while addressing this talent with GSQs and CP tokens, because this talent's name had to change due to 1.6.9
 
 ### Spawning Season
 Chance for roe yield in fish ponds is increased.
