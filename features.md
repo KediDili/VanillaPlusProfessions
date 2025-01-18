@@ -886,6 +886,7 @@ All ore nodes can spawn in the quarry mine.
 
 ### Fallout
 Radioactive ore nodes spawn in the non-dangerous mines and Skull Cavern.
+The chance is ``0.0001 * mineLevel`` per stone.
 
 ### Everyone's Best Friend
 Diamond, tigerseye, opal, fire opal, jasper, and star shards will become universal loved gifts.
