@@ -110,8 +110,8 @@ namespace VanillaPlusProfessions.Talents.UI
             TalentCore.Talents["SapSipper"].OnTalentAdded = TalentUtility.OnItemBasedTalentBoughtOrRefunded;
             TalentCore.Talents["SapSipper"].OnTalentRemoved = TalentUtility.OnItemBasedTalentBoughtOrRefunded;
             
-            TalentCore.Talents["BigFishSmallPond"].OnTalentAdded = TalentUtility.OnItemBasedTalentBoughtOrRefunded;
-            TalentCore.Talents["BigFishSmallPond"].OnTalentRemoved = TalentUtility.OnItemBasedTalentBoughtOrRefunded;
+            TalentCore.Talents["Overcrowding"].OnTalentAdded = TalentUtility.OvercrowdingBuildingEdits;
+            TalentCore.Talents["Overcrowding"].OnTalentRemoved = TalentUtility.OvercrowdingBuildingEdits;
             
             TalentCore.Talents["SugarRush"].OnTalentAdded = TalentUtility.OnItemBasedTalentBoughtOrRefunded;
             TalentCore.Talents["SugarRush"].OnTalentRemoved = TalentUtility.OnItemBasedTalentBoughtOrRefunded;

@@ -1,0 +1,632 @@
+{
+	//Farming
+	"Profession.Nutritionist.Name": "Ernährungsberater*in",
+	"Profession.Nutritionist.Desc": "Geräte, die tierische Produkte aus dem_Hühnerstall verarbeiten, haben eine Chance,_die hergestellte Menge zu verdoppeln.",
+	"Profession.Breeder.Name": "Züchter*in",
+	"Profession.Breeder.Desc": "Tiere aus dem Hühnerstall_bringen mehr beim Verkauf ein.",
+	"Profession.Musterer.Name": "Probennehmer*in",
+	"Profession.Musterer.Desc": "Geräte, die tierische Produkte aus dem_Stall verarbeiten, produzieren schneller.",
+	"Profession.Caretaker.Name": "Tierpfleger*in",
+	"Profession.Caretaker.Desc": "Milcheimer und Schere verbrauchen keine Energie._Heu, was von Tieren gefressen wird, hat_eine Chance, nicht verbraucht zu werden.",
+
+	"Profession.Machinist.Name": "Maschinenführer*in",
+	"Profession.Machinist.Desc": "Maschinen, die Ernte verarbeiten,_produzieren schneller.",
+	"Profession.Connoisseur.Name": "Connoisseur",
+	"Profession.Connoisseur.Desc": "NPC lieben Handwerksgüter.",
+	"Profession.Horticulturist.Name": "Gärtner*in",
+	"Profession.Horticulturist.Desc": "Erzeugnisse von Bäumen, die in_Gewächshäusern reifen, haben immer_die Qualitätsstufe Iridium.",
+	"Profession.Agronomist.Name": "Landwirt*in",
+	"Profession.Agronomist.Desc": "Wenn eine Pflanze außerhalb eines_Gewächshauses angebaut wird, besteht_eine Chance, dass der Dünger nicht_verbraucht wird.",
+
+	//Fishing
+	"Profession.Oceanologist.Name": "Ozeanolog*in",
+	"Profession.Oceanologist.Desc": "Köder an Angeln verhindern,_dass Müll geangelt wird.",
+	"Profession.Artificer.Name": "Kunsthandwerker*in",
+	"Profession.Artificer.Desc": "Fischköder halten länger, bevor sie_kaputt gehen.",
+	"Profession.Plunderer.Name": "Dieb*in",
+	"Profession.Plunderer.Desc": "Garantierte Schatzkiste mit jedem_Angelauswurf.",
+	"Profession.Buccaneer.Name": "Seeräuber*in",
+	"Profession.Buccaneer.Desc": "Schatzkisten enthalten seltenere_und wertvollere Gegenstände.",
+
+	"Profession.Aquaculturalist.Name": "Aquakulturwirt*in",
+	"Profession.Aquaculturalist.Desc": "Chance, dass die doppelte Menge_an Fischlaich in Fischteichen_produziert wird.",
+	"Profession.Trawler.Name": "Schleppnetzfischer*in",
+	"Profession.Trawler.Desc": "Krabbenreusen mit Ködern garantieren_einen Fang mit hoher Qualität.",
+	"Profession.Recycler.Name": "Verwerter*in",
+	"Profession.Recycler.Desc": "Chance, dass mit verwertem Müll_Fischköder erzeugt werden.",
+	"Profession.Hydrologist.Name": "Hydrolog*in",
+	"Profession.Hydrologist.Desc": "Chance, dass Krabbenreusen einen_doppelten Fang haben.",
+
+	//Foraging
+	"Profession.Arborist.Name": "Baumpfleger*in",
+	"Profession.Arborist.Desc": "Wilde Bäume wachsen schneller.",
+	"Profession.Shaker.Name": "Schüttler*in",
+	"Profession.Shaker.Desc": "Chance, das wilde Bäume Items fallen_lassen, wenn man sie schüttelt.",
+	"Profession.Sapper.Name": "Baumentsafter*in",
+	"Profession.Sapper.Desc": "Zapfhähne arbeiten schneller.",
+	"Profession.Orchardist.Name": "Obsthändler*in",
+	"Profession.Orchardist.Desc": "Zapfhähne produzieren die doppelte_Menge.",
+
+	"Profession.Ranger.Name": "Waldläufer*in",
+	"Profession.Ranger.Desc": "Sammelbare Erzeugnisse des Waldes_sind mehr wert.",
+	"Profession.Adventurer.Name": "Abenteurer*in",
+	"Profession.Adventurer.Desc": "Sammelbare Erzeugnisse, die nicht aus_dem Wald stammen, sind mehr wert.",
+	"Profession.Gleaner.Name": "Ährenleser*in",
+	"Profession.Gleaner.Desc": "Pflanzensamen können in der Wildnis_gefunden werden.",
+	"Profession.Wayfarer.Name": "Reisende*r",
+	"Profession.Wayfarer.Desc": "Chance, dass sammelbare Erzeugnisse in_allen Jahreszeiten gefunden werden.",
+
+	//Mining
+	"Profession.Metallurgist.Name": "Metallurg*in",
+	"Profession.Metallurgist.Desc": "Metallbarren benötigen weniger Rohstoffe_bei der Herstellung.",
+	"Profession.Ironmonger.Name": "Eisenwarenhändler*in",
+	"Profession.Ironmonger.Desc": "Erze sind mehr wert.",
+	"Profession.Ignitor.Name": "Zünder*in",
+	"Profession.Ignitor.Desc": "Schmelzen arbeiten schneller.",
+	"Profession.Crafter.Name": "Bastler*in",
+	"Profession.Crafter.Desc": "Pläne zur Herstellung von Gegenständen,_die mit der Minenarbeit-Fähigkeit_freigeschaltet werden, benötigen_weniger Rohstoffe.",
+
+	"Profession.Archeologist.Name": "Archäolog*in",
+	"Profession.Archeologist.Desc": "Artefakte können verwertet werden.",
+	"Profession.Mineralogist.Name": "Mineralog*in",
+	"Profession.Mineralogist.Desc": "Alle Standardgeoden enthalten die_gleichen Gegenstände wie Omni-Geoden.",
+	"Profession.Appraiser.Name": "Gutachter*in",
+	"Profession.Appraiser.Desc": "Schlackenscherbe-Adern enthalten mehr Schlackenscherben.",
+	"Profession.Enchanter.Name": "Verzaubender",
+	"Profession.Enchanter.Desc": "Verzauberungen von Waffen und Werkzeugen_sind billiger.",
+
+	//Combat
+	"Profession.Warrior.Name": "Krieger*in",
+	"Profession.Warrior.Desc": "Unbesiegbare Monster können verletzt werden.",
+	"Profession.Berserker.Name": "Berserker*in",
+	"Profession.Berserker.Desc": "Schaden wird erhöht, wenn die_Lebensenergie sinkt.",
+	"Profession.Survivalist.Name": "Überlebenskünstler*in",
+	"Profession.Survivalist.Desc": "Verstärkungszauber halten länger.",
+	"Profession.Healer.Name": "Heiler*in",
+	"Profession.Healer.Desc": "Schwächungszauber verschwinden schneller.",
+
+	"Profession.Technician.Name": "Techniker*in",
+	"Profession.Technician.Desc": "Gewährt Unbesiegbarkeit während der_Abklingzeit nach Spezialangriffen_von Waffen.",
+	"Profession.Speedster.Name": "Flitzer*in",
+	"Profession.Speedster.Desc": "Schnellere Angriffe und kürzere_Abklingzeiten von Waffen.",
+	"Profession.Assassin.Name": "Assassine",
+	"Profession.Assassin.Desc": "Garantiert kritische Treffen bei_Monstern mit hoher Verteidigung.",
+	"Profession.Assailant.Name": "Angreifer*in",
+	"Profession.Assailant.Desc": "Nach kritischen Treffern entfällt_die Abklingzeit.",
+
+	//Combo
+	"Profession.Farm-Forage.Name": "Combo: Sammeln",
+	"Profession.Farm-Forage.Desc": "Obstbäume und riesige Feldfrüchte sind anzapfbar.",
+	"Profession.Farm-Mine.Name": "Combo: Minenarbeit",
+	"Profession.Farm-Mine.Desc": "Mineralien können zu Staub zermahlen werden, der als Dünger verwendet werden kann.",
+
+	"Profession.Mine-Combat.Name": "Combo: Kampf",
+	"Profession.Mine-Combat.Desc": "Erhalte Kampfboni für jeden 100. Stein, der an diesem Tag mit einer Spitzhacke oder Bomben zerbrochen wird.",
+	"Profession.Mine-Forage.Name": "Combo: Sammeln",
+	"Profession.Mine-Forage.Desc": "Erhöhte Wahrscheinlichkeit, dass Pilzebenen_in den Minen erscheinen.",
+
+	"Profession.Forage-Fish.Name": "Combo: Fischen",
+	"Profession.Forage-Fish.Desc": "Alle vier Tage ist es möglich, Blasen_mit einem zufällig gewählten sammelbaren_Gegenstand zu erzeugen.",
+	"Profession.Forage-Combat.Name": "Combo: Kampf",
+	"Profession.Forage-Combat.Desc": "Monster außerhalb des Sichtbereichs_werden angezeigt.",
+
+	"Profession.Fish-Farm.Name": "Combo: Hofarbeit",
+	"Profession.Fish-Farm.Desc": "Volle Fischteiche fordern weiterhin_Gegenstände ein. Doppelter Ertrag für den_Rest der Woche, wenn die Forderung_erfüllt wird.",
+	"Profession.Fish-Mine.Name": "Combo: Minenarbeit",
+	"Profession.Fish-Mine.Desc": "Edelsteine können als Köder genutzt werden.",
+
+	"Profession.Combat-Farm.Name": "Combo: Hofarbeit",
+	"Profession.Combat-Farm.Desc": "Schleime im Schleim-Stall produzieren_zusätzlich auch wertvolle Gegenstände.",
+	"Profession.Combat-Fish.Name": "Combo: Fischen",
+	"Profession.Combat-Fish.Desc": "Fisch kann als Munition für die Schleuder genutzt werden.",
+
+	//Talents
+	"Talent.Farming.Title": "Hofarbeits-Talente",
+	"Talent.Fishing.Title": "Fischen-Talente",
+	"Talent.Foraging.Title": "Sammeln-Talente",
+	"Talent.Mining.Title": "Minenarbeit-Talente",
+	"Talent.Combat.Title": "Kampf-Talente",
+	"Talent.Misc.Title": "Alltagstalente",
+
+	"Talent.LockedTalent.Name": "Gesperrt",
+	"Talent.LockedTalent.Desc": "Schalte zuerst andere\nTalente frei!",
+	"Talent.LockedTalent.Numbered": " (Schalte noch {0} Talente frei)",
+	"Talent.DisabledTalent": " (Deaktiviert. Klicken zum Reaktivieren.)", //New
+
+	"Talent.ResetMessages.ItemMissing": "Gegenstand zum Zurücksetzen nicht im Inventar!",
+	"Talent.ResetMessages.SettleTreeFirst": "Zuerst den Baum\nZurücksetzen!",
+	"Talent.ResetMessages.SettleFullFirst": "Zuerst alles Zurücksetzen!",
+	"Talent.ResetMessages.ResetAll": "Alle Talente zurücksetzen",
+	"Talent.ResetMessages.ResetTree": "Alle Talente dieses\nBaumes zurücksetzen",
+	"Talent.ResetMessages.Confirm": "Wirklich zurücksetzen?",
+	"Talent.ResetMessages.BoughtNone": "Du hast noch keine\nTalente freigeschaltet.",
+	"Talent.ResetMessages.AbortReset": "Zurücksetzen abbrechen",
+
+	"Talent.Resurgence.Name": "Erfrischend",
+	"Talent.Resurgence.Desc": "Gießkanne wird alle 90 Sekunden teilweise aufgefüllt.",
+
+	"Talent.RefreshingWaters.Name": "Zauberwasser",
+	"Talent.RefreshingWaters.Desc": "Gießkanne wird jeden Morgen aufgefüllt.",
+
+	"Talent.GoodSoaking.Name": "Bodenschwamm",
+	"Talent.GoodSoaking.Desc": "Ackerboden wird nach Regentagen automatisch gewässert.",
+
+	"Talent.NourishingRain.Name": "Nährstoffreicher Regen",
+	"Talent.NourishingRain.Desc": "Pro Regentag, brauchen Pflanzen 2 Tage weniger, um zu reifen.",
+
+	"Talent.WildGrowth.Name": "Wildes Wachstum",
+	"Talent.WildGrowth.Desc": "Chance, dass Tiere gleichzeitig normale als auch große Produkte erzeugen.",
+
+	"Talent.Overcrowding.Name": "Überfüllung",
+	"Talent.Overcrowding.Desc": "Hühnerställe und Ställe können mehr Tiere aufnehmen.",
+
+	"Talent.Bio-Engineering.Name": "Bio-Engineering",
+	"Talent.Bio-Engineering.Desc": "Große Tiererzeugnisse ergeben die doppelte Menge an Handwerksprodukten bei Verarbeitung.",
+
+	"Talent.Pastoralism.Name": "Pastoralismus",
+	"Talent.Pastoralism.Desc": "Tiererzeugnisse von hoher Qualität, erzeugen Handwerkswaren von hoher Qualität.",
+
+	"Talent.BreedLikeRabbits.Name": "Wie die Karnickel",
+	"Talent.BreedLikeRabbits.Desc": "Kaninchen können sich fortpflanzen.",
+
+	"Talent.BrimmingWithLife.Name": "Voller Leben",
+	"Talent.BrimmingWithLife.Desc": "Chance für schwangere Tiere verdoppelt.",
+
+	"Talent.CycleOfLife.Name": "Kreislauf des Lebens",
+	"Talent.CycleOfLife.Desc": "50% Chance auf Erhalt von Samen von Mehrfruchtpflanzen.",
+
+	"Talent.Effloresence.Name": "Ausblühen",
+	"Talent.Effloresence.Desc": "Verringert die Zeit, bis Blumen blühen.",
+
+	"Talent.HarmoniousBlooming.Name": "Harmonische Blüte",
+	"Talent.HarmoniousBlooming.Desc": "Erhalte mehr Honig, abhängig von der Anzahl der Blumen im Wirkbereich von Bienenhäusern (Art des Honigs zufällig gewählt).",
+
+	"Talent.Abundance.Name": "Überfluss",
+	"Talent.Abundance.Desc": "Chance, dass die Qualität des Honigs steigt, für jeden Tag, den er nicht gesammelt wird.",
+
+	"Talent.FairysKiss.Name": "Kuss der Fee",
+	"Talent.FairysKiss.Desc": "Jede ausgewachsene Feenrose erhöht die Chance, dass nachts eine Ernte-Fee erscheint.",
+
+	"Talent.FaeBlessings.Name": "Segen der Ernte-Fee",
+	"Talent.FaeBlessings.Desc": "Die Ernte-Fee erzeugt direkt eine Riesenfrucht, sofern diese an der Stelle erzeugt werden kann.",
+
+	"Talent.FineGrind.Name": "Fein gemahlen",
+	"Talent.FineGrind.Desc": "Reis/Weizen/Rüben erzeugen beim Mahlvorgang Qualität entsprechend der Zutaten.",
+
+	"Talent.DriftFencing.Name": "Weidezaun",
+	"Talent.DriftFencing.Desc": "Es werden zwei Zäune in einem Vorgang hergestellt.",
+
+	"Talent.StormSurge.Name": "Herr der Stürme",
+	"Talent.StormSurge.Desc": "Blitzableiter schützen mehr Pflanzen und Obstbäume, sogar wenn sie bereits Batterien herstellen.",
+
+	"Talent.ColdPress.Name": "Kaltgepresst",
+	"Talent.ColdPress.Desc": "Ölpressen produzieren mehr Sorten an Ölen.",
+
+	"Talent.Upcycling.Name": "Upcycling",
+	"Talent.Upcycling.Desc": "Die Herstellung von Sprinklern höherer Stufen erfordert einen Sprinkler der niederigeren Stufe.",
+
+	"Talent.Fertigation.Name": "Fertigation",
+	"Talent.Fertigation.Desc": "Sowohl Druck-Drüsen als auch Bereicherer können an Sprinkler montiert werden.",
+
+	"Talent.Trickster.Name": "Schummler",
+	"Talent.Trickster.Desc": "Krähen vernichten nicht mehr voll ausgewachsenen Feldfrüchte.",
+
+	"Talent.TropicalBliss.Name": "Tropische Glückseligkeit",
+	"Talent.TropicalBliss.Desc": "Sommer und multisaisonale Feldfrüchte wachsen schneller auf der Ingwerinsel.",
+
+	"Talent.HarvestSeason.Name": "Erntezeit",
+	"Talent.HarvestSeason.Desc": "Junimos ernten schneller.",
+
+	"Talent.DownInTheDepths.Name": "Ganz tief unten",
+	"Talent.DownInTheDepths.Desc": "Wenn noch keine Leiter gefunden wurde, erscheint eine Leiter garantiert nach 8 Steinen.",
+
+	"Talent.ShadowBuddies.Name": "Freund im Schatten",
+	"Talent.ShadowBuddies.Desc": "Krobus schickt dir jede Woche 1-3 Geoden, wenn ihr befreundet seid.",
+
+	"Talent.DwarvenBuddies.Name": "Freund der Zwerge",
+	"Talent.DwarvenBuddies.Desc": "Der Zwerg schickt dir jede Woche 1-3 Metallbarren, wenn ihr befreundet seid.",
+
+	"Talent.EssenceInfusion.Name": "Essenz-Infusion",
+	"Talent.EssenceInfusion.Desc": "Jeden Tag produzieren Zeichen des Gefäßes Solar-Essenzen und unheimliche Statuen Schattenessenzen.",
+
+	"Talent.ElderScrolls.Name": "Schriften der Ahnen",
+	"Talent.ElderScrolls.Desc": "Wenn der zwergische Übersetzungsleitfaden freigeschaltet wurde, können Zwergenschriftrollen genutzt werden, um Minenarbeitserfahrung zu erhalten.",
+
+	"Talent.SpeedOfDarkness.Name": "Schnelligkeit der Dunkelheit",
+	"Talent.SpeedOfDarkness.Desc": "Erhalte einen Geschwindigkeitsbonus nach Mitternacht.",
+
+	"Talent.AncestralWeaponry.Name": "Waffen der Ahnen",
+	"Talent.AncestralWeaponry.Desc": "Sobald die Ingwerinsel freigeschaltet wurde, verkauft der Zwerg auch zwergische Waffen.",
+
+	"Talent.SharedFocus.Name": "Geteilter Fokus",
+	"Talent.SharedFocus.Desc": "Die Zeit läuft in jedem Bergwerk langsamer.",
+
+	"Talent.MuseumPiece.Name": "Museumsstück",
+	"Talent.MuseumPiece.Desc": "Beim Aufbrechen von Geoden oder Artefaktfunden ist die Chance doppelt so hoch, etwas zu erhalten, was noch nicht dem Museum gespendet wurde.",
+
+	"Talent.ExplosivePersonality.Name": "Explosive Persönlichkeit",
+	"Talent.ExplosivePersonality.Desc": "Steine, die durch Bomben zerstört werden, haben eine höhere Chance, zusätzliche Geoden zu enthalten.",
+
+	"Talent.Synthesis.Name": "Synthese",
+	"Talent.Synthesis.Desc": "Kristallarien können Geoden kopieren.",
+
+	"Talent.Upheaval.Name": "Umbruch",
+	"Talent.Upheaval.Desc": "Geringe Chance, dass alle Steine einer Minenebene als Geodenadern erscheinen.",
+
+	"Talent.Matryoshka.Name": "Matroschka",
+	"Talent.Matryoshka.Desc": "Chance, dass Geoden weitere Geoden enthalten.",
+
+	"Talent.X-ray.Name": "Röntgenblick",
+	"Talent.X-ray.Desc": "Es wird angezeigt, was in der nächsten Geode enthalten ist. Geoden sind mehr wert.",
+
+	"Talent.Geometry.Name": "Geometrie",
+	"Talent.Geometry.Desc": "Kristallarien arbeiten schneller.",
+
+	"Talent.Dazzle.Name": "Blendend",
+	"Talent.Dazzle.Desc": "Chance, das Kristallarien die Qualität eines Gegenstandes um eine Stufe erhöhen.",
+
+	"Talent.StraightRun.Name": "Durchlauf",
+	"Talent.StraightRun.Desc": "Robin verkauft Steintreppen für 2000g das Stück.",
+
+	"Talent.DetonationDampener.Name": "Gedämpfte Detonation",
+	"Talent.DetonationDampener.Desc": "Bomben zerstören keine sammelbaren Gegenstände, Maschinen oder Artefakt-Orte.",
+
+	"Talent.Volatility.Name": "Volatilität",
+	"Talent.Volatility.Desc": "Chance, dass Erzadern auch das nächstwertvollere Erz enthalten.",
+
+	"Talent.AlchemicReversal.Name": "Alchemistische Umkehr",
+	"Talent.AlchemicReversal.Desc": "Höherwertige Metallbarren können in minderwertigere konvertiert werden.",
+
+	"Talent.RoomAndPillar.Name": "Raum und Pfeiler",
+	"Talent.RoomAndPillar.Desc": "In der Steinbruchmine können alle Arten von Erzadern erscheinen.",
+
+	"Talent.Fallout.Name": "Fallout",
+	"Talent.Fallout.Desc": "Radioaktive Erzadern erscheinen auch in der normalen Mine sowie in der Schädelhöhle.",
+
+	"Talent.EveryonesBestFriend.Name": "Jedermanns bester Freund",
+	"Talent.EveryonesBestFriend.Desc": "Diamanten, Tigeraugen, Opale, Feueropale, Jaspis und Sternenscherben sind nun universelle geliebte Geschenke.",
+
+	"Talent.CrystalCavern.Name": "Kristallhöhle",
+	"Talent.CrystalCavern.Desc": "Geringe Chance, dass alle Steine einer Minenebene als Edelsteinadern erscheinen.",
+
+	"Talent.OverTheRainbow.Name": "Am Ende des Regenbogens",
+	"Talent.OverTheRainbow.Desc": "Fügt ein Rezept für die Herstellung von prismatischen Scherben hinzu.",
+
+	//Foraging
+
+	"Talent.NatureSecrets.Name": "Geheimnisse der Natur",
+	"Talent.NatureSecrets.Desc": "Chance, dass abgeholzte Baumstämme sammelnbare Gegenstände fallen lassen.",
+
+	"Talent.PrimrosePath.Name": "Primelpfad",
+	"Talent.PrimrosePath.Desc": "Blumen erzeugen mehr Freundschaftspunkte, wenn diese geschenkt werden.",
+
+	"Talent.Berry-mania.Name": "Beeren-manie",
+	"Talent.Berry-mania.Desc": "Die Beerenssaisons laufen eine Woche.",
+
+	"Talent.DiamondOfTheKitchen.Name": "Der Diamant in der Küche",
+	"Talent.DiamondOfTheKitchen.Desc": "Trüffel können im Wald gefunden werden.",
+
+	"Talent.LocalKnowledge.Name": "Kenne deine Umgebung",
+	"Talent.LocalKnowledge.Desc": "Sammelbare Gegenstände in der Wildnis werden jeden Tag zurückgesetzt.",
+
+	"Talent.SeaChange.Name": "Unberechenbarkeit des Meeres",
+	"Talent.SeaChange.Desc": "Einmal pro Woche sind am Stand doppelt so viele Gegenstände zu finden.",
+
+	"Talent.Starfall.Name": "Sternenfall",
+	"Talent.Starfall.Desc": "Chance, dass Sternenscherben am Abend für 1 und 7 Tagen lang in der Wildnis zu finden sind.",
+
+	"Talent.DesertBloom.Name": "Blumen der Wüste",
+	"Talent.DesertBloom.Desc": "Chance, dass an regnerischen Tagen in Pelikan in der Calico-Wüste Blumen wachsen.",
+
+	"Talent.BountifulBoletes.Name": "Pilze im Überfluss",
+	"Talent.BountifulBoletes.Desc": "Hohe Chance für Pilze nach regnerischen Tagen.",
+
+	"Talent.RenewingMist.Name": "Nebel der Erneuerung",
+	"Talent.RenewingMist.Desc": "Doppelte Menge an sammelbaren Gegenständen in der Wildnis am ersten sonnigen Tag nachdem es geregnet hat.",
+
+	"Talent.Reforestation.Name": "Aufforstung",
+	"Talent.Reforestation.Desc": "Von Hand gepflanzte wilde Bäume erzeugen den doppelten Ertrag.",
+
+	"Talent.SapSipper.Name": "Harziger Abgang",
+	"Talent.SapSipper.Desc": "Baumsaft ist genießbar und stellt Lebensenergie wieder her.",
+
+	"Talent.SpringThaw.Name": "Frühjahrsschmelze",
+	"Talent.SpringThaw.Desc": "Zapfhähne stellen auch große Produkte her.",
+
+	"Talent.Accumulation.Name": "Akkumulation",
+	"Talent.Accumulation.Desc": "Chance, dass Produkte im Zapfhahn über Nacht die Qualitätsstufe des Inhalts erhöht werden, wenn diese nicht eingesammelt werden.",
+
+	"Talent.ExoticTapping.Name": "Exotisches Anzapfen",
+	"Talent.ExoticTapping.Desc": "Palmen können für Öl und Mahagoniebäume für Zucker angezapft werden.",
+
+	"Talent.GroveTending.Name": "Hainpflege",
+	"Talent.GroveTending.Desc": "Baumdünger ist doppelt so effektiv.",
+
+	"Talent.SurgeProtection.Name": "Überspannungsschutz",
+	"Talent.SurgeProtection.Desc": "Werden wilde Bäume von einem Blitz getroffen, werden diese zu Kohlenbäumen.",
+
+	"Talent.WelcomeToTheJungle.Name": "Welcome to the Jungle",
+	"Talent.WelcomeToTheJungle.Desc": "Kokosnüsse können gepflanzt werden, um Palmen wachsen zu lassen. Goldene Kokosnüsse können überall gefunden werden.",
+
+	"Talent.ClearAsMud.Name": "Klar wie Kloßbrühe",
+	"Talent.ClearAsMud.Desc": "Hohe Chance, dass Lehm beim Umgraben gefunden wird.",
+
+	"Talent.SleepUnderTheStars.Name": "Schlafen unterm Sternenzelt",
+	"Talent.SleepUnderTheStars.Desc": "Keine Nachteile, wenn man um 2 Uhr Nachts am Stand, in den Bergen oder im Wald einschläft.",
+
+	"Talent.CampSpirit.Name": "Camping Flair",
+	"Talent.CampSpirit.Desc": "Essen, was mit einem Koch-Kit hergestellt wurde, regeneriert mehr Energie und Lebenspunkte als Essen, was in der Küche hergestellt wurde.",
+
+	"Talent.SurvivalCooking.Name": "Überlebenskoch",
+	"Talent.SurvivalCooking.Desc": "Fügt einzigartige Rezepte zum Koch-Kit hinzu.",
+
+	"Talent.Pyrolysis.Name": "Pyrolyse",
+	"Talent.Pyrolysis.Desc": "Kohlebrennofen arbeitet effizienter.",
+
+	"Talent.StaticCharge.Name": "Statische Ladung",
+	"Talent.StaticCharge.Desc": "Blitzableiter können Lightning Rods können zwei Blitze gleichzeitig ableiten. Solarpaneele benötigen zwei Tage weniger für die Herstellung von Batterien.",
+
+	"Talent.EyeSpy.Name": "Adlerauge",
+	"Talent.EyeSpy.Desc": "Erhöhte Chance, einen Lebenshut und ähnliche Gegenstände zu finden.",
+
+	//Fishing
+
+	"Talent.FisheryGrant.Name": "Fischereisubventionen",
+	"Talent.FisheryGrant.Desc": "Fischteiche sind billiger.",
+
+	"Talent.InTheWeeds.Name": "Im Gestrüpp",
+	"Talent.InTheWeeds.Desc": "Seetang und Grünalgen können in Fischteichen hinzugefügt werden.",
+
+	"Talent.Roe-mance.Name": "Laich-tes Geld",
+	"Talent.Roe-mance.Desc": "Fischlaich, gealteter Fischlaich und Kaviar sind mehr wert.",
+
+	"Talent.BigFishSmallPond.Name": "Legendäre Vielfalt",
+	"Talent.BigFishSmallPond.Desc": "Legendäre Fische erzeugen nun vielfältigere Produkte, abgesehen von Fischlaich.",
+
+	"Talent.SpawningSeason.Name": "Laichzeit",
+	"Talent.SpawningSeason.Desc": "Chance, dass die Fischlaichproduktion in Fischteichen erhöht ist.",
+
+	"Talent.Ex-squid-site.Name": "Tintenfisch-tastisch",
+	"Talent.Ex-squid-site.Desc": "Chance, dass Fischlaich von höherer Qualität ist, wenn er über Nacht nicht eingesammelt wird. Steigerung gilt für gealterten Laich, Kaviar und Tintenfischtinte.",
+
+	"Talent.DoubleHook.Name": "Doppelhaken",
+	"Talent.DoubleHook.Desc": "Wurmeimer produzieren zweimal am Tag Köder.",
+
+	"Talent.Clickbait.Name": "Clickbait",
+	"Talent.Clickbait.Desc": "Wurmeimer haben eine Chance von 50%, wilde Köder anstatt normalen Köder zu erzeugen.",
+
+	"Talent.CanIt.Name": "Richtige Dosierung",
+	"Talent.CanIt.Desc": "Recycle-Maschinen erzeugen eine größere Vielfalt.",
+
+	"Talent.Smokehouse.Name": "Räucherhütte",
+	"Talent.Smokehouse.Desc": "Fisch kann mehrmals geräuchtert werden, um die Qulität zu erhöhen.",
+
+	"Talent.FitForACzar.Name": "Eines Zaren würdig",
+	"Talent.FitForACzar.Desc": "Gealteter Fischlaich kann in Reifefässern gereift werden, um die Qualität zu erhöhen.",
+
+	"Talent.TakeItSlow.Name": "Mit Gefühl",
+	"Talent.TakeItSlow.Desc": "Der Balken beim Auswerfen bewegt sich langsamer, wenn ein Schneckenköder verwendet wird.",
+
+	"Talent.A-fish-ionado.Name": "A-fisch-ionado",
+	"Talent.A-fish-ionado.Desc": "Erhalte einen zufälligen Köder einmal die Woche per Post.",
+
+	"Talent.ItWasThisBig.Name": "Der war sooo groß!",
+	"Talent.ItWasThisBig.Desc": "Wird ein neuer Rekord beim Fang aufgestellt, erhöht sich automatisch die Qualität.",
+
+	"Talent.DeadMansChest.Name": "Totentruhe",
+	"Talent.DeadMansChest.Desc": "Chance, dass Krabbenreusen Artefaktfunde erzeugen.",
+
+	"Talent.Diversification.Name": "Diversifizierung",
+	"Talent.Diversification.Desc": "Wilder Köder verdoppelt den Ertrag von Krabbenreusen.",
+
+	"Talent.FishTrap.Name": "Fishreuse",
+	"Talent.FishTrap.Desc": "Krabbenreusen fangen manchmal normalen Fisch.",
+
+	"Talent.BaitAndSwitch.Name": "Lockvogeltaktik",
+	"Talent.BaitAndSwitch.Desc": "Chance, dass die Qualitätsstufe von Fischen erhöht wird, wenn dieser über Nacht in der Krabbenreuse bleibt.",
+
+	"Talent.CrabRave.Name": "Krabbenrausch",
+	"Talent.CrabRave.Desc": "Erhöhte Chance, dass Krabben, Flusskrebse und Hummer gefunden werden, wenn man den Krabbenschalering trägt.",
+
+	"Talent.FishsWishes.Name": "Wünsche der Fische",
+	"Talent.FishsWishes.Desc": "Ermöglicht die Nutzung von Zauberködern in Krabbenreusen. Wurde Lockmeister freigeschaltet, gilt Standardköder als Zauberköder.",
+
+	"Talent.HereFishyFishy.Name": "Hier Fischi Fischi",
+	"Talent.HereFishyFishy.Desc": "Drei Fehlschläge beim Fangen von Fisch hintereinander erweitert die Größe des Schwimmerbalkens beim nächsten Versuch.",
+
+	"Talent.VastDomain.Name": "Weitläufiges Revier",
+	"Talent.VastDomain.Desc": "Legänderer Fisch kann in einem größeren Bereich gefangen werden.",
+
+	"Talent.OneFishTwoFish.Name": "Ein Fisch, zweierlei Fisch",
+	"Talent.OneFishTwoFish.Desc": "Der Herausforderung Köder sorgt für einen Fang von vier Fischen gleichzeitig.",
+
+	"Talent.TakeABreak.Name": "Mach mal Pause",
+	"Talent.TakeABreak.Desc": "Fische schwimmen nicht weg, wenn eine Schatzkiste eingeholt wird.",
+
+	"Talent.BubbleTrouble.Name": "Blubber Trubel",
+	"Talent.BubbleTrouble.Desc": "Blasen erscheinen nicht weiter als 4 Felder entfernt vom Land.",
+
+	//Combat
+	"Talent.Slimeshot.Name": "Glibberschuss",
+	"Talent.Slimeshot.Desc": "Schleim kann als Munition für die Schleuder genutzt werden. Trifft der Schleim ein Monster, wird es verlangsamt.",
+
+	"Talent.TripleShot.Name": "Dreifachschuss",
+	"Talent.TripleShot.Desc": "Schleudern erhalten einen Spezialangriff, mit dem man drei Projektile gleichzeitig schießen kann.",
+
+	"Talent.Bullseye.Name": "Volltreffer",
+	"Talent.Bullseye.Desc": "Schleudern können kritische Treffer landen.",
+
+	"Talent.DazzlingStrike.Name": "Schillernder Schlag",
+	"Talent.DazzlingStrike.Desc": "Edelsteine können als Munition für Schleudern genutzt werden. Chance ist hoch, dass der Edelstein nicht zerstört wird.",
+
+	"Talent.Enchanting.Name": "Bezaubernd",
+	"Talent.Enchanting.Desc": "Schleudern haben Slingshots have eigene Verzauberungen namens Automatik, Schnell, Fledermausjäger und Sparsam.",
+
+	"Talent.Accessorise.Name": "Zubehörig",
+	"Talent.Accessorise.Desc": "Schmuckstückekönnen in Ringe umgewandelt werden.",
+
+	"Talent.Consolidation.Name": "Konsolidierung",
+	"Talent.Consolidation.Desc": "Ringe der gleichen Art können zusammengefügt werden.",
+
+	"Talent.HiddenBenefits.Name": "Versteckter Bonus",
+	"Talent.HiddenBenefits.Desc": "Alle Standardschmuckstücke haben einen weiteren Nutzen.",
+
+	"Talent.RendingStrike.Name": "Verletzender Schlag",
+	"Talent.RendingStrike.Desc": "Vier aufeinanderfolgende Treffer verringern den verursachten Schaden eines Monsters.",
+
+	"Talent.DebiliatingStab.Name": "Entschärfender Stich",
+	"Talent.DebiliatingStab.Desc": "Monster, die durch einen Dolch verletzt werden, werden verlangsamt.",
+
+	"Talent.SeveringSwipe.Name": "Trennschnitt",
+	"Talent.SeveringSwipe.Desc": "Monster, die durch ein Schwert verletzt werden, haben einen geringeren Angriff.",
+
+	"Talent.ConcussiveImpact.Name": "Erschütternder Aufschlag",
+	"Talent.ConcussiveImpact.Desc": "Monster, die durch eine Keule verletzt werden, erhalten für 3 Sekunden mehr Schaden.",
+
+	"Talent.Aftershock.Name": "Nachbeben",
+	"Talent.Aftershock.Desc": "Keulen treffen zweimal. Der zweite Treffer fügt reduzierten Schaden zu.",
+
+	"Talent.Champion.Name": "Champion",
+	"Talent.Champion.Desc": "Erhalte +2 Verteidigung für sechs Sekunden nach einem Treffer mit dem Schwert.",
+
+	"Talent.Flurry.Name": "Verschwommen",
+	"Talent.Flurry.Desc": "Aufeinanderfolgende Treffer mit einem Dolch fügen zusätzlich 50% hinzu. Bonus maximal 250%.",
+
+	"Talent.Ferocity.Name": "Wildheit",
+	"Talent.Ferocity.Desc": "Kritische Treffer geben einen Bonus von 10% kritischem Schaden für 10 Sekunden.",
+
+	"Talent.Starburst.Name": "Starburst",
+	"Talent.Starburst.Desc": "Fügt eine Nahkampf Verzauberung namens Starburst hinzu, die Projektile verschießt, wenn die Waffe geschwungen wird.",
+
+	"Talent.Grit.Name": "Sturheit",
+	"Talent.Grit.Desc": "Verlängert den Zeitraum der Schadensimmunität nachdem man Schaden erhält.",
+
+	"Talent.Sidestep.Name": "Ausweichen",
+	"Talent.Sidestep.Desc": "Chance, gegnerischen Angriffen ausweichen zu können.",
+
+	"Talent.Slippery.Name": "Glitschig",
+	"Talent.Slippery.Desc": "Ändert den Malus Zugeschleimt in einen Bonus von +1 Geschwindigkeit.",
+
+	"Talent.Fortified.Name": "Befestigt",
+	"Talent.Fortified.Desc": "Erhalte für jedes Monster am aktuellen Aufenthaltsort einen Bonus von +1 auf Verteidigung (maximal +8).",
+
+	"Talent.FullKnowledge.Name": "Allwissend",
+	"Talent.FullKnowledge.Desc": "Erhalte die vollen Erfahrungspunkte für Monster, die auf der Farm getötet werden.",
+
+	"Talent.MonsterSpecialist.Name": "Monster Experte",
+	"Talent.MonsterSpecialist.Desc": "Wähle eine Monstergruppe aus und füge Monstern dieser Gruppe mehr Schaden zu.",
+	"Talent.Branch.Ground.Name": "Bodenkampf",
+	"Talent.Branch.Ground.Desc": "Füge Schleimen, Maden, Staubgeistern, Buddlern, Lavaräubern und Spinnen mehr Schaden zu.",
+	"Talent.Branch.Humanoid.Name": "Humanoid",
+	"Talent.Branch.Humanoid.Desc": "Füge Golems, Skeletten, Mumien und Schattengeistern mehr Schaden zu.",
+	"Talent.Branch.Flying.Name": "Luftkampf",
+	"Talent.Branch.Flying.Desc": "Füge Fledermäusen, Geistern, Schlangen, Magma Wichten, blauen Tintenfischen, Tindenkindern und Fliegen mehr Schaden zu.",
+	"Talent.Branch.Armoured.Name": "Panzerbrecher",
+	"Talent.Branch.Armoured.Desc": "Füge Zwergenwachen, Hitzköpfen, Metallköpfen und Steinkrabben mehr Schaden zu.",
+
+	"Talent.SugarRush.Name": "Zuckerschock",
+	"Talent.SugarRush.Desc": "Essen, was mit Zucker zubereitet wird, entfernt den Malus Angewidert. Hast du Überlebenskoch freigeschaltet, entfernen diese Gerichte ebenso Angewidert.",
+
+	"Talent.Meditation.Name": "Meditation",
+	"Talent.Meditation.Desc": "Deine Lebensenergie wird regeneriert, wenn du still stehst.",
+
+	"Talent.LostAndFound.Name": "Fundbüro",
+	"Talent.LostAndFound.Desc": "Verlorene Bücher der Bücherei geben Bonis, wenn diese gelesen werden.",
+
+	"Talent.BookclubBargains.Name": "Buchclub Schnäppchen",
+	"Talent.BookclubBargains.Desc": "Die Bücher beim Bücherhändler sind günstiger.",
+
+	"Talent.CycleOfKnowledge.Name": "Wissenstransfer",
+	"Talent.CycleOfKnowledge.Desc": "Bücher, schon gelesen wurden, können recycled werden.",
+
+	"Talent.NarrowEscape.Name": "Knappe Kiste",
+	"Talent.NarrowEscape.Desc": "Man verliert bei Tod weniger Gold.",
+
+	"Talent.TrashedTreasure.Name": "Des einen Müll, des anderen ein Schatz",
+	"Talent.TrashedTreasure.Desc": "More valuable items can be found in trash cans.",
+
+	"Talent.ButterflyEffect.Name": "Schmetterlingseffekt",
+	"Talent.ButterflyEffect.Desc": "An Tagen mit geringem Glück taucht ein Schattenschmetterling an entfernte Orten (Kanalisation, Sumpf, geheime Wälder, etc.) auf, der einen Bonus von +10 auf Glück gewährt.",
+
+	"Talent.Admiration.Name": "Bewunderung",
+	"Talent.Admiration.Desc": "Man verliert nur die Hälfte an Freundschaftspunkten über die Zeit.",
+
+	"Talent.InsiderInfo.Name": "Insider Info",
+	"Talent.InsiderInfo.Desc": "Freundschaften mit Dorfbewohnen erhöhen den Verkaufserlös von bestimmten Gegenständen.",
+
+	"Talent.GiftOfFriendship.Name": "Zeichen der Freundschaft",
+	"Talent.GiftOfFriendship.Desc": "Chance, dass die Dorfbewohner Geschenke machen, die sie lieben, wenn diese 8 Herzen erreicht haben.",
+
+	"Talent.MatesRates.Name": "Weil du es bist",
+	"Talent.MatesRates.Desc": "Freundschaften mit Händlern verringern deren Preise.",
+
+	"Talent.MonumentalDiscount.Name": "Monumentaler Rabatt",
+	"Talent.MonumentalDiscount.Desc": "Obelisken können günstiger erworben werden.",
+
+	"Talent.CraftSupplies.Name": "Handwerksbedarf",
+	"Talent.CraftSupplies.Desc": "Neue Handwerkswaren, die durch Fähigkeitsaufstieg freigeschaltet werden, können nach Freischaltung in Geschäften erworden werden.",
+
+	"Talent.HauteCuisine.Name": "Haute Cuisine",
+	"Talent.HauteCuisine.Desc": "Gekochtes Essen kann teurer verkauft werden.",
+
+	"Talent.MiniFridgeBigSpace.Name": "Mini Kühl, maxi Schrank",
+	"Talent.MiniFridgeBigSpace.Desc": "Mini-Kühlschränke haben eine höhere Kapazität.",
+
+	"Talent.GoodEats.Name": "Gesunde Ernährung",
+	"Talent.GoodEats.Desc": "Bonus von verschiedenen Gerichten und Getränken summieren sich, wenn es unterschiedliche Arten von Bonis sind.",
+
+	"Talent.GiftOfTheTalented.Name": "Naturtalent",
+	"Talent.GiftOfTheTalented.Desc": "Gewährt den Bonus einer Sternenfall-Frucht.",
+
+	//Messages
+	"Message.FairyBreak": "Gönn' der Fee mal eine Pause!",
+	"Message.AlreadyFertilized": "Die Pflanze ist bereits gedüngt.",
+	"Message.Fertilized": "Die Pflanze wurde gedüngt.",
+	"Message.TalentPoint": "Glückwunsch, du hast einen neuen Talentpunkt erhalten!",
+	"Message.ReadDwarfScroll": "Du hast etwas über die Minenarbeit gelernt, als du die alte Schriftrolle gelesen hast.",
+	"Message.ForageBubbleReset": "Orte mit Blasen wurden zurückgesetzt.",
+	"Message.RabbitBirth": "Ein neues Babykaninchen wurde geboren!",
+	"Message.StoneBroken": "Du hast heute bereits {{Stones}} Steine aufgebrochen. Dein Angriff und deine Verteidigung erhöhen sich um {{Buff}}.",
+	"Message.MasteryCave": "Nur ein Großmeister, der Stufe 20 auf jedem der fünf Wege erreicht hat, wird der Zutritt gewährt. ({0}/5)",
+	"Message.ParrotPerch": "Das kann nur an Tiergebäuden angebracht werden!",
+	"Message.MossyFertilizer": "Dieser Baum wurde bereits mit Moosdünger gedüngt!",
+	"Message.TotemFailed": "Das Wild-Totem hat keinen passenden Ort gefunden, um sammelbare Gegenstände erscheinen zu lassen.",
+
+	//Buffs
+	"Buff.Slippery.Name": "Glitschig",
+	"Buff.Slippery.Desc": "Der Schleim führt sich widerlich auf der Haut an... aber man kann damit super herumgleiten.",
+	"Buff.Ferocity.Name": "Wildheit",
+	"Buff.Ferocity.Desc": "Deine wilden Schläge fügen höheren kritischen Schaden zu!",
+	"Buff.Fortified.Name": "Befestigt",
+	"Buff.Fortified.Desc": "Mit den ganzen Monster hier bist du auf der Hut.",
+	"Buff.Champion.Name": "Champion",
+	"Buff.Champion.Desc": "Du bist bereit zurückzuschlagen.",
+	"Buff.SpeedOfDarkness.Name": "Schnelligkeit der Dunkelheit",
+	"Buff.SpeedOfDarkness.Desc": "Lauf! Du musst dein Bett erreichen!",
+
+	//Config
+	"GMCM.ColorBlindnessChanges.Name": "Anpassung zur Farbenblindheit",
+	"GMCM.ColorBlindnessChanges.Desc": "Ändert die VPP und Standard Fähigkeitsbalken in gestreifte Versionen.",
+	"GMCM.MasteryCaveChanges.Name": "Anpassung Meisterungs Höhle",
+	"GMCM.MasteryCaveChanges.Desc": "Ändert das Level, um die Meisterungshöhle betreten zu können, von 10 auf 20.",
+	"GMCM.StaminaCostAdjustments.Name": "Anpassungen zum Energieverbrauch", // New
+	"GMCM.StaminaCostAdjustments.Desc": "Erhöht leicht den Energieverbrauch bei der Nutzung von Äxten, Spitzhacken, Gießkannen und Hacken. Das soll verhindern, dass Spieler bei der Benutzung der Tools auf Level 20 keine Energie mehr verbrauchen.", // New
+	"GMCM.ProfessionsOnly.Name": "Nur Berufe",
+	"GMCM.ProfessionsOnly.Desc": "Ändert VPP so, dass nur die Berufe, nicht aber die Talente verfügbar sind. Entfernt alles, was mit den Talenten in Verbindung steht, aus dem Spiel. Benötigt einen Spielneustart, um wirksam zu werden.",
+	"GMCM.TalentHintLevel.Name": "Talent Hinweisstufe",
+	"GMCM.TalentHintLevel.Desc": "Legt fest, wie viele Informationen man zu Talenten erhält, die noch nicht freigeschalten wurden.\n'Versteckt' blendet alle Hinweise zu den nicht freigeschalteten Talenten aus\n'Teilweise' blendet alle Informationen zu Talenten aus, deren Vorgängertalente noch nicht freigeschalten wurden\n'Voll' zeigt alle Informationen zu allen Talenten an.",
+	"GMCM.TalentHintLevel.Options.Hidden": "Versteckt",
+	"GMCM.TalentHintLevel.Options.Partial": "Teilweise",
+	"GMCM.TalentHintLevel.Options.Full": "Voll",
+	"GMCM.DeveloperOrTestingMode.Name": "Entwickler oder Test-Modus",
+	"GMCM.DeveloperOrTestingMode.Desc": "Sollte von den meisten Nutzern nicht aktiviert werden. Nur nutzen, wenn du genau weißt, was diese Option eigentlich macht.",
+
+	//Items
+	"Item.Xray.GeodeDrop": "(Geode enthält: {{dropName}})",
+	"Item.Syrup.ProduceNameFormat": "{0} Sirup", //New
+	"Item.Dust.ProduceNameFormat": "{0} Staub", //New
+
+	//Extra Info
+	"ExtraInfo.MinecartRepository": "Du kannst nun ein Loren-Depot von Robin bauen lassen.",
+	"ExtraInfo.MineralCavern": "Du kannst nun Mineralhöhlen von Robin bauen lassen."
+}

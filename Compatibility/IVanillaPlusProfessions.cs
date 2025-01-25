@@ -30,11 +30,18 @@ namespace VanillaPlusProfessions.Compatibility
         public void RegisterCustomSkillTree(string skillID, Func<string> displayTitle, List<Talent> talents, Texture2D treeTexture, Rectangle sourceRect, int bundleID = -1, Color? tintColor = null);
 
         /// <summary>
-        /// Registers a custom skill talent tree for a custom skill added via SpaceCore.
+        ///  A method to find out what professions a player has.
         /// </summary>
         /// <returns>A list of string names of the professions <paramref name="who"/> or current player has.</returns>
         /// <param name="who">The player to get the VPP professions of. If not filled, it'll default to the current player.</param>
         public IEnumerable<string> GetProfessionsForPlayer(Farmer who = null);
+
+        /// <summary>
+        /// A method to find out what talents a player has.
+        /// </summary>
+        /// <returns>A list of string names of the talents <paramref name="who"/> or current player has.</returns>
+        /// <param name="who">The player to get the VPP professions of. If not filled, it'll default to the current player.</param>
+        public IEnumerable<string> GetTalentsForPlayer(Farmer who = null);
 
         /// <summary>
         /// Registers a custom skill talent tree for a custom skill added via SpaceCore.

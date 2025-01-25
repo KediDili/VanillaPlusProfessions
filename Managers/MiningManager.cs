@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection.Emit;
 using VanillaPlusProfessions.Utilities;
 using StardewValley.Extensions;
+using System;
 
 namespace VanillaPlusProfessions.Managers
 {
@@ -23,7 +24,7 @@ namespace VanillaPlusProfessions.Managers
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(ForgeMenu), nameof(ForgeMenu.receiveLeftClick)),
-                    transpiler: new HarmonyMethod(typeof(MiningManager), nameof(MiningManager.Transpiler))
+                    transpiler: new HarmonyMethod(typeof(MiningManager), nameof(Transpiler))
                 );
             }
             catch (System.Exception e)
@@ -34,7 +35,7 @@ namespace VanillaPlusProfessions.Managers
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(ForgeMenu), "_UpdateDescriptionText"),
-                    transpiler: new HarmonyMethod(typeof(MiningManager), nameof(MiningManager.Transpiler))
+                    transpiler: new HarmonyMethod(typeof(MiningManager), nameof(Transpiler))
                 );
             }
             catch (System.Exception e)
@@ -45,7 +46,7 @@ namespace VanillaPlusProfessions.Managers
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(ForgeMenu), nameof(ForgeMenu.draw), new System.Type[] { typeof(SpriteBatch) }),
-                    transpiler: new HarmonyMethod(typeof(MiningManager), nameof(MiningManager.Transpiler))
+                    transpiler: new HarmonyMethod(typeof(MiningManager), nameof(Transpiler))
                 );
             }
             catch (System.Exception e)
@@ -55,9 +56,9 @@ namespace VanillaPlusProfessions.Managers
             try
             {
                 ModEntry.Harmony.Patch(
-                original: AccessTools.Method(typeof(ForgeMenu), nameof(ForgeMenu.update)),
-                transpiler: new HarmonyMethod(typeof(MiningManager), nameof(MiningManager.Transpiler))
-            );
+                    original: AccessTools.Method(typeof(ForgeMenu), nameof(ForgeMenu.update)),
+                    transpiler: new HarmonyMethod(typeof(MiningManager), nameof(Transpiler))
+                );
             }
             catch (System.Exception e)
             {
@@ -66,20 +67,20 @@ namespace VanillaPlusProfessions.Managers
             try
             {
                 ModEntry.Harmony.Patch(
-                original: AccessTools.Method(typeof(Game1), "createMultipleObjectDebris", new System.Type[] { typeof(string), typeof(int), typeof(int), typeof(int), typeof(long), typeof(GameLocation) }),
-                prefix: new HarmonyMethod(typeof(MiningManager), nameof(MiningManager.createMultipleObjectDebris_Prefix))
-            );
+                    original: AccessTools.Method("StardewValley.GameLocation:breakStone"),
+                    prefix: new HarmonyMethod(typeof(MiningManager), nameof(breakStone_Prefix))
+                );
             }
             catch (System.Exception e)
             {
-                CoreUtility.PrintError(e, nameof(MiningManager), "'Game1.createMultipleObjectDebris'", "prefixing");
+                CoreUtility.PrintError(e, nameof(MiningManager), "'GameLocation.breakStone'", "prefixing");
             }
             TypeBeingPatched = typeof(BaseEnchantment);
             try
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(BaseEnchantment), nameof(BaseEnchantment.GetEnchantmentFromItem)),
-                    transpiler: new HarmonyMethod(typeof(MiningManager), nameof(MiningManager.Transpiler))
+                    transpiler: new HarmonyMethod(typeof(MiningManager), nameof(Transpiler))
                 );
             }
             catch (System.Exception e)
@@ -136,36 +137,36 @@ namespace VanillaPlusProfessions.Managers
                 }
             }
         }
-        public static void createMultipleObjectDebris_Prefix(string id, int xTile, int yTile, ref int number, long who)
+        public static void breakStone_Prefix(string stoneId, int x, int y, Farmer who, Random r)
         {
-            Farmer farmer = Game1.GetPlayer(who) ?? Game1.MasterPlayer;
-            if (CoreUtility.CurrentPlayerHasProfession("Appraiser", useThisInstead: farmer) && id == "(O)848")
+            if (who == Game1.player)
             {
-                number = 0;
-
-                if (farmer.professions.Contains(18))
-                    number++;
-                if (farmer.hasBuff("dwarfStatue_0"))
-                    number++;
-                number += Game1.random.Next(2, 5);
-            }
-            if (TalentUtility.AnyPlayerHasTalent("Mining_Volatility") && Game1.random.NextBool())
-            {
-                if (id == "(O)378")
+                if (CoreUtility.CurrentPlayerHasProfession("Appraiser", useThisInstead: who) && stoneId is "843" or "844")
                 {
-                    Game1.createObjectDebris("(O)380", xTile, yTile);
+                    int number = Game1.random.Next(0, 3);
+                    for (int i = 0; i < number; i++)
+                    {
+                        Game1.createObjectDebris("(O)848", x, y);
+                    }
                 }
-                else if (id == "(O)380")
+                if (TalentUtility.CurrentPlayerHasTalent("Mining_Volatility", who: who) && r.NextBool())
                 {
-                    Game1.createObjectDebris("(O)384", xTile, yTile);
-                }
-                else if (id == "(O)384")
-                {
-                    Game1.createObjectDebris("(O)386", xTile, yTile);
-                }
-                else if (id == "(O)386")
-                {
-                    Game1.createObjectDebris("(O)909", xTile, yTile);
+                    if (stoneId == "(O)378")
+                    {
+                        Game1.createObjectDebris("(O)380", x, y);
+                    }
+                    else if (stoneId == "(O)380")
+                    {
+                        Game1.createObjectDebris("(O)384", x, y);
+                    }
+                    else if (stoneId == "(O)384")
+                    {
+                        Game1.createObjectDebris("(O)386", x, y);
+                    }
+                    else if (stoneId == "(O)386")
+                    {
+                        Game1.createObjectDebris("(O)909", x, y);
+                    }
                 }
             }
         }

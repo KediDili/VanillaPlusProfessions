@@ -294,7 +294,7 @@
 
 	//Foraging
 
-	"Talent.NatureSecrets.Name": "Doğa Sırları",
+	"Talent.NatureSecrets.Name": "Doğanın Sırları",
 	"Talent.NatureSecrets.Desc": "Kesilen ağaç kütükleri toplama nesneleri verebilir.",
 
 	"Talent.PrimrosePath.Name": "Çuha Yolu",
@@ -306,7 +306,7 @@
 	"Talent.DiamondOfTheKitchen.Name": "Mutfak Elması",
 	"Talent.DiamondOfTheKitchen.Desc": "Yermantarları ormanlarda ortaya çıkar.",
 
-	"Talent.LocalKnowledge.Name": "Yerel Bilgelik",
+	"Talent.LocalKnowledge.Name": "Yerel Bilgi",
 	"Talent.LocalKnowledge.Desc": "Toplamalar her gün yenilenir.",
 
 	"Talent.SeaChange.Name": "Deniz Değişimi",

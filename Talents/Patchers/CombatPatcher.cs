@@ -493,7 +493,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
                 who.buffs.Remove("13");
                 BuffEffects dsdsd = new();
                 dsdsd.Speed.Value = 1;
-                who.buffs.Apply(new("VPP.Slippery.Speed", "talents", "Slippery Talent", 20000, ModEntry.Helper.GameContent.Load<Texture2D>(ContentEditor.ContentPaths["ItemSpritesheet"]), 28, dsdsd, false, Game1.parseText(ModEntry.Helper.Translation.Get("Buff.Slippery.Name")), Game1.parseText(ModEntry.Helper.Translation.Get("Buff.Slippery.Desc"))));
+                who.buffs.Apply(new("VPP.Slippery.Speed", "talents", "Slippery Talent", 20000, ModEntry.Helper.GameContent.Load<Texture2D>(ContentEditor.ContentPaths["ItemSpritesheet"]), 28, dsdsd, false, Game1.parseText(ModEntry.Helper.Translation.Get("Buff.Slippery.Name")), Game1.parseText(ModEntry.Helper.Translation.Get("Buff.Slippery.Desc"), Game1.smallFont, TalentUtility.BuffDescriptionLength(ModEntry.Helper.Translation.Get("Buff.Slippery.Name")))));
             }
         }
 

@@ -63,43 +63,24 @@ namespace VanillaPlusProfessions
                 foreach (var item in editor)
                     if (item.Value.GrowthChance * 3 / 2 <= 1)
                         item.Value.GrowthChance *= 3 / 2;
-            WildTreeChopItemData data = new()
+           /*WildTreeChopItemData data = new()
             {
                 Id = "Kedi.VPP.NatureTalents",
                 ItemId = "RANDOM_ITEMS (O)",
-                ForStump = false,
-                PerItemCondition = "ITEM_CONTEXT_TAG Target category_forage",
-                Condition = "PLAYER_HAS_MAIL Current Foraging_Nature_Secrets",
-                Chance = 1
+                ForStump = true,
+                PerItemCondition = "ITEM_CONTEXT_TAG Target category_forage !kedi_vpp_banned_naturesecrets",
+                Condition = "KediDili.VanillaPlusProfessions_PlayerHasTalent Current NatureSecrets",
+                Chance = 1,
             };
             foreach (var item in editor)
             {
                 item.Value.ChopItems ??= new();
                 item.Value.ChopItems.Add(data);
-            }
+            }*/
         }
         internal static void HandleObjects(ref IDictionary<string, ObjectData> editor)
         {
-            /*if (CoreUtility.CurrentPlayerHasProfession("Ranger")) //Ranger ++
-            {
-                var list = (from element in editor
-                            where element.Value.Category == Object.GreensCategory && element.Value.ContextTags.Contains("forage_item")
-                            select element.Key).ToList();
-                for (int i = 0; i < list.Count; i++)
-                {
-                    editor[list[i]].Price *= 2;
-                }
-            }
-            if (CoreUtility.CurrentPlayerHasProfession("Adventurer")) //Adventurer ++
-            {
-                var list = (from element in editor
-                           where element.Value.Category == Object.sellAtFishShopCategory || element.Value.ContextTags.Contains("forage_item_beach") || element.Value.ContextTags.Contains("forage_item_secret") || element.Value.ContextTags.Contains("forage_item_mines")
-                           select element.Key).ToList();
-                for (int i = 0; i < list.Count; i++)
-                {
-                    editor[list[i]].Price *= 2;
-                }
-            }*/
+            
             if (CoreUtility.CurrentPlayerHasProfession("Mineralogist")) //Mineralogist
             {
                 editor["749"].GeodeDropsDefaultItems = false;
@@ -110,32 +91,6 @@ namespace VanillaPlusProfessions
                 editor["536"].GeodeDrops = editor["749"].GeodeDrops;
                 editor["535"].GeodeDrops = editor["749"].GeodeDrops;
             }
-            /*             
-        if (TalentUtility.CurrentPlayerHasTalent("Fishing_Roemance"))
-        {
-            editor["812"].Price *= 5 / 4;
-        }
-        if (TalentUtility.CurrentPlayerHasTalent("Misc_HauteCuisine"))
-        {
-            foreach (var item in editor)
-                if (item.Value.Category == Object.CookingCategory)
-                    item.Value.Price *= 2;
-        }
-        if (TalentUtility.CurrentPlayerHasTalent("Misc_InsiderInfo"))
-        {
-            Dictionary<string, string> InsiderInfo = ModEntry.Helper.GameContent.Load<Dictionary<string, string>>(ContentPaths["InsiderInfo"]);
-            foreach (var item in InsiderInfo)
-            {
-                if (Game1.player.friendshipData.TryGetValue(item.Key, out Friendship val) && val.Points >= 1500)
-                {
-                    string[] items = ArgUtility.SplitBySpace(item.Value.Replace(",", " "));
-                    for (int i = 0; i < items.Length; i++)
-                    {
-                        editor[items[i]].Price = (int)(editor[items[i]].Price * 0.8f);
-                    }
-                }
-            }
-        }*/
             editor["420"].ContextTags.Add(TalentCore.ContextTag_PoisonousMushroom);
         }
         internal static void HandleLocations(ref IDictionary<string, LocationData> editor)

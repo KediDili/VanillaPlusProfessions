@@ -233,47 +233,50 @@ namespace VanillaPlusProfessions.Craftables
 
                 foreach (var item2 in item.Value)
                 {
-                    if (loc.Objects.TryGetValue(item2, out var obj) && obj?.QualifiedItemId == "(BC)KediDili.VPPData.CP_NodeMaker" && IsThereAContainerNearby(obj, out List<Chest> container))
+                    if (loc.Objects.TryGetValue(item2, out var obj) && obj is not null)
                     {
-                        foreach (var chest in container)
+                        if (obj.QualifiedItemId == "(BC)KediDili.VPPData.CP_NodeMaker" && IsThereAContainerNearby(obj, out List<Chest> container))
                         {
-                            ModEntry.Helper.Reflection.GetField<IInventory>(typeof(StardewValley.Object), "autoLoadFrom", true).SetValue(chest.Items);
+                            foreach (var chest in container)
+                            {
+                                ModEntry.Helper.Reflection.GetField<IInventory>(typeof(StardewValley.Object), "autoLoadFrom", true).SetValue(chest.Items);
 
-                            if (obj.heldObject.Value is null)
-                            {
-                                if (obj.AttemptAutoLoad(chest.Items, Game1.player))
+                                if (obj.heldObject.Value is null)
                                 {
-                                    break;
-                                }
-                            }
-                            else if (obj.heldObject.Value is not null && obj.readyForHarvest.Value)
-                            {
-                                if (Utility.canItemBeAddedToThisInventoryList(obj.heldObject.Value, chest.Items, chest.GetActualCapacity()))
-                                {
-                                    if (chest.Items.Count > 0)
+                                    if (obj.AttemptAutoLoad(chest.Items, Game1.player))
                                     {
-                                        foreach (var containerItem in chest.Items)
+                                        break;
+                                    }
+                                }
+                                else if (obj.heldObject.Value is not null && obj.readyForHarvest.Value)
+                                {
+                                    if (Utility.canItemBeAddedToThisInventoryList(obj.heldObject.Value, chest.Items, chest.GetActualCapacity()))
+                                    {
+                                        if (chest.Items.Count > 0)
                                         {
-                                            if (containerItem.canStackWith(obj.heldObject.Value))
+                                            foreach (var containerItem in chest.Items)
                                             {
-                                                obj.heldObject.Value.Stack = containerItem.addToStack(obj.heldObject.Value);
+                                                if (containerItem.canStackWith(obj.heldObject.Value))
+                                                {
+                                                    obj.heldObject.Value.Stack = containerItem.addToStack(obj.heldObject.Value);
+                                                }
                                             }
                                         }
-                                    }
-                                    
-                                    if (obj.heldObject.Value.Stack is not 0)
-                                    {
-                                        chest.Items.Add(obj.heldObject.Value);
-                                        obj.readyForHarvest.Value = false;
-                                        obj.heldObject.Value = null;
-                                        break;
-                                    }
 
-                                    if (obj.heldObject.Value.Stack == 0)
-                                    {
-                                        obj.readyForHarvest.Value = false;
-                                        obj.heldObject.Value = null;
-                                        break;
+                                        if (obj.heldObject.Value.Stack is not 0)
+                                        {
+                                            chest.Items.Add(obj.heldObject.Value);
+                                            obj.readyForHarvest.Value = false;
+                                            obj.heldObject.Value = null;
+                                            break;
+                                        }
+
+                                        if (obj.heldObject.Value.Stack == 0)
+                                        {
+                                            obj.readyForHarvest.Value = false;
+                                            obj.heldObject.Value = null;
+                                            break;
+                                        }
                                     }
                                 }
                             }

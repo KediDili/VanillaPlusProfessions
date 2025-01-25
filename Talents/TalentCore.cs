@@ -64,6 +64,9 @@ namespace VanillaPlusProfessions.Talents
         internal const string ContextTag_Matryoshka_Banned_FromDropping = "kedi_vpp_banned_from_dropping";
         internal const string ContextTag_Matryoshka_Banned_FromBeingDropped = "kedi_vpp_banned_from_being_dropped";
         internal const string ContextTag_Banned_Node = "kedi_vpp_banned_node";
+        internal const string ContextTag_Banned_NatureSecrets = "kedi_vpp_banned_naturesecrets";
+        internal const string ContextTag_Banned_Adventurer = "kedi_vpp_banned_adventurer";
+        internal const string ContextTag_Banned_Ranger = "kedi_vpp_banned_ranger";
 
         internal static Dictionary<string, Talent> Talents = new();
         internal static Dictionary<string, Skills.Skill> SkillsByName = new();
@@ -390,7 +393,7 @@ namespace VanillaPlusProfessions.Talents
                     item.onEquip(Game1.player);
                 }
             }
-            Game1.player.achievements.OnValueAdded += OnAchievementAdded;
+            //Game1.player.achievements.OnValueAdded += OnAchievementAdded;
             Game1.player.team.specialOrders.OnElementChanged += OnSpecialOrderChanged;
             Game1.player.mailReceived.OnValueAdded += OnMailFlagGiven;
 

@@ -77,9 +77,9 @@ namespace VanillaPlusProfessions.Utilities
                 ModEntry.ModMonitor.Log("Load a save first!", LogLevel.Warn);
             }
         }
-        public static bool CurrentPlayerHasTalent(string flag, long farmerID = -1, Farmer who = null, bool ignoreDisabledTalents = true)
+        public static bool CurrentPlayerHasTalent(string flag, long farmerID = -1, Farmer who = null, bool ignoreDisabledTalents = true, bool isGSQCall = false)
         {
-            if (!Context.IsWorldReady || ModEntry.ModConfig.Value.ProfessionsOnly)
+            if ((!Context.IsWorldReady && !isGSQCall) || ModEntry.ModConfig.Value.ProfessionsOnly)
             {
                 return false;
             }
@@ -87,12 +87,10 @@ namespace VanillaPlusProfessions.Utilities
             {
                 who = Game1.GetPlayer(farmerID) ?? Game1.MasterPlayer;
             }
+            who ??= Game1.player;
             if (who is null)
-            {
-                who = Game1.player;
-                if (who is null)
-                    return false;
-            }
+                return false;
+            
             flag = GetFlag(flag);
             if (!ignoreDisabledTalents)
             {
@@ -158,6 +156,50 @@ namespace VanillaPlusProfessions.Utilities
             return false;
         }
         public static bool HostHasTalent(string flag) => CurrentPlayerHasTalent(GetFlag(flag), who: Game1.MasterPlayer);
+
+        public static void OvercrowdingBuildingEdits(string talent, bool isAppliedOrUnapplied)
+        {
+            if (talent == "Overcrowding")
+            {
+                ModEntry.Helper.GameContent.InvalidateCache("Data\\Buildings");
+                if (isAppliedOrUnapplied)
+                {
+                    Utility.ForEachBuilding(building =>
+                    {
+                        if (building.GetIndoors() is AnimalHouse animalHouse && building.buildingType.Value is "Coop" or "Big Coop" or "Deluxe Coop" or "Barn" or "Big Barn" or "Deluxe Barn")
+                        {
+                            building.maxOccupants.Value = building.maxOccupants.Value switch
+                            {
+                                4 => 5,
+                                8 => 10,
+                                12 => 15,
+                                _ => building.maxOccupants.Value,
+                            };
+                            animalHouse.animalLimit.Value = building.maxOccupants.Value;
+                        }
+                        return true;
+                    });
+                }
+                else
+                {
+                    Utility.ForEachBuilding(building =>
+                    {
+                        if (building.GetIndoors() is AnimalHouse animalHouse && building.buildingType.Value is "Coop" or "Big Coop" or "Deluxe Coop" or "Barn" or "Big Barn" or "Deluxe Barn")
+                        {
+                            building.maxOccupants.Value = building.maxOccupants.Value switch
+                            {
+                                5 => 4,
+                                10 => 8,
+                                15 => 12,
+                                _ => building.maxOccupants.Value,
+                            };
+                            animalHouse.animalLimit.Value = building.maxOccupants.Value;
+                        }
+                        return true;
+                    });
+                }
+            }
+        }
 
         public static List<Vector2> GetTilesAroundBeeHouse(float xStart, float yStart)
         {
@@ -261,13 +303,13 @@ namespace VanillaPlusProfessions.Utilities
 
         internal static void OnItemBasedTalentBoughtOrRefunded(string name, bool appliedOrUnapplied)
         {
-            if (name is "SapSipper" or "SugarRush" or "BigFishSmallPond" or "Accessorise")
+            if (name is "SapSipper" or "SugarRush" or "Accessorise")
             {
                 Utility.ForEachItem(item =>
                 {
                     if (item is StardewValley.Object obj)
                     {
-                        if (obj.Category is StardewValley.Object.FishCategory or StardewValley.Object.CookingCategory && name is "SugarRush" or "BigFishSmallPond")
+                        if (obj.Category is StardewValley.Object.FishCategory or StardewValley.Object.CookingCategory && name is "SugarRush")
                         {
                             obj.MarkContextTagsDirty();
                         }
@@ -349,18 +391,24 @@ namespace VanillaPlusProfessions.Utilities
             {
                 for (int i = 0; i < ModEntry.WearMoreRingsAPI.Value?.RingSlotCount(); i++)
                 {
-                    if (ModEntry.WearMoreRingsAPI.Value?.GetRing(i) is not null)
+                    try
                     {
-                        if (ModEntry.WearMoreRingsAPI.Value?.GetRing(i) is CombinedRing combinedRing && combinedRing is not null)
+                        if (ModEntry.WearMoreRingsAPI.Value?.GetRing(i) is not null)
                         {
-                            if (combinedRing.combinedRings[0] is TrinketRing)
-                                result.Add(combinedRing.combinedRings[0] as TrinketRing);
-                            
-                            if (combinedRing.combinedRings[1] is TrinketRing)
-                                result.Add(combinedRing.combinedRings[1] as TrinketRing);
+                            if (ModEntry.WearMoreRingsAPI.Value?.GetRing(i) is CombinedRing combinedRing && combinedRing is not null)
+                            {
+                                if (combinedRing.combinedRings[0] is TrinketRing)
+                                    result.Add(combinedRing.combinedRings[0] as TrinketRing);
+
+                                if (combinedRing.combinedRings[1] is TrinketRing)
+                                    result.Add(combinedRing.combinedRings[1] as TrinketRing);
+                            }
+                            if (ModEntry.WearMoreRingsAPI.Value?.GetRing(i) is TrinketRing trinketRing && trinketRing != null)
+                                result.Add(trinketRing);
                         }
-                        if (ModEntry.WearMoreRingsAPI.Value?.GetRing(i) is TrinketRing trinketRing && trinketRing != null)
-                            result.Add(trinketRing);
+                    }
+                    catch (NullReferenceException)
+                    {
                     }
                 }
             }

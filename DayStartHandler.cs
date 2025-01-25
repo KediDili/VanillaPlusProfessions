@@ -16,6 +16,7 @@ using StardewValley.GameData.GiantCrops;
 using VanillaPlusProfessions.Utilities;
 using xTile.Dimensions;
 using VanillaPlusProfessions.Craftables;
+using StardewValley.GameData.FishPonds;
 
 namespace VanillaPlusProfessions
 {
@@ -359,13 +360,13 @@ namespace VanillaPlusProfessions
                     if (building is FishPond pond && pond.currentOccupants.Value == pond.maxOccupants.Value)
                     {
                         var data = pond.GetFishPondData();
-                        if (data.PopulationGates?.Count! > 0)
+                        if (data?.PopulationGates?.Count! > 0)
                             return true;
                         if (pond.modData.TryGetValue(ModEntry.Key_FishRewardOrQuestDayLeft, out string value) && value is not null)
                         {
                             if (value is not "0" && pond.neededItem.Value is null && pond.neededItemCount.Value is -1)
                             {
-                                if (pond.output is not null)
+                                if (pond.output.Value is not null)
                                     pond.output.Value.Stack *= 2;
                                 pond.modData[ModEntry.Key_FishRewardOrQuestDayLeft] = (int.Parse(value) - 1).ToString();
                                 return true;
@@ -381,14 +382,18 @@ namespace VanillaPlusProfessions
                         {
                             pond.hasCompletedRequest.Value = false;
                             List<List<string>> list = new();
+                            if (pond.GetFishPondData()?.PopulationGates?.Values is null)
+                                return true;
 
-                            foreach (var pondData in pond.GetFishPondData().PopulationGates.Values)
+                            foreach (var pondData in pond.GetFishPondData()?.PopulationGates?.Values)
                                 list.Add(pondData);
-                            
-                            var newQuestlist = Game1.random.ChooseFrom(list);
-                            var ActualQuest = ArgUtility.SplitBySpace(Game1.random.ChooseFrom(newQuestlist));
-                            pond.neededItem.Value = ItemRegistry.Create(ActualQuest[0]);
-                            pond.neededItemCount.Value = int.Parse(ActualQuest[1]);
+                            if (list.Count > 0)
+                            {
+                                var newQuestlist = Game1.random.ChooseFrom(list);
+                                var ActualQuest = ArgUtility.SplitBySpace(Game1.random.ChooseFrom(newQuestlist));
+                                pond.neededItem.Value = ItemRegistry.Create(ActualQuest[0]);
+                                pond.neededItemCount.Value = int.Parse(ActualQuest[1]);
+                            }
                         }
                     }
                 }
@@ -444,7 +449,7 @@ namespace VanillaPlusProfessions
                         if (CoreUtility.AnyPlayerHasProfession("Farm-Forage") && bigcraftable.modData.TryGetValue(ModEntry.Key_TFTapperDaysLeft, out string value))
                         {
                             bigcraftable.modData[ModEntry.Key_TFTapperDaysLeft] = (Convert.ToInt32(value) - 1).ToString();
-                            if (bigcraftable.modData[ModEntry.Key_TFTapperDaysLeft] is "0")
+                            if (Convert.ToInt32(bigcraftable.modData[ModEntry.Key_TFTapperDaysLeft]) < 1)
                             {
                                 if (bigcraftable.heldObject.Value is null)
                                 {
@@ -464,7 +469,7 @@ namespace VanillaPlusProfessions
                                 {
                                     foreach (var resourceClump in bigcraftable.Location.resourceClumps)
                                     {
-                                        if (resourceClump is GiantCrop crop && crop.getBoundingBox().Contains(bigcraftable.TileLocation))
+                                        if (resourceClump is GiantCrop crop && crop.getBoundingBox().Contains(bigcraftable.TileLocation * 64))
                                         {
                                             bigcraftable.modData[ModEntry.Key_TFTapperDaysLeft] = ManagerUtility.GetProduceTimeBasedOnPrice(crop, out StardewValley.Object _);
                                             break;

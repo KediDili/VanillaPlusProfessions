@@ -149,69 +149,81 @@ namespace VanillaPlusProfessions.Utilities
         {
             if (Context.IsWorldReady)
             {
-                Utility.ForEachBuilding(Building =>
+                if (args.Length > 0 && args[1].ToLower() == "true")
                 {
-                    Building.modData.Remove(ModEntry.Key_FishRewardOrQuestDayLeft);
-                    Building.modData.Remove(TalentCore.Key_HiddenBenefit_FrogEggs);
-                    Building.modData.Remove(ModEntry.Key_IsSlimeHutchWatered);
-                    if (Building.GetIndoors() is AnimalHouse house)
+                    Utility.ForEachBuilding(Building =>
                     {
-                        foreach (var (id, animal) in house.Animals.Pairs)
+                        Building.modData.Remove(ModEntry.Key_FishRewardOrQuestDayLeft);
+                        Building.modData.Remove(TalentCore.Key_HiddenBenefit_FrogEggs);
+                        Building.modData.Remove(ModEntry.Key_IsSlimeHutchWatered);
+                        if (Building.GetIndoors() is AnimalHouse house)
                         {
-                            if (!house.animalsThatLiveHere.Contains(id))
-                                continue;
+                            foreach (var (id, animal) in house.Animals.Pairs)
+                            {
+                                if (!house.animalsThatLiveHere.Contains(id))
+                                    continue;
 
-                            animal.modData.Remove(TalentCore.Key_WildGrowth);
+                                animal.modData.Remove(TalentCore.Key_WildGrowth);
+                            }
                         }
-                    }
-                    else if (Building.GetIndoors() is SlimeHutch hutch)
+                        else if (Building.GetIndoors() is SlimeHutch hutch)
+                        {
+                            foreach (var slime in hutch.characters)
+                            {
+                                slime.modData.Remove(ModEntry.Key_SlimeWateredDaysSince);
+                            }
+                        }
+                        return true;
+                    });
+                    Utility.ForEachLocation(Loc =>
                     {
-                        foreach (var slime in hutch.characters)
+                        Loc.modData.Remove(TalentCore.Key_WasRainingHere);
+                        Loc.modData.Remove(TalentCore.Key_FaeBlessings);
+                        foreach (var item in Loc.terrainFeatures.Pairs)
                         {
-                            slime.modData.Remove(ModEntry.Key_SlimeWateredDaysSince);
+                            if (item.Value is FruitTree tree)
+                            {
+                                tree.modData.Remove(ModEntry.Key_TFHasTapper);
+                                tree.modData.Remove(ModEntry.Key_TFTapperID);
+                                tree.modData.Remove(ModEntry.Key_TFTapperDaysLeft);
+                            }
+                            else if (item.Value is GiantCrop crop)
+                            {
+                                crop.modData.Remove(ModEntry.Key_TFHasTapper);
+                                crop.modData.Remove(ModEntry.Key_TFTapperID);
+                                crop.modData.Remove(ModEntry.Key_TFTapperDaysLeft);
+                            }
+                            else if (item.Value is HoeDirt dirt)
+                            {
+                                dirt.modData.Remove(TalentCore.Key_FaeBlessings);
+                            }
                         }
-                    }
-                    return true;
-                });
-                Utility.ForEachLocation(Loc =>
-                {
-                    Loc.modData.Remove(TalentCore.Key_WasRainingHere);
-                    Loc.modData.Remove(TalentCore.Key_FaeBlessings);
-                    foreach (var item in Loc.terrainFeatures.Pairs)
+                        return true;
+                    });
+                    Utility.ForEachCrop(crop =>
                     {
-                        if (item.Value is FruitTree tree)
-                        {
-                            tree.modData.Remove(ModEntry.Key_TFHasTapper);
-                            tree.modData.Remove(ModEntry.Key_TFTapperID);
-                            tree.modData.Remove(ModEntry.Key_TFTapperDaysLeft);
-                        }
-                        else if (item.Value is GiantCrop crop)
-                        {
-                            crop.modData.Remove(ModEntry.Key_TFHasTapper);
-                            crop.modData.Remove(ModEntry.Key_TFTapperID);
-                            crop.modData.Remove(ModEntry.Key_TFTapperDaysLeft);
-                        }
-                        else if (item.Value is HoeDirt dirt)
-                        {
-                            dirt.modData.Remove(TalentCore.Key_FaeBlessings);
-                        }
-                    }
-                    return true;
-                });
-                Utility.ForEachCrop(crop =>
-                {
-                    crop.modData.Remove(TalentCore.Key_HiddenBenefit_Crop);
-                    return true;
-                });
-                Utility.ForEachItem(item =>
-                {
-                    item.modData.Remove(TalentCore.Key_XrayDrop);
-                    item.modData.Remove(TalentCore.Key_HiddenBenefit_FairyBox);
-                    item.modData.Remove(TalentCore.Key_Resurgence);
-                    return true;
-                });
+                        crop.modData.Remove(TalentCore.Key_HiddenBenefit_Crop);
+                        return true;
+                    });
+                    Utility.ForEachItem(item =>
+                    {
+                        item.modData.Remove(TalentCore.Key_XrayDrop);
+                        item.modData.Remove(TalentCore.Key_HiddenBenefit_FairyBox);
+                        item.modData.Remove(TalentCore.Key_Resurgence);
+                        return true;
+                    });
+                }                
                 foreach (var farmer in Game1.getAllFarmers())
                 {
+                    if (args.Length > 0 && args[1].ToLower() == "true")
+                    {
+                        farmer.modData.Remove(ModEntry.Key_ForageGuessItemID);
+                        farmer.modData.Remove(ModEntry.Key_DaysLeftForForageGuess);
+                        farmer.modData.Remove(ModEntry.Key_HasFoundForage);
+                        farmer.modData.Remove(TalentCore.Key_TalentPoints);
+                        farmer.modData.Remove(TalentCore.Key_DisabledTalents);
+                    }
+
                     foreach (var item in ModEntry.Professions.Values)
                         farmer.professions.Remove(item.ID);
 
@@ -226,18 +238,31 @@ namespace VanillaPlusProfessions.Utilities
                         }
                         farmer.mailReceived.Remove(item.MailFlag);
                     }
-                    farmer.modData.Remove(ModEntry.Key_ForageGuessItemID);
-                    farmer.modData.Remove(ModEntry.Key_DaysLeftForForageGuess);
-                    farmer.modData.Remove(ModEntry.Key_HasFoundForage);
-                    farmer.modData.Remove(TalentCore.Key_TalentPoints);
-                    farmer.modData.Remove(TalentCore.Key_DisabledTalents);
+
                     farmer.mailReceived.Remove(TalentCore.Key_PointsCalculated);
-                    for (int i = 0; i < 6; i++)
+                    if (farmer.farmingLevel.Value > 10)
                     {
-                        SetSkillLevel(farmer, i, farmer.GetUnmodifiedSkillLevel(i), true);
+                        farmer.farmingLevel.Value = 10;
+                    }
+                    if (farmer.foragingLevel.Value > 10)
+                    {
+                        farmer.foragingLevel.Value = 10;
+                    }
+                    if (farmer.miningLevel.Value > 10)
+                    {
+                        farmer.miningLevel.Value = 10;
+                    }
+                    if (farmer.fishingLevel.Value > 10)
+                    {
+                        farmer.fishingLevel.Value = 10;
+                    }
+                    if (farmer.combatLevel.Value > 10)
+                    {
+                        farmer.combatLevel.Value = 10;
                     }
                 }
                 TalentCore.DisabledTalents.Clear();
+                ModEntry.IsUninstalling.Value = true;
                 TalentCore.TalentPointCount.ResetAllScreens();
             }
             else
@@ -284,6 +309,7 @@ namespace VanillaPlusProfessions.Utilities
                 stringBuilder.AppendLine("");
                 stringBuilder.AppendLine("    - Talents & Professions -    ");
                 stringBuilder.AppendLine($"Talent Points: {TalentCore.TalentPointCount.Value}");
+                stringBuilder.AppendLine($"Unlocked Achievement Count: {Game1.player.achievements.Count}");
                 stringBuilder.AppendLine($"Save Changes Applied: {Game1.player.mailReceived.Contains(TalentCore.Key_PointsCalculated)}");
                 stringBuilder.Append($"Talents Bought:");
                 foreach (var item in TalentCore.Talents)
@@ -310,7 +336,7 @@ namespace VanillaPlusProfessions.Utilities
                 stringBuilder.AppendLine($"VPP Professions Chosen:");
                 foreach (var item in ModEntry.GetProfessions())
                 {
-                    stringBuilder.AppendLine(item);
+                    stringBuilder.Append($" {item},");
                 }
                 ModEntry.ModMonitor.Log(stringBuilder.ToString(), LogLevel.Debug);
             }
@@ -326,26 +352,68 @@ namespace VanillaPlusProfessions.Utilities
             {
                 if (!Game1.player.mailReceived.Contains(TalentCore.Key_PointsCalculated))
                 {
-                    for (int i = 0; i < 6; i++) //So that if luck skill is installed, it'll take it into account too
+                    int number = 0, newLevels;
+
+                    //Farming
+                    if (Game1.player.experiencePoints[0] > ModEntry.levelExperiences[0])
                     {
-                        int newLevels = Farmer.checkForLevelGain(0, Game1.player.experiencePoints[i]);
-                        SetSkillLevel(Game1.player, i, newLevels);
+                        newLevels = Farmer.checkForLevelGain(0, Game1.player.experiencePoints[0]);
+                        for (int i = Game1.player.farmingLevel.Value + 1; i <= newLevels; i++)
+                        {
+                            Game1.player.newLevels.Add(new(0, i));
+                        }
+                        Game1.player.farmingLevel.Value = newLevels;
                     }
 
-                    TalentCore.TalentPointCount.Value = 0;
+                    //Fishing
+                    if (Game1.player.experiencePoints[1] > ModEntry.levelExperiences[0])
+                    {
+                        newLevels = Farmer.checkForLevelGain(0, Game1.player.experiencePoints[1]);
+                        for (int i = Game1.player.fishingLevel.Value + 1; i <= newLevels; i++)
+                        {
+                            Game1.player.newLevels.Add(new(1, i));
+                        }
+                        Game1.player.fishingLevel.Value = newLevels;
+                    }
 
-                    int number = 0;
+                    //Foraging
+                    if (Game1.player.experiencePoints[2] > ModEntry.levelExperiences[0])
+                    {
+                        newLevels = Farmer.checkForLevelGain(0, Game1.player.experiencePoints[2]);
+                        for (int i = Game1.player.foragingLevel.Value + 1; i <= newLevels; i++)
+                        {
+                            Game1.player.newLevels.Add(new(2, i));
+                        }
+                        Game1.player.foragingLevel.Value = newLevels;
+                    }
+
+                    //Mining
+                    if (Game1.player.experiencePoints[3] > ModEntry.levelExperiences[0])
+                    {
+                        newLevels = Farmer.checkForLevelGain(0, Game1.player.experiencePoints[3]);
+                        for (int i = Game1.player.miningLevel.Value + 1; i <= newLevels; i++)
+                        {
+                            Game1.player.newLevels.Add(new(3, i));
+                        }
+                        Game1.player.miningLevel.Value = newLevels;
+                    }
+
+                    //Combat
+                    if (Game1.player.experiencePoints[4] > ModEntry.levelExperiences[0])
+                    {
+                        newLevels = Farmer.checkForLevelGain(0, Game1.player.experiencePoints[4]);
+                        for (int i = Game1.player.combatLevel.Value + 1; i <= newLevels; i++)
+                        {
+                            Game1.player.newLevels.Add(new(4, i));
+                        }
+                        Game1.player.combatLevel.Value = newLevels;
+                    }
 
                     number += Game1.player.farmingLevel.Value;
                     number += Game1.player.fishingLevel.Value;
+                    number += Game1.player.foragingLevel.Value;
                     number += Game1.player.miningLevel.Value;
                     number += Game1.player.combatLevel.Value;
-                    number += Game1.player.foragingLevel.Value;
-
-                    foreach (var item in ModEntry.SpaceCoreAPI.Value.GetCustomSkills())
-                    {
-                        number += ModEntry.SpaceCoreAPI.Value.GetLevelForCustomSkill(Game1.player, item);
-                    }
 
                     number += Game1.player.achievements.Count;
                     foreach (var item in Game1.player.team.completedSpecialOrders)
@@ -355,7 +423,8 @@ namespace VanillaPlusProfessions.Utilities
                     if (Game1.player.mailReceived.Contains("Farm_Eternal"))
                         number += 10;
 
-                    TalentCore.AddTalentPoint(number, false);
+                    ModEntry.IsUninstalling.Value = false;
+                    TalentCore.AddTalentPoint(number - TalentCore.TalentPointCount.Value, false);
                     Game1.player.mailReceived.Add(TalentCore.Key_PointsCalculated);
                 }
                 else
@@ -366,66 +435,6 @@ namespace VanillaPlusProfessions.Utilities
             else
             {
                 ModEntry.ModMonitor.Log("Load a save first!", LogLevel.Warn);
-            }
-        }
-
-        public static void SetSkillLevel(Farmer f, int index, int level, bool isUninstalling = false)
-        {
-            //There's a vanilla instance of this method, but it resets the skill XP into vanilla values (15000 max) which is something we dont want.
-            f ??= Game1.player ?? Game1.MasterPlayer;
-            if (f == null)
-                return;
-            if (!isUninstalling)
-            {
-                for (int i = f.GetUnmodifiedSkillLevel(index) + 1; i < level; i++)
-                {
-                    if (i > 10)
-                    {
-                        f.newLevels.Add(new Point(index, i));
-                    }
-                }
-                if (level + f.GetUnmodifiedSkillLevel(index) > 20)
-                {
-                    level -= 10;
-                }
-            }
-            else
-            {
-                if (level > 10)
-                {
-                    level = (level - 10) * -1;
-                }
-                else
-                {
-                    level = 0;
-                }
-            }
-            switch (index)
-            {
-                case 0:
-
-                    f.farmingLevel.Value += level;
-                    break;
-                case 1:
-                    f.fishingLevel.Value += level;
-                    break;
-                case 2:
-                    f.foragingLevel.Value += level;
-                    break;
-                case 3:
-                    f.miningLevel.Value += level;
-                    break;
-                case 4:
-                    f.combatLevel.Value += level;
-                    break;
-                case 5:
-                    if (ModEntry.Helper.ModRegistry.IsLoaded("spacechase0.LuckSkill"))
-                    {
-                        f.luckLevel.Value += level;
-                    }
-                    break;
-                default:
-                    break;
             }
         }
 

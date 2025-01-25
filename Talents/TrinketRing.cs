@@ -34,18 +34,7 @@ namespace VanillaPlusProfessions.Talents
             }
         }
 
-        public override bool CanCombine(Ring ring)
-        {
-            if (ring is CombinedRing)
-            {
-                return false;
-            }
-            if (ring is TrinketRing)
-            {
-                return false;
-            }
-            return true;
-        }
+        public override bool CanCombine(Ring ring) => false;
 
         public override void onEquip(Farmer who)
         {

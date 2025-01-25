@@ -376,40 +376,42 @@ namespace VanillaPlusProfessions.Managers
             {
                 monster.startGlowing(Color.Red, false, 0.5f);
                 Monster fuckDelegates = monster;
-                DelayedAction.functionAfterDelay(() =>
-                {
-                    who.currentLocation.debris.Add(new Debris(fuckDelegates.Health / 40, fuckDelegates.StandingPixel.ToVector2(), Color.White, 3f, fuckDelegates));
-                    monster.takeDamage(fuckDelegates.Health / 40, 1, 1, false, 1, who);
-                }, 1000
-                );
-                Monster fuckDelegates2 = fuckDelegates;
-                if ((fuckDelegates2.Health - fuckDelegates2.Health / 40) > 0)
+                if (fuckDelegates.MaxHealth / 40 > 0)
                 {
                     DelayedAction.functionAfterDelay(() =>
                     {
-                        who.currentLocation.debris.Add(new Debris(fuckDelegates2.Health / 60, fuckDelegates2.StandingPixel.ToVector2(), Color.White, 2f, fuckDelegates2));
-                        fuckDelegates2.takeDamage(fuckDelegates2.Health / 60, 1, 1, false, 1, who);
-                    }, 2000
-                    );
-
+                        who.currentLocation.debris.Add(new Debris(fuckDelegates.MaxHealth / 40, fuckDelegates.StandingPixel.ToVector2(), Color.White, 3f, fuckDelegates));
+                        fuckDelegates.Health -= fuckDelegates.MaxHealth / 40;
+                    }, 1000);
+                }
+                Monster fuckDelegates2 = fuckDelegates;
+                if ((fuckDelegates.Health - (fuckDelegates2.MaxHealth / 40) + (fuckDelegates2.MaxHealth / 60)) > 0)
+                {
+                    DelayedAction.functionAfterDelay(() =>
+                    {
+                        who.currentLocation.debris.Add(new Debris(fuckDelegates2.MaxHealth / 60, fuckDelegates2.StandingPixel.ToVector2(), Color.White, 2f, fuckDelegates2));
+                        fuckDelegates2.Health -= fuckDelegates2.MaxHealth / 60;
+                    }, 2000 );
                 }
                 Monster fuckDelegates3 = fuckDelegates2;
-                if ((fuckDelegates3.Health - (fuckDelegates2.Health / 60 + fuckDelegates2.Health / 40))> 0)
+                if ((fuckDelegates.Health - (fuckDelegates2.MaxHealth / 60) + (fuckDelegates2.MaxHealth / 40) + (fuckDelegates3.MaxHealth / 80)) > 0)
                 {
                     DelayedAction.functionAfterDelay(() =>
                     {
-                        who.currentLocation.debris.Add(new Debris(fuckDelegates3.Health / 80, fuckDelegates3.StandingPixel.ToVector2(), Color.White, 1f, fuckDelegates3));
-                        monster.takeDamage(fuckDelegates3.Health / 80, 1, 1, false, 1, who);
-                    }, 3000
-                    );
+                        who.currentLocation.debris.Add(new Debris(fuckDelegates3.MaxHealth / 80, fuckDelegates3.StandingPixel.ToVector2(), Color.White, 1f, fuckDelegates3));
+                        fuckDelegates3.Health -= fuckDelegates3.MaxHealth / 80;
+                    }, 3000 );
                 }
                 monster.stopGlowing();
             }
             
             if (TalentUtility.CurrentPlayerHasTalent("Combat_Aftershock", who: who) && weapon is not null && weapon.type.Value is 2 && monster.Health > 0)
             {
-                who.currentLocation.debris.Add(new Debris(result / 10, monster.StandingPixel.ToVector2(), Color.White, 1f, who));
-                monster.takeDamage(result / 10, 1, 1, false, 1, who);
+                if (monster.MaxHealth - (result / 10) > 0)
+                {
+                    who.currentLocation.debris.Add(new Debris(result / 10, monster.StandingPixel.ToVector2(), Color.White, 1f, who));
+                    monster.takeDamage(result / 10, 1, 1, false, 1, who);
+                }
             }
             else if (TalentUtility.CurrentPlayerHasTalent("Combat_Champion", who: who) && weapon is not null && weapon.type.Value is 3)
             {

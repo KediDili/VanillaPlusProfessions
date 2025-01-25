@@ -39,6 +39,7 @@ namespace VanillaPlusProfessions
 
         internal static readonly PerScreen<int> lossAmount = new();
 
+        internal static long? FarmerInShopID = -1;
         internal static void Initialize()
         {
             SkillIcons = ModEntry.Helper.GameContent.Load<Texture2D>(ContentEditor.ContentPaths["SkillBars"]);
@@ -109,6 +110,15 @@ namespace VanillaPlusProfessions
             {
                 WasSkillMenuRaised.Value = true;
                 ModEntry.Helper.GameContent.InvalidateCache("LooseSprites/Cursors");
+            }
+
+            if (e.NewMenu is ShopMenu && e.OldMenu is null)
+            {
+                FarmerInShopID = Game1.player.UniqueMultiplayerID;
+            }
+            else if (e.NewMenu is null && e.OldMenu is ShopMenu)
+            {
+                FarmerInShopID = -1;
             }
 
             if (e.NewMenu is GameMenu menu1 && menu1.pages[1] is SkillsPage or NewSkillsPage && CoreUtility.IsOverlayValid() && ShouldHandleSkillPage.Value)
@@ -183,17 +193,17 @@ namespace VanillaPlusProfessions
                             else
                                 item = ItemRegistry.Create(strings[0]);
                             
-                            if (strings[0] is "Artifact" && LibraryMuseum.HasDonatedArtifact(menu.ItemsToGrabMenu.actualInventory[i].QualifiedItemId))
+                            if (strings[0] is "Artifact")
                             {
-                                if (strings[1].StartsWith("(TR)"))
+                                if (LibraryMuseum.HasDonatedArtifact(menu.ItemsToGrabMenu.actualInventory[i].QualifiedItemId))
                                 {
-                                    if (!Trinket.CanSpawnTrinket(Game1.player))
+                                    if (strings[1].StartsWith("(TR)") && !Trinket.CanSpawnTrinket(Game1.player))
                                     {
                                         continue;
                                     }
+                                    menu.ItemsToGrabMenu.inventory[i].item = item;
+                                    menu.ItemsToGrabMenu.actualInventory[i] = item;
                                 }
-                                menu.ItemsToGrabMenu.inventory[i].item = item;
-                                menu.ItemsToGrabMenu.actualInventory[i] = item;
                                 continue;
                             }
 

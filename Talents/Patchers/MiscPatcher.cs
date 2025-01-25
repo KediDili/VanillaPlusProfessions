@@ -117,20 +117,24 @@ namespace VanillaPlusProfessions.Talents.Patchers
         }
         public static void Object_Constructor_Postfix(ref StardewValley.Object __instance)
         {
-            if (CoreUtility.CurrentPlayerHasProfession("Ranger")) //Ranger ++
+            if (CoreUtility.CurrentPlayerHasProfession("Ranger") && !__instance.HasContextTag(TalentCore.ContextTag_Banned_Ranger)) //Ranger ++
             {
                 if (__instance.Category == StardewValley.Object.GreensCategory && __instance.HasContextTag("forage_item"))
                     __instance.Price *= 2;
             }
-            if (CoreUtility.CurrentPlayerHasProfession("Adventurer")) //Adventurer ++
+            if (CoreUtility.CurrentPlayerHasProfession("Adventurer") && !__instance.HasContextTag(TalentCore.ContextTag_Banned_Adventurer)) //Adventurer ++
             {
                 if (__instance.Category == StardewValley.Object.sellAtFishShopCategory || __instance.HasContextTag("forage_item_beach") || __instance.HasContextTag("forage_item_secret") || __instance.HasContextTag("forage_item_mines"))
                     __instance.Price *= 2;
             }
-            if (TalentUtility.CurrentPlayerHasTalent("Misc_HauteCuisine"))
+            if (TalentUtility.CurrentPlayerHasTalent("Misc_HauteCuisine") && Game1.activeClickableMenu is CraftingPage)
             {
                 if (__instance.Category == StardewValley.Object.CookingCategory)
+                {
                     __instance.Price *= 2;
+                    __instance.Quality++;
+                    __instance.FixQuality();
+                }
             }
             if (TalentUtility.CurrentPlayerHasTalent("Fishing_Roemance"))
             {
@@ -350,6 +354,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
                         default:
                             break;
                     }
+                    
 
                     Game1.player.buffs.Apply(new("Kedi.VPP.LostAndFound", "Lost Books", "Lost Books", -2, Game1.buffsIcons, index, buffEffects, false, name, ""));
 
@@ -425,7 +430,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             return oldDecay;
         }
 
-        public static void TryCreateBuffsFromData_Postfix(ref IEnumerable<Buff> __result, ObjectData obj, string name, string displayName, float durationMultiplier)
+        public static void TryCreateBuffsFromData_Postfix(ref IEnumerable<Buff> __result, ObjectData obj, string name, string displayName, float durationMultiplier, Action<BuffEffects> adjustEffects)
         {
             try
             {
@@ -435,6 +440,15 @@ namespace VanillaPlusProfessions.Talents.Patchers
                     foreach (var item in obj.Buffs)
                     {
                         string bufftype = "";
+                        var effects = new BuffEffects(item.CustomAttributes);
+                        if (item.CustomAttributes is null)
+                        {
+                            bufftype = "CustomBuff_" + item.Id; 
+                            goto IFCUSTOMATTRIBUTESISNULL;
+                        }
+                        
+                        adjustEffects.Invoke(effects);
+
                         if (item.CustomAttributes.Immunity > 0)
                             bufftype = "immunity";
                         else if (item.CustomAttributes.MaxStamina > 0)
@@ -474,6 +488,8 @@ namespace VanillaPlusProfessions.Talents.Patchers
                         else if (item.CustomAttributes.LuckLevel > 0)
                             bufftype = "luck";
 
+                        IFCUSTOMATTRIBUTESISNULL:
+
                         Texture2D texture = null;
                         int spriteIndex = -1;
                         if (item.IconTexture != null)
@@ -491,9 +507,12 @@ namespace VanillaPlusProfessions.Talents.Patchers
                             millisecondsDuration = (int)(item.Duration * durationMultiplier) * Game1.realMilliSecondsPerGameMinute;
                         }
 
-                        buffs.Add(new Buff((obj.IsDrink ? "drink" : "food") + "_" + bufftype, name, displayName, millisecondsDuration, texture, spriteIndex, effects: new BuffEffects(item.CustomAttributes), item.IsDebuff));
+                        buffs.Add(new Buff((obj.IsDrink ? "drink" : "food") + "_" + bufftype, name, displayName, millisecondsDuration, texture, spriteIndex, effects: effects, item.IsDebuff));
                     }
-                    __result = buffs;
+                    if (buffs.Count > 0)
+                    {
+                        __result = buffs;
+                    }
                 }
             }
             catch (Exception e)

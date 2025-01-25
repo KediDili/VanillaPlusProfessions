@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
 using StardewValley.Menus;
 using StardewValley.Tools;
+using VanillaPlusProfessions.Talents;
 using VanillaPlusProfessions.Utilities;
 
 namespace VanillaPlusProfessions
@@ -182,6 +183,14 @@ namespace VanillaPlusProfessions
             catch (Exception e)
             {
                 CoreUtility.PrintError(e, nameof(CorePatcher), "Hoe.DoFunction", "transpiling");
+            }
+        }
+
+        public static void getAchievement_Postfix()
+        {
+            if (!ModEntry.ModConfig.Value.ProfessionsOnly)
+            {
+                TalentCore.AddTalentPoint();
             }
         }
         public static IEnumerable<CodeInstruction> DoFunction_Transpiler(IEnumerable<CodeInstruction> insns)

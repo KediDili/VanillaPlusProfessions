@@ -46,7 +46,7 @@ namespace VanillaPlusProfessions.Compatibility
             }
             else
             {
-                ModEntry.ModMonitor.Log("There is no such SpaceCore-registered skill with the ID of " + skillID + ". Please let the custom skill mod author know of this.", StardewModdingAPI.LogLevel.Error);                
+                ModEntry.ModMonitor.Log("There is no such SpaceCore-registered skill with the ID of " + skillID + ". Please let the custom skill mod author know of this.", StardewModdingAPI.LogLevel.Error);
             }
         }
 
@@ -70,6 +70,30 @@ namespace VanillaPlusProfessions.Compatibility
             };
             return professions;
         }
+
+        public IEnumerable<string> GetTalentsForPlayer(Farmer who = null)
+        {
+            if (who is null)
+            {
+                who = Game1.player;
+            }
+            List<string> talents = new();
+            if (!Context.IsWorldReady)
+            {
+                return talents;
+            }
+
+            foreach (var item in TalentCore.Talents)
+            {
+                if (TalentUtility.CurrentPlayerHasTalent(item.Value.MailFlag, ignoreDisabledTalents: true))
+                {
+                    talents.Add(item.Value.Name);
+                }
+            }
+
+            return talents;
+        }
+
         public void RegisterCustomMonster(Type monsterType, bool isSlimy, IVanillaPlusProfessions.MonsterType type)
         {
             var newData = new CustomMonsterData()

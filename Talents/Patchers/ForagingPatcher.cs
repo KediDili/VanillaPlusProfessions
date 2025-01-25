@@ -289,17 +289,21 @@ namespace VanillaPlusProfessions.Talents.Patchers
         {
             if (!__result && __instance.falling.Value && __instance.stump.Value)
             {
-                /*if (TalentUtility.AnyPlayerHasTalent("Foraging_Nature_Secrets") && Game1.random.NextBool(0.1))
+                if (TalentUtility.AnyPlayerHasTalent("Foraging_Nature_Secrets") && Game1.random.NextBool(0.1))
                 {
                     List<string> strings = (from forageData in __instance.Location.GetData().Forage
                                            where Game1.random.NextBool(forageData.Chance) && GameStateQuery.CheckConditions(forageData.Condition, __instance.Location, t.getLastFarmerToUse())
                                            && (forageData.Season is null || (forageData.Season is not null && Game1.season == forageData.Season))
                                            select forageData.ItemId).ToList();
                     if (strings.Count > 0)
-                    {
-                        Game1.createObjectDebris(Game1.random.ChooseFrom(strings), (int)__instance.Tile.X, (int)__instance.Tile.Y, __instance.Location);
+                    {//kedi_vpp_banned_naturesecrets
+                        string str = Game1.random.ChooseFrom(strings);
+                        if (ItemContextTagManager.HasBaseTag(str, TalentCore.ContextTag_Banned_NatureSecrets))
+                        {
+                            Game1.createObjectDebris(Game1.random.ChooseFrom(strings), (int)__instance.Tile.X, (int)__instance.Tile.Y, __instance.Location);
+                        }
                     }
-                }*/
+                }
             }
             if (t is null && explosion is 0 && !IsAnyCharAround(__instance.Location, __instance.Tile))
             {

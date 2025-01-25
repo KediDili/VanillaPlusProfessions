@@ -7,10 +7,13 @@ using StardewValley.Events;
 using StardewValley.TerrainFeatures;
 using Microsoft.Xna.Framework;
 using StardewValley.Extensions;
-using StardewValley.GameData.Crops;
 using VanillaPlusProfessions.Utilities;
-using System.Reflection;
 using StardewValley.Characters;
+using StardewValley.Buildings;
+using StardewValley.GameData.Buildings;
+using StardewValley.Internal;
+using StardewValley.Objects;
+using StardewValley.Menus;
 
 namespace VanillaPlusProfessions.Talents.Patchers
 {
@@ -29,7 +32,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             {
                 CoreUtility.PrintError(e, nameof(FarmingPatcher), nameof(Utility.performLightningUpdate), "transpiling");
             }
-            
+
             try
             {
                 ModEntry.Harmony.Patch(
@@ -41,7 +44,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             {
                 CoreUtility.PrintError(e, nameof(FarmingPatcher), nameof(Farm.addCrows), "transpiling");
             }
-            
+
             try
             {
                 ModEntry.Harmony.Patch(
@@ -53,7 +56,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             {
                 CoreUtility.PrintError(e, nameof(FarmingPatcher), nameof(QuestionEvent.setUp), "transpiling");
             }
-            
+
             try
             {
                 ModEntry.Harmony.Patch(
@@ -65,7 +68,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             {
                 CoreUtility.PrintError(e, nameof(FarmingPatcher), "FairyEvent.ChooseCrop", "postfixing");
             }
-            
+
             try
             {
                 ModEntry.Harmony.Patch(
@@ -88,17 +91,17 @@ namespace VanillaPlusProfessions.Talents.Patchers
             {
                 CoreUtility.PrintError(e, nameof(FarmingPatcher), nameof(Crop.harvest), "postfixing");
             }
-                        
+
             try
             {
                 ModEntry.Harmony.Patch(
-                    original: AccessTools.Method(typeof(Object), nameof(Object.GetModifiedRadiusForSprinkler)),
+                    original: AccessTools.Method(typeof(StardewValley.Object), nameof(StardewValley.Object.GetModifiedRadiusForSprinkler)),
                     postfix: new HarmonyMethod(typeof(FarmingPatcher), nameof(GetModifiedRadiusForSprinkler_Postfix))
                 );
             }
             catch (System.Exception e)
             {
-                CoreUtility.PrintError(e, nameof(FarmingPatcher), nameof(Object.GetModifiedRadiusForSprinkler), "postfixing");
+                CoreUtility.PrintError(e, nameof(FarmingPatcher), nameof(StardewValley.Object.GetModifiedRadiusForSprinkler), "postfixing");
             }
             try
             {
@@ -109,9 +112,113 @@ namespace VanillaPlusProfessions.Talents.Patchers
             }
             catch (System.Exception e)
             {
-                CoreUtility.PrintError(e, nameof(FarmingPatcher), nameof(Object.GetModifiedRadiusForSprinkler), "prefixing");
+                CoreUtility.PrintError(e, nameof(FarmingPatcher), nameof(HoeDirt.dayUpdate), "prefixing");
+            }
+
+            try
+            {
+                ModEntry.Harmony.Patch(
+                    original: AccessTools.Method(typeof(Building), nameof(Building.CheckItemConversionRule)),
+                    prefix: new HarmonyMethod(typeof(FarmingPatcher), nameof(CheckItemConversionRule_Prefix))
+                );
+            }
+            catch (System.Exception e)
+            {
+                CoreUtility.PrintError(e, nameof(FarmingPatcher), nameof(Building.CheckItemConversionRule), "prefixing");
             }
         }
+        public static bool CheckItemConversionRule_Prefix(Building __instance, BuildingItemConversion conversion, ItemQueryContext itemQueryContext)
+        {
+            if (__instance.buildingType.Value == "Mill")
+            {
+                int maxDailyConversions = conversion.MaxDailyConversions, requiredCount = 0, chestItemCount = -1;
+                Chest sourceChest = __instance.GetBuildingChest(conversion.SourceChest), destinationChest = __instance.GetBuildingChest(conversion.DestinationChest);
+                List<int> items = new();
+
+                if (sourceChest is null)
+                    return false;
+
+                foreach (Item item in sourceChest.Items)
+                {
+                    chestItemCount++;
+                    if (item == null)
+                        continue;
+                    bool fail = false;
+                    foreach (string requiredTag in conversion.RequiredTags)
+                    {
+                        if (!item.HasContextTag(requiredTag))
+                        {
+                            fail = true;
+                            break;
+                        }
+                    }
+                    if (fail)
+                        continue;
+
+                    requiredCount += item.Stack;
+                    requiredCount -= requiredCount % conversion.RequiredCount;
+                    items.Add(chestItemCount);
+                    if (requiredCount >= conversion.RequiredCount && (maxDailyConversions < conversion.MaxDailyConversions || conversion.MaxDailyConversions == -1))
+                    {
+                        for (int i = 0; i < conversion.ProducedItems.Count; i++)
+                        {
+                            var producedItem = conversion.ProducedItems[i];
+                            Item item2 = ItemQueryResolver.TryResolveRandomItem(producedItem, itemQueryContext, inputItem: item);
+                            if (requiredCount / conversion.RequiredCount > item2.maximumStackSize())
+                            {
+                                var stacks = SplitStacks(requiredCount, item2.maximumStackSize());
+                                for (int h = 0; h < stacks.Count; h++)
+                                {
+                                    Item ıtem = ItemRegistry.Create(item2.QualifiedItemId, stacks[h], item2.Quality);
+                                    destinationChest.addItem(ıtem);
+                                }
+                            }
+                            else
+                            {
+                                item2.Stack *= requiredCount / conversion.RequiredCount;
+                            }
+                            if (GameStateQuery.CheckConditions(producedItem.Condition, __instance.GetParentLocation(), targetItem: item2, inputItem: item))
+                            {
+                                int producedCount = item2.Stack;
+                                Item ıtem = destinationChest.addItem(item2);
+                                if (ıtem == null || ıtem.Stack != producedCount)
+                                {
+                                    if (maxDailyConversions > -1)
+                                    {
+                                        maxDailyConversions++;
+                                    }
+                                    foreach (var itemIndex in items)
+                                    {
+                                        if (sourceChest.Items[itemIndex] is not null)
+                                        {
+                                            int prevStack = sourceChest.Items[itemIndex].Stack;
+                                            sourceChest.Items[itemIndex] = sourceChest.Items[itemIndex].ConsumeStack(requiredCount > sourceChest.Items[itemIndex].Stack ? sourceChest.Items[itemIndex].Stack : requiredCount);
+                                            requiredCount -= prevStack;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                return false;
+            }
+            return true;
+        }
+
+        public static List<int> SplitStacks(int number, int maxStack)
+        {
+            int amount = number % maxStack > 0 ? 1 : 0;
+            amount += number / maxStack;
+            List<int> stacks = new(amount);
+            //5 - 5 - 5 - 4 => 24
+            for (int j = 0; j < stacks.Count; j++)
+            {
+                stacks[j] = j == stacks.Count - 1 ? number % maxStack : number / maxStack;
+            }
+            return stacks;
+        }
+
         public static void dayUpdate_Prefix(HoeDirt __instance)
         {
             try
@@ -162,7 +269,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
                         }
                         else
                         {
-                            junimoHarvester.home.GetBuildingChest("Output").addItem(ItemRegistry.Create<Object>(__instance.netSeedIndex.Value));
+                            junimoHarvester.home.GetBuildingChest("Output").addItem(ItemRegistry.Create<StardewValley.Object>(__instance.netSeedIndex.Value));
                         }
                     }
                 }
@@ -217,7 +324,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             }
         }
 
-        public static void GetModifiedRadiusForSprinkler_Postfix(ref int __result, Object __instance)
+        public static void GetModifiedRadiusForSprinkler_Postfix(ref int __result, StardewValley.Object __instance)
         {
             try
             {

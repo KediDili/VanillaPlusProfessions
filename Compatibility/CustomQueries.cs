@@ -42,7 +42,7 @@ namespace VanillaPlusProfessions.Compatibility
 
         bool PlayerHasTalent(string[] query, GameStateQueryContext context)
         {
-            if (!ArgUtility.TryGet(query, 1, out var farmer, out var error) || !ArgUtility.TryGet(query, 1, out var talentToCheck, out error))
+            if (!ArgUtility.TryGet(query, 1, out var farmer, out var error) || !ArgUtility.TryGet(query, 2, out var talentToCheck, out error))
             {
                 ModEntry.ModMonitor.Log($"Invalid values were provided to {ModEntry.Manifest.UniqueID + "_" + nameof(PlayerHasTalent)} query.\n - Query string: {string.Join(" ", query)}\n - Error: {error}", StardewModdingAPI.LogLevel.Warn);
                 return false;
@@ -50,13 +50,13 @@ namespace VanillaPlusProfessions.Compatibility
 
             return GameStateQuery.Helpers.WithPlayer(context.Player ?? Game1.player, farmer, farmer =>
             {
-                return !ModEntry.ModConfig.Value.ProfessionsOnly && TalentUtility.CurrentPlayerHasTalent(talentToCheck, who: farmer, ignoreDisabledTalents: false);
+                return !ModEntry.ModConfig.Value.ProfessionsOnly && TalentUtility.CurrentPlayerHasTalent(talentToCheck, who: farmer, ignoreDisabledTalents: true, isGSQCall: true);
             });
         }
 
         bool PlayerHasProfession(string[] query, GameStateQueryContext context)
         {
-            if (!ArgUtility.TryGet(query, 1, out var farmer, out var error) || !ArgUtility.TryGet(query, 1, out var professionToCheck, out error))
+            if (!ArgUtility.TryGet(query, 1, out var farmer, out var error) || !ArgUtility.TryGet(query, 2, out var professionToCheck, out error))
             {
                 ModEntry.ModMonitor.Log($"Invalid values were provided to {ModEntry.Manifest.UniqueID + "_" + nameof(PlayerHasProfession)} query.\n - Query string: {string.Join(" ", query)}\n - Error: {error}", StardewModdingAPI.LogLevel.Warn);
                 return false;

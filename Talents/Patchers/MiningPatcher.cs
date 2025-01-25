@@ -30,7 +30,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(StardewValley.Object), nameof(StardewValley.Object.getDescription)),
-                    postfix: new HarmonyMethod(typeof(MiningPatcher), nameof(MiningPatcher.getDescription_Postfix))
+                    postfix: new HarmonyMethod(typeof(MiningPatcher), nameof(getDescription_Postfix))
                 );
             }
             catch (Exception e)
@@ -41,7 +41,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(StardewValley.Object), nameof(StardewValley.Object.onExplosion)),
-                    prefix: new HarmonyMethod(typeof(MiningPatcher), nameof(MiningPatcher.onExplosion_Prefix))
+                    prefix: new HarmonyMethod(typeof(MiningPatcher), nameof(onExplosion_Prefix))
                 );
             }
             catch (System.Exception e)
