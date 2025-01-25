@@ -925,7 +925,7 @@ Once per week, beach forage is doubled.
 
 ### Starfall
 Chance for star shards to spawn as forage in the evening for 1-7 days.
-Note: Airyn's Star Fragments may spawn with this talent too!
+Note: [Airyn's Star Fragments](https://www.nexusmods.com/stardewvalley/mods/30842) may spawn with this talent too!
 
 ### Desert Bloom
 Chance for flowers to spawn in Calico Desert on rainy days in Pelican Town.
