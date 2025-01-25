@@ -795,7 +795,7 @@ Crows wont eat full-grown crops anymore.
 ### Tropical Bliss
 Summer & multi-season crops grow faster on Ginger Island.[^5]
 
-[^5]: This talent works in sync with the other two of Nourishing Rain, Efflorescence and Tropical Bliss; only one of them will apply to one crop.
+[^5]: This talent works in sync with the other two of Nourishing Rain, Efflorescence and Tropical Bliss; only one of them will apply to one crop at a time.
 
 ### Harvest Season
 Junimos harvest faster.
@@ -890,6 +890,7 @@ The chance is ``0.0001 * mineLevel`` per stone.
 
 ### Everyone's Best Friend
 Diamond, tigerseye, opal, fire opal, jasper, and star shards will become universal loved gifts.
+Note: This talent only makes these gems into universal loves. Due to how gift taste logic works, if a character's own gift data lists any of these as loved/hated/disliked/neutral/liked, their own gift data will take priority over universals (Such as Haley hating prismatic shards despite prismatic shards being universal loves). **This is not a bug with VPP. It's a vanilla feature.**
 
 ### Crystal Cavern
 Low chance for all stones on a mine floor\nto be replaced by gem nodes.
@@ -924,6 +925,7 @@ Once per week, beach forage is doubled.
 
 ### Starfall
 Chance for star shards to spawn as forage in the evening for 1-7 days.
+Note: Airyn's Star Fragments may spawn with this talent too!
 
 ### Desert Bloom
 Chance for flowers to spawn in Calico Desert on rainy days in Pelican Town.
@@ -990,6 +992,8 @@ The new recipes and their ingredients are listed below:
 | Fried Bug Steak     | 1 Bug Steak                    |
 | Steamed Clams       | 2 Clam                         |
 
+Note: Cooking with this talent activated will result in Qi Seasoning not being consumed and the cooked foods will be gold quality automatically. This is intended because when two independent items stacks are combined into one, the other loses all of its custom price, edibility and modData entries (which is something mods often use to add extra data to anything in the game), and so much other data. The gold quality intends to prevent the stacking so prevent the data loss.
+
 For Mod Authors: If you have such recipes and want them to be added in this, add them the ``kedi_vpp_survival_cooking_food`` context tag.
 
 ### Pyrolysis
@@ -1002,10 +1006,9 @@ Lightning Rods can accumulate two charges at once. Solar Panels take 2 less days
 Increased chance of finding Living Hats and similar items.
 
 ## Fishing Talents
-[FishingTalents](https://github.com/user-attachments/assets/c6011b80-a076-4ae7-b4f8-a237a1610c9a)
+![FishingTalents](https://github.com/user-attachments/assets/c6011b80-a076-4ae7-b4f8-a237a1610c9a)
 
-### Fishery Grant!
-
+### Fishery Grant
 Fish ponds are cheaper to build.
 The old and new building requirements are listed below:
 | Old           | New           |
@@ -1140,6 +1143,7 @@ But the effect will be applied only once.
 Gives slingshots a special attack that shoots three projectiles at once.
 
 Note: The talent automatically disables itself if the slingshot has the auto-fire enchantment from the Enchanting talent, for the sake of balance.
+Note #2: It's intended that you can "slide" around while casting the triple shot. It's supposed to make using slingshots slightly easier and be a lil funny bit.
 
 ### Bullseye
 Slingshots can do critical damage.
@@ -1163,7 +1167,7 @@ The effects are listed below:
 Trinkets can be converted into rings.
 A new big craftable recipe is added into your crafting recipes, which is named "Trinket Workbench" and is craftable for 50 hardwood & 3 iron bars.
 
-Note: Said rings spawned from CJB or SMAPI console will not be functional because both of those wont do some necessary changes VPP does.
+Note: Said rings spawned from CJB or SMAPI console will not be functional because both of those wont do some necessary changes VPP does. Trinket rings can't be combined with any ring since version 1.0.3.
 
 For Mod Authors: If you add custom trinkets, you need to add a custom ring item, and add an entry like ``"Kedi.VPP.AccessoriseRing": "ExampleAuthor.ExampleMod_UnqualifiedItemIDForMyRing"`` to your trinket's CustomFields field. This is needed for VPP to match your trinket to your ring.
 
@@ -1187,7 +1191,6 @@ In case there are people who want to learn what it is themselves, only the hint 
 | Basilisk Paw   | Wizard's Basement |
 | Magic Quiver   | Adventurer Guild  |
 | Magic Hair Gel | Alex's Room       |
-
 
 ### Rending Strike
 4 consecutive strikes against a monster will reduce damage dealt by that monster.
@@ -1259,12 +1262,11 @@ For Mod Authors: If you add custom monsters via C# (excluding FTM monsters), and
 Foods cooked with sugar will remove the Nauseated debuff. If you have Survival Cooking, its recipes will remove Nauseated as well.
 For Vanilla, VPP will only cover anything that contains sugar in their recipe.
 
-For Mod Authors: If you add custom desserts, you should add the ``ginger_item`` context tag ONLy if the farmer has the talent, you can check it by ``Combat_Sugar_Rush`` mail flag.
+For Mod Authors: If you add custom desserts, you should add the ``ginger_item`` context tag ONLY if the farmer has the talent.
 
 ### Meditation
 Passive health regeneration while standing still.
-
-ever 10 in-game minutes, you will gain 15 points of health.
+Every 10 in-game minutes, you will gain 15 points of health.
 
 ## Daily Life Talents
 ![DailyLifeTalents](https://github.com/user-attachments/assets/1eb3e255-dbdd-456e-985c-a8254f98d73b)
@@ -1278,7 +1280,7 @@ For Mod Authors: There is nothing you should do. Even if you add custom items to
 Obelisks are cheaper to purchase.
 All vanilla obelisks are re-priced as 100,000g.
 
-For Mod Authors: If you add custom obelisks, you should lower your money prices of your obelisks when this talent is acquired. It's mail flag is ``Misc_MonumentalDiscount``.
+For Mod Authors: If you add custom obelisks, you should lower your money prices of your obelisks when this talent is acquired. 
 ### Craft Supplies
 New craftables gained by skill level-up are sold at shops after being unlocked. There's nothing you should do for compatibiliy with this talent.
 
@@ -1325,13 +1327,16 @@ The price increases for the vanilla NPCs are listed below:
 | Wizard    | Solar Essence & Void Essence<br/>Super Cucumber                              |
 
 For Mod Authors: If you're a custom NPC author and want your NPC(s) affected by this talent, you need to add an entry to Insider Info's data. The format DOES NOT accept context tags or category IDs. You can get the target path for the data by using the ``ContentPaths`` token. The key must be the NPC's internal name, and the value should be a space-delimited list of UNQUALIFIED item IDs. For exp: ``"Abigail": "123 456 789 102 425"``
+
 ### Gift of Friendship
 The villagers will start giving you gifts after you're close enough to them to show their gratitude. The gifts are usually the villagers' loved and liked gifts.
 
-For Mod Authors: If you're a custom NPC author and want your NPC(s) affected by this talent, you should add a CT response for ``VPP.GiftOfFriendship`` in their dialogue file, with a when condition if they have 8 hearts or above with the farmer. You're allowed to make it less or more than 8 hearts depending on how your character is like, its just what I set vanilla NPCs to react to.
+For Mod Authors: If you're a custom NPC author and want your NPC(s) affected by this talent, you should add a CT response for ``VPP.GiftOfFriendship`` in their dialogue file, with a when condition if they have 8 hearts or above with the farmer. You can to make it less or more than 8 hearts depending on how your character is like, its just what I set vanilla NPCs to react to.
 ### Haute Cuisine
 Increases sell prices of cooked food.
 Doubles the sell price of cooking category objects, there's nothing you need to do add compatibility with this talent.
+
+Note: Cooking with this talent activated will result in Qi Seasoning not being consumed and the cooked foods will be silver quality automatically. This is intended because when two independent items stacks are combined into one, the other loses all of its custom price, edibility and modData entries (which is something mods often use to add extra data to anything in the game), and so much other data. The silver quality intends to prevent the stacking so prevent the data loss.
 
 ### Mini Fridge, Big Space
 Increase storage space for mini-fridges.
