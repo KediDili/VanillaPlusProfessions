@@ -843,7 +843,8 @@ Rocks destroyed by bombs have increased chance to drop additional geodes.
 Crystalariums can copy geodes.
 
 ### Upheaval
-Low chance for all stones on a mine floor to be replaced by geode nodes.
+Low chance for all stones on a mine floor to be replaced by geode nodes. The chance for it to trigger is 0.0005.
+Magma Geodes, Frozen Geodes and regular Geodes may appear depending on where you are.
 
 For Mod Authors: If you want your custom mines to be affected by this talent, add the ``Kedi.VPP.Upheaval`` key to your Data/Locations entry's CustomFields... field. Optionally, you can add a space-delimited list of UNQUALIFIED object IDs for the geode nodes you want your regular stones to be replaced with as value. If you don't set it, VPP will just use the vanilla ones instead. As a bonus, if you have custom nodes as well, add them the ``Kedi_VPP_Bland_Stone_Node`` context tag to your "stone items".
 
@@ -853,7 +854,7 @@ Chance for geodes to contain another geode.
 For Mod Authors: If you add custom geodes and want your geodes to not be dropped by this talent, add the ``kedi_vpp_banned_from_being_dropped`` context tag to them, if you don't want your geode to not drop other geodes, add the ``kedi_vpp_banned_from_dropping`` context tag.
 
 ### X-ray
-View what item the next geode contains. Geodes worth more.
+View what item the next geode contains.
 
 For Mod Authors: If you add custom geodes and want your geodes' content to not be seen by this talent, add them the ``geode_crusher_ignored`` tag. But know that adding the tag will also prevent your geodes to be crushed by the Geode Crusher.
 
@@ -890,12 +891,14 @@ The chance is ``0.0001 * mineLevel`` per stone.
 
 ### Everyone's Best Friend
 Diamond, tigerseye, opal, fire opal, jasper, and star shards will become universal loved gifts.
+
 Note: This talent only makes these gems into universal loves. Due to how gift taste logic works, if a character's own gift data lists any of these as loved/hated/disliked/neutral/liked, their own gift data will take priority over universals (Such as Haley hating prismatic shards despite prismatic shards being universal loves). **This is not a bug with VPP. It's a vanilla feature.**
 
 ### Crystal Cavern
-Low chance for all stones on a mine floor\nto be replaced by gem nodes.
+Low chance for all stones on a mine floor\nto be replaced by gem nodes. The chance for it to trigger is 0.0005.
+For vanilla mines; Ruby, Jade, Diamond, Aquamarine, Topaz and Emerald Nodes may appear with equal random chances.
 
-For Mod Authors: If you want your custom mines to be affected by this talent, add the ``Kedi.VPP.CrystalCavern`` key to your Data/Locations entry's CustomFields... field. Optionally, you can add a space-delimited list of UNQUALIFIED object IDs for the gem nodes you want your regular stones to be replaced with as value. If you don't set it, VPP will just use the vanilla ones instead. As a bonus, if you have custom nodes as well, add them the ``Kedi_VPP_Bland_Stone_Node`` context tag to your "stone objects".
+For Mod Authors: If you want your custom mines to be affected by this talent, add the ``Kedi.VPP.CrystalCavern`` key to your Data/Locations entry's CustomFields... field. Optionally, you can add a space-delimited list of UNQUALIFIED object IDs for the gem nodes you want your regular stones to be replaced with as value. If you don't set it, VPP will just use the vanilla ones instead.
 
 ### Over The Rainbow
 Add prismatic shard crafting recipe.
@@ -997,7 +1000,12 @@ Note: Cooking with this talent activated will result in Qi Seasoning not being c
 For Mod Authors: If you have such recipes and want them to be added in this, add them the ``kedi_vpp_survival_cooking_food`` context tag.
 
 ### Pyrolysis
-Charcoal Kilns will be more efficient.
+Charcoal Kilns will be more efficient. New drops since 1.0.4:
+| Input       | Output   |
+|:-----------:|:--------:|
+| 1 Hardwood  | 4-5 coal |
+| 1 Driftwood | 1 coal   |
+| 10 Wood     | 3 coal   |
 
 ### Static Charge
 Lightning Rods can accumulate two charges at once. Solar Panels take 2 less days to produce a battery.
