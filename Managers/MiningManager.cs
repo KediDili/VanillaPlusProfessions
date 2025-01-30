@@ -149,21 +149,21 @@ namespace VanillaPlusProfessions.Managers
                         Game1.createObjectDebris("(O)848", x, y);
                     }
                 }
-                if (TalentUtility.CurrentPlayerHasTalent("Mining_Volatility", who: who) && r.NextBool())
+                if (TalentUtility.CurrentPlayerHasTalent("Volatility", who: who) && r.NextBool(0.005))
                 {
-                    if (stoneId == "(O)378")
+                    if (stoneId == "751")
                     {
                         Game1.createObjectDebris("(O)380", x, y);
                     }
-                    else if (stoneId == "(O)380")
+                    else if (stoneId == "850" || stoneId == "290")
                     {
                         Game1.createObjectDebris("(O)384", x, y);
                     }
-                    else if (stoneId == "(O)384")
+                    else if (stoneId == "764" || stoneId == "VolcanoGoldNode")
                     {
                         Game1.createObjectDebris("(O)386", x, y);
                     }
-                    else if (stoneId == "(O)386")
+                    else if (stoneId == "765")
                     {
                         Game1.createObjectDebris("(O)909", x, y);
                     }

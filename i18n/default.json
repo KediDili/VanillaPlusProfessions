@@ -131,7 +131,7 @@
 	"Talent.LockedTalent.Name": "Locked",
 	"Talent.LockedTalent.Desc": "Gain other\ntalents first!",
 	"Talent.LockedTalent.Numbered": " (Buy {0} talents to unlock)",
-	"Talent.DisabledTalent": " (Disabled. Click to re-enable.)", //New
+	"Talent.DisabledTalent": " (Disabled. Click to re-enable.)",
 
 	"Talent.ResetMessages.ItemMissing": "Required item missing for reset",
 	"Talent.ResetMessages.SettleTreeFirst": "Settle the tree\nreset first",
@@ -257,7 +257,7 @@
 	"Talent.Matryoshka.Desc": "Chance for geodes to contain another geode.",
 
 	"Talent.X-ray.Name": "X-ray",
-	"Talent.X-ray.Desc": "View what item the next geode contains. Geodes worth more.",
+	"Talent.X-ray.Desc": "View what item the next geode contains.", //Modified
 
 	"Talent.Geometry.Name": "Geometry",
 	"Talent.Geometry.Desc": "Crystalariums work faster.",

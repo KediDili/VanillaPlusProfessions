@@ -107,14 +107,28 @@ namespace VanillaPlusProfessions.Talents.UI
             TalentCore.Talents["GiftOfTheTalented"].OnTalentAdded = TalentUtility.GiftOfTheTalented_OnApply;
             TalentCore.Talents["GiftOfTheTalented"].OnTalentRemoved = TalentUtility.GiftOfTheTalented_OnUnApply;
 
-            TalentCore.Talents["SapSipper"].OnTalentAdded = TalentUtility.OnItemBasedTalentBoughtOrRefunded;
-            TalentCore.Talents["SapSipper"].OnTalentRemoved = TalentUtility.OnItemBasedTalentBoughtOrRefunded;
-            
             TalentCore.Talents["Overcrowding"].OnTalentAdded = TalentUtility.OvercrowdingBuildingEdits;
             TalentCore.Talents["Overcrowding"].OnTalentRemoved = TalentUtility.OvercrowdingBuildingEdits;
-            
+
+            TalentCore.Talents["OverTheRainbow"].OnTalentAdded = TalentUtility.RecipeActivations;
+            TalentCore.Talents["OverTheRainbow"].OnTalentRemoved = TalentUtility.RecipeActivations;
+            TalentCore.Talents["SurvivalCooking"].OnTalentAdded = TalentUtility.RecipeActivations;
+            TalentCore.Talents["SurvivalCooking"].OnTalentRemoved = TalentUtility.RecipeActivations;
+            TalentCore.Talents["AlchemicReversal"].OnTalentAdded = TalentUtility.RecipeActivations;
+            TalentCore.Talents["AlchemicReversal"].OnTalentRemoved = TalentUtility.RecipeActivations;
+            TalentCore.Talents["DriftFencing"].OnTalentAdded = TalentUtility.RecipeActivations;
+            TalentCore.Talents["DriftFencing"].OnTalentRemoved = TalentUtility.RecipeActivations;
+            TalentCore.Talents["CampSpirit"].OnTalentAdded = TalentUtility.RecipeActivations;
+            TalentCore.Talents["CampSpirit"].OnTalentRemoved = TalentUtility.RecipeActivations;
+            TalentCore.Talents["Upcycling"].OnTalentAdded = TalentUtility.RecipeActivations;
+            TalentCore.Talents["Upcycling"].OnTalentRemoved = TalentUtility.RecipeActivations;
+            TalentCore.Talents["TakeItSlow"].OnTalentAdded = TalentUtility.RecipeActivations;
+            TalentCore.Talents["TakeItSlow"].OnTalentRemoved = TalentUtility.RecipeActivations;
+
             TalentCore.Talents["SugarRush"].OnTalentAdded = TalentUtility.OnItemBasedTalentBoughtOrRefunded;
             TalentCore.Talents["SugarRush"].OnTalentRemoved = TalentUtility.OnItemBasedTalentBoughtOrRefunded;
+            TalentCore.Talents["SapSipper"].OnTalentAdded = TalentUtility.OnItemBasedTalentBoughtOrRefunded;
+            TalentCore.Talents["SapSipper"].OnTalentRemoved = TalentUtility.OnItemBasedTalentBoughtOrRefunded;
 
             var farmingList = (from talent in TalentCore.Talents where talent.Value.Skill is "Farming" select talent.Value).ToList();
             var miningList = (from talent in TalentCore.Talents where talent.Value.Skill is "Mining" select talent.Value).ToList();
@@ -482,13 +496,15 @@ namespace VanillaPlusProfessions.Talents.UI
                             {
                                 Game1.player.currentLocation.playSound("wand");
 
-                                if (!TalentCore.DisabledTalents.Contains(skillTrees[CurrentSkill].Bundles[i].talent.MailFlag))
+                                if (!Game1.player.mailReceived.Contains(skillTrees[CurrentSkill].Bundles[i].talent.MailFlag + "_disabled"))
                                 {
-                                    TalentCore.DisabledTalents.Add(skillTrees[CurrentSkill].Bundles[i].talent.MailFlag);
+                                    Game1.player.mailReceived.Add(skillTrees[CurrentSkill].Bundles[i].talent.MailFlag + "_disabled");
+                                    skillTrees[CurrentSkill].Bundles[i].talent.OnTalentAdded(skillTrees[CurrentSkill].Bundles[i].talent.Name, false);
                                 }
                                 else
                                 {
-                                    TalentCore.DisabledTalents.Remove(skillTrees[CurrentSkill].Bundles[i].talent.MailFlag);
+                                    Game1.player.mailReceived.Remove(skillTrees[CurrentSkill].Bundles[i].talent.MailFlag + "_disabled");
+                                    skillTrees[CurrentSkill].Bundles[i].talent.OnTalentAdded(skillTrees[CurrentSkill].Bundles[i].talent.Name, true);
                                 }
                                 skillTrees[CurrentSkill].Bundles.ForEach(bundle => bundle.UpdateSprite());
                             }

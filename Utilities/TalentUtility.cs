@@ -22,13 +22,74 @@ namespace VanillaPlusProfessions.Utilities
 {
     public static class TalentUtility
     {
-        private readonly static string[] GemNodes = new string[] { "2", "4", "6", "8", "10", "12", "14", "44", "46" };
+        private readonly static string[] GemNodes = new string[] { "2", "4", "6", "8", "10", "12", "14" };
         private readonly static string[] GeodeNodes = new string[] { "75", "76", "77" };
         private readonly static string[] OreNodes = new string[] { "290", "751", "764", "765", "95"};
         public readonly static string[] BlandStones = new string[] { "32", "668", "670", "34", "36", "38", "40", "42", "48", "50", "52", "54", "56", "58", "343", "450", "760", "845", "846", "844" };
 
         public static List<string> ItemExtensions_GeodeNodeList = new();
         public static List<string> ItemExtensions_GemNodeList = new();
+
+        public static void RecipeActivations(string name, bool isAppliedOrUnapplied)
+        {
+            ModEntry.Helper.GameContent.InvalidateCache("Data/CookingRecipes");
+            ModEntry.Helper.GameContent.InvalidateCache("Data/CraftingRecipes");
+            Game1.player.LearnDefaultRecipes();
+        }
+
+        public static void BuildingDataUpdates(string name, bool isAppliedOrUnapplied)
+        {
+            ModEntry.Helper.GameContent.InvalidateCache("Data/Buildings");
+            ModEntry.Helper.GameContent.InvalidateCache("Data/Shops");
+            ModEntry.Helper.GameContent.InvalidateCache("Data/Shops");
+
+        }
+
+        public static void ApplyExtraDamage(Monster monster, Farmer who, int damage)
+        {
+            if (monster is not BigSlime && monster.Health - damage >= 0)
+            {
+                monster.takeDamage(damage, 0, 0, false, 1, who);
+                if (monster is not BigSlime && monster.Health < 0)
+                {
+                    monster.deathAnimation();
+                    ModEntry.Helper.Reflection.GetMethod(who.currentLocation, "onMonsterKilled").Invoke(new object[] { who, monster, monster.GetBoundingBox(), false });
+                }
+            }
+            else if (monster is not BigSlime && monster.Health - damage < 0)
+            {
+                // It has to NOT be one of mummy, armored bug, pupating grub, or a shelled rock crab using its shell OR has to have Warrior profession.
+                if ((!(monster is Mummy || monster is Bug { isArmoredBug.Value: true } || monster is Grub { pupating.Value: true } || (monster is RockCrab crab && !crab.shellGone.Value && crab.Sprite.currentFrame % 4 == 0)) || CoreUtility.CurrentPlayerHasProfession("Warrior", useThisInstead: who)))
+                {
+                    monster.Health -= damage;
+                    monster.deathAnimation();
+                    ModEntry.Helper.Reflection.GetMethod(who.currentLocation, "onMonsterKilled").Invoke(new object[] { who, monster, monster.GetBoundingBox(), false });
+                }
+            }
+            else
+            {
+                monster.Health -= damage;
+                if (monster.Health <= 0 && monster is BigSlime)
+                {
+                    who.stats.SlimesKilled++;
+                    monster.deathAnimation();
+                    if (Game1.gameMode == 3 && Game1.random.NextDouble() < 0.75)
+                    {
+                        int toCreate = Game1.random.Next(2, 5);
+                        for (int i = 0; i < toCreate; i++)
+                        {
+                            var slime = new GreenSlime(monster.Position, Game1.CurrentMineLevel);
+                            slime.setTrajectory(Game1.random.Next(-2, 3), Game1.random.Next(-2, 3));
+                            slime.willDestroyObjectsUnderfoot = false;
+                            slime.moveTowardPlayer(4);
+                            slime.Scale = 0.75f + Game1.random.Next(-5, 10) / 100f;
+                            slime.currentLocation = monster.currentLocation;
+                            monster.currentLocation.characters.Add(slime);
+                        }
+                    }
+                }
+            }
+        }
 
         public static void MakeFarmerInvincible(Farmer player)
         {
@@ -41,13 +102,16 @@ namespace VanillaPlusProfessions.Utilities
         {
             List<Vector2> validCrops = new();
             List<Vector2> CheckTiles = GetTilesAroundBeeHouse(startTileLocation.X, startTileLocation.Y);
-            for (int i = 0; i < CheckTiles.Count; i++)
+            if (location is not null)
             {
-                if (location.terrainFeatures.TryGetValue(startTileLocation, out var terrainFeature) && terrainFeature is HoeDirt dirt && dirt.crop != null)
+                for (int i = 0; i < CheckTiles.Count; i++)
                 {
-                    ParsedItemData data = ItemRegistry.GetData(dirt.crop.indexOfHarvest.Value);
-                    if (data != null && data.Category == StardewValley.Object.flowersCategory && dirt.crop.currentPhase.Value >= dirt.crop.phaseDays.Count - 1 && !dirt.crop.dead.Value)
-                        validCrops.Add(dirt.crop.tilePosition);
+                    if (location.terrainFeatures.TryGetValue(startTileLocation, out var terrainFeature) && terrainFeature is HoeDirt dirt && dirt.crop != null)
+                    {
+                        ParsedItemData data = ItemRegistry.GetData(dirt.crop.indexOfHarvest.Value);
+                        if (data != null && data.Category == StardewValley.Object.flowersCategory && dirt.crop.currentPhase.Value >= dirt.crop.phaseDays.Count - 1 && !dirt.crop.dead.Value)
+                            validCrops.Add(dirt.crop.tilePosition);
+                    }
                 }
             }
             return validCrops.Count;
@@ -96,9 +160,9 @@ namespace VanillaPlusProfessions.Utilities
             {
                 return who.mailReceived.Contains(flag);
             }
-            else
+            else 
             {
-                return who.mailReceived.Contains(flag) && !TalentCore.DisabledTalents.Contains(flag);
+                return who.mailReceived.Contains(flag) && !who.mailReceived.Contains(flag + "_disabled");
             }
         }
 
@@ -162,7 +226,7 @@ namespace VanillaPlusProfessions.Utilities
             if (talent == "Overcrowding")
             {
                 ModEntry.Helper.GameContent.InvalidateCache("Data\\Buildings");
-                if (isAppliedOrUnapplied)
+                if (!isAppliedOrUnapplied)
                 {
                     Utility.ForEachBuilding(building =>
                     {
@@ -170,9 +234,9 @@ namespace VanillaPlusProfessions.Utilities
                         {
                             building.maxOccupants.Value = building.maxOccupants.Value switch
                             {
-                                4 => 5,
-                                8 => 10,
-                                12 => 15,
+                                5 => 4,
+                                10 => 8,
+                                15 => 12,
                                 _ => building.maxOccupants.Value,
                             };
                             animalHouse.animalLimit.Value = building.maxOccupants.Value;
@@ -188,9 +252,9 @@ namespace VanillaPlusProfessions.Utilities
                         {
                             building.maxOccupants.Value = building.maxOccupants.Value switch
                             {
-                                5 => 4,
-                                10 => 8,
-                                15 => 12,
+                                4 => 5,
+                                8 => 10,
+                                12 => 15,
                                 _ => building.maxOccupants.Value,
                             };
                             animalHouse.animalLimit.Value = building.maxOccupants.Value;
@@ -470,6 +534,7 @@ namespace VanillaPlusProfessions.Utilities
 
         public static void GemAndGeodeNodes(bool flag, List<Vector2> list, GameLocation mine)
         {
+            bool success = false;
             for (int i = 0; i < list.Count; i++)
             {
                 string str = nodeID(flag, mine, out int? health);
@@ -481,7 +546,12 @@ namespace VanillaPlusProfessions.Utilities
                     obj.MinutesUntilReady = health.Value;
                     obj.Flipped = Game1.random.NextBool();
                     mine.Objects[list[i]] = obj;
+                    success = true;
                 }
+            }
+            if (success && Context.IsMultiplayer && Context.IsMainPlayer)
+            {
+                ModEntry.Helper.Multiplayer.SendMessage(mine, "SwitchMineStones", new string[] { ModEntry.Manifest.UniqueID });
             }
         }
 

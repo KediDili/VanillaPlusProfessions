@@ -51,7 +51,7 @@ namespace VanillaPlusProfessions.Managers
             {
                 ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(Mummy), nameof(Mummy.takeDamage), new Type[] { typeof(int), typeof(int), typeof(int), typeof(bool), typeof(double), typeof(Farmer) }),
-                    postfix: new HarmonyMethod(typeof(CombatManager), nameof(takeDamage_Postfix_Bug))
+                    postfix: new HarmonyMethod(typeof(CombatManager), nameof(takeDamage_Postfix_Mummy))
                 );
             }
             catch (Exception e)
@@ -299,7 +299,7 @@ namespace VanillaPlusProfessions.Managers
                 {
                     if (skip is 0 && !close)
                     {
-                         close = true;
+                        close = true;
                     }
                     else if (skip is not 0)
                     {
@@ -364,42 +364,50 @@ namespace VanillaPlusProfessions.Managers
 
             result = addedMaxDamage is 0 || addedMinDamage is 0 ? vanillaDamage : Game1.random.Next(minDamage + addedMinDamage, maxDamage + addedMaxDamage + 1);
 
-            if (TalentUtility.CurrentPlayerHasTalent("Combat_Debiliating_Stab", who: who) && weapon is not null && weapon.type.Value is 1)
+            if (TalentUtility.CurrentPlayerHasTalent("DebiliatingStab", who: who) && weapon is not null && weapon.type.Value is 1)
             {
                 monster.Speed--;
             }
-            else if (TalentUtility.CurrentPlayerHasTalent("Combat_Severing_Swipe", who: who) && weapon is not null && weapon.type.Value is 3)
+            else if (TalentUtility.CurrentPlayerHasTalent("SeveringSwipe", who: who) && weapon is not null && weapon.type.Value is 3)
             {
-                monster.DamageToFarmer = (int)(monster.DamageToFarmer * 0.60f);
+                monster.DamageToFarmer = (int)(monster.DamageToFarmer * 0.90f);
             }
-            else if (TalentUtility.CurrentPlayerHasTalent("Combat_Concussive_Impact", who: who) && weapon is not null && weapon.type.Value is 2)
+            else if (TalentUtility.CurrentPlayerHasTalent("ConcussiveImpact", who: who) && weapon is not null && weapon.type.Value is 2)
             {
                 monster.startGlowing(Color.Red, false, 0.5f);
                 Monster fuckDelegates = monster;
-                if (fuckDelegates.MaxHealth / 40 > 0)
+                if (monster.Health - (result / 4) > 0 && monster.Health > 0 && result / 4 > 0)
                 {
                     DelayedAction.functionAfterDelay(() =>
                     {
-                        who.currentLocation.debris.Add(new Debris(fuckDelegates.MaxHealth / 40, fuckDelegates.StandingPixel.ToVector2(), Color.White, 3f, fuckDelegates));
-                        fuckDelegates.Health -= fuckDelegates.MaxHealth / 40;
+                        if (monster.Health > 0)
+                        {
+                            who.currentLocation.debris.Add(new Debris(result / 4, monster.StandingPixel.ToVector2(), Color.White, 3f, monster));
+                            TalentUtility.ApplyExtraDamage(monster, who, result / 4);
+                        }
                     }, 1000);
                 }
-                Monster fuckDelegates2 = fuckDelegates;
-                if ((fuckDelegates.Health - (fuckDelegates2.MaxHealth / 40) + (fuckDelegates2.MaxHealth / 60)) > 0)
+                if ((monster.Health - ((result / 4) + (result / 6))) > 0 && monster.Health > 0 && ((result / 4) + (result / 6)) > 0)
                 {
                     DelayedAction.functionAfterDelay(() =>
                     {
-                        who.currentLocation.debris.Add(new Debris(fuckDelegates2.MaxHealth / 60, fuckDelegates2.StandingPixel.ToVector2(), Color.White, 2f, fuckDelegates2));
-                        fuckDelegates2.Health -= fuckDelegates2.MaxHealth / 60;
+                        if (monster.Health > 0)
+                        {
+                            who.currentLocation.debris.Add(new Debris(result / 6, monster.StandingPixel.ToVector2(), Color.White, 2f, monster));
+                            TalentUtility.ApplyExtraDamage(monster, who, result / 6);
+                        }
                     }, 2000 );
                 }
-                Monster fuckDelegates3 = fuckDelegates2;
-                if ((fuckDelegates.Health - (fuckDelegates2.MaxHealth / 60) + (fuckDelegates2.MaxHealth / 40) + (fuckDelegates3.MaxHealth / 80)) > 0)
+                
+                if ((monster.Health - ((result / 6) + (result / 4) + (result / 8))) > 0 && monster.Health > 0 && (result / 6) + (result / 4) + (result / 8) > 0)
                 {
                     DelayedAction.functionAfterDelay(() =>
                     {
-                        who.currentLocation.debris.Add(new Debris(fuckDelegates3.MaxHealth / 80, fuckDelegates3.StandingPixel.ToVector2(), Color.White, 1f, fuckDelegates3));
-                        fuckDelegates3.Health -= fuckDelegates3.MaxHealth / 80;
+                        if (monster.Health > 0)
+                        {
+                            who.currentLocation.debris.Add(new Debris(result / 8, monster.StandingPixel.ToVector2(), Color.White, 1f, monster));
+                            TalentUtility.ApplyExtraDamage(monster, who, result / 8);
+                        }
                     }, 3000 );
                 }
                 monster.stopGlowing();
@@ -410,7 +418,7 @@ namespace VanillaPlusProfessions.Managers
                 if (monster.MaxHealth - (result / 10) > 0)
                 {
                     who.currentLocation.debris.Add(new Debris(result / 10, monster.StandingPixel.ToVector2(), Color.White, 1f, who));
-                    monster.takeDamage(result / 10, 1, 1, false, 1, who);
+                    TalentUtility.ApplyExtraDamage(monster, who, result / 10);
                 }
             }
             else if (TalentUtility.CurrentPlayerHasTalent("Combat_Champion", who: who) && weapon is not null && weapon.type.Value is 3)

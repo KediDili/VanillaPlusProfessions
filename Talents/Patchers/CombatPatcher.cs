@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Netcode;
 using HarmonyLib;
 using StardewValley;
@@ -499,13 +497,13 @@ namespace VanillaPlusProfessions.Talents.Patchers
 
         public static void CanCombine_Postfix(Ring __instance, Ring ring, ref bool __result)
         {
-            if (!__result)
+            if (!__result && TalentUtility.CurrentPlayerHasTalent("Consolidation"))
             {
                 if (__instance.QualifiedItemId == ring.QualifiedItemId)
                 {
                     __result = true;
                 }
-                if (__instance.HasContextTag("trinket_ring_accessorise") && ring.HasContextTag("trinket_ring_accessorise"))
+                if (__instance is TrinketRing || ring is TrinketRing)
                 {
                     __result = false;
                 }

@@ -133,7 +133,8 @@ namespace VanillaPlusProfessions.Utilities
                     result.heldObject.Value = ingredient;
                     result.preserve.Value = (Object.PreserveType)1115;
                     result.preservedParentSheetIndex.Value = ingredient.ParentSheetIndex.ToString();
-                    result.displayName = ModEntry.Helper.Translation.Get("Item." + (value is "Kedi.VPP.FruitSyrup" ? "Syrup" : "Dust") + ".ProduceNameFormat").ToString().Replace("{0}", ingredient.DisplayName); ;
+                    result.Name = result.displayName = ingredient.Name + " " + (value is "Kedi.VPP.FruitSyrup" ? "Syrup" : "Dust");
+                    result.displayName = ModEntry.Helper.Translation.Get("Item." + (value is "Kedi.VPP.FruitSyrup" ? "Syrup" : "Dust") + ".ProduceNameFormat").ToString().Replace("{0}", ingredient.DisplayName);
                     result.displayNameFormat = ModEntry.Helper.Translation.Get("Item." + (value is "Kedi.VPP.FruitSyrup" ? "Syrup" : "Dust") + ".ProduceNameFormat").ToString().Replace("{0}", ingredient.DisplayName); ;
                     result.Price += ingredient.Price / 2;
                     if (value is "Kedi.VPP.FruitSyrup" && ingredient.Edibility != -300)

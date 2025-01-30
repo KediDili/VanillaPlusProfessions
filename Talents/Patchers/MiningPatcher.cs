@@ -120,7 +120,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
                                   select @object.Key).ToList();
                     __result = ItemRegistry.Create(Game1.random.ChooseFrom(geodes), 1, geode.Quality);
                 }
-                else if (TalentUtility.CurrentPlayerHasTalent("Mining_Museum_Piece") && LibraryMuseum.totalArtifacts != Game1.player.archaeologyFound.Keys.Count() && geode.ItemId is not null)
+                else if (TalentUtility.CurrentPlayerHasTalent("Mining_Museum_Piece") && LibraryMuseum.totalArtifacts != Game1.player.archaeologyFound.Keys.Count() && geode.ItemId is not null && Game1.random.NextBool(0.1))
                 {
                     List<KeyValuePair<string, double>> validIDs = new();
 
@@ -132,7 +132,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
                                 continue;
 
                             Item item = ItemQueryResolver.TryResolveRandomItem(dropx, new ItemQueryContext(Game1.player.currentLocation, Game1.player, Game1.random, "Museum Piece context"), avoidRepeat: false);
-                            if (item is not null && (!LibraryMuseum.HasDonatedArtifact(item.ItemId) || Game1.random.NextBool(0.40)))
+                            if (item is not null && (!LibraryMuseum.HasDonatedArtifact(item.ItemId) || Game1.random.NextBool(0.20)))
                             {
                                 if (dropx.SetFlagOnPickup != null)
                                 {

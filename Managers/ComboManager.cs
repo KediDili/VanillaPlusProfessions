@@ -376,8 +376,10 @@ namespace VanillaPlusProfessions.Managers
                     if (!justCheckingForActivity && terrainFeature is FruitTree tree)
                         tree.performUseAction(__instance.TileLocation);
                 }
+
+                //This stays inside here, otherwise it'll break Ars Venefici.
+                __result = false;
             }
-            __result = false;
         }
         public static void GetAmmoDamage_Postfix(StardewValley.Object ammunition, ref int __result)
         {

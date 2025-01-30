@@ -237,6 +237,7 @@ namespace VanillaPlusProfessions.Utilities
                             }
                         }
                         farmer.mailReceived.Remove(item.MailFlag);
+                        farmer.mailReceived.Remove(item.MailFlag + "_disabled");
                     }
 
                     farmer.mailReceived.Remove(TalentCore.Key_PointsCalculated);
@@ -316,21 +317,16 @@ namespace VanillaPlusProfessions.Utilities
                 {
                     if (Game1.player.mailReceived.Contains(item.Value.MailFlag))
                     {
+                        bool disabled = Game1.player.mailReceived.Contains(item.Value.MailFlag + "_disabled");
                         if (item.Value.Branches is not null && item.Value.Branches.Length > 0)
                         {
                             for (int i = 0; i < item.Value.Branches.Length; i++)
                                 if (Game1.player.mailReceived.Contains(item.Value.Branches[i].Flag))
-                                    stringBuilder.Append($" {item.Value.Name}: {item.Value.Branches[i].Name},");
+                                    stringBuilder.Append($" {item.Value.Name}: {item.Value.Branches[i].Name}" + (disabled ? " (Disabled)" : "") + ",");
                         }
                         else
-                            stringBuilder.Append($" {item.Value.Name},");
+                            stringBuilder.Append($" {item.Value.Name}" + (disabled ? " (Disabled)" : "") + ",");
                     }
-                }
-                stringBuilder.AppendLine("");
-                stringBuilder.AppendLine($"Disabled Talents:");
-                foreach (var item in TalentCore.DisabledTalents)
-                {
-                    stringBuilder.Append($" {item},");
                 }
                 stringBuilder.AppendLine("");
                 stringBuilder.AppendLine($"VPP Professions Chosen:");

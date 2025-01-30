@@ -13,6 +13,8 @@ using StardewValley.Objects.Trinkets;
 using StardewValley.Tools;
 using VanillaPlusProfessions.Utilities;
 using Microsoft.Xna.Framework;
+using xTile.Dimensions;
+using StardewValley.Monsters;
 
 namespace VanillaPlusProfessions.Talents.Patchers
 {
@@ -88,6 +90,25 @@ namespace VanillaPlusProfessions.Talents.Patchers
             catch (Exception e)
             {
                 CoreUtility.PrintError(e, nameof(FishingPatcher), "CrabPot.checkForAction", "prefixing");
+            }
+            try
+            {
+                ModEntry.Harmony.Patch(
+                    original: AccessTools.Method(typeof(CrabPot), nameof(CrabPot.NeedsBait)),
+                    postfix: new HarmonyMethod(typeof(FishingPatcher), nameof(NeedsBait_Postfix))
+                );
+            }
+            catch (Exception e)
+            {
+                CoreUtility.PrintError(e, nameof(FishingPatcher), "CrabPot.NeedsBait", "postfixing");
+            }
+        }
+
+        public static void NeedsBait_Postfix(CrabPot __instance, Farmer player, ref bool __result)
+        {
+            if (TalentUtility.CurrentPlayerHasTalent("FishsWishes", who: player) && (Game1.GetPlayer(__instance.owner.Value) ?? player ?? Game1.player).professions.Contains(11))
+            {
+                __result = __instance.bait.Value is null;
             }
         }
 

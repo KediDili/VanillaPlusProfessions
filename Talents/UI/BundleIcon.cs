@@ -115,7 +115,7 @@ namespace VanillaPlusProfessions.Talents.UI
                                     {
                                         if (TalentCore.Talents.TryGetValue(req2, out Talent value2) && value2 is not null && TalentUtility.CurrentPlayerHasTalent(value2.MailFlag, ignoreDisabledTalents: false))
                                         {
-                                            desc = button.hoverText + (TalentCore.DisabledTalents.Contains(talent.MailFlag) ? ModEntry.Helper.Translation.Get("Talent.DisabledTalent") : "");
+                                            desc = button.hoverText + (Game1.player.mailReceived.Contains(talent.MailFlag + "_disabled") ? ModEntry.Helper.Translation.Get("Talent.DisabledTalent") : "");
                                             break;
                                         }
                                     }
@@ -136,7 +136,7 @@ namespace VanillaPlusProfessions.Talents.UI
                     desc = LockedDesc + (talent.AmountToBuyFirst > 0 ? string.Format(NumberLocked, talent.AmountToBuyFirst) : "");
                 }
             }
-            desc = button.hoverText + (TalentCore.DisabledTalents.Contains(talent.MailFlag) ? " (Disabled. Click to re-enable.)" : "");
+            desc = button.hoverText + (Game1.player.mailReceived.Contains(talent.MailFlag + "_disabled") ? ModEntry.Helper.Translation.Get("Talent.DisabledTalent") : "");
             return Game1.parseText(desc, Game1.smallFont, SpriteText.getWidthOfString(button.name) + 100);
         }
 

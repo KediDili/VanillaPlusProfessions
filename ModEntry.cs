@@ -23,11 +23,11 @@ using VanillaPlusProfessions.Talents;
 using VanillaPlusProfessions.Compatibility;
 using VanillaPlusProfessions.Managers;
 using StardewValley.Menus;
-using StardewValley.Internal;
 using SpaceCore.Interface;
 using VanillaPlusProfessions.Talents.UI;
 using SpaceCore;
 using VanillaPlusProfessions.Craftables;
+using StardewValley.Internal;
 
 namespace VanillaPlusProfessions
 {
@@ -211,6 +211,10 @@ namespace VanillaPlusProfessions
                     if (CoreUtility.CurrentPlayerHasProfession("Mine-Forage", useThisInstead: e.Player) && Game1.random.NextBool(0.15) && shaft.getMineArea(shaft.mineLevel) is 80 && !shaft.rainbowLights.Value)
                     {
                         shaft.rainbowLights.Value = true;
+                        if (Context.IsMainPlayer && Context.IsMultiplayer)
+                        {
+                            Helper.Multiplayer.SendMessage(false, "MushroomLevel", new string[] { Manifest.UniqueID });
+                        }
                     }
                 }
                 if (TalentUtility.AllPlayersHaveTalent("Fallout") && e.NewLocation is MineShaft shaft45 && shaft45?.getMineArea() is 80 or 121)
@@ -218,13 +222,19 @@ namespace VanillaPlusProfessions
                     List<Vector2> validcoords = (from tileobjpair in e.NewLocation.Objects.Pairs
                                                  where tileobjpair.Value is not null && tileobjpair.Value.IsBlandStone()
                                                  select tileobjpair.Key).ToList();
+                    bool success = false;
                     for (int i = 0; i < validcoords.Count; i++)
                     {
                         if (Game1.random.NextBool(0.0001 * shaft45.mineLevel))
                         {
                             e.NewLocation.Objects[validcoords[i]] = ItemRegistry.Create<StardewValley.Object>("95");
                             e.NewLocation.Objects[validcoords[i]].MinutesUntilReady = 25;
+                            success = true;
                         }
+                    }
+                    if (success)
+                    {
+                        Helper.Multiplayer.SendMessage<GameLocation>(shaft45, "SwitchMineStones", new string[] { Manifest.UniqueID });
                     }
                 }
                 if (TalentUtility.CurrentPlayerHasTalent("Fortified", who: e.Player) && e.NewLocation is not null)
@@ -247,12 +257,21 @@ namespace VanillaPlusProfessions
                         shaft6.modData[TalentCore.Key_DownInTheDepths] = "0";
                 if (TalentUtility.AllPlayersHaveTalent("RoomAndPillar") && e.NewLocation is MineShaft shaft5 && shaft5.isQuarryArea)
                 {
+                    bool success = false;
                     List<Vector2> validcoords = (from tileobjpair in e.NewLocation.Objects.Pairs
                                                  where tileobjpair.Value is not null && (tileobjpair.Value.IsBlandStone() || (ItemExtensionsAPI.Value?.IsStone(tileobjpair.Value.QualifiedItemId) is true && ItemExtensionsAPI.Value?.IsResource(tileobjpair.Value.QualifiedItemId, out int? _, out string itemDropped) is true && itemDropped.Contains("390")))
                                                  select tileobjpair.Key).ToList();
                     for (int i = 0; i < validcoords.Count; i++)
-                        if (Game1.random.NextBool(0.15))
+                        if (Game1.random.NextBool(0.0008))
+                        { 
                             e.NewLocation.Objects[validcoords[i]] = ItemRegistry.Create<StardewValley.Object>(TalentUtility.GetNodeForRoomAndPillar());
+                            e.NewLocation.Objects[validcoords[i]].MinutesUntilReady = 25;
+                            success = true;
+                        }
+                    if (success)
+                    {
+                        Helper.Multiplayer.SendMessage<GameLocation>(shaft5, "SwitchMineStones", new string[] { Manifest.UniqueID });
+                    }
                 }
                 if (data?.ContainsKey(TalentCore.Key_CrystalCavern) is true || data?.ContainsKey(TalentCore.Key_Upheaval) is true || e.NewLocation is MineShaft or VolcanoDungeon)
                 {
@@ -260,11 +279,11 @@ namespace VanillaPlusProfessions
                                                  where tileobjpair.Value is not null && tileobjpair.Value.IsBlandStone() 
                                                  select tileobjpair.Key).ToList();
                     
-                    if (TalentUtility.AllPlayersHaveTalent("CrystalCavern") && (data?.ContainsKey(TalentCore.Key_CrystalCavern) is true || e.NewLocation is MineShaft or VolcanoDungeon) && Game1.random.NextBool(0.03)) 
+                    if (TalentUtility.AllPlayersHaveTalent("CrystalCavern") && (data?.ContainsKey(TalentCore.Key_CrystalCavern) is true || e.NewLocation is MineShaft or VolcanoDungeon) && Game1.random.NextBool(0.0005)) 
                     {
                         TalentUtility.GemAndGeodeNodes(true, validcoords, Game1.player.currentLocation);
                     }
-                    else if (TalentUtility.AllPlayersHaveTalent("Upheaval") && (data?.ContainsKey(TalentCore.Key_Upheaval) is true || e.NewLocation is MineShaft or VolcanoDungeon) && Game1.random.NextBool(0.03))
+                    else if (TalentUtility.AllPlayersHaveTalent("Upheaval") && (data?.ContainsKey(TalentCore.Key_Upheaval) is true || e.NewLocation is MineShaft or VolcanoDungeon) && Game1.random.NextBool(0.0005))
                     {
                         TalentUtility.GemAndGeodeNodes(false, validcoords, Game1.player.currentLocation);
                     }
@@ -374,7 +393,7 @@ namespace VanillaPlusProfessions
                             }
                         }
                     }
-                    else if (Game1.player.ActiveObject?.QualifiedItemId is "(O)mossyfertilizer" or "(O)totems" or "totem" or "totem2")
+                    if (false && Game1.player.ActiveObject?.QualifiedItemId is "(O)KediDili.VPPData.CP_MossyFertilizer" or "(O)KediDili.VPPData.CP_WildTotem" or "(O)KediDili.VPPData.CP_SunTotem" or "(O)KediDili.VPPData.CP_SnowTotem")
                     {
                         CraftableHandler.OnInteract(Game1.player, Game1.player.ActiveObject);
                     }
@@ -722,13 +741,21 @@ namespace VanillaPlusProfessions
             {
                 if (item is not null and StardewValley.Object obj)
                 {
-                    if (obj is CrabPot crabPot && crabPot.heldObject.Value is not null)
+                    if (obj is CrabPot crabPot)
                     {
-                        if (TalentUtility.AnyPlayerHasTalent("Fishing_Bait_And_Switch"))
+                        if (crabPot.heldObject.Value is not null)
+                        {
+                            if (TalentUtility.AnyPlayerHasTalent("BaitAndSwitch") && crabPot.heldObject.Value.HasContextTag("fish_crab_pot") is true && Game1.random.NextBool(0.05))
+                            {
+                                crabPot.heldObject.Value.Quality++;
+                                crabPot.heldObject.Value.FixQuality();
+                            }
+                        }
+                        else if (crabPot.bait.Value is not null && TalentUtility.CurrentPlayerHasTalent("FishsWishes", crabPot.owner.Value))
                         {
                             var list = crabPot.Location.GetData().Fish;
 
-                            ItemQueryContext context = new(crabPot.Location, Game1.player, Game1.random, "Bait And Switch context");
+                            ItemQueryContext context = new(crabPot.Location, Game1.player, Game1.random, "Fish's Wishes context");
 
                             var normalData = (from keyvaluepair in DataLoader.Fish(Game1.content)
                                               where !keyvaluepair.Value.Contains("trap")
@@ -738,7 +765,7 @@ namespace VanillaPlusProfessions
                             foreach (var fesh in list)
                             {
                                 ItemQueryResult result = ItemQueryResolver.TryResolve(fesh, context).FirstOrDefault();
-                                if  (fesh?.ItemId is not null and "" && result?.Item?.QualifiedItemId is not null)
+                                if (fesh?.ItemId is not null and "" && result?.Item?.QualifiedItemId is not null)
                                 {
                                     if (result.Item.QualifiedItemId.StartsWith("(O)"))
                                     {
@@ -750,24 +777,22 @@ namespace VanillaPlusProfessions
                             if (locFishList.Count > 0)
                             {
                                 var endList = normalData.Intersect(locFishList).ToList();
-                                if (crabPot.heldObject.Value.HasContextTag("fish_crab_pot") && endList.Count > 0)
+                                if (endList.Count > 0)
                                 {
                                     crabPot.heldObject.Value = ItemRegistry.Create<StardewValley.Object>(Game1.random.ChooseFrom(endList), quality: crabPot.heldObject.Value.Quality);
-                                    crabPot.heldObject.Value.Quality++;
-                                    crabPot.heldObject.Value.FixQuality();
                                 }
                             }
                         }
                     }
                     if (obj.IsTapper() is true && obj.heldObject.Value is not null)
                     {
-                        if (CoreUtility.AnyPlayerHasProfession("Orchardist") && Game1.random.NextBool(0.25) && obj.Location.terrainFeatures.TryGetValue(obj.TileLocation, out TerrainFeature terrainFeature) && terrainFeature is Tree or FruitTree or GiantCrop)
+                        if (CoreUtility.AnyPlayerHasProfession("Orchardist") && Game1.random.NextBool(0.05) && obj.Location.terrainFeatures.TryGetValue(obj.TileLocation, out TerrainFeature terrainFeature) && terrainFeature is Tree or FruitTree or GiantCrop && obj.heldObject.Value.Stack < 5)
                         {
                             obj.heldObject.Value.Stack += Game1.random.Next(1, 3);
                         }
-                        if (TalentUtility.AnyPlayerHasTalent("Foraging_Accumulation"))
+                        if (TalentUtility.AnyPlayerHasTalent("Accumulation"))
                         {
-                            if (Game1.random.NextBool(0.15))
+                            if (Game1.random.NextBool(0.005))
                             {
                                 obj.heldObject.Value.Quality++;
                                 obj.heldObject.Value.FixQuality();

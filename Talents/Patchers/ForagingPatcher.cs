@@ -287,20 +287,25 @@ namespace VanillaPlusProfessions.Talents.Patchers
 
         public static void performTreeFall_Postfix(Tool t, int explosion, bool __result, Tree __instance)
         {
-            if (!__result && __instance.falling.Value && __instance.stump.Value)
+            if (__result && !__instance.falling.Value && __instance.stump.Value && Game1.random.NextBool(0.5))
             {
-                if (TalentUtility.AnyPlayerHasTalent("Foraging_Nature_Secrets") && Game1.random.NextBool(0.1))
+                if (TalentUtility.AnyPlayerHasTalent("NatureSecrets"))
                 {
                     List<string> strings = (from forageData in __instance.Location.GetData().Forage
-                                           where Game1.random.NextBool(forageData.Chance) && GameStateQuery.CheckConditions(forageData.Condition, __instance.Location, t.getLastFarmerToUse())
+                                           where GameStateQuery.CheckConditions(forageData.Condition, __instance.Location, t.getLastFarmerToUse())
                                            && (forageData.Season is null || (forageData.Season is not null && Game1.season == forageData.Season))
                                            select forageData.ItemId).ToList();
                     if (strings.Count > 0)
-                    {//kedi_vpp_banned_naturesecrets
-                        string str = Game1.random.ChooseFrom(strings);
-                        if (ItemContextTagManager.HasBaseTag(str, TalentCore.ContextTag_Banned_NatureSecrets))
+                    {
+                        bool success = false;
+                        while (!success)
                         {
-                            Game1.createObjectDebris(Game1.random.ChooseFrom(strings), (int)__instance.Tile.X, (int)__instance.Tile.Y, __instance.Location);
+                            string str = Game1.random.ChooseFrom(strings);
+                            if (!ItemContextTagManager.HasBaseTag(str, TalentCore.ContextTag_Banned_NatureSecrets))
+                            {
+                                Game1.createObjectDebris(Game1.random.ChooseFrom(strings), (int)__instance.Tile.X, (int)__instance.Tile.Y, __instance.Location);
+                                success = true;
+                            }
                         }
                     }
                 }

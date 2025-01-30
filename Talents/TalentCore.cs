@@ -87,6 +87,7 @@ namespace VanillaPlusProfessions.Talents
                 ModEntry.Helper.Events.World.NpcListChanged += OnNPCListChanged;
                 ModEntry.Helper.Events.World.TerrainFeatureListChanged += OnTerrainFeatureListChanged;
                 ModEntry.Helper.Events.World.ChestInventoryChanged += OnChestInventoryChanged;
+                ModEntry.Helper.Events.Multiplayer.ModMessageReceived += OnModMessageReceived;
 
                 List<Talent> Talentlist = ModEntry.Helper.ModContent.Load<List<Talent>>("assets\\talents.json");
 
@@ -110,7 +111,23 @@ namespace VanillaPlusProfessions.Talents
                 ModEntry.ModMonitor.LogOnce("Talent system is disabled, and only VPP professions will work. If you didn't intend this, turn the ProfessionsOnly config off.", LogLevel.Info);
             }
         }
-
+        internal static void OnModMessageReceived(object sender, ModMessageReceivedEventArgs e)
+        {
+            if (e.FromModID == ModEntry.Manifest.UniqueID && e.FromPlayerID == Game1.MasterPlayer.UniqueMultiplayerID && !Context.IsMainPlayer)
+            {
+                if (e.Type == "SwitchMineStones" && e.ReadAs<GameLocation>() is not null and GameLocation location)
+                {
+                    foreach (var key in location.Objects.Keys)
+                    {
+                        Game1.player.currentLocation.Objects[key] = location.Objects[key];
+                    }
+                }
+                else if (e.Type == "MushroomLevel")
+                {
+                    (Game1.player.currentLocation as MineShaft).rainbowLights.Value = true;
+                }
+            }
+        }
         internal static void OnChestInventoryChanged(object sender, ChestInventoryChangedEventArgs e)
         {
             if (e.QuantityChanged is not null)
@@ -401,6 +418,13 @@ namespace VanillaPlusProfessions.Talents
             {
                 DisabledTalents = value2.Split('|').ToList();
             }
+            foreach (var item in DisabledTalents)
+            {
+                if (!Game1.player.mailReceived.Contains(item + "_disabled"))
+                {
+                    Game1.player.mailReceived.Add(item + "_disabled");
+                }
+            }
 
             if (ModEntry.ItemExtensionsAPI.Value is not null)
             {
@@ -425,6 +449,26 @@ namespace VanillaPlusProfessions.Talents
                         }
                     }
                 }
+            }
+
+            if (TalentUtility.AnyPlayerHasTalent("Overcrowding"))
+            {
+                ModEntry.Helper.GameContent.InvalidateCache("Data\\Buildings");
+                Utility.ForEachBuilding(building =>
+                {
+                    if (building.GetIndoors() is AnimalHouse animalHouse && building.buildingType.Value is "Coop" or "Big Coop" or "Deluxe Coop" or "Barn" or "Big Barn" or "Deluxe Barn")
+                    {
+                        building.maxOccupants.Value = building.maxOccupants.Value switch
+                        {
+                            4 => 5,
+                            8 => 10,
+                            12 => 15,
+                            _ => building.maxOccupants.Value,
+                        };
+                        animalHouse.animalLimit.Value = building.maxOccupants.Value;
+                    }
+                    return true;
+                });
             }
         }
         internal static void OnMailFlagGiven(string flag)

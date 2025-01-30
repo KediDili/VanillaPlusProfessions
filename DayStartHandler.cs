@@ -405,8 +405,8 @@ namespace VanillaPlusProfessions
             {
                 if (item is not null and StardewValley.Object bigcraftable)
                 {
-                    if (CoreUtility.AnyPlayerHasProfession("Trawler") || CoreUtility.AnyPlayerHasProfession("Hydrologist") || TalentUtility.AnyPlayerHasTalent("Fishing_Fish_Trap") ||
-                        TalentUtility.AnyPlayerHasTalent("Fishing_Diversification") || TalentUtility.AnyPlayerHasTalent("Fishing_Dead_Mans_Chest") || TalentUtility.AnyPlayerHasTalent("Fishing_Bait_And_Switch"))
+                    if (CoreUtility.AnyPlayerHasProfession("Trawler") || CoreUtility.AnyPlayerHasProfession("Hydrologist") || TalentUtility.AnyPlayerHasTalent("FishTrap") ||
+                        TalentUtility.AnyPlayerHasTalent("Diversification") || TalentUtility.AnyPlayerHasTalent("DeadMansChest"))
                     {
                         if (bigcraftable is not null and CrabPot crabPot)
                         {
@@ -419,11 +419,11 @@ namespace VanillaPlusProfessions
                                 @object = (StardewValley.Object)crabPot.Location.getFish(1f, bait, r.Next(1, 5), who, 5, crabPot.TileLocation);
                             } while (@object.HasContextTag("fish_legendary") || @object.HasContextTag("trash_item")); //so that you dont get legendaries in crabpots 
 
-                            if (TalentUtility.AnyPlayerHasTalent("Fishing_Fish_Trap") && (crabPot.heldObject.Value is null || crabPot.heldObject.Value?.HasContextTag("trash_item") is true) && r.NextBool(0.45))
+                            if (TalentUtility.AnyPlayerHasTalent("FishTrap") && (crabPot.heldObject.Value is null || crabPot.heldObject.Value?.HasContextTag("trash_item") is true) && r.NextBool(0.20))
                                 crabPot.heldObject.Value = @object;
                             if (crabPot.heldObject?.Value is null)
                             {
-                                if (TalentUtility.AnyPlayerHasTalent("Fishing_Dead_Mans_Chest") && r.NextBool(0.1))
+                                if (TalentUtility.AnyPlayerHasTalent("DeadMansChest") && r.NextBool(0.1))
                                     crabPot.heldObject.Value = ItemRegistry.Create("(O)275") as StardewValley.Object;
                             }
 
@@ -431,13 +431,15 @@ namespace VanillaPlusProfessions
                             {
                                 if (CoreUtility.AnyPlayerHasProfession("Trawler") && crabPot.bait.Value is not null)
                                     crabPot.heldObject.Value.Quality = r.NextBool(0.7) ? 2 : 4;
+                                if (crabPot.heldObject.Value.Stack < 5)
+                                {
+                                    if (CoreUtility.AnyPlayerHasProfession("Hydrologist"))
+                                        crabPot.heldObject.Value.Stack += r.NextBool(0.85) ? 0 : 1;
 
-                                if (CoreUtility.AnyPlayerHasProfession("Hydrologist"))
-                                    crabPot.heldObject.Value.Stack += (r.NextBool(0.7) ? 0 : 1);
-
-                                if (TalentUtility.AnyPlayerHasTalent("Fishing_Diversification") && crabPot.heldObject.Value?.QualifiedItemId != "(O)275")
-                                    if (crabPot.bait?.Value?.QualifiedItemId is "(O)774")
-                                        crabPot.heldObject.Value.Stack += 1;
+                                    else if (TalentUtility.AnyPlayerHasTalent("Diversification") && crabPot.heldObject.Value?.QualifiedItemId != "(O)275")
+                                        if (crabPot.bait?.Value?.QualifiedItemId is "(O)774")
+                                            crabPot.heldObject.Value.Stack += 1;
+                                }
                             }
                             
                             return true;
@@ -484,7 +486,7 @@ namespace VanillaPlusProfessions
                     if (bigcraftable.QualifiedItemId == "(BC)10" && bigcraftable.heldObject.Value is not null)
                     {
                         int tiles = TalentUtility.FlowersInBeeHouseRange(bigcraftable.Location, bigcraftable.TileLocation);
-                        if (TalentUtility.AnyPlayerHasTalent("Farming_Harmonious_Blooming") && Game1.random.NextBool(tiles * 0.05))
+                        if (TalentUtility.AnyPlayerHasTalent("Farming_Harmonious_Blooming") && Game1.random.NextBool(tiles * 0.05) && bigcraftable.heldObject.Value.Stack < 5)
                         {
                             bigcraftable.heldObject.Value.Stack += tiles / 6;
                             bigcraftable.heldObject.Value.FixStackSize();

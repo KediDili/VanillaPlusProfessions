@@ -315,7 +315,6 @@ namespace VanillaPlusProfessions
                             toReturn.Insert(index - 1, new(OpCodes.Ldfld, AccessTools.Field(typeof(LevelUpMenu), "professionsToChoose")));
                             toReturn.Insert(index, new(i == 0 ? OpCodes.Ldc_I4_0 : OpCodes.Ldc_I4_1));
 
-
                             break;
                         }
                     }
