@@ -817,6 +817,8 @@ If befriended, the Dwarf will gift you 1-3 metal bars via mail each week.
 ### Essence Infusion
 Each day, Sign of the Vessels will produce Solar Essence and Wicked Statues will produce Void Essence.
 
+Note: All existing Sign of The Vessels and Wicked Statues should be picked up and put down again for the talent to take function properly. This is due to how vanilla machine logic works.
+
 ### Elder Scrolls
 If the Dwarvish Translation Guide has been obtained, dwarf scrolls can be read for mining experience.
 
@@ -909,6 +911,8 @@ The recipe will require one of every gem.
 
 ### Nature Secrets
 Chance for chopped tree stumps to drop forage items.
+
+Note: If you're using CJB Cheat Menu's One-Hit-Break on trees, the talent may not work if you cut both the stump and the tree body too quickly. This is due to how the tree falling logic works.
 
 For Mod Authors: You can exclude your custom forage if you give it the ``kedi_vpp_banned_naturesecrets`` context tag.
 ### Primrose Path
