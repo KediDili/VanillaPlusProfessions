@@ -1,0 +1,44 @@
+{
+	"Changes": [
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"Entries": {
+				"(BC){{ModId}}_NodeMaker": {
+					"OutputRules": [
+						{
+							"Id": "{{ModId}}_Default",
+							"Triggers": [
+								{
+									"Id": "{{ModId}}_ItemPlacedInMachine",
+									"Trigger": "ItemPlacedInMachine",
+								}
+							],
+							"OutputItem": [
+								{
+									"Id": "{{ModId}}_Output",
+									"OutputMethod": "VanillaPlusProfessions.Craftables.MachineryOutputMethods, VanillaPlusProfessions: NodeMakerOutput",
+								},
+								/*{
+									"Id": "{{ModId}}_Output_ClayNode",
+									"ItemId": "(O)818",
+									"Condition": "ITEM_ID Input (O)330"
+								},*/
+							],
+							"DaysUntilReady": 2,
+						}
+					],
+					"AdditionalConsumedItems":[
+						{
+							"ItemId": "(O)330",
+							"RequiredCount": 2,
+							"InvalidCountMessage": "[LocalizedText Strings\\StringsFromCSFiles:{{ModId}}_NodeMaker_InvalidCount]",
+						}
+					],
+					"ShowNextIndexWhileWorking": true,
+					"InvalidItemMessage": "[LocalizedText Strings\\StringsFromCSFiles:{{ModId}}_NodeMaker_ProgrammableDrill_InvalidItem]",
+				}
+			}
+		}
+	]
+}

@@ -1,0 +1,40 @@
+{
+	"Changes": [
+		{
+			"LogName": "Smokehouse - Output Rule",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": ["(BC)FishSmoker", "OutputRules"],
+			"Entries":{
+				"Kedi.VPP.Smokehouse.OutputRule": {
+					"Id": "Kedi.VPP.Smokehouse.OutputRule",
+					"Triggers": [ 
+						{
+							"Id": "Kedi.VPP.Smokehouse.Trigger",
+							"Trigger": "ItemPlacedInMachine",
+							"RequiredItemId": "(O)SmokedFish",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Smokehouse, !ITEM_QUALITY Input 4"
+						} 
+					],
+					"MinutesUntilReady": 50,
+					"OutputItem": [
+						{
+							"Id": "Kedi.VPP.Smokehouse.OutputItem",
+							"ItemId": "FLAVORED_ITEM SmokedFish DROP_IN_ID DROP_IN_QUALITY",
+							"PreserveId": "DROP_IN_PRESERVE",
+							"CopyPrice": true,
+							"QualityModifiers": [
+								{
+									"Id": "Kedi.VPP.Smokehouse.Modifier",
+									"Amount": 1,
+									"Modification": "Add",
+									"Condition": "ITEM_ID Input (O)SmokedFish, KediDili.VanillaPlusProfessions_PlayerHasTalent Current Smokehouse"
+								}
+							]
+						}
+					]
+				}
+			}
+		},
+	]
+}

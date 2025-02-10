@@ -1,0 +1,61 @@
+{
+	"Changes": [
+		{
+			"Action": "EditData",
+			"Target": "Characters/Dialogue/Abigail, Characters/Dialogue/Alex, Characters/Dialogue/Caroline, Characters/Dialogue/Clint, Characters/Dialogue/Demetrius, Characters/Dialogue/Dwarf, Characters/Dialogue/Elliott, Characters/Dialogue/Emily, Characters/Dialogue/Evelyn, Characters/Dialogue/George, Characters/Dialogue/Gus, Characters/Dialogue/Harvey, Characters/Dialogue/Jas, Characters/Dialogue/Jodi, Characters/Dialogue/Kent, Characters/Dialogue/Leah, Characters/Dialogue/Lewis, Characters/Dialogue/Leo, Characters/Dialogue/Linus, Characters/Dialogue/Marnie, Characters/Dialogue/Maru, Characters/Dialogue/Pam, Characters/Dialogue/Penny, Characters/Dialogue/Robin, Characters/Dialogue/Sam, Characters/Dialogue/Sandy, Characters/Dialogue/Sebastian, Characters/Dialogue/Shane, Characters/Dialogue/Vincent, Characters/Dialogue/Wizard,",
+			"Entries": {
+				"VPP_GiftOfFriendship": "{{i18n:Dialogue.GiftOfFriendship.{{TargetWithoutPath}}}}"				
+			},
+			"When": {
+				"Hearts:{{TargetWithoutPath}}|contains={{Range:8,14}}": true,
+				"Random: {{Range: 1, 20}}": "20"
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Characters/Dialogue/Haley, Characters/Dialogue/Willy",
+			"Entries": {
+				"VPP_GiftOfFriendship": "{{ i18n:Dialogue.GiftOfFriendship.{{TargetWithoutPath}}|PoolItem={{TargetWithoutPath}}ItemPool }}"
+			},
+			"When": {
+				"Hearts:{{TargetWithoutPath}}|contains={{Range:8,14}}": true,
+				"Random: {{Range: 1, 20}}": "20"
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Characters/Dialogue/Pierre",
+			"Entries": {
+				"VPP_GiftOfFriendship": "{{i18n:Dialogue.GiftOfFriendship.Pierre}}"
+			},
+			"When": {
+				"Hearts:Pierre|contains={{Range:8,14}}": true,
+				"Random: {{Range: 1, 20}}": "20",
+				"HasFlag:CurrentPlayer|contains=jojaMember": "false"
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Characters/Dialogue/Pierre",
+			"Entries": {
+				"VPP_GiftOfFriendship": "{{i18n:Dialogue.GiftOfFriendship.Pierre.Joja}}"
+				
+			},
+			"When": {
+				"Hearts:Pierre|contains={{Range:8,14}}": true,
+				"Random: {{Range: 1, 20}}": "20",
+				"HasFlag:CurrentPlayer|contains=jojaMember": "true"
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Characters/Dialogue/Krobus",
+			"Entries": {
+				"VPP_GiftOfFriendship": "{{i18n:Dialogue.GiftOfFriendship.Krobus}}"
+			},
+			"When": {
+				"DayOfWeek|contains=Fri": "false"
+			}
+		}
+	]
+}

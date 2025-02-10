@@ -1,0 +1,395 @@
+{
+	"Changes": [
+		{
+			"Action": "EditData",
+			"Target": "Data/Shops",
+			"TargetField": [ "Dwarf", "Items"],
+			"Entries": {
+				"Kedi.VPP.AncestralWeaponry.DwarvishSword": {
+					"Id": "Kedi.VPP.AncestrialWeaponry.DwarvishSword",
+					"ItemId": "(W)54",
+                    "Price": 40000,
+                    "Condition": "PLAYER_VISITED_LOCATION Current IslandSouth, KediDili.VanillaPlusProfessions_PlayerHasTalent Current AncestralWeaponry"
+				},
+				"Kedi.VPP.AncestralWeaponry.DwarvishHammer": {
+					"Id": "Kedi.VPP.AncestrialWeaponry.DwarvishHammer",
+					"ItemId": "(W)55",
+                    "Price": 40000,
+                   "Condition": "PLAYER_VISITED_LOCATION Current IslandSouth, KediDili.VanillaPlusProfessions_PlayerHasTalent Current AncestralWeaponry"
+				}, 
+				"Kedi.VPP.AncestralWeaponry.DwarvishDagger": {
+					"Id": "Kedi.VPP.AncestrialWeaponry.DwarvishDagger",
+					"ItemId": "(W)56",
+                    "Price": 40000,
+                    "Condition": "PLAYER_VISITED_LOCATION Current IslandSouth, KediDili.VanillaPlusProfessions_PlayerHasTalent Current AncestralWeaponry"
+				},
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Shops",
+			"TargetField": [ "Carpenter", "Items"],
+			"Entries": { 
+				"Kedi.VPP.StraightRun.Staircase": {
+					"Id": "Kedi.VPP.StraightRun.Staircase",
+					"ItemId": "(BC)71",
+					"Price": "2000",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current StraightRun"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Shops",
+			"TargetField": [ "Bookseller", "Items" ],
+			"Fields": { 
+				"(O)PurpleBook": {
+					"Price": 5000,
+				},
+				"RandomSkillBook1": {
+					"Price": 5000,
+				},
+				"RandomSkillBook2": {
+					"Price": 4000,
+				},
+				"RandomSkillBook3": {
+					"Price": 2500,
+				},
+				"RandomBook": {
+					"Price": 12500,
+				},
+				"(O)Book_Speed": {
+					"Price": 10000,
+				},
+				"(O)Book_Speed2": {
+					"Price": 15000,
+				},
+				"(O)Book_Horse": {
+					"Price": 20000,
+				},
+				"(O)Book_Grass": {
+					"Price": 15000,
+				},
+				"(O)Book_QueenOfSauce": {
+					"Price": 25000,
+				},
+				"(O)SkillBook_2": {
+					"Price": 4000,
+				}
+			},
+			"When": { 
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=BookclubBargains": "true"
+			},
+			"Update": "OnTimeChange",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Shops",
+			"TargetField": [ "AnimalShop", "PriceModifiers" ],
+			"Entries":{
+				"Kedi.VPP.MatesRates_AnimalShop_1": {
+					"Id": "Kedi.VPP.MatesRates_AnimalShop_1",
+					"Amount": 0.8,
+					"Modification": "Multiply",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current MatesRates, PLAYER_HEARTS Current Marnie 6"
+				},
+				"Kedi.VPP.MatesRates_AnimalShop_2": {
+					"Id": "Kedi.VPP.MatesRates_AnimalShop_2",
+					"Amount": 0.8,
+					"Modification": "Multiply",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current MatesRates, PLAYER_HEARTS Current Shane 6"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Shops",
+			"TargetField": [ "Blacksmith", "PriceModifiers" ],
+			"Entries":{
+				"Kedi.VPP.MatesRates_Blacksmith": {
+					"Id": "Kedi.VPP.MatesRates_Blacksmith",
+					"Amount": 0.8,
+					"Modification": "Multiply",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current MatesRates, PLAYER_HEARTS Current Clint 6"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Shops",
+			"TargetField": [ "Carpenter", "PriceModifiers" ],
+			"Entries":{
+				"Kedi.VPP.MatesRates_Carpenter": {
+					"Id": "Kedi.VPP.MatesRates_Carpenter",
+					"Amount": 0.8,
+					"Modification": "Multiply",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current MatesRates, PLAYER_HEARTS Current Robin 6"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Shops",
+			"TargetField": [ "Dwarf", "PriceModifiers" ],
+			"Entries":{
+				"Kedi.VPP.MatesRates_Dwarf": {
+					"Id": "Kedi.VPP.MatesRates_Dwarf",
+					"Amount": 0.8,
+					"Modification": "Multiply",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current MatesRates, PLAYER_HEARTS Current Dwarf 6"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Shops",
+			"TargetField": [ "Festival_DanceOfTheMoonlightJellies_Pierre", "PriceModifiers" ],
+			"Entries":{
+				"Kedi.VPP.MatesRates_Festival_DanceOfTheMoonlightJellies_Pierre": {
+					"Id": "Kedi.VPP.MatesRates_Festival_DanceOfTheMoonlightJellies_Pierre",
+					"Amount": 0.8,
+					"Modification": "Multiply",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current MatesRates, PLAYER_HEARTS Current Pierre 6"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Shops",
+			"TargetField": [ "Festival_EggFestival_Pierre", "PriceModifiers" ],
+			"Entries":{
+				"Kedi.VPP.MatesRates_Festival_EggFestival_Pierre": {
+					"Id": "Kedi.VPP.MatesRates_Festival_EggFestival_Pierre",
+					"Amount": 0.8,
+					"Modification": "Multiply",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current MatesRates, PLAYER_HEARTS Current Pierre 6"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Shops",
+			"TargetField": [ "Festival_FeastOfTheWinterStar_Pierre", "PriceModifiers" ],
+			"Entries":{
+				"Kedi.VPP.MatesRates_Festival_FeastOfTheWinterStar_Pierre": {
+					"Id": "Kedi.VPP.MatesRates_Festival_FeastOfTheWinterStar_Pierre",
+					"Amount": 0.8,
+					"Modification": "Multiply",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current MatesRates, PLAYER_HEARTS Current Pierre 6"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Shops",
+			"TargetField": [ "Festival_FlowerDance_Pierre", "PriceModifiers" ],
+			"Entries":{
+				"Kedi.VPP.MatesRates_Festival_FlowerDance_Pierre": {
+					"Id": "Kedi.VPP.MatesRates_Festival_FlowerDance_Pierre",
+					"Amount": 0.8,
+					"Modification": "Multiply",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current MatesRates, PLAYER_HEARTS Current Pierre 6"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Shops",
+			"TargetField": [ "Festival_Luau_Pierre", "PriceModifiers" ],
+			"Entries":{
+				"Kedi.VPP.MatesRates_Festival_Luau_Pierre": {
+					"Id": "Kedi.VPP.MatesRates_Festival_Luau_Pierre",
+					"Amount": 0.8,
+					"Modification": "Multiply",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current MatesRates, PLAYER_HEARTS Current Pierre 6"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Shops",
+			"TargetField": [ "Festival_SpiritsEve_Pierre", "PriceModifiers" ],
+			"Entries":{
+				"Kedi.VPP.MatesRates_Festival_SpiritsEve_Pierre": {
+					"Id": "Kedi.VPP.MatesRates_Festival_SpiritsEve_Pierre",
+					"Amount": 0.8,
+					"Modification": "Multiply",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current MatesRates, PLAYER_HEARTS Current Pierre 6"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Shops",
+			"TargetField": [ "FishShop", "PriceModifiers" ],
+			"Entries":{
+				"Kedi.VPP.MatesRates_FishShop": {
+					"Id": "Kedi.VPP.MatesRates_FishShop",
+					"Amount": 0.8,
+					"Modification": "Multiply",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current MatesRates, PLAYER_HEARTS Current Willy 6"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Shops",
+			"TargetField": [ "Hospital", "PriceModifiers" ],
+			"Entries":{
+				"Kedi.VPP.MatesRates_Hospital": {
+					"Id": "Kedi.VPP.MatesRates_Hospital",
+					"Amount": 0.8,
+					"Modification": "Multiply",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current MatesRates, PLAYER_HEARTS Current Harvey 6"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Shops",
+			"TargetField": [ "IceCreamStand", "PriceModifiers" ],
+			"Entries":{
+				"Kedi.VPP.MatesRates_IceCreamStand": {
+					"Id": "Kedi.VPP.MatesRates_IceCreamStand",
+					"Amount": 0.8,
+					"Modification": "Multiply",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current MatesRates, PLAYER_HEARTS Current Alex 6"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Shops",
+			"TargetField": [ "ResortBar", "PriceModifiers" ],
+			"Entries":{
+				"Kedi.VPP.MatesRates_ResortBar": {
+					"Id": "Kedi.VPP.MatesRates_ResortBar",
+					"Amount": 0.8,
+					"Modification": "Multiply",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current MatesRates, PLAYER_HEARTS Current Gus 6"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Shops",
+			"TargetField": [ "Saloon", "PriceModifiers" ],
+			"Entries":{
+				"Kedi.VPP.MatesRates_Saloon_1": {
+					"Id": "Kedi.VPP.MatesRates_Saloon_1",
+					"Amount": 0.8,
+					"Modification": "Multiply",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current MatesRates, PLAYER_HEARTS Current Gus 6"
+				},
+				"Kedi.VPP.MatesRates_Saloon_2": {
+					"Id": "Kedi.VPP.MatesRates_Saloon_2",
+					"Amount": 0.8,
+					"Modification": "Multiply",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current MatesRates, PLAYER_HEARTS Current Emily 6"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Shops",
+			"TargetField": [ "Sandy", "PriceModifiers" ],
+			"Entries":{
+				"Kedi.VPP.MatesRates_Sandy": {
+					"Id": "Kedi.VPP.MatesRates_Sandy",
+					"Amount": 0.8,
+					"Modification": "Multiply",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current MatesRates, PLAYER_HEARTS Current Sandy 6"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Shops",
+			"TargetField": [ "SeedShop", "PriceModifiers" ],
+			"Entries":{
+				"Kedi.VPP.MatesRates_SeedShopy": {
+					"Id": "Kedi.VPP.MatesRates_SeedShop",
+					"Amount": 0.8,
+					"Modification": "Multiply",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current MatesRates, PLAYER_HEARTS Current Pierre 6"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Shops",
+			"TargetField": [ "ShadowShop", "PriceModifiers" ],
+			"Entries":{
+				"Kedi.VPP.MatesRates_ShadowShop": {
+					"Id": "Kedi.VPP.MatesRates_ShadowShop",
+					"Amount": 0.8,
+					"Modification": "Multiply",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current MatesRates, PLAYER_HEARTS Current Krobus 6"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Shops",
+			"TargetField": [ "Blacksmith", "Items"],
+			"Entries": {
+				"{{ModId}}_Shops_Drill": {
+					"Id": "{{ModId}}_Shops_Drill",
+					"ItemId": "{{ModId}}_ProgrammableDrill",
+					"Price": 6000,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CraftSupplies, PLAYER_MINING_LEVEL Current 12",
+				},
+				"{{ModId}}_Shops_Reactor": {
+					"Id": "{{ModId}}_Shops_Reactor",
+					"ItemId": "{{ModId}}_ThermalReactor",
+					"Price": 5000,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CraftSupplies, PLAYER_MINING_LEVEL Current 13",
+				},
+				"{{ModId}}_Shops_NodeMaker": {
+					"Id": "{{ModId}}_Shops_NodeMaker",
+					"ItemId": "{{ModId}}_NodeMaker",
+					"Price": 5000,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CraftSupplies, PLAYER_MINING_LEVEL Current 14",
+				},
+				"{{ModId}}_Shops_Collector": {
+					"Id": "{{ModId}}_Shops_Collector",
+					"ItemId": "{{ModId}}_DrillCollector",
+					"Price": 6000,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CraftSupplies, PLAYER_MINING_LEVEL Current 17",
+				},
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Shops",
+			"TargetField": [ "Carpenter", "Items"],
+			"Entries": {
+				"{{ModId}}_Shops_Minecart": {
+					"Id": "{{ModId}}_Shops_Minecart",
+					"ItemId": "{{ModId}}_MinecartChest",
+					"Price": 6000,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CraftSupplies, PLAYER_MINING_LEVEL Current 16",
+				},
+				"{{ModId}}_Shops_Crystal": {
+					"Id": "{{ModId}}_Shops_Crystal",
+					"ItemId": "{{ModId}}_GlowingCrystal",
+					"Price": 2500,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CraftSupplies, PLAYER_MINING_LEVEL Current 11",
+				},
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Shops",
+			"TargetField": [ "Saloon", "Items"],
+			"Entries": {
+				"{{ModId}}_Shops_Meal": {
+					"Id": "{{ModId}}_Shops_Meal",
+					"ItemId": "{{ModId}}_MinersMeal",
+					"Price": 7500,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CraftSupplies, PLAYER_MINING_LEVEL Current 19",
+				},
+			}
+		}
+	]
+}

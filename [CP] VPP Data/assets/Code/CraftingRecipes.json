@@ -1,0 +1,97 @@
+{
+	"Changes": [
+		{
+			"Action": "EditData",
+			"Target": "Data/CraftingRecipes",
+			"Entries": {
+				"Cherry Bomb": "378 3 382 1/Field/286/false/s Mining 1/",
+				"Staircase": "390 66/Field/71/true/s Mining 2/",
+				"Glowstone Ring": "768 3 335 4/Home/888/Ring/s Mining 4/",
+				"Bomb": "380 2 382 1/Field/287/false/s Mining 6/",
+				"Mega Bomb": "384 3 768 1 769 1/Field/288/false/s Mining 8/",
+				"Crystalarium": "390 60 336 3 337 1 787 1/Home/21/true/s Mining 9/",
+				"Transmute (Fe)": "334 5/Home/335 2/false/s Mining 4/[LocalizedText Strings\\Objects:CraftingRecipe_IronBar]",
+				"Transmute (Au)": "335 3/Home/336 2/false/s Mining 7/[LocalizedText Strings\\Objects:CraftingRecipe_GoldBar]"
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasProfessions|contains=Crafter": "true"
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/CraftingRecipes",
+			"Entries": {
+				"Quality Sprinkler": "336 1 382 1 599 1/Home/621/false/s Farming 6/",
+				"Iridium Sprinkler": "337 1 787 1 621 1/Home/645/false/s Farming 9/"
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=Upcycling": "true"
+			},
+			"Update": "OnTimeChange",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/CraftingRecipes",
+			"Entries": {
+                "Cookout Kit": "388 5 771 5 382 1/Field/926/false/s Foraging 3/",
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=SurvivalCooking": "true"
+			},
+			"Update": "OnTimeChange",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/CraftingRecipes",
+			"Entries": {
+                "Wood Fence": "388 2/Field/322 2/false//",
+                "Stone Fence": "390 2/Field/323 2/false/s Farming 2/",
+                "Iron Fence": "335 1/Field/324 20/false/s Farming 4/",
+                "Hardwood Fence": "709 1/Field/298 2/false/s Farming 6/",
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=DriftFencing": "true"
+			},
+			"Update": "OnTimeChange",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/CraftingRecipes",
+			"Entries": {
+				"Prismatic Shard": "64 1 68 1 70 1 60 1 72 1 62 1 66 1/Home/74/false/null/",
+				"VPP Snail Tackle": "335 1 721 1/Home/Kedi.VPP.SnailTackle/false/null/",
+                "VPP Large Maple Syrup": "Kedi.VPP.LargeMapleSyrup/Home/724 3/false/null/[LocalizedText Strings\\Objects:MapleSyrup_Name]",
+                "VPP Large Oak Resin": "Kedi.VPP.LargeOakResin/Home/725 3/false/null/[LocalizedText Strings\\Objects:OakResin_Name]",
+				"VPP Large Pine Tar": "Kedi.VPP.LargePineTar/Home/726 3/false/null/[LocalizedText Strings\\Objects:PineTar_Name]",
+				"Transmute (Ir)": "910 2/Home/337 5/false/null/[LocalizedText Strings\\Objects:Transmute_Ir_Name]",
+				"Transmute (Au) 2": "337 2/Home/336 5/false/null/[LocalizedText Strings\\Objects:Transmute_Au_2_Name]",
+				"VPP Trinket Workbench": "709 50 335 3/Field/Kedi.VPP.Accessorise.TrinketWorkbench/true/null/",
+                "VPP Fertigator": "915 1 913 1/Field/Kedi.VPP.Fertigator/false/null/",
+				"VPP Parrot Perch": "709 10/Field/Kedi.VPP.HiddenBenefits.ParrotPerch/true/null/",
+				"VPP Glowing Crystal": "80 35 390 30 382 1/Field/{{ModId}}_GlowingCrystal/true/s Mining 11/", //35 quartz, 30 stone, 1 coal
+                "VPP Programmable Drill": "122 1 334 10 335 5/Field/{{ModId}}_ProgrammableDrill/true/s Mining 12/", //1 Dwarf gadget, 10 copper bars, 5 iron bars
+                "VPP Thermal Reactor": "82 45 573 1 84 3/Field/{{ModId}}_ThermalReactor/true/s Mining 13/", //45 fire quartz, Hematite, 3 frozen tears
+                "VPP Node Maker": "111 1 335 15 336 15/Field/{{ModId}}_NodeMaker/true/s Mining 14/", // Rusty Cog, 5 iron bars, 5 gold bars
+                "VPP Minecart Chest": "709 25 390 16 Kedi.VPP.LargeOakResin 1/Field/{{ModId}}_MinecartChest/true/s Mining 16/", //25 hardwood, 16 stone, 1 large oak resin
+                "VPP Machinery Collector": "122 1 334 20/Field/{{ModId}}_DrillCollector/true/s Mining 17/", //1 Dwarf gadget, 20 copper bars
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/CookingRecipes",
+			"Entries": {
+				"VPP Grilled Leek": "20/12 3/Kedi.VPP.GrilledLeek/null/",
+				"VPP Seaweed Salad": "152 2/12 3/Kedi.VPP.SeaweedSalad/null/",
+				"VPP Trail Mix": "408 1 396 1/12 3/Kedi.VPP.TrailMix/null/",
+				"VPP Roasted Fiddleheads": "259/12 3/Kedi.VPP.RoastedFiddleheads/null/",
+				"VPP Wild Fruit Salad": "410 1 296 1/12 3/Kedi.VPP.WildFruitSalad/null/",
+				"VPP Grilled Fish": "-4/12 3/Kedi.VPP.GrilledFish/null/",
+				"VPP Baked Tubers": "416 1 412 1/12 3/Kedi.VPP.BakedTubers/null/",
+				"VPP Mushroom Kebab": "404 2/12 3/Kedi.VPP.MushroomKebab/null/",
+				"VPP Fried Bug Steak": "874/12 3/Kedi.VPP.FriedBugSteak/null/",
+				"VPP Steamed Clams": "372 2/12 3/Kedi.VPP.SteamedClams/null/",
+                "VPP Miners Meal": "238 1 243 1 200 1/12 3/{{ModId}}_MinersMeal/s Mining 19/",
+			}
+		},
+	]
+} 

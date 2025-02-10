@@ -1,0 +1,43 @@
+{
+	"Changes": [
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": ["(BC)21", "OutputRules", "Default", "Triggers"],
+			"Entries": {
+				"Kedi.VPP.Synthesis": {
+					"Id": "Kedi.VPP.Synthesis",
+					"Trigger": "ItemPlacedInMachine",
+					"Condition": "PLAYER_HAS_MAIL Current Mining_Synthesis Received",
+					"RequiredTags": [ "geode" ]
+				}
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": ["(BC)21", "ReadyTimeModifiers"],
+			"Entries": {
+				"Kedi.VPP.Geometry": {
+					"Id": "Kedi.VPP.Geometry",
+					"Modification": "Multiply",
+					"Amount": 0.7,
+					"Condition": "PLAYER_HAS_MAIL Current Mining_Geometry Received"
+				}
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": ["(BC)21", "OutputRules", "Default", "OutputItem", "Default", "QualityModifiers" ],
+			"Entries": {
+				"Kedi.VPP.Geometry": {
+					"Id": "Kedi.VPP.Geometry",
+					"Modification": "Add",
+					"Amount": 1,
+					"Condition": "PLAYER_HAS_MAIL Current Mining_Dazzle Received, RANDOM 0.25"
+				}
+			}
+		},
+	]
+}

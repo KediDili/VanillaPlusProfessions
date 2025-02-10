@@ -1,0 +1,9 @@
+{
+	"Changes": [
+		{
+			"Action": "Load",
+			"Target": "Buildings/{{ModId}}/MineralCavern, TileSheets/{{ModId}}/Machinery, TileSheets/{{ModId}}/ItemIcons, Buildings\\{{ModId}}\\SmallSaltTent, Buildings\\{{ModId}}\\SmallSaltTent_PaintMask,  Buildings\\{{ModId}}\\Sawmill, Buildings\\{{ModId}}\\Sawmill_PaintMask",
+			"FromFile": "assets/Art/{{TargetWithoutPath}}.png",
+		}
+	]
+}

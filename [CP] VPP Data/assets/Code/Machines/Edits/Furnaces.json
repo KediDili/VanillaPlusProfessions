@@ -1,0 +1,202 @@
+{
+	"Changes": [
+		{
+			"LogName": "Metallurgist - Furnace - Copper Ore",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": ["(BC)13", "OutputRules", "Default_CopperOre", "Triggers"],
+			"Fields":{ 
+				"ItemPlacedInMachine": {
+					"RequiredCount": 3
+				}
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasProfessions|contains=Metallurgist": true,
+			}
+		},
+		{
+			"LogName": "Metallurgist - Furnace - Iron Ore",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": ["(BC)13", "OutputRules", "Default_IronOre", "Triggers"],
+			"Fields":{ 
+				"ItemPlacedInMachine": {
+					"RequiredCount": 3
+				}
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasProfessions|contains=Metallurgist": true,
+			}
+		},
+		{
+			"LogName": "Metallurgist - Furnace - Gold Ore",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": ["(BC)13", "OutputRules", "Default_GoldOre", "Triggers"],
+			"Fields":{ 
+				"ItemPlacedInMachine": {
+					"RequiredCount": 3
+				}
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasProfessions|contains=Metallurgist": true,
+			}
+		},
+		{
+			"LogName": "Metallurgist - Furnace - Iridium Ore",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": ["(BC)13", "OutputRules", "Default_IridiumOre", "Triggers"],
+			"Fields":{ 
+				"ItemPlacedInMachine": {
+					"RequiredCount": 3
+				}
+
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasProfessions|contains=Metallurgist": true,
+			}
+		},
+		{
+			"LogName": "Metallurgist - Furnace - Radioactive Ore",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": ["(BC)13", "OutputRules", "Default_RadioactiveOre", "Triggers"],
+			"Fields":{ 
+				"ItemPlacedInMachine": {
+					"RequiredCount": 3
+				}
+
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasProfessions|contains=Metallurgist": true,
+			}
+		},
+		{
+			"LogName": "Metallurgist - Heavy Furnace - Copper Ore",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": ["(BC)HeavyFurnace", "OutputRules", "Default_CopperOre", "Triggers"],
+			"Fields":{
+				"ItemPlacedInMachine": {
+					"RequiredCount": 20
+				}
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasProfessions|contains=Metallurgist": true,
+			}
+		},
+		{
+			"LogName": "Metallurgist - Heavy Furnace - Iron Ore",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": ["(BC)HeavyFurnace", "OutputRules", "Default_IronOre", "Triggers"],
+			"Fields":{ 
+				"ItemPlacedInMachine": {
+					"RequiredCount": 20
+				}
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasProfessions|contains=Metallurgist": true,
+			}
+		},
+		{
+			"LogName": "Metallurgist - Heavy Furnace - Gold Ore",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": ["(BC)HeavyFurnace", "OutputRules", "Default_GoldOre", "Triggers" ],
+			"Fields":{ 
+				"ItemPlacedInMachine": {
+					"RequiredCount": 20
+				}
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasProfessions|contains=Metallurgist": true,
+			}
+		},
+		{
+			"LogName": "Metallurgist - Heavy Furnace - Iridium Ore",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": ["(BC)HeavyFurnace", "OutputRules", "Default_IridiumOre", "Triggers"],
+			"Fields":{ 
+				"ItemPlacedInMachine": {
+					"RequiredCount": 20
+				}
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasProfessions|contains=Metallurgist": true,
+			}
+		},
+		{
+			"LogName": "Metallurgist - Heavy Furnace - Radioactive Ore",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": ["(BC)HeavyFurnace", "OutputRules", "Default_RadioactiveOre", "Triggers"],
+			"Fields":{ 
+				"ItemPlacedInMachine": {
+					"RequiredCount": 20
+				}
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasProfessions|contains=Metallurgist": true,
+			}
+		},
+		{
+			"LogName": "Metallurgist - Heavy Furnace - Fire Quartz",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": ["(BC)HeavyFurnace", "OutputRules", "Default_FireQuartz", "Triggers"],
+			"Fields":{ 
+				"ItemPlacedInMachine": {
+					"RequiredCount": 4
+				}
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasProfessions|contains=Metallurgist": true,
+			}
+		},
+		{
+			"LogName": "Metallurgist - Heavy Furnace - Quartz",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": ["(BC)HeavyFurnace", "OutputRules", "Default_Quartz", "Triggers" ],
+			"Fields":{ 
+				"ItemPlacedInMachine": {
+					"RequiredCount": 4
+				}
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasProfessions|contains=Metallurgist": true,
+			}
+		},
+		{
+			"LogName": "Ignitor - Heavy Furnace",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": ["(BC)HeavyFurnace", "ReadyTimeModifiers"],
+			"Entries":{  
+				"Kedi.VPP.Ignitor": {
+					"Id": "Kedi.VPP.Ignitor",
+					"Amount": 0.75,
+					"Modification": "Multiply",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Ignitor"
+				}
+			}
+		},
+		{
+			"LogName": "Ignitor - Furnace",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": ["(BC)13", "ReadyTimeModifiers"],
+			"Entries":{  
+				"Kedi.VPP.Ignitor": {
+					"Id": "Kedi.VPP.Ignitor",
+					"Amount": 0.75,
+					"Modification": "Multiply",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Ignitor"
+				}
+			}
+		}
+	]
+}

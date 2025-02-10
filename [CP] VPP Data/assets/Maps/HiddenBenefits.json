@@ -1,0 +1,144 @@
+{
+	"Changes": [
+		{
+			"Action": "EditMap",
+			"Target": "Maps/AnimalShop",
+			"MapTiles": [
+				{
+					"Position":{	
+						"X": "11", //Spur
+						"Y": "5",
+					},
+					"Layer": "Buildings",
+					"SetProperties":{
+						"Action": "Letter HiddenBenefits.GoldenSpur"
+					}
+				},
+				{
+					"Position":{	
+						"X": "8", //Fairy Box
+						"Y": "9",
+					},
+					"Layer": "Buildings",
+					"SetProperties":{
+						"Action": "Letter HiddenBenefits.FairyBox"
+					},
+					"SetIndex": "431",
+					"SetTilesheet": "1",
+				}
+			]
+		},
+		{
+			"Action": "EditMap",
+			"Target": "Maps/HaleyHouse",
+			"MapTiles": [
+				{
+					"Position":{	
+						"X": "14", //Parrot Egg
+						"Y": "10",
+					},
+					"Layer": "Buildings",
+					"SetProperties":{
+						"Action": "Letter HiddenBenefits.ParrotEgg"
+					}
+				}
+			]			
+		},
+		{
+			"Action": "EditMap",
+			"Target": "Maps/JoshHouse",
+			"MapTiles": [
+				{
+					"Position":{	
+						"X": "15", //Hair Gel
+						"Y": "3",
+					},
+					"Layer": "Buildings",
+					"SetProperties":{
+						"Action": "Letter HiddenBenefits.MagicHairGel"
+					}
+				}
+			]
+		},
+		{
+			"Action": "EditMap",
+			"Target": "Maps/WizardHouseBasement",
+			"MapTiles": [
+				{
+					"Position":{	
+						"X": "5", //Basilisk Paw
+						"Y": "4",
+					},
+					"Layer": "Buildings",
+					"SetIndex": "431",
+					"SetTilesheet": "wizardhouse",
+					"SetProperties":{
+						"Action": "Letter HiddenBenefits.BasiliskPaw"
+					}
+				}
+			]
+		},
+		{
+			"Action": "EditMap",
+			"Target": "Maps/SebastianRoom",
+			"MapTiles": [
+				{
+					"Position":{	
+						"X": "4", //Frog egg
+						"Y": "12",
+					},
+					"Layer": "Buildings",
+					"SetProperties":{
+						"Action": "Letter HiddenBenefits.FrogEgg"
+					}
+				}
+			]
+		},
+		{
+			"Action": "EditMap",
+			"Target": "Maps/SeedShop",
+			"MapTiles": [
+				{
+					"Position":{	
+						"X": "6", //Ice Rod
+						"Y": "16",
+					},
+					"Layer": "Buildings",
+					"SetProperties":{
+						"Action": "Letter HiddenBenefits.IceRod"
+					}
+				}
+			]
+		},
+		{
+			"Action": "EditMap",
+			"Target": "Maps/AdventureGuild",
+			"MapTiles": [
+				{
+					"Position":{	
+						"X": "11", //Magic Quiver
+						"Y": "7",
+					},
+					"Layer": "Buildings",
+					"SetProperties":{
+						"Action": "Letter HiddenBenefits.MagicQuiver"
+					}
+				}
+			]
+		},
+		{
+			"Action": "EditData",
+			"Target": "Strings/StringsFromMaps",
+			"Entries": {
+				"HiddenBenefits.FairyBox": "{{i18n:Messages.HiddenBenefits.FairyBox}}",
+				"HiddenBenefits.IceRod": "{{i18n:Messages.HiddenBenefits.IceRod}}",
+				"HiddenBenefits.BasiliskPaw": "{{i18n:Messages.HiddenBenefits.BasiliskPaw}}",
+				"HiddenBenefits.MagicQuiver": "{{i18n:Messages.HiddenBenefits.MagicQuiver}}",
+				"HiddenBenefits.ParrotEgg": "{{i18n:Messages.HiddenBenefits.ParrotEgg}}",
+				"HiddenBenefits.FrogEgg": "{{i18n:Messages.HiddenBenefits.FrogEgg}}",
+				"HiddenBenefits.GoldenSpur": "{{i18n:Messages.HiddenBenefits.GoldenSpur}}",
+				"HiddenBenefits.MagicHairGel": "{{i18n:Messages.HiddenBenefits.MagicHairGel}}",
+			}
+		}
+	]
+}

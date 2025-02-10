@@ -1,0 +1,18 @@
+{
+	"Changes": [
+		{
+			"LogName": "Dehydrator - Machinist",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Dehydrator", "ReadyTimeModifiers" ],
+			"Entries":{
+				"Kedi.VPP.MachinistProfession.1": {
+					"Id": "Kedi.VPP.MachinistProfession.1",
+					"Amount": 0.75,
+					"Modification": "Multiply",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Machinist"
+				}
+			}
+		}
+	]
+}

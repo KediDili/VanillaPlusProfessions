@@ -1,0 +1,176 @@
+{
+	"Changes": [
+		{
+			"Action": "EditData",
+			"Target": "Data/Buildings",
+			"Fields": {
+				"Deluxe Coop": {
+					"MaxOccupants": 15
+				},
+				"Deluxe Barn": {
+					"MaxOccupants": 15
+				},
+				"Big Barn": {
+					"MaxOccupants": 10
+				},
+				"Big Coop": {
+					"MaxOccupants": 10
+				},
+				"Coop": {
+					"MaxOccupants": 5
+				},
+				"Barn": {
+					"MaxOccupants": 5
+				}
+			},
+			"When": {
+				"HasFlag: CurrentPlayer|contains= Farming_Overcrowding": "true"
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Buildings",
+			"Fields": {
+				"Earth Obelisk": {
+					"BuildCost": 50000
+				},
+				"Water Obelisk": {
+					"BuildCost": 50000
+				},
+				"Desert Obelisk": {
+					"BuildCost": 100000
+				},
+				"Island Obelisk": {
+					"BuildCost": 100000
+				},
+			},
+			"When": {
+				"HasFlag: CurrentPlayer|contains= Misc_MonumentalDiscount": "true"
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Buildings",
+			"TargetField": [
+				"Mill",
+				"ItemConversions",
+				"Default_UnmilledRice",
+				"ProducedItems",
+				"(O)423",
+				"QualityModifiers"
+			],
+			"Entries": {
+					"Kedi.VPP.FineGrind.Rice.1": {
+						"Id": "Kedi.VPP.FineGrind.Rice.1",
+						"Modification": "Set",
+						"Condition": "ITEM_QUALITY Input 1, PLAYER_HAS_MAIL Current Farming_Fine_Grind Received",
+						"Amount": 1
+					},
+					"Kedi.VPP.FineGrind.Rice.2": {
+						"Id": "Kedi.VPP.FineGrind.Rice.2",
+						"Modification": "Set",
+						"Condition": "ITEM_QUALITY Input 2, PLAYER_HAS_MAIL Current Farming_Fine_Grind Received",
+						"Amount": 2
+					},
+					"Kedi.VPP.FineGrind.Rice.4": {
+						"Id": "Kedi.VPP.FineGrind.Rice.4",
+						"Modification": "Set",
+						"Condition": "ITEM_QUALITY Input 4, PLAYER_HAS_MAIL Current Farming_Fine_Grind Received",
+						"Amount": 4
+					}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Buildings",
+			"TargetField": [
+				"Mill",
+				"ItemConversions",
+				"Default_Wheat",
+				"ProducedItems",
+				"(O)246",
+				"QualityModifiers"
+			],
+			"Entries": {
+					"Kedi.VPP.FineGrind.Wheat.1": {
+						"Id": "Kedi.VPP.FineGrind.Wheat.1",
+						"Modification": "Set",
+						"Condition": "ITEM_QUALITY Input 1, PLAYER_HAS_MAIL Current Farming_Fine_Grind Received",
+						"Amount": 1
+					},
+					"Kedi.VPP.FineGrind.Wheat.2": {
+						"Id": "Kedi.VPP.FineGrind.Wheat.2",
+						"Modification": "Set",
+						"Condition": "ITEM_QUALITY Input 2, PLAYER_HAS_MAIL Current Farming_Fine_Grind Received",
+						"Amount": 2
+					},
+					"Kedi.VPP.FineGrind.Wheat.4": {
+						"Id": "Kedi.VPP.FineGrind.Wheat.4",
+						"Modification": "Set",
+						"Condition": "ITEM_QUALITY Input 4, PLAYER_HAS_MAIL Current Farming_Fine_Grind Received",
+						"Amount": 4
+					}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Buildings",
+			"TargetField": [
+				"Mill",
+				"ItemConversions",
+				"Default_Beet",
+				"ProducedItems",
+				"(O)245",
+				"QualityModifiers"
+			],
+			"Entries": {
+					"Kedi.VPP.FineGrind.Wheat.1": {
+						"Id": "Kedi.VPP.FineGrind.Wheat.1",
+						"Modification": "Set",
+						"Condition": "ITEM_QUALITY Input 1, PLAYER_HAS_MAIL Current Farming_Fine_Grind Received",
+						"Amount": 1
+					},
+					"Kedi.VPP.FineGrind.Wheat.2": {
+						"Id": "Kedi.VPP.FineGrind.Wheat.2",
+						"Modification": "Set",
+						"Condition": "ITEM_QUALITY Input 2, PLAYER_HAS_MAIL Current Farming_Fine_Grind Received",
+						"Amount": 2
+					},
+					"Kedi.VPP.FineGrind.Wheat.4": {
+						"Id": "Kedi.VPP.FineGrind.Wheat.4",
+						"Modification": "Set",
+						"Condition": "ITEM_QUALITY Input 4, PLAYER_HAS_MAIL Current Farming_Fine_Grind Received",
+						"Amount": 4
+					}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Buildings",
+			"Fields": {
+				"Fish Pond": {
+					"BuildCost": 2000
+				}
+			},
+			"When": {
+				"HasFlag: CurrentPlayer|contains= Fishing_Fishery_Grant": "true"
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Buildings",
+			"TargetField": [
+				"Fish Pond",
+				"BuildMaterials"
+			],
+			"Fields": {
+				"(O)390": {
+					"Amount": 100
+				}
+			},
+			"When": {
+				"HasFlag: CurrentPlayer|contains= Fishing_Fishery_Grant": "true"
+			}
+		}
+	]
+}

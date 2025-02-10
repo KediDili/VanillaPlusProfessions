@@ -1,0 +1,55 @@
+{
+	"Changes": [
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": ["(BC)FishSmoker", "OutputRules", "SmokedFish", "Triggers"],
+			"Entries":{
+				"Kedi.VPP.Smokehouse.Trigger": {
+					"Id": "Kedi.VPP.Smokehouse.Trigger",
+					"Trigger": "ItemPlacedInMachine",
+					"Condition": "ITEM_ID Input (O)SmokedFish, !ITEM_QUALITY Input 4, PLAYER_HAS_MAIL Current Fishing_Smokehouse Received"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": ["(BC)FishSmoker", "OutputRules", "SmokedFish", "OutputItem", "FLAVORED_ITEM SmokedFish DROP_IN_ID DROP_IN_QUALITY", "QualityModifiers"],
+			"Entries":{
+				"Kedi.VPP.Smokehouse.Modifier": {
+					"Id": "Kedi.VPP.Smokehouse.Modifier",
+					"Amount": 1,
+					"Modification": "Add",
+					"Condition": "ITEM_ID Input (O)SmokedFish, PLAYER_HAS_MAIL Current Fishing_Smokehouse Received"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": ["(BC)154", "OutputRules"],
+			"Fields": {
+				"Default": {
+					"DaysUntilReady": -1,
+					"MinutesUntilReady": 990
+				}
+			},
+			"When": {
+				"HasFlag: CurrentPlayer|contains= Fishing_Double_Hook": true 
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": ["(BC)154", "OutputRules", "Default", "OutputItem"],
+			"Entries": {
+				"Kedi.VPP.Clickbait": {
+					"Id": "Kedi.VPP.Clickbait",
+					"Condition": "RANDOM 0.5, PLAYER_HAS_MAIL Current Fishing_Clickbait Received",
+                    "ItemId": "(O)774",
+				}
+			},
+		},
+	]
+}

@@ -1,0 +1,41 @@
+{
+	"Changes": [
+		{
+			"LogName": "Double Hook - Bait Bin",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [
+				"(BC)154",
+				"OutputRules"
+			],
+			"Fields": {
+				"Default": {
+					"DaysUntilReady": -1,
+					"MinutesUntilReady": 990
+				}
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=DoubleHook": true
+			},
+			"Update": "OnTimeChange",
+		},
+		{
+			"LogName": "Clickbait - Bait Bin",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [
+				"(BC)154",
+				"OutputRules",
+				"Default",
+				"OutputItem"
+			],
+			"Entries": {
+				"Kedi.VPP.Clickbait": {
+					"Id": "Kedi.VPP.Clickbait",
+					"Condition": "RANDOM 0.5, KediDili.VanillaPlusProfessions_PlayerHasTalent Current Clickbait",
+					"ItemId": "(O)774"
+				}
+			}
+		}
+	]
+}

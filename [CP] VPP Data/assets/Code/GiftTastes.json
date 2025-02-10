@@ -1,0 +1,100 @@
+{
+	"Changes": [
+		{
+			"Action": "EditData",
+			"Target": "Data/NPCGiftTastes",
+			"TextOperations": [
+				{
+					"Operation": "Append",
+					"Target": ["Entries", "Universal_Love"],
+					"Value": "72",
+					"Delimiter": " "
+				}
+			],
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=EveryonesBestFriend": "true"
+			},
+			"Update": "OnTimeChange",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/NPCGiftTastes",
+			"TextOperations": [
+				{
+					"Operation": "Append",
+					"Target": ["Entries", "Universal_Love"],
+					"Value": "565",
+					"Delimiter": " "
+				}
+			],
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=EveryonesBestFriend": "true"
+			},
+			"Update": "OnTimeChange",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/NPCGiftTastes",
+			"TextOperations": [
+				{
+					"Operation": "Append",
+					"Target": ["Entries", "Universal_Love"],
+					"Value": "564",
+					"Delimiter": " "
+				}
+			],
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=EveryonesBestFriend": "true"
+			},
+			"Update": "OnTimeChange",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/NPCGiftTastes",
+			"TextOperations": [
+				{
+					"Operation": "Append",
+					"Target": ["Entries", "Universal_Love"],
+					"Value": "562",
+					"Delimiter": " "
+				}
+			],
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=EveryonesBestFriend": "true"
+			},
+			"Update": "OnTimeChange",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/NPCGiftTastes",
+			"TextOperations": [
+				{
+					"Operation": "Append",
+					"Target": ["Entries", "Universal_Love"],
+					"Value": "563",
+					"Delimiter": " "
+				}
+			],
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=EveryonesBestFriend": "true"
+			},
+			"Update": "OnTimeChange",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/NPCGiftTastes",
+			"TextOperations": [
+				{
+					"Operation": "Append",
+					"Target": ["Entries", "Universal_Love"],
+					"Value": "578",
+					"Delimiter": " "
+				}
+			],
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=EveryonesBestFriend": "true"
+			},
+			"Update": "OnTimeChange",
+		}
+	]
+}

@@ -1,0 +1,1503 @@
+{
+	"Changes": [
+		{
+			"Action": "EditData",
+			"Target": "Data/Locations",
+			"TargetField": [
+				"Forest",
+				"Forage"
+			],
+			"Entries": {
+				"Kedi.VPP.Gleaner.Rice": {
+					"Id": "Kedi.VPP.Gleaner.Rice",
+					"ItemId": "(O)273",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST", 
+					"Season": "Spring"
+				},
+				"Kedi.VPP.Gleaner.Amaranth": {
+					"Id": "Kedi.VPP.Gleaner.Amaranth",
+					"ItemId": "(O)299",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Fall"
+				},
+				"Kedi.VPP.Gleaner.CoffeeBean": {
+					"Id": "Kedi.VPP.Gleaner.CoffeeBean",
+					"ItemId": "(O)433",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Summer, Spring"
+				},
+				"Kedi.VPP.Gleaner.Parsnip": {
+					"Id": "Kedi.VPP.Gleaner.Parsnip",
+					"ItemId": "(O)472",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Spring"
+				},
+				"Kedi.VPP.Gleaner.Cauliflower": {
+					"Id": "Kedi.VPP.Gleaner.Cauliflower",
+					"ItemId": "(O)474",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Spring"
+				},
+				"Kedi.VPP.Gleaner.Potato": {
+					"Id": "Kedi.VPP.Gleaner.Potato",
+					"ItemId": "(O)475",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Spring"
+				},
+				"Kedi.VPP.Gleaner.Garlic": {
+					"Id": "Kedi.VPP.Gleaner.Garlic",
+					"ItemId": "(O)476",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Spring"
+				},
+				"Kedi.VPP.Gleaner.Kale": {
+					"Id": "Kedi.VPP.Gleaner.Kale",
+					"ItemId": "(O)477",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Spring"
+				},
+				"Kedi.VPP.Gleaner.Rhubarb": {
+					"Id": "Kedi.VPP.Gleaner.Rhubarb",
+					"ItemId": "(O)478",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Spring"
+				},
+				"Kedi.VPP.Gleaner.Melon": {
+					"Id": "Kedi.VPP.Gleaner.Melon",
+					"ItemId": "(O)479",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Summer"
+				},
+				"Kedi.VPP.Gleaner.Tomato": {
+					"Id": "Kedi.VPP.Gleaner.Tomato",
+					"ItemId": "(O)480",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Summer"
+				},
+				"Kedi.VPP.Gleaner.Blueberry": {
+					"Id": "Kedi.VPP.Gleaner.Blueberry",
+					"ItemId": "(O)481",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Summer"
+				},
+				"Kedi.VPP.Gleaner.Pepper": {
+					"Id": "Kedi.VPP.Gleaner.Pepper",
+					"ItemId": "(O)482",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Summer"
+				},
+				"Kedi.VPP.Gleaner.Wheat": {
+					"Id": "Kedi.VPP.Gleaner.Wheat",
+					"ItemId": "(O)483",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST, SEASON Spring Winter",
+				},
+				"Kedi.VPP.Gleaner.Radish": {
+					"Id": "Kedi.VPP.Gleaner.Radish",
+					"ItemId": "(O)484",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Summer"
+				},
+				"Kedi.VPP.Gleaner.RedCabbage": {
+					"Id": "Kedi.VPP.Gleaner.RedCabbage",
+					"ItemId": "(O)485",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Summer"
+				},
+				"Kedi.VPP.Gleaner.Starfruit": {
+					"Id": "Kedi.VPP.Gleaner.Starfruit",
+					"ItemId": "(O)486",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Summer"
+				},
+				"Kedi.VPP.Gleaner.Corn": {
+					"Id": "Kedi.VPP.Gleaner.Corn",
+					"ItemId": "(O)487",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST, SEASON Spring Winter",
+				},
+				"Kedi.VPP.Gleaner.Eggplant": {
+					"Id": "Kedi.VPP.Gleaner.Eggplant",
+					"ItemId": "(O)488",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Fall"
+				},
+				"Kedi.VPP.Gleaner.Artichoke": {
+					"Id": "Kedi.VPP.Gleaner.Artichoke",
+					"ItemId": "(O)489",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Fall"
+				},
+				"Kedi.VPP.Gleaner.Pumpkin": {
+					"Id": "Kedi.VPP.Gleaner.Pumpkin",
+					"ItemId": "(O)490",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Fall"
+				},
+				"Kedi.VPP.Gleaner.BokChoy": {
+					"Id": "Kedi.VPP.Gleaner.BokChoy",
+					"ItemId": "(O)491",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Fall"
+				},
+				"Kedi.VPP.Gleaner.Yam": {
+					"Id": "Kedi.VPP.Gleaner.Yam",
+					"ItemId": "(O)492",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Fall"
+				},
+				"Kedi.VPP.Gleaner.Cranberry": {
+					"Id": "Kedi.VPP.Gleaner.Cranberry",
+					"ItemId": "(O)493",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Fall"
+				},
+				"Kedi.VPP.Gleaner.Beet": {
+					"Id": "Kedi.VPP.Gleaner.Beet",
+					"ItemId": "(O)494",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Fall"
+				},
+				"Kedi.VPP.Gleaner.Tulip": {
+					"Id": "Kedi.VPP.Gleaner.Tulip",
+					"ItemId": "(O)427",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Spring"
+				},
+				"Kedi.VPP.Gleaner.Jazz": {
+					"Id": "Kedi.VPP.Gleaner.Jazz",
+					"ItemId": "(O)429",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Spring"
+				},
+				"Kedi.VPP.Gleaner.Poppy": {
+					"Id": "Kedi.VPP.Gleaner.Poppy",
+					"ItemId": "(O)453",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Summer"
+				},
+				"Kedi.VPP.Gleaner.Spangle": {
+					"Id": "Kedi.VPP.Gleaner.Spangle",
+					"ItemId": "(O)455",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Summer"
+				},
+				"Kedi.VPP.Gleaner.Sunflower": {
+					"Id": "Kedi.VPP.Gleaner.Sunflower",
+					"ItemId": "(O)431",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST, SEASON Fall Summer",
+				},
+				"Kedi.VPP.Gleaner.FairyRose": {
+					"Id": "Kedi.VPP.Gleaner.FairyRose",
+					"ItemId": "(O)425",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Fall"
+				},
+				"Kedi.VPP.Wayfarer.Dandelion": {
+					"Id": "Kedi.VPP.Wayfarer.Dandelion",
+					"ItemId": "(O)22",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Winter Fall Summer",
+					"Season": "Summer, Fall, Winter"
+				},
+				"Kedi.VPP.Wayfarer.Daffodil": {
+					"Id": "Kedi.VPP.Wayfarer.Daffodil",
+					"ItemId": "(O)18",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Winter Fall Summer",
+					"Season": "Summer, Fall, Winter"
+				},
+				"Kedi.VPP.Wayfarer.Leek": {
+					"Id": "Kedi.VPP.Wayfarer.Leek",
+					"ItemId": "(O)20",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Winter Fall Summer",
+					"Season": "Summer, Fall, Winter"
+				},
+				"Kedi.VPP.Wayfarer.WildHorseradish": {
+					"Id": "Kedi.VPP.Wayfarer.WildHorseradish",
+					"ItemId": "(O)16",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Winter Fall Summer",
+					"Season": "Summer, Fall, Winter"
+				},
+				"Kedi.VPP.Wayfarer.Hazelnut": {
+					"Id": "Kedi.VPP.Wayfarer.Hazelnut",
+					"ItemId": "(O)408",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Winter Spring Summer",
+					"Season": "Summer, Spring, Winter"
+				},
+				"Kedi.VPP.Wayfarer.Holly": {
+					"Id": "Kedi.VPP.Wayfarer.Holly",
+					"ItemId": "(O)283",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Fall Spring Summer",
+					"Season": "Summer, Spring, Fall"
+				},
+				"Kedi.VPP.Wayfarer.CommonMushroom": {
+					"Id": "Kedi.VPP.Wayfarer.CommonMushroom",
+					"ItemId": "(O)404",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Winter Spring Summer",
+				},
+				"Kedi.VPP.Wayfarer.RedMushroom": {
+					"Id": "Kedi.VPP.Wayfarer.RedMushroom",
+					"ItemId": "(O)420",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Fall Spring Summer",
+				},
+				"Kedi.VPP.Wayfarer.PurpleMushroom": {
+					"Id": "Kedi.VPP.Wayfarer.PurpleMushroom",
+					"ItemId": "(O)422",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST"
+				},
+				"Kedi.VPP.Wayfarer.Chanterelle": {
+					"Id": "Kedi.VPP.Wayfarer.Chanterelle",
+					"ItemId": "(O)281",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Winter Spring Summer",
+				},
+				"Kedi.VPP.Wayfarer.SweetPea": {
+					"Id": "Kedi.VPP.Wayfarer.SweetPea",
+					"ItemId": "(O)402",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Winter Spring Fall",
+				},
+				"Kedi.VPP.Wayfarer.SpiceBerry": {
+					"Id": "Kedi.VPP.Wayfarer.SpiceBerry",
+					"ItemId": "(O)396",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Winter Spring Fall",
+				},
+				"Kedi.VPP.Wayfarer.Crocus": {
+					"Id": "Kedi.VPP.Wayfarer.Crocus",
+					"ItemId": "(O)482",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Summer Spring Fall",
+				},
+				"Kedi.VPP.Wayfarer.FiddleheadFern": {
+					"Id": "Kedi.VPP.Wayfarer.FiddleheadFern",
+					"ItemId": "(O)483",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Fall Spring Winter",
+				},
+				"Kedi.VPP.Wayfarer.Morel": {
+					"Id": "Kedi.VPP.Wayfarer.Morel",
+					"ItemId": "(O)484",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Fall Summer Winter",
+				},
+				"Kedi.VPP.Wayfarer.WinterRoot": {
+					"Id": "Kedi.VPP.Wayfarer.WinterRoot",
+					"ItemId": "(O)485",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Summer Spring Fall",
+				},
+				"Kedi.VPP.Wayfarer.CrystalFruit": {
+					"Id": "Kedi.VPP.Wayfarer.CrystalFruit",
+					"ItemId": "(O)486",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Summer Spring Fall",
+				},
+				"Kedi.VPP.Wayfarer.SnowYam": {
+					"Id": "Kedi.VPP.Wayfarer.SnowYam",
+					"ItemId": "(O)487",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Summer Spring Fall",
+				},
+				"Kedi.VPP.Wayfarer.Blackberry": {
+					"Id": "Kedi.VPP.Wayfarer.Blackberry",
+					"ItemId": "(O)488",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Summer Spring Winter",
+				},
+				"Kedi.VPP.Wayfarer.WildPlum": {
+					"Id": "Kedi.VPP.Wayfarer.WildPlum",
+					"ItemId": "(O)489",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Summer Spring Winter",
+				},
+				"Kedi.VPP.Wayfarer.Grape": {
+					"Id": "Kedi.VPP.Wayfarer.Grape",
+					"ItemId": "(O)490",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Fall Spring Winter",
+				},
+				"Kedi.VPP.Wayfarer.Salmonberry": {
+					"Id": "Kedi.VPP.Wayfarer.Salmonberry",
+					"ItemId": "(O)491",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, SEASON Fall Summer Winter",
+				},
+				"Kedi.VPP.DiamondOfTheKitchen": {
+					"Id": "Kedi.VPP.DiamondOfTheKitchen",
+					"ItemId": "(O)430",
+					"Chance": 1,
+					"Condition": "!SEASON Winter, KediDili.VanillaPlusProfessions_PlayerHasTalent Host DiamondOfTheKitchen",
+				},
+				"Kedi.VPP.BountifulBoletes": {
+					"Id": "Kedi.VPP.BountifulBoletes",
+					"ItemId": "RANDOM_ITEMS (O)",
+					"PerItemCondition": "ANY \"ITEM_CONTEXT_TAG Target edible_mushroom\" \"ITEM_CONTEXT_TAG Target Kedi_VPP_Poisonous_Mushroom\"",
+					"Chance": 1,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Host BountifulBoletes, WEATHER Target Sun, RANDOM 0.3, KediDili.VanillaPlusProfessions_WasRainingHereYesterday Target",
+				},
+				"Kedi.VPP.Starfall": {
+					"Id": "Kedi.VPP.Starfall",
+					"ItemId": "(O)578",
+					"Chance": 1,
+					"Condition": "DAY_OF_WEEK Wednesday, KediDili.VanillaPlusProfessions_PlayerHasTalent Host Starfall",
+				},
+				"Kedi.VPP.Starfall.AirynFragments.GoldSilver": {
+					"Id": "Kedi.VPP.Starfall.AirynFragments.GoldSilver",
+					"RandomItemId": ["(O)Airyn.StarFragments_Fragment_Gold", "(O)Airyn.StarFragments_Fragment_Silver"],
+					"Chance": 0.05,
+					"Condition": "{{HasMod:Airyn.StarFragments}}, KediDili.VanillaPlusProfessions_PlayerHasTalent Host Starfall",
+				},
+				"Kedi.VPP.Starfall.AirynFragments.Pink": {
+					"Id": "Kedi.VPP.Starfall.AirynFragments.Pink",
+					"ItemId": "(O)Airyn.StarFragments_Fragment_Pink",
+					"Chance": 0.1,
+					"Condition": "{{HasMod:Airyn.StarFragments}}, DAY_OF_MONTH {{Range: 1, 14}}, SEASON Spring, KediDili.VanillaPlusProfessions_PlayerHasTalent Host Starfall",
+				},
+				"Kedi.VPP.Starfall.AirynFragments.Green": {
+					"Id": "Kedi.VPP.Starfall.AirynFragments.Green",
+					"ItemId": "(O)Airyn.StarFragments_Fragment_Green",
+					"Chance": 0.1,
+					"Condition": "{{HasMod:Airyn.StarFragments}}, DAY_OF_MONTH {{Range: 14, 28}}, SEASON Spring, KediDili.VanillaPlusProfessions_PlayerHasTalent Host Starfall",
+				},
+				"Kedi.VPP.Starfall.AirynFragments.Lime": {
+					"Id": "Kedi.VPP.Starfall.AirynFragments.Lime",
+					"ItemId": "(O)Airyn.StarFragments_Fragment_Lime",
+					"Chance": 0.1,
+					"Condition": "{{HasMod:Airyn.StarFragments}}, DAY_OF_MONTH {{Range: 1, 14}}, SEASON Summer, KediDili.VanillaPlusProfessions_PlayerHasTalent Host Starfall",
+				},
+				"Kedi.VPP.Starfall.AirynFragments.Orange": {
+					"Id": "Kedi.VPP.Starfall.AirynFragments.Orange",
+					"ItemId": "(O)Airyn.StarFragments_Fragment_Orange",
+					"Chance": 0.1,
+					"Condition": "{{HasMod:Airyn.StarFragments}}, DAY_OF_MONTH {{Range: 14, 28}}, SEASON Summer, KediDili.VanillaPlusProfessions_PlayerHasTalent Host Starfall",
+				},
+				"Kedi.VPP.Starfall.AirynFragments.Red": {
+					"Id": "Kedi.VPP.Starfall.AirynFragments.Red",
+					"ItemId": "(O)Airyn.StarFragments_Fragment_Red",
+					"Chance": 0.1,
+					"Condition": "{{HasMod:Airyn.StarFragments}}, DAY_OF_MONTH {{Range: 1, 14}}, SEASON Fall, KediDili.VanillaPlusProfessions_PlayerHasTalent Host Starfall",
+				},
+				"Kedi.VPP.Starfall.AirynFragments.Purple": {
+					"Id": "Kedi.VPP.Starfall.AirynFragments.Purple",
+					"ItemId": "(O)Airyn.StarFragments_Fragment_Purple",
+					"Chance": 0.1,
+					"Condition": "{{HasMod:Airyn.StarFragments}}, DAY_OF_MONTH {{Range: 14, 28}}, SEASON Fall, KediDili.VanillaPlusProfessions_PlayerHasTalent Host Starfall",
+				},
+				"Kedi.VPP.Starfall.AirynFragments.Cyan": {
+					"Id": "Kedi.VPP.Starfall.AirynFragments.Cyan",
+					"ItemId": "(O)Airyn.StarFragments_Fragment_Cyan",
+					"Chance": 0.1,
+					"Condition": "{{HasMod:Airyn.StarFragments}}, DAY_OF_MONTH {{Range: 1, 14}}, SEASON Winter, KediDili.VanillaPlusProfessions_PlayerHasTalent Host Starfall",
+				},
+				"Kedi.VPP.Starfall.AirynFragments.Blue": {
+					"Id": "Kedi.VPP.Starfall.AirynFragments.Blue",
+					"ItemId": "(O)Airyn.StarFragments_Fragment_Blue",
+					"Chance": 0.1,
+					"Condition": "{{HasMod:Airyn.StarFragments}}, DAY_OF_MONTH {{Range: 14, 28}}, SEASON Winter, KediDili.VanillaPlusProfessions_PlayerHasTalent Host Starfall",
+				},
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Locations",
+			"TargetField": [
+				"Backwoods",
+				"Forage"
+			],
+			"Entries": {
+				"Kedi.VPP.Gleaner.Rice": {
+					"Id": "Kedi.VPP.Gleaner.Rice",
+					"ItemId": "(O)273",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Spring"
+				},
+				"Kedi.VPP.Gleaner.Amaranth": {
+					"Id": "Kedi.VPP.Gleaner.Amaranth",
+					"ItemId": "(O)299",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Fall"
+				},
+				"Kedi.VPP.Gleaner.CoffeeBean": {
+					"Id": "Kedi.VPP.Gleaner.CoffeeBean",
+					"ItemId": "(O)433",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Summer, Spring"
+				},
+				"Kedi.VPP.Gleaner.Parsnip": {
+					"Id": "Kedi.VPP.Gleaner.Parsnip",
+					"ItemId": "(O)472",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Spring"
+				},
+				"Kedi.VPP.Gleaner.Cauliflower": {
+					"Id": "Kedi.VPP.Gleaner.Cauliflower",
+					"ItemId": "(O)474",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Spring"
+				},
+				"Kedi.VPP.Gleaner.Potato": {
+					"Id": "Kedi.VPP.Gleaner.Potato",
+					"ItemId": "(O)475",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Spring"
+				},
+				"Kedi.VPP.Gleaner.Garlic": {
+					"Id": "Kedi.VPP.Gleaner.Garlic",
+					"ItemId": "(O)476",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Spring"
+				},
+				"Kedi.VPP.Gleaner.Kale": {
+					"Id": "Kedi.VPP.Gleaner.Kale",
+					"ItemId": "(O)477",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Spring"
+				},
+				"Kedi.VPP.Gleaner.Rhubarb": {
+					"Id": "Kedi.VPP.Gleaner.Rhubarb",
+					"ItemId": "(O)478",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Spring"
+				},
+				"Kedi.VPP.Gleaner.Melon": {
+					"Id": "Kedi.VPP.Gleaner.Melon",
+					"ItemId": "(O)479",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Summer"
+				},
+				"Kedi.VPP.Gleaner.Tomato": {
+					"Id": "Kedi.VPP.Gleaner.Tomato",
+					"ItemId": "(O)480",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Summer"
+				},
+				"Kedi.VPP.Gleaner.Blueberry": {
+					"Id": "Kedi.VPP.Gleaner.Blueberry",
+					"ItemId": "(O)481",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Summer"
+				},
+				"Kedi.VPP.Gleaner.Pepper": {
+					"Id": "Kedi.VPP.Gleaner.Pepper",
+					"ItemId": "(O)482",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Summer"
+				},
+				"Kedi.VPP.Gleaner.Wheat": {
+					"Id": "Kedi.VPP.Gleaner.Wheat",
+					"ItemId": "(O)483",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST, SEASON Spring Winter",
+				},
+				"Kedi.VPP.Gleaner.Radish": {
+					"Id": "Kedi.VPP.Gleaner.Radish",
+					"ItemId": "(O)484",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Summer"
+				},
+				"Kedi.VPP.Gleaner.RedCabbage": {
+					"Id": "Kedi.VPP.Gleaner.RedCabbage",
+					"ItemId": "(O)485",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Summer"
+				},
+				"Kedi.VPP.Gleaner.Starfruit": {
+					"Id": "Kedi.VPP.Gleaner.Starfruit",
+					"ItemId": "(O)486",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Summer"
+				},
+				"Kedi.VPP.Gleaner.Corn": {
+					"Id": "Kedi.VPP.Gleaner.Corn",
+					"ItemId": "(O)487",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST, SEASON Spring Winter",
+				},
+				"Kedi.VPP.Gleaner.Eggplant": {
+					"Id": "Kedi.VPP.Gleaner.Eggplant",
+					"ItemId": "(O)488",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Fall"
+				},
+				"Kedi.VPP.Gleaner.Artichoke": {
+					"Id": "Kedi.VPP.Gleaner.Artichoke",
+					"ItemId": "(O)489",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Fall"
+				},
+				"Kedi.VPP.Gleaner.Pumpkin": {
+					"Id": "Kedi.VPP.Gleaner.Pumpkin",
+					"ItemId": "(O)490",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Fall"
+				},
+				"Kedi.VPP.Gleaner.BokChoy": {
+					"Id": "Kedi.VPP.Gleaner.BokChoy",
+					"ItemId": "(O)491",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Fall"
+				},
+				"Kedi.VPP.Gleaner.Yam": {
+					"Id": "Kedi.VPP.Gleaner.Yam",
+					"ItemId": "(O)492",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Fall"
+				},
+				"Kedi.VPP.Gleaner.Cranberry": {
+					"Id": "Kedi.VPP.Gleaner.Cranberry",
+					"ItemId": "(O)493",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Fall"
+				},
+				"Kedi.VPP.Gleaner.Beet": {
+					"Id": "Kedi.VPP.Gleaner.Beet",
+					"ItemId": "(O)494",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Fall"
+				},
+				"Kedi.VPP.Gleaner.Tulip": {
+					"Id": "Kedi.VPP.Gleaner.Tulip",
+					"ItemId": "(O)427",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Spring"
+				},
+				"Kedi.VPP.Gleaner.Jazz": {
+					"Id": "Kedi.VPP.Gleaner.Jazz",
+					"ItemId": "(O)429",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Spring"
+				},
+				"Kedi.VPP.Gleaner.Poppy": {
+					"Id": "Kedi.VPP.Gleaner.Poppy",
+					"ItemId": "(O)453",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Summer"
+				},
+				"Kedi.VPP.Gleaner.Spangle": {
+					"Id": "Kedi.VPP.Gleaner.Spangle",
+					"ItemId": "(O)455",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Summer"
+				},
+				"Kedi.VPP.Gleaner.Sunflower": {
+					"Id": "Kedi.VPP.Gleaner.Sunflower",
+					"ItemId": "(O)431",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST, SEASON Fall Summer",
+				},
+				"Kedi.VPP.Gleaner.FairyRose": {
+					"Id": "Kedi.VPP.Gleaner.FairyRose",
+					"ItemId": "(O)425",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Fall"
+				},
+				"Kedi.VPP.Wayfarer.Dandelion": {
+					"Id": "Kedi.VPP.Wayfarer.Dandelion",
+					"ItemId": "(O)22",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Winter Fall Summer",
+					"Season": "Summer, Fall, Winter"
+				},
+				"Kedi.VPP.Wayfarer.Daffodil": {
+					"Id": "Kedi.VPP.Wayfarer.Daffodil",
+					"ItemId": "(O)18",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Winter Fall Summer",
+					"Season": "Summer, Fall, Winter"
+				},
+				"Kedi.VPP.Wayfarer.Leek": {
+					"Id": "Kedi.VPP.Wayfarer.Leek",
+					"ItemId": "(O)20",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Winter Fall Summer",
+					"Season": "Summer, Fall, Winter"
+				},
+				"Kedi.VPP.Wayfarer.WildHorseradish": {
+					"Id": "Kedi.VPP.Wayfarer.WildHorseradish",
+					"ItemId": "(O)16",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Winter Fall Summer",
+					"Season": "Summer, Fall, Winter"
+				},
+				"Kedi.VPP.Wayfarer.Hazelnut": {
+					"Id": "Kedi.VPP.Wayfarer.Hazelnut",
+					"ItemId": "(O)408",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Winter Spring Summer",
+					"Season": "Summer, Spring, Winter"
+				},
+				"Kedi.VPP.Wayfarer.Holly": {
+					"Id": "Kedi.VPP.Wayfarer.Holly",
+					"ItemId": "(O)283",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Fall Spring Summer",
+					"Season": "Summer, Spring, Fall"
+				},
+				"Kedi.VPP.Wayfarer.CommonMushroom": {
+					"Id": "Kedi.VPP.Wayfarer.CommonMushroom",
+					"ItemId": "(O)404",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Winter Spring Summer",
+				},
+				"Kedi.VPP.Wayfarer.RedMushroom": {
+					"Id": "Kedi.VPP.Wayfarer.RedMushroom",
+					"ItemId": "(O)420",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Fall Spring Summer",
+				},
+				"Kedi.VPP.Wayfarer.PurpleMushroom": {
+					"Id": "Kedi.VPP.Wayfarer.PurpleMushroom",
+					"ItemId": "(O)422",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST"
+				},
+				"Kedi.VPP.Wayfarer.Chanterelle": {
+					"Id": "Kedi.VPP.Wayfarer.Chanterelle",
+					"ItemId": "(O)281",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Winter Spring Summer",
+				},
+				"Kedi.VPP.Wayfarer.SweetPea": {
+					"Id": "Kedi.VPP.Wayfarer.SweetPea",
+					"ItemId": "(O)402",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Winter Spring Fall",
+				},
+				"Kedi.VPP.Wayfarer.SpiceBerry": {
+					"Id": "Kedi.VPP.Wayfarer.SpiceBerry",
+					"ItemId": "(O)396",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Winter Spring Fall",
+				},
+				"Kedi.VPP.Wayfarer.Crocus": {
+					"Id": "Kedi.VPP.Wayfarer.Crocus",
+					"ItemId": "(O)482",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Summer Spring Fall",
+				},
+				"Kedi.VPP.Wayfarer.FiddleheadFern": {
+					"Id": "Kedi.VPP.Wayfarer.FiddleheadFern",
+					"ItemId": "(O)483",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Fall Spring Winter",
+				},
+				"Kedi.VPP.Wayfarer.Morel": {
+					"Id": "Kedi.VPP.Wayfarer.Morel",
+					"ItemId": "(O)484",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Fall Summer Winter",
+				},
+				"Kedi.VPP.Wayfarer.WinterRoot": {
+					"Id": "Kedi.VPP.Wayfarer.WinterRoot",
+					"ItemId": "(O)485",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Summer Spring Fall",
+				},
+				"Kedi.VPP.Wayfarer.CrystalFruit": {
+					"Id": "Kedi.VPP.Wayfarer.CrystalFruit",
+					"ItemId": "(O)486",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Summer Spring Fall",
+				},
+				"Kedi.VPP.Wayfarer.SnowYam": {
+					"Id": "Kedi.VPP.Wayfarer.SnowYam",
+					"ItemId": "(O)487",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Summer Spring Fall",
+				},
+				"Kedi.VPP.Wayfarer.Blackberry": {
+					"Id": "Kedi.VPP.Wayfarer.Blackberry",
+					"ItemId": "(O)488",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Summer Spring Winter",
+				},
+				"Kedi.VPP.Wayfarer.WildPlum": {
+					"Id": "Kedi.VPP.Wayfarer.WildPlum",
+					"ItemId": "(O)489",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Summer Spring Winter",
+				},
+				"Kedi.VPP.Wayfarer.Grape": {
+					"Id": "Kedi.VPP.Wayfarer.Grape",
+					"ItemId": "(O)490",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Fall Spring Winter",
+				},
+				"Kedi.VPP.Wayfarer.Salmonberry": {
+					"Id": "Kedi.VPP.Wayfarer.Salmonberry",
+					"ItemId": "(O)491",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Fall Summer Winter",
+				},
+				"Kedi.VPP.DiamondOfTheKitchen": {
+					"Id": "Kedi.VPP.DiamondOfTheKitchen",
+					"ItemId": "(O)430",
+					"Chance": 1,
+					"Condition": "!SEASON Winter, PLAYER_HAS_MAIL Host Foraging_Diamond_Of_The_Kitchen Received",
+				},
+				"Kedi.VPP.BountifulBoletes": {
+					"Id": "Kedi.VPP.BountifulBoletes",
+					"ItemId": "RANDOM_ITEMS (O)",
+					"PerItemCondition": "ANY \"ITEM_CONTEXT_TAG Target edible_mushroom\" \"ITEM_CONTEXT_TAG Target Kedi_VPP_Poisonous_Mushroom\"",
+					"Chance": 1,
+					"Condition": "PLAYER_HAS_MAIL Host Foraging_Bountiful_Boletes Received, WEATHER Target Sun, RANDOM 0.3, KediDili.VanillaPlusProfessions_WasRainingHereYesterday Target",
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Locations",
+			"TargetField": [
+				"Mountain",
+				"Forage"
+			],
+			"Entries": {
+				"Kedi.VPP.Gleaner.Rice": {
+					"Id": "Kedi.VPP.Gleaner.Rice",
+					"ItemId": "(O)273",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Spring"
+				},
+				"Kedi.VPP.Gleaner.Amaranth": {
+					"Id": "Kedi.VPP.Gleaner.Amaranth",
+					"ItemId": "(O)299",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Fall"
+				},
+				"Kedi.VPP.Gleaner.CoffeeBean": {
+					"Id": "Kedi.VPP.Gleaner.CoffeeBean",
+					"ItemId": "(O)433",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Summer, Spring"
+				},
+				"Kedi.VPP.Gleaner.Parsnip": {
+					"Id": "Kedi.VPP.Gleaner.Parsnip",
+					"ItemId": "(O)472",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Spring"
+				},
+				"Kedi.VPP.Gleaner.Cauliflower": {
+					"Id": "Kedi.VPP.Gleaner.Cauliflower",
+					"ItemId": "(O)474",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Spring"
+				},
+				"Kedi.VPP.Gleaner.Potato": {
+					"Id": "Kedi.VPP.Gleaner.Potato",
+					"ItemId": "(O)475",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Spring"
+				},
+				"Kedi.VPP.Gleaner.Garlic": {
+					"Id": "Kedi.VPP.Gleaner.Garlic",
+					"ItemId": "(O)476",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Spring"
+				},
+				"Kedi.VPP.Gleaner.Kale": {
+					"Id": "Kedi.VPP.Gleaner.Kale",
+					"ItemId": "(O)477",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Spring"
+				},
+				"Kedi.VPP.Gleaner.Rhubarb": {
+					"Id": "Kedi.VPP.Gleaner.Rhubarb",
+					"ItemId": "(O)478",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Spring"
+				},
+				"Kedi.VPP.Gleaner.Melon": {
+					"Id": "Kedi.VPP.Gleaner.Melon",
+					"ItemId": "(O)479",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Summer"
+				},
+				"Kedi.VPP.Gleaner.Tomato": {
+					"Id": "Kedi.VPP.Gleaner.Tomato",
+					"ItemId": "(O)480",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Summer"
+				},
+				"Kedi.VPP.Gleaner.Blueberry": {
+					"Id": "Kedi.VPP.Gleaner.Blueberry",
+					"ItemId": "(O)481",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Summer"
+				},
+				"Kedi.VPP.Gleaner.Pepper": {
+					"Id": "Kedi.VPP.Gleaner.Pepper",
+					"ItemId": "(O)482",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Summer"
+				},
+				"Kedi.VPP.Gleaner.Wheat": {
+					"Id": "Kedi.VPP.Gleaner.Wheat",
+					"ItemId": "(O)483",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST, SEASON Spring Winter",
+				},
+				"Kedi.VPP.Gleaner.Radish": {
+					"Id": "Kedi.VPP.Gleaner.Radish",
+					"ItemId": "(O)484",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Summer"
+				},
+				"Kedi.VPP.Gleaner.RedCabbage": {
+					"Id": "Kedi.VPP.Gleaner.RedCabbage",
+					"ItemId": "(O)485",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Summer"
+				},
+				"Kedi.VPP.Gleaner.Starfruit": {
+					"Id": "Kedi.VPP.Gleaner.Starfruit",
+					"ItemId": "(O)486",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Summer"
+				},
+				"Kedi.VPP.Gleaner.Corn": {
+					"Id": "Kedi.VPP.Gleaner.Corn",
+					"ItemId": "(O)487",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST, SEASON Spring Winter",
+				},
+				"Kedi.VPP.Gleaner.Eggplant": {
+					"Id": "Kedi.VPP.Gleaner.Eggplant",
+					"ItemId": "(O)488",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Fall"
+				},
+				"Kedi.VPP.Gleaner.Artichoke": {
+					"Id": "Kedi.VPP.Gleaner.Artichoke",
+					"ItemId": "(O)489",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Fall"
+				},
+				"Kedi.VPP.Gleaner.Pumpkin": {
+					"Id": "Kedi.VPP.Gleaner.Pumpkin",
+					"ItemId": "(O)490",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Fall"
+				},
+				"Kedi.VPP.Gleaner.BokChoy": {
+					"Id": "Kedi.VPP.Gleaner.BokChoy",
+					"ItemId": "(O)491",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Fall"
+				},
+				"Kedi.VPP.Gleaner.Yam": {
+					"Id": "Kedi.VPP.Gleaner.Yam",
+					"ItemId": "(O)492",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Fall"
+				},
+				"Kedi.VPP.Gleaner.Cranberry": {
+					"Id": "Kedi.VPP.Gleaner.Cranberry",
+					"ItemId": "(O)493",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Fall"
+				},
+				"Kedi.VPP.Gleaner.Beet": {
+					"Id": "Kedi.VPP.Gleaner.Beet",
+					"ItemId": "(O)494",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Fall"
+				},
+				"Kedi.VPP.Gleaner.Tulip": {
+					"Id": "Kedi.VPP.Gleaner.Tulip",
+					"ItemId": "(O)427",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Spring"
+				},
+				"Kedi.VPP.Gleaner.Jazz": {
+					"Id": "Kedi.VPP.Gleaner.Jazz",
+					"ItemId": "(O)429",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Spring"
+				},
+				"Kedi.VPP.Gleaner.Poppy": {
+					"Id": "Kedi.VPP.Gleaner.Poppy",
+					"ItemId": "(O)453",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Summer"
+				},
+				"Kedi.VPP.Gleaner.Spangle": {
+					"Id": "Kedi.VPP.Gleaner.Spangle",
+					"ItemId": "(O)455",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Summer"
+				},
+				"Kedi.VPP.Gleaner.Sunflower": {
+					"Id": "Kedi.VPP.Gleaner.Sunflower",
+					"ItemId": "(O)431",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST, SEASON Fall Summer",
+				},
+				"Kedi.VPP.Gleaner.FairyRose": {
+					"Id": "Kedi.VPP.Gleaner.FairyRose",
+					"ItemId": "(O)425",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Gleaner}}, IS_HOST",
+					"Season": "Fall"
+				},
+				"Kedi.VPP.Wayfarer.Dandelion": {
+					"Id": "Kedi.VPP.Wayfarer.Dandelion",
+					"ItemId": "(O)22",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Winter Fall Summer",
+					"Season": "Summer, Fall, Winter"
+				},
+				"Kedi.VPP.Wayfarer.Daffodil": {
+					"Id": "Kedi.VPP.Wayfarer.Daffodil",
+					"ItemId": "(O)18",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Winter Fall Summer",
+					"Season": "Summer, Fall, Winter"
+				},
+				"Kedi.VPP.Wayfarer.Leek": {
+					"Id": "Kedi.VPP.Wayfarer.Leek",
+					"ItemId": "(O)20",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Winter Fall Summer",
+					"Season": "Summer, Fall, Winter"
+				},
+				"Kedi.VPP.Wayfarer.WildHorseradish": {
+					"Id": "Kedi.VPP.Wayfarer.WildHorseradish",
+					"ItemId": "(O)16",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Winter Fall Summer",
+					"Season": "Summer, Fall, Winter"
+				},
+				"Kedi.VPP.Wayfarer.Hazelnut": {
+					"Id": "Kedi.VPP.Wayfarer.Hazelnut",
+					"ItemId": "(O)408",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Winter Spring Summer",
+					"Season": "Summer, Spring, Winter"
+				},
+				"Kedi.VPP.Wayfarer.Holly": {
+					"Id": "Kedi.VPP.Wayfarer.Holly",
+					"ItemId": "(O)283",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Fall Spring Summer",
+					"Season": "Summer, Spring, Fall"
+				},
+				"Kedi.VPP.Wayfarer.CommonMushroom": {
+					"Id": "Kedi.VPP.Wayfarer.CommonMushroom",
+					"ItemId": "(O)404",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Winter Spring Summer",
+				},
+				"Kedi.VPP.Wayfarer.RedMushroom": {
+					"Id": "Kedi.VPP.Wayfarer.RedMushroom",
+					"ItemId": "(O)420",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Fall Spring Summer",
+				},
+				"Kedi.VPP.Wayfarer.PurpleMushroom": {
+					"Id": "Kedi.VPP.Wayfarer.PurpleMushroom",
+					"ItemId": "(O)422",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST"
+				},
+				"Kedi.VPP.Wayfarer.Chanterelle": {
+					"Id": "Kedi.VPP.Wayfarer.Chanterelle",
+					"ItemId": "(O)281",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Winter Spring Summer",
+				},
+				"Kedi.VPP.Wayfarer.SweetPea": {
+					"Id": "Kedi.VPP.Wayfarer.SweetPea",
+					"ItemId": "(O)402",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Winter Spring Fall",
+				},
+				"Kedi.VPP.Wayfarer.SpiceBerry": {
+					"Id": "Kedi.VPP.Wayfarer.SpiceBerry",
+					"ItemId": "(O)396",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Winter Spring Fall",
+				},
+				"Kedi.VPP.Wayfarer.Crocus": {
+					"Id": "Kedi.VPP.Wayfarer.Crocus",
+					"ItemId": "(O)482",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Summer Spring Fall",
+				},
+				"Kedi.VPP.Wayfarer.FiddleheadFern": {
+					"Id": "Kedi.VPP.Wayfarer.FiddleheadFern",
+					"ItemId": "(O)483",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Fall Spring Winter",
+				},
+				"Kedi.VPP.Wayfarer.Morel": {
+					"Id": "Kedi.VPP.Wayfarer.Morel",
+					"ItemId": "(O)484",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Fall Summer Winter",
+				},
+				"Kedi.VPP.Wayfarer.WinterRoot": {
+					"Id": "Kedi.VPP.Wayfarer.WinterRoot",
+					"ItemId": "(O)485",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Summer Spring Fall",
+				},
+				"Kedi.VPP.Wayfarer.CrystalFruit": {
+					"Id": "Kedi.VPP.Wayfarer.CrystalFruit",
+					"ItemId": "(O)486",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Summer Spring Fall",
+				},
+				"Kedi.VPP.Wayfarer.SnowYam": {
+					"Id": "Kedi.VPP.Wayfarer.SnowYam",
+					"ItemId": "(O)487",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Summer Spring Fall",
+				},
+				"Kedi.VPP.Wayfarer.Blackberry": {
+					"Id": "Kedi.VPP.Wayfarer.Blackberry",
+					"ItemId": "(O)488",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Summer Spring Winter",
+				},
+				"Kedi.VPP.Wayfarer.WildPlum": {
+					"Id": "Kedi.VPP.Wayfarer.WildPlum",
+					"ItemId": "(O)489",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Summer Spring Winter",
+				},
+				"Kedi.VPP.Wayfarer.Grape": {
+					"Id": "Kedi.VPP.Wayfarer.Grape",
+					"ItemId": "(O)490",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Fall Spring Winter",
+				},
+				"Kedi.VPP.Wayfarer.Salmonberry": {
+					"Id": "Kedi.VPP.Wayfarer.Salmonberry",
+					"ItemId": "(O)491",
+					"Chance": 0.1,
+					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Fall Summer Winter",
+				},
+				"Kedi.VPP.DiamondOfTheKitchen": {
+					"Id": "Kedi.VPP.DiamondOfTheKitchen",
+					"ItemId": "(O)430",
+					"Chance": 1,
+					"Condition": "!SEASON Winter, PLAYER_HAS_MAIL Host Foraging_Diamond_Of_The_Kitchen Received",
+				},
+				"Kedi.VPP.BountifulBoletes": {
+					"Id": "Kedi.VPP.BountifulBoletes",
+					"ItemId": "RANDOM_ITEMS (O)",
+					"PerItemCondition": "ANY \"ITEM_CONTEXT_TAG Target edible_mushroom\" \"ITEM_CONTEXT_TAG Target Kedi_VPP_Poisonous_Mushroom\"",
+					"Chance": 1,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Host BountifulBoletes, WEATHER Target Sun, RANDOM 0.3, KediDili.VanillaPlusProfessions_WasRainingHereYesterday Target",
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Locations",
+			"TargetField": [
+				"Desert",
+				"Forage"
+			],
+			"Entries": {
+				"Kedi.VPP.DesertBloom.Daffodil": {
+					"Id": "Kedi.VPP.DesertBloom.Daffodil",
+					"ItemId": "(O)18",
+					"Condition": "WEATHER Town Rain, KediDili.VanillaPlusProfessions_PlayerHasTalent Host DesertBloom",
+					"Chance": 0.2
+				},
+				"Kedi.VPP.DesertBloom.Dandelion": {
+					"Id": "Kedi.VPP.DesertBloom.Dandelion",
+					"ItemId": "(O)22",
+					"Condition": "WEATHER Town Rain, KediDili.VanillaPlusProfessions_PlayerHasTalent Host DesertBloom",
+					"Chance": 0.2
+				},
+				"Kedi.VPP.DesertBloom.Crocus": {
+					"Id": "Kedi.VPP.DesertBloom.Crocus",
+					"ItemId": "(O)418",
+					"Condition": "WEATHER Town Rain, KediDili.VanillaPlusProfessions_PlayerHasTalent Host DesertBloom",
+					"Chance": 0.2
+				},
+				"Kedi.VPP.DesertBloom.Sweetpea": {
+					"Id": "Kedi.VPP.DesertBloom.Sweetpea",
+					"ItemId": "(O)402",
+					"Condition": "WEATHER Town Rain, KediDili.VanillaPlusProfessions_PlayerHasTalent Host DesertBloom",
+					"Chance": 0.2
+				},
+				"Kedi.VPP.DesertBloom.Holly": {
+					"Id": "Kedi.VPP.DesertBloom.Holly",
+					"ItemId": "(O)283",
+					"Condition": "WEATHER Town Rain, KediDili.VanillaPlusProfessions_PlayerHasTalent Host DesertBloom",
+					"Chance": 0.2
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Locations",
+			"TargetField": [
+				"Sewer",
+				"Forage"
+			],
+			"Entries": {
+				"Kedi.VPP.BountifulBoletes": {
+					"Id": "Kedi.VPP.BountifulBoletes",
+					"ItemId": "RANDOM_ITEMS (O)",
+					"PerItemCondition": "ANY \"ITEM_CONTEXT_TAG Target edible_mushroom\" \"ITEM_CONTEXT_TAG Target Kedi_VPP_Poisonous_Mushroom\"",
+					"Chance": 1,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Host BountifulBoletes, WEATHER Target Sun, RANDOM 0.3, KediDili.VanillaPlusProfessions_WasRainingHereYesterday Target",
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Locations",
+			"TargetField": [
+				"Mine",
+				"Forage"
+			],
+			"Entries": {
+				"Kedi.VPP.BountifulBoletes": {
+					"Id": "Kedi.VPP.BountifulBoletes",
+					"ItemId": "RANDOM_ITEMS (O)",
+					"PerItemCondition": "ANY \"ITEM_CONTEXT_TAG Target edible_mushroom\" \"ITEM_CONTEXT_TAG Target Kedi_VPP_Poisonous_Mushroom\"",
+					"Chance": 1,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Host BountifulBoletes, WEATHER Target Sun, RANDOM 0.3, KediDili.VanillaPlusProfessions_WasRainingHereYesterday Target",
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Locations",
+			"TargetField": [
+				"Town",
+				"Forage"
+			],
+			"Entries": {
+				"Kedi.VPP.BountifulBoletes": {
+					"Id": "Kedi.VPP.BountifulBoletes",
+					"ItemId": "RANDOM_ITEMS (O)",
+					"PerItemCondition": "ANY \"ITEM_CONTEXT_TAG Target edible_mushroom\" \"ITEM_CONTEXT_TAG Target Kedi_VPP_Poisonous_Mushroom\"",
+					"Chance": 1,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Host BountifulBoletes, WEATHER Target Sun, RANDOM 0.3, KediDili.VanillaPlusProfessions_WasRainingHereYesterday Target",
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Locations",
+			"TargetField": [
+				"BusStop",
+				"Forage"
+			],
+			"Entries": {
+				"Kedi.VPP.BountifulBoletes": {
+					"Id": "Kedi.VPP.BountifulBoletes",
+					"ItemId": "RANDOM_ITEMS (O)",
+					"PerItemCondition": "ANY \"ITEM_CONTEXT_TAG Target edible_mushroom\" \"ITEM_CONTEXT_TAG Target Kedi_VPP_Poisonous_Mushroom\"",
+					"Chance": 1,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Host BountifulBoletes, WEATHER Target Sun, RANDOM 0.3, KediDili.VanillaPlusProfessions_WasRainingHereYesterday Target",
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Locations",
+			"TargetField": [
+				"Town",
+				"Fish",
+				"(O)160",
+				"ChanceModifiers"
+			],
+			"Entries":{
+				"Kedi.VPP.VastDomain.Angler.Original": {
+					"Id": "Kedi.VPP.VastDomain.Angler.Original",
+					"Modification": "Set",
+					"Amount": 0.3,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current VastDomain",
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Locations",
+			"TargetField": [
+				"Town",
+				"Fish",
+				"(O)899",
+				"ChanceModifiers"
+			],
+			"Entries":{
+				"Kedi.VPP.VastDomain.Angler.Family": {
+					"Id": "Kedi.VPP.VastDomain.Angler.Family",
+					"Modification": "Set",
+					"Amount": 0.3,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current VastDomain",
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Locations",
+			"TargetField": [
+				"Beach",
+				"Fish",
+				"(O)159",
+				"ChanceModifiers"
+			],
+			"Entries":{
+				"Kedi.VPP.VastDomain.Crimsonfish.Original": {
+					"Id": "Kedi.VPP.VastDomain.Crimsonfish.Original",
+					"Modification": "Set",
+					"Amount": 0.25,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current VastDomain",
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Locations",
+			"TargetField": [
+				"Beach",
+				"Fish",
+				"(O)898",
+				"ChanceModifiers"
+			],
+			"Entries":{
+				"Kedi.VPP.VastDomain.Crimsonfish.Family": {
+					"Id": "Kedi.VPP.VastDomain.Crimsonfish.Family",
+					"Modification": "Set",
+					"Amount": 0.25,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current VastDomain",
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Locations",
+			"TargetField": [
+				"Beach",
+				"Fish",
+			],
+			"Fields":{
+				"(O)898": {
+					"MinDistanceFromShore": 2
+				},
+				"(O)159": {
+					"MinDistanceFromShore": 2
+				}
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=VastDomain": "true"
+			},
+			"Update": "OnTimeChange",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Locations",
+			"TargetField": [
+				"Mountain",
+				"Fish",
+				"(O)163",
+				"ChanceModifiers"
+			],
+			"Entries":{
+				"Kedi.VPP.VastDomain.Legend.Original": {
+					"Id": "Kedi.VPP.VastDomain.Legend.Original",
+					"Modification": "Set",
+					"Amount": 0.25,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current VastDomain",
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Locations",
+			"TargetField": [
+				"Mountain",
+				"Fish",
+				"(O)900",
+				"ChanceModifiers"
+			],
+			"Entries":{
+				"Kedi.VPP.VastDomain.Legend.Family": {
+					"Id": "Kedi.VPP.VastDomain.Legend.Family",
+					"Modification": "Set",
+					"Amount": 0.25,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current VastDomain",
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Locations",
+			"TargetField": [
+				"Mountain",
+				"Fish",
+			],
+			"Fields":{
+				"(O)900": {
+					"MinDistanceFromShore": 3
+				},
+				"(O)163": {
+					"MinDistanceFromShore": 3
+				},
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=VastDomain": "true"
+			},
+			"Update": "OnTimeChange",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Locations",
+			"TargetField": [
+				"Forest",
+				"Fish"
+			],
+			"Fields":{
+				"(O)902": {
+					"PlayerPosition": null,
+					"MinDistanceFromShore": 2
+				},
+				"(O)775": {
+					"PlayerPosition": null,
+					"MinDistanceFromShore": 2
+				},
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=VastDomain": "true"
+			},
+			"Update": "OnTimeChange",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Locations",
+			"TargetField": [
+				"Sewer",
+				"Fish",
+				"(O)682",
+				"ChanceModifiers"
+			],
+			"Entries":{
+				"Kedi.VPP.VastDomain.Carp.Original": {
+					"Id": "Kedi.VPP.VastDomain.Carp.Original",
+					"Modification": "Set",
+					"Amount": 0.2,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current VastDomain",
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Locations",
+			"TargetField": [
+				"Sewer",
+				"Fish",
+				"(O)901",
+				"ChanceModifiers"
+			],
+			"Entries":{
+				"Kedi.VPP.VastDomain.Carp.Family": {
+					"Id": "Kedi.VPP.VastDomain.Carp.Family",
+					"Modification": "Set",
+					"Amount": 0.2,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current VastDomain",
+				}
+			}
+		}
+	]
+}

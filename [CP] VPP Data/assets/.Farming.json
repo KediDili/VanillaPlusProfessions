@@ -1,0 +1,292 @@
+{
+	"Changes": [
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)15", "ReadyTimeModifiers" ],
+			"Entries":{
+				"Kedi.VPP.MachinistProfession.1": {
+					"Id": "Kedi.VPP.MachinistProfession.1",
+					"Amount": 0.75,
+					"Modification": "Multiply",
+					"Condition": "!ITEM_ID Input (O)812, !ITEM_ID Input (O)430, !ITEM_ID Target (O)432, PLAYER_HAS_PROFESSION Current 34"
+				}
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Dehydrator", "ReadyTimeModifiers" ],
+			"Entries":{
+				"Kedi.VPP.MachinistProfession.1": {
+					"Id": "Kedi.VPP.MachinistProfession.1",
+					"Amount": 0.75,
+					"Modification": "Multiply",
+					"Condition": "PLAYER_HAS_PROFESSION Current 34"
+				}
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)15", "OutputRules", "Default_Roe", "OutputItem", "Default", "PriceModifiers" ],
+			"Entries":{ 
+				"Kedi.VPP.RoeMance.1": {
+					"Id": "Kedi.VPP.RoeMance.1",
+					"Amount": 0.75,
+					"Modification": "Multiply",
+					"Condition": "PLAYER_HAS_MAIL Current Fishing_Roemance Received"
+				}
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)15", "OutputRules", "Default_SturgeonRoe", "OutputItem", "(O)445", "PriceModifiers" ],
+			"Entries":{ 
+				"Kedi.VPP.RoeMance": {
+					"Id": "Kedi.VPP.RoeMance",
+					"Amount": 0.75,
+					"Modification": "Multiply",
+					"Condition": "PLAYER_HAS_MAIL Current Fishing_Roemance Received"
+				}
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)15", "OutputRules", "Default_SturgeonRoe", "OutputItem", "(O)445", "PriceModifiers" ],
+			"Entries":{ 
+				"Kedi.VPP.RoeMance": {
+					"Id": "Kedi.VPP.RoeMance",
+					"Amount": 0.75,
+					"Modification": "Multiply",
+					"Condition": "PLAYER_HAS_MAIL Current Fishing_Roemance Received"
+				}
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)15", "OutputRules", "Default_SturgeonRoe", "OutputItem" ],
+			"Fields":{
+				"(O)445": {
+					"CopyQuality": true
+				}
+			},
+			"When": {
+				"HasFlag: CurrentPlayer|contains=Fishing_Fit_For_A_Czar": true
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)12", "ReadyTimeModifiers" ],
+			"Entries":{
+				"Kedi.VPP.MachinistProfession": {
+					"Id": "Kedi.VPP.MachinistProfession",
+					"Amount": 0.75,
+					"Modification": "Multiply",
+					"Condition": "PLAYER_HAS_PROFESSION Current 34",
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)16", "ReadyTimeModifiers" ],
+			"Entries":{
+				"Kedi.VPP.Musterer": {
+					"Id": "Kedi.VPP.Musterer",
+					"Amount": 0.75,
+					"Modification": "Multiply",
+					"Condition": "PLAYER_HAS_PROFESSION Current 32"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)17", "ReadyTimeModifiers" ],
+			"Entries":{
+				"Kedi.VPP.Musterer": {
+					"Id": "Kedi.VPP.Musterer",
+					"Amount": 0.75,
+					"Modification": "Multiply",
+					"Condition": "PLAYER_HAS_PROFESSION Current 32, !PLAYER_HAS_PROFESSION Current 30"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)24", "ReadyTimeModifiers" ],
+			"Entries":{
+				"Kedi.VPP.Musterer": {
+					"Id": "Kedi.VPP.Musterer",
+					"Amount": 0.75,
+					"Modification": "Multiply",
+					"Condition": "PLAYER_HAS_PROFESSION Current 32, ITEM_ID Input (O)289"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)24", "OutputRules", "Default_DuckEgg", "OutputItem", "(O)307", "StackModifiers" ],
+			"Entries":{
+				"Kedi.VPP.Nutritionist": {
+					"Id": "Kedi.VPP.Nutritionist",
+					"Amount": 1,
+					"Modification": "Add",
+					"Condition": "PLAYER_HAS_PROFESSION Current 30"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)24", "OutputRules", "Default_VoidEgg", "OutputItem", "(O)308", "StackModifiers" ],
+			"Entries":{
+				"Kedi.VPP.Nutritionist": {
+					"Id": "Kedi.VPP.Nutritionist",
+					"Amount": 1,
+					"Modification": "Add",
+					"Condition": "PLAYER_HAS_PROFESSION Current 30"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)24", "OutputRules", "Default_DinosaurEgg", "OutputItem", "(O)807", "StackModifiers" ],
+			"Entries":{
+				"Kedi.VPP.Nutritionist": {
+					"Id": "Kedi.VPP.Nutritionist",
+					"Amount": 1,
+					"Modification": "Add",
+					"Condition": "PLAYER_HAS_PROFESSION Current 30"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)24", "OutputRules", "Default_GoldenEgg", "OutputItem", "(O)306", "StackModifiers" ],
+			"Entries":{
+				"Kedi.VPP.Nutritionist": {
+					"Id": "Kedi.VPP.Nutritionist",
+					"Amount": 1,
+					"Modification": "Add",
+					"Condition": "PLAYER_HAS_PROFESSION Current 30"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)24", "OutputRules", "Default_LargeEgg", "OutputItem", "(O)306", "StackModifiers" ],
+			"Entries":{
+				"Kedi.VPP.Nutritionist": {
+					"Id": "Kedi.VPP.Nutritionist",
+					"Amount": 1,
+					"Modification": "Add",
+					"Condition": "PLAYER_HAS_PROFESSION Current 30"
+				}
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)24", "OutputRules", "Default_Egg", "OutputItem", "(O)306", "StackModifiers" ],
+			"Entries":{
+				"Kedi.VPP.Nutritionist": {
+					"Id": "Kedi.VPP.Nutritionist",
+					"Amount": 1,
+					"Modification": "Add",
+					"Condition": "PLAYER_HAS_PROFESSION Current 30"
+				}
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)163", "OutputRules" ],
+			"Entries":{
+				"Kedi.VPP.FitForACzar.Rule": {
+					"Id": "Kedi.VPP.FitForACzar.Rule",
+					"Triggers": [
+						{
+							"Id": "Kedi.VPP.FitForACzar.Trigger",
+							"Trigger": "ItemPlacedInMachine",
+							"RequiredItemId": "(O)447",
+							"Condition": "PLAYER_HAS_MAIL Current Fishing_Fit_For_A_Czar Received"
+						} 
+					],
+					"OutputItem": [
+						{
+							"Id": "Kedi.VPP.FitForACzar.Output",
+							"OutputMethod": "StardewValleyStardewValley.Objects.Cask, Stardew Valley: OutputCask",
+							"CustomData": {
+								"AgingMultiplier": "1"
+							},
+							"Condition": "PLAYER_HAS_MAIL Current Fishing_Fit_For_A_Czar Received"
+						}
+					]
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)19", "OutputRules" ],
+			"Entries": {
+				"Kedi.VPP.ColdPress.Rule": {
+					"Id": "Kedi.VPP.ColdPress.Rule",
+					"Triggers":[
+						{
+							"Id": "Kedi.VPP.ColdPress.Trigger",
+							"Trigger": "ItemPlacedInMachine",
+							"Condition": "PLAYER_HAS_MAIL Current Farming_Cold_Press Received, ITEM_ID Input (O)256 (O)495 (O)496 (O)497 (O)498 (O)834 (O)634 (O)311 (O)635 (O)613 (O)SummerSquash (O)300 (O)Carrot (O)637 (O)88 (O)408 (O)274 (O)276 (O)376 (O)262 (O)271 (O)264"
+						}
+					],
+					"OutputItem": [
+						{
+							"Id": "Kedi.VPP.ColdPress.Output",
+							"ItemId": "(O)247",
+							"ObjectDisplayName": "[LocalizedText Strings/Objects:VPPFlavoredOil_Format %PRESERVED_DISPLAY_NAME]",
+							"ObjectInternalName": "VPP {0} Oil",
+							"PreserveId": "DROP_IN",
+						}
+					]
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)19", "OutputRules", "Default_Corn", "OutputItem" ],
+			"Fields": {
+				"(O)247": {
+					"ObjectDisplayName": "[LocalizedText VPPFlavoredOil_Format %PRESERVED_DISPLAY_NAME]",
+				}
+			},
+			"When": {
+				"HasFlag: CurrentPlayer|contains= Farming_Cold_Press": "true",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)19", "OutputRules", "Default_Sunflower", "OutputItem" ],
+			"Fields": {
+				"(O)247": {
+					"ObjectDisplayName": "[LocalizedText VPPFlavoredOil_Format %PRESERVED_DISPLAY_NAME]",
+				}
+			},
+			"When": {
+				"HasFlag: CurrentPlayer|contains= Farming_Cold_Press": "true",
+			}
+		}
+	]
+}

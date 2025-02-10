@@ -1,0 +1,69 @@
+{
+	"Changes": [
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)19", "OutputRules" ],
+			"Entries": {
+				"Kedi.VPP.ColdPress.Rule": {
+					"Id": "Kedi.VPP.ColdPress.Rule",
+					"Triggers":[
+						{
+							"Id": "Kedi.VPP.ColdPress.Trigger",
+							"Trigger": "ItemPlacedInMachine",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current ColdPress, ITEM_ID Input (O)256 (O)495 (O)496 (O)497 (O)498 (O)834 (O)634 (O)311 (O)635 (O)613 (O)SummerSquash (O)300 (O)Carrot (O)637 (O)88 (O)408 (O)274 (O)276 (O)376 (O)262 (O)271 (O)264"
+						}
+					],
+					"OutputItem": [
+						{
+							"Id": "Kedi.VPP.ColdPress.Output",
+							"ItemId": "(O)247",
+							"ObjectDisplayName": "[LocalizedText Strings\\Objects:VPPFlavoredOil_Format %PRESERVED_DISPLAY_NAME]"
+						}
+					]
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)19", "ReadyTimeModifiers" ],
+			"Entries":{
+				"Kedi.VPP.MachinistProfession": {
+					"Id": "Kedi.VPP.MachinistProfession",
+					"Amount": 0.75,
+					"Modification": "Multiply",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Machinist, ITEM_CATEGORY Input ",
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)19", "OutputRules", "Default_Corn", "OutputItem" ],
+			"Fields": {
+				"(O)247": {
+					"ObjectDisplayName": "[LocalizedText Strings\\Objects:VPPFlavoredOil_Format %PRESERVED_DISPLAY_NAME]"
+				}
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=ColdPress": "true",
+			},
+			"Update": "OnTimeChange",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)19", "OutputRules", "Default_Sunflower", "OutputItem" ],
+			"Fields": {
+				"(O)247": {
+					"ObjectDisplayName": "[LocalizedText Strings\\Objects:VPPFlavoredOil_Format %PRESERVED_DISPLAY_NAME]"
+				}
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=ColdPress": "true",
+			},
+			"Update": "OnTimeChange",
+		}
+	]
+}

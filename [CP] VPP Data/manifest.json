@@ -1,0 +1,22 @@
+{
+	"Name": "[CP] VPP Data",
+	"Author": "KediDili",
+	"Description": "Adds further branches to vanilla professions.",
+	"Version": "1.0.5",
+	"UniqueID": "KediDili.VPPData.CP",
+	"UpdateKeys": [ "Nexus:20054" ],
+	"ContentPackFor": {
+	"UniqueID": "Pathoschild.ContentPatcher"
+	},
+	"MinimumApiVersion": "4.0.0",
+	"Dependencies": [
+		{
+			"UniqueID": "KediDili.VanillaPlusProfessions",
+			"IsRequired": true
+		},
+		{
+			"UniqueID": "Esca.EMP",
+			"IsRequired": true
+		}
+	]
+}

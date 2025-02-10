@@ -1,0 +1,50 @@
+{
+	"Changes": [
+		{
+			"Action": "EditData",
+			"Target": "Data/Trinkets",
+			"Fields": {
+				"MagicHairDye": {
+					"CustomFields": {
+						"Kedi.VPP.AccessoriseRing": "Kedi.VPP.HairRecolorRing",
+					}
+				},
+				"FrogEgg": {
+					"CustomFields": {
+						"Kedi.VPP.AccessoriseRing": "Kedi.VPP.FrogRing",
+					}
+				},
+				"MagicQuiver": {
+					"CustomFields": {
+						"Kedi.VPP.AccessoriseRing": "Kedi.VPP.MarksmanRing",
+					}
+				},
+				"FairyBox": {
+					"CustomFields": {
+						"Kedi.VPP.AccessoriseRing": "Kedi.VPP.FairyRing",
+					}
+				},
+				"ParrotEgg": {
+					"CustomFields": {
+						"Kedi.VPP.AccessoriseRing": "Kedi.VPP.ParrotRing",
+					}
+				},
+				"IceRod": {
+					"CustomFields": {
+						"Kedi.VPP.AccessoriseRing": "Kedi.VPP.IceOrbRing",
+					}
+				},
+				"IridiumSpur": {
+					"CustomFields": {
+						"Kedi.VPP.AccessoriseRing": "Kedi.VPP.GoldSpurRing",
+					}
+				},
+				"BasiliskPaw": {
+					"CustomFields": {
+						"Kedi.VPP.AccessoriseRing": "Kedi.VPP.BasiliskRing",
+					}
+				}
+			}
+		}
+	]
+} 

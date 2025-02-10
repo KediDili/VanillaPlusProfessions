@@ -1,0 +1,229 @@
+{
+	"Changes": [
+		{
+			"Action": "EditData",
+			"Target": "Data/GarbageCans",
+			"TargetField": ["BeforeAll", "Base_GarbageHat"],
+			"Entries": {
+				"Condition": "PLAYER_STAT Current trashCansChecked 20, RANDOM .005"
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=EyeSpy": "true"
+			},
+			"Update": "OnTimeChange"
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/GarbageCans",
+			"TargetField": ["BeforeAll", "Base_TrashCatalogue"],
+			"Entries": {
+				"Condition": "PLAYER_STAT Current trashCansChecked 50, RANDOM .005"
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=EyeSpy": "true"
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/GarbageCans",
+			"TargetField": ["AfterAll"],
+			"Fields": {
+				"Base_MegaSuccessFallback": {
+					"RandomItemId": [ "(O)797", "(O)74", "(O)166", "(O)373"] 
+				}
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=TrashedTreasure": "true"
+			},
+			"Update": "OnTimeChange",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/GarbageCans",
+			"TargetField": ["GarbageCans", "Blacksmith", "Items"],
+			"Fields": {
+				"Base_Ore": {
+					"Condition": "RANDOM 0.6 @addDailyLuck"
+				}
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=TrashedTreasure": "true"
+			},
+			"Update": "OnTimeChange",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/GarbageCans",
+			"TargetField": ["GarbageCans", "Museum", "Items"],
+			"Fields": {
+				"Base_OmniGeode": {
+					"Condition": "SYNCED_RANDOM day garbage_museum_749 0.1"
+				},
+				"Base_Geode": {
+					"Condition": "SYNCED_RANDOM day garbage_museum_535 0.6 @addDailyLuck"
+				}
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=TrashedTreasure": "true"
+			},
+			"Update": "OnTimeChange",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/GarbageCans",
+			"TargetField": ["GarbageCans", "Evelyn", "Items"],
+			"Fields": {
+				"Base_Cookie": {
+					"Condition": "RANDOM 0.6 @addDailyLuck"
+				}
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=TrashedTreasure": "true"
+			},
+			"Update": "OnTimeChange",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/GarbageCans",
+			"TargetField": ["GarbageCans", "JojaMart", "Items"],
+			"Fields": {
+				"Base_MovieTicketOrCorn": {
+					"Condition": "SYNCED_RANDOM day garbage_joja 0.6, PLAYER_HAS_MAIL Host ccMovieTheater, !PLAYER_HAS_MAIL Host ccMovieTheaterJoja"
+				},
+				"Base_JojaCola": {
+					"Condition": "SYNCED_RANDOM day garbage_joja 0.6, !PLAYER_HAS_SEEN_EVENT Any 191393"
+				}
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=TrashedTreasure": "true"
+			},
+			"Update": "OnTimeChange",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/GarbageCans",
+			"TargetField": ["GarbageCans", "Mayor", "Items" ],
+			"Entries": {
+				"Kedi.VPP.TrashedTreasure.Mayor.Good": {
+					"Id": "Kedi.VPP.TrashedTreasure.Mayor.Good", 
+					"RandomItemId": [ "(O)200", "(O)208" ],
+					"Condition": "{{Query: {{DailyLuck}} > 0}}, KediDili.VanillaPlusProfessions_PlayerHasTalent Current TrashedTreasure"
+				},
+				"Kedi.VPP.TrashedTreasure.Mayor.Bad": {
+					"Id": "Kedi.VPP.TrashedTreasure.Mayor.Bad",
+					"RandomItemId": [ "(O)283", "(O)80" ],
+					"Condition": "{{Query: {{DailyLuck}} < 0}}, KediDili.VanillaPlusProfessions_PlayerHasTalent Current TrashedTreasure"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/GarbageCans",
+			"TargetField": ["GarbageCans", "Blacksmith", "Items" ],
+			"Entries": {
+				"Kedi.VPP.TrashedTreasure.Blacksmith.Good": {
+					"Id": "Kedi.VPP.TrashedTreasure.Blacksmith.Good",
+					"RandomItemId": [ "(O)605", "(O)386", "(O)749" ],
+					"Condition": "{{Query: {{DailyLuck}} > 0}}, KediDili.VanillaPlusProfessions_PlayerHasTalent Current TrashedTreasure"
+				},
+				"Kedi.VPP.TrashedTreasure.Blacksmith.Bad": {
+					"Id": "Kedi.VPP.TrashedTreasure.Blacksmith.Bad",
+					"RandomItemId": [ "(O)372", "(O)296" ],
+					"Condition": "{{Query: {{DailyLuck}} < 0}}, KediDili.VanillaPlusProfessions_PlayerHasTalent Current TrashedTreasure"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/GarbageCans",
+			"TargetField": ["GarbageCans", "EmilyAndHaley", "Items" ],
+			"Entries": {
+				"Kedi.VPP.TrashedTreasure.EmilyAndHaley.Good": {
+					"Id": "Kedi.VPP.TrashedTreasure.EmilyAndHaley.Good",
+					"RandomItemId": [ "(O)241", "(O)18", "(O)610", "(O)637" ],
+					"Condition": "{{Query: {{DailyLuck}} > 0}}, KediDili.VanillaPlusProfessions_PlayerHasTalent Current TrashedTreasure"
+				},
+				"Kedi.VPP.TrashedTreasure.EmilyAndHaley.Bad": {
+					"Id": "Kedi.VPP.TrashedTreasure.EmilyAndHaley.Bad",
+					"RandomItemId": [ "(O)213", "(O)233", "(O)436", "(O)416" ],
+					"Condition": "{{Query: {{DailyLuck}} < 0}}, KediDili.VanillaPlusProfessions_PlayerHasTalent Current TrashedTreasure"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/GarbageCans",
+			"TargetField": ["GarbageCans", "Evelyn", "Items" ],
+			"Entries": {
+				"Kedi.VPP.TrashedTreasure.Evelyn.Good": {
+					"Id": "Kedi.VPP.TrashedTreasure.Evelyn.Good",
+					"RandomItemId": [ "(O)Raisins", "(O)20", "(O)212" ],
+					"Condition": "{{Query: {{DailyLuck}} > 0}}, KediDili.VanillaPlusProfessions_PlayerHasTalent Current TrashedTreasure"
+				},
+				"Kedi.VPP.TrashedTreasure.Evelyn.Bad": {
+					"Id": "Kedi.VPP.TrashedTreasure.Evelyn.Bad",
+					"RandomItemId": [ "(O)225", "(O)330", "(O)92" ],
+					"Condition": "{{Query: {{DailyLuck}} < 0}}, KediDili.VanillaPlusProfessions_PlayerHasTalent Current TrashedTreasure"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/GarbageCans",
+			"TargetField": ["GarbageCans", "JodiAndKent", "Items" ],
+			"Entries": {
+				"Kedi.VPP.TrashedTreasure.JodiAndKent.Good": {
+					"Id": "Kedi.VPP.TrashedTreasure.JodiAndKent.Good",
+					"RandomItemId": [ "(O)731", "(O)612", "(O)225", "(O)607" ],
+					"Condition": "{{Query: {{DailyLuck}} > 0}}, KediDili.VanillaPlusProfessions_PlayerHasTalent Current TrashedTreasure"
+				},
+				"Kedi.VPP.TrashedTreasure.JodiAndKent.Bad": {
+					"Id": "Kedi.VPP.TrashedTreasure.JodiAndKent.Bad",
+					"RandomItemId": [ "(O)456", "(O)253", "(O)342", "(O)18" ],
+					"Condition": "{{Query: {{DailyLuck}} < 0}}, KediDili.VanillaPlusProfessions_PlayerHasTalent Current TrashedTreasure"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/GarbageCans",
+			"TargetField": ["GarbageCans", "Saloon", "Items" ],
+			"Entries": {
+				"Kedi.VPP.TrashedTreasure.Saloon.Good": {
+					"Id": "Kedi.VPP.TrashedTreasure.Saloon.Good",
+					"RandomItemId": [ "(O)213", "(O)729" ],
+					"Condition": "{{Query: {{DailyLuck}} > 0}}, KediDili.VanillaPlusProfessions_PlayerHasTalent Current TrashedTreasure"
+				},
+				"Kedi.VPP.TrashedTreasure.Saloon.Bad": {
+					"Id": "Kedi.VPP.TrashedTreasure.Saloon.Bad",
+					"RandomItemId": [ "(O)648", "(O)297" ],
+					"Condition": "{{Query: {{DailyLuck}} < 0}}, KediDili.VanillaPlusProfessions_PlayerHasTalent Current TrashedTreasure"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/GarbageCans",
+			"TargetField": ["GarbageCans", "Museum", "Items" ],
+			"Entries": {
+				"Kedi.VPP.TrashedTreasure.Museum.Good": {
+					"Id": "Kedi.VPP.TrashedTreasure.Museum.Good",
+					"RandomItemId": [ "(O)60", "(O)62", "(O)64", "(O)66", "(O)68", "(O)70", "(O)72" ],
+					"Condition": "{{Query: {{DailyLuck}} > 0}}, RANDOM 0.2 @addDailyLuck, KediDili.VanillaPlusProfessions_PlayerHasTalent Current TrashedTreasure"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/GarbageCans",
+			"TargetField": ["GarbageCans", "JojaMart", "Items" ],
+			"Entries": {
+				"Kedi.VPP.TrashedTreasure.JojaMart.Good": {
+					"Id": "Kedi.VPP.TrashedTreasure.JojaMart.Good",
+					"RandomItemId": [ "(O)202", "(O)204", "(O)203", "(O)206", "(O)209", "(O)213", "(O)223", "(O)225", "(O)233", "(O)228", "(O)253", "(O)456", "(O)605", "(O)612", "(O)731" ],					
+					"Condition": "{{Query: {{DailyLuck}} > 0}}, RANDOM 0.2 @addDailyLuck, KediDili.VanillaPlusProfessions_PlayerHasTalent Current TrashedTreasure"
+				}
+			}
+		}
+	]
+}

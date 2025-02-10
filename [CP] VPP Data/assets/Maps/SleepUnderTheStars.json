@@ -1,0 +1,11 @@
+{
+	"Changes": [
+		{
+			"Action": "EditMap",
+			"Target": "Maps/Beach, Maps/Forest, Maps/Mountain",
+			"MapProperties": {
+				"PassOutSafe": "T"
+			}
+		}
+	]
+}

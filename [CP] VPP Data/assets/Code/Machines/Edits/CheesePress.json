@@ -1,0 +1,219 @@
+{
+	"Changes": [
+		{
+			"LogName": "Musterer - Cheese Press",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [
+				"(BC)16",
+				"ReadyTimeModifiers"
+			],
+			"Entries": {
+				"Kedi.VPP.Musterer": {
+					"Id": "Kedi.VPP.Musterer",
+					"Amount": 0.75,
+					"Modification": "Multiply",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Musterer"
+				}
+			}
+		},
+		{
+			"LogName": "Pastoralism - Goat Milk",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [
+				"(BC)16",
+				"OutputRules",
+				"Default_GoatMilk",
+				"OutputItem",
+				"(O)426",
+				"QualityModifiers"
+			],
+			"Entries": {
+				"Kedi.VPP.Pastoralism.None": {
+					"Id": "Kedi.VPP.Pastoralism.None",
+					"Amount": 0,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 0"
+				},
+				"Kedi.VPP.Pastoralism.Silver": {
+					"Id": "Kedi.VPP.Pastoralism.Silver",
+					"Amount": 1,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 1"
+				},
+				"Kedi.VPP.Pastoralism.Gold": {
+					"Id": "Kedi.VPP.Pastoralism",
+					"Amount": 2,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 2"
+				},
+				"Kedi.VPP.Pastoralism.Iridium": {
+					"Id": "Kedi.VPP.Pastoralism",
+					"Amount": 4,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 4"
+				}
+			}
+		},
+		{
+			"LogName": "Pastoralism - Milk",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [
+				"(BC)16",
+				"OutputRules",
+				"Default_Milk",
+				"OutputItem",
+				"(O)424",
+				"QualityModifiers"
+			],
+			"Entries": {
+				"Kedi.VPP.Pastoralism.None": {
+					"Id": "Kedi.VPP.Pastoralism.None",
+					"Amount": 0,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 0"
+				},
+				"Kedi.VPP.Pastoralism.Silver": {
+					"Id": "Kedi.VPP.Pastoralism.Silver",
+					"Amount": 1,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 1"
+				},
+				"Kedi.VPP.Pastoralism.Gold": {
+					"Id": "Kedi.VPP.Pastoralism",
+					"Amount": 2,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 2"
+				},
+				"Kedi.VPP.Pastoralism.Iridium": {
+					"Id": "Kedi.VPP.Pastoralism",
+					"Amount": 4,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 4"
+				}
+			}
+		},
+		{
+			"LogName": "Pastoralism - Large Goat Milk",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [
+				"(BC)16",
+				"OutputRules",
+				"Default_LargeGoatMilk",
+				"OutputItem",
+				"(O)426",
+				"QualityModifiers"
+			],
+			"Entries": {
+				"Kedi.VPP.Pastoralism.None": {
+					"Id": "Kedi.VPP.Pastoralism.None",
+					"Amount": 0,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 0"
+				},
+				"Kedi.VPP.Pastoralism.Silver": {
+					"Id": "Kedi.VPP.Pastoralism.Silver",
+					"Amount": 1,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 1"
+				},
+				"Kedi.VPP.Pastoralism.Gold": {
+					"Id": "Kedi.VPP.Pastoralism",
+					"Amount": 2,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 2"
+				},
+				"Kedi.VPP.Pastoralism.Iridium": {
+					"Id": "Kedi.VPP.Pastoralism",
+					"Amount": 4,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 4"
+				}
+			}
+		},
+		{
+			"LogName": "Pastoralism - Large Milk",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [
+				"(BC)16",
+				"OutputRules",
+				"Default_LargeMilk",
+				"OutputItem",
+				"(O)424",
+				"QualityModifiers"
+			],
+			"Entries": {
+				"Kedi.VPP.Pastoralism.None": {
+					"Id": "Kedi.VPP.Pastoralism.None",
+					"Amount": 0,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 0"
+				},
+				"Kedi.VPP.Pastoralism.Silver": {
+					"Id": "Kedi.VPP.Pastoralism.Silver",
+					"Amount": 1,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 1"
+				},
+				"Kedi.VPP.Pastoralism.Gold": {
+					"Id": "Kedi.VPP.Pastoralism.Gold",
+					"Amount": 2,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 2"
+				},
+				"Kedi.VPP.Pastoralism.Iridium": {
+					"Id": "Kedi.VPP.Pastoralism.Iridium",
+					"Amount": 4,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 4"
+				}
+			}
+		},
+		{
+			"LogName": "Bio-Engineering - Large Milk",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [
+				"(BC)16",
+				"OutputRules",
+				"Default_LargeMilk",
+				"OutputItem",
+				"(O)424",
+				"StackModifiers"
+			],
+			"Entries": {
+				"Kedi.VPP.Bio-Engineering": {
+					"Id": "Kedi.VPP.Bio-Engineering",
+					"Amount": 2,
+					"Modification": "Multiply",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Bio-Engineering"
+				}
+			}
+		},
+		{
+			"LogName": "Bio-Engineering - Large Goat Milk",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [
+				"(BC)16",
+				"OutputRules",
+				"Default_LargeGoatMilk",
+				"OutputItem",
+				"(O)426",
+				"StackModifiers"
+			],
+			"Entries": {
+				"Kedi.VPP.Bio-Engineering": {
+					"Id": "Kedi.VPP.Bio-Engineering",
+					"Amount": 2,
+					"Modification": "Multiply",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Bio-Engineering"
+				}
+			}
+		}
+	]
+}

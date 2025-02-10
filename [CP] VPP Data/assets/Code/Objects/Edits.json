@@ -1,0 +1,197 @@
+{
+	"Changes": [
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"Fields": {
+				"92": {
+					"Edibility": 3
+				}
+			},
+			"When": {
+				"Esca.EMP/GameStateQuery:KediDili.VanillaPlusProfessions_PlayerHasTalent Any SapSipper": true
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"Fields": {
+				"578": {
+					"Category": -2
+				},
+				"565": {
+					"Category": -2
+				},
+				"564": {
+					"Category": -2
+				},
+				"563": {
+					"Category": -2
+				},
+				"562": {
+					"Category": -2
+				},
+			},
+			"When": {
+				"Esca.EMP/GameStateQuery:KediDili.VanillaPlusProfessions_PlayerHasTalent Any EveryonesBestFriend": true
+			},
+			"Update": "OnTimeChange",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/BigCraftables",
+			"Fields": {
+				"105": {
+					"ContextTags": [
+						"tapper_item",
+						"tapper_multiplier_0.75"
+					]
+				},
+				"264": {
+					"ContextTags": [
+						"tapper_item",
+						"tapper_multiplier_1.50"
+					]
+				},
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasProfessions|contains=Sapper": true
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"Fields": {
+				"208": {
+					"ContextTags": [ "color_brown", "ginger_item" ],
+				},
+				"220": {
+					"ContextTags": [ "color_brown", "food_bakery", "food_cake", "food_sweet", "ginger_item" ],
+				},
+				"221": {
+					"ContextTags": [ "color_pink", "food_bakery", "food_cake", "food_sweet", "ginger_item" ],
+				},
+				"222": {
+					"ContextTags": [ "color_red", "food_bakery", "food_sweet", "ginger_item" ],
+				},
+				"223": {
+					"ContextTags": [ "color_brown", "food_bakery", "food_sweet", "ginger_item" ],
+				},
+				"232": {
+					"ContextTags": [ "color_white", "food_sweet", "ginger_item" ],
+				},
+				"233": {
+					"ContextTags": [ "color_white", "food_sweet", "ginger_item" ],
+				},
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=SugarRush": true
+			},
+			"Update": "OnTimeChange",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"Fields": {
+				"Kedi.VPP.GrilledLeek": {
+					"ContextTags": [ "kedi_vpp_survival_cooking_food", "ginger_item" ],
+				},
+				"Kedi.VPP.SeaweedSalad": {
+					"ContextTags": [ "kedi_vpp_survival_cooking_food", "color_green", "ginger_item" ],
+				},
+				"Kedi.VPP.TrailMix": {
+					"ContextTags": [ "kedi_vpp_survival_cooking_food", "ginger_item" ],
+				},
+				"Kedi.VPP.WildFruitSalad": {
+					"ContextTags": [ "kedi_vpp_survival_cooking_food",  "ginger_item" ],
+				},
+				"Kedi.VPP.GrilledFish": {
+					"ContextTags": [ "kedi_vpp_survival_cooking_food", "color_brown", "ginger_item" ],
+				},
+				"Kedi.VPP.RoastedFiddleheads": {
+					"ContextTags": [ "kedi_vpp_survival_cooking_food", "color_dark_green", "ginger_item" ],
+				},
+				"Kedi.VPP.BakedTubers": {
+					"ContextTags": [ "kedi_vpp_survival_cooking_food", "ginger_item" ],
+				},
+				"Kedi.VPP.MushroomKebab": {
+					"ContextTags": [ "kedi_vpp_survival_cooking_food", "color_brown", "ginger_item" ],
+				},
+				"Kedi.VPP.FriedBugSteak": {
+					"ContextTags": [ "kedi_vpp_survival_cooking_food", "color_brown", "ginger_item" ],
+				},
+				"Kedi.VPP.SteamedClams": {
+					"ContextTags": [ "kedi_vpp_survival_cooking_food", "color_light_blue", "ginger_item" ],
+				},
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=SugarRush": true,
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=SurvivalCooking": true
+			},
+			"Update": "OnTimeChange",
+		},
+		{
+			"Action": "EditData",
+			"Target": "KediDili.VanillaPlusProfessions/InsiderInfo",
+			"Entries": {
+				"Abigail": "66 276 608 611",
+				"Alex": "139 201 210 211",
+				"Caroline": "593 614 815",
+				"Clint": "378 380 384 386 909 334 335 336 337 910",
+				"Demetrius": "420 422 635 613",
+				"Dwarf": "96 97 98 99 121 122 78 286 287 288",
+				"Elliott": "393 397 372 719 718 394",
+				"Emily": "428 440",
+				"Evelyn": "591 597 223",
+				"George": "20 86 205",
+				"Gus": "216 224 213",
+				"Haley": "88 421",
+				"Harvey": "342 395 349 351",
+				"Jas": "595 221",
+				"Jodi": "220 222 231 214 225",
+				"Kent": "259 649 408 607",
+				"Krobus": "305 308 203",
+				"Leah": "22 257 404, 281",
+				"Lewis": "235 208 200 260",
+				"Leo": "829 830 834 444",
+				"Linus": "296 410 396 406",
+				"Marnie": "184 186 436 438 424 426",
+				"Maru": "400 787",
+				"Penny": "Book_Artifact PurpleBook 376",
+				"Pierre": "419 247 246 245 423",
+				"Robin": "636 709 390 388",
+				"Sam": "206 90 562",
+				"Sandy": "418 18 402",
+				"Sebastian": "84 227 236 575",
+				"Shane": "176 174 180 182",
+				"Vincent": "721 722 612 399",
+				"Willy": "DeluxeBait 774 685 703 686 687 691 692 693 694 695 856 877 SonarBobber",
+				"Wizard": "768 769 155",
+			}
+		},
+		/*{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"Fields": {
+				"378": {
+					"Price": 10
+				},
+				"380": {
+					"Price": 20
+				},
+				"384": {
+					"Price": 50
+				},
+				"386": {
+					"Price": 200
+				},
+				"909": {
+					"Price": 600
+				}
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasProfessions|contains=Ironmonger": "true"
+			}
+		}*/
+	]
+}

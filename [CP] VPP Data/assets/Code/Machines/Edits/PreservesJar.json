@@ -1,0 +1,43 @@
+{
+	"Changes": [
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)15", "ReadyTimeModifiers" ],
+			"Entries":{
+				"Kedi.VPP.MachinistProfession.1": {
+					"Id": "Kedi.VPP.MachinistProfession.1",
+					"Amount": 0.75,
+					"Modification": "Multiply",
+					"Condition": "!ITEM_ID Input (O)812, !ITEM_ID Input (O)430, KediDili.VanillaPlusProfessions_PlayerHasProfession Current Machinist"
+				}
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)15", "OutputRules", "Default_Roe", "OutputItem", "Default", "PriceModifiers" ],
+			"Entries":{ 
+				"Kedi.VPP.RoeMance.1": {
+					"Id": "Kedi.VPP.RoeMance.1",
+					"Amount": 0.75,
+					"Modification": "Multiply",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Roemance" 
+				}
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)15", "OutputRules", "Default_SturgeonRoe", "OutputItem", "(O)445", "PriceModifiers" ],
+			"Entries":{ 
+				"Kedi.VPP.RoeMance": {
+					"Id": "Kedi.VPP.RoeMance",
+					"Amount": 0.75,
+					"Modification": "Multiply",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Roemance"
+				}
+			},
+		}
+	]
+}

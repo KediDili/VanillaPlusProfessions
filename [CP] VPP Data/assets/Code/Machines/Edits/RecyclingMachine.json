@@ -1,0 +1,983 @@
+{
+	"Changes": [
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [
+				"(BC)20",
+				"OutputRules"
+			],
+			"Entries": {
+				"Kedi.VPP.Archaeologist.ChippedAmphora": {
+					"Id": "Kedi.VPP.Archaeologist.ChippedAmphora",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"RequiredItemId": "(O)100",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						}
+					],
+					"OutputItem": [
+						{
+							"Id": "(O)330",
+							"ItemId": "(O)330",
+							"MinStack": 3,
+							"MaxStack": 3
+						}
+					]
+				},
+				"Kedi.VPP.Archaeologist.Arrowhead_PrehistoricHeadaxe": {
+					"Id": "Kedi.VPP.Archaeologist.Arrowhead_PrehistoricHeadaxe",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"RequiredItemId": "(O)101",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						},
+						{
+							"RequiredItemId": "(O)120",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						}
+					],
+					"OutputItem": [
+						{
+							"Id": "(O)390",
+							"ItemId": "(O)390",
+							"MinStack": 3,
+							"MaxStack": 3
+						}
+					]
+				},
+				"Kedi.VPP.Archaeologist.ChewingStick": {
+					"Id": "Kedi.VPP.Archaeologist.ChewingStick",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"RequiredItemId": "(O)105",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						}
+					],
+					"OutputItem": [
+						{
+							"Id": "(O)388",
+							"ItemId": "(O)388",
+							"MinStack": 1,
+							"MaxStack": 1
+						}
+					]
+				},
+				"Kedi.VPP.Archaeologist.RustySpoon": {
+					"Id": "Kedi.VPP.Archaeologist.RustySpoon",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"RequiredItemId": "(O)110",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						}
+					],
+					"OutputItem": [
+						{
+							"Id": "(O)380",
+							"ItemId": "(O)380",
+							"MinStack": 3,
+							"MaxStack": 3
+						}
+					]
+				},
+				"Kedi.VPP.Archaeologist.RustySpur.RustyCog": {
+					"Id": "Kedi.VPP.Archaeologist.RustySpur.RustyCog",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"RequiredItemId": "(O)112",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						},
+						{
+							"RequiredItemId": "(O)111",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						}
+					],
+					"OutputItem": [
+						{
+							"Id": "(O)378",
+							"ItemId": "(O)378",
+							"MinStack": 3,
+							"MaxStack": 3
+						}
+					]
+				},
+				"Kedi.VPP.Archaeologist.GlassShards": {
+					"Id": "Kedi.VPP.Archaeologist.GlassShards",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"RequiredItemId": "(O)118",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						}
+					],
+					"OutputItem": [
+						{
+							"Id": "(O)338",
+							"ItemId": "(O)338",
+							"MinStack": 1,
+							"MaxStack": 1
+						}
+					]
+				},
+				"Kedi.VPP.Archaeologist.Anchor": {
+					"Id": "Kedi.VPP.Archaeologist.Anchor",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"RequiredItemId": "(O)117",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						}
+					],
+					"OutputItem": [
+						{
+							"Id": "(O)335",
+							"ItemId": "(O)335",
+							"MinStack": 3,
+							"MaxStack": 3
+						}
+					]
+				},
+				"Kedi.VPP.Archaeologist.OrnamentalFan": {
+					"Id": "Kedi.VPP.Archaeologist.OrnamentalFan",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"RequiredItemId": "(O)106",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						}
+					],
+					"OutputItem": [
+						{
+							"Id": "(O)388",
+							"ItemId": "(O)388",
+							"MinStack": 2,
+							"MaxStack": 2
+						}
+					]
+				},
+				"Kedi.VPP.Archaeologist.GoldenMask.GoldenRelic": {
+					"Id": "Kedi.VPP.Archaeologist.GoldenMask.GoldenRelic",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"RequiredItemId": "(O)124",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						},
+						{
+							"RequiredItemId": "(O)125",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						}
+					],
+					"OutputItem": [
+						{
+							"Id": "(O)336",
+							"ItemId": "(O)336",
+							"MinStack": 2,
+							"MaxStack": 2
+						}
+					]
+				},
+				"Kedi.VPP.Archaeologist.NonFossilBones": {
+					"Id": "Kedi.VPP.Archaeologist.NonFossilBones",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"RequiredTags": [
+								"bone_item",
+								"!fossil_item"
+							],
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						}
+					],
+					"OutputItem": [
+						{
+							"Id": "(O)881",
+							"ItemId": "(O)881",
+							"MinStack": 5,
+							"MaxStack": 5
+						}
+					]
+				},
+				"Kedi.VPP.Archaeologist.PrehistoricTool": {
+					"Id": "Kedi.VPP.Archaeologist.PrehistoricTool",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"RequiredItemId": "(O)115",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						}
+					],
+					"OutputItem": [
+						{
+							"Id": "(O)390",
+							"ItemId": "(O)390",
+							"MinStack": 1,
+							"MaxStack": 1
+						}
+					]
+				},
+				"Kedi.VPP.Archaeologist.DriedStarfish": {
+					"Id": "Kedi.VPP.Archaeologist.DriedStarfish",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"RequiredItemId": "(O)116",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						}
+					],
+					"OutputItem": [
+						{
+							"Id": "(O)557",
+							"ItemId": "(O)557",
+							"MinStack": 1,
+							"MaxStack": 1
+						}
+					]
+				},
+				"Kedi.VPP.Archaeologist.Fossils": {
+					"Id": "Kedi.VPP.Archaeologist.Fossils",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"RequiredTags": [
+								"fossil_item"
+							],
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						}
+					],
+					"OutputItem": [
+						{
+							"Id": "NautilusFossil",
+							"ItemId": "(O)392",
+							"MinStack": 1,
+							"MaxStack": 1,
+							"Condition": "ITEM_ID Input (0)586"
+						},
+						{
+							"Id": "Clay",
+							"ItemId": "(O)330",
+							"MinStack": 3,
+							"MaxStack": 3,
+							"Condition": "!ITEM_ID Input (0)586"
+						},
+						{
+							"Id": "Opal",
+							"ItemId": "(O)564",
+							"MinStack": 2,
+							"MaxStack": 2,
+							"Condition": "!ITEM_ID Input (0)586, RANDOM 0.2"
+						}
+					]
+				},
+				"Kedi.VPP.Archaeologist.ElvenJewelry": {
+					"Id": "Kedi.VPP.Archaeologist.ElvenJewelry",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"RequiredItemId": "(O)104",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						}
+					],
+					"OutputItem": [
+						{
+							"Id": "(O)336",
+							"ItemId": "(O)336",
+							"MinStack": 2,
+							"MaxStack": 2
+						},
+						{
+							"Id": "(O)14",
+							"ItemId": "(O)14",
+							"MinStack": 1,
+							"MaxStack": 1,
+							"Condition": "RANDOM 0.2"
+						}
+					]
+				},
+				"Kedi.VPP.Archaeologist.DwarvishStuff": {
+					"Id": "Kedi.VPP.Archaeologist.DwarvishStuff",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"RequiredTags": [
+								"dwarvish_item"
+							],
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						}
+					],
+					"OutputItem": [
+						{
+							"Id": "(O)335",
+							"ItemId": "(O)335",
+							"MinStack": 2,
+							"MaxStack": 2
+						},
+						{
+							"Id": "(O)578",
+							"ItemId": "(O)578",
+							"MinStack": 1,
+							"MaxStack": 1,
+							"Condition": "RANDOM 0.2"
+						}
+					]
+				},
+				"Kedi.VPP.Archaeologist.DwarvishScrolls": {
+					"Id": "Kedi.VPP.Archaeologist.DwarvishScrolls",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"RequiredItemId": "(O)96",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						},
+						{
+							"RequiredItemId": "(O)97",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						},
+						{
+							"RequiredItemId": "(O)98",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						},
+						{
+							"RequiredItemId": "(O)99",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						}
+					],
+					"OutputItem": [
+						{
+							"Id": "(O)428",
+							"ItemId": "(O)428",
+							"MinStack": 1,
+							"MaxStack": 1
+						},
+						{
+							"Id": "(O)64",
+							"ItemId": "(O)64",
+							"MinStack": 1,
+							"MaxStack": 1,
+							"Condition": "ITEM_ID Input (O)96, RANDOM 0.2"
+						},
+						{
+							"Id": "(O)60",
+							"ItemId": "(O)60",
+							"MinStack": 1,
+							"MaxStack": 1,
+							"Condition": "ITEM_ID Input (O)97, RANDOM 0.2"
+						},
+						{
+							"Id": "(O)70",
+							"ItemId": "(O)70",
+							"MinStack": 1,
+							"MaxStack": 1,
+							"Condition": "ITEM_ID Input (O)97, RANDOM 0.2"
+						},
+						{
+							"Id": "(O)62",
+							"ItemId": "(O)62",
+							"MinStack": 1,
+							"MaxStack": 1,
+							"Condition": "ITEM_ID Input (O)98, RANDOM 0.2"
+						},
+						{
+							"Id": "(O)68",
+							"ItemId": "(O)68",
+							"MinStack": 1,
+							"MaxStack": 1,
+							"Condition": "ITEM_ID Input (O)99, RANDOM 0.2"
+						}
+					]
+				},
+				"Kedi.VPP.Archaeologist.Dolls": {
+					"Id": "Kedi.VPP.Archaeologist.Dolls",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"RequiredItemId": "(O)103",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						},
+						{
+							"RequiredItemId": "(O)126",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						},
+						{
+							"RequiredItemId": "(O)127",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						}
+					],
+					"OutputItem": [
+						{
+							"Id": "(O)440",
+							"ItemId": "(O)440",
+							"MinStack": 2,
+							"MaxStack": 2
+						},
+						{
+							"Id": "(O)428",
+							"ItemId": "(O)428",
+							"MinStack": 1,
+							"MaxStack": 1,
+							"Condition": "RANDOM 0.2"
+						}
+					]
+				},
+				"Kedi.VPP.Archaeologist.RareDisc": {
+					"Id": "Kedi.VPP.Archaeologist.RareDisc",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"RequiredItemId": "(O)108",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						}
+					],
+					"OutputItem": [
+						{
+							"Id": "(O)539",
+							"ItemId": "(O)539",
+							"MinStack": 2,
+							"MaxStack": 2
+						},
+						{
+							"Id": "(O)547",
+							"ItemId": "(O)547",
+							"MinStack": 1,
+							"MaxStack": 1,
+							"Condition": "RANDOM 0.2"
+						}
+					]
+				},
+				"Kedi.VPP.Archaeologist.ChickenStatue": {
+					"Id": "Kedi.VPP.Archaeologist.ChickenStatue",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"RequiredItemId": "(O)113",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						}
+					],
+					"OutputItem": [
+						{
+							"Id": "(O)334",
+							"ItemId": "(O)334",
+							"MinStack": 1,
+							"MaxStack": 2
+						}
+					]
+				},
+				"Kedi.VPP.Archaeologist.AncientDrum": {
+					"Id": "Kedi.VPP.Archaeologist.AncientDrum",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"RequiredItemId": "(O)123",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						}
+					],
+					"OutputItem": [
+						{
+							"Id": "(O)388",
+							"ItemId": "(O)388",
+							"MinStack": 2,
+							"MaxStack": 2
+						},
+						{
+							"Id": "(O)428",
+							"ItemId": "(O)428",
+							"MinStack": 1,
+							"MaxStack": 1,
+							"Condition": "RANDOM 0.2"
+						}
+					]
+				},
+				"Kedi.VPP.Archaeologist.AncientSword": {
+					"Id": "Kedi.VPP.Archaeologist.AncientSword",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"RequiredItemId": "(O)109",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						}
+					],
+					"OutputItem": [
+						{
+							"Id": "(O)334",
+							"ItemId": "(O)334",
+							"MinStack": 1,
+							"MaxStack": 1
+						},
+						{
+							"Id": "(O)380",
+							"ItemId": "(O)380",
+							"MinStack": 2,
+							"MaxStack": 2,
+							"Condition": "RANDOM 0.2"
+						}
+					]
+				},
+				//Cycle of Knowledge
+				"Kedi.VPP.CycleOfKnowledge.BookOfStars": {
+					"Id": "Kedi.VPP.CycleOfKnowledge.BookOfStars",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"Id": "Kedi.VPP.CycleOfKnowledge.BookOfStars.Trigger",
+							"RequiredItemId": "(O)PurpleBook",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CycleOfKnowledge"
+						}
+					],
+					"OutputItem": [
+						{
+							"Id": "Kedi.VPP.CycleOfKnowledge.BookOfStars.Output",
+							"ItemId": "(O)StardropTea",
+							"MinStack": 1,
+							"MaxStack": 3
+						}
+					]
+				},
+				"Kedi.VPP.CycleOfKnowledge.StardewValleyAlmanac": {
+					"Id": "Kedi.VPP.CycleOfKnowledge.StardewValleyAlmanac",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"Id": "Kedi.VPP.CycleOfKnowledge.StardewValleyAlmanac.Trigger",
+							"RequiredItemId": "(O)SkillBook_0",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CycleOfKnowledge"
+						}
+					],
+					"OutputItem": [
+						{
+							"Id": "Kedi.VPP.CycleOfKnowledge.StardewValleyAlmanac.Output.GrassStarter",
+							"ItemId": "(O)297",
+							"MinStack": 10,
+							"MaxStack": 20
+						},
+						{
+							"Id": "Kedi.VPP.CycleOfKnowledge.StardewValleyAlmanac.Output.BlueGrassStarter",
+							"ItemId": "(O)BlueGrassStarter",
+							"MinStack": 5,
+							"MaxStack": 10,
+							"Condition": "RANDOM 0.1"
+						},
+						{
+							"Id": "Kedi.VPP.CycleOfKnowledge.StardewValleyAlmanac.Output.GoldenAnimalCracker",
+							"ItemId": "(O)GoldenAnimalCracker",
+							"MinStack": 1,
+							"MaxStack": 2,
+							"Condition": "RANDOM 0.1, PLAYER_STAT Current mastery_0 1"
+						}
+					]
+				},
+				"Kedi.VPP.CycleOfKnowledge.WoodcutterWeekly": {
+					"Id": "Kedi.VPP.CycleOfKnowledge.WoodcutterWeekly",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"Id": "Kedi.VPP.CycleOfKnowledge.WoodcutterWeekly.Trigger",
+							"RequiredItemId": "(O)SkillBook_2",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CycleOfKnowledge"
+						}
+					],
+					"OutputItem": [
+						{
+							"Id": "Kedi.VPP.CycleOfKnowledge.WoodcutterWeekly.Output",
+							"ItemId": "(O)709",
+							"MinStack": 10,
+							"MaxStack": 20
+						}
+					]
+				},
+				"Kedi.VPP.CycleOfKnowledge.BaitAndBobber": {
+					"Id": "Kedi.VPP.CycleOfKnowledge.BaitAndBobber",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"Id": "Kedi.VPP.CycleOfKnowledge.BaitAndBobber.Trigger",
+							"RequiredItemId": "(O)SkillBook_1",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CycleOfKnowledge"
+						}
+					],
+					"OutputItem": [
+						{
+							//Migrate to Peritemcondition
+							"Id": "Kedi.VPP.CycleOfKnowledge.BaitAndBobber.Output.Bait",
+							"RandomItemId": [ "(O)DeluxeBait", "(O)774", "(O)908" ],
+							"MinStack": 5,
+							"MaxStack": 10
+						},
+						{
+							"Id": "Kedi.VPP.CycleOfKnowledge.BaitAndBobber.Output.Bobber",
+							"ItemId": "RANDOM_ITEMS (O)",
+							"PerItemCondition": "ITEM_CATEGORY Target -22",
+							"MinStack": 1,
+							"MaxStack": 1,
+							"Condition": "RANDOM 0.05"
+						}
+					]
+				},
+				"Kedi.VPP.CycleOfKnowledge.MiningMonthly": {
+					"Id": "Kedi.VPP.CycleOfKnowledge.MiningMonthly",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"Id": "Kedi.VPP.CycleOfKnowledge.MiningMonthly.Trigger",
+							"RequiredItemId": "(O)SkillBook_3",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CycleOfKnowledge"
+						}
+					],
+					"OutputItem": [
+						{
+							"Id": "Kedi.VPP.CycleOfKnowledge.MiningMonthly.Output",
+							"ItemId": "RANDOM_ITEMS (O)",
+							"PerItemCondition": "ITEM_CONTEXT_TAG Target ore_item",							
+							"MinStack": 10,
+							"MaxStack": 10
+						}
+					]
+				},
+				"Kedi.VPP.CycleOfKnowledge.CombatQuarterly": {
+					"Id": "Kedi.VPP.CycleOfKnowledge.CombatQuarterly",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"Id": "Kedi.VPP.CycleOfKnowledge.CombatQuarterly.Trigger",
+							"RequiredItemId": "(O)SkillBook_4",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CycleOfKnowledge"
+						}
+					],
+					"OutputItem": [
+						{
+							"Id": "Kedi.VPP.CycleOfKnowledge.CombatQuarterly.Output",
+							"RandomItemId": [ "(O)773", "(O)772", "(O)879" ],
+							"MinStack": 3,
+							"MaxStack": 5
+						}
+					]
+				},
+				"Kedi.VPP.CycleOfKnowledge.JewelsOfTheSea": {
+					"Id": "Kedi.VPP.CycleOfKnowledge.JewelsOfTheSea",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"Id": "Kedi.VPP.CycleOfKnowledge.JewelsOfTheSea.Trigger",
+							"RequiredItemId": "(O)Book_Roe",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CycleOfKnowledge"
+						}
+					],
+					"OutputItem": [
+						{
+							"Id": "Kedi.VPP.CycleOfKnowledge.JewelsOfTheSea.Output.Roe",
+							"ItemId": "(O)812",
+							"MinStack": 3,
+							"MaxStack": 5
+						},
+						{
+							"Id": "Kedi.VPP.CycleOfKnowledge.JewelsOfTheSea.Output.TreasureChest",
+							"ItemId": "(O)166",
+							"MinStack": 2,
+							"MaxStack": 4
+						}
+					]
+				},
+				"Kedi.VPP.CycleOfKnowledge.WoodySecret": {
+					"Id": "Kedi.VPP.CycleOfKnowledge.WoodySecret",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"Id": "Kedi.VPP.CycleOfKnowledge.WoodySecret.Trigger",
+							"RequiredItemId": "(O)Book_Woodcutting",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CycleOfKnowledge"
+						}
+					],
+					"OutputItem": [
+						{
+							"Id": "Kedi.VPP.CycleOfKnowledge.WoodySecret.Output.WildTreeSeed",
+							"ItemId": "RANDOM_ITEMS (O)",
+							"PerItemCondition": "ITEM_CONTEXT_TAG Target tree_seed_item",
+							"MinStack": 3,
+							"MaxStack": 5
+						},
+						{
+							"Id": "Kedi.VPP.CycleOfKnowledge.WoodySecret.Output.FruitSaplings",
+							"RandomItemId": [ "(O)628", "(O)629", "(O)630", "(O)631", "(O)632", "(O)633", "(O)69", "(O)835" ],
+							"MinStack": 1,
+							"MaxStack": 1
+						}
+					]
+				},
+				"Kedi.VPP.CycleOfKnowledge.MonsterCompendium": {
+					"Id": "Kedi.VPP.CycleOfKnowledge.MonsterCompendium",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"Id": "Kedi.VPP.CycleOfKnowledge.MonsterCompendium.Trigger",
+							"RequiredItemId": "(O)Book_Void",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CycleOfKnowledge"
+						}
+					],
+					"OutputItem": [
+						{
+							"Id": "Kedi.VPP.CycleOfKnowledge.MonsterCompendium.Output",
+							"ItemId": "RANDOM_ITEMS (O)",
+							"PerItemCondition": "ITEM_CATEGORY Target -28",
+							"MinStack": 5,
+							"MaxStack": 10
+						}
+					]
+				},
+				"Kedi.VPP.CycleOfKnowledge.JackBeNimbleJackBeThick": {
+					"Id": "Kedi.VPP.CycleOfKnowledge.JackBeNimbleJackBeThick",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"Id": "Kedi.VPP.CycleOfKnowledge.JackBeNimbleJackBeThick.Trigger",
+							"RequiredItemId": "(O)Book_Defense",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CycleOfKnowledge"
+						}
+					],
+					"OutputItem": [
+						{
+							"Id": "Kedi.VPP.CycleOfKnowledge.JackBeNimbleJackBeThick.Output",
+							"RandomItemId": [ "(O)231", "(O)235", "(O)236", "(O)239", "(O)732", "(O)904", "(O)905" ],
+							"MinStack": 5,
+							"MaxStack": 10
+						}
+					]
+				},
+				"Kedi.VPP.CycleOfKnowledge.TreasureAppraisalGuide": {
+					"Id": "Kedi.VPP.CycleOfKnowledge.TreasureAppraisalGuide",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60, 
+					"Triggers": [
+						{
+							"Id": "Kedi.VPP.CycleOfKnowledge.TreasureAppraisalGuide.Trigger",
+							"RequiredItemId": "(O)Book_Artifact",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CycleOfKnowledge"
+						}
+					],
+					"OutputItem": [
+						{
+							"Id": "Kedi.VPP.CycleOfKnowledge.TreasureAppraisalGuide.Output",
+							"ItemId": "(O)275",
+							"MinStack": 5,
+							"MaxStack": 10
+						}
+					]
+				},
+				"Kedi.VPP.CycleOfKnowledge.BookOfMysteries": {
+					"Id": "Kedi.VPP.CycleOfKnowledge.BookOfMysteries",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"Id": "Kedi.VPP.CycleOfKnowledge.BookOfMysteries.Trigger",
+							"RequiredItemId": "(O)Book_Mystery",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CycleOfKnowledge"
+						}
+					],
+					"OutputItem": [
+						{
+							"Id": "Kedi.VPP.CycleOfKnowledge.BookOfMysteries.Output.MysteryBox",
+							"ItemId": "(O)MysteryBox",
+							"MinStack": 15,
+							"MaxStack": 25
+						},
+						{
+							"Id": "Kedi.VPP.CycleOfKnowledge.BookOfMysteries.Output.GoldenMysteryBox",
+							"ItemId": "(O)GoldenMysteryBox",
+							"Condition": "RANDOM 0.1",
+							"MinStack": 15,
+							"MaxStack": 25
+						}
+					]
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)20", "OutputRules", "Default_Trash", "OutputItem" ],
+			"Entries": {
+				"Kedi.VPP.Recycler.Trash.1": { 
+					"Id": "Kedi.VPP.Recycler.Trash.1",
+					"ItemId": "(O)692",
+					"MinStack": 1,
+					"MaxStack": 1,
+					"Condition": "RANDOM 0.25, KediDili.VanillaPlusProfessions_PlayerHasProfession Current Recycler"
+				},
+				"Kedi.VPP.Recycler.Trash.2": {
+					"Id": "Kedi.VPP.Recycler.Trash.2",
+					"ItemId": "(O)SonarBobber",
+					"MinStack": 1,
+					"MaxStack": 1,
+					"Condition": "RANDOM 0.1, KediDili.VanillaPlusProfessions_PlayerHasProfession Current Recycler"
+				},
+				"Kedi.VPP.CanIt.Trash.1": {
+					"Id": "Kedi.VPP.CanIt.Trash.1",
+					"ItemId": "(O)378",
+					"MinStack": 1,
+					"MaxStack": 3,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CanIt"
+				},
+				"Kedi.VPP.CanIt.Trash.2": {
+					"Id": "Kedi.VPP.CanIt.Trash.2",
+					"ItemId": "(O)384",
+					"MinStack": 1,
+					"MaxStack": 3,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CanIt"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)20", "OutputRules", "Default_Driftwood", "OutputItem" ],
+			"Entries": {
+				"Kedi.VPP.Recycler.Driftwood.1": {
+					"Id": "Kedi.VPP.Recycler.Driftwood.1",
+					"ItemId": "(O)695",
+					"MinStack": 1,
+					"MaxStack": 1,
+					"Condition": "RANDOM 0.25, KediDili.VanillaPlusProfessions_PlayerHasProfession Current Recycler"
+				},
+				"Kedi.VPP.Recycler.Driftwood.2": {
+					"Id": "Kedi.VPP.Recycler.Driftwood.2",
+					"ItemId": "(O)877",
+					"MinStack": 1,
+					"MaxStack": 1,
+					"Condition": "RANDOM 0.1, KediDili.VanillaPlusProfessions_PlayerHasProfession Current Recycler"
+				},
+				"Kedi.VPP.CanIt.Driftwood.1": {
+					"Id": "Kedi.VPP.CanIt.Driftwood.1",
+					"ItemId": "(O)709",
+					"Condition": "RANDOM 0.1, KediDili.VanillaPlusProfessions_PlayerHasTalent Current CanIt"
+				}
+			}
+		},	
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)20", "OutputRules", "Default_SoggyNewspaper", "OutputItem" ],
+			"Entries": {
+				"Kedi.VPP.Recycler.SoggyNewspaper.1": { 
+					"Id": "Kedi.VPP.Recycler.SoggyNewspaper.1",
+					"ItemId": "(O)694",
+					"MinStack": 1,
+					"MaxStack": 1,
+					"Condition": "RANDOM 0.25, KediDili.VanillaPlusProfessions_PlayerHasProfession Current Recycler"
+				},
+				"Kedi.VPP.Recycler.SoggyNewspaper.2": {
+					"Id": "Kedi.VPP.Recycler.SoggyNewspaper.2",
+					"ItemId": "(O)693",
+					"MinStack": 1,
+					"MaxStack": 1,
+					"Condition": "RANDOM 0.1, KediDili.VanillaPlusProfessions_PlayerHasProfession Current Recycler"
+				},
+				"Kedi.VPP.CanIt.SoggyNewspaper.1": {
+					"Id": "Kedi.VPP.CanIt.SoggyNewspaper.1",
+					"ItemId": "(O)814",
+					"Condition": "RANDOM 0.05, KediDili.VanillaPlusProfessions_PlayerHasTalent Current CanIt"
+				},
+				"Kedi.VPP.CanIt.SoggyNewspaper.2": {
+					"Id": "Kedi.VPP.CanIt.SoggyNewspaper.2",
+					"ItemId": "(O)169",
+					"Condition": "RANDOM 0.05, KediDili.VanillaPlusProfessions_PlayerHasTalent Current CanIt"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)20", "OutputRules", "Default_BrokenCd", "OutputItem" ],
+			"Entries": {
+				"Kedi.VPP.Recycler.BrokenCd.1": { 
+					"Id": "Kedi.VPP.Recycler.BrokenCd.1",
+					"ItemId": "(O)686",
+					"MinStack": 1,
+					"MaxStack": 1,
+					"Condition": "RANDOM 0.25, KediDili.VanillaPlusProfessions_PlayerHasProfession Current Recycler"
+				},
+				"Kedi.VPP.Recycler.BrokenCd.2": {
+					"Id": "Kedi.VPP.Recycler.BrokenCd.2",
+					"ItemId": "(O)687",
+					"MinStack": 1,
+					"MaxStack": 1,
+					"Condition": "RANDOM 0.1, KediDili.VanillaPlusProfessions_PlayerHasProfession Current Recycler"
+				},
+				"Kedi.VPP.CanIt.BrokenCd.1": {
+					"Id": "Kedi.VPP.CanIt.BrokenCd.1",
+					"ItemId": "(O)74",
+					"Condition": "RANDOM 0.001, KediDili.VanillaPlusProfessions_PlayerHasTalent Current CanIt"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)20", "OutputRules", "Default_BrokenGlasses", "OutputItem" ],
+			"Entries": {
+				"Kedi.VPP.Recycler.BrokenGlasses.1": { 
+					"Id": "Kedi.VPP.Recycler.BrokenGlasses.1",
+					"ItemId": "(O)691",
+					"MinStack": 1,
+					"MaxStack": 1,
+					"Condition": "RANDOM 0.25, KediDili.VanillaPlusProfessions_PlayerHasProfession Current Recycler"
+				},
+				"Kedi.VPP.Recycler.BrokenGlasses.2": {
+					"Id": "Kedi.VPP.Recycler.BrokenGlasses.2",
+					"ItemId": "(O)856",
+					"MinStack": 1,
+					"MaxStack": 1,
+					"Condition": "RANDOM 0.1, KediDili.VanillaPlusProfessions_PlayerHasProfession Current Recycler"
+				},
+				"Kedi.VPP.CanIt.BrokenGlasses.1": {
+					"Id": "Kedi.VPP.Recycler.BrokenGlasses.1",
+					"ItemId": "(O)541",
+					"MinStack": 1,
+					"MaxStack": 1,
+					"Condition": "RANDOM 0.1, KediDili.VanillaPlusProfessions_PlayerHasTalent Current CanIt"
+				},
+				"Kedi.VPP.CanIt.BrokenGlasses.2": {
+					"Id": "Kedi.VPP.Recycler.BrokenGlasses.2",
+					"ItemId": "(O)561",
+					"MinStack": 1,
+					"MaxStack": 1,
+					"Condition": "RANDOM 0.1, KediDili.VanillaPlusProfessions_PlayerHasTalent Current CanIt"
+				}
+			}
+		}
+	]
+}

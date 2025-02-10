@@ -1,0 +1,223 @@
+{
+	"Changes": [
+		{
+			"Action": "EditData",
+			"Target": "Data/WildTrees",
+			"TargetField": ["8", "TapItems"],
+			"Entries": {
+				"Kedi.VPP.ExoticTapping.Sugar": {
+					"Id": "Kedi.VPP.ExoticTapping.Sugar",
+					"ItemId": "(O)245",
+					"MinStack": 1,
+					"MaxStack": 3,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current ExoticTapping"
+				}, 
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/WildTrees",
+			"TargetField": ["8", "TapItems"],
+			"MoveEntries": [
+                { 
+					"ID": "Kedi.VPP.ExoticTapping.Sugar", 
+					"ToPosition": "Top"
+				},
+			]
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/WildTrees",
+			"TargetField": ["6", "TapItems"],
+			"Entries": {
+				"Kedi.VPP.ExoticTapping.Oil.1":{
+					"Id": "Kedi.VPP.ExoticTapping.Oil.1",
+					"ItemId": "(O)247",
+					"MinStack": 1,
+					"MaxStack": 3,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current ExoticTapping"
+				},
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/WildTrees",
+			"TargetField": ["6", "TapItems"],
+			"MoveEntries": [
+                { 
+					"ID": "Kedi.VPP.ExoticTapping.Oil.1", 
+					"ToPosition": "Top"
+				},
+			],
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/WildTrees",
+			"TargetField": ["9", "TapItems"],
+			"Entries": {
+				"Kedi.VPP.ExoticTapping.Oil.2":{
+					"Id": "Kedi.VPP.ExoticTapping.Oil.2",
+					"ItemId": "(O)247",
+					"MinStack": 1,
+					"MaxStack": 3,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current ExoticTapping"
+				},
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/WildTrees",
+			"TargetField": ["9", "TapItems"],
+			"MoveEntries": [
+                { 
+					"ID": "Kedi.VPP.ExoticTapping.Oil.2", 
+					"ToPosition": "Top"
+				},
+			],
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/WildTrees",
+			"TargetField": ["3", "TapItems"],
+			"Entries": {
+				"Kedi.VPP.SpringThaw.LargePineTar":{
+					"Id": "Kedi.VPP.SpringThaw.LargePineTar",
+					"ItemId": "(O)Kedi.VPP.LargePineTar",
+					"MinStack": 1,
+					"MaxStack": 3,
+					"DaysUntilReady": 7,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current SpringThaw, RANDOM 0.65"
+				},
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/WildTrees",
+			"TargetField": ["3", "TapItems"],
+			"MoveEntries": [
+                { 
+					"ID": "Kedi.VPP.SpringThaw.LargePineTar", 
+					"ToPosition": "Top"
+				},
+			],
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/WildTrees",
+			"TargetField": ["2", "TapItems"],
+			"Entries": {
+				"Kedi.VPP.SpringThaw.LargeMapleSyrup":{
+					"Id": "Kedi.VPP.SpringThaw.LargeMapleSyrup",
+					"ItemId": "(O)Kedi.VPP.LargeMapleSyrup",
+					"MinStack": 1,
+					"MaxStack": 3,
+					"DaysUntilReady": 12,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current SpringThaw, RANDOM 0.65"
+				},
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/WildTrees",
+			"TargetField": ["2", "TapItems"],
+			"MoveEntries": [
+                { 
+					"ID": "Kedi.VPP.SpringThaw.LargeMapleSyrup", 
+					"ToPosition": "Top"
+				},
+			],
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/WildTrees",
+			"TargetField": ["1", "TapItems"],
+			"Entries": {
+				"Kedi.VPP.SpringThaw.LargeOakResin":{
+					"Id": "Kedi.VPP.SpringThaw.LargeOakResin",
+					"ItemId": "(O)Kedi.VPP.LargeOakResin",
+					"MinStack": 1,
+					"MaxStack": 3,
+					"DaysUntilReady": 10,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current SpringThaw, RANDOM 0.65"
+				},
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/WildTrees",
+			"TargetField": ["1", "TapItems"],
+			"MoveEntries": [
+                { 
+					"ID": "Kedi.VPP.SpringThaw.LargeOakResin", 
+					"ToPosition": "Top"
+				},
+			],
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/WildTrees",
+			"TargetField": ["9", "SeedDropItems" ],
+			"Fields": {
+				"GoldenCoconut": {
+					"Condition": "TRUE"
+				}
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=WelcomeToTheJungle": "true"
+			},
+			"Update": "OnTimeChange",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/WildTrees",
+			"TargetField": ["9"],
+			"Entries": {
+				"SeedItemId": "(O)88",
+				"SeedPlantable": true,
+				"PlantableLocationRules": [
+					{
+						"Id": "Kedi.VPP.WelcomeToTheJungle.1",
+						"Result": "Allow",
+					}
+				]
+			},
+			"When": { 
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=WelcomeToTheJungle": "true"
+			},
+			"Update": "OnTimeChange",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/WildTrees",
+			"TargetField": ["6", "SeedDropItems" ],
+			"Fields": {
+				"GoldenCoconut": {
+					"Condition": "TRUE"
+				}
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=WelcomeToTheJungle": "true"
+			},
+			"Update": "OnTimeChange",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/WildTrees",
+			"TargetField": ["6"],
+			"Entries": {
+				"SeedItemId": "(O)88",
+				"SeedPlantable": true,
+				"PlantableLocationRules": [
+					{
+						"Id": "Kedi.VPP.WelcomeToTheJungle.2",
+						"Result": "Allow",					
+					}
+				]
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=WelcomeToTheJungle": "true"
+			},
+			"Update": "OnTimeChange",
+		}
+	]
+}

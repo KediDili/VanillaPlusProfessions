@@ -1,0 +1,50 @@
+{
+	"Changes": [
+		{
+			"LogName": "Musterer - Loom",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)17", "ReadyTimeModifiers" ],
+			"Entries":{
+				"Kedi.VPP.Musterer": {
+					"Id": "Kedi.VPP.Musterer",
+					"Amount": 0.75,
+					"Modification": "Multiply",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Musterer, !KediDili.VanillaPlusProfessions_PlayerHasProfession Current Nutritionist"
+				} 
+			}
+		},
+		{
+			"LogName": "Pastoralism - Loom",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)17", "OutputRules", "Default", "OutputItem", "(O)428", "QualityModifiers" ],
+			"Entries":{
+				"Kedi.VPP.Pastoralism.None": {
+					"Id": "Kedi.VPP.Pastoralism",
+					"Amount": 0,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 0"
+				},
+				"Kedi.VPP.Pastoralism.Silver": {
+					"Id": "Kedi.VPP.Pastoralism",
+					"Amount": 1,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 1"
+				},
+				"Kedi.VPP.Pastoralism.Gold": {
+					"Id": "Kedi.VPP.Pastoralism",
+					"Amount": 2,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 2"
+				},
+				"Kedi.VPP.Pastoralism.Iridium": {
+					"Id": "Kedi.VPP.Pastoralism",
+					"Amount": 4,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 4"
+				}
+			}
+		}
+	]
+}

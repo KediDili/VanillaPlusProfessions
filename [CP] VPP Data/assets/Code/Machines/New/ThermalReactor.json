@@ -1,0 +1,35 @@
+{
+	"Changes": [
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"Entries": {
+				"(BC){{ModId}}_ThermalReactor": {
+					"OutputRules": [
+						{
+							"Id": "{{ModId}}_Default",
+							"Triggers": [
+								{
+									"Id": "{{ModId}}_MachinePutDown_OutputCollected",
+									"Trigger": "MachinePutDown, OutputCollected",
+									"Condition": "KediDili.VanillaPlusProfessions_IsLavaLocation Here"
+								}
+							],
+							"OutputItem": [
+								{
+									"Id": "{{ModId}}_Default",
+									"ItemId": "787",
+									"MinStack": 21,
+									"MaxStack": 49,
+								}
+							],
+							"DaysUntilReady": 7,						
+						}
+					],
+					"WobbleWhileWorking": true,
+					"HasInput": false
+				}
+			}
+		}
+	]
+}

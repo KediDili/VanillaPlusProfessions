@@ -1,0 +1,332 @@
+{
+	"Changes": [
+		{
+			"LogName": "Musterer - Mayo Machine",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)24", "ReadyTimeModifiers" ],
+			"Entries":{
+				"Kedi.VPP.Musterer": {
+					"Id": "Kedi.VPP.Musterer",
+					"Amount": 0.75,
+					"Modification": "Multiply",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Musterer, ITEM_ID Input (O)289"
+				} 
+			}
+		},
+		{
+			"LogName": "Pastoralism - Ostrich Egg",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)24", "OutputRules", "Default_OstrichEgg", "OutputItem", "(O)306", "QualityModifiers" ],
+			"Entries":{
+				"Kedi.VPP.Pastoralism.None": {
+					"Id": "Kedi.VPP.Pastoralism.None",
+					"Amount": 0, 
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 0"
+				},
+				"Kedi.VPP.Pastoralism.Silver": {
+					"Id": "Kedi.VPP.Pastoralism.Silver",
+					"Amount": 1,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 1"
+				},
+				"Kedi.VPP.Pastoralism.Gold": {
+					"Id": "Kedi.VPP.Pastoralism.Gold",
+					"Amount": 2,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 2"
+				},
+				"Kedi.VPP.Pastoralism.Iridium": {
+					"Id": "Kedi.VPP.Pastoralism.Iridium",
+					"Amount": 4,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 4"
+				}
+			}
+		},
+		{
+			"LogName": "Nutritionist - Duck Egg",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)24", "OutputRules", "Default_DuckEgg", "OutputItem", "(O)307", "StackModifiers" ],
+			"Entries":{
+				"Kedi.VPP.Nutritionist": {
+					"Id": "Kedi.VPP.Nutritionist",
+					"Amount": 1,
+					"Modification": "Add",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Nutritionist"
+				}
+			}
+		},
+		{
+			"LogName": "Pastoralism - Duck Egg",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)24", "OutputRules", "Default_DuckEgg", "OutputItem", "(O)307", "QualityModifiers" ],
+			"Entries":{
+				"Kedi.VPP.Pastoralism.None": {
+					"Id": "Kedi.VPP.Pastoralism.None",
+					"Amount": 0,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 0"
+				},
+				"Kedi.VPP.Pastoralism.Silver": {
+					"Id": "Kedi.VPP.Pastoralism.Silver",
+					"Amount": 1,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 1"
+				},
+				"Kedi.VPP.Pastoralism.Gold": {
+					"Id": "Kedi.VPP.Pastoralism.Gold",
+					"Amount": 2,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 2"
+				},
+				"Kedi.VPP.Pastoralism.Iridium": {
+					"Id": "Kedi.VPP.Pastoralism.Iridium",
+					"Amount": 4,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 4"
+				}
+			}
+		},
+		{
+			"LogName": "Nutritionist - Void Egg",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)24", "OutputRules", "Default_VoidEgg", "OutputItem", "(O)308", "StackModifiers" ],
+			"Entries":{
+				"Kedi.VPP.Nutritionist": {
+					"Id": "Kedi.VPP.Nutritionist",
+					"Amount": 1,
+					"Modification": "Add",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Nutritionist"
+				}
+			}
+		},
+		{
+			"LogName": "Pastoralism - Void Egg",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)24", "OutputRules", "Default_VoidEgg", "OutputItem", "(O)308", "QualityModifiers" ],
+			"Entries":{
+				"Kedi.VPP.Pastoralism.None": {
+					"Id": "Kedi.VPP.Pastoralism.None",
+					"Amount": 0,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 0"
+				},
+				"Kedi.VPP.Pastoralism.Silver": {
+					"Id": "Kedi.VPP.Pastoralism.Silver",
+					"Amount": 1,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 1"
+				},
+				"Kedi.VPP.Pastoralism.Gold": {
+					"Id": "Kedi.VPP.Pastoralism.Gold",
+					"Amount": 2,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 2"
+				},
+				"Kedi.VPP.Pastoralism.Iridium": {
+					"Id": "Kedi.VPP.Pastoralism.Iridium",
+					"Amount": 4,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 4"
+				}
+			}
+		},
+		{
+			"LogName": "Nutritionist - Dinosaur Egg",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)24", "OutputRules", "Default_DinosaurEgg", "OutputItem", "(O)807", "StackModifiers" ],
+			"Entries":{
+				"Kedi.VPP.Nutritionist": {
+					"Id": "Kedi.VPP.Nutritionist",
+					"Amount": 1,
+					"Modification": "Add",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Nutritionist"
+				}
+			}
+		},
+		{
+			"LogName": "Pastoralism - Dinosaur Egg",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)24", "OutputRules", "Default_DinosaurEgg", "OutputItem", "(O)807", "QualityModifiers" ],
+			"Entries":{
+				"Kedi.VPP.Pastoralism.None": {
+					"Id": "Kedi.VPP.Pastoralism.None",
+					"Amount": 0,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 0"
+				},
+				"Kedi.VPP.Pastoralism.Silver": {
+					"Id": "Kedi.VPP.Pastoralism.Silver",
+					"Amount": 1,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 1"
+				},
+				"Kedi.VPP.Pastoralism.Gold": {
+					"Id": "Kedi.VPP.Pastoralism.Gold",
+					"Amount": 2,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 2"
+				},
+				"Kedi.VPP.Pastoralism.Iridium": {
+					"Id": "Kedi.VPP.Pastoralism.Iridium",
+					"Amount": 4,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 4"
+				},
+			}
+		},
+		{
+			"LogName": "Nutritionist - Golden Egg",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)24", "OutputRules", "Default_GoldenEgg", "OutputItem", "(O)306", "StackModifiers" ],
+			"Entries":{
+				"Kedi.VPP.Nutritionist": {
+					"Id": "Kedi.VPP.Nutritionist",
+					"Amount": 1,
+					"Modification": "Add",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Nutritionist"
+				}
+			}
+		},
+		{
+			"LogName": "Pastoralism - Golden Egg",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)24", "OutputRules", "Default_GoldenEgg", "OutputItem", "(O)306", "QualityModifiers" ],
+			"Entries":{
+				"Kedi.VPP.Pastoralism.None": {
+					"Id": "Kedi.VPP.Pastoralism.None",
+					"Amount": 0,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 0"
+				},
+				"Kedi.VPP.Pastoralism.Silver": {
+					"Id": "Kedi.VPP.Pastoralism.Silver",
+					"Amount": 1,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 1"
+				},
+				"Kedi.VPP.Pastoralism.Gold": {
+					"Id": "Kedi.VPP.Pastoralism.Gold",
+					"Amount": 2,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 2"
+				},
+				"Kedi.VPP.Pastoralism.Iridium": {
+					"Id": "Kedi.VPP.Pastoralism.Iridium",
+					"Amount": 4,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 4"
+				},
+			}
+		},
+		{
+			"LogName": "Nutritionist & Bio-Engineering - Large Egg",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)24", "OutputRules", "Default_LargeEgg", "OutputItem", "(O)306", "StackModifiers" ],
+			"Entries":{
+				"Kedi.VPP.Nutritionist": {
+					"Id": "Kedi.VPP.Nutritionist",
+					"Amount": 1,
+					"Modification": "Add",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Nutritionist"
+				},
+				"Kedi.VPP.Bio-Engineering": {
+					"Id": "Kedi.VPP.Bio-Engineering",
+					"Amount": 2,
+					"Modification": "Multiply",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Bio-Engineering"
+				}
+			}
+		},
+		{
+			"LogName": "Pastoralism - Large Egg",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)24", "OutputRules", "Default_LargeEgg", "OutputItem", "(O)306", "QualityModifiers" ],
+			"Entries":{
+				"Kedi.VPP.Pastoralism.None": {
+					"Id": "Kedi.VPP.Pastoralism.None",
+					"Amount": 0,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 0"
+				},
+				"Kedi.VPP.Pastoralism.Silver": {
+					"Id": "Kedi.VPP.Pastoralism.Silver",
+					"Amount": 1,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 1"
+				},
+				"Kedi.VPP.Pastoralism.Gold": {
+					"Id": "Kedi.VPP.Pastoralism.Gold",
+					"Amount": 2,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 2"
+				},
+				"Kedi.VPP.Pastoralism.Iridium": {
+					"Id": "Kedi.VPP.Pastoralism.Iridium",
+					"Amount": 4,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 4"
+				},
+			}
+		},
+		{
+			"LogName": "Nutritionist - Egg",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)24", "OutputRules", "Default_Egg", "OutputItem", "(O)306", "StackModifiers" ],
+			"Entries":{
+				"Kedi.VPP.Nutritionist": {
+					"Id": "Kedi.VPP.Nutritionist",
+					"Amount": 1,
+					"Modification": "Add",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Nutritionist"
+				}
+			}
+		},
+		{
+			"LogName": "Pastoralism - Egg",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)24", "OutputRules", "Default_Egg", "OutputItem", "(O)306", "QualityModifiers" ],
+			"Entries":{
+				"Kedi.VPP.Pastoralism.None": {
+					"Id": "Kedi.VPP.Pastoralism.None",
+					"Amount": 0,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 0"
+				},
+				"Kedi.VPP.Pastoralism.Silver": {
+					"Id": "Kedi.VPP.Pastoralism.Silver",
+					"Amount": 1,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 1"
+				},
+				"Kedi.VPP.Pastoralism.Gold": {
+					"Id": "Kedi.VPP.Pastoralism.Gold",
+					"Amount": 2,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 2"
+				},
+				"Kedi.VPP.Pastoralism.Iridium": {
+					"Id": "Kedi.VPP.Pastoralism.Iridium",
+					"Amount": 4,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 4"
+				}
+			}
+		}
+	]
+}

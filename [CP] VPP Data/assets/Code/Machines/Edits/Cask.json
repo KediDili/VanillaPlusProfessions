@@ -1,0 +1,31 @@
+{
+	"Changes": [
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)163", "OutputRules" ],
+			"Entries":{
+				"Kedi.VPP.FitForACzar": {
+					"Id": "Kedi.VPP.FitForACzar",
+					"Triggers": [
+						{
+							"Id": "ItemPlacedInMachine",
+							"Trigger": "ItemPlacedInMachine",
+							"Condition": "ITEM_ID Input (O)447 (O)445, KediDili.VanillaPlusProfessions_PlayerHasTalent Current FitForACzar"
+						}
+					], 
+					"OutputItem": [
+						{
+							"Id": "FitForAcZar",
+							"OutputMethod": "StardewValley.Objects.Cask, Stardew Valley: OutputCask",
+							"CustomData": {
+								"AgingMultiplier": "4"
+							},
+							"Condition": "ITEM_ID Input (O)447 (O)445, KediDili.VanillaPlusProfessions_PlayerHasTalent Current FitForACzar"
+						}
+					]
+				}
+			},
+		}
+	]
+}

@@ -1,0 +1,18 @@
+{
+	"Changes": [
+		{
+			"LogName": "Machinist - Keg",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)12", "ReadyTimeModifiers" ],
+			"Entries":{
+				"Kedi.VPP.MachinistProfession": {
+					"Id": "Kedi.VPP.MachinistProfession",
+					"Amount": 0.75,
+					"Modification": "Multiply",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Machinist",
+				}
+			}
+		}
+	]
+}

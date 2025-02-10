@@ -1,0 +1,175 @@
+{
+	"Format": "2.0.0",
+	"ConfigSchema": {
+		"EnableOvercrowdingEdits": {
+			"AllowValues": "true, false",
+			"Default": "true",
+			"AllowMultiple": "false",
+			"AllowBlank": "false",
+		}
+	},
+	"DynamicTokens":[
+		{
+			"Name": "MetalBarPool",
+			"Value": "334, 338" //copper & quartz
+		},
+		{
+			"Name": "MetalBarPool",
+			"Value": "{{MetalBarPool}}, 335", //iron
+			"When": {
+				"Esca.EMP/GameStateQuery: MINE_LOWEST_LEVEL_REACHED 40": true,
+				"Relationship:Dwarf": "Friendly"
+			}
+		},
+		{
+			"Name": "MetalBarPool",
+			"Value": "{{MetalBarPool}}, 336", //gold
+			"When": {
+				"Esca.EMP/GameStateQuery: MINE_LOWEST_LEVEL_REACHED 80": true,
+				"Relationship:Dwarf": "Friendly"
+			}
+		},
+		{
+			"Name": "MetalBarPool",
+			"Value": "{{MetalBarPool}}, 337", //iridium
+			"When": {
+				"Esca.EMP/GameStateQuery: MINE_LOWEST_LEVEL_REACHED 121": true,
+				"Relationship:Dwarf": "Friendly"
+			}
+		},
+		{
+			"Name": "GeodePool",
+			"Value": "535"
+		},
+		{
+			"Name": "GeodePool",
+			"Value": "{{GeodePool}}, 536",
+			"When": {
+				"Esca.EMP/GameStateQuery: MINE_LOWEST_LEVEL_REACHED 40": true,
+				"Relationship:Krobus": "Friendly"
+			}
+		},
+		{
+			"Name": "GeodePool",
+			"Value": "{{GeodePool}}, 537",
+			"When": {
+				"Esca.EMP/GameStateQuery: MINE_LOWEST_LEVEL_REACHED 80": true,
+				"Relationship:Krobus": "Friendly"
+			}
+		},
+		{
+			"Name": "GeodePool",
+			"Value": "{{GeodePool}}, 749",
+			"When": {
+				"Esca.EMP/GameStateQuery: MINE_LOWEST_LEVEL_REACHED 121": true,
+				"Relationship:Krobus": "Friendly"
+			}
+		},
+		{
+			"Name": "FriendsWithKrobus",
+			"Value": "After",
+		},
+		{
+			"Name": "FriendsWithKrobus",
+			"Value": "Reveal",
+			"When":{
+				"Relationship:Krobus": "Friendly",
+				"Esca.EMP/GameStateQuery:PLAYER_VISITED_LOCATION Current Sewer": true,
+				"HasReadLetter: CurrentPlayer |contains= Kedi.VPP.ShadowBuddies.Reveal": false
+			}
+		},
+		{
+			"Name": "FriendsWithKrobus",
+			"Value": "Unknown",
+			"When":{
+				"Relationship:Krobus": "Unmet"
+			}
+		},
+		{
+			"Name": "FriendsWithDwarf",
+			"Value": "After",
+		},
+		{
+			"Name": "FriendsWithDwarf",
+			"Value": "Unknown",
+			"When":{
+				"Relationship:Dwarf": "Unmet"
+			}
+		},
+		{
+			"Name": "FriendsWithDwarf",
+			"Value": "Reveal",
+			"When":{
+				"Relationship:Krobus": "Friendly",
+				"Esca.EMP/GameStateQuery:PLAYER_VISITED_LOCATION Current Mine": true,
+				"HasReadLetter: CurrentPlayer |contains= Kedi.VPP.DwarvenBuddies.Reveal": false
+			}
+		},
+		{
+			"Name": "HaleyItemPool",
+			"Value": "(S)248 (S)249 (S)181 (S)51 (S)52 (S)53 (S)63 (S)65 (S)206 (S)126",
+		},
+		{
+			"Name": "HaleyItemPool",
+			"Value": "74 {{HaleyItemPool}}",
+			"When":{
+				"Random:{{Range: 1, 100}}": "50"
+			}
+		},
+		{
+			
+			"Name": "WillyItemPool",
+			"Value": " ",			
+		},
+		{
+			
+			"Name": "WillyItemPool",
+			"Value": "{{WillyItemPool}}",
+			"When":{
+				"Season": "Spring"
+			}
+		},
+		{
+			
+			"Name": "WillyItemPool",
+			"Value": "{{WillyItemPool}}",
+			"When":{
+				"Season": "Summer"
+			}
+		},
+		{
+			
+			"Name": "WillyItemPool",
+			"Value": "{{WillyItemPool}}",
+			"When":{
+				"Season": "Fall"
+			}
+		},
+		{
+			
+			"Name": "WillyItemPool",
+			"Value": "{{WillyItemPool}}",
+			"When":{
+				"Season": "Winter"
+			}
+		}
+	],
+	"Changes": [
+		{
+			"Action": "Include",
+			"FromFile": "assets/Code/FishPonds.json, assets/Code/Trinkets.json, assets/Code/Dialogue.json, assets/Code/CraftingRecipes.json, assets/Code/Locations.json, assets/Code/WildTrees.json, assets/Code/TailoringRecipes.json, assets/Code/TriggerActions.json, assets/Code/Shops.json, assets/Code/GarbageCans.json",
+		},
+		{
+			"Action": "Include",
+			"FromFile": "assets/Code/Objects/Edits.json, assets/Code/Objects/New.json, assets/Code/Buildings/Edits.json, assets/Code/Buildings/New.json, assets/Code/LoadArt.json, assets/Code/LoadMaps.json"
+		},
+		{
+			"Action": "Include",
+			"FromFile": "assets/Code/Machines/Edits/Loom.json, assets/Code/Machines/Edits/OilMaker.json, assets/Code/Machines/Edits/CharcoalKiln.json, assets/Code/Machines/Edits/Furnaces.json, assets/Code/Machines/Edits/RecyclingMachine.json, assets/Code/Machines/Edits/MayonnaiseMachine.json, assets/Code/Machines/Edits/CheesePress.json, assets/Code/Machines/Edits/BaitBin.json, assets/Code/Machines/Edits/Dehydrator.json, assets/Code/Machines/Edits/FishSmoker.json, assets/Code/Machines/Edits/Keg.json, assets/Code/Machines/Edits/Cask.json, assets/Code/Machines/Edits/PreservesJar.json"
+		},
+		{
+			"Action": "Include",
+			"FromFile": "assets/Code/Machines/New/TrinketWorkbench.json, assets/Code/Machines/New/ProgrammableDrill.json, assets/Code/Machines/New/ThermalReactor.json, assets/Code/Machines/New/NodeMaker.json"
+		}
+	]
+}

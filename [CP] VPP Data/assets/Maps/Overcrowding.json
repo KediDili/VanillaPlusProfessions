@@ -1,0 +1,9 @@
+{
+	"Changes": [
+		{
+			"Action": "EditMap",
+			"Target": "Maps/Coop, Maps/Coop2, Maps/Coop3, Maps/Barn, Maps/Barn2, Maps/Barn3",
+			"FromFile": "assets/{{Target}}_Expanded.tmx",
+		}
+	]
+}
