@@ -10,7 +10,18 @@
 			"FromFile": "assets/Maps/Overcrowding.json",
 			"When": {
 				"Esca.EMP/GameStateQuery: KediDili.VanillaPlusProfessions_PlayerHasTalent Any Overcrowding": true,
-				"EnableOvercrowdingEdits": "true"
+				"EnableOvercrowdingEdits": "true",
+				"TimeChangedUpdates": "true",
+			},
+			"Update": "OnTimeChange"
+		},
+		{
+			"Action": "Include",
+			"FromFile": "assets/Maps/Overcrowding.json",
+			"When": {
+				"Esca.EMP/GameStateQuery: KediDili.VanillaPlusProfessions_PlayerHasTalent Any Overcrowding": true,
+				"EnableOvercrowdingEdits": "true",
+				"TimeChangedUpdates": "false",
 			},
 			"Update": "OnLocationChange"
 		},
@@ -19,7 +30,18 @@
 			"FromFile": "assets/Maps/HiddenBenefits.json",
 			"When": {
 				"Esca.EMP/GameStateQuery: KediDili.VanillaPlusProfessions_PlayerHasTalent Current HiddenBenefits": true,
-				"HasMod|contains=uglynt.town.interiors": false
+				"HasMod|contains=uglynt.town.interiors": false,
+				"TimeChangedUpdates": "true",
+			},
+			"Update": "OnTimeChange"
+		},
+		{
+			"Action": "Include",
+			"FromFile": "assets/Maps/HiddenBenefits.json",
+			"When": {
+				"Esca.EMP/GameStateQuery: KediDili.VanillaPlusProfessions_PlayerHasTalent Current HiddenBenefits": true,
+				"HasMod|contains=uglynt.town.interiors": false,
+				"TimeChangedUpdates": "false",
 			},
 			"Update": "OnLocationChange"
 		},
@@ -28,7 +50,18 @@
 			"FromFile": "assets/Maps/HiddenBenefits_LUTI.json",
 			"When": {
 				"Esca.EMP/GameStateQuery: KediDili.VanillaPlusProfessions_PlayerHasTalent Current HiddenBenefits": true,
-				"HasMod|contains=uglynt.town.interiors": true
+				"HasMod|contains=uglynt.town.interiors": true,
+				"TimeChangedUpdates": "true",
+			},
+			"Update": "OnTimeChange"
+		},
+		{
+			"Action": "Include",
+			"FromFile": "assets/Maps/HiddenBenefits_LUTI.json",
+			"When": {
+				"Esca.EMP/GameStateQuery: KediDili.VanillaPlusProfessions_PlayerHasTalent Current HiddenBenefits": true,
+				"HasMod|contains=uglynt.town.interiors": true,
+				"TimeChangedUpdates": "false",
 			},
 			"Update": "OnLocationChange"
 		},
@@ -37,6 +70,16 @@
 			"FromFile": "assets/Maps/SleepUnderTheStars.json",
 			"When": {
 				"Esca.EMP/GameStateQuery: KediDili.VanillaPlusProfessions_PlayerHasTalent All SleepUnderTheStars": true,
+				"TimeChangedUpdates": "true",
+			},
+			"Update": "OnTimeChange"
+		},
+		{
+			"Action": "Include",
+			"FromFile": "assets/Maps/SleepUnderTheStars.json",
+			"When": {
+				"Esca.EMP/GameStateQuery: KediDili.VanillaPlusProfessions_PlayerHasTalent All SleepUnderTheStars": true,
+				"TimeChangedUpdates": "false",
 			},
 			"Update": "OnLocationChange"
 		}

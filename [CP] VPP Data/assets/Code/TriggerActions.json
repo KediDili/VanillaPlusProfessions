@@ -40,6 +40,12 @@
 						"AddMail Current Kedi.VPP.Afishionado.Mail",
                     ]
                 },
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/TriggerActions",
+			"Entries":{
 				"{{ModId}}_RecipeTalentUpdates":{
 					"Id": "{{ModId}}_RecipeTalentUpdates",
                     "Trigger": "KediDili.VanillaPlusProfessions_UpdateRecipes",
@@ -69,6 +75,10 @@
                     ]
 				}
 			},
+			"When":{
+				"KediDili.VanillaPlusProfessions/ProfessionsOnly": "false",
+				"TimeChangedUpdates": "true"
+			}
 		}
 	]
 }

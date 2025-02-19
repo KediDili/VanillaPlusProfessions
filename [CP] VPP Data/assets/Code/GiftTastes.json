@@ -14,7 +14,7 @@
 			"When": {
 				"KediDili.VanillaPlusProfessions/HasTalents|contains=EveryonesBestFriend": "true"
 			},
-			"Update": "OnTimeChange",
+			"Update": "{{TalentUpdateRate}}",
 		},
 		{
 			"Action": "EditData",
@@ -30,7 +30,7 @@
 			"When": {
 				"KediDili.VanillaPlusProfessions/HasTalents|contains=EveryonesBestFriend": "true"
 			},
-			"Update": "OnTimeChange",
+			"Update": "{{TalentUpdateRate}}",
 		},
 		{
 			"Action": "EditData",
@@ -46,7 +46,7 @@
 			"When": {
 				"KediDili.VanillaPlusProfessions/HasTalents|contains=EveryonesBestFriend": "true"
 			},
-			"Update": "OnTimeChange",
+			"Update": "{{TalentUpdateRate}}",
 		},
 		{
 			"Action": "EditData",
@@ -62,7 +62,7 @@
 			"When": {
 				"KediDili.VanillaPlusProfessions/HasTalents|contains=EveryonesBestFriend": "true"
 			},
-			"Update": "OnTimeChange",
+			"Update": "{{TalentUpdateRate}}",
 		},
 		{
 			"Action": "EditData",
@@ -78,7 +78,7 @@
 			"When": {
 				"KediDili.VanillaPlusProfessions/HasTalents|contains=EveryonesBestFriend": "true"
 			},
-			"Update": "OnTimeChange",
+			"Update": "{{TalentUpdateRate}}",
 		},
 		{
 			"Action": "EditData",
@@ -94,7 +94,7 @@
 			"When": {
 				"KediDili.VanillaPlusProfessions/HasTalents|contains=EveryonesBestFriend": "true"
 			},
-			"Update": "OnTimeChange",
+			"Update": "{{TalentUpdateRate}}",
 		}
 	]
 }

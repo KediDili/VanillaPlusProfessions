@@ -25,7 +25,32 @@
 				"Iridium Sprinkler": "337 1 787 1 621 1/Home/645/false/s Farming 9/"
 			},
 			"When": {
-				"KediDili.VanillaPlusProfessions/HasTalents|contains=Upcycling": "true"
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=Upcycling": "true",
+				"TimeChangedUpdates": "true",
+			},
+			"Update": "OnTimeChange",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/CraftingRecipes",
+			"Entries": {
+				"Quality Sprinkler": "336 1 382 1 599 1/Home/621/false/s Farming 6/",
+				"Iridium Sprinkler": "337 1 787 1 621 1/Home/645/false/s Farming 9/"
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=Upcycling": "true",
+				"TimeChangedUpdates": "false",
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/CraftingRecipes",
+			"Entries": {
+                "Cookout Kit": "388 5 771 5 382 1/Field/926/false/s Foraging 3/",
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=SurvivalCooking": "true",
+				"TimeChangedUpdates": "true",
 			},
 			"Update": "OnTimeChange",
 		},
@@ -36,7 +61,22 @@
                 "Cookout Kit": "388 5 771 5 382 1/Field/926/false/s Foraging 3/",
 			},
 			"When": {
-				"KediDili.VanillaPlusProfessions/HasTalents|contains=SurvivalCooking": "true"
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=SurvivalCooking": "true",
+				"TimeChangedUpdates": "false",
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/CraftingRecipes",
+			"Entries": {
+                "Wood Fence": "388 2/Field/322 2/false//",
+                "Stone Fence": "390 2/Field/323 2/false/s Farming 2/",
+                "Iron Fence": "335 1/Field/324 20/false/s Farming 4/",
+                "Hardwood Fence": "709 1/Field/298 2/false/s Farming 6/",
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=DriftFencing": "true",
+				"TimeChangedUpdates": "true",
 			},
 			"Update": "OnTimeChange",
 		},
@@ -50,9 +90,9 @@
                 "Hardwood Fence": "709 1/Field/298 2/false/s Farming 6/",
 			},
 			"When": {
-				"KediDili.VanillaPlusProfessions/HasTalents|contains=DriftFencing": "true"
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=DriftFencing": "true",
+				"TimeChangedUpdates": "false",
 			},
-			"Update": "OnTimeChange",
 		},
 		{
 			"Action": "EditData",

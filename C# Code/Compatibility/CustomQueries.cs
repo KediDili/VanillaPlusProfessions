@@ -73,7 +73,7 @@ namespace VanillaPlusProfessions.Compatibility
                 ModEntry.ModMonitor.Log($"Invalid values were provided to {ModEntry.Manifest.UniqueID + "_" + nameof(IsLavaLocation)} query.\n - Query string: {string.Join(" ", query)}\n - Error: {error}", StardewModdingAPI.LogLevel.Warn);
                 ModEntry.ModMonitor.Log(error, StardewModdingAPI.LogLevel.Warn);
             }
-            else if (location is Caldera || (location.GetData()?.CustomFields?.TryGetValue(MachineryEventHandler.Key_IsLavaLocation, out string value) is true && value.ToLower() is "true"))
+            else if (location is Caldera || ((location.GetData()?.CustomFields?.TryGetValue(MachineryEventHandler.Key_IsLavaLocation, out string value) is true || location.GetData()?.CustomFields?.TryGetValue(MachineryEventHandler.Key_IsLavaLocation2, out value) is true) && value.ToLower() is "true"))
             {
                 return true;
             }
@@ -88,7 +88,7 @@ namespace VanillaPlusProfessions.Compatibility
                 ModEntry.ModMonitor.Log($"Invalid values were provided to {ModEntry.Manifest.UniqueID + "_" + nameof(IsConsistentMineLocation)} query.\n - Query string: {string.Join(" ", query)}\n - Error: {error}", StardewModdingAPI.LogLevel.Warn);
                 ModEntry.ModMonitor.Log(error, StardewModdingAPI.LogLevel.Warn);
             }
-            else if (location is Mine || (location.GetData()?.CustomFields?.TryGetValue(MachineryEventHandler.Key_IsConsistentMineLocation, out string value) is true && value.ToLower() is "true"))
+            else if (location is Mine || (location.GetData()?.CustomFields?.TryGetValue(MachineryEventHandler.Key_IsConsistentMineLocation, out string value) is true || (location.GetData()?.CustomFields?.TryGetValue(MachineryEventHandler.Key_IsConsistentMineLocation2, out value) is true) && value.ToLower() is "true"))
             {
                 return true;
             }

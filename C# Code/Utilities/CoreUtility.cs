@@ -1,7 +1,5 @@
 ﻿using StardewValley;
 using StardewModdingAPI;
-using System.Linq;
-using System.Collections.Generic;
 using VanillaPlusProfessions.Talents;
 using StardewValley.Projectiles;
 using System;
@@ -13,6 +11,9 @@ using Microsoft.Xna.Framework.Graphics;
 using StardewValley.Menus;
 using StardewValley.GameData.Objects;
 using StardewValley.TerrainFeatures;
+using System.Reflection;
+using HarmonyLib;
+using System.IO;
 
 namespace VanillaPlusProfessions.Utilities
 {
@@ -49,6 +50,47 @@ namespace VanillaPlusProfessions.Utilities
             }
             ModEntry.ModMonitor.Log(e.ToString(), LogLevel.Error);
         }
+        public static void PatchMethod(string patcherName, string methodName, MethodBase original, HarmonyMethod prefix = null, HarmonyMethod postfix = null, HarmonyMethod transpiler = null)
+        {
+            bool success = true;
+            try
+            {
+                ModEntry.Harmony.Patch(original, prefix, postfix, transpiler);
+            }
+            catch (Exception e)
+            {
+                string patchType = "";
+                if (prefix is not null)
+                {
+                    patchType += "prefixing";
+                }
+                if (postfix is not null)
+                {
+                    patchType += (patchType.Length > 0 ? " ," : "") + "postfixing";
+                }
+                if (transpiler is not null)
+                {
+                    patchType += (patchType.Length > 0 ? " ," : "") + "transpiling";
+                }
+                success = false;
+                PrintError(e, patcherName, $"{original.DeclaringType.Name}.{original.Name}", patchType, false);
+            }
+            finally
+            {
+                if (success)
+                {
+                    if (ModEntry.ModConfig.Value.DeveloperOrTestingMode)
+                    {
+                        ModEntry.ModMonitor.Log($"{patcherName} successfully patched {methodName}.");
+                    }
+                }
+                else
+                {
+                    ModEntry.ModMonitor.Log($"This is an error thrown by VPP. Some features may not work, but this shouldn't break your game. Reproduce this with only VPP before you make a bug report and make sure it hasn't been reported before.", LogLevel.Warn);
+                }
+            }
+        }
+
         public static bool AnyPlayerHasProfession(string prof)
         {
             if (!Context.IsWorldReady)
@@ -110,29 +152,34 @@ namespace VanillaPlusProfessions.Utilities
                 if (backArmDistance > 4 && !slingshot.canPlaySound)
                 {
                     StardewValley.Object ammunition = (StardewValley.Object)slingshot.attachments[0].getOne();
-                    slingshot.attachments[0].Stack--;
-                    slingshot.attachments[0].Stack--;
-                    if (slingshot.attachments[0].Stack <= 0)
+                    if (ammunition.QualifiedItemId == "(TR)MagicQuiver")
                     {
-                        slingshot.attachments[0] = null;
+                        
                     }
-                    int damage = 1;
-                    float damageMod = (slingshot.ItemId == "33") ? 2f : ((!(slingshot.ItemId == "34")) ? 1f : 4f);
-                    if (!Game1.options.useLegacySlingshotFiring)
+                    else
                     {
-                        v.X *= -1f;
-                        v.Y *= -1f;
+                        if (ammunition.ConsumeStack(2) is null)
+                        {
+                            slingshot.attachments[0] = null;
+                        }
+                        int damage = 1;
+                        float damageMod = (slingshot.ItemId == "33") ? 2f : ((!(slingshot.ItemId == "34")) ? 1f : 4f);
+                        if (!Game1.options.useLegacySlingshotFiring)
+                        {
+                            v.X *= -1f;
+                            v.Y *= -1f;
+                        }
+
+                        location.projectiles.Add(new BasicProjectile((int)(damageMod * (damage + Game1.random.Next(-(damage / 2), damage + 2)) * (1f + who.buffs.AttackMultiplier)), -1, 0, 0, (float)(Math.PI / (double)(64f + Game1.random.Next(-63, 64))), thedirection2.X * 16, thedirection2.Y * 16, shoot_origin - new Vector2(32f, 32f), "hammer", null, null, explode: false, damagesMonsters: true, location, who, null, ammunition.ItemId)
+                        { IgnoreLocationCollision = false });
+
+                        foreach (var item in slingshot.enchantments)
+                            if (item is SlingshotEnchantment slingshotEnchantment)
+                                slingshotEnchantment.OnShoot(location, slingshot);
+
+                        location.projectiles.Add(new BasicProjectile((int)(damageMod * (damage + Game1.random.Next(-(damage / 2), damage + 2)) * (1f + who.buffs.AttackMultiplier)), -1, 0, 0, (float)(Math.PI / (double)(64f + Game1.random.Next(-63, 64))), thedirection.X * 16, thedirection.Y * 16, shoot_origin - new Vector2(32f, 32f), "hammer", null, null, explode: false, damagesMonsters: true, location, who, null, ammunition.ItemId)
+                        { IgnoreLocationCollision = false });
                     }
-
-                    location.projectiles.Add(new BasicProjectile((int)(damageMod * (damage + Game1.random.Next(-(damage / 2), damage + 2)) * (1f + who.buffs.AttackMultiplier)), -1, 0, 0, (float)(Math.PI / (double)(64f + Game1.random.Next(-63, 64))), thedirection2.X * 16, thedirection2.Y * 16, shoot_origin - new Vector2(32f, 32f), "hammer", null, null, explode: false, damagesMonsters: true, location, who, null, ammunition.ItemId)
-                    { IgnoreLocationCollision = false });
-
-                    foreach (var item in slingshot.enchantments)
-                        if (item is SlingshotEnchantment slingshotEnchantment)
-                            slingshotEnchantment.OnShoot(location, slingshot);
-
-                    location.projectiles.Add(new BasicProjectile((int)(damageMod * (damage + Game1.random.Next(-(damage / 2), damage + 2)) * (1f + who.buffs.AttackMultiplier)), -1, 0, 0, (float)(Math.PI / (double)(64f + Game1.random.Next(-63, 64))), thedirection.X * 16, thedirection.Y * 16, shoot_origin - new Vector2(32f, 32f), "hammer", null, null, explode: false, damagesMonsters: true, location, who, null, ammunition.ItemId)
-                    { IgnoreLocationCollision = false });
 
                     foreach (var item in slingshot.enchantments)
                         if (item is SlingshotEnchantment slingshotEnchantment)

@@ -48,6 +48,7 @@
 			},
 			"When": {
 				"KediDili.VanillaPlusProfessions/HasTalents|contains=ColdPress": "true",
+				"TimeChangedUpdates": "true",
 			},
 			"Update": "OnTimeChange",
 		},
@@ -62,8 +63,37 @@
 			},
 			"When": {
 				"KediDili.VanillaPlusProfessions/HasTalents|contains=ColdPress": "true",
+				"TimeChangedUpdates": "true",
 			},
 			"Update": "OnTimeChange",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)19", "OutputRules", "Default_Corn", "OutputItem" ],
+			"Fields": {
+				"(O)247": {
+					"ObjectDisplayName": "[LocalizedText Strings\\Objects:VPPFlavoredOil_Format %PRESERVED_DISPLAY_NAME]"
+				}
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=ColdPress": "true",
+				"TimeChangedUpdates": "false",
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)19", "OutputRules", "Default_Sunflower", "OutputItem" ],
+			"Fields": {
+				"(O)247": {
+					"ObjectDisplayName": "[LocalizedText Strings\\Objects:VPPFlavoredOil_Format %PRESERVED_DISPLAY_NAME]"
+				}
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=ColdPress": "true",
+				"TimeChangedUpdates": "false",
+			},
 		}
 	]
 }

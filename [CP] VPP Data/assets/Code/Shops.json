@@ -78,9 +78,54 @@
 				}
 			},
 			"When": { 
-				"KediDili.VanillaPlusProfessions/HasTalents|contains=BookclubBargains": "true"
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=BookclubBargains": "true",
+				"TimeChangedUpdates": "true"
 			},
 			"Update": "OnTimeChange",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Shops",
+			"TargetField": [ "Bookseller", "Items" ],
+			"Fields": { 
+				"(O)PurpleBook": {
+					"Price": 5000,
+				},
+				"RandomSkillBook1": {
+					"Price": 5000,
+				},
+				"RandomSkillBook2": {
+					"Price": 4000,
+				},
+				"RandomSkillBook3": {
+					"Price": 2500,
+				},
+				"RandomBook": {
+					"Price": 12500,
+				},
+				"(O)Book_Speed": {
+					"Price": 10000,
+				},
+				"(O)Book_Speed2": {
+					"Price": 15000,
+				},
+				"(O)Book_Horse": {
+					"Price": 20000,
+				},
+				"(O)Book_Grass": {
+					"Price": 15000,
+				},
+				"(O)Book_QueenOfSauce": {
+					"Price": 25000,
+				},
+				"(O)SkillBook_2": {
+					"Price": 4000,
+				}
+			},
+			"When": { 
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=BookclubBargains": "true",
+				"TimeChangedUpdates": "false"
+			},
 		},
 		{
 			"Action": "EditData",

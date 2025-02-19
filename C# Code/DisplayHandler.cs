@@ -22,7 +22,6 @@ using StardewValley.Objects;
 using StardewValley.Objects.Trinkets;
 using SpaceCore.Interface;
 using VanillaPlusProfessions.Craftables;
-using static StardewValley.LocationRequest;
 
 namespace VanillaPlusProfessions
 {
@@ -322,12 +321,15 @@ namespace VanillaPlusProfessions
                             drawHoverText(e.SpriteBatch, sb, Game1.smallFont, hoverTitle);
                         }
 
-                        foreach (ClickableTextureComponent c in MyCustomSkillBars.Value)
+                        if (MyCustomSkillBars.Value?.Any() is true && !MyCustomSkillBars.Value.Contains(null))
                         {
-                            if (c.scale == 0f)
+                            foreach (ClickableTextureComponent c in MyCustomSkillBars.Value)
                             {
-                                IClickableMenu.drawTextureBox(e.SpriteBatch, Game1.menuTexture, new Rectangle(0, 256, 60, 60), c.bounds.X - 16 - 8, c.bounds.Y - 16 - 16, 96, 96, Color.White, drawShadow: false);
-                                e.SpriteBatch.Draw(ProfessionIcons, new Vector2(c.bounds.X - 8, c.bounds.Y - 16), new Rectangle((Convert.ToInt32(c.name) - 467830) % 6 * 16, (Convert.ToInt32(c.name) - 467830) / 6 * 16, 16, 16), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 1f);
+                                if (c.scale == 0f)
+                                {
+                                    IClickableMenu.drawTextureBox(e.SpriteBatch, Game1.menuTexture, new Rectangle(0, 256, 60, 60), c.bounds.X - 16 - 8, c.bounds.Y - 16 - 16, 96, 96, Color.White, drawShadow: false);
+                                    e.SpriteBatch.Draw(ProfessionIcons, new Vector2(c.bounds.X - 8, c.bounds.Y - 16), new Rectangle((Convert.ToInt32(c.name) - 467830) % 6 * 16, (Convert.ToInt32(c.name) - 467830) / 6 * 16, 16, 16), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 1f);
+                                }
                             }
                         }
                     }
@@ -402,7 +404,7 @@ namespace VanillaPlusProfessions
                                 }
                             }
                         }
-                        if (MyCustomSkillBars.Value is not null && MyCustomSkillBars.Value.Length > 0)
+                        if (MyCustomSkillBars.Value?.Any() is true && !MyCustomSkillBars.Value.Contains(null))
                         {
                             foreach (ClickableTextureComponent c in MyCustomSkillBars.Value)
                             {

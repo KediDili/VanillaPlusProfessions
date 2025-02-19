@@ -61,8 +61,8 @@
 					"MinStack": 1,
 					"MaxStack": 3,
 					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current ExoticTapping"
-				},
-			},
+				}
+			}
 		},
 		{
 			"Action": "EditData",
@@ -72,8 +72,8 @@
                 { 
 					"ID": "Kedi.VPP.ExoticTapping.Oil.2", 
 					"ToPosition": "Top"
-				},
-			],
+				}
+			]
 		},
 		{
 			"Action": "EditData",
@@ -87,8 +87,8 @@
 					"MaxStack": 3,
 					"DaysUntilReady": 7,
 					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current SpringThaw, RANDOM 0.65"
-				},
-			},
+				}
+			}
 		},
 		{
 			"Action": "EditData",
@@ -98,8 +98,8 @@
                 { 
 					"ID": "Kedi.VPP.SpringThaw.LargePineTar", 
 					"ToPosition": "Top"
-				},
-			],
+				}
+			]
 		},
 		{
 			"Action": "EditData",
@@ -113,8 +113,8 @@
 					"MaxStack": 3,
 					"DaysUntilReady": 12,
 					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current SpringThaw, RANDOM 0.65"
-				},
-			},
+				}
+			}
 		},
 		{
 			"Action": "EditData",
@@ -124,8 +124,8 @@
                 { 
 					"ID": "Kedi.VPP.SpringThaw.LargeMapleSyrup", 
 					"ToPosition": "Top"
-				},
-			],
+				}
+			]
 		},
 		{
 			"Action": "EditData",
@@ -139,8 +139,8 @@
 					"MaxStack": 3,
 					"DaysUntilReady": 10,
 					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current SpringThaw, RANDOM 0.65"
-				},
-			},
+				}
+			}
 		},
 		{
 			"Action": "EditData",
@@ -150,8 +150,8 @@
                 { 
 					"ID": "Kedi.VPP.SpringThaw.LargeOakResin", 
 					"ToPosition": "Top"
-				},
-			],
+				}
+			]
 		},
 		{
 			"Action": "EditData",
@@ -159,13 +159,9 @@
 			"TargetField": ["9", "SeedDropItems" ],
 			"Fields": {
 				"GoldenCoconut": {
-					"Condition": "TRUE"
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current WelcomeToTheJungle"
 				}
-			},
-			"When": {
-				"KediDili.VanillaPlusProfessions/HasTalents|contains=WelcomeToTheJungle": "true"
-			},
-			"Update": "OnTimeChange",
+			}
 		},
 		{
 			"Action": "EditData",
@@ -178,13 +174,10 @@
 					{
 						"Id": "Kedi.VPP.WelcomeToTheJungle.1",
 						"Result": "Allow",
+						"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current WelcomeToTheJungle"
 					}
 				]
-			},
-			"When": { 
-				"KediDili.VanillaPlusProfessions/HasTalents|contains=WelcomeToTheJungle": "true"
-			},
-			"Update": "OnTimeChange",
+			}
 		},
 		{
 			"Action": "EditData",
@@ -192,13 +185,9 @@
 			"TargetField": ["6", "SeedDropItems" ],
 			"Fields": {
 				"GoldenCoconut": {
-					"Condition": "TRUE"
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current WelcomeToTheJungle"
 				}
-			},
-			"When": {
-				"KediDili.VanillaPlusProfessions/HasTalents|contains=WelcomeToTheJungle": "true"
-			},
-			"Update": "OnTimeChange",
+			}
 		},
 		{
 			"Action": "EditData",
@@ -211,13 +200,10 @@
 					{
 						"Id": "Kedi.VPP.WelcomeToTheJungle.2",
 						"Result": "Allow",					
+						"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current WelcomeToTheJungle"
 					}
 				]
-			},
-			"When": {
-				"KediDili.VanillaPlusProfessions/HasTalents|contains=WelcomeToTheJungle": "true"
-			},
-			"Update": "OnTimeChange",
+			}
 		}
 	]
 }

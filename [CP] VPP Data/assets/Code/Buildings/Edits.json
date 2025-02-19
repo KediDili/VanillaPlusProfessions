@@ -24,7 +24,59 @@
 				}
 			},
 			"When": {
-				"KediDili.VanillaPlusProfessions/HasTalents|contains=Overcrowding": "true" 
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=Overcrowding": "true",
+				"TimeChangedUpdates": "true",
+			},
+			"Update": "OnTimeChange",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Buildings",
+			"Fields": {
+				"Deluxe Coop": {
+					"MaxOccupants": 15
+				},
+				"Deluxe Barn": {
+					"MaxOccupants": 15
+				},
+				"Big Barn": {
+					"MaxOccupants": 10
+				},
+				"Big Coop": {
+					"MaxOccupants": 10
+				},
+				"Coop": {
+					"MaxOccupants": 5
+				},
+				"Barn": {
+					"MaxOccupants": 5
+				}
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=Overcrowding": "true",
+				"TimeChangedUpdates": "false",
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Buildings",
+			"Fields": {
+				"Earth Obelisk": {
+					"BuildCost": 50000
+				},
+				"Water Obelisk": {
+					"BuildCost": 50000
+				},
+				"Desert Obelisk": {
+					"BuildCost": 100000
+				},
+				"Island Obelisk": {
+					"BuildCost": 100000
+				},
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=MonumentalDiscount": "true",
+				"TimeChangedUpdates": "true",
 			},
 			"Update": "OnTimeChange",
 		},
@@ -46,9 +98,9 @@
 				},
 			},
 			"When": {
-				"KediDili.VanillaPlusProfessions/HasTalents|contains=MonumentalDiscount": "true"
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=MonumentalDiscount": "true",
+				"TimeChangedUpdates": "false",
 			},
-			"Update": "OnTimeChange",
 		},
 		{
 			"Action": "EditData",
@@ -175,6 +227,36 @@
 				"KediDili.VanillaPlusProfessions/HasTalents|contains=FisheryGrant": "true"
 			},
 			"Update": "OnTimeChange",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Buildings",
+			"Fields": {
+				"Fish Pond": {
+					"BuildCost": 2000
+				}
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=FisheryGrant": "true",
+				"TimeChangedUpdates": "false",
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Buildings",
+			"TargetField": [
+				"Fish Pond",
+				"BuildMaterials"
+			],
+			"Fields": {
+				"(O)390": {
+					"Amount": 100
+				}
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=FisheryGrant": "true",
+				"TimeChangedUpdates": "false",
+			},
 		}
 	]
 }

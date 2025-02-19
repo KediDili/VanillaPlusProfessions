@@ -53,7 +53,7 @@ namespace VanillaPlusProfessions.Craftables
                 string nodeToCreate = null;
                 if (ItemRegistry.GetData(inputItem.QualifiedItemId).RawData is ObjectData data)
                 {
-                    if ((data.CustomFields?.TryGetValue(MachineryEventHandler.Key_NodeMakerData, out string nodes) is true && !string.IsNullOrEmpty(nodes)) || (ContentEditor.NodeMakerData.TryGetValue(inputItem.ItemId, out nodes) is true && !string.IsNullOrEmpty(nodes)))
+                    if (((data.CustomFields?.TryGetValue(MachineryEventHandler.Key_NodeMakerData, out string nodes) is true || data.CustomFields?.TryGetValue(MachineryEventHandler.Key_NodeMakerData2, out nodes) is true) && !string.IsNullOrEmpty(nodes)) || (ContentEditor.NodeMakerData.TryGetValue(inputItem.ItemId, out nodes) is true && !string.IsNullOrEmpty(nodes)))
                     {
                         string[] strings = ArgUtility.SplitBySpace(nodes);
                         if (strings.Length > 0)

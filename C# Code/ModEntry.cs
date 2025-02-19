@@ -28,7 +28,6 @@ using VanillaPlusProfessions.Talents.UI;
 using SpaceCore;
 using VanillaPlusProfessions.Craftables;
 using StardewValley.Internal;
-using xTile.Dimensions;
 
 namespace VanillaPlusProfessions
 {
@@ -121,11 +120,19 @@ namespace VanillaPlusProfessions
 
         public static void OnGameLaunched(object sender, GameLaunchedEventArgs e)
         {
-            ContentPatcherAPI.Value = Helper.ModRegistry.GetApi<IContentPatcher>("Pathoschild.ContentPatcher");
-            GenericModConfigMenuAPI.Value = Helper.ModRegistry.GetApi<IGenericModConfigMenu>("spacechase0.GenericModConfigMenu");
-            SpaceCoreAPI.Value = Helper.ModRegistry.GetApi<ISpaceCore>("spacechase0.SpaceCore");
-            WearMoreRingsAPI.Value = Helper.ModRegistry.GetApi<IWearMoreRings>("bcmpinc.WearMoreRings");
-            ItemExtensionsAPI.Value = Helper.ModRegistry.GetApi<IItemExtensions>("mistyspring.ItemExtensions");
+            try
+            {
+                ContentPatcherAPI.Value = Helper.ModRegistry.GetApi<IContentPatcher>("Pathoschild.ContentPatcher");
+                GenericModConfigMenuAPI.Value = Helper.ModRegistry.GetApi<IGenericModConfigMenu>("spacechase0.GenericModConfigMenu");
+                SpaceCoreAPI.Value = Helper.ModRegistry.GetApi<ISpaceCore>("spacechase0.SpaceCore");
+                WearMoreRingsAPI.Value = Helper.ModRegistry.GetApi<IWearMoreRings>("bcmpinc.WearMoreRings");
+                ItemExtensionsAPI.Value = Helper.ModRegistry.GetApi<IItemExtensions>("mistyspring.ItemExtensions");
+
+            }
+            catch (Exception)
+            {
+                ModMonitor.Log("Something has seriously gone wrong with an API request. This could indicate VPP's versions of APIs being out of date, outright the wrong type or some other error. Little to no interactions may work this session.");
+            }
 
             CustomQueries.Initialize();
 
@@ -134,6 +141,7 @@ namespace VanillaPlusProfessions
                 ContentPatcherAPI.Value.RegisterToken(Manifest, "HasProfessions", GetProfessions);
                 ContentPatcherAPI.Value.RegisterToken(Manifest, "HasTalents", new HasTalents());
                 ContentPatcherAPI.Value.RegisterToken(Manifest, "ContentPaths", new ContentPaths());
+                ContentPatcherAPI.Value.RegisterToken(Manifest, "ProfessionsOnly", () => new string[] { ModConfig.Value.ProfessionsOnly.ToString() });
             }
             else
                 ModMonitor.Log("Content Patcher is either not installed or there was a problem while requesting the API. Skipping token additions.", LogLevel.Info);
@@ -507,7 +515,7 @@ namespace VanillaPlusProfessions
                     else if (Game1.player.CurrentTool is not null and Slingshot slingshot && TalentUtility.CurrentPlayerHasTalent("TripleShot"))
                     {
                         foreach (var item in Game1.player.enchantments)
-                            if (item is AutoFireEnchantment)
+                            if (item is AutoFireEnchantment) //Balance
                                 return;
 
                         slingshot.beginUsing(Game1.player.currentLocation, (int)Game1.player.lastClick.X, (int)Game1.player.lastClick.Y, Game1.player);

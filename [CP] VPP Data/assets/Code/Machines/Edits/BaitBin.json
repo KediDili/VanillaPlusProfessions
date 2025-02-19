@@ -15,9 +15,29 @@
 				}
 			},
 			"When": {
-				"KediDili.VanillaPlusProfessions/HasTalents|contains=DoubleHook": true
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=DoubleHook": true,
+				"TimeChangedUpdates": "true",
 			},
 			"Update": "OnTimeChange",
+		},
+		{
+			"LogName": "Double Hook - Bait Bin",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [
+				"(BC)154",
+				"OutputRules"
+			],
+			"Fields": {
+				"Default": {
+					"DaysUntilReady": -1,
+					"MinutesUntilReady": 990
+				}
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=DoubleHook": true,
+				"TimeChangedUpdates": "false",
+			},
 		},
 		{
 			"LogName": "Clickbait - Bait Bin",

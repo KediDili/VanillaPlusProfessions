@@ -12,9 +12,26 @@
 				}
 			},
 			"When": {
-				"KediDili.VanillaPlusProfessions/HasTalents|contains=HiddenBenefits": "true"
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=HiddenBenefits": "true",
+				"TimeChangedUpdates": "true"
 			},
 			"Update": "OnTimeChange",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/TailoringRecipes",
+			"Entries": {
+				"(B)515": {
+					"Id": "(B)515",
+					"FirstItemTags": [ "id_b_506" ],
+					"SecondItemTags": [ "id_tr_iridiumspur" ],
+					"CraftedItemId": "(B)515"
+				}
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=HiddenBenefits": "true",
+				"TimeChangedUpdates": "false"
+			}
 		}
 	]
 }

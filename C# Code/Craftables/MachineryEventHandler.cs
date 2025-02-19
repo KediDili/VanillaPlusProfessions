@@ -18,10 +18,15 @@ namespace VanillaPlusProfessions.Craftables
 {
     public class MachineryEventHandler
     {
+        // What? Did you never want to fix things without bothering others?
         internal const string Key_IsLavaLocation = "KediDili.VanillaPlusProfessions/IsLavaLocation"; 
         internal const string Key_IsConsistentMineLocation = "KediDili.VanillaPlusProfessions/IsConsistentMineLocation";
         internal const string Key_LastInput = "KediDili.VanillaPlusProfessions/LastInput";
         internal const string Key_NodeMakerData = "KediDili.VanillaPlusProfessions/NodeMakerData";
+        internal const string Key_IsLavaLocation2 = "KediDili.VanillaPlusProfessions_IsLavaLocation";
+        internal const string Key_IsConsistentMineLocation2 = "KediDili.VanillaPlusProfessions_IsConsistentMineLocation";
+        internal const string Key_LastInput2 = "KediDili.VanillaPlusProfessions_LastInput";
+        internal const string Key_NodeMakerData2 = "KediDili.VanillaPlusProfessions_NodeMakerData";
 
         internal static Dictionary<string, List<Vector2>> DrillLocations = new();
         internal static Dictionary<string, List<Vector2>> NodeMakerLocations = new();

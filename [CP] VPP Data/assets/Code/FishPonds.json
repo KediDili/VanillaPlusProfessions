@@ -54,9 +54,68 @@
 				}
 			},
 			"When": {
-				"KediDili.VanillaPlusProfessions/HasTalents|contains=InTheWeeds": "true"
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=InTheWeeds": "true",
+				"TimeChangedUpdates": true
 			},
 			"Update": "OnTimeChange",
+		},
+				{
+			"Action": "EditData",
+			"Target": "Data/FishPondData",
+			"Entries": {
+				"VPP.Seaweed": {
+					"Id": "VPP.Seaweed",
+					"RequiredTags": [
+						"item_seaweed"
+					],
+				    "Precedence": 0,
+					"SpawnTime": -1,
+					"ProducedItems": [ 
+						{
+							"RequiredPopulation": 1,
+							"Chance": 0.5,
+							"ItemId": "(O)152",
+							"MinQuantity": 1,
+							"MaxQuantity": 1
+						},
+						{
+							"RequiredPopulation": 1,
+							"Chance": 0.5,
+							"ItemId": "(O)330",
+							"MinQuantity": 1,
+							"MaxQuantity": 1
+						},
+					]
+				},
+				"VPP.GreenAlgae": {
+					"Id": "VPP.GreenAlgae",
+					"RequiredTags": [
+						"item_green_algae"
+					],
+				    "Precedence": 0,
+					"SpawnTime": -1,
+					"ProducedItems": [ 
+						{
+							"RequiredPopulation": 1,
+							"Chance": 0.5,
+							"ItemId": "(O)153",
+							"MinQuantity": 1,
+							"MaxQuantity": 1
+						},
+						{
+							"RequiredPopulation": 1,
+							"Chance": 0.5,
+							"ItemId": "(O)157",
+							"MinQuantity": 1,
+							"MaxQuantity": 1
+						},
+					]
+				}
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=InTheWeeds": "true",
+				"TimeChangedUpdates": false
+			}
 		},
 		{
 			"Action": "EditData",
@@ -67,69 +126,71 @@
 					"ItemId": "(O)709",
 					"MinStack": 20,
 					"MaxStack": 50,
-					"Condition": "ITEM_ID Input (O)160 (O)899, KediDili.VanillaPlusProfessions_PlayerHasTalent BigFishSmallPond",
+					"Condition": "ITEM_ID Input (O)160 (O)899, KediDili.VanillaPlusProfessions_PlayerHasTalent Current BigFishSmallPond",
 					"Chance": 0.2,
 				},
 				"{{ModId}}_Legend_HyperQualityFertilizer": {
 					"ItemId": "(O)919",
 					"MinStack": 5,
 					"MaxStack": 10,
-					"Condition": "ITEM_ID Input (O)160 (O)899, KediDili.VanillaPlusProfessions_PlayerHasTalent BigFishSmallPond",
+					"Condition": "ITEM_ID Input (O)160 (O)899, KediDili.VanillaPlusProfessions_PlayerHasTalent Current BigFishSmallPond",
 					"Chance": 0.15,
 				},
 				"{{ModId}}_Glacierfish_Aquamarine": {
 					"ItemId": "(O)62",
 					"MinStack": 2,
 					"MaxStack": 5,
-					"Condition": "ITEM_ID Input (O)775 (O)902, KediDili.VanillaPlusProfessions_PlayerHasTalent BigFishSmallPond",
+					"Condition": "ITEM_ID Input (O)775 (O)902, KediDili.VanillaPlusProfessions_PlayerHasTalent Current BigFishSmallPond",
 					"Chance": 0.1,
 				},
 				"{{ModId}}_Glacierfish_DeluxeRetainingSoil": {
 					"ItemId": "(O)920",
 					"MinStack": 10,
 					"MaxStack": 20,
-					"Condition": "ITEM_ID Input (O)775 (O)902, KediDili.VanillaPlusProfessions_PlayerHasTalent BigFishSmallPond",
+					"Condition": "ITEM_ID Input (O)775 (O)902, KediDili.VanillaPlusProfessions_PlayerHasTalent Current BigFishSmallPond",
 					"Chance": 0.15,
 				},
 				"{{ModId}}_Crimsonfish_Ruby": {
 					"ItemId": "(O)64",
 					"MinStack": 2,
 					"MaxStack": 5,
-					"Condition": "ITEM_ID Input (O)159 (O)898, KediDili.VanillaPlusProfessions_PlayerHasTalent BigFishSmallPond",
+					"Condition": "ITEM_ID Input (O)159 (O)898, KediDili.VanillaPlusProfessions_PlayerHasTalent Current BigFishSmallPond",
 					"Chance": 0.1,
 				},
 				"{{ModId}}_Crimsonfish_DeluxeSpeedGro": {
 					"ItemId": "(O)918",
 					"MinStack": 10,
 					"MaxStack": 20,
-					"Condition": "ITEM_ID Input (O)159 (O)898, KediDili.VanillaPlusProfessions_PlayerHasTalent BigFishSmallPond",
+					"Condition": "ITEM_ID Input (O)159 (O)898, KediDili.VanillaPlusProfessions_PlayerHasTalent Current BigFishSmallPond",
 					"Chance": 0.15,
 				},
 				"{{ModId}}_MutantCarp_Seaweed": {
+					"Id": "{{ModId}}_MutantCarp_Seaweed",
 					"RandomItemId": [ "(O)153", "(O)152" ],
 					"MinStack": 25,
 					"MaxStack": 30,
-					"Condition": "ITEM_ID Input (O)682 (O)901, KediDili.VanillaPlusProfessions_PlayerHasTalent BigFishSmallPond",
+					"Condition": "ITEM_ID Input (O)682 (O)901, KediDili.VanillaPlusProfessions_PlayerHasTalent Current BigFishSmallPond",
 					"Chance": 0.30,
 				},
 				"{{ModId}}_MutantCarp_RadioactiveOre": {
 					"ItemId": "(O)909",
 					"MinStack": 5,
 					"MaxStack": 10,
-					"Condition": "ITEM_ID Input (O)682 (O)901, KediDili.VanillaPlusProfessions_PlayerHasTalent BigFishSmallPond", 
+					"Condition": "ITEM_ID Input (O)682 (O)901, KediDili.VanillaPlusProfessions_PlayerHasTalent Current BigFishSmallPond", 
 					"Chance": 0.15,
 				},
 				"{{ModId}}_Angler_Pearl": {
+					"Id": "{{ModId}}_Angler_Pearl",
 					"RandomItemId": [ "(O)153", "(O)152" ],
 					"MinStack": 1,
-					"Condition": "ITEM_ID Input (O)160 (O)899, KediDili.VanillaPlusProfessions_PlayerHasTalent BigFishSmallPond",
+					"Condition": "ITEM_ID Input (O)160 (O)899, KediDili.VanillaPlusProfessions_PlayerHasTalent Current BigFishSmallPond",
 					"Chance": 0.1,
 				},
 				"{{ModId}}_Angler_MagicBait": {
 					"ItemId": "(O)908",
 					"MinStack": 2,
 					"MaxStack": 10,
-					"Condition": "ITEM_ID Input (O)160 (O)899, KediDili.VanillaPlusProfessions_PlayerHasTalent BigFishSmallPond",
+					"Condition": "ITEM_ID Input (O)160 (O)899, KediDili.VanillaPlusProfessions_PlayerHasTalent Current BigFishSmallPond",
 					"Chance": 0.15,
 				},
 			}

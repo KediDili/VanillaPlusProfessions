@@ -33,9 +33,35 @@
 				},
 			},
 			"When": {
-				"Esca.EMP/GameStateQuery:KediDili.VanillaPlusProfessions_PlayerHasTalent Any EveryonesBestFriend": true
+				"Esca.EMP/GameStateQuery:KediDili.VanillaPlusProfessions_PlayerHasTalent Any EveryonesBestFriend": true,
+				"TimeChangedUpdates": "true",
 			},
 			"Update": "OnTimeChange",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"Fields": {
+				"578": {
+					"Category": -2
+				},
+				"565": {
+					"Category": -2
+				},
+				"564": {
+					"Category": -2
+				},
+				"563": {
+					"Category": -2
+				},
+				"562": {
+					"Category": -2
+				},
+			},
+			"When": {
+				"Esca.EMP/GameStateQuery:KediDili.VanillaPlusProfessions_PlayerHasTalent Any EveryonesBestFriend": true,
+				"TimeChangedUpdates": "false",
+			},
 		},
 		{
 			"Action": "EditData",
@@ -85,9 +111,41 @@
 				},
 			},
 			"When": {
-				"KediDili.VanillaPlusProfessions/HasTalents|contains=SugarRush": true
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=SugarRush": true,
+				"TimeChangedUpdates": "true",
 			},
 			"Update": "OnTimeChange",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"Fields": {
+				"208": {
+					"ContextTags": [ "color_brown", "ginger_item" ],
+				},
+				"220": {
+					"ContextTags": [ "color_brown", "food_bakery", "food_cake", "food_sweet", "ginger_item" ],
+				},
+				"221": {
+					"ContextTags": [ "color_pink", "food_bakery", "food_cake", "food_sweet", "ginger_item" ],
+				},
+				"222": {
+					"ContextTags": [ "color_red", "food_bakery", "food_sweet", "ginger_item" ],
+				},
+				"223": {
+					"ContextTags": [ "color_brown", "food_bakery", "food_sweet", "ginger_item" ],
+				},
+				"232": {
+					"ContextTags": [ "color_white", "food_sweet", "ginger_item" ],
+				},
+				"233": {
+					"ContextTags": [ "color_white", "food_sweet", "ginger_item" ],
+				},
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=SugarRush": true,
+				"TimeChangedUpdates": "false",
+			},
 		},
 		{
 			"Action": "EditData",
@@ -126,9 +184,51 @@
 			},
 			"When": {
 				"KediDili.VanillaPlusProfessions/HasTalents|contains=SugarRush": true,
-				"KediDili.VanillaPlusProfessions/HasTalents|contains=SurvivalCooking": true
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=SurvivalCooking": true,
+				"TimeChangedUpdates": "true",
 			},
 			"Update": "OnTimeChange",
+		},
+{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"Fields": {
+				"Kedi.VPP.GrilledLeek": {
+					"ContextTags": [ "kedi_vpp_survival_cooking_food", "ginger_item" ],
+				},
+				"Kedi.VPP.SeaweedSalad": {
+					"ContextTags": [ "kedi_vpp_survival_cooking_food", "color_green", "ginger_item" ],
+				},
+				"Kedi.VPP.TrailMix": {
+					"ContextTags": [ "kedi_vpp_survival_cooking_food", "ginger_item" ],
+				},
+				"Kedi.VPP.WildFruitSalad": {
+					"ContextTags": [ "kedi_vpp_survival_cooking_food",  "ginger_item" ],
+				},
+				"Kedi.VPP.GrilledFish": {
+					"ContextTags": [ "kedi_vpp_survival_cooking_food", "color_brown", "ginger_item" ],
+				},
+				"Kedi.VPP.RoastedFiddleheads": {
+					"ContextTags": [ "kedi_vpp_survival_cooking_food", "color_dark_green", "ginger_item" ],
+				},
+				"Kedi.VPP.BakedTubers": {
+					"ContextTags": [ "kedi_vpp_survival_cooking_food", "ginger_item" ],
+				},
+				"Kedi.VPP.MushroomKebab": {
+					"ContextTags": [ "kedi_vpp_survival_cooking_food", "color_brown", "ginger_item" ],
+				},
+				"Kedi.VPP.FriedBugSteak": {
+					"ContextTags": [ "kedi_vpp_survival_cooking_food", "color_brown", "ginger_item" ],
+				},
+				"Kedi.VPP.SteamedClams": {
+					"ContextTags": [ "kedi_vpp_survival_cooking_food", "color_light_blue", "ginger_item" ],
+				},
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=SugarRush": true,
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=SurvivalCooking": true,
+				"TimeChangedUpdates": "false",
+			},
 		},
 		{
 			"Action": "EditData",

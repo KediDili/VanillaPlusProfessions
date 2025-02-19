@@ -2,17 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
-using System.Xml.Linq;
 using HarmonyLib;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SpaceCore.UI;
-using StardewModdingAPI;
 using StardewValley;
 using StardewValley.BellsAndWhistles;
 using StardewValley.Buffs;
 using StardewValley.GameData.Objects;
-using StardewValley.Inventories;
 using StardewValley.Menus;
 using StardewValley.Objects;
 using StardewValley.Objects.Trinkets;
@@ -22,145 +18,111 @@ namespace VanillaPlusProfessions.Talents.Patchers
 {
     public static class MiscPatcher
     {
+        readonly static Type PatcherType = typeof(MiscPatcher);
+        readonly static string PatcherName = nameof(MiscPatcher);
+
         public static void ApplyPatches()
         {
-            try
-            {
-                ModEntry.Harmony.Patch(
-                    original: AccessTools.Method(typeof(Event.DefaultCommands), nameof(Event.DefaultCommands.HospitalDeath)),
-                    transpiler: new HarmonyMethod(typeof(MiscPatcher), nameof(Transpiler_2))
-                );
-            }
-            catch (Exception e)
-            {
-                CoreUtility.PrintError(e, nameof(MiscPatcher), nameof(Event.DefaultCommands.HospitalDeath), "transpiling");
-
-            }
-
-            try
-            {
-                ModEntry.Harmony.Patch(
-                    original: AccessTools.Method(typeof(Event.DefaultCommands), nameof(Event.DefaultCommands.MineDeath)),
-                    transpiler: new HarmonyMethod(typeof(MiscPatcher), nameof(Transpiler_2))
-                );
-            }
-            catch (Exception e)
-            {
-                CoreUtility.PrintError(e, nameof(MiscPatcher), nameof(Event.DefaultCommands.MineDeath), "transpiling");
-            }
-            try
-            {
-                ModEntry.Harmony.Patch(
-                   original: AccessTools.Method(typeof(GameLocation), nameof(GameLocation.tryAddPrismaticButterfly)),
-                   postfix: new HarmonyMethod(typeof(MiscPatcher), nameof(tryAddPrismaticButterfly))
-               );
-            }
-            catch (Exception e)
-            {
-                CoreUtility.PrintError(e, nameof(MiscPatcher), nameof(GameLocation.tryAddPrismaticButterfly), "postfixing");
-            }
-            try
-            {
-                ModEntry.Harmony.Patch(
-                   original: AccessTools.Method(typeof(StardewValley.Object), nameof(StardewValley.Object.TryCreateBuffsFromData)),
-                   postfix: new HarmonyMethod(typeof(MiscPatcher), nameof(TryCreateBuffsFromData_Postfix))
-               );
-            }
-            catch (Exception e)
-            {
-                CoreUtility.PrintError(e, nameof(MiscPatcher), nameof(StardewValley.Object.TryCreateBuffsFromData), "postfixing");
-            }
-            try
-            {
-                ModEntry.Harmony.Patch(
-                   original: AccessTools.Method(typeof(GameLocation), nameof(GameLocation.readNote)),
-                   postfix: new HarmonyMethod(typeof(MiscPatcher), nameof(readNote))
-               );
-            }
-            catch (Exception e)
-            {
-                CoreUtility.PrintError(e, nameof(MiscPatcher), nameof(GameLocation.readNote), "postfixing");
-            }
-            try
-            {
-                ModEntry.Harmony.Patch(
-                   original: AccessTools.Method(typeof(Chest), nameof(Chest.SetSpecialChestType)),
-                   postfix: new HarmonyMethod(typeof(MiscPatcher), nameof(SetSpecialChestType_Postfix))
-               );
-            }
-            catch (Exception e)
-            {
-                CoreUtility.PrintError(e, nameof(MiscPatcher), "Chest.SetSpecialChestType", "postfixing");
-            }
-            try
-            {
-                ModEntry.Harmony.Patch(
-                    original: AccessTools.Method(typeof(Chest), nameof(Chest.ShowMenu)),
-                    transpiler: new HarmonyMethod(typeof(MiscPatcher), nameof(ShowMenu_Transpiler))
-                );
-            }
-            catch (Exception e)
-            {
-                CoreUtility.PrintError(e, nameof(MiscPatcher), "Chest.ShowMenu", "transpiling");
-            }
-            try
-            {
-                ModEntry.Harmony.Patch(
-                    original: AccessTools.Constructor(typeof(StardewValley.Object), new Type[] { typeof(string), typeof(int), typeof(bool), typeof(int) , typeof(int) }),
-                    postfix: new HarmonyMethod(typeof(MiscPatcher), nameof(Object_Constructor_Postfix))
-                );
-            }
-            catch (Exception e)
-            {
-                CoreUtility.PrintError(e, nameof(MiscPatcher), "Object constructor", "postfixing");
-            }
+            CoreUtility.PatchMethod(
+                PatcherName, "Event.DefaultCommands.HospitalDeath",
+                original: AccessTools.Method(typeof(Event.DefaultCommands), nameof(Event.DefaultCommands.HospitalDeath)),
+                transpiler: new HarmonyMethod(PatcherType, nameof(Transpiler_2))
+            );
+            CoreUtility.PatchMethod(
+                PatcherName, "Event.DefaultCommands.MineDeath",
+                original: AccessTools.Method(typeof(Event.DefaultCommands), nameof(Event.DefaultCommands.MineDeath)),
+                transpiler: new HarmonyMethod(PatcherType, nameof(Transpiler_2))
+            );
+            CoreUtility.PatchMethod(
+                PatcherName, "GameLocation.tryAddPrismaticButterfly",
+                original: AccessTools.Method(typeof(GameLocation), nameof(GameLocation.tryAddPrismaticButterfly)),
+                postfix: new HarmonyMethod(PatcherType, nameof(tryAddPrismaticButterfly))
+            );
+            CoreUtility.PatchMethod(
+                PatcherName, "Object.TryCreateBuffsFromData",
+                original: AccessTools.Method(typeof(StardewValley.Object), nameof(StardewValley.Object.TryCreateBuffsFromData)),
+                postfix: new HarmonyMethod(PatcherType, nameof(TryCreateBuffsFromData_Postfix))
+            );
+            CoreUtility.PatchMethod(
+                PatcherName, "GameLocation.readNote",
+                original: AccessTools.Method(typeof(GameLocation), nameof(GameLocation.readNote)),
+                postfix: new HarmonyMethod(PatcherType, nameof(readNote))
+            );
+            CoreUtility.PatchMethod(
+                PatcherName, "Chest.SetSpecialChestType",
+                original: AccessTools.Method(typeof(Chest), nameof(Chest.SetSpecialChestType)),
+                postfix: new HarmonyMethod(PatcherType, nameof(SetSpecialChestType_Postfix))
+            );
+            CoreUtility.PatchMethod(
+                PatcherName, "Chest.ShowMenu",
+                original: AccessTools.Method(typeof(Chest), nameof(Chest.ShowMenu)),
+                transpiler: new HarmonyMethod(PatcherType, nameof(ShowMenu_Transpiler))
+            );
+            CoreUtility.PatchMethod(
+                PatcherName, "Object constructor",
+                original: AccessTools.Constructor(typeof(StardewValley.Object), new Type[] { typeof(string), typeof(int), typeof(bool), typeof(int), typeof(int) }),
+                postfix: new HarmonyMethod(PatcherType, nameof(Object_Constructor_Postfix))
+            );
+            CoreUtility.PatchMethod(
+                PatcherName, "Farmer.resetFriendshipsForNewDay",
+                original: AccessTools.Method(typeof(Farmer), nameof(Farmer.resetFriendshipsForNewDay)),
+                transpiler: new HarmonyMethod(PatcherType, nameof(Transpiler))
+            );
         }
+
         public static void Object_Constructor_Postfix(ref StardewValley.Object __instance)
         {
-            if (CoreUtility.CurrentPlayerHasProfession("Ranger") && !__instance.HasContextTag(TalentCore.ContextTag_Banned_Ranger)) //Ranger ++
+            try
             {
-                if (__instance.Category == StardewValley.Object.GreensCategory && __instance.HasContextTag("forage_item"))
-                    __instance.Price *= 2;
-            }
-            if (CoreUtility.CurrentPlayerHasProfession("Adventurer") && !__instance.HasContextTag(TalentCore.ContextTag_Banned_Adventurer)) //Adventurer ++
-            {
-                if (__instance.Category == StardewValley.Object.sellAtFishShopCategory || __instance.HasContextTag("forage_item_beach") || __instance.HasContextTag("forage_item_secret") || __instance.HasContextTag("forage_item_mines"))
-                    __instance.Price *= 2;
-            }
-            if (TalentUtility.CurrentPlayerHasTalent("HauteCuisine") && Game1.activeClickableMenu is CraftingPage)
-            {
-                if (__instance.Category == StardewValley.Object.CookingCategory)
+                if (CoreUtility.CurrentPlayerHasProfession("Ranger") && !__instance.HasContextTag(TalentCore.ContextTag_Banned_Ranger)) //Ranger ++
                 {
-                    __instance.Price *= 2;
-                    __instance.Quality++;
-                    __instance.FixQuality();
+                    if (__instance.Category == StardewValley.Object.GreensCategory && __instance.HasContextTag("forage_item"))
+                        __instance.Price *= 2;
                 }
-            }
-            if (TalentUtility.CurrentPlayerHasTalent("Roemance"))
-            {
-                if (__instance.ItemId is "812" or "447" or "445")
-                    __instance.Price *= 5 / 4;
-            }
-            if (CoreUtility.CurrentPlayerHasProfession("Ironmonger"))
-            {
-                if (__instance.HasContextTag("ore_item"))
-                    __instance.Price *= 2;
-            }
-            if (TalentUtility.CurrentPlayerHasTalent("InsiderInfo"))
-            {
-                Dictionary<string, string> InsiderInfo = ModEntry.Helper.GameContent.Load<Dictionary<string, string>>(ContentEditor.ContentPaths["InsiderInfo"]);
-                foreach (var item in InsiderInfo)
+                if (CoreUtility.CurrentPlayerHasProfession("Adventurer") && !__instance.HasContextTag(TalentCore.ContextTag_Banned_Adventurer)) //Adventurer ++
                 {
-                    if (Game1.player.friendshipData.TryGetValue(item.Key, out Friendship val) && val.Points >= 1500)
+                    if (__instance.Category == StardewValley.Object.sellAtFishShopCategory || __instance.HasContextTag("forage_item_beach") || __instance.HasContextTag("forage_item_secret") || __instance.HasContextTag("forage_item_mines"))
+                        __instance.Price *= 2;
+                }
+                if (TalentUtility.CurrentPlayerHasTalent("HauteCuisine") && Game1.activeClickableMenu is CraftingPage)
+                {
+                    if (__instance.Category == StardewValley.Object.CookingCategory)
                     {
-                        string[] items = ArgUtility.SplitBySpace(item.Value.Replace(",", " "));
-                        if (items.Contains(__instance.ItemId))
+                        __instance.Price *= 2;
+                        __instance.Quality++;
+                        __instance.FixQuality();
+                    }
+                }
+                if (TalentUtility.CurrentPlayerHasTalent("Roemance"))
+                {
+                    if (__instance.ItemId is "812" or "447" or "445")
+                        __instance.Price *= 5 / 4;
+                }
+                if (CoreUtility.CurrentPlayerHasProfession("Ironmonger"))
+                {
+                    if (__instance.HasContextTag("ore_item"))
+                        __instance.Price *= 2;
+                }
+                if (TalentUtility.CurrentPlayerHasTalent("InsiderInfo"))
+                {
+                    Dictionary<string, string> InsiderInfo = ModEntry.Helper.GameContent.Load<Dictionary<string, string>>(ContentEditor.ContentPaths["InsiderInfo"]);
+                    foreach (var item in InsiderInfo)
+                    {
+                        if (Game1.player.friendshipData.TryGetValue(item.Key ?? "", out Friendship val) && val.Points >= 1500)
                         {
-                            __instance.Price += (int)(__instance.Price * 0.2f);
-                            break;
+                            string[] items = ArgUtility.SplitBySpace(item.Value.Replace(",", " "));
+                            if (items.Contains(__instance.ItemId))
+                            {
+                                __instance.Price += (int)(__instance.Price * 0.2f);
+                                break;
+                            }
                         }
                     }
                 }
+            }
+            catch (Exception e)
+            {
+                CoreUtility.PrintError(e, PatcherName, "Object Constuctor", "postfixed", true);
             }
         }
 
@@ -182,7 +144,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             }
             catch (Exception e)
             {
-                CoreUtility.PrintError(e, nameof(MiscPatcher), "Chest.ShowMenu", "transpiling");
+                CoreUtility.PrintError(e, PatcherName, "Chest.ShowMenu", "transpiling");
             }
             return list;
         }
@@ -197,7 +159,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             }
             catch (Exception e)
             {
-                CoreUtility.PrintError(e, nameof(MiscPatcher), "Chest.SetSpecialChestType", "postfixed", true);
+                CoreUtility.PrintError(e, PatcherName, "Chest.SetSpecialChestType", "postfixed", true);
             }
         }
         public static string TrinketToString(this Trinket trinket)
@@ -223,14 +185,14 @@ namespace VanillaPlusProfessions.Talents.Patchers
                 {
                     if (toReturn[i].operand is not null and 15000 or 1000)
                     {
-                        toReturn.Insert(i + 1, new(OpCodes.Call, AccessTools.Method(typeof(MiscPatcher), nameof(ReplaceGoldCost))));
+                        toReturn.Insert(i + 1, new(OpCodes.Call, AccessTools.Method(PatcherType, nameof(ReplaceGoldCost))));
                         break;
                     }
                 }
             }
             catch (Exception e)
             {
-                CoreUtility.PrintError(e, nameof(MiscPatcher), "Event.DefaultCommands.HospitalDeath or Event.DefaultCommands.MineDeath", "transpiling");
+                CoreUtility.PrintError(e, PatcherName, "Event.DefaultCommands.HospitalDeath or Event.DefaultCommands.MineDeath", "transpiling");
             }           
             return toReturn;
         }
@@ -364,7 +326,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             }
             catch (Exception e)
             {
-                CoreUtility.PrintError(e, nameof(MiscPatcher), "GameLocation.readNote", "postfixed", true);
+                CoreUtility.PrintError(e, PatcherName, "GameLocation.readNote", "postfixed", true);
             }
         }
 
@@ -408,26 +370,43 @@ namespace VanillaPlusProfessions.Talents.Patchers
             }
             catch (Exception e)
             {
-                CoreUtility.PrintError(e, nameof(MiscPatcher), "GameLocation.tryAddPrismaticButterfly", "postfixed", true);
+                CoreUtility.PrintError(e, PatcherName, "GameLocation.tryAddPrismaticButterfly", "postfixed", true);
             }
         }
         public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> codeInstructions)
         {
-            foreach (var item in codeInstructions)
+            List<CodeInstruction> insns = new();
+            try
             {
-                yield return item;
-                if (item.opcode == OpCodes.Ldc_I4_S && item.operand is -2 or -8 or -20)
+                foreach (var item in codeInstructions)
                 {
-                    yield return new(OpCodes.Call, AccessTools.Method(typeof(MiscPatcher), nameof(TryOverrideFriendshipDecay)));
+                    insns.Add(item);
+                    //Why is it so difficult to check for such simple numbers? ugh <.<
+                    if (item.opcode == OpCodes.Ldc_I4_S && ((sbyte)item.operand == -2 || (sbyte)item.operand == -8 || (sbyte)item.operand == -20))
+                    {
+                        insns.Add(new(OpCodes.Call, AccessTools.Method(PatcherType, nameof(TryOverrideFriendshipDecay))));
+                    }
                 }
             }
+            catch (Exception e)
+            {
+                CoreUtility.PrintError(e, PatcherName, "Farmer.resetFriendshipsForNewDay", "transpiling", true);
+            }
+            return insns;
         }
 
         public static int TryOverrideFriendshipDecay(int oldDecay)
         {
-            if (TalentUtility.CurrentPlayerHasTalent("Admiration"))
+            try
             {
-                return oldDecay / 2;
+                if (TalentUtility.CurrentPlayerHasTalent("Admiration"))
+                {
+                    return oldDecay / 2;
+                }
+            }
+            catch (Exception e)
+            {
+                CoreUtility.PrintError(e, PatcherName, $"{PatcherName}.TryOverrideFriendshipDecay", "transpiled", true);
             }
             return oldDecay;
         }
@@ -519,7 +498,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             }
             catch (Exception e)
             {
-                CoreUtility.PrintError(e, nameof(MiscPatcher), "StardewValley.Object.TryCreateBuffsFromData", "postfixed", true);
+                CoreUtility.PrintError(e, PatcherName, "StardewValley.Object.TryCreateBuffsFromData", "postfixed", true);
             }
         }
     }

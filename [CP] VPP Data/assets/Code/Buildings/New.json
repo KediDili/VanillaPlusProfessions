@@ -128,7 +128,7 @@
 					"Description": "[LocalizedText Strings\\Buildings:{{ModId}}_Sawmill_Description]",
 					"Texture": "Buildings\\{{ModId}}\\Sawmill",
 					"Builder": "Robin",
-					"BuildCondition": "TRUE", //PLAYER_FORAGING_LEVEL Current 16
+					"BuildCondition": "FALSE", //PLAYER_FORAGING_LEVEL Current 16
 					"BuildCost": 10000,
 					"BuildDays": 3,
 					"BuildMaterials": [

@@ -12,55 +12,57 @@ namespace VanillaPlusProfessions.Managers
 
         public Dictionary<string, Profession> RelatedProfessions { get; set; } = new();
 
+        readonly static string PatcherName = nameof(FarmingManager);
+        readonly static System.Type PatcherType = typeof(FarmingManager);
+
         public void ApplyPatches()
         {
-            try
+            System.Type[] tools = { typeof(MilkPail), typeof(Shears) };
+            for (int i = 0; i < tools.Length; i++)
             {
-                ModEntry.Harmony.Patch(
-                    original: AccessTools.Method(typeof(NPC), nameof(NPC.getGiftTasteForThisItem)),
-                    postfix: new HarmonyMethod(typeof(FarmingManager), nameof(getGiftTasteForThisItem_Postfix))
+                CoreUtility.PatchMethod(
+                    PatcherName, tools[i].Name + ".DoFunction",
+                    original: AccessTools.Method(tools[i], nameof(MilkPail.DoFunction)),
+                    prefix: new HarmonyMethod(PatcherType, nameof(DoFunction_Prefix))
                 );
             }
-            catch (System.Exception e)
-            {
-                CoreUtility.PrintError(e, nameof(FarmingManager), nameof(NPC.getGiftTasteForThisItem), "postfixing");
-            }
-            try
-            {
-                ModEntry.Harmony.Patch(
-                    original: AccessTools.Method(typeof(MilkPail), nameof(MilkPail.DoFunction)),
-                    prefix: new HarmonyMethod(typeof(FarmingManager), nameof(DoFunction_Prefix))
-                );
-            }
-            catch (System.Exception e)
-            {
-                CoreUtility.PrintError(e, nameof(FarmingManager), nameof(MilkPail.DoFunction), "postfixing");
-            }
-            try
-            {
-                ModEntry.Harmony.Patch(
-                   original: AccessTools.Method(typeof(Shears), nameof(Shears.DoFunction)),
-                   prefix: new HarmonyMethod(typeof(FarmingManager), nameof(DoFunction_Prefix))
-                );
-            }
-            catch (System.Exception e)
-            {
-                CoreUtility.PrintError(e, nameof(FarmingManager), nameof(Shears.DoFunction), "postfixing");
-            }
+            CoreUtility.PatchMethod(
+                PatcherName, "NPC.getGiftTasteForThisItem",
+                original: AccessTools.Method(typeof(NPC), nameof(NPC.getGiftTasteForThisItem)),
+                postfix: new HarmonyMethod(PatcherType, nameof(getGiftTasteForThisItem_Postfix))
+            );
         }
         public static void DoFunction_Prefix(Farmer who)
         {
-            if (CoreUtility.CurrentPlayerHasProfession("Caretaker", useThisInstead: who))
-                who.Stamina += 4;
+            try
+            {
+                if (CoreUtility.CurrentPlayerHasProfession("Caretaker", useThisInstead: who))
+                    who.Stamina += 4;
+            }
+            catch (System.Exception e)
+            {
+                CoreUtility.PrintError(e, PatcherName, "<VanillaTool>.DoFunction", "postfixed", true);
+            }
         }
         
         public static void getGiftTasteForThisItem_Postfix(NPC __instance, Item item, ref int __result)
         {
-            if (CoreUtility.CurrentPlayerHasProfession("Connoisseur"))
+            try
             {
-                var obj = __instance.GetData();
-                if (obj.CustomFields?.TryGetValue("Kedi.VPP.ExcludeFromConnoisseur", out var field) is true && item.Category is -26 && !item.HasContextTag("alcohol_item") && __result > 3 && (string.IsNullOrEmpty(field) || field.ToLower() == "false"))
-                    __result = 0;
+                if (CoreUtility.CurrentPlayerHasProfession("Connoisseur"))
+                {
+                    var obj = __instance.GetData();
+                    string field = "false";
+                    if (item.Category is -26 && !item.HasContextTag("alcohol_item") && (__result == 0 || __result == 8 || __result == 2))
+                    {
+                        if (obj.CustomFields?.TryGetValue("Kedi.VPP.ExcludeFromConnoisseur", out field) is true && (field?.ToLower() == "true"))
+                            __result = 0;
+                    }
+                }
+            }
+            catch (System.Exception e)
+            {
+                CoreUtility.PrintError(e, PatcherName, "NPC. getGiftTasteForThisItem", "postfixed", true);
             }
         }
         

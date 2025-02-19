@@ -1,6 +1,7 @@
 ﻿using StardewValley;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using StardewValley.TerrainFeatures;
 namespace VanillaPlusProfessions.Compatibility
 {
     public interface IItemExtensions
@@ -29,14 +30,6 @@ namespace VanillaPlusProfessions.Compatibility
         bool IsClump(string qualifiedItemId);
 
         /// <summary>
-        /// Gets drops for a node.
-        /// </summary>
-        /// <param name="node">The node instance.</param>
-        /// <param name="parseConditions">Whether to pase GSQs before adding to list.</param>
-        /// <returns>All possible drops, with %.</returns>
-        Dictionary<string, (double, int)> GetObjectDrops(Object node, bool parseConditions = false);
-
-        /// <summary>
         /// Tries to spawn a clump.
         /// </summary>
         /// <param name="itemId">The clump ID.</param>
@@ -46,7 +39,6 @@ namespace VanillaPlusProfessions.Compatibility
         /// <param name="avoidOverlap">Avoid overlapping with other clumps.</param>
         /// <returns>Whether spawning succeeded.</returns>
         bool TrySpawnClump(string itemId, Vector2 position, GameLocation location, out string error, bool avoidOverlap = false);
-
 
         bool GetResourceData(string id, bool isClump, out object data);
     }

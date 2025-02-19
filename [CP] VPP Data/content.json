@@ -6,6 +6,12 @@
 			"Default": "true",
 			"AllowMultiple": "false",
 			"AllowBlank": "false",
+		},
+		"TimeChangedUpdates": {			
+			"AllowValues": "true, false",
+			"Default": "true",
+			"AllowMultiple": "false",
+			"AllowBlank": "false",
 		}
 	},
 	"DynamicTokens":[
@@ -152,7 +158,7 @@
 			"When":{
 				"Season": "Winter"
 			}
-		}
+		},
 	],
 	"Changes": [
 		{
@@ -170,6 +176,6 @@
 		{
 			"Action": "Include",
 			"FromFile": "assets/Code/Machines/New/TrinketWorkbench.json, assets/Code/Machines/New/ProgrammableDrill.json, assets/Code/Machines/New/ThermalReactor.json, assets/Code/Machines/New/NodeMaker.json"
-		}
+		},
 	]
 }

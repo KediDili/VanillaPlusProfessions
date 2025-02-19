@@ -9,6 +9,7 @@ using System.Reflection.Emit;
 using VanillaPlusProfessions.Utilities;
 using StardewValley.Extensions;
 using System;
+using System.Reflection;
 
 namespace VanillaPlusProfessions.Managers
 {
@@ -18,156 +19,131 @@ namespace VanillaPlusProfessions.Managers
 
         public Dictionary<string, Profession> RelatedProfessions { get; set; } = new();
 
+        readonly static string PatcherName = nameof(MiningManager);
+        readonly static System.Type PatcherType = typeof(MiningManager);
+
         public void ApplyPatches()
         {
-            try
+            MethodBase[] basemethods = {
+                AccessTools.Method(typeof(ForgeMenu), nameof(ForgeMenu.receiveLeftClick)),
+                AccessTools.Method(typeof(ForgeMenu), "_UpdateDescriptionText"),
+                AccessTools.Method(typeof(ForgeMenu), nameof(ForgeMenu.draw), new System.Type[] { typeof(SpriteBatch) }),
+                AccessTools.Method(typeof(ForgeMenu), nameof(ForgeMenu.update)),
+                AccessTools.Method(typeof(BaseEnchantment), nameof(BaseEnchantment.GetEnchantmentFromItem))
+            };
+            for (int i = 0; i < basemethods.Length; i++)
             {
-                ModEntry.Harmony.Patch(
-                    original: AccessTools.Method(typeof(ForgeMenu), nameof(ForgeMenu.receiveLeftClick)),
-                    transpiler: new HarmonyMethod(typeof(MiningManager), nameof(Transpiler))
+                if (i == basemethods.Length - 1)
+                {
+                    TypeBeingPatched = typeof(BaseEnchantment);
+                }
+                CoreUtility.PatchMethod(
+                    PatcherName, $"{basemethods[i].DeclaringType.Name}.{basemethods[i].Name}",
+                    original: basemethods[i],
+                    transpiler: new HarmonyMethod(PatcherType, nameof(Transpiler))
                 );
+                TypeBeingPatched = null;
             }
-            catch (System.Exception e)
-            {
-                CoreUtility.PrintError(e, nameof(MiningManager), nameof(ForgeMenu.receiveLeftClick), "transpiling");
-            }
-            try
-            {
-                ModEntry.Harmony.Patch(
-                    original: AccessTools.Method(typeof(ForgeMenu), "_UpdateDescriptionText"),
-                    transpiler: new HarmonyMethod(typeof(MiningManager), nameof(Transpiler))
-                );
-            }
-            catch (System.Exception e)
-            {
-                CoreUtility.PrintError(e, nameof(MiningManager), "'ForgeMenu._UpdateDescriptionText'", "transpiling");
-            }
-            try
-            {
-                ModEntry.Harmony.Patch(
-                    original: AccessTools.Method(typeof(ForgeMenu), nameof(ForgeMenu.draw), new System.Type[] { typeof(SpriteBatch) }),
-                    transpiler: new HarmonyMethod(typeof(MiningManager), nameof(Transpiler))
-                );
-            }
-            catch (System.Exception e)
-            {
-                CoreUtility.PrintError(e, nameof(MiningManager), nameof(ForgeMenu.draw), "transpiling");
-            }
-            try
-            {
-                ModEntry.Harmony.Patch(
-                    original: AccessTools.Method(typeof(ForgeMenu), nameof(ForgeMenu.update)),
-                    transpiler: new HarmonyMethod(typeof(MiningManager), nameof(Transpiler))
-                );
-            }
-            catch (System.Exception e)
-            {
-                CoreUtility.PrintError(e, nameof(MiningManager), "'ForgeMenu.update'", "transpiling");
-            }
-            try
-            {
-                ModEntry.Harmony.Patch(
-                    original: AccessTools.Method("StardewValley.GameLocation:breakStone"),
-                    prefix: new HarmonyMethod(typeof(MiningManager), nameof(breakStone_Prefix))
-                );
-            }
-            catch (System.Exception e)
-            {
-                CoreUtility.PrintError(e, nameof(MiningManager), "'GameLocation.breakStone'", "prefixing");
-            }
-            TypeBeingPatched = typeof(BaseEnchantment);
-            try
-            {
-                ModEntry.Harmony.Patch(
-                    original: AccessTools.Method(typeof(BaseEnchantment), nameof(BaseEnchantment.GetEnchantmentFromItem)),
-                    transpiler: new HarmonyMethod(typeof(MiningManager), nameof(Transpiler))
-                );
-            }
-            catch (System.Exception e)
-            {
-                CoreUtility.PrintError(e, nameof(MiningManager), "'BaseEnchantment.GetEnchantmentFromItem'", "transpiling");
-            }
-            TypeBeingPatched = null;
+            CoreUtility.PatchMethod(
+                PatcherName, "GameLocation.breakStone",
+                original: AccessTools.Method("StardewValley.GameLocation:breakStone"),
+                prefix: new HarmonyMethod(PatcherType, nameof(breakStone_Prefix))
+            );
         }
 
         private static System.Type TypeBeingPatched = null; 
 
         public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> codeInstructions, ILGenerator ilgen)
         {
-            var found = false;
-            var skip = 0;
-            var index = 0;
             List<CodeInstruction> list = codeInstructions.ToList();
-
-            foreach (var item in codeInstructions)
+            List<CodeInstruction> toReturn = codeInstructions.ToList();
+            try
             {
-                if (item.opcode.Equals(OpCodes.Ldstr) && item.operand.Equals("(O)74") && !found)
+                var found = false;
+                var skip = 0;
+                var index = 0;
+                foreach (var item in codeInstructions)
                 {
-                    Label lbl = ilgen.DefineLabel();
-                    list[index + 3].labels.Add(lbl);
-
-                    yield return item;
-                    yield return list[index + 1];
-                    yield return new(OpCodes.Brtrue_S, lbl);
-                    if (TypeBeingPatched is null)
+                    if (item.opcode.Equals(OpCodes.Ldstr) && item.operand.Equals("(O)74") && !found)
                     {
-                        yield return new(OpCodes.Ldarg_0);
-                        yield return new(OpCodes.Ldfld, AccessTools.Field(typeof(ForgeMenu), "rightIngredientSpot"));
-                        yield return new(OpCodes.Ldfld, AccessTools.Field(typeof(ClickableComponent), nameof(ClickableComponent.item)));
-                        yield return new(OpCodes.Ldc_I4_1);
+                        Label lbl = ilgen.DefineLabel();
+                        list[index + 3].labels.Add(lbl);
+
+                        toReturn.Add(item);
+                        toReturn.Add(list[index + 1]);
+                        toReturn.Add(new(OpCodes.Brtrue_S, lbl));
+                        if (TypeBeingPatched is null)
+                        {
+                            toReturn.Add(new(OpCodes.Ldarg_0));
+                            toReturn.Add(new(OpCodes.Ldfld, AccessTools.Field(typeof(ForgeMenu), "rightIngredientSpot")));
+                            toReturn.Add(new(OpCodes.Ldfld, AccessTools.Field(typeof(ClickableComponent), nameof(ClickableComponent.item))));
+                            toReturn.Add(new(OpCodes.Ldc_I4_1));
+                        }
+                        else
+                        {
+                            toReturn.Add(new(OpCodes.Ldarg_1));
+                            toReturn.Add(new(OpCodes.Ldc_I4_0));
+                        }
+                        toReturn.Add(new(OpCodes.Call, AccessTools.Method(PatcherType, nameof(Conditions))));
+                        found = true;
+                        skip = 1;
+                    }
+                    else if (skip > 0)
+                    {
+                        skip--;
+                        continue;
                     }
                     else
                     {
-                        yield return new(OpCodes.Ldarg_1);
-                        yield return new(OpCodes.Ldc_I4_0);
+                        index++;
+                        toReturn.Add(item);
                     }
-                    yield return new(OpCodes.Call, AccessTools.Method(typeof(MiningManager), "Conditions"));
-                    found = true;
-                    skip = 1;
-                }
-                else if (skip > 0)
-                {
-                    skip--;
-                    continue;
-                }
-                else
-                {
-                    index++;
-                    yield return item;
                 }
             }
+            catch (Exception e)
+            {
+                CoreUtility.PrintError(e, PatcherName, "<Enchanter profession as a whole: unfortunately this transpiler is called by many parts of VPP>", "transpiled", true);
+            }
+            return list;
         }
         public static void breakStone_Prefix(string stoneId, int x, int y, Farmer who, Random r)
         {
-            if (who == Game1.player)
+            try
             {
-                if (CoreUtility.CurrentPlayerHasProfession("Appraiser", useThisInstead: who) && stoneId is "843" or "844")
+                if (who == Game1.player)
                 {
-                    int number = Game1.random.Next(0, 3);
-                    for (int i = 0; i < number; i++)
+                    if (CoreUtility.CurrentPlayerHasProfession("Appraiser", useThisInstead: who) && stoneId is "843" or "844")
                     {
-                        Game1.createObjectDebris("(O)848", x, y);
+                        int number = Game1.random.Next(0, 3);
+                        for (int i = 0; i < number; i++)
+                        {
+                            Game1.createObjectDebris("(O)848", x, y);
+                        }
+                    }
+                    if (TalentUtility.CurrentPlayerHasTalent("Volatility", who: who) && r.NextBool(0.05))
+                    {
+                        if (stoneId == "751")
+                        {
+                            Game1.createObjectDebris("(O)380", x, y);
+                        }
+                        else if (stoneId == "850" || stoneId == "290")
+                        {
+                            Game1.createObjectDebris("(O)384", x, y);
+                        }
+                        else if (stoneId == "764" || stoneId == "VolcanoGoldNode")
+                        {
+                            Game1.createObjectDebris("(O)386", x, y);
+                        }
+                        else if (stoneId == "765")
+                        {
+                            Game1.createObjectDebris("(O)909", x, y);
+                        }
                     }
                 }
-                if (TalentUtility.CurrentPlayerHasTalent("Volatility", who: who) && r.NextBool(0.005))
-                {
-                    if (stoneId == "751")
-                    {
-                        Game1.createObjectDebris("(O)380", x, y);
-                    }
-                    else if (stoneId == "850" || stoneId == "290")
-                    {
-                        Game1.createObjectDebris("(O)384", x, y);
-                    }
-                    else if (stoneId == "764" || stoneId == "VolcanoGoldNode")
-                    {
-                        Game1.createObjectDebris("(O)386", x, y);
-                    }
-                    else if (stoneId == "765")
-                    {
-                        Game1.createObjectDebris("(O)909", x, y);
-                    }
-                }
+            }
+            catch (Exception e)
+            {
+                CoreUtility.PrintError(e, PatcherName, "GameLocation.breakStone", "transpiled", true);
             }
         }
         public static bool Conditions(Item item, bool doesStackMatter = true)

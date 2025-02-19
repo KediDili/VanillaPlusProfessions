@@ -8,7 +8,33 @@
 				"Condition": "PLAYER_STAT Current trashCansChecked 20, RANDOM .005"
 			},
 			"When": {
-				"KediDili.VanillaPlusProfessions/HasTalents|contains=EyeSpy": "true"
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=EyeSpy": "true",
+				"TimeChangedUpdates": true,
+			},
+			"Update": "OnTimeChange"
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/GarbageCans",
+			"TargetField": ["BeforeAll", "Base_GarbageHat"],
+			"Entries": {
+				"Condition": "PLAYER_STAT Current trashCansChecked 20, RANDOM .005"
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=EyeSpy": "true",
+				"TimeChangedUpdates": false,
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/GarbageCans",
+			"TargetField": ["BeforeAll", "Base_TrashCatalogue"],
+			"Entries": {
+				"Condition": "PLAYER_STAT Current trashCansChecked 50, RANDOM .005"
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=EyeSpy": "true",
+				"TimeChangedUpdates": true,
 			},
 			"Update": "OnTimeChange"
 		},
@@ -20,7 +46,8 @@
 				"Condition": "PLAYER_STAT Current trashCansChecked 50, RANDOM .005"
 			},
 			"When": {
-				"KediDili.VanillaPlusProfessions/HasTalents|contains=EyeSpy": "true"
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=EyeSpy": "true",
+				"TimeChangedUpdates": false,
 			}
 		},
 		{
@@ -33,7 +60,37 @@
 				}
 			},
 			"When": {
-				"KediDili.VanillaPlusProfessions/HasTalents|contains=TrashedTreasure": "true"
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=TrashedTreasure": "true",
+				"TimeChangedUpdates": true,
+			},
+			"Update": "OnTimeChange",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/GarbageCans",
+			"TargetField": ["AfterAll"],
+			"Fields": {
+				"Base_MegaSuccessFallback": {
+					"RandomItemId": [ "(O)797", "(O)74", "(O)166", "(O)373"] 
+				}
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=TrashedTreasure": "true",
+				"TimeChangedUpdates": false,
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/GarbageCans",
+			"TargetField": ["GarbageCans", "Blacksmith", "Items"],
+			"Fields": {
+				"Base_Ore": {
+					"Condition": "RANDOM 0.6 @addDailyLuck"
+				}
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=TrashedTreasure": "true",
+				"TimeChangedUpdates": true,
 			},
 			"Update": "OnTimeChange",
 		},
@@ -47,7 +104,25 @@
 				}
 			},
 			"When": {
-				"KediDili.VanillaPlusProfessions/HasTalents|contains=TrashedTreasure": "true"
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=TrashedTreasure": "true",
+				"TimeChangedUpdates": false,
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/GarbageCans",
+			"TargetField": ["GarbageCans", "Museum", "Items"],
+			"Fields": {
+				"Base_OmniGeode": {
+					"Condition": "SYNCED_RANDOM day garbage_museum_749 0.1"
+				},
+				"Base_Geode": {
+					"Condition": "SYNCED_RANDOM day garbage_museum_535 0.6 @addDailyLuck"
+				}
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=TrashedTreasure": "true",
+				"TimeChangedUpdates": true,
 			},
 			"Update": "OnTimeChange",
 		},
@@ -64,9 +139,9 @@
 				}
 			},
 			"When": {
-				"KediDili.VanillaPlusProfessions/HasTalents|contains=TrashedTreasure": "true"
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=TrashedTreasure": "true",
+				"TimeChangedUpdates": false,
 			},
-			"Update": "OnTimeChange",
 		},
 		{
 			"Action": "EditData",
@@ -78,7 +153,40 @@
 				}
 			},
 			"When": {
-				"KediDili.VanillaPlusProfessions/HasTalents|contains=TrashedTreasure": "true"
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=TrashedTreasure": "true",
+				"TimeChangedUpdates": true,
+			},
+			"Update": "OnTimeChange",			
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/GarbageCans",
+			"TargetField": ["GarbageCans", "Evelyn", "Items"],
+			"Fields": {
+				"Base_Cookie": {
+					"Condition": "RANDOM 0.6 @addDailyLuck"
+				}
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=TrashedTreasure": "true",
+				"TimeChangedUpdates": false,
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/GarbageCans",
+			"TargetField": ["GarbageCans", "JojaMart", "Items"],
+			"Fields": {
+				"Base_MovieTicketOrCorn": {
+					"Condition": "SYNCED_RANDOM day garbage_joja 0.6, PLAYER_HAS_MAIL Host ccMovieTheater, !PLAYER_HAS_MAIL Host ccMovieTheaterJoja"
+				},
+				"Base_JojaCola": {
+					"Condition": "SYNCED_RANDOM day garbage_joja 0.6, !PLAYER_HAS_SEEN_EVENT Any 191393"
+				}
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=TrashedTreasure": "true",
+				"TimeChangedUpdates": true,
 			},
 			"Update": "OnTimeChange",
 		},
@@ -95,9 +203,9 @@
 				}
 			},
 			"When": {
-				"KediDili.VanillaPlusProfessions/HasTalents|contains=TrashedTreasure": "true"
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=TrashedTreasure": "true",
+				"TimeChangedUpdates": false,
 			},
-			"Update": "OnTimeChange",
 		},
 		{
 			"Action": "EditData",

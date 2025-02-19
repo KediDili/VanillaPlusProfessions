@@ -13,195 +13,144 @@ using StardewValley.Buildings;
 using StardewValley.GameData.Buildings;
 using StardewValley.Internal;
 using StardewValley.Objects;
-using StardewValley.Menus;
 
 namespace VanillaPlusProfessions.Talents.Patchers
 {
     public class FarmingPatcher
     {
+        readonly static string PatcherName = nameof(FarmingPatcher);
+        readonly static System.Type PatcherType = typeof(FarmingPatcher);
+
         internal static void ApplyPatches()
         {
-            try
-            {
-                ModEntry.Harmony.Patch(
-                    original: AccessTools.Method(typeof(Utility), nameof(Utility.performLightningUpdate)),
-                    transpiler: new HarmonyMethod(typeof(FarmingPatcher), nameof(performLightningUpdate_Transpiler))
-                );
-            }
-            catch (System.Exception e)
-            {
-                CoreUtility.PrintError(e, nameof(FarmingPatcher), nameof(Utility.performLightningUpdate), "transpiling");
-            }
-
-            try
-            {
-                ModEntry.Harmony.Patch(
-                    original: AccessTools.Method(typeof(Farm), nameof(Farm.addCrows)),
-                    transpiler: new HarmonyMethod(typeof(FarmingPatcher), nameof(addCrows_Transpiler))
-                );
-            }
-            catch (System.Exception e)
-            {
-                CoreUtility.PrintError(e, nameof(FarmingPatcher), nameof(Farm.addCrows), "transpiling");
-            }
-
-            try
-            {
-                ModEntry.Harmony.Patch(
-                    original: AccessTools.Method(typeof(QuestionEvent), nameof(QuestionEvent.setUp)),
-                    transpiler: new HarmonyMethod(typeof(FarmingPatcher), nameof(setUp_Transpiler))
-                );
-            }
-            catch (System.Exception e)
-            {
-                CoreUtility.PrintError(e, nameof(FarmingPatcher), nameof(QuestionEvent.setUp), "transpiling");
-            }
-
-            try
-            {
-                ModEntry.Harmony.Patch(
-                    original: AccessTools.Method(typeof(FairyEvent), "ChooseCrop"),
-                    postfix: new HarmonyMethod(typeof(FarmingPatcher), nameof(ChooseCrop_Postfix))
-                );
-            }
-            catch (System.Exception e)
-            {
-                CoreUtility.PrintError(e, nameof(FarmingPatcher), "FairyEvent.ChooseCrop", "postfixing");
-            }
-
-            try
-            {
-                ModEntry.Harmony.Patch(
-                    original: AccessTools.Method(typeof(FarmAnimal), nameof(FarmAnimal.dayUpdate)),
-                    transpiler: new HarmonyMethod(typeof(FarmingPatcher), nameof(dayUpdate_Transpiler))
-                );
-            }
-            catch (System.Exception e)
-            {
-                CoreUtility.PrintError(e, nameof(FarmingPatcher), "FarmAnimal.dayUpdate", "transpiling");
-            }
-            try
-            {
-                ModEntry.Harmony.Patch(
-                    original: AccessTools.Method(typeof(Crop), nameof(Crop.harvest)),
-                    postfix: new HarmonyMethod(typeof(FarmingPatcher), nameof(harvest_Postfix))
-                );
-            }
-            catch (System.Exception e)
-            {
-                CoreUtility.PrintError(e, nameof(FarmingPatcher), nameof(Crop.harvest), "postfixing");
-            }
-
-            try
-            {
-                ModEntry.Harmony.Patch(
-                    original: AccessTools.Method(typeof(StardewValley.Object), nameof(StardewValley.Object.GetModifiedRadiusForSprinkler)),
-                    postfix: new HarmonyMethod(typeof(FarmingPatcher), nameof(GetModifiedRadiusForSprinkler_Postfix))
-                );
-            }
-            catch (System.Exception e)
-            {
-                CoreUtility.PrintError(e, nameof(FarmingPatcher), nameof(StardewValley.Object.GetModifiedRadiusForSprinkler), "postfixing");
-            }
-            try
-            {
-                ModEntry.Harmony.Patch(
-                    original: AccessTools.Method(typeof(HoeDirt), nameof(HoeDirt.dayUpdate)),
-                    prefix: new HarmonyMethod(typeof(FarmingPatcher), nameof(dayUpdate_Prefix))
-                );
-            }
-            catch (System.Exception e)
-            {
-                CoreUtility.PrintError(e, nameof(FarmingPatcher), nameof(HoeDirt.dayUpdate), "prefixing");
-            }
-
-            try
-            {
-                ModEntry.Harmony.Patch(
-                    original: AccessTools.Method(typeof(Building), nameof(Building.CheckItemConversionRule)),
-                    prefix: new HarmonyMethod(typeof(FarmingPatcher), nameof(CheckItemConversionRule_Prefix))
-                );
-            }
-            catch (System.Exception e)
-            {
-                CoreUtility.PrintError(e, nameof(FarmingPatcher), nameof(Building.CheckItemConversionRule), "prefixing");
-            }
+            CoreUtility.PatchMethod(
+                PatcherName, "Utility.performLightningUpdate",
+                original: AccessTools.Method(typeof(Utility), nameof(Utility.performLightningUpdate)),
+                transpiler: new HarmonyMethod(PatcherType, nameof(performLightningUpdate_Transpiler))
+            );
+            CoreUtility.PatchMethod(
+                PatcherName, "Farm.addCrows",
+                original: AccessTools.Method(typeof(Farm), nameof(Farm.addCrows)),
+                transpiler: new HarmonyMethod(PatcherType, nameof(addCrows_Transpiler))
+            );
+            CoreUtility.PatchMethod(
+                PatcherName, "QuestionEvent.setUp",
+                original: AccessTools.Method(typeof(QuestionEvent), nameof(QuestionEvent.setUp)),
+                transpiler: new HarmonyMethod(PatcherType, nameof(setUp_Transpiler))
+            );
+            CoreUtility.PatchMethod(
+                PatcherName, "FairyEvent.ChooseCrop",
+                original: AccessTools.Method(typeof(FairyEvent), "ChooseCrop"),
+                postfix: new HarmonyMethod(PatcherType, nameof(ChooseCrop_Postfix))
+            );
+            CoreUtility.PatchMethod(
+                PatcherName, "FarmAnimal.dayUpdate",
+                original: AccessTools.Method(typeof(FarmAnimal), nameof(FarmAnimal.dayUpdate)),
+                transpiler: new HarmonyMethod(PatcherType, nameof(dayUpdate_Transpiler))
+            );
+            CoreUtility.PatchMethod(
+                PatcherName, "Crop.harvest",
+                original: AccessTools.Method(typeof(Crop), nameof(Crop.harvest)),
+                postfix: new HarmonyMethod(PatcherType, nameof(harvest_Postfix))
+            );
+            CoreUtility.PatchMethod(
+                PatcherName, "Object.GetModifiedRadiusForSprinkler",
+                original: AccessTools.Method(typeof(StardewValley.Object), nameof(StardewValley.Object.GetModifiedRadiusForSprinkler)),
+                postfix: new HarmonyMethod(PatcherType, nameof(GetModifiedRadiusForSprinkler_Postfix))
+            );
+            CoreUtility.PatchMethod(
+                PatcherName, "HoeDirt.dayUpdate",
+                original: AccessTools.Method(typeof(HoeDirt), nameof(HoeDirt.dayUpdate)),
+                prefix: new HarmonyMethod(PatcherType, nameof(dayUpdate_Prefix))
+            );
+            CoreUtility.PatchMethod(
+                PatcherName, "Building.CheckItemConversionRule",
+                original: AccessTools.Method(typeof(Building), nameof(Building.CheckItemConversionRule)),
+                prefix: new HarmonyMethod(PatcherType, nameof(CheckItemConversionRule_Prefix))
+            );
         }
         public static bool CheckItemConversionRule_Prefix(Building __instance, BuildingItemConversion conversion, ItemQueryContext itemQueryContext)
         {
-            if (__instance.buildingType.Value == "Mill")
+            try
             {
-                int maxDailyConversions = conversion.MaxDailyConversions, requiredCount = 0, chestItemCount = -1;
-                Chest sourceChest = __instance.GetBuildingChest(conversion.SourceChest), destinationChest = __instance.GetBuildingChest(conversion.DestinationChest);
-                List<int> items = new();
-
-                if (sourceChest is null)
-                    return false;
-
-                foreach (Item item in sourceChest.Items)
+                if (__instance.buildingType.Value == "Mill")
                 {
-                    chestItemCount++;
-                    if (item == null)
-                        continue;
-                    bool fail = false;
-                    foreach (string requiredTag in conversion.RequiredTags)
-                    {
-                        if (!item.HasContextTag(requiredTag))
-                        {
-                            fail = true;
-                            break;
-                        }
-                    }
-                    if (fail)
-                        continue;
+                    int maxDailyConversions = conversion.MaxDailyConversions, requiredCount = 0, chestItemCount = -1;
+                    Chest sourceChest = __instance.GetBuildingChest(conversion.SourceChest), destinationChest = __instance.GetBuildingChest(conversion.DestinationChest);
+                    List<int> items = new();
 
-                    requiredCount += item.Stack;
-                    requiredCount -= requiredCount % conversion.RequiredCount;
-                    items.Add(chestItemCount);
-                    if (requiredCount >= conversion.RequiredCount && (maxDailyConversions < conversion.MaxDailyConversions || conversion.MaxDailyConversions == -1))
+                    if (sourceChest is null)
+                        return false;
+
+                    foreach (Item item in sourceChest.Items)
                     {
-                        for (int i = 0; i < conversion.ProducedItems.Count; i++)
+                        chestItemCount++;
+                        if (item == null)
+                            continue;
+                        bool fail = false;
+                        foreach (string requiredTag in conversion.RequiredTags)
                         {
-                            var producedItem = conversion.ProducedItems[i];
-                            Item item2 = ItemQueryResolver.TryResolveRandomItem(producedItem, itemQueryContext, inputItem: item);
-                            if (requiredCount / conversion.RequiredCount > item2.maximumStackSize())
+                            if (!item.HasContextTag(requiredTag))
                             {
-                                var stacks = SplitStacks(requiredCount, item2.maximumStackSize());
-                                for (int h = 0; h < stacks.Count; h++)
-                                {
-                                    Item ıtem = ItemRegistry.Create(item2.QualifiedItemId, stacks[h], item2.Quality);
-                                    destinationChest.addItem(ıtem);
-                                }
+                                fail = true;
+                                break;
                             }
-                            else
+                        }
+                        if (fail)
+                            continue;
+
+                        requiredCount += item.Stack;
+                        requiredCount -= requiredCount % conversion.RequiredCount;
+                        items.Add(chestItemCount);
+                        if (requiredCount >= conversion.RequiredCount && (maxDailyConversions < conversion.MaxDailyConversions || conversion.MaxDailyConversions == -1))
+                        {
+                            for (int i = 0; i < conversion.ProducedItems.Count; i++)
                             {
-                                item2.Stack *= requiredCount / conversion.RequiredCount;
-                            }
-                            if (GameStateQuery.CheckConditions(producedItem.Condition, __instance.GetParentLocation(), targetItem: item2, inputItem: item))
-                            {
-                                int producedCount = item2.Stack;
-                                Item ıtem = destinationChest.addItem(item2);
-                                if (ıtem == null || ıtem.Stack != producedCount)
+                                var producedItem = conversion.ProducedItems[i];
+                                Item item2 = ItemQueryResolver.TryResolveRandomItem(producedItem, itemQueryContext, inputItem: item);
+                                if (requiredCount / conversion.RequiredCount > item2.maximumStackSize())
                                 {
-                                    if (maxDailyConversions > -1)
+                                    var stacks = SplitStacks(requiredCount, item2.maximumStackSize());
+                                    for (int h = 0; h < stacks.Count; h++)
                                     {
-                                        maxDailyConversions++;
+                                        Item ıtem = ItemRegistry.Create(item2.QualifiedItemId, stacks[h], item2.Quality);
+                                        destinationChest.addItem(ıtem);
                                     }
-                                    foreach (var itemIndex in items)
+                                }
+                                else
+                                {
+                                    item2.Stack *= requiredCount / conversion.RequiredCount;
+                                }
+                                if (GameStateQuery.CheckConditions(producedItem.Condition, __instance.GetParentLocation(), targetItem: item2, inputItem: item))
+                                {
+                                    int producedCount = item2.Stack;
+                                    Item ıtem = destinationChest.addItem(item2);
+                                    if (ıtem == null || ıtem.Stack != producedCount)
                                     {
-                                        if (sourceChest.Items[itemIndex] is not null)
+                                        if (maxDailyConversions > -1)
                                         {
-                                            int prevStack = sourceChest.Items[itemIndex].Stack;
-                                            sourceChest.Items[itemIndex] = sourceChest.Items[itemIndex].ConsumeStack(requiredCount > sourceChest.Items[itemIndex].Stack ? sourceChest.Items[itemIndex].Stack : requiredCount);
-                                            requiredCount -= prevStack;
+                                            maxDailyConversions++;
+                                        }
+                                        foreach (var itemIndex in items)
+                                        {
+                                            if (sourceChest.Items[itemIndex] is not null)
+                                            {
+                                                int prevStack = sourceChest.Items[itemIndex].Stack;
+                                                sourceChest.Items[itemIndex] = sourceChest.Items[itemIndex].ConsumeStack(requiredCount > sourceChest.Items[itemIndex].Stack ? sourceChest.Items[itemIndex].Stack : requiredCount);
+                                                requiredCount -= prevStack;
+                                            }
                                         }
                                     }
                                 }
                             }
                         }
                     }
+                    return false;
                 }
-                return false;
+            }
+            catch (System.Exception e)
+            {
+                CoreUtility.PrintError(e, PatcherName, "Building.CheckItemConversionRule", "postfixed", true);
             }
             return true;
         }
@@ -233,26 +182,35 @@ namespace VanillaPlusProfessions.Talents.Patchers
             }
             catch (System.Exception e)
             {
-                CoreUtility.PrintError(e, nameof(FarmingPatcher), "HoeDirt.dayUpdate", "prefixed", true);
+                CoreUtility.PrintError(e, PatcherName, "HoeDirt.dayUpdate", "prefixed", true);
             }
         }
 
 
         public static IEnumerable<CodeInstruction> dayUpdate_Transpiler(IEnumerable<CodeInstruction> codeInstructions)
         {
-            bool found = false;
-            var methodinfo = AccessTools.PropertySetter(typeof(Item), nameof(Item.Stack));
-            foreach (var code in codeInstructions)
+            List<CodeInstruction> result = new();
+            try
             {
-                yield return code;
-                if (code.opcode.Equals(OpCodes.Callvirt) && code.OperandIs(methodinfo) && !found)
+                bool found = false;
+                var methodinfo = AccessTools.PropertySetter(typeof(Item), nameof(Item.Stack));
+                foreach (var code in codeInstructions)
                 {
-                    yield return new(OpCodes.Ldarg_0);
-                    yield return new(OpCodes.Ldloc_S, 18);
-                    yield return new(OpCodes.Call, AccessTools.Method(typeof(FarmingPatcher), nameof(SaveFarmAnimalProductData)));
-                    found = true;
+                    result.Add(code);
+                    if (code.opcode.Equals(OpCodes.Callvirt) && code.OperandIs(methodinfo) && !found)
+                    {
+                        result.Add(new(OpCodes.Ldarg_0));
+                        result.Add(new(OpCodes.Ldloc_S, 18));
+                        result.Add(new(OpCodes.Call, AccessTools.Method(PatcherType, nameof(SaveFarmAnimalProductData))));
+                        found = true;
+                    }
                 }
             }
+            catch (System.Exception e)
+            {
+                CoreUtility.PrintError(e, PatcherName, "FarmAnimal.dayUpdate", "transpiled", true);
+            }
+            return result;
         }
 
         public static void harvest_Postfix(Crop __instance, bool __result, JunimoHarvester junimoHarvester)
@@ -276,17 +234,17 @@ namespace VanillaPlusProfessions.Talents.Patchers
             }
             catch (System.Exception e)
             {
-                CoreUtility.PrintError(e, nameof(FarmingPatcher), "Crop.harvest", "postfixed", true);
+                CoreUtility.PrintError(e, PatcherName, "Crop.harvest", "postfixed", true);
             }
         }
 
         public static void SaveFarmAnimalProductData(FarmAnimal farmAnimal, StardewValley.Object product)
         {
-            var data = farmAnimal.GetAnimalData();
-            bool isDeluxe = false;
-            bool hasGivenAnyAtAll = false;
             try
             {
+                var data = farmAnimal.GetAnimalData();
+                bool isDeluxe = false;
+                bool hasGivenAnyAtAll = false;
                 foreach (var item in data.DeluxeProduceItemIds)
                 {
                     if (item.ItemId == product.ItemId)
@@ -320,7 +278,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             }
             catch (System.Exception e)
             {
-                CoreUtility.PrintError(e, nameof(FarmingPatcher), "FarmAnimal.dayUpdate", "transpiled", true);
+                CoreUtility.PrintError(e, PatcherName, "FarmAnimal.dayUpdate", "transpiled", true);
             }
         }
 
@@ -336,7 +294,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             }
             catch (System.Exception e)
             {
-                CoreUtility.PrintError(e, nameof(FarmingPatcher), "StardewValley.Object.GetModifiedRadiusForSprinkler", "postfixed", true);
+                CoreUtility.PrintError(e, PatcherName, "StardewValley.Object.GetModifiedRadiusForSprinkler", "postfixed", true);
             }
         }
 
@@ -351,7 +309,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             }
             catch (System.Exception e)
             {
-                CoreUtility.PrintError(e, nameof(FarmingPatcher), "FairyEvent.ChooseCrop", "postfixed", true);
+                CoreUtility.PrintError(e, PatcherName, "FairyEvent.ChooseCrop", "postfixed", true);
             }
         }
 
@@ -366,7 +324,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
                     if (item.opcode == OpCodes.Stloc_S && (item.operand is 14 || (item.operand as LocalBuilder).LocalIndex == 14))
                     {
                         list.Insert(index - 1, new(OpCodes.Ldloc_S, 13));
-                        list.Insert(index, new(OpCodes.Call, AccessTools.Method(typeof(FarmingPatcher), nameof(TryOverridePhaseGrowth))));
+                        list.Insert(index, new(OpCodes.Call, AccessTools.Method(PatcherType, nameof(TryOverridePhaseGrowth))));
                         list.Insert(index + 1, new(OpCodes.Brfalse_S, list[index - 2].operand));
                         break;
                     }
@@ -375,7 +333,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             }
             catch (System.Exception e)
             {
-                CoreUtility.PrintError(e, nameof(FarmingPatcher), "Farm.addCrows", "transpiling");
+                CoreUtility.PrintError(e, PatcherName, "Farm.addCrows", "transpiling");
             }
             return list;
         }
@@ -394,18 +352,18 @@ namespace VanillaPlusProfessions.Talents.Patchers
             }
             catch (System.Exception e)
             {
-                CoreUtility.PrintError(e, nameof(FarmingPatcher), "Farm.addCrows", "transpiled", true);
+                CoreUtility.PrintError(e, PatcherName, "Farm.addCrows", "transpiled", true);
             }
             return true;
         }
 
         public static IEnumerable<CodeInstruction> performLightningUpdate_Transpiler(IEnumerable<CodeInstruction> instructions)
         {
-            int expected_ldloc0s = 3;
-            int index = 0;
             List<CodeInstruction> list = instructions.ToList();
             try
             {
+                int expected_ldloc0s = 3;
+                int index = 0;
                 foreach (var pair in list)
                 {
                     index++;
@@ -416,17 +374,16 @@ namespace VanillaPlusProfessions.Talents.Patchers
                         {
                             list.RemoveRange(index, 14);
                             pair.opcode = OpCodes.Call;
-                            pair.operand = AccessTools.Method(typeof(FarmingPatcher), nameof(ShouldFarmBeProtected));
+                            pair.operand = AccessTools.Method(PatcherType, nameof(ShouldFarmBeProtected));
                             list[index].opcode = OpCodes.Brfalse_S;
                             break;
                         }
                     }
                 }
-
             }
             catch (System.Exception e)
             {
-                CoreUtility.PrintError(e, nameof(FarmingPatcher), "GameLocation.performLightningUpdate", "transpiling");
+                CoreUtility.PrintError(e, PatcherName, "GameLocation.performLightningUpdate", "transpiling");
             }
             
             return list;
@@ -468,25 +425,34 @@ namespace VanillaPlusProfessions.Talents.Patchers
             }
             catch (System.Exception e)
             {
-                CoreUtility.PrintError(e, nameof(FarmingPatcher), "GameLocation.performLightningUpdate", "transpiled", true);
+                CoreUtility.PrintError(e, PatcherName, "GameLocation.performLightningUpdate", "transpiled", true);
             }
             //Return this weird calculation that vanilla does
             return Game1.random.NextDouble() < 0.25 - Game1.player.team.AverageDailyLuck() - Game1.player.team.AverageLuckLevel() / 100.0;
         }
 
-        public static float ReturnBirthChance() => TalentUtility.CurrentPlayerHasTalent("Farming_Brimming_With_Life") ? 0.011f : 0.0055f;
+        public static float ReturnBirthChance() => TalentUtility.CurrentPlayerHasTalent("BrimmingWithLife") ? 0.011f : 0.0055f;
         
         public static IEnumerable<CodeInstruction> setUp_Transpiler(IEnumerable<CodeInstruction> instructions)
         {
-            foreach (var codeInstruction in instructions)
+            List<CodeInstruction> insns = new List<CodeInstruction>();
+            try
             {
-                if (codeInstruction.OperandIs(0.0055f))
+                foreach (var codeInstruction in instructions)
                 {
-                    yield return new(OpCodes.Call, AccessTools.Method(typeof(FarmingPatcher), nameof(ReturnBirthChance)));
-                    continue;
+                    if (codeInstruction.OperandIs(0.0055f))
+                    {
+                        insns.Add(new(OpCodes.Call, AccessTools.Method(PatcherType, nameof(ReturnBirthChance))));
+                        continue;
+                    }
+                    insns.Add(codeInstruction);
                 }
-                yield return codeInstruction;
             }
+            catch (System.Exception e)
+            {
+                CoreUtility.PrintError(e, PatcherName, "QuestionEvent.setUp", "transpiled", true);
+            }
+            return insns;
         }
     }
 }
