@@ -19,6 +19,7 @@ using System.Reflection.Emit;
 using VanillaPlusProfessions.Utilities;
 using StardewValley.Buffs;
 using VanillaPlusProfessions.Craftables;
+using Microsoft.Xna.Framework.Input;
 
 namespace VanillaPlusProfessions.Talents.Patchers
 {
@@ -43,11 +44,10 @@ namespace VanillaPlusProfessions.Talents.Patchers
                 PatcherName, "Slingshot.PerformFire",
                 original: AccessTools.Method(typeof(Slingshot), nameof(Slingshot.PerformFire)),
                 prefix: new HarmonyMethod(PatcherType, nameof(PerformFire_Prefix))
-                //transpiler: new HarmonyMethod(PatcherType, nameof(Transpiler))
             );
             CoreUtility.PatchMethod(
-                PatcherName, "Slingshot.draw", 
-                original: AccessTools.Method(typeof(Slingshot), nameof(Slingshot.draw)), 
+                PatcherName, "Slingshot.draw",
+                original: AccessTools.Method(typeof(Slingshot), nameof(Slingshot.draw)),
                 postfix: new HarmonyMethod(PatcherType, nameof(draw_Postfix))
             );
             CoreUtility.PatchMethod(
@@ -73,7 +73,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             CoreUtility.PatchMethod(
                 PatcherName, "Ring.CanCombine",
                 original: AccessTools.Method(typeof(Ring), nameof(Ring.CanCombine)),
-                postfix: new HarmonyMethod(PatcherType  , nameof(CanCombine_Postfix))
+                postfix: new HarmonyMethod(PatcherType, nameof(CanCombine_Postfix))
             );
             CoreUtility.PatchMethod(
                 PatcherName, "GreenSlime.onDealContactDamage",
@@ -198,18 +198,15 @@ namespace VanillaPlusProfessions.Talents.Patchers
         {
             try
             {
-                if (TalentUtility.CurrentPlayerHasTalent("Grit", who: __instance) && __instance.temporaryInvincibilityTimer == 0 && !(damager is BigSlime or GreenSlime && __instance.isWearingRing("520")))
+                if (TalentUtility.CurrentPlayerHasTalent("Grit", who: __instance) && !__instance.isRidingHorse() && __instance.temporaryInvincibilityTimer == 0 && !(damager is BigSlime or GreenSlime && __instance.isWearingRing("520")))
                 {
                     __instance.currentTemporaryInvincibilityDuration = (int)(__instance.currentTemporaryInvincibilityDuration * 1.2);
                 }
-                if (__instance.currentLocation.debris.LastOrDefault()?.debrisMessage.Value is not null and string str)
+                if (__instance.currentLocation.debris.LastOrDefault()?.debrisMessage.Value is not null and string str && int.TryParse(str, out int result))
                 {
-                    if (int.TryParse(str, out int result))
+                    foreach (var trinketRing in TalentUtility.GetAllTrinketRings(__instance))
                     {
-                        foreach (var trinketRing in TalentUtility.GetAllTrinketRings(__instance))
-                        {
-                            trinketRing.Trinket.OnReceiveDamage(__instance, result);
-                        }
+                        trinketRing.Trinket.OnReceiveDamage(__instance, result);
                     }
                 }
             }
@@ -357,7 +354,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             {
                 CoreUtility.PrintError(e, PatcherName, "Boots.onUnequip", "postfixed", true);
             }
-           
+
         }
         public static void gainExperience_Prefix(Farmer __instance, int which, ref int howMuch)
         {
@@ -378,22 +375,23 @@ namespace VanillaPlusProfessions.Talents.Patchers
             {
                 if (__instance.attachments[0] is not null and Trinket trinket && trinket?.QualifiedItemId == "(TR)MagicQuiver")
                 {
-                    AccessTools.Method(typeof(Slingshot), "updateAimPos").Invoke(__instance, null);
-                    int mouseX = __instance.aimPos.X;
-                    int mouseY = __instance.aimPos.Y;
-                    
+
                     if (__instance.GetBackArmDistance(who) > 4 && !__instance.canPlaySound)
                     {
-                        
-                        Vector2 motion = Utility.getVelocityTowardPoint(who.getStandingPosition(), __instance.aimPos.Value.ToVector2(), 2f);
-                        float projectileRotation = (float)Math.Atan2(motion.Y, motion.X) + (float)Math.PI / 2f;
-                        
-                        BasicProjectile p = new(Game1.random.Next((trinket.GetEffect() as MagicQuiverTrinketEffect)?.MinDamage ?? 10, ((trinket.GetEffect() as MagicQuiverTrinketEffect)?.MaxDamage ?? 10) + 1), 16, 0, 0, 0f, motion.X, motion.Y, who.getStandingPosition() - new Vector2(32f, 48f), null, null, null, explode: false, damagesMonsters: true, location, who)
+
+                        AccessTools.Method(typeof(Slingshot), "updateAimPos").Invoke(__instance, null);
+                        int mouseX = __instance.aimPos.X;
+                        int mouseY = __instance.aimPos.Y;
+                        Vector2 v = Utility.getVelocityTowardPoint(__instance.GetShootOrigin(who), __instance.AdjustForHeight(new Vector2(mouseX, mouseY)), (float)(15 + Game1.random.Next(4, 6)) * (1f + who.buffs.WeaponSpeedMultiplier));
+                        float projectileRotation = (float)Math.Atan2(v.Y, v.X) + (float)Math.PI / 2f;
+                        Vector2 shoot_origin = __instance.GetShootOrigin(who);
+
+                        BasicProjectile p = new(Game1.random.Next((trinket.GetEffect() as MagicQuiverTrinketEffect)?.MinDamage ?? 10, ((trinket.GetEffect() as MagicQuiverTrinketEffect)?.MaxDamage ?? 10) + 1), 16, 0, 0, 0f, v.X, v.Y, shoot_origin - new Vector2(32f, 32f), null, null, null, explode: false, damagesMonsters: true, location, who)
                         {
                             IgnoreLocationCollision = true
                         };
                         p.ignoreObjectCollisions.Value = true;
-                        p.acceleration.Value = motion;
+                        p.acceleration.Value = v;
                         p.maxVelocity.Value = 24f;
                         p.projectileID.Value = 14;
                         p.startingRotation.Value = projectileRotation;
@@ -411,39 +409,9 @@ namespace VanillaPlusProfessions.Talents.Patchers
             {
                 CoreUtility.PrintError(e, PatcherName, "Slingshot.PerformFire", "prefixed", true);
             }
-            
+
             return true;
         }
-
-       /* public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> codeInstructions)
-        {
-            List<CodeInstruction> insts = new();
-            try
-            {
-                var number = 3;
-                var indesx = 0;
-                foreach (var item in codeInstructions)
-                {
-                    indesx++;
-                    if (number == 0 && item.opcode.Equals(OpCodes.Ldc_I4_1))
-                    {
-                        insts.Add(new(OpCodes.Ldarg_1));
-                        insts.Add(new(OpCodes.Ldarg_0));
-                        insts.Add(new(OpCodes.Call, AccessTools.Method(typeof(SlingshotEnchantment), nameof(SlingshotEnchantment.OnShoot))));
-                    }
-                    else
-                    {
-                        number--;
-                    }
-                    insts.Add(item);
-                }
-            }
-            catch (Exception e)
-            {
-                CoreUtility.PrintError(e, PatcherName, "Slingshot.PerformFire", "transpiled", true);
-            }
-            return insts;
-        }*/
         public static void draw_Postfix(SpriteBatch b, Slingshot __instance)
         {
             try
@@ -474,8 +442,8 @@ namespace VanillaPlusProfessions.Talents.Patchers
                     Vector2 target1 = target + (normalizethis * 96);
                     Vector2 target2 = target - (normalizethis * 96);
 
-                    b.Draw(Game1.mouseCursors, Game1.GlobalToLocal(Game1.viewport, target1), Game1.getSourceRectForStandardTileSheet(Game1.mouseCursors, 43), Color.White, 0f, new Vector2(32f, 32f), 1f, SpriteEffects.None, 0.999999f);
-                    b.Draw(Game1.mouseCursors, Game1.GlobalToLocal(Game1.viewport, target2), Game1.getSourceRectForStandardTileSheet(Game1.mouseCursors, 43), Color.White, 0f, new Vector2(32f, 32f), 1f, SpriteEffects.None, 0.999999f);
+                    b.Draw(Game1.mouseCursors, Game1.GlobalToLocal(Game1.viewport, target1), new Rectangle(652, 204, 44, 44), Color.White, 0f, new Vector2(22f, 22f), 1f, SpriteEffects.None, 0.999999f);
+                    b.Draw(Game1.mouseCursors, Game1.GlobalToLocal(Game1.viewport, target2), new Rectangle(652, 204, 44, 44), Color.White, 0f, new Vector2(22f, 22f), 1f, SpriteEffects.None, 0.999999f);
                 }
             }
             catch (Exception e)

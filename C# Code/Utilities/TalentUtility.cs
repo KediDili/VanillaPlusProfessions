@@ -270,7 +270,7 @@ namespace VanillaPlusProfessions.Utilities
                 ModEntry.ModMonitor.Log("Load a save first!", LogLevel.Warn);
             }
         }
-        public static bool CurrentPlayerHasTalent(string flag, long farmerID = -1, Farmer who = null, bool ignoreDisabledTalents = true, bool isGSQCall = false)
+        public static bool CurrentPlayerHasTalent(string flag, long farmerID = -1, Farmer who = null, bool ignoreDisabledTalents = true)
         {
             if (ModEntry.ModConfig.Value.ProfessionsOnly)
             {
@@ -284,7 +284,7 @@ namespace VanillaPlusProfessions.Utilities
             if (who is null)
                 return false;
 
-            if (!Context.IsWorldReady && who.mailReceived?.Count == 0 && !isGSQCall)
+            if (!Context.IsWorldReady && who.mailReceived?.Count == 0)
             {
                 return false;
             }
@@ -305,8 +305,8 @@ namespace VanillaPlusProfessions.Utilities
         {
             return ID switch
             {
-                "2" => 10,
-                "4" or "6" or "8" or "10" or "12" or "14" => 10,
+                "2" or "4" or "6" or "8" or "10" or "12" or "14" => 10,
+                "95" => 25,
                 _ => 1
             };
         }
@@ -417,17 +417,14 @@ namespace VanillaPlusProfessions.Utilities
             };
         }
 
-        public static void DetermineGeodeDrop(Item geode, bool update = true)
+        public static void DetermineGeodeDrop(Item geode, bool update = true) //remove the update parameter
         {
             if (Utility.IsGeode(geode, true))
             {
-                MiningPatcher.IsUpdating = update;
+                MiningPatcher.IsUpdating = true;
                 Item drop = Utility.getTreasureFromGeode(geode);
                 MiningPatcher.IsUpdating = false;
-                if (!geode.modData.TryAdd(TalentCore.Key_XrayDrop, drop.QualifiedItemId))
-                {
-                    geode.modData[TalentCore.Key_XrayDrop] = drop.QualifiedItemId;
-                }
+                geode.modData[TalentCore.Key_XrayDrop] = drop.QualifiedItemId;
             }
         }
 
@@ -686,6 +683,7 @@ namespace VanillaPlusProfessions.Utilities
         public static void GemAndGeodeNodes(bool flag, List<Vector2> list, GameLocation mine)
         {
             bool success = false;
+            Dictionary<Vector2, string> CoordsForMP = new();
             for (int i = 0; i < list.Count; i++)
             {
                 string str = nodeID(flag, mine, out int? health);
@@ -697,12 +695,13 @@ namespace VanillaPlusProfessions.Utilities
                     obj.MinutesUntilReady = health.Value;
                     obj.Flipped = Game1.random.NextBool();
                     mine.Objects[list[i]] = obj;
+                    CoordsForMP.Add(list[i], obj.ItemId);
                     success = true;
                 }
             }
-            if (success && Context.IsMultiplayer && Context.IsMainPlayer)
+            if (success && Context.IsMultiplayer && Context.HasRemotePlayers)
             {
-                ModEntry.Helper.Multiplayer.SendMessage(mine, "SwitchMineStones", new string[] { ModEntry.Manifest.UniqueID });
+                ModEntry.Helper.Multiplayer.SendMessage(CoordsForMP, ModEntry.Manifest.UniqueID + "/SwitchMineStones", new string[] { ModEntry.Manifest.UniqueID });
             }
         }
 

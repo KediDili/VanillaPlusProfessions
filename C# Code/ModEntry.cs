@@ -42,6 +42,7 @@ namespace VanillaPlusProfessions
         internal static PerScreen<ISpaceCore> SpaceCoreAPI = new();
         internal static PerScreen<IWearMoreRings> WearMoreRingsAPI = new();
         internal static PerScreen<IItemExtensions> ItemExtensionsAPI = new();
+        
 
         internal static readonly VanillaPlusProfessionsAPI VanillaPlusProfessionsAPI = new();
 
@@ -54,6 +55,7 @@ namespace VanillaPlusProfessions
         internal static PerScreen<bool> UpdateGeodeInMenu = new(() => false);
         internal static PerScreen<int> GeodeStackSize = new(() => 0);
         internal static PerScreen<bool> IsUninstalling = new(() => false);
+        internal static PerScreen<bool> IsRecalculatingPoints = new(() => false);
 
         internal static PerScreen<Config> ModConfig = new(createNewState: () => new Config());
 
@@ -92,6 +94,7 @@ namespace VanillaPlusProfessions
             Helper.Events.GameLoop.DayEnding += OnDayEnding;
             Helper.Events.Player.LevelChanged += OnLevelChanged;
             Helper.Events.Player.Warped += OnWarped;
+            
             CorePatcher.ApplyPatches();
             TalentCore.Initialize();
             BuildingPatcher.ApplyPatches();
@@ -217,14 +220,16 @@ namespace VanillaPlusProfessions
             if (e.IsLocalPlayer)
             {
                 var data = e.NewLocation?.GetData()?.CustomFields ?? new();
+                
+
                 if (e.NewLocation is MineShaft shaft)
                 {
                     if (CoreUtility.CurrentPlayerHasProfession("Mine-Forage", useThisInstead: e.Player) && Game1.random.NextBool(0.15) && shaft.getMineArea(shaft.mineLevel) is 80 && !shaft.rainbowLights.Value)
                     {
                         shaft.rainbowLights.Value = true;
-                        if (Context.IsMainPlayer && Context.IsMultiplayer)
+                        if (Context.IsMainPlayer && Context.IsMainPlayer && Context.HasRemotePlayers)
                         {
-                            Helper.Multiplayer.SendMessage(false, "MushroomLevel", new string[] { Manifest.UniqueID });
+                            Helper.Multiplayer.SendMessage(true, Manifest.UniqueID + "/MushroomLevel", new string[] { Manifest.UniqueID });
                         }
                     }
                 }
@@ -234,18 +239,21 @@ namespace VanillaPlusProfessions
                                                  where tileobjpair.Value is not null && tileobjpair.Value.IsBlandStone()
                                                  select tileobjpair.Key).ToList();
                     bool success = false;
+
+                    Dictionary<Vector2, string> CoordinatesForMP = new();
                     for (int i = 0; i < validcoords.Count; i++)
                     {
                         if (Game1.random.NextBool(0.0001 * shaft45.mineLevel))
                         {
                             e.NewLocation.Objects[validcoords[i]] = ItemRegistry.Create<StardewValley.Object>("95");
                             e.NewLocation.Objects[validcoords[i]].MinutesUntilReady = 25;
+                            CoordinatesForMP.Add(validcoords[i], e.NewLocation.Objects[validcoords[i]].ItemId);
                             success = true;
                         }
                     }
-                    if (success)
+                    if (success && Context.IsMainPlayer && Context.HasRemotePlayers)
                     {
-                        Helper.Multiplayer.SendMessage<GameLocation>(shaft45, "SwitchMineStones", new string[] { Manifest.UniqueID });
+                        Helper.Multiplayer.SendMessage(CoordinatesForMP, Manifest.UniqueID + "/SwitchMineStones", new string[] { Manifest.UniqueID });
                     }
                 }
                 if (TalentUtility.CurrentPlayerHasTalent("Fortified", who: e.Player) && e.NewLocation is not null)
@@ -264,33 +272,41 @@ namespace VanillaPlusProfessions
                     }
                 }
                 if (TalentUtility.AllPlayersHaveTalent("DownInTheDepths") && e.NewLocation is MineShaft shaft6)
+                {
                     if (shaft6.modData.ContainsKey(TalentCore.Key_DownInTheDepths))
                         shaft6.modData[TalentCore.Key_DownInTheDepths] = "0";
+                }
                 if (TalentUtility.AllPlayersHaveTalent("RoomAndPillar") && e.NewLocation is MineShaft shaft5 && shaft5.isQuarryArea)
                 {
                     bool success = false;
                     List<Vector2> validcoords = (from tileobjpair in e.NewLocation.Objects.Pairs
                                                  where tileobjpair.Value is not null && (tileobjpair.Value.IsBlandStone() || (ItemExtensionsAPI.Value?.IsStone(tileobjpair.Value.QualifiedItemId) is true && ItemExtensionsAPI.Value?.IsResource(tileobjpair.Value.QualifiedItemId, out int? _, out string itemDropped) is true && itemDropped.Contains("390")))
                                                  select tileobjpair.Key).ToList();
+
+                    Dictionary<Vector2, string> CoordinatesForMP = new();
+
                     for (int i = 0; i < validcoords.Count; i++)
+                    {
                         if (Game1.random.NextBool(0.0008))
-                        { 
+                        {
                             e.NewLocation.Objects[validcoords[i]] = ItemRegistry.Create<StardewValley.Object>(TalentUtility.GetNodeForRoomAndPillar());
                             e.NewLocation.Objects[validcoords[i]].MinutesUntilReady = 25;
+                            CoordinatesForMP.Add(validcoords[i], e.NewLocation.Objects[validcoords[i]].ItemId);
                             success = true;
                         }
-                    if (success)
+                    }
+                    if (success && Context.IsMainPlayer && Context.HasRemotePlayers)
                     {
-                        Helper.Multiplayer.SendMessage<GameLocation>(shaft5, "SwitchMineStones", new string[] { Manifest.UniqueID });
+                        Helper.Multiplayer.SendMessage(CoordinatesForMP, Manifest.UniqueID + "/SwitchMineStones", new string[] { Manifest.UniqueID });
                     }
                 }
                 if (data?.ContainsKey(TalentCore.Key_CrystalCavern) is true || data?.ContainsKey(TalentCore.Key_Upheaval) is true || e.NewLocation is MineShaft or VolcanoDungeon)
                 {
                     List<Vector2> validcoords = (from tileobjpair in e.NewLocation.Objects.Pairs
-                                                 where tileobjpair.Value is not null && tileobjpair.Value.IsBlandStone() 
+                                                 where tileobjpair.Value is not null && tileobjpair.Value.IsBlandStone()
                                                  select tileobjpair.Key).ToList();
-                    
-                    if (TalentUtility.AllPlayersHaveTalent("CrystalCavern") && (data?.ContainsKey(TalentCore.Key_CrystalCavern) is true || e.NewLocation is MineShaft or VolcanoDungeon) && Game1.random.NextBool(0.0005)) 
+
+                    if (TalentUtility.AllPlayersHaveTalent("CrystalCavern") && (data?.ContainsKey(TalentCore.Key_CrystalCavern) is true || e.NewLocation is MineShaft or VolcanoDungeon) && Game1.random.NextBool(0.0005))
                     {
                         TalentUtility.GemAndGeodeNodes(true, validcoords, Game1.player.currentLocation);
                     }
@@ -330,7 +346,7 @@ namespace VanillaPlusProfessions
                         {
                             TerrainFeatureTapper(value, e);
                         }
-                        else if (Game1.player.ActiveObject is not null and Trinket trinket && trinket.QualifiedItemId == "(TR)FairyBox" && TalentUtility.CurrentPlayerHasTalent("Combat_HiddenBenefits"))
+                        else if (Game1.player.ActiveObject is Trinket trinket && trinket?.QualifiedItemId == "(TR)FairyBox" && TalentUtility.CurrentPlayerHasTalent("HiddenBenefits"))
                         {
                             if (value is HoeDirt dirt && dirt.crop is not null && !dirt.crop.fullyGrown.Value && dirt.crop.currentPhase.Value != dirt.crop.phaseDays.Count - 1)
                             {
@@ -362,7 +378,6 @@ namespace VanillaPlusProfessions
                                     }
                                     else
                                     {
-
                                         Game1.playSound("wand");
                                         Game1.pauseThenMessage(250, Helper.Translation.Get("Message.Fertilized"));
                                         dirt.crop.modData[TalentCore.Key_HiddenBenefit_Crop] = "true";
@@ -371,7 +386,7 @@ namespace VanillaPlusProfessions
                             }
                         }
                     }
-                    else if (Game1.player.CurrentTool is FishingRod rod && TalentUtility.CurrentPlayerHasTalent("Fishing_Take_It_Slow"))
+                    else if (Game1.player.CurrentTool is FishingRod rod && TalentUtility.CurrentPlayerHasTalent("TakeItSlow"))
                     {
                         if (rod.CanUseTackle() && rod.GetTackleQualifiedItemIDs().Contains("(O)Kedi.VPP.SnailTackle"))
                         {
@@ -382,24 +397,7 @@ namespace VanillaPlusProfessions
                             rod.castingTimerSpeed = 0.001f;
                         }
                     }
-                    else if (Game1.player.ActiveObject?.QualifiedItemId == "(BC)Kedi.VPP.HiddenBenefits.ParrotPerch" && TalentUtility.CurrentPlayerHasTalent("HiddenBenefits"))
-                    {
-                        if (Game1.player.currentLocation is AnimalHouse)
-                        {
-                            if (!Game1.player.currentLocation.Objects.TryAdd(e.Cursor.GrabTile, new ParrotPerch(e.Cursor.GrabTile, "", false)))
-                            {
-                                Game1.player.currentLocation.Objects[e.Cursor.GrabTile] = new ParrotPerch(e.Cursor.GrabTile, "", false);
-                            }
-                            else if (Game1.player.currentLocation.Objects.TryGetValue(e.Cursor.GrabTile, out var obj) && obj.ItemId == "Kedi.VPP.HiddenBenefits.ParrotPerch")
-                            {
-                                Game1.player.currentLocation.Objects[e.Cursor.GrabTile] = new ParrotPerch(e.Cursor.GrabTile, "", false);
-                            }
-                        }
-                        else
-                        {
-                            Game1.addHUDMessage(new(Helper.Translation.Get("Message.ParrotPerch"), HUDMessage.error_type));
-                        }
-                    }
+                    
                     else if (Game1.player.ActiveObject?.QualifiedItemId == "(TR)BasiliskPaw" && TalentUtility.CurrentPlayerHasTalent("HiddenBenefits") && Game1.player.currentLocation.Objects.TryGetValue(e.Cursor.Tile, out var value2) && !value2.HasTypeBigCraftable() && value2.Category != StardewValley.Object.litterCategory)
                     {
                         if (Game1.player.couldInventoryAcceptThisItem(value2))
@@ -506,31 +504,26 @@ namespace VanillaPlusProfessions
                         var msg = HUDMessage.ForItemGained(Game1.player.ActiveObject, 1, "ElderScrolls");
                         msg.message = Helper.Translation.Get("Message.ReadDwarfScroll");
                         Game1.addHUDMessage(msg);
-                        Game1.player.ActiveObject.Stack--;
-                        if (Game1.player.ActiveObject.Stack == 0)
-                        {
-                            Game1.player.ActiveObject = null;
-                        }
+                        Game1.player.ActiveObject.ConsumeStack(1);
                     }
                     else if (Game1.player.CurrentTool is not null and Slingshot slingshot && TalentUtility.CurrentPlayerHasTalent("TripleShot"))
                     {
                         foreach (var item in Game1.player.enchantments)
                             if (item is AutoFireEnchantment) //Balance
                                 return;
-
-                        slingshot.beginUsing(Game1.player.currentLocation, (int)Game1.player.lastClick.X, (int)Game1.player.lastClick.Y, Game1.player);
-                        slingshot.lastUser = Game1.player;
-                        Game1.player.usingSlingshot = true;
-                        TalentCore.IsActionButtonUsed.Value = true;
+                        if (TalentCore.TripleShotCooldown.Value <= 0)
+                        {
+                            slingshot.beginUsing(Game1.player.currentLocation, (int)Game1.player.lastClick.X, (int)Game1.player.lastClick.Y, Game1.player);
+                            slingshot.lastUser = Game1.player;
+                            TalentCore.TripleShotCooldown.Value = 7500;
+                            Game1.player.usingSlingshot = true;
+                            TalentCore.IsActionButtonUsed.Value = true;
+                        }
+                        else
+                        {
+                            Game1.player.doEmote(Character.xEmote);
+                        }
                     }
-                }
-            }
-            else if (Game1.activeClickableMenu is GeodeMenu menu)
-            {
-                if (menu.heldItem is not null && menu.heldItem.Stack != GeodeStackSize.Value)
-                {
-                    TalentUtility.DetermineGeodeDrop(menu.heldItem, true);
-                    GeodeStackSize.Value = menu.heldItem.Stack;
                 }
             }
             else if (Game1.activeClickableMenu is GameMenu menu2)
@@ -890,7 +883,7 @@ namespace VanillaPlusProfessions
                 {
                     TalentCore.TalentPointCount.ResetAllScreens();
                 }
-                else if (e.OldLevel + 1 == e.NewLevel)
+                else if (e.OldLevel + 1 == e.NewLevel && !IsRecalculatingPoints.Value)
                 {
                     TalentCore.AddTalentPoint();
                 }

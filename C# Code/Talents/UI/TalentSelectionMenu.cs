@@ -50,6 +50,10 @@ namespace VanillaPlusProfessions.Talents.UI
 
         public TalentSelectionMenu(int skill)
         {
+            if (ModEntry.IsRecalculatingPoints.Value)
+            {
+                ModEntry.IsRecalculatingPoints.Value = false;
+            }
             JunimoNote = ModEntry.Helper.GameContent.Load<Texture2D>("LooseSprites\\JunimoNote");
 
             TalentBG = ModEntry.Helper.GameContent.Load<Texture2D>(ContentEditor.ContentPaths["TalentBG"]);
@@ -146,7 +150,6 @@ namespace VanillaPlusProfessions.Talents.UI
             //This order is important, because there is no skill named Misc
             skillTrees.AddRange(ModEntry.VanillaPlusProfessionsAPI.CustomTalentTrees.Values);
             skillTrees.Add(new("Misc", ModEntry.Helper.Translation.Get("Talent.Misc.Title"), AllTrees, miscList, new(320, 360, 320, 180), 5));
-
             
             xPositionOnScreen = XPos;
             yPositionOnScreen = YPos;
@@ -348,25 +351,54 @@ namespace VanillaPlusProfessions.Talents.UI
             }
         }
 
+        public override void receiveGamePadButton(Buttons button)
+        {
+            switch (button)
+            {
+                case Buttons.DPadUp or Buttons.RightThumbstickUp or Buttons.LeftThumbstickUp:
+                    applyMovementKey(0);
+                    break;
+                case Buttons.RightThumbstickDown or Buttons.DPadDown or Buttons.LeftThumbstickDown:
+                    applyMovementKey(2);
+                    break;
+                case Buttons.RightThumbstickRight or Buttons.DPadRight or Buttons.LeftThumbstickRight:
+                    applyMovementKey(1);
+                    break;
+                case Buttons.RightThumbstickLeft or Buttons.DPadLeft or Buttons.LeftThumbstickLeft:
+                    applyMovementKey(3);
+                    break;
+                default:
+                    base.receiveGamePadButton(button);
+                    break;
+            }
+        }
         public override void receiveKeyPress(Keys key)
         {
-            base.receiveKeyPress(key);
-
-            if (key is Keys.Up or Keys.W)
+            if (key != 0) //0 is apparently 'reserved' ???
             {
-                applyMovementKey(0);
-            }
-            else if (key is Keys.Down or Keys.S)
-            {
-                applyMovementKey(2);
-            }
-            else if (key is Keys.Right or Keys.D)
-            {
-                applyMovementKey(1);
-            }
-            else if (key is Keys.Left or Keys.A)
-            {
-                applyMovementKey(3);
+                if (Game1.options.doesInputListContain(Game1.options.menuButton, key) && readyToClose())
+                {
+                    exitThisMenu();
+                }
+                else
+                {
+                    if (key is Keys.Up or Keys.W)
+                    {
+                        applyMovementKey(0);
+                    }
+                    else if (key is Keys.Down or Keys.S)
+                    {
+                        applyMovementKey(2);
+                    }
+                    else if (key is Keys.Right or Keys.D)
+                    {
+                        applyMovementKey(1);
+                    }
+                    else if (key is Keys.Left or Keys.A)
+                    {
+                        applyMovementKey(3);
+                    }
+                }
             }
         }
 

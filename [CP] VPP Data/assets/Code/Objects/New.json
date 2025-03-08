@@ -158,6 +158,7 @@
 					"Texture": "{{KediDili.VanillaPlusProfessions/ContentPaths:ItemSpritesheet}}",
 					"SpriteIndex": 20,
 					"Edibility": 50,
+					"IsDrink": false,
 					"GeodeDropsDefaultItems": false,
 					"ExcludeFromShippingCollection": true,
 					"ExcludeFromRandomSale": true,
@@ -751,3 +752,205 @@
 		}
 	]
 }
+/*
+		if (target.Value != null)
+		{
+			return;
+		}
+		Random random = CreateInitializationRandom();
+		List<NPC> valid_targets = GetValidTargetList();
+		NetStringDictionary<Friendship, NetRef<Friendship>> friendshipData = Game1.player.friendshipData;
+		if (friendshipData == null || friendshipData.Length <= 0 || valid_targets.Count <= 0)
+		{
+			return;
+		}
+		NPC actualTarget = valid_targets[random.Next(valid_targets.Count)];
+		if (actualTarget == null)
+		{
+			return;
+		}
+		target.Value = actualTarget.name.Value;
+		if (target.Value.Equals("Wizard") && !Game1.player.mailReceived.Contains("wizardJunimoNote") && !Game1.player.mailReceived.Contains("JojaMember"))
+		{
+			target.Value = "Demetrius";
+			actualTarget = Game1.getCharacterFromName(target.Value);
+		}
+		base.questTitle = Game1.content.LoadString("Strings\\1_6_Strings:ItemDeliveryQuestTitle", NPC.GetDisplayName(target.Value));
+		Item item;
+		if (Game1.season != Season.Winter && random.NextDouble() < 0.15)
+		{
+			ItemId.Value = random.ChooseFrom(Utility.possibleCropsAtThisTime(Game1.season, Game1.dayOfMonth <= 7));
+			ItemId.Value = ItemRegistry.QualifyItemId(ItemId.Value) ?? ItemId.Value;
+			item = ItemRegistry.Create(ItemId.Value);
+			if (dailyQuest.Value || moneyReward.Value == 0)
+			{
+				moneyReward.Value = GetGoldRewardPerItem(item);
+			}
+			switch (target.Value)
+			{
+			case "Demetrius":
+				parts.Clear();
+				parts.Add(new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs." + random.Choose("13311", "13314"), item));
+				break;
+			case "Marnie":
+				parts.Clear();
+				parts.Add(new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs." + random.Choose("13317", "13320"), item));
+				break;
+			case "Sebastian":
+				parts.Clear();
+				parts.Add(new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs." + random.Choose("13324", "13327"), item));
+				break;
+			default:
+				parts.Clear();
+				parts.Add("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs." + random.Choose("13299", "13300", "13301"));
+				parts.Add(new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs." + random.Choose("13302", "13303", "13304"), item));
+				parts.Add(random.Choose("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13306", "Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13307", "", "Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13308"));
+				parts.Add(new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13620", actualTarget));
+				break;
+			}
+		}
+		else
+		{
+			string rawId = Utility.getRandomItemFromSeason(Game1.season, 1000, forQuest: true);
+			if (!(rawId == "-5"))
+			{
+				if (rawId == "-6")
+				{
+					ItemId.Value = "(O)184";
+				}
+				else
+				{
+					ItemId.Value = ItemRegistry.QualifyItemId(rawId) ?? rawId;
+				}
+			}
+			else
+			{
+				ItemId.Value = "(O)176";
+			}
+			item = ItemRegistry.Create(ItemId.Value);
+			if (dailyQuest.Value || moneyReward.Value == 0)
+			{
+				moneyReward.Value = GetGoldRewardPerItem(item);
+			}
+			DescriptionElement[] questDescriptions = null;
+			DescriptionElement[] questDescriptions2 = null;
+			DescriptionElement[] questDescriptions3 = null;
+			if ((item as StardewValley.Object)?.Type == "Cooking" && target.Value != "Wizard")
+			{
+				if (random.NextDouble() < 0.33)
+				{
+					DescriptionElement[] questStrings = new DescriptionElement[12]
+					{
+						new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13336"),
+						new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13337"),
+						new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13338"),
+						new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13339"),
+						new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13340"),
+						new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13341"),
+						(!(Game1.samBandName == Game1.content.LoadString("Strings\\StringsFromCSFiles:Game1.cs.2156"))) ? new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13347", new DescriptionElement("Strings\\StringsFromCSFiles:Game1.cs.2156")) : ((Game1.elliottBookName != Game1.content.LoadString("Strings\\StringsFromCSFiles:Game1.cs.2157")) ? new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13342", new DescriptionElement("Strings\\StringsFromCSFiles:Game1.cs.2157")) : new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13346")),
+						new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13349"),
+						new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13350"),
+						new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13351"),
+						(Game1.season == Season.Winter) ? new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13353") : ((Game1.season == Season.Summer) ? new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13355") : new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13356")),
+						new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13357")
+					};
+					parts.Clear();
+					parts.Add(new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs." + random.Choose("13333", "13334"), item, random.ChooseFrom(questStrings)));
+					parts.Add(new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13620", actualTarget));
+				}
+				else
+				{
+					DescriptionElement day = (Game1.dayOfMonth % 7) switch
+					{
+						0 => new DescriptionElement("Strings\\StringsFromCSFiles:Game1.cs.3042"), 
+						1 => new DescriptionElement("Strings\\StringsFromCSFiles:Game1.cs.3043"), 
+						2 => new DescriptionElement("Strings\\StringsFromCSFiles:Game1.cs.3044"), 
+						3 => new DescriptionElement("Strings\\StringsFromCSFiles:Game1.cs.3045"), 
+						4 => new DescriptionElement("Strings\\StringsFromCSFiles:Game1.cs.3046"), 
+						5 => new DescriptionElement("Strings\\StringsFromCSFiles:Game1.cs.3047"), 
+						_ => new DescriptionElement("Strings\\StringsFromCSFiles:Game1.cs.3048"), 
+					};
+					questDescriptions = new DescriptionElement[5]
+					{
+						new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13360", item),
+						new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13364", item),
+						new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13367", item),
+						new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13370", item),
+						new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13373", day, item, actualTarget)
+					};
+					questDescriptions2 = new DescriptionElement[5]
+					{
+						new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13620", actualTarget),
+						new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13620", actualTarget),
+						new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13620", actualTarget),
+						new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13620", actualTarget),
+						new DescriptionElement("")
+					};
+					questDescriptions3 = new DescriptionElement[5]
+					{
+						new DescriptionElement(""),
+						new DescriptionElement(""),
+						new DescriptionElement(""),
+						new DescriptionElement(""),
+						new DescriptionElement("")
+					};
+				}
+				parts.Clear();
+				int rand = random.Next(questDescriptions.Length);
+				parts.Add(questDescriptions[rand]);
+				parts.Add(questDescriptions2[rand]);
+				parts.Add(questDescriptions3[rand]);
+				if (target.Value.Equals("Sebastian"))
+				{
+					parts.Clear();
+					parts.Add(new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs." + random.Choose("13378", "13381"), item));
+				}
+			}
+			else
+			{
+				int rand;
+				if (random.NextBool())
+				{
+					StardewValley.Object obj = item as StardewValley.Object;
+					if (obj != null && obj.Edibility > 0)
+					{
+						questDescriptions = new DescriptionElement[1]
+						{
+							new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13383", item, new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs." + random.Choose<string>("13385", "13386", "13387", "13388", "13389", "13390", "13391", "13392", "13393", "13394", "13395", "13396")), new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13400", item))
+						};
+						questDescriptions2 = new DescriptionElement[2]
+						{
+							new DescriptionElement(random.Choose("", "Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13398")),
+							new DescriptionElement(random.Choose("", "Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13402"))
+						};
+						questDescriptions3 = new DescriptionElement[2]
+						{
+							new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13620", actualTarget),
+							new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13620", actualTarget)
+						};
+						if (random.NextDouble() < 0.33)
+						{
+							DescriptionElement[] questStrings = new DescriptionElement[12]
+							{
+								new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13336"),
+								new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13337"),
+								new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13338"),
+								new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13339"),
+								new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13340"),
+								new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13341"),
+								(!(Game1.samBandName == Game1.content.LoadString("Strings\\StringsFromCSFiles:Game1.cs.2156"))) ? new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13347", new DescriptionElement("Strings\\StringsFromCSFiles:Game1.cs.2156")) : ((Game1.elliottBookName != Game1.content.LoadString("Strings\\StringsFromCSFiles:Game1.cs.2157")) ? new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13342", new DescriptionElement("Strings\\StringsFromCSFiles:Game1.cs.2157")) : new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13346")),
+								new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13420"),
+								new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13421"),
+								new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13422"),
+								(Game1.season == Season.Winter) ? new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13424") : ((Game1.season == Season.Summer) ? new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13426") : new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13427")),
+								new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13357")
+							};
+							parts.Clear();
+							parts.Add(new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs." + random.Choose("13333", "13334"), item, random.ChooseFrom(questStrings)));
+							parts.Add(new DescriptionElement("Strings\\StringsFromCSFiles:ItemDeliveryQuest.cs.13620", actualTarget));
+						}
+					}
+				}
+			}
+		}
+*/

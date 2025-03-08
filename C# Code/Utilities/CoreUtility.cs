@@ -14,6 +14,10 @@ using StardewValley.TerrainFeatures;
 using System.Reflection;
 using HarmonyLib;
 using System.IO;
+using StardewValley.Objects.Trinkets;
+using StardewValley.Objects;
+using VanillaPlusProfessions.Talents.Patchers;
+using StardewValley.Buildings;
 
 namespace VanillaPlusProfessions.Utilities
 {
@@ -114,70 +118,98 @@ namespace VanillaPlusProfessions.Utilities
         {
             if (slingshot.attachments[0] != null)
             {
-                slingshot.canPlaySound = false;
-                ModEntry.Helper.Reflection.GetMethod(slingshot, "updateAimPos").Invoke(null);
-                int mouseX = slingshot.aimPos.X;
-                int mouseY = slingshot.aimPos.Y;
+
                 int backArmDistance = slingshot.GetBackArmDistance(who);
-
-                Vector2 shoot_origin = slingshot.GetShootOrigin(who);
-                Vector2 v = Utility.getVelocityTowardPoint(slingshot.GetShootOrigin(who), slingshot.AdjustForHeight(new Vector2(mouseX, mouseY)), (15 + Game1.random.Next(4, 6)) * (1f + who.buffs.WeaponSpeedMultiplier));
-
-                double distanceBetweenRadiusAndSquare = Math.Sqrt(v.X * v.X + v.Y * v.Y) - 181.0;
-                double xPercent = v.X / 256f;
-                double yPercent = v.Y / 256f;
-                int x = (int)(v.X - distanceBetweenRadiusAndSquare * xPercent);
-                int y = (int)(v.Y - distanceBetweenRadiusAndSquare * yPercent);
-                if (!Game1.options.useLegacySlingshotFiring)
-                {
-                    x *= -1;
-                    y *= -1;
-                }
-
-                Vector2 target = new(shoot_origin.X - x, shoot_origin.Y - y);
-                Vector2 vecPlayerToTarget = target - Game1.player.Position;
-
-                Vector2 normalizethis = new(vecPlayerToTarget.Y, -vecPlayerToTarget.X);
-                normalizethis.Normalize();
-
-                Vector2 target1 = target + (normalizethis * 24);
-                Vector2 target2 = target - (normalizethis * 24);
-
-                Vector2 thedirection = target1 - shoot_origin;
-                Vector2 thedirection2 = target2 - shoot_origin;
-
-                thedirection.Normalize();
-                thedirection2.Normalize();
 
                 if (backArmDistance > 4 && !slingshot.canPlaySound)
                 {
-                    StardewValley.Object ammunition = (StardewValley.Object)slingshot.attachments[0].getOne();
-                    if (ammunition.QualifiedItemId == "(TR)MagicQuiver")
+                    int mouseX = slingshot.aimPos.X;
+                    int mouseY = slingshot.aimPos.Y;
+                    Vector2 shoot_origin = slingshot.GetShootOrigin(slingshot.lastUser);
+                    Vector2 v = Utility.getVelocityTowardPoint(shoot_origin, slingshot.AdjustForHeight(new Vector2(mouseX, mouseY)), 256f);
+
+                    double distanceBetweenRadiusAndSquare = Math.Sqrt(v.X * v.X + v.Y * v.Y) - 181.0;
+                    double xPercent = v.X / 256f;
+                    double yPercent = v.Y / 256f;
+                    int x = (int)(v.X - distanceBetweenRadiusAndSquare * xPercent);
+                    int y = (int)(v.Y - distanceBetweenRadiusAndSquare * yPercent);
+                    if (!Game1.options.useLegacySlingshotFiring)
                     {
-                        
+                        x *= -1;
+                        y *= -1;
                     }
-                    else
+                    Vector2 target = new(shoot_origin.X - x, shoot_origin.Y - y);
+                    Vector2 vecPlayerToTarget = Game1.GlobalToLocal(Game1.viewport, target) - Game1.GlobalToLocal(Game1.viewport, Game1.player.Position);
+
+                    Vector2 normalizethis = new(vecPlayerToTarget.Y, -vecPlayerToTarget.X);
+                    normalizethis.Normalize();
+
+                    Vector2 target1 = target + (normalizethis * 96) - new Vector2(24f, 24f);
+                    Vector2 target2 = target - (normalizethis * 96) - new Vector2(24f, 24f);
+
+
+                    slingshot.canPlaySound = false;
+                    ModEntry.Helper.Reflection.GetMethod(slingshot, "updateAimPos").Invoke(null);
+
+                    Vector2 shootOrigin = slingshot.GetShootOrigin(who) - new Vector2(32f, 32f);
+
+                    if (slingshot.attachments[0] is Trinket trinket && trinket?.QualifiedItemId == "(TR)MagicQuiver")
                     {
-                        if (ammunition.ConsumeStack(2) is null)
+                        Vector2 motion1 = Utility.getVelocityTowardPoint(shootOrigin, target1, 2f);
+                        float projectileRotation1 = (float)Math.Atan2(motion1.Y, motion1.X) + (float)Math.PI / 2f;
+
+                        BasicProjectile p1 = new(Game1.random.Next((trinket.GetEffect() as MagicQuiverTrinketEffect)?.MinDamage ?? 10, ((trinket.GetEffect() as MagicQuiverTrinketEffect)?.MaxDamage ?? 10) + 1), 16, 0, 0, 0f, motion1.X, motion1.Y, shootOrigin, null, null, null, explode: false, damagesMonsters: true, location, who)
                         {
-                            slingshot.attachments[0] = null;
-                        }
+                            IgnoreLocationCollision = true
+                        };
+                        p1.ignoreObjectCollisions.Value = true;
+                        p1.acceleration.Value = motion1;
+                        p1.maxVelocity.Value = 24f;
+                        p1.projectileID.Value = 14;
+                        p1.startingRotation.Value = projectileRotation1;
+                        p1.alpha.Value = 0.001f;
+                        p1.alphaChange.Value = 0.05f;
+                        p1.light.Value = true;
+                        p1.collisionSound.Value = "magic_arrow_hit";
+                        location.projectiles.Add(p1);
+                        location.playSound("magic_arrow");
+
+                        Vector2 motion = Utility.getVelocityTowardPoint(shootOrigin, target2, 2f);
+                        float projectileRotation = (float)Math.Atan2(motion.Y, motion.X) + (float)Math.PI / 2f;
+
+                        BasicProjectile p = new(Game1.random.Next((trinket.GetEffect() as MagicQuiverTrinketEffect)?.MinDamage ?? 10, ((trinket.GetEffect() as MagicQuiverTrinketEffect)?.MaxDamage ?? 10) + 1), 16, 0, 0, 0f, motion.X, motion.Y, shootOrigin, null, null, null, explode: false, damagesMonsters: true, location, who)
+                        {
+                            IgnoreLocationCollision = true
+                        };
+                        p.ignoreObjectCollisions.Value = true;
+                        p.acceleration.Value = motion;
+                        p.maxVelocity.Value = 24f;
+                        p.projectileID.Value = 14;
+                        p.startingRotation.Value = projectileRotation;
+                        p.alpha.Value = 0.001f;
+                        p.alphaChange.Value = 0.05f;
+                        p.light.Value = true;
+                        p.collisionSound.Value = "magic_arrow_hit";
+                        location.projectiles.Add(p);
+                        location.playSound("magic_arrow");
+                    }
+                    else if (slingshot.attachments[0]?.Stack > 1)
+                    {
+                        string Id = slingshot.attachments[0].ItemId;
+                        slingshot.attachments[0].ConsumeStack(2);
                         int damage = 1;
                         float damageMod = (slingshot.ItemId == "33") ? 2f : ((!(slingshot.ItemId == "34")) ? 1f : 4f);
-                        if (!Game1.options.useLegacySlingshotFiring)
-                        {
-                            v.X *= -1f;
-                            v.Y *= -1f;
-                        }
+                        Vector2 motion1 = Utility.getVelocityTowardPoint(shootOrigin, target1, 2f);
 
-                        location.projectiles.Add(new BasicProjectile((int)(damageMod * (damage + Game1.random.Next(-(damage / 2), damage + 2)) * (1f + who.buffs.AttackMultiplier)), -1, 0, 0, (float)(Math.PI / (double)(64f + Game1.random.Next(-63, 64))), thedirection2.X * 16, thedirection2.Y * 16, shoot_origin - new Vector2(32f, 32f), "hammer", null, null, explode: false, damagesMonsters: true, location, who, null, ammunition.ItemId)
+                        location.projectiles.Add(new BasicProjectile((int)(damageMod * (damage + Game1.random.Next(-(damage / 2), damage + 2)) * (1f + who.buffs.AttackMultiplier)), -1, 0, 0, (float)(Math.PI / (double)(64f + Game1.random.Next(-63, 64))), motion1.X * 2, motion1.Y * 2, shootOrigin, "hammer", null, null, explode: false, damagesMonsters: true, location, who, null, Id)
                         { IgnoreLocationCollision = false });
 
                         foreach (var item in slingshot.enchantments)
                             if (item is SlingshotEnchantment slingshotEnchantment)
                                 slingshotEnchantment.OnShoot(location, slingshot);
 
-                        location.projectiles.Add(new BasicProjectile((int)(damageMod * (damage + Game1.random.Next(-(damage / 2), damage + 2)) * (1f + who.buffs.AttackMultiplier)), -1, 0, 0, (float)(Math.PI / (double)(64f + Game1.random.Next(-63, 64))), thedirection.X * 16, thedirection.Y * 16, shoot_origin - new Vector2(32f, 32f), "hammer", null, null, explode: false, damagesMonsters: true, location, who, null, ammunition.ItemId)
+                        Vector2 motion2 = Utility.getVelocityTowardPoint(shootOrigin, target2, 2f);
+                        location.projectiles.Add(new BasicProjectile((int)(damageMod * (damage + Game1.random.Next(-(damage / 2), damage + 2)) * (1f + who.buffs.AttackMultiplier)), -1, 0, 0, (float)(Math.PI / (double)(64f + Game1.random.Next(-63, 64))), motion2.X * 2, motion2.Y * 2, shootOrigin, "hammer", null, null, explode: false, damagesMonsters: true, location, who, null, Id)
                         { IgnoreLocationCollision = false });
                     }
 
@@ -196,13 +228,36 @@ namespace VanillaPlusProfessions.Utilities
         {
             if (Context.IsWorldReady)
             {
+                if (!Context.IsMainPlayer)
+                {
+                    ModEntry.ModMonitor.Log("This command can be only run by the host.");
+                    return;
+                }
                 if (args.Length > 0 && args[1].ToLower() == "true")
                 {
+                    int FishFarm = 0, FrogEggs = 0, SlimeHutchWater = 0, WildGrowth = 0, SlimeWaterLoss = 0;
+
                     Utility.ForEachBuilding(Building =>
                     {
-                        Building.modData.Remove(ModEntry.Key_FishRewardOrQuestDayLeft);
-                        Building.modData.Remove(TalentCore.Key_HiddenBenefit_FrogEggs);
-                        Building.modData.Remove(ModEntry.Key_IsSlimeHutchWatered);
+                        if (Building is FishPond)
+                        {
+                            if (Building.modData.Remove(ModEntry.Key_FishRewardOrQuestDayLeft))
+                                FishFarm++;
+
+                            if (Building.modData.TryGetValue(TalentCore.Key_HiddenBenefit_FrogEggs, out string val))
+                            {
+                                Game1.player.team.newLostAndFoundItems.Value = true;
+                                Game1.player.team.returnedDonations.Add(val.StringToTrinket());
+                                if (Building.modData.Remove(TalentCore.Key_HiddenBenefit_FrogEggs))
+                                {
+                                    FrogEggs++;
+                                }
+                            }
+                        }
+
+                        if (Building.modData.Remove(ModEntry.Key_IsSlimeHutchWatered) && Building.GetIndoors() is SlimeHutch)
+                            SlimeHutchWater++;
+
                         if (Building.GetIndoors() is AnimalHouse house)
                         {
                             foreach (var (id, animal) in house.Animals.Pairs)
@@ -210,39 +265,44 @@ namespace VanillaPlusProfessions.Utilities
                                 if (!house.animalsThatLiveHere.Contains(id))
                                     continue;
 
-                                animal.modData.Remove(TalentCore.Key_WildGrowth);
+                                if (animal.modData.Remove(TalentCore.Key_WildGrowth))
+                                    WildGrowth++;
                             }
                         }
                         else if (Building.GetIndoors() is SlimeHutch hutch)
                         {
                             foreach (var slime in hutch.characters)
                             {
-                                slime.modData.Remove(ModEntry.Key_SlimeWateredDaysSince);
+                                if (slime.modData.Remove(ModEntry.Key_SlimeWateredDaysSince))
+                                    SlimeWaterLoss++;
                             }
                         }
                         return true;
                     });
+                    ModEntry.ModMonitor.Log($"Fish-Farm data erased from {FishFarm} fish ponds.");
+                    ModEntry.ModMonitor.Log($"{FrogEggs} Frog Eggs erased and placed to Lost And Found box from fish ponds.");
+                    ModEntry.ModMonitor.Log($"Erased custom watering data from {SlimeHutchWater} slime hutches.");
+                    ModEntry.ModMonitor.Log($"Erased custom water loss data from {SlimeWaterLoss} slimes.");
+                    ModEntry.ModMonitor.Log($"Erased Wild Growth data from {WildGrowth} farm animals.");
+
+                    int RainLocs = 0, FruitTreeTappers = 0, GiantCropData = 0, XrayDrop = 0, FairyBoxData = 0, Resurgence = 0;
                     Utility.ForEachLocation(Loc =>
                     {
-                        Loc.modData.Remove(TalentCore.Key_WasRainingHere);
-                        Loc.modData.Remove(TalentCore.Key_FaeBlessings);
+                        if (Loc.modData.Remove(TalentCore.Key_WasRainingHere))
+                        {
+                            RainLocs++;
+                        }
                         foreach (var item in Loc.terrainFeatures.Pairs)
                         {
                             if (item.Value is FruitTree tree)
                             {
-                                tree.modData.Remove(ModEntry.Key_TFHasTapper);
-                                tree.modData.Remove(ModEntry.Key_TFTapperID);
-                                tree.modData.Remove(ModEntry.Key_TFTapperDaysLeft);
+                                if (tree.modData.Remove(ModEntry.Key_TFHasTapper) & tree.modData.Remove(ModEntry.Key_TFTapperID) & tree.modData.Remove(ModEntry.Key_TFTapperDaysLeft))
+                                    FruitTreeTappers++;
                             }
                             else if (item.Value is GiantCrop crop)
                             {
-                                crop.modData.Remove(ModEntry.Key_TFHasTapper);
-                                crop.modData.Remove(ModEntry.Key_TFTapperID);
-                                crop.modData.Remove(ModEntry.Key_TFTapperDaysLeft);
-                            }
-                            else if (item.Value is HoeDirt dirt)
-                            {
-                                dirt.modData.Remove(TalentCore.Key_FaeBlessings);
+                                if (crop.modData.Remove(ModEntry.Key_TFHasTapper) & crop.modData.Remove(ModEntry.Key_TFTapperID) & crop.modData.Remove(ModEntry.Key_TFTapperDaysLeft))
+                                    GiantCropData++;
                             }
                         }
                         return true;
@@ -254,12 +314,24 @@ namespace VanillaPlusProfessions.Utilities
                     });
                     Utility.ForEachItem(item =>
                     {
-                        item.modData.Remove(TalentCore.Key_XrayDrop);
-                        item.modData.Remove(TalentCore.Key_HiddenBenefit_FairyBox);
-                        item.modData.Remove(TalentCore.Key_Resurgence);
+                        if (item.modData.Remove(TalentCore.Key_XrayDrop))
+                            XrayDrop++;
+
+                        if (item.modData.Remove(TalentCore.Key_HiddenBenefit_FairyBox))
+                            FairyBoxData++;
+
+                        if (item.modData.Remove(TalentCore.Key_Resurgence))
+                            Resurgence++;
                         return true;
                     });
-                }                
+                    ModEntry.ModMonitor.Log($"Yesterday's weather data erased from {RainLocs} game locations.");
+                    ModEntry.ModMonitor.Log($"Fae Blessings data erased from crops and the farm.");
+                    ModEntry.ModMonitor.Log($"Erased tapper data from {FruitTreeTappers} fruit trees.");
+                    ModEntry.ModMonitor.Log($"Erased tapper data from {GiantCropData} giant crops.");
+                    ModEntry.ModMonitor.Log($"Erased X-ray predictions from {XrayDrop} geodes.");
+                    ModEntry.ModMonitor.Log($"Erased Hidden Benefits data from {FairyBoxData} fairy boxes.");
+                    ModEntry.ModMonitor.Log($"Erased Resurgence data from {Resurgence} watering cans.");
+                }
                 foreach (var farmer in Game1.getAllFarmers())
                 {
                     if (args.Length > 0 && args[1].ToLower() == "true")
@@ -269,10 +341,12 @@ namespace VanillaPlusProfessions.Utilities
                         farmer.modData.Remove(ModEntry.Key_HasFoundForage);
                         farmer.modData.Remove(TalentCore.Key_TalentPoints);
                         farmer.modData.Remove(TalentCore.Key_DisabledTalents);
+                        ModEntry.ModMonitor.Log($"Erased Forage Guess mini game and talent points data from Farmer {farmer.Name}.");
                     }
 
                     foreach (var item in ModEntry.Professions.Values)
                         farmer.professions.Remove(item.ID);
+                    ModEntry.ModMonitor.Log($"Erased VPP Professions from Farmer {farmer.Name}.");
 
                     foreach (var item in TalentCore.Talents.Values)
                     {
@@ -281,32 +355,39 @@ namespace VanillaPlusProfessions.Utilities
                             foreach (var branch in item.Branches)
                             {
                                 farmer.mailReceived.Remove(branch.Flag);
+                                break;
                             }
                         }
                         farmer.mailReceived.Remove(item.MailFlag);
                         farmer.mailReceived.Remove(item.MailFlag + "_disabled");
                     }
+                    ModEntry.ModMonitor.Log($"Erased All Talent flags from Farmer {farmer.Name}.");
 
                     farmer.mailReceived.Remove(TalentCore.Key_PointsCalculated);
                     if (farmer.farmingLevel.Value > 10)
                     {
                         farmer.farmingLevel.Value = 10;
+                        ModEntry.ModMonitor.Log($"Readjusted Farmer {farmer.Name}'s farming level.");
                     }
                     if (farmer.foragingLevel.Value > 10)
                     {
                         farmer.foragingLevel.Value = 10;
+                        ModEntry.ModMonitor.Log($"Readjusted Farmer {farmer.Name}'s foraging level.");
                     }
                     if (farmer.miningLevel.Value > 10)
                     {
                         farmer.miningLevel.Value = 10;
+                        ModEntry.ModMonitor.Log($"Readjusted Farmer {farmer.Name}'s mining level.");
                     }
                     if (farmer.fishingLevel.Value > 10)
                     {
                         farmer.fishingLevel.Value = 10;
+                        ModEntry.ModMonitor.Log($"Readjusted Farmer {farmer.Name}'s fishing level.");
                     }
                     if (farmer.combatLevel.Value > 10)
                     {
                         farmer.combatLevel.Value = 10;
+                        ModEntry.ModMonitor.Log($"Readjusted Farmer {farmer.Name}'s combat level.");
                     }
                 }
                 TalentCore.DisabledTalents.Clear();
@@ -393,87 +474,97 @@ namespace VanillaPlusProfessions.Utilities
         {
             if (Context.IsWorldReady)
             {
-                if (!Game1.player.mailReceived.Contains(TalentCore.Key_PointsCalculated))
+                int number = 0, newLevels;
+                ModEntry.IsRecalculatingPoints.Value = true;
+                //Farming
+                if (Game1.player.experiencePoints[0] > ModEntry.levelExperiences[0])
                 {
-                    int number = 0, newLevels;
-
-                    //Farming
-                    if (Game1.player.experiencePoints[0] > ModEntry.levelExperiences[0])
+                    newLevels = Farmer.checkForLevelGain(0, Game1.player.experiencePoints[0]);
+                    for (int i = Game1.player.farmingLevel.Value + 1; i <= newLevels; i++)
                     {
-                        newLevels = Farmer.checkForLevelGain(0, Game1.player.experiencePoints[0]);
-                        for (int i = Game1.player.farmingLevel.Value + 1; i <= newLevels; i++)
-                        {
-                            Game1.player.newLevels.Add(new(0, i));
-                        }
-                        Game1.player.farmingLevel.Value = newLevels;
+                        Game1.player.newLevels.Add(new(0, i));
                     }
-
-                    //Fishing
-                    if (Game1.player.experiencePoints[1] > ModEntry.levelExperiences[0])
-                    {
-                        newLevels = Farmer.checkForLevelGain(0, Game1.player.experiencePoints[1]);
-                        for (int i = Game1.player.fishingLevel.Value + 1; i <= newLevels; i++)
-                        {
-                            Game1.player.newLevels.Add(new(1, i));
-                        }
-                        Game1.player.fishingLevel.Value = newLevels;
-                    }
-
-                    //Foraging
-                    if (Game1.player.experiencePoints[2] > ModEntry.levelExperiences[0])
-                    {
-                        newLevels = Farmer.checkForLevelGain(0, Game1.player.experiencePoints[2]);
-                        for (int i = Game1.player.foragingLevel.Value + 1; i <= newLevels; i++)
-                        {
-                            Game1.player.newLevels.Add(new(2, i));
-                        }
-                        Game1.player.foragingLevel.Value = newLevels;
-                    }
-
-                    //Mining
-                    if (Game1.player.experiencePoints[3] > ModEntry.levelExperiences[0])
-                    {
-                        newLevels = Farmer.checkForLevelGain(0, Game1.player.experiencePoints[3]);
-                        for (int i = Game1.player.miningLevel.Value + 1; i <= newLevels; i++)
-                        {
-                            Game1.player.newLevels.Add(new(3, i));
-                        }
-                        Game1.player.miningLevel.Value = newLevels;
-                    }
-
-                    //Combat
-                    if (Game1.player.experiencePoints[4] > ModEntry.levelExperiences[0])
-                    {
-                        newLevels = Farmer.checkForLevelGain(0, Game1.player.experiencePoints[4]);
-                        for (int i = Game1.player.combatLevel.Value + 1; i <= newLevels; i++)
-                        {
-                            Game1.player.newLevels.Add(new(4, i));
-                        }
-                        Game1.player.combatLevel.Value = newLevels;
-                    }
-
-                    number += Game1.player.farmingLevel.Value;
-                    number += Game1.player.fishingLevel.Value;
-                    number += Game1.player.foragingLevel.Value;
-                    number += Game1.player.miningLevel.Value;
-                    number += Game1.player.combatLevel.Value;
-
-                    number += Game1.player.achievements.Count;
-                    foreach (var item in Game1.player.team.completedSpecialOrders)
-                        if (item.StartsWith("QiChallenge"))
-                            number++;
-
-                    if (Game1.player.mailReceived.Contains("Farm_Eternal"))
-                        number += 10;
-
-                    ModEntry.IsUninstalling.Value = false;
-                    TalentCore.AddTalentPoint(number - TalentCore.TalentPointCount.Value, false);
-                    Game1.player.mailReceived.Add(TalentCore.Key_PointsCalculated);
+                    Game1.player.farmingLevel.Value = newLevels;
+                    ModEntry.ModMonitor.Log($"Readjusted Farmer {Game1.player.Name}'s farming level.");
                 }
-                else
+
+                //Fishing
+                if (Game1.player.experiencePoints[1] > ModEntry.levelExperiences[0])
                 {
-                    ModEntry.ModMonitor.Log("Nice try, " + Game1.player.displayName, LogLevel.Warn);
+                    newLevels = Farmer.checkForLevelGain(0, Game1.player.experiencePoints[1]);
+                    for (int i = Game1.player.fishingLevel.Value + 1; i <= newLevels; i++)
+                    {
+                        Game1.player.newLevels.Add(new(1, i));
+                    }
+                    Game1.player.fishingLevel.Value = newLevels;
+                    ModEntry.ModMonitor.Log($"Readjusted Farmer {Game1.player.Name}'s fishing level.");
                 }
+
+                //Foraging
+                if (Game1.player.experiencePoints[2] > ModEntry.levelExperiences[0])
+                {
+                    newLevels = Farmer.checkForLevelGain(0, Game1.player.experiencePoints[2]);
+                    for (int i = Game1.player.foragingLevel.Value + 1; i <= newLevels; i++)
+                    {
+                        Game1.player.newLevels.Add(new(2, i));
+                    }
+                    Game1.player.foragingLevel.Value = newLevels;
+                    ModEntry.ModMonitor.Log($"Readjusted Farmer {Game1.player.Name}'s foraging level.");
+                }
+
+                //Mining
+                if (Game1.player.experiencePoints[3] > ModEntry.levelExperiences[0])
+                {
+                    newLevels = Farmer.checkForLevelGain(0, Game1.player.experiencePoints[3]);
+                    for (int i = Game1.player.miningLevel.Value + 1; i <= newLevels; i++)
+                    {
+                        Game1.player.newLevels.Add(new(3, i));
+                    }
+                    Game1.player.miningLevel.Value = newLevels;
+                    ModEntry.ModMonitor.Log($"Readjusted Farmer {Game1.player.Name}'s mining level.");
+                }
+
+                //Combat
+                if (Game1.player.experiencePoints[4] > ModEntry.levelExperiences[0])
+                {
+                    newLevels = Farmer.checkForLevelGain(0, Game1.player.experiencePoints[4]);
+                    for (int i = Game1.player.combatLevel.Value + 1; i <= newLevels; i++)
+                    {
+                        Game1.player.newLevels.Add(new(4, i));
+                    }
+                    Game1.player.combatLevel.Value = newLevels;
+                    ModEntry.ModMonitor.Log($"Readjusted Farmer {Game1.player.Name}'s combat level.");
+                }
+
+                number += Game1.player.farmingLevel.Value;
+                number += Game1.player.fishingLevel.Value;
+                number += Game1.player.foragingLevel.Value;
+                number += Game1.player.miningLevel.Value;
+                number += Game1.player.combatLevel.Value;
+
+                number += Game1.player.achievements.Count;
+                foreach (var item in Game1.player.team.completedSpecialOrders)
+                    if (item.StartsWith("QiChallenge"))
+                        number++;
+
+                if (Game1.player.mailReceived.Contains("Farm_Eternal"))
+                    number += 10;
+
+                foreach (var item in TalentCore.Talents.Keys)
+                {
+                    if (TalentUtility.CurrentPlayerHasTalent(item, ignoreDisabledTalents: false))
+                    {
+                        number--;
+                    }
+                }
+
+                ModEntry.ModMonitor.Log($"Farmer {Game1.player.Name}'s supposed talent point count: {number}.");
+                ModEntry.ModMonitor.Log($"Farmer {Game1.player.Name}'s current talent point count: {TalentCore.TalentPointCount.Value}.");
+                TalentCore.AddTalentPoint(number - TalentCore.TalentPointCount.Value, false);
+                ModEntry.ModMonitor.Log($"Farmer {Game1.player.Name}'s new talent point count: {TalentCore.TalentPointCount.Value}.");
+                ModEntry.ModMonitor.Log($"(Negative numbers do not mean that there's a bug, just that you had more points than you were supposed to have, likely because of a bug etc.)");
+                ModEntry.IsUninstalling.Value = false;
+                Game1.player.mailReceived.Add(TalentCore.Key_PointsCalculated);
             }
             else
             {

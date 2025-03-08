@@ -8,6 +8,7 @@ using System.Linq;
 using VanillaPlusProfessions.Utilities;
 using System;
 using StardewValley.Internal;
+using StardewValley.Menus;
 
 namespace VanillaPlusProfessions.Talents.Patchers
 {
@@ -87,7 +88,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
                     {
                         if (drop is not null or "" && Utility.IsGeode(geode, true))
                         {
-                            Item tryItem = ItemRegistry.Create(drop, geode.Category == __result.Category ? __result.Stack : 1, 0);
+                            Item tryItem = ItemRegistry.Create(drop, geode.Category == __result?.Category ? __result?.Stack ?? 1 : 1, 0);
                             var data = ItemRegistry.GetDataOrErrorItem(tryItem.ItemId);
                             if (data.IsErrorItem && data.RawData is not null and ObjectData data1)
                             {
@@ -100,7 +101,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
                                         {
                                             if (data1.GeodeDrops[i].SetFlagOnPickup != null)
                                                 queryResults.SetFlagOnPickup = data1.GeodeDrops[i].SetFlagOnPickup;
-                                            queryResults.Quality = __result.Quality;
+                                            queryResults.Quality = __result?.Quality ?? 0;
                                             queryResults.Stack = 1;
                                             __result = queryResults ?? __result;
                                             break;
@@ -112,39 +113,53 @@ namespace VanillaPlusProfessions.Talents.Patchers
                             {
                                 __result = tryItem;
                             }
+                            if (Game1.activeClickableMenu is MenuWithInventory menu && menu.heldItem?.QualifiedItemId == geode.QualifiedItemId)
+                            {
+                                TalentUtility.DetermineGeodeDrop(menu.heldItem);
+                            }
                         }
                     }
-                    else if (TalentUtility.CurrentPlayerHasTalent("Mining_Matryoshka") && Game1.random.NextBool(0.15) && !geode.HasContextTag(TalentCore.ContextTag_Matryoshka_Banned_FromDropping))
+                    else if (TalentUtility.CurrentPlayerHasTalent("Matryoshka") && Game1.random.NextBool(0.15) && !geode.HasContextTag(TalentCore.ContextTag_Matryoshka_Banned_FromDropping))
                     {
                         var geodes = (from KeyValuePair<string, ObjectData> @object in Game1.objectData
                                       where (@object.Value.GeodeDropsDefaultItems || @object.Value.GeodeDrops?.Count > 0 is true) && !@object.Value.ContextTags?.Contains(TalentCore.ContextTag_Matryoshka_Banned_FromBeingDropped) is true && geode.ItemId != @object.Key
                                       select @object.Key).ToList();
                         __result = ItemRegistry.Create(Game1.random.ChooseFrom(geodes), 1, geode.Quality);
                     }
-                    else if (TalentUtility.CurrentPlayerHasTalent("Mining_Museum_Piece") && LibraryMuseum.totalArtifacts != Game1.player.archaeologyFound.Keys.Count() && geode.ItemId is not null && Game1.random.NextBool(0.1))
+                    else if (TalentUtility.CurrentPlayerHasTalent("MuseumPiece") && LibraryMuseum.totalArtifacts != Game1.player.archaeologyFound.Keys.Count() && geode.ItemId is not null && Game1.random.NextBool(0.1))
                     {
-                        List<KeyValuePair<string, double>> validIDs = new();
+                        List<(string, ObjectGeodeDropData)> validIDs = new();
 
                         if (Game1.objectData.TryGetValue(geode.ItemId, out var data) && data is not null && data.GeodeDrops is not null)
                         {
-                            foreach (ObjectGeodeDropData dropx in data.GeodeDrops.OrderBy((ObjectGeodeDropData p) => p.Precedence))
+                            foreach (ObjectGeodeDropData dropx in data.GeodeDrops)
                             {
-                                if ((!Game1.random.NextBool(dropx.Chance) || (dropx.Condition != null && !GameStateQuery.CheckConditions(dropx.Condition, Game1.player.currentLocation, Game1.player, null, null, Game1.random))))
+                                if (dropx.Condition != null && !GameStateQuery.CheckConditions(dropx.Condition, Game1.player.currentLocation, Game1.player, null, null, Game1.random))
                                     continue;
 
                                 Item item = ItemQueryResolver.TryResolveRandomItem(dropx, new ItemQueryContext(Game1.player.currentLocation, Game1.player, Game1.random, "Museum Piece context"), avoidRepeat: false);
-                                if (item is not null && (!LibraryMuseum.HasDonatedArtifact(item.ItemId) || Game1.random.NextBool(0.20)))
+                                if (item is not null && (!LibraryMuseum.HasDonatedArtifact(item.ItemId)))
                                 {
-                                    if (dropx.SetFlagOnPickup != null)
-                                    {
-                                        item.SetFlagOnPickup = dropx.SetFlagOnPickup;
-                                    }
-                                    item.Quality = __result.Quality;
-                                    item.Stack = 1;
-                                    __result = item;
+                                    validIDs.Add(new(item.ItemId, dropx));
                                 }
                             }
+                            if (validIDs.Count > 0)
+                            {
+                                var output = Game1.random.ChooseFrom(validIDs);
+                                Item item = ItemQueryResolver.TryResolveRandomItem(output.Item2, new ItemQueryContext(Game1.player.currentLocation, Game1.player, Game1.random, "Museum Piece context"), avoidRepeat: false);
+                                if (output.Item2.SetFlagOnPickup != null)
+                                {
+                                    item.SetFlagOnPickup = output.Item2.SetFlagOnPickup;
+                                }
+                                item.Quality = __result?.Quality ?? 0;
+                                item.Stack = 1;
+                                __result = item;
+                            }
                         }
+                    }
+                    if (IsUpdating)
+                    {
+                        IsUpdating = false;
                     }
                 }
             }

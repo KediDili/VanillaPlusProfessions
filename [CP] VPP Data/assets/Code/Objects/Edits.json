@@ -87,147 +87,177 @@
 		{
 			"Action": "EditData",
 			"Target": "Data/Objects",
-			"Fields": {
-				"208": {
-					"ContextTags": [ "color_brown", "ginger_item" ],
-				},
-				"220": {
-					"ContextTags": [ "color_brown", "food_bakery", "food_cake", "food_sweet", "ginger_item" ],
-				},
-				"221": {
-					"ContextTags": [ "color_pink", "food_bakery", "food_cake", "food_sweet", "ginger_item" ],
-				},
-				"222": {
-					"ContextTags": [ "color_red", "food_bakery", "food_sweet", "ginger_item" ],
-				},
-				"223": {
-					"ContextTags": [ "color_brown", "food_bakery", "food_sweet", "ginger_item" ],
-				},
-				"232": {
-					"ContextTags": [ "color_white", "food_sweet", "ginger_item" ],
-				},
-				"233": {
-					"ContextTags": [ "color_white", "food_sweet", "ginger_item" ],
-				},
+			"TargetField": [ "208", "ContextTags" ],
+			"Entries": {
+				"ginger_item": "ginger_item"
 			},
 			"When": {
 				"KediDili.VanillaPlusProfessions/HasTalents|contains=SugarRush": true,
-				"TimeChangedUpdates": "true",
-			},
-			"Update": "OnTimeChange",
-		},
-		{
-			"Action": "EditData",
-			"Target": "Data/Objects",
-			"Fields": {
-				"208": {
-					"ContextTags": [ "color_brown", "ginger_item" ],
-				},
-				"220": {
-					"ContextTags": [ "color_brown", "food_bakery", "food_cake", "food_sweet", "ginger_item" ],
-				},
-				"221": {
-					"ContextTags": [ "color_pink", "food_bakery", "food_cake", "food_sweet", "ginger_item" ],
-				},
-				"222": {
-					"ContextTags": [ "color_red", "food_bakery", "food_sweet", "ginger_item" ],
-				},
-				"223": {
-					"ContextTags": [ "color_brown", "food_bakery", "food_sweet", "ginger_item" ],
-				},
-				"232": {
-					"ContextTags": [ "color_white", "food_sweet", "ginger_item" ],
-				},
-				"233": {
-					"ContextTags": [ "color_white", "food_sweet", "ginger_item" ],
-				},
-			},
-			"When": {
-				"KediDili.VanillaPlusProfessions/HasTalents|contains=SugarRush": true,
-				"TimeChangedUpdates": "false",
 			},
 		},
 		{
 			"Action": "EditData",
 			"Target": "Data/Objects",
-			"Fields": {
-				"Kedi.VPP.GrilledLeek": {
-					"ContextTags": [ "kedi_vpp_survival_cooking_food", "ginger_item" ],
-				},
-				"Kedi.VPP.SeaweedSalad": {
-					"ContextTags": [ "kedi_vpp_survival_cooking_food", "color_green", "ginger_item" ],
-				},
-				"Kedi.VPP.TrailMix": {
-					"ContextTags": [ "kedi_vpp_survival_cooking_food", "ginger_item" ],
-				},
-				"Kedi.VPP.WildFruitSalad": {
-					"ContextTags": [ "kedi_vpp_survival_cooking_food",  "ginger_item" ],
-				},
-				"Kedi.VPP.GrilledFish": {
-					"ContextTags": [ "kedi_vpp_survival_cooking_food", "color_brown", "ginger_item" ],
-				},
-				"Kedi.VPP.RoastedFiddleheads": {
-					"ContextTags": [ "kedi_vpp_survival_cooking_food", "color_dark_green", "ginger_item" ],
-				},
-				"Kedi.VPP.BakedTubers": {
-					"ContextTags": [ "kedi_vpp_survival_cooking_food", "ginger_item" ],
-				},
-				"Kedi.VPP.MushroomKebab": {
-					"ContextTags": [ "kedi_vpp_survival_cooking_food", "color_brown", "ginger_item" ],
-				},
-				"Kedi.VPP.FriedBugSteak": {
-					"ContextTags": [ "kedi_vpp_survival_cooking_food", "color_brown", "ginger_item" ],
-				},
-				"Kedi.VPP.SteamedClams": {
-					"ContextTags": [ "kedi_vpp_survival_cooking_food", "color_light_blue", "ginger_item" ],
-				},
+			"TargetField": [ "220", "ContextTags" ],
+			"Entries": {
+				"ginger_item": "ginger_item"
 			},
 			"When": {
 				"KediDili.VanillaPlusProfessions/HasTalents|contains=SugarRush": true,
-				"KediDili.VanillaPlusProfessions/HasTalents|contains=SurvivalCooking": true,
-				"TimeChangedUpdates": "true",
 			},
-			"Update": "OnTimeChange",
 		},
-{
+		{
 			"Action": "EditData",
 			"Target": "Data/Objects",
-			"Fields": {
-				"Kedi.VPP.GrilledLeek": {
-					"ContextTags": [ "kedi_vpp_survival_cooking_food", "ginger_item" ],
-				},
-				"Kedi.VPP.SeaweedSalad": {
-					"ContextTags": [ "kedi_vpp_survival_cooking_food", "color_green", "ginger_item" ],
-				},
-				"Kedi.VPP.TrailMix": {
-					"ContextTags": [ "kedi_vpp_survival_cooking_food", "ginger_item" ],
-				},
-				"Kedi.VPP.WildFruitSalad": {
-					"ContextTags": [ "kedi_vpp_survival_cooking_food",  "ginger_item" ],
-				},
-				"Kedi.VPP.GrilledFish": {
-					"ContextTags": [ "kedi_vpp_survival_cooking_food", "color_brown", "ginger_item" ],
-				},
-				"Kedi.VPP.RoastedFiddleheads": {
-					"ContextTags": [ "kedi_vpp_survival_cooking_food", "color_dark_green", "ginger_item" ],
-				},
-				"Kedi.VPP.BakedTubers": {
-					"ContextTags": [ "kedi_vpp_survival_cooking_food", "ginger_item" ],
-				},
-				"Kedi.VPP.MushroomKebab": {
-					"ContextTags": [ "kedi_vpp_survival_cooking_food", "color_brown", "ginger_item" ],
-				},
-				"Kedi.VPP.FriedBugSteak": {
-					"ContextTags": [ "kedi_vpp_survival_cooking_food", "color_brown", "ginger_item" ],
-				},
-				"Kedi.VPP.SteamedClams": {
-					"ContextTags": [ "kedi_vpp_survival_cooking_food", "color_light_blue", "ginger_item" ],
-				},
+			"TargetField": [ "221", "ContextTags" ],
+			"Entries": {
+				"ginger_item": "ginger_item"
 			},
 			"When": {
 				"KediDili.VanillaPlusProfessions/HasTalents|contains=SugarRush": true,
-				"KediDili.VanillaPlusProfessions/HasTalents|contains=SurvivalCooking": true,
-				"TimeChangedUpdates": "false",
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "222", "ContextTags" ],
+			"Entries": {
+				"ginger_item": "ginger_item"
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=SugarRush": true,
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "223", "ContextTags" ],
+			"Entries": {
+				"ginger_item": "ginger_item"
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=SugarRush": true,
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "232", "ContextTags" ],
+			"Entries": {
+				"ginger_item": "ginger_item"
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=SugarRush": true,
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "233", "ContextTags" ],
+			"Entries": {
+				"ginger_item": "ginger_item"
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=SugarRush": true,
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Kedi.VPP.GrilledLeek", "ContextTags" ],
+			"Entries": {
+				"ginger_item": "ginger_item"
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=SugarRush": true,
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Kedi.VPP.SeaweedSalad", "ContextTags" ],
+			"Entries": {
+				"ginger_item": "ginger_item"
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=SugarRush": true,
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Kedi.VPP.TrailMix", "ContextTags" ],
+			"Entries": {
+				"ginger_item": "ginger_item"
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=SugarRush": true,
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Kedi.VPP.WildFruitSalad", "ContextTags" ],
+			"Entries": {
+				"ginger_item": "ginger_item"
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=SugarRush": true,
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Kedi.VPP.GrilledFish", "ContextTags" ],
+			"Entries": {
+				"ginger_item": "ginger_item"
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=SugarRush": true,
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Kedi.VPP.RoastedFiddleheads", "ContextTags" ],
+			"Entries": {
+				"ginger_item": "ginger_item"
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=SugarRush": true,
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Kedi.VPP.BakedTubers", "ContextTags" ],
+			"Entries": {
+				"ginger_item": "ginger_item"
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=SugarRush": true,
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Kedi.VPP.FriedBugSteak", "ContextTags" ],
+			"Entries": {
+				"ginger_item": "ginger_item"
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=SugarRush": true,
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Kedi.VPP.SteamedClams", "ContextTags" ],
+			"Entries": {
+				"ginger_item": "ginger_item"
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=SugarRush": true,
 			},
 		},
 		{
@@ -269,29 +299,5 @@
 				"Wizard": "768 769 155",
 			}
 		},
-		/*{
-			"Action": "EditData",
-			"Target": "Data/Objects",
-			"Fields": {
-				"378": {
-					"Price": 10
-				},
-				"380": {
-					"Price": 20
-				},
-				"384": {
-					"Price": 50
-				},
-				"386": {
-					"Price": 200
-				},
-				"909": {
-					"Price": 600
-				}
-			},
-			"When": {
-				"KediDili.VanillaPlusProfessions/HasProfessions|contains=Ironmonger": "true"
-			}
-		}*/
 	]
 }

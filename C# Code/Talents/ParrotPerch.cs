@@ -16,7 +16,7 @@ namespace VanillaPlusProfessions.Talents
 
         public ParrotPerch()
         {
-            ParrotAnim = new AnimatedSprite();
+            ParrotAnim = new();
             ParrotAnim.CurrentAnimation = new();
             //add frames.
             CreateParrotAnimation();
@@ -24,53 +24,53 @@ namespace VanillaPlusProfessions.Talents
 
         public ParrotPerch(Vector2 tileLocation, string itemId, bool isRecipe) : base(tileLocation, itemId, isRecipe)
         {
-            ParrotAnim = new AnimatedSprite();
+            ParrotAnim = new();
             ParrotAnim.CurrentAnimation = new();
             //add frames.
             CreateParrotAnimation();
+            var obj = ItemRegistry.Create(itemId, 1, 0, false);
+            this.itemId.Value = itemId;
+            name = obj.Name;
+            bigCraftable.Value = true;
+            
         }
 
-        public override bool checkForAction(Farmer who, bool justCheckingForActivity = false)
+        public override bool performObjectDropInAction(Item dropInItem, bool probe, Farmer who, bool returnFalseIfItemConsumed = false)
         {
-            if (who.CurrentItem is not null)
+            if (returnFalseIfItemConsumed)
             {
-                if (who.CurrentItem is Trinket trinket && trinket.QualifiedItemId is "(TR)ParrotEgg")
-                {
-                    if (heldObject.Value is null)
-                    {
-                        if (justCheckingForActivity)
-                        {
-                            return true;
-                        }
-                        else
-                        {
-                            heldObject.Value = trinket;
-                            who.ActiveItem = null;
-                            CreateParrotAnimation();
-                        }
-                    }
-                }
-               
+                return dropInItem.QualifiedItemId is "(TR)ParrotEgg" && heldObject.Value is null;
             }
             else
             {
-                if (heldObject.Value is not null)
+                if (dropInItem is Trinket trinket && trinket.QualifiedItemId is "(TR)ParrotEgg" && heldObject.Value is null)
                 {
-                    if (justCheckingForActivity)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        who.addItemByMenuIfNecessary(heldObject.Value);
-                        heldObject.Value = null;
-                    }
+                    heldObject.Value = trinket;
+                    dropInItem.ConsumeStack(1);
+                    CreateParrotAnimation();
+                    return true;
                 }
-                
+                else if (heldObject.Value is not null)
+                {
+                    who.addItemByMenuIfNecessary(heldObject.Value);
+                    heldObject.Value = null;
+                }
             }
-            return true;
+            return false;
         }
-
+        public override bool performDropDownAction(Farmer who)
+        {
+            if (Game1.player.currentLocation is AnimalHouse)
+            {
+                return false;
+            }
+            else
+            {
+                Game1.addHUDMessage(new(ModEntry.Helper.Translation.Get("Message.ParrotPerch"), HUDMessage.error_type));
+                return false;
+            }
+            return false;
+        }
         private void CreateParrotAnimation()
         {
             if (ParrotAnim is null)

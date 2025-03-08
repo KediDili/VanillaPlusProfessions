@@ -11,6 +11,7 @@ using StardewValley.Monsters;
 using StardewValley.Objects;
 using StardewValley.TerrainFeatures;
 using VanillaPlusProfessions.Utilities;
+using StardewValley.Quests;
 
 namespace VanillaPlusProfessions.Talents.Patchers
 {
@@ -78,6 +79,12 @@ namespace VanillaPlusProfessions.Talents.Patchers
                     }
                     if (TalentUtility.CurrentPlayerHasTalent("HiddenBenefits") && Game1.random.NextBool(0.1))
                     {
+                        if (Game1.player.currentLocation.GetFridge()?.Items.ContainsId("(TR)IceRod") is true)
+                        {
+                            @object.Quality = 2;
+                            __result = @object;
+                            return false;
+                        }
                         foreach (var item in Game1.player.currentLocation.Objects.Pairs)
                         {
                             if (item.Value is Chest chest && chest.QualifiedItemId == "(BC)216" && chest.Items.ContainsId("(TR)IceRod"))

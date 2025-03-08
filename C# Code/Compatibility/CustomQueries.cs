@@ -42,13 +42,15 @@ namespace VanillaPlusProfessions.Compatibility
             if (!ArgUtility.TryGet(query, 1, out var farmer, out var error) || !ArgUtility.TryGet(query, 2, out var talentToCheck, out error))
             {
                 ModEntry.ModMonitor.Log($"Invalid values were provided to {ModEntry.Manifest.UniqueID + "_" + nameof(PlayerHasTalent)} query.\n - Query string: {string.Join(" ", query)}\n - Error: {error}", StardewModdingAPI.LogLevel.Warn);
-                return false;
             }
-
-            return GameStateQuery.Helpers.WithPlayer(context.Player ?? Game1.player, farmer, farmer =>
+            else if ((context.Player ?? Game1.player).mailReceived.Count > 0)
             {
-                return !ModEntry.ModConfig.Value.ProfessionsOnly && TalentUtility.CurrentPlayerHasTalent(talentToCheck, who: farmer, isGSQCall: false);
-            });
+                return GameStateQuery.Helpers.WithPlayer(context.Player ?? Game1.player, farmer, farmer =>
+                {
+                    return !ModEntry.ModConfig.Value.ProfessionsOnly && TalentUtility.CurrentPlayerHasTalent(talentToCheck, who: farmer);
+                });
+            }
+            return false;
         }
 
         bool PlayerHasProfession(string[] query, GameStateQueryContext context)

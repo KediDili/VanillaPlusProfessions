@@ -201,17 +201,20 @@ namespace VanillaPlusProfessions.Managers
         {
             try
             {
-                if (CoreUtility.CurrentPlayerHasProfession("Technician", useThisInstead: __instance) && ((MeleeWeapon.defenseCooldown > 0 && MeleeWeapon.defenseCooldown < 4000) || (MeleeWeapon.daggerCooldown > 0 && MeleeWeapon.daggerCooldown < 4000) || (MeleeWeapon.clubCooldown > 0 && MeleeWeapon.clubCooldown < 4000) || (MeleeWeapon.attackSwordCooldown < 4000 && MeleeWeapon.attackSwordCooldown > 0)))
+                if (__instance.temporaryInvincibilityTimer == 0 && __instance.isRidingHorse())
                 {
-                    TalentUtility.MakeFarmerInvincible(__instance);
-                    __result = false;
+                    if (CoreUtility.CurrentPlayerHasProfession("Technician", useThisInstead: __instance) && 
+                        ((MeleeWeapon.defenseCooldown > 0 && MeleeWeapon.defenseCooldown < 4000)
+                        || (MeleeWeapon.daggerCooldown > 0 && MeleeWeapon.daggerCooldown < 4000)
+                        || (MeleeWeapon.clubCooldown > 0 && MeleeWeapon.clubCooldown < 4000)
+                        || (MeleeWeapon.attackSwordCooldown < 4000 && MeleeWeapon.attackSwordCooldown > 0))
+                        || ((Game1.random.NextBool(0.1) && TalentUtility.CurrentPlayerHasTalent("Sidestep", who: __instance) && !__instance.isWearingRing("520")
+                        && __instance.currentLocation is SlimeHutch)))
+                    {
+                        TalentUtility.MakeFarmerInvincible(__instance);
+                        __result = false;
+                    }
                 }
-                else if (Game1.random.NextBool(0.1) && TalentUtility.CurrentPlayerHasTalent("Sidestep", who: __instance) && !(__instance.isWearingRing("520") && __instance.currentLocation is SlimeHutch))
-                {
-                    TalentUtility.MakeFarmerInvincible(__instance);
-                    __result = false;
-                }
-
             }
             catch (Exception e)
             {

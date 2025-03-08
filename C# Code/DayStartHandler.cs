@@ -134,10 +134,9 @@ namespace VanillaPlusProfessions
             {
                 string[] strings = value.Split('+');
                 Vector2 vector = new(int.Parse(strings[0]), int.Parse(strings[1]));
-                if (Game1.getFarm().terrainFeatures.TryGetValue(vector, out TerrainFeature terrainFeature) && terrainFeature is HoeDirt dirt && dirt.crop is not null and Crop crop)
+                if (Game1.getFarm().terrainFeatures.TryGetValue(vector, out TerrainFeature terrainFeature) && terrainFeature is HoeDirt dirt && dirt.crop is Crop crop)
                 {
-                    HandleCropFairy(ref crop);
-                    Game1.getFarm().modData.Remove(TalentCore.Key_FaeBlessings);
+                    HandleCropFairy(crop);
                 }
             }
             if (TalentUtility.AnyPlayerHasTalent("HiddenBenefits"))
@@ -147,6 +146,7 @@ namespace VanillaPlusProfessions
                     if (crop.modData.TryGetValue(TalentCore.Key_HiddenBenefit_Crop, out string val) && val == "true")
                     {
                         crop.growCompletely();
+                        crop.modData[TalentCore.Key_HiddenBenefit_Crop] = "false";
                     }
 
                     return true;
@@ -313,7 +313,6 @@ namespace VanillaPlusProfessions
                         List<Vector2> nullobjs = new();
                         for (int XX = 0; XX < slimeHutch.Map.Layers[0].LayerWidth; XX++)
                         {
-                            
                             for (int YY = 0; YY < slimeHutch.Map.Layers[0].LayerHeight; YY++)
                             {
                                 if (slimeHutch.isTilePlaceable(new(XX, YY), false) && !slimeHutch.isTileOnWall(XX, YY) && slimeHutch.isTileLocationOpen(new Location(XX, YY)))
@@ -515,7 +514,7 @@ namespace VanillaPlusProfessions
                 return true;
             });
         }
-        private static void HandleCropFairy(ref Crop crop)
+        private static void HandleCropFairy(Crop crop)
         {
             if (crop.currentPhase.Value == crop.phaseDays.Count - 1 && crop.TryGetGiantCrops(out var possibleGiantCrops))
             {

@@ -2,7 +2,7 @@
   "Name": "Vanilla Plus Professions",
   "Author": "KediDili",
   "Description": "Adds further branches to vanilla professions.",
-  "Version": "1.0.6",
+  "Version": "1.0.7",
   "UniqueID": "KediDili.VanillaPlusProfessions",
   "EntryDLL": "VanillaPlusProfessions.dll",
   "MinimumApiVersion": "4.0.0",

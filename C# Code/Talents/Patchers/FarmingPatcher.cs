@@ -302,7 +302,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
         {
             try
             {
-                if (TalentUtility.AllPlayersHaveTalent("Farming_Fae_Blessings"))
+                if (TalentUtility.AllPlayersHaveTalent("FaeBlessings"))
                 {
                     Game1.getFarm().modData[TalentCore.Key_FaeBlessings] = $"{__result.X}+{__result.Y}";
                 }

@@ -581,7 +581,7 @@
 	//Messages
 	"Message.FairyBreak": "Give the fairy a break!",
 	"Message.AlreadyFertilized": "The crop is already fertilized.",
-	"Message.Fertilized": "The crop has been fertiilized.",
+	"Message.Fertilized": "The crop has been fertilized.",
 	"Message.TalentPoint": "Congratulations, you've got new talent points to spend!",
 	"Message.ReadDwarfScroll": "You've learnt a few things about mining from the ancient dwarven scroll.",
 	"Message.ForageBubbleReset": "Bubble-spawning forage has been reset.",

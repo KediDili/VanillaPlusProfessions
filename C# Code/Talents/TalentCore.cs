@@ -23,6 +23,8 @@ using SpaceCore;
 using StardewValley.GameData.Objects;
 using VanillaPlusProfessions.Craftables;
 using StardewValley.Triggers;
+using Microsoft.Xna.Framework;
+using StardewValley.Network;
 
 namespace VanillaPlusProfessions.Talents
 {
@@ -33,6 +35,8 @@ namespace VanillaPlusProfessions.Talents
         internal static readonly PerScreen<bool> IsActionButtonUsed = new();
         internal static readonly PerScreen<int> prevTimeSpeed = new();
         internal static readonly PerScreen<bool> IsCookoutKit = new();
+        internal static PerScreen<int> TripleShotCooldown = new();
+
         internal static bool IsDayStartOrEnd = false;
 
         internal const string Key_TalentPoints = "Kedi.VPP.TalentPointCount";
@@ -80,6 +84,7 @@ namespace VanillaPlusProfessions.Talents
             ModEntry.Helper.Events.GameLoop.SaveLoaded += OnSaveLoaded;
             ModEntry.Helper.Events.GameLoop.ReturnedToTitle += OnReturnedToTitle;
             ModEntry.Helper.Events.GameLoop.SaveCreated += OnSaveCreated;
+            ModEntry.Helper.Events.Multiplayer.ModMessageReceived += OnModMessageReceived;
 
             if (!ModEntry.ModConfig.Value.ProfessionsOnly)
             {
@@ -88,7 +93,7 @@ namespace VanillaPlusProfessions.Talents
                 ModEntry.Helper.Events.World.NpcListChanged += OnNPCListChanged;
                 ModEntry.Helper.Events.World.TerrainFeatureListChanged += OnTerrainFeatureListChanged;
                 ModEntry.Helper.Events.World.ChestInventoryChanged += OnChestInventoryChanged;
-                ModEntry.Helper.Events.Multiplayer.ModMessageReceived += OnModMessageReceived;
+                ModEntry.Helper.Events.GameLoop.OneSecondUpdateTicked += OnOneSecondUpdateTicked;
 
                 List<Talent> Talentlist = ModEntry.Helper.ModContent.Load<List<Talent>>("assets\\talents.json");
 
@@ -100,7 +105,7 @@ namespace VanillaPlusProfessions.Talents
                 SpaceEvents.AfterGiftGiven += OnAfterGiftGiven;
                 SpaceEvents.ChooseNightlyFarmEvent += OnChooseNightlyFarmEvent;
 
-                ModEntry.VanillaPlusProfessionsAPI.RegisterTalentStatusAction(new string[] { "AlchemicReversal", "OverTheRainbow", "SurvivalCooking", "DriftFencing", "TakeItSlow", "Upcycling", "CampSpirit", "SpringThaw", "Accessorise", "EssenceInfusion", "DoubleHook", "ColdPress", "SurvivalCooking", "SugarRush", "SapSipper", "TrashedTreasure", "EyeSpy", "FisheryGrant", "MonumentalDiscount", "Overcrowding", "InTheWeeds", "LegendaryVariety", "EveryonesBestFriend", "BookclubBargains", "WelcomeToTheJungle", "VastDomain", "HiddenBenefits", "SleepUnderTheStars" }, TalentUtility.DataUpdates);
+                ModEntry.VanillaPlusProfessionsAPI.RegisterTalentStatusAction(new string[] { "AlchemicReversal", "OverTheRainbow", "SurvivalCooking", "DriftFencing", "TakeItSlow", "Upcycling", "CampSpirit", "SpringThaw", "Accessorise", "EssenceInfusion", "DoubleHook", "ColdPress", "SugarRush", "SapSipper", "TrashedTreasure", "EyeSpy", "FisheryGrant", "MonumentalDiscount", "Overcrowding", "InTheWeeds", "LegendaryVariety", "EveryonesBestFriend", "BookclubBargains", "WelcomeToTheJungle", "VastDomain", "HiddenBenefits", "SleepUnderTheStars" }, TalentUtility.DataUpdates);
                 ModEntry.VanillaPlusProfessionsAPI.RegisterTalentStatusAction(new string[] { "SapSipper", "SugarRush", "Accessorise" }, TalentUtility.OnItemBasedTalentBoughtOrRefunded);
                 ModEntry.VanillaPlusProfessionsAPI.RegisterTalentStatusAction(new string[] { "GiftOfTheTalented" }, TalentUtility.GiftOfTheTalented_ApplyOrUnApply);
 
@@ -122,14 +127,19 @@ namespace VanillaPlusProfessions.Talents
         {
             if (e.FromModID == ModEntry.Manifest.UniqueID && e.FromPlayerID == Game1.MasterPlayer.UniqueMultiplayerID && !Context.IsMainPlayer)
             {
-                if (e.Type == "SwitchMineStones" && e.ReadAs<GameLocation>() is not null and GameLocation location)
+                if (e.Type == ModEntry.Manifest.UniqueID + "/SwitchMineStones" && e.ReadAs<Dictionary<Vector2, string>>() is Dictionary<Vector2, string> dict)
                 {
-                    foreach (var key in location.Objects.Keys)
+                    foreach (var key in dict.Keys)
                     {
-                        Game1.player.currentLocation.Objects[key] = location.Objects[key];
+                        var stone = ItemRegistry.Create<StardewValley.Object>(dict[key]);
+                        if (stone.ItemId is "2" or "4" or "6" or "8" or "10" or "12" or "14" or "95")
+                        {
+                            stone.MinutesUntilReady = TalentUtility.GetStoneHealth(stone.ItemId);
+                        }
+                        Game1.player.currentLocation.Objects[key] = stone;
                     }
                 }
-                else if (e.Type == "MushroomLevel")
+                else if (e.Type == ModEntry.Manifest.UniqueID + "/MushroomLevel")
                 {
                     (Game1.player.currentLocation as MineShaft).rainbowLights.Value = true;
                 }
@@ -238,6 +248,14 @@ namespace VanillaPlusProfessions.Talents
             }
             return e.OldTime + 10 == e.NewTime;
         }
+
+        internal static void OnOneSecondUpdateTicked(object sender, OneSecondUpdateTickedEventArgs e)
+        {
+            if (TripleShotCooldown.Value > 0)
+            {
+                TripleShotCooldown.Value -= 1000;
+            }
+        }
         internal static void OnTimeChanged(object sender, TimeChangedEventArgs e)
         {
             if (e.OldTime < e.NewTime && IsTimeFollowing(e))
@@ -264,32 +282,31 @@ namespace VanillaPlusProfessions.Talents
                         Game1.player.health += 15;
                     }
                 }
-                if (TalentUtility.CurrentPlayerHasTalent("Farming_Resurgence") && HasWaterCan.Value)
+                if (TalentUtility.CurrentPlayerHasTalent("Resurgence") && HasWaterCan.Value)
                 {
                     foreach (var item in Game1.player.Items)
                     {
                         if (item is WateringCan can && can.modData.TryGetValue(Key_Resurgence, out string val))
                         {
-                            if (val == "90" && can.WaterLeft < can.waterCanMax)
+                            int value = int.TryParse(val, out int result) ? result : -1 ;
+                            if (value >= 90 && can.WaterLeft < can.waterCanMax)
                             {
                                 can.modData[Key_Resurgence] = "0";
                                 can.WaterLeft += can.waterCanMax / 5;
                                 if (can.waterCanMax < can.WaterLeft)
-                                {
                                     can.WaterLeft = can.waterCanMax;
-                                }
                                 break;
                             }
-                            else if (!can.IsBottomless)
+                            else if (!can.IsBottomless && value != -1)
                             {
-                                can.modData[Key_Resurgence] = (int.Parse(val) + 10).ToString();
+                                can.modData[Key_Resurgence] = (value + 10).ToString();
                                 break;
                             }
                         }
                     }
                 }
             }
-            if (TalentUtility.AllPlayersHaveTalent("Mining_Shared_Focus"))
+            if (TalentUtility.AllPlayersHaveTalent("SharedFocus"))
             {
                 var data = Game1.MasterPlayer.currentLocation.modData;
                 if ((Game1.MasterPlayer.currentLocation is MineShaft or VolcanoDungeon || data?.ContainsKey(Key_SharedFocus) is true) && prevTimeSpeed.Value is 0)
@@ -318,22 +335,44 @@ namespace VanillaPlusProfessions.Talents
         {
             if (e.IsLocalPlayer)
             {
+                if (e.QuantityChanged is not null)
+                {
+                    foreach (var item in e.QuantityChanged)
+                    {
+                        if (item is not null)
+                        {
+                            if (item.NewSize != item.OldSize)
+                            {
+                                TalentUtility.DetermineGeodeDrop(item.Item);
+                            }
+                        }
+                    }
+                    for (int i = 0; i < e.Player.Items.Count; i++)
+                    {
+                        int stack = e.Player.Items[i]?.Stack ?? 1;
+                        if (e.Player.Items[i]?.QualifiedItemId == "(BC)Kedi.VPP.HiddenBenefits.ParrotPerch")
+                        {
+                            e.Player.Items[i] = new ParrotPerch(Vector2.Zero, "Kedi.VPP.HiddenBenefits.ParrotPerch", false);
+                            e.Player.Items[i].Stack = stack;
+                        }
+                    }
+                }
                 if (e.Added is not null)
                 {
                     foreach (var item in e.Added)
                     {
-                        TalentUtility.DetermineGeodeDrop(item);
-                    }
-                    foreach (var item in e.Added)
-                    {
-                        if (item is WateringCan can && can is not null && !can.IsBottomless)
+                        if (Game1.activeClickableMenu is MenuWithInventory menu && menu.heldItem != item || Game1.activeClickableMenu is null)
+                        {
+                            if (!item.modData.ContainsKey(Key_XrayDrop))
+                            {
+                                TalentUtility.DetermineGeodeDrop(item);
+                            }
+                        }
+                        else if (item is WateringCan can && can is not null && !can.IsBottomless)
                         {
                             HasWaterCan.Value = true;
-                            if (!can.modData.TryAdd(Key_Resurgence, "0"))
-                            {
-                                can.modData[Key_Resurgence] = "0";
-                                break;
-                            }
+                            can.modData[Key_Resurgence] = "0";
+                            break;
                         }
                         else if (item is StardewValley.Object obj && obj.QualifiedItemId == "(O)92")
                         {
@@ -354,6 +393,15 @@ namespace VanillaPlusProfessions.Talents
                             }
                         }
                     }
+                    for (int i = 0; i < e.Player.Items.Count; i++)
+                    {
+                        int stack = e.Player.Items[i]?.Stack ?? 1;
+                        if (e.Player.Items[i]?.QualifiedItemId == "(BC)Kedi.VPP.HiddenBenefits.ParrotPerch")
+                        {
+                            e.Player.Items[i] = new ParrotPerch(Vector2.Zero, "Kedi.VPP.HiddenBenefits.ParrotPerch", false);
+                            e.Player.Items[i].Stack = stack;
+                        }
+                    }
                 }
                 if (e.Removed is not null)
                 {
@@ -362,30 +410,14 @@ namespace VanillaPlusProfessions.Talents
                         if (item is WateringCan can && can is not null && !can.IsBottomless)
                         {
                             HasWaterCan.Value = false;
-                            if (!can.modData.TryAdd(Key_Resurgence, "0"))
-                            {
-                                can.modData[Key_Resurgence] = "0";
-                                break;
-                            }
+                            can.modData[Key_Resurgence] = "0";
+                            break;
                         }
-                    }
-                    foreach (var item in e.Removed)
-                    {
-                        if (Game1.activeClickableMenu is not GeodeMenu or GameMenu)
+                        else if (Game1.activeClickableMenu is MenuWithInventory menu && menu.heldItem != item || Game1.activeClickableMenu is null)
                         {
-                            TalentUtility.DetermineGeodeDrop(item);
-                        }
-                    }
-                }
-                if (e.QuantityChanged is not null)
-                {
-                    foreach (var item in e.QuantityChanged)
-                    {
-                        if (item is not null)
-                        {
-                            if (item.NewSize < item.OldSize)
+                            if (!item.modData.ContainsKey(Key_XrayDrop))
                             {
-                                TalentUtility.DetermineGeodeDrop(item.Item);
+                                TalentUtility.DetermineGeodeDrop(item);
                             }
                         }
                     }
@@ -485,7 +517,6 @@ namespace VanillaPlusProfessions.Talents
                 AddTalentPoint(10);
             }
         }
-        internal static void OnAchievementAdded(int value) => AddTalentPoint();
         internal static void OnSpecialOrderChanged(NetList<SpecialOrder, NetRef<SpecialOrder>> list, int index, SpecialOrder OldOrder, SpecialOrder NewOrder)
         {
             if (NewOrder is not null)
@@ -497,6 +528,10 @@ namespace VanillaPlusProfessions.Talents
 
         public static void AddTalentPoint(int increase = 1, bool postMessage = true)
         {
+            if (postMessage && ModEntry.IsRecalculatingPoints.Value)
+            {
+                ModEntry.IsRecalculatingPoints.Value = false;
+            }
             TalentPointCount.Value += increase;
             if (postMessage && !ModEntry.ModConfig.Value.ProfessionsOnly)
                 Game1.showGlobalMessage(ModEntry.Helper.Translation.Get("Message.TalentPoint"));
@@ -504,7 +539,7 @@ namespace VanillaPlusProfessions.Talents
 
         internal static void OnTerrainFeatureListChanged(object sender, TerrainFeatureListChangedEventArgs e)
         {
-            if (e.Added.Any() && TalentUtility.CurrentPlayerHasTalent("Foraging_Reforestation"))
+            if (e.Added.Any() && TalentUtility.CurrentPlayerHasTalent("Reforestation"))
             {
                 foreach (var item in e.Added)
                 {
