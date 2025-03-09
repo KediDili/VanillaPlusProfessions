@@ -22,6 +22,7 @@ using StardewValley.Objects;
 using StardewValley.Objects.Trinkets;
 using SpaceCore.Interface;
 using VanillaPlusProfessions.Craftables;
+using VanillaPlusProfessions.Compatibility;
 
 namespace VanillaPlusProfessions
 {
@@ -51,6 +52,18 @@ namespace VanillaPlusProfessions
             ModEntry.Helper.Events.Display.RenderedStep += OnRenderedStep;
             ModEntry.Helper.Events.Display.RenderedHud += OnRenderedHud;
             ModEntry.Helper.Events.Input.ButtonPressed += OnButtonPressed;
+        }
+        internal static void InitializeBetterGameMenu()
+        {
+            if (ModEntry.BetterGameMenuAPI is not null)
+            {
+                ModEntry.BetterGameMenuAPI.OnPageCreated(OnPageCreated);
+            }
+        }
+        private static void OnPageCreated(IPageCreatedEvent e)
+        {
+            if (e.Page is SkillsPage or NewSkillsPage && CoreUtility.IsOverlayValid() && ShouldHandleSkillPage.Value)
+                HandleSkillPage(e.Page, e.Menu);
         }
         private static void OnButtonPressed(object sender, ButtonPressedEventArgs e)
         {
@@ -125,6 +138,7 @@ namespace VanillaPlusProfessions
                 FarmerInShopID = -1;
             }
 
+            // not using ModEntry.GetGameMenuPage() because BetterGameMenu won't have a SkillsPage initialized at MenuChanged
             if (e.NewMenu is GameMenu menu1 && menu1.pages[1] is SkillsPage or NewSkillsPage && CoreUtility.IsOverlayValid() && ShouldHandleSkillPage.Value)
                 HandleSkillPage(menu1.pages[1], menu1);
 
@@ -162,7 +176,7 @@ namespace VanillaPlusProfessions
                 }
             }
 
-            if (e.OldMenu is GameMenu || e.NewMenu is GameMenu)
+            if (ModEntry.IsGameMenu(e.OldMenu) || ModEntry.IsGameMenu(e.NewMenu))
                 IsOverlayActive.Value = false;
 
             if (e.OldMenu is CraftingPage craftingPage && craftingPage.cooking && e.NewMenu is null)
@@ -278,12 +292,14 @@ namespace VanillaPlusProfessions
         }
         private static void OnRenderedActiveMenu(object sender, RenderedActiveMenuEventArgs e)
         {
-            if (Game1.activeClickableMenu is GameMenu menu)
+            if (ModEntry.IsGameMenu(Game1.activeClickableMenu))
             {
-                if (menu.pages[menu.currentTab] is SkillsPage page)
+                var menuPage = ModEntry.GetGameMenuPage(Game1.activeClickableMenu);
+                if (menuPage is SkillsPage page)
                 {
                     if (IsOverlayActive.Value)
                     {
+                        
                         string hoverText = ModEntry.Helper.Reflection.GetField<string>(page, "hoverText").GetValue();
                         string hoverTitle = ModEntry.Helper.Reflection.GetField<string>(page, "hoverTitle").GetValue();
                         for (int FF = 0; FF < 5; FF++)
@@ -314,11 +330,11 @@ namespace VanillaPlusProfessions
                             sb.Append(hoverText);
                             drawHoverText(e.SpriteBatch, sb, Game1.smallFont, hoverTitle);
                         }
-                        else if (menu.hoverText.Length > 0)
+                        else if (Game1.activeClickableMenu is GameMenu gameMenu && gameMenu.hoverText.Length > 0)
                         {
                             StringBuilder sb = new();
-                            sb.Append(menu.hoverText);
-                            drawHoverText(e.SpriteBatch, sb, Game1.smallFont, hoverTitle);
+                            sb.Append(gameMenu.hoverText);
+                            drawHoverText(e.SpriteBatch, sb, Game1.smallFont, null);
                         }
 
                         if (MyCustomSkillBars.Value?.Any() is true && !MyCustomSkillBars.Value.Contains(null))
@@ -339,7 +355,7 @@ namespace VanillaPlusProfessions
                         page.drawMouse(e.SpriteBatch);
                     }
                 }
-                else if (menu.pages[menu.currentTab] is NewSkillsPage page2)
+                else if (menuPage is NewSkillsPage page2)
                 {
                     string hoverText = ModEntry.Helper.Reflection.GetField<string>(page2, "hoverText").GetValue();
                     string hoverTitle = ModEntry.Helper.Reflection.GetField<string>(page2, "hoverTitle").GetValue();
@@ -428,11 +444,11 @@ namespace VanillaPlusProfessions
                         sb.Append(hoverText);
                         drawHoverText(e.SpriteBatch, sb, Game1.smallFont, hoverTitle);
                     }
-                    else if (menu.hoverText.Length > 0)
+                    else if (Game1.activeClickableMenu is GameMenu gameMenu && gameMenu.hoverText.Length > 0)
                     {
                         StringBuilder sb = new();
-                        sb.Append(menu.hoverText);
-                        drawHoverText(e.SpriteBatch, sb, Game1.smallFont, hoverTitle);
+                        sb.Append(gameMenu.hoverText);
+                        drawHoverText(e.SpriteBatch, sb, Game1.smallFont, null);
                     }
                 }
             }
@@ -456,17 +472,17 @@ namespace VanillaPlusProfessions
         }
         private static void OnWindowResized(object sender, WindowResizedEventArgs e)
         {
-            if (Game1.activeClickableMenu is GameMenu menu1 && menu1.pages[1] is SkillsPage page && CoreUtility.IsOverlayValid())
-                HandleSkillPage(page, menu1);
+            if (ModEntry.GetGameMenuPage(Game1.activeClickableMenu) is SkillsPage page && CoreUtility.IsOverlayValid())
+                HandleSkillPage(page, Game1.activeClickableMenu);
         }
-        public static void HandleSkillPage(IClickableMenu page, GameMenu menu)
+        public static void HandleSkillPage(IClickableMenu page, IClickableMenu menu)
         {
             ShouldHandleSkillPage.Value = false;
             
-            if (page is NewSkillsPage newSkillsPage && Game1.activeClickableMenu is GameMenu menu2)
+            if (page is NewSkillsPage newSkillsPage)
             {
                 MyCustomSkillBars.Value = newSkillsPage.skillBars.ToArray();
-                NewSkillsPage skillsPage2 = new(menu2.xPositionOnScreen, menu2.yPositionOnScreen, menu2.width + ((LocalizedContentManager.CurrentLanguageCode is LocalizedContentManager.LanguageCode.ru or LocalizedContentManager.LanguageCode.it) ? 64 : 0), menu2.height);
+                NewSkillsPage skillsPage2 = new(menu.xPositionOnScreen, menu.yPositionOnScreen, menu.width + ((LocalizedContentManager.CurrentLanguageCode is LocalizedContentManager.LanguageCode.ru or LocalizedContentManager.LanguageCode.it) ? 64 : 0), menu.height);
                 VanillaSkillBars.Value = skillsPage2.skillBars.ToArray();
 
                 List<(int, int)> IndexAndProfessions = new();

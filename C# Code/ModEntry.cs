@@ -42,7 +42,7 @@ namespace VanillaPlusProfessions
         internal static PerScreen<ISpaceCore> SpaceCoreAPI = new();
         internal static PerScreen<IWearMoreRings> WearMoreRingsAPI = new();
         internal static PerScreen<IItemExtensions> ItemExtensionsAPI = new();
-        
+        internal static IBetterGameMenuApi BetterGameMenuAPI;
 
         internal static readonly VanillaPlusProfessionsAPI VanillaPlusProfessionsAPI = new();
 
@@ -130,7 +130,7 @@ namespace VanillaPlusProfessions
                 SpaceCoreAPI.Value = Helper.ModRegistry.GetApi<ISpaceCore>("spacechase0.SpaceCore");
                 WearMoreRingsAPI.Value = Helper.ModRegistry.GetApi<IWearMoreRings>("bcmpinc.WearMoreRings");
                 ItemExtensionsAPI.Value = Helper.ModRegistry.GetApi<IItemExtensions>("mistyspring.ItemExtensions");
-
+                BetterGameMenuAPI = Helper.ModRegistry.GetApi<IBetterGameMenuApi>("leclair.bettergamemenu");
             }
             catch (Exception)
             {
@@ -138,6 +138,7 @@ namespace VanillaPlusProfessions
             }
 
             CustomQueries.Initialize();
+            DisplayHandler.InitializeBetterGameMenu();
 
             if (ContentPatcherAPI.Value is not null)
             {
@@ -197,6 +198,30 @@ namespace VanillaPlusProfessions
                     yield return item.Key;
                 }
             }
+        }
+
+        /// <summary>
+        /// Get the current page from the provided <see cref="GameMenu"/> or
+        /// <c>BetterGameMenu</c> instance. Returns <c>null</c> if the provided
+        /// menu is not one of those menus.
+        /// </summary>
+        /// <param name="menu">The menu to get the current page from.</param>
+        public static IClickableMenu GetGameMenuPage(IClickableMenu menu)
+        {
+            if (menu is GameMenu gameMenu)
+                return gameMenu.GetCurrentPage();
+            if (BetterGameMenuAPI != null && menu != null)
+                return BetterGameMenuAPI.GetCurrentPage(menu);
+            return null;
+        }
+
+        public static bool IsGameMenu(IClickableMenu menu)
+        {
+            if (menu is GameMenu)
+                return true;
+            if (BetterGameMenuAPI != null)
+                return BetterGameMenuAPI.AsMenu(menu) != null;
+            return false;
         }
 
         public static IEnumerable<string> GetTalents()
@@ -526,11 +551,12 @@ namespace VanillaPlusProfessions
                     }
                 }
             }
-            else if (Game1.activeClickableMenu is GameMenu menu2)
+            else if (IsGameMenu(Game1.activeClickableMenu))
             {
                 if (e.Button.IsUseToolButton() || e.Button.IsActionButton())
                 {
-                    if (menu2.pages[menu2.currentTab] is SkillsPage page)
+                    var menuPage = GetGameMenuPage(Game1.activeClickableMenu);
+                    if (menuPage is SkillsPage page)
                     {
                         if (CoreUtility.IsOverlayValid() && DisplayHandler.LittleArrow.Value.containsPoint(Game1.getMouseX(true), Game1.getMouseY(true)))
                         {
@@ -538,10 +564,11 @@ namespace VanillaPlusProfessions
                             page.skillBars = DisplayHandler.IsOverlayActive.Value ? DisplayHandler.MyCustomSkillBars.Value.ToList() : DisplayHandler.VanillaSkillBars.Value.ToList();
                         }
                     }
-                    else if (menu2.pages[menu2.currentTab] is NewSkillsPage pagee)
+                    else if (menuPage is NewSkillsPage pagee)
                     {
                         if (CoreUtility.IsOverlayValid() && DisplayHandler.LittleArrow.Value.containsPoint(Game1.getMouseX(true), Game1.getMouseY(true)))
                         {
+                            var menu2 = Game1.activeClickableMenu;
                             DisplayHandler.MyCustomSkillBars.Value = pagee.skillBars.ToArray();
                             NewSkillsPage skillsPage2 = new(menu2.xPositionOnScreen, menu2.yPositionOnScreen, menu2.width + ((LocalizedContentManager.CurrentLanguageCode is LocalizedContentManager.LanguageCode.ru or LocalizedContentManager.LanguageCode.it) ? 64 : 0), menu2.height);
                             DisplayHandler.VanillaSkillBars.Value = skillsPage2.skillBars.ToArray();
@@ -646,11 +673,12 @@ namespace VanillaPlusProfessions
                 TalentCore.IsActionButtonUsed.Value = false;
                 Game1.player.completelyStopAnimatingOrDoingAction();
             }
-            if (Game1.activeClickableMenu is GameMenu menu)
+            if (IsGameMenu(Game1.activeClickableMenu))
             {
                 if ((e.Button.IsUseToolButton() || e.Button.IsActionButton()) && !ModConfig.Value.ProfessionsOnly)
                 {
-                    if (menu.pages[menu.currentTab] is SkillsPage page)
+                    var menuPage = GetGameMenuPage(Game1.activeClickableMenu);
+                    if (menuPage is SkillsPage page)
                     {
                         for (int i = 0; i < page.skillAreas.Count; i++)
                         {
@@ -661,7 +689,7 @@ namespace VanillaPlusProfessions
                             }
                         }
                     }
-                    else if (menu.pages[menu.currentTab] is NewSkillsPage pagee)
+                    else if (menuPage is NewSkillsPage pagee)
                     {
                         for (int i = 0; i < pagee.skillAreas.Count; i++)
                         {

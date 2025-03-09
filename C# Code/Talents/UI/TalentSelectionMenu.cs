@@ -7,6 +7,7 @@ using StardewValley.BellsAndWhistles;
 using System.Linq;
 using VanillaPlusProfessions.Utilities;
 using Microsoft.Xna.Framework.Input;
+using VanillaPlusProfessions.Compatibility;
 
 namespace VanillaPlusProfessions.Talents.UI
 {
@@ -602,7 +603,11 @@ namespace VanillaPlusProfessions.Talents.UI
                     }
                 }
             }
-            var menu = new GameMenu(GameMenu.skillsTab);
+            IClickableMenu menu;
+            if (ModEntry.BetterGameMenuAPI is not null)
+                menu = ModEntry.BetterGameMenuAPI.CreateMenu(nameof(VanillaTabOrders.Skills));
+            else
+                menu = new GameMenu(GameMenu.skillsTab);
             Game1.nextClickableMenu.Add(menu);
         }
 
