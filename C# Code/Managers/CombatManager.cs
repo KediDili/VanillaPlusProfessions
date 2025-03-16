@@ -63,7 +63,7 @@ namespace VanillaPlusProfessions.Managers
                 {
                     if (isBomb)
                     {
-                        // Base takeDamange should be sufficient for bom
+                        // Base takeDamange should be sufficient for bombs
                         return;
                     }
                     int actualDamage = Math.Max(1, damage - __instance.resilience.Value);
