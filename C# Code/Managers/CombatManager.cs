@@ -60,8 +60,12 @@ namespace VanillaPlusProfessions.Managers
         {
             try
             {
-                if (CoreUtility.CurrentPlayerHasProfession("Warrior", useThisInstead: who))
                 {
+                    if (isBomb)
+                    {
+                        // Base takeDamange should be sufficient for bom
+                        return;
+                    }
                     int actualDamage = Math.Max(1, damage - __instance.resilience.Value);
                     if (Game1.random.NextDouble() < __instance.missChance.Value - __instance.missChance.Value * addedPrecision)
                     {
@@ -77,22 +81,13 @@ namespace VanillaPlusProfessions.Managers
                         __instance.IsWalkingTowardPlayer = true;
                         if (__instance.Health <= 0)
                         {
-                            if (!isBomb)
+                            Utility.makeTemporarySpriteJuicier(new TemporaryAnimatedSprite(44, __instance.Position, Color.BlueViolet, 10)
                             {
-                                Utility.makeTemporarySpriteJuicier(new TemporaryAnimatedSprite(44, __instance.Position, Color.BlueViolet, 10)
-                                {
-                                    holdLastFrame = true,
-                                    alphaFade = 0.01f,
-                                    interval = 70f
-                                }, __instance.currentLocation);
-                                __instance.currentLocation.playSound("ghost");
-                            }
-                            else
-                            {
-                                __instance.reviveTimer.Value = 10000;
-                                __instance.Health = __instance.MaxHealth;
-                                __instance.deathAnimation();
-                            }
+                                holdLastFrame = true,
+                                alphaFade = 0.01f,
+                                interval = 70f
+                            }, __instance.currentLocation);
+                            __instance.currentLocation.playSound("ghost");
                         }
                     }
                     __result = actualDamage;
