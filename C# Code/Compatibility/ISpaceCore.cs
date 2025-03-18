@@ -6,7 +6,9 @@ namespace VanillaPlusProfessions.Compatibility
     public interface ISpaceCore
     {
         string[] GetCustomSkills();
-        
+
+        string GetDisplayNameOfCustomSkill(string skill);
+
         int GetLevelForCustomSkill(Farmer farmer, string skill);
         
         int GetExperienceForCustomSkill(Farmer farmer, string skill);
