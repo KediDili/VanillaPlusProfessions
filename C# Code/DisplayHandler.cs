@@ -368,16 +368,22 @@ namespace VanillaPlusProfessions
                         {
                             if (skillAreaSkillIndexes.TryGetValue(item.myID, out int skillIndex) && (skillIndex < skillScrollOffset || skillIndex > LastVisibleSkillIndex))
                                 continue;
-                            if (item.name.StartsWith("C"))
+                            if (item.name.StartsWith('C'))
                             {
-                                int level = ModEntry.SpaceCoreAPI.Value.GetLevelForCustomSkill(Game1.player, item.name) - ModEntry.SpaceCoreAPI.Value.GetBuffLevelForCustomSkill(Game1.player, item.name) - 10;
+                                string thisSkillId = ModEntry.SpaceCoreAPI.Value.GetCustomSkills().First(s => item.name[1..] == ModEntry.SpaceCoreAPI.Value.GetDisplayNameOfCustomSkill(s));
+
+                                int level = ModEntry.SpaceCoreAPI.Value.GetLevelForCustomSkill(Game1.player, thisSkillId);
+
                                 for (int i = 0; i < 10; i++)
                                 {
                                     if (i is 4 or 9)
                                     {
                                         if (level < (1 + i))
                                             e.SpriteBatch.Draw(SkillIcons, new Vector2(item.bounds.X + item.bounds.Width + 24 + (36 * i) + (i is 9 ? 24 : 0), item.bounds.Y - (skillScrollOffset * 56)), new Rectangle(16, ModEntry.ModConfig.Value.ColorBlindnessChanges ? 9 : 0, 13, 9), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.5f);
-
+                                        else
+                                        {
+                                            e.SpriteBatch.Draw(SkillIcons, new Vector2(item.bounds.X + item.bounds.Width + 24 + (36 * i) + (i is 9 ? 24 : 0), item.bounds.Y - (skillScrollOffset * 56)), new Rectangle(30, ModEntry.ModConfig.Value.ColorBlindnessChanges ? 9 : 0, 13, 9), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.5f);
+                                        }
                                     }
                                     else
                                     {
@@ -427,7 +433,19 @@ namespace VanillaPlusProfessions
                                 if (c.containsPoint(Game1.getMouseX(true), Game1.getMouseY(true) + (skillScrollOffset * 56)) && c.hoverText.Length > 0 && !c.name.Equals("-1"))
                                 {
                                     IClickableMenu.drawTextureBox(e.SpriteBatch, Game1.menuTexture, new Rectangle(0, 256, 60, 60), c.bounds.X - 24, c.bounds.Y - 32 - (skillScrollOffset * 56), 96, 96, Color.White, drawShadow: false);
-                                    e.SpriteBatch.Draw(ProfessionIcons, new Vector2(c.bounds.X - 8, c.bounds.Y - 16 - (skillScrollOffset * 56)), new Rectangle((Convert.ToInt32(c.name) - 467830) % 6 * 16, (Convert.ToInt32(c.name) - 467830) / 6 * 16, 16, 16), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 1f);
+
+                                    if (c.name.StartsWith('C'))
+                                    {
+                                        Texture2D profIcon = SpaceCore.Skills.GetSkillList()
+                                            .SelectMany(s => SpaceCore.Skills.GetSkill(s).Professions)
+                                            .Single(p => p.Id == c.name[1..])
+                                            .Icon;
+                                        e.SpriteBatch.Draw(profIcon, new Vector2(c.bounds.X - 8, c.bounds.Y - 16 - (skillScrollOffset * 56)), new Rectangle(0, 0, 16, 16), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 1f);
+                                    }
+                                    else
+                                    {
+                                        e.SpriteBatch.Draw(ProfessionIcons, new Vector2(c.bounds.X - 8, c.bounds.Y - 16 - (skillScrollOffset * 56)), new Rectangle((Convert.ToInt32(c.name) - 467830) % 6 * 16, (Convert.ToInt32(c.name) - 467830) / 6 * 16, 16, 16), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 1f);
+                                    }
                                 }
                             }
                         }
