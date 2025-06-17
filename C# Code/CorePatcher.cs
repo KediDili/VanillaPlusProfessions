@@ -89,15 +89,20 @@ namespace VanillaPlusProfessions
             }
         }
 
-        public static void getPlatformAchievement_Postfix()
+        public static void getPlatformAchievement_Postfix(string which)
         {
             //There's a "retroactive achievements" thing because of some platforms not allowing achievements unless player actually does it.
             //So the game tries to restore lost achievements when the save loads and the day starts
             if (!ModEntry.ModConfig.Value.ProfessionsOnly && Game1.hasStartedDay)
             {
+                //This is a workaround for the "Protector Of The Valley" achievement, since the game tries to retroactively give it to the player every monster kill.
+                if (ModEntry.MonsterSlayerCompleted.Value && which == "Achievement_KeeperOfTheMysticRings") return;
+                if(which == "Achievement_KeeperOfTheMysticRings") ModEntry.MonsterSlayerCompleted.Value = true;
+                ModEntry.ModMonitor.Log($"Adding achievement {which} talent point to player", LogLevel.Debug);
                 TalentCore.AddTalentPoint();
             }
         }
+
         public static IEnumerable<CodeInstruction> DoFunction_Transpiler(IEnumerable<CodeInstruction> insns)
         {
             try

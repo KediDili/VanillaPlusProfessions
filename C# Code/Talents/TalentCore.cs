@@ -509,6 +509,7 @@ namespace VanillaPlusProfessions.Talents
                     return true;
                 });
             }
+            ModEntry.MonsterSlayerCompleted.Value = Game1.player.hasCompletedAllMonsterSlayerQuests.Value;
         }
         internal static void OnMailFlagGiven(string flag)
         {

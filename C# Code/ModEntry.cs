@@ -56,6 +56,7 @@ namespace VanillaPlusProfessions
         internal static PerScreen<int> GeodeStackSize = new(() => 0);
         internal static PerScreen<bool> IsUninstalling = new(() => false);
         internal static PerScreen<bool> IsRecalculatingPoints = new(() => false);
+        internal static PerScreen<bool> MonsterSlayerCompleted = new(() => false);
 
         internal static PerScreen<Config> ModConfig = new(createNewState: () => new Config());
 
