@@ -31,13 +31,14 @@ There're been translations sent and posted, which are listed below:
 - KediDili (Turkish - included with the mod)
 - Wailwolf (French - included with the mod)
 - Herasson (German - included with the mod)
-- ParanoiaNM (Chinese﻿)
-- BaoBao (Vietnamese﻿)
-- Ner0nWinTb (Polish﻿)
-- Mitsuki619 (Brazilian Portuguese﻿)
-- hopaifu (Russian﻿)
-- Gonzy42 (Spanish﻿)
+- ParanoiaNM ([Chinese](https://www.nexusmods.com/stardewvalley/mods/30374)﻿)
+- BaoBao ([Vietnamese](﻿https://www.nexusmods.com/stardewvalley/mods/30513))
+- Ner0nWinTb ([Polish](https://www.nexusmods.com/stardewvalley/mods/30494)﻿)
+- Mitsuki619 ([Brazilian Portuguese](https://www.nexusmods.com/stardewvalley/mods/30320﻿))
+- hopaifu ([Russian](https://www.nexusmods.com/stardewvalley/mods/30572)﻿)
+- Gonzy42 ([Spanish](https://www.nexusmods.com/stardewvalley/mods/30338﻿))
 
+And the following languages are:
 - Japanese: Missing
 - Korean: Missing
 - Italian: Missing
