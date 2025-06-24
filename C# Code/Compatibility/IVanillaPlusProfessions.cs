@@ -97,7 +97,7 @@ namespace VanillaPlusProfessions.Compatibility
         /// <summary>
         /// The config value.
         /// </summary>
-        public bool MasteryCaveChanges { get; }
+        public int MasteryCaveChanges { get; }
 
         /// <summary>
         /// The config value.

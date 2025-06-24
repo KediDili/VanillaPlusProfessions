@@ -415,58 +415,60 @@ namespace VanillaPlusProfessions.Talents.Patchers
         {
             try
             {
-                if (TalentUtility.CurrentPlayerHasTalent("Misc_GoodEats") && obj?.Buffs?.Any() is true)
+                if (TalentUtility.CurrentPlayerHasTalent("GoodEats") && obj?.Buffs?.Any() is true)
                 {
                     List<Buff> buffs = new();
                     foreach (var item in obj.Buffs)
                     {
-                        string bufftype = "";
-                        var effects = new BuffEffects(item.CustomAttributes);
-                        if (item.CustomAttributes is null)
+                        if (item.BuffId is not null && DataLoader.Buffs(Game1.content).ContainsKey(item.BuffId))
                         {
-                            bufftype = "CustomBuff_" + item.Id; 
-                            goto IFCUSTOMATTRIBUTESISNULL;
+                            buffs.Add(new Buff(item.BuffId));
+                            continue;
                         }
+                        string bufftype = item.Id;
+                        var effects = new BuffEffects(item.CustomAttributes);
+                        if (item.CustomAttributes is null) //
+                            goto IFCUSTOMATTRIBUTESISNULL;
                         
-                        adjustEffects.Invoke(effects);
+                        adjustEffects?.Invoke(effects);
 
-                        if (item.CustomAttributes.Immunity > 0)
+                        if (effects.Immunity.Value > 0)
                             bufftype = "immunity";
-                        else if (item.CustomAttributes.MaxStamina > 0)
+                        else if (effects.MaxStamina.Value > 0)
                             bufftype = "maxstamina";
-                        else if (item.CustomAttributes.Attack > 0)
+                        else if (effects.Attack.Value > 0)
                             bufftype = "attack";
-                        else if (item.CustomAttributes.Defense > 0)
+                        else if (effects.Defense.Value > 0)
                             bufftype = "defense";
-                        else if (item.CustomAttributes.Speed > 0)
+                        else if (effects.Speed.Value > 0)
                             bufftype = "speed";
-                        else if (item.CustomAttributes.MagneticRadius > 0)
+                        else if (effects.MagneticRadius.Value > 0)
                             bufftype = "magnet";
 
-                        else if (item.CustomAttributes.WeaponPrecisionMultiplier > 0)
+                        else if (effects.WeaponPrecisionMultiplier.Value > 0)
                             bufftype = "weaponprecision";
-                        else if (item.CustomAttributes.WeaponSpeedMultiplier > 0)
+                        else if (effects.WeaponSpeedMultiplier.Value > 0)
                             bufftype = "weaponspeed";
-                        else if (item.CustomAttributes.KnockbackMultiplier > 0)
+                        else if (effects.KnockbackMultiplier.Value > 0)
                             bufftype = "knockback";
-                        else if (item.CustomAttributes.AttackMultiplier > 0)
+                        else if (effects.AttackMultiplier.Value > 0)
                             bufftype = "attackmultiplier";
-                        else if (item.CustomAttributes.CriticalChanceMultiplier > 0)
+                        else if (effects.CriticalChanceMultiplier.Value > 0)
                             bufftype = "critchancemultiplier";
-                        else if (item.CustomAttributes.CriticalPowerMultiplier > 0)
+                        else if (effects.CriticalPowerMultiplier.Value > 0)
                             bufftype = "critpowermultiplier";
 
-                        else if (item.CustomAttributes.FarmingLevel > 0)
+                        else if (effects.FarmingLevel.Value > 0)
                             bufftype = "farming";
-                        else if (item.CustomAttributes.FishingLevel > 0)
+                        else if (effects.FishingLevel.Value > 0)
                             bufftype = "fishing";
-                        else if (item.CustomAttributes.ForagingLevel > 0)
+                        else if (effects.ForagingLevel.Value > 0)
                             bufftype = "foraging";
-                        else if (item.CustomAttributes.MiningLevel > 0)
+                        else if (effects.MiningLevel.Value > 0)
                             bufftype = "mining";
-                        else if (item.CustomAttributes.CombatLevel > 0)
+                        else if (effects.CombatLevel.Value > 0)
                             bufftype = "combat";
-                        else if (item.CustomAttributes.LuckLevel > 0)
+                        else if (effects.LuckLevel.Value > 0)
                             bufftype = "luck";
 
                         IFCUSTOMATTRIBUTESISNULL:
@@ -487,8 +489,11 @@ namespace VanillaPlusProfessions.Talents.Patchers
                         {
                             millisecondsDuration = (int)(item.Duration * durationMultiplier) * Game1.realMilliSecondsPerGameMinute;
                         }
-
-                        buffs.Add(new Buff((obj.IsDrink ? "drink" : "food") + "_" + bufftype, name, displayName, millisecondsDuration, texture, spriteIndex, effects: effects, item.IsDebuff));
+                        Color? glowColor = Utility.StringToColor(item.GlowColor) ?? Color.White;
+                        buffs.Add(new Buff((obj.IsDrink ? "drink" : "food") + "_" + bufftype, name, displayName, millisecondsDuration, texture, spriteIndex, effects, item.IsDebuff)
+                        {
+                            glow = glowColor.Value
+                        });
                     }
                     if (buffs.Count > 0)
                     {

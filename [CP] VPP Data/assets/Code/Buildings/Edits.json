@@ -117,13 +117,13 @@
 				"Kedi.VPP.FineGrind.Rice.1": {
 					"Id": "Kedi.VPP.FineGrind.Rice.1",
 					"Modification": "Set",
-					"Condition": "ITEM_QUALITY Input 1, KediDili.VanillaPlusProfessions_PlayerHasTalent Current FineGrind",
+					"Condition": "ITEM_QUALITY Input 1 1, KediDili.VanillaPlusProfessions_PlayerHasTalent Current FineGrind",
 					"Amount": 1
 				},
 				"Kedi.VPP.FineGrind.Rice.2": {
 					"Id": "Kedi.VPP.FineGrind.Rice.2",
 					"Modification": "Set",
-					"Condition": "ITEM_QUALITY Input 2, KediDili.VanillaPlusProfessions_PlayerHasTalent Current FineGrind",
+					"Condition": "ITEM_QUALITY Input 2 2, KediDili.VanillaPlusProfessions_PlayerHasTalent Current FineGrind",
 					"Amount": 2
 				},
 				"Kedi.VPP.FineGrind.Rice.4": {
@@ -149,13 +149,13 @@
 				"Kedi.VPP.FineGrind.Wheat.1": {
 					"Id": "Kedi.VPP.FineGrind.Wheat.1",
 					"Modification": "Set",
-					"Condition": "ITEM_QUALITY Input 1, KediDili.VanillaPlusProfessions_PlayerHasTalent Current FineGrind",
+					"Condition": "ITEM_QUALITY Input 1 1, KediDili.VanillaPlusProfessions_PlayerHasTalent Current FineGrind",
 					"Amount": 1
 				},
 				"Kedi.VPP.FineGrind.Wheat.2": {
 					"Id": "Kedi.VPP.FineGrind.Wheat.2",
 					"Modification": "Set",
-					"Condition": "ITEM_QUALITY Input 2, KediDili.VanillaPlusProfessions_PlayerHasTalent Current FineGrind",
+					"Condition": "ITEM_QUALITY Input 2 2, KediDili.VanillaPlusProfessions_PlayerHasTalent Current FineGrind",
 					"Amount": 2
 				},
 				"Kedi.VPP.FineGrind.Wheat.4": {
@@ -181,13 +181,13 @@
 				"Kedi.VPP.FineGrind.Beet.1": {
 					"Id": "Kedi.VPP.FineGrind.Beet.1",
 					"Modification": "Set",
-					"Condition": "ITEM_QUALITY Input 1, KediDili.VanillaPlusProfessions_PlayerHasTalent Current FineGrind",
+					"Condition": "ITEM_QUALITY Input 1 1, KediDili.VanillaPlusProfessions_PlayerHasTalent Current FineGrind",
 					"Amount": 1 
 				},
 				"Kedi.VPP.FineGrind.Beet.2": {
 					"Id": "Kedi.VPP.FineGrind.Beet.2",
 					"Modification": "Set",
-					"Condition": "ITEM_QUALITY Input 2, KediDili.VanillaPlusProfessions_PlayerHasTalent Current FineGrind",
+					"Condition": "ITEM_QUALITY Input 2 2, KediDili.VanillaPlusProfessions_PlayerHasTalent Current FineGrind",
 					"Amount": 2
 				},
 				"Kedi.VPP.FineGrind.Beet.4": {

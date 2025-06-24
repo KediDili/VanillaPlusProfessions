@@ -193,13 +193,13 @@ namespace VanillaPlusProfessions
                     }
                 });
             }
-            if (e.NameWithoutLocale.IsEquivalentTo(PathUtilities.NormalizeAssetName("Strings/1_6_Strings")) && ModEntry.ModConfig.Value.MasteryCaveChanges)
+            if (e.NameWithoutLocale.IsEquivalentTo(PathUtilities.NormalizeAssetName("Strings/1_6_Strings")) && ModEntry.ModConfig.Value.MasteryCaveChanges > 10)
             {
                 e.Edit(asset =>
                 {
                     var editor = asset.AsDictionary<string,string>();
 
-                    editor.Data["MasteryCave"] = ModEntry.Helper.Translation.Get("Message.MasteryCave");
+                    editor.Data["MasteryCave"] = ModEntry.Helper.Translation.Get("Message.MasteryCave", new { Level = ModEntry.ModConfig.Value.MasteryCaveChanges });
 
                 });
             }

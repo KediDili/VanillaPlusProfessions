@@ -7,7 +7,6 @@ using HarmonyLib;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
-using StardewModdingAPI;
 using StardewValley.Menus;
 using StardewValley.Tools;
 using VanillaPlusProfessions.Talents;
@@ -70,6 +69,11 @@ namespace VanillaPlusProfessions
                 original: AccessTools.Method(typeof(Game1), nameof(Game1.getPlatformAchievement)),
                 postfix: new HarmonyMethod(AccessTools.Method(PatcherType, nameof(getPlatformAchievement_Postfix)))
             );
+            CoreUtility.PatchMethod(
+                PatcherName, "Game1.getPlatformAchievement",
+                original: AccessTools.Method(typeof(Stats), nameof(Stats.checkForMonsterSlayerAchievement)),
+                prefix: new HarmonyMethod(AccessTools.Method(PatcherType, nameof(checkForMonsterSlayerAchievement_Prefix)))
+            );
             for (int i = 0; i < 2; i++)
             {
                 CoreUtility.PatchMethod(
@@ -88,14 +92,28 @@ namespace VanillaPlusProfessions
                 );
             }
         }
+        public static bool checkForMonsterSlayerAchievement_Prefix(bool isDirectUnlock)
+        {
+            if (!ModEntry.ModConfig.Value.ProfessionsOnly && Game1.hasStartedDay && isDirectUnlock)
+            {
+                return !Game1.player.hasCompletedAllMonsterSlayerQuests.Value;
+            }
+            return true;
+        }
 
-        public static void getPlatformAchievement_Postfix()
+        public static void getPlatformAchievement_Postfix(string which)
         {
             //There's a "retroactive achievements" thing because of some platforms not allowing achievements unless player actually does it.
             //So the game tries to restore lost achievements when the save loads and the day starts
+            
+            //Additionally, there's a "gain achievement for mines' bottom" thing causes a bug, since it triggers every time you go down.
+
             if (!ModEntry.ModConfig.Value.ProfessionsOnly && Game1.hasStartedDay)
             {
-                TalentCore.AddTalentPoint();
+                if (which != "Achievement_TheBottom" || (which == "Achievement_TheBottom" && Game1.player.deepestMineLevel < 120))
+                {
+                    TalentCore.AddTalentPoint();
+                }
             }
         }
         public static IEnumerable<CodeInstruction> DoFunction_Transpiler(IEnumerable<CodeInstruction> insns)
@@ -125,8 +143,7 @@ namespace VanillaPlusProfessions
 
         public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
         {
-            List<CodeInstruction> values = new List<CodeInstruction>();
-
+            List<CodeInstruction> values = new();
             try
             {
                 int number = 6;

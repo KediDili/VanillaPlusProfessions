@@ -13,31 +13,31 @@ namespace VanillaPlusProfessions.Talents.UI
 {
     public class TalentSelectionMenu : IClickableMenu
     {
-        internal static int ID_Prefix = 467800;
+        internal int ID_Prefix = 467800;
 
-        internal static int CurrentSkill;
+        internal int CurrentSkill;
 
         internal ClickableTextureComponent RightArrow;
 
         internal ClickableTextureComponent LeftArrow;
 
-        internal static int XPos;
+        internal int XPos;
 
-        internal static int YPos;
+        internal int YPos;
 
-        internal static List<SkillTree> skillTrees = new();
+        internal List<SkillTree> skillTrees = new();
 
-        internal static Texture2D TalentBG;
+        internal Texture2D TalentBG;
 
-        internal static Texture2D BundleIcon;
-
-        internal static Texture2D JunimoNote;
+        internal Texture2D JunimoNote;
 
         internal bool AnyActiveBranches = false;
 
         internal ClickableTextureComponent ResetItemAll;
 
         internal ClickableTextureComponent ResetItemOne;
+
+        internal ClickableTextureComponent CloseButton;
 
         internal bool ShouldConfirmFullReset = false;
 
@@ -55,10 +55,9 @@ namespace VanillaPlusProfessions.Talents.UI
             {
                 ModEntry.IsRecalculatingPoints.Value = false;
             }
-            JunimoNote = ModEntry.Helper.GameContent.Load<Texture2D>("LooseSprites\\JunimoNote");
 
+            JunimoNote = ModEntry.Helper.GameContent.Load<Texture2D>("LooseSprites\\JunimoNote");
             TalentBG = ModEntry.Helper.GameContent.Load<Texture2D>(ContentEditor.ContentPaths["TalentBG"]);
-            BundleIcon = ModEntry.Helper.GameContent.Load<Texture2D>(ContentEditor.ContentPaths["BundleIcons"]);
 
             width = 640;
             height = 360;
@@ -91,8 +90,14 @@ namespace VanillaPlusProfessions.Talents.UI
                 myID = 467804
             };
 
-            ID_Prefix += 4;
+            CloseButton = new("", new(XPos + width + width - 36, YPos - 8, 48, 48), "", "", Game1.mouseCursors, new Rectangle(337, 494, 12, 12), 4f, false)
+            {
+                fullyImmutable = true,
+                myID = 467805
+            };
 
+            ID_Prefix += 5;
+            
             ResetMessages = new string[]
             {
                 ModEntry.Helper.Translation.Get("Talent.ResetMessages.ItemMissing"),
@@ -121,7 +126,6 @@ namespace VanillaPlusProfessions.Talents.UI
             var miscList = (from talent in TalentCore.Talents where talent.Value.Skill is "Misc" select talent.Value).ToList();
 
             Texture2D AllTrees = ModEntry.Helper.GameContent.Load<Texture2D>(ContentEditor.ContentPaths["TalentSchema"]);
-            SkillTree.MainMenu = this;
 
             foreach (var item in TalentCore.Talents.Values)
             {
@@ -140,23 +144,23 @@ namespace VanillaPlusProfessions.Talents.UI
                 }
             }
 
-            initializeUpperRightCloseButton();
-
-            skillTrees.Add(new("Farming", ModEntry.Helper.Translation.Get("Talent.Farming.Title"), AllTrees, farmingList, new(0, 0, 320, 180), 1));
-            skillTrees.Add(new("Mining", ModEntry.Helper.Translation.Get("Talent.Mining.Title"), AllTrees, miningList, new(320, 0, 320, 180), 5));
-            skillTrees.Add(new("Foraging", ModEntry.Helper.Translation.Get("Talent.Foraging.Title"), AllTrees, foragingList, new(0, 180, 320, 180), 0));
-            skillTrees.Add(new("Fishing", ModEntry.Helper.Translation.Get("Talent.Fishing.Title"), AllTrees, fishingList, new(320, 180, 320, 180), 3));
-            skillTrees.Add(new("Combat", ModEntry.Helper.Translation.Get("Talent.Combat.Title"), AllTrees, combatList, new(0, 360, 320, 180), 4));
+            skillTrees.Add(new(this, "Farming", ModEntry.Helper.Translation.Get("Talent.Farming.Title"), AllTrees, farmingList, new(0, 0, 320, 180), 1));
+            skillTrees.Add(new(this, "Mining", ModEntry.Helper.Translation.Get("Talent.Mining.Title"), AllTrees, miningList, new(320, 0, 320, 180), 5));
+            skillTrees.Add(new(this, "Foraging", ModEntry.Helper.Translation.Get("Talent.Foraging.Title"), AllTrees, foragingList, new(0, 180, 320, 180), 0));
+            skillTrees.Add(new(this, "Fishing", ModEntry.Helper.Translation.Get("Talent.Fishing.Title"), AllTrees, fishingList, new(320, 180, 320, 180), 3));
+            skillTrees.Add(new(this, "Combat", ModEntry.Helper.Translation.Get("Talent.Combat.Title"), AllTrees, combatList, new(0, 360, 320, 180), 4));
 
             //This order is important, because there is no skill named Misc
-            skillTrees.AddRange(ModEntry.VanillaPlusProfessionsAPI.CustomTalentTrees.Values);
-            skillTrees.Add(new("Misc", ModEntry.Helper.Translation.Get("Talent.Misc.Title"), AllTrees, miscList, new(320, 360, 320, 180), 5));
-            
-            xPositionOnScreen = XPos;
-            yPositionOnScreen = YPos;
-            initializeUpperRightCloseButton();
-            upperRightCloseButton.bounds.X += width;
+            foreach (var tree in ModEntry.VanillaPlusProfessionsAPI.CustomTalentTrees.Values)
+            {
+                tree.MainMenu = this;
+                if (!tree.ButtonsCreated)
+                    tree.AssignAllButtons(JunimoNote, ref ID_Prefix);
 
+                skillTrees.Add(tree);
+            }
+            //skillTrees.AddRange(ModEntry.VanillaPlusProfessionsAPI.CustomTalentTrees.Values);
+            skillTrees.Add(new(this, "Misc", ModEntry.Helper.Translation.Get("Talent.Misc.Title"), AllTrees, miscList, new(320, 360, 320, 180), 5));
             CurrentSkill = skill;
             if (CurrentSkill > skillTrees.Count - 1)
             {
@@ -175,12 +179,6 @@ namespace VanillaPlusProfessions.Talents.UI
                     talentbutton.UpdateSprite();
                 }
             }
-
-            UI.BundleIcon.LockedName = ModEntry.Helper.Translation.Get("Talent.LockedTalent.Name");
-            UI.BundleIcon.LockedDesc = ModEntry.Helper.Translation.Get("Talent.LockedTalent.Desc");
-            UI.BundleIcon.NumberLocked = ModEntry.Helper.Translation.Get("Talent.LockedTalent.Numbered");
-            UI.BundleIcon.Disabled = ModEntry.Helper.Translation.Get("Talent.DisabledTalent");
-
             FixBaseButtonNeighborIDs();
             populateClickableComponentList();
             snapToDefaultClickableComponent();
@@ -194,13 +192,18 @@ namespace VanillaPlusProfessions.Talents.UI
                 LeftArrow,
                 ResetItemAll,
                 ResetItemOne,
-                upperRightCloseButton
+                CloseButton
             };
 
             foreach (var tree in skillTrees)
             {
                 allClickableComponents.AddRange(tree.buttons);
             }
+        }
+
+        internal SkillTree GetCurrentTree()
+        {
+            return skillTrees[CurrentSkill];
         }
 
         public override void draw(SpriteBatch b)
@@ -211,7 +214,7 @@ namespace VanillaPlusProfessions.Talents.UI
 
             b.Draw(TalentBG, new Vector2(XPos, YPos), new Rectangle(0, 0, 320, 180), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.1f);
 
-            skillTrees[CurrentSkill].draw(b);
+            GetCurrentTree().draw(b);
             
             ResetItemAll.drawItem(b);
             ResetItemOne.drawItem(b);
@@ -222,10 +225,11 @@ namespace VanillaPlusProfessions.Talents.UI
             SpriteText.drawString(b, TalentCore.TalentPointCount.Value.ToString(), XPos + (int)(JunimoNote.Width * 1.66), YPos + (int)(JunimoNote.Height * 0.42), scroll_text_alignment: SpriteText.ScrollTextAlignment.Center);
             if (!AnyActiveBranches)
             {
-                for (int i = 0; i < skillTrees[CurrentSkill].Bundles.Count; i++)
+                SkillTree tree = GetCurrentTree();
+                for (int i = 0; i < tree.Bundles.Count; i++)
                 {
-                    if (skillTrees[CurrentSkill].Bundles[i].button.containsPoint(Game1.getMouseX(), Game1.getMouseY()))
-                        drawHoverText(b, skillTrees[CurrentSkill].Bundles[i].GetTalentDescription(), Game1.smallFont, boldTitleText: skillTrees[CurrentSkill].Bundles[i].Availability ? skillTrees[CurrentSkill].Bundles[i].button.name : UI.BundleIcon.LockedName);
+                    if (tree.Bundles[i].button.containsPoint(Game1.getMouseX(), Game1.getMouseY()))
+                        drawHoverText(b, tree.Bundles[i].GetTalentDescription(), Game1.smallFont, boldTitleText: tree.Bundles[i].Availability ? tree.Bundles[i].button.name : tree.Bundles[i].LockedName);
                 }
                 if (ResetItemAll.containsPoint(Game1.getMouseX(), Game1.getMouseY()))
                 {
@@ -239,7 +243,7 @@ namespace VanillaPlusProfessions.Talents.UI
                 {
                     drawHoverText(b, ResetMessages[7], Game1.smallFont);
                 }
-                base.draw(b);
+                CloseButton.draw(b);
                 drawMouse(b);
             }
             else
@@ -324,12 +328,13 @@ namespace VanillaPlusProfessions.Talents.UI
         }
         public override void performHoverAction(int x, int y)
         {
-            base.performHoverAction(x, y);
             RightArrow.tryHover(x, y);
             LeftArrow.tryHover(x, y);
-            for (int i = 0; i < skillTrees[CurrentSkill].Bundles.Count; i++)
+            CloseButton.tryHover(x, y);
+            SkillTree tree = GetCurrentTree();
+            for (int i = 0; i < tree.Bundles.Count; i++)
             {
-                skillTrees[CurrentSkill].Bundles[i].button.tryHover(x, y);
+                tree.Bundles[i].button.tryHover(x, y);
             }
         }
 
@@ -348,30 +353,17 @@ namespace VanillaPlusProfessions.Talents.UI
             ResetItemOne.bounds.Y = ResetItemAll.bounds.Y;
             for (int i = 0; i < skillTrees.Count; i++)
             {
-                skillTrees[i].GameWindowChanged();
+                skillTrees[i].GameWindowChanged(XPos, YPos);
             }
         }
 
-        public override void receiveGamePadButton(Buttons button)
+        public override void applyMovementKey(int direction)
         {
-            switch (button)
+            if (allClickableComponents == null)
             {
-                case Buttons.DPadUp or Buttons.RightThumbstickUp or Buttons.LeftThumbstickUp:
-                    applyMovementKey(0);
-                    break;
-                case Buttons.RightThumbstickDown or Buttons.DPadDown or Buttons.LeftThumbstickDown:
-                    applyMovementKey(2);
-                    break;
-                case Buttons.RightThumbstickRight or Buttons.DPadRight or Buttons.LeftThumbstickRight:
-                    applyMovementKey(1);
-                    break;
-                case Buttons.RightThumbstickLeft or Buttons.DPadLeft or Buttons.LeftThumbstickLeft:
-                    applyMovementKey(3);
-                    break;
-                default:
-                    base.receiveGamePadButton(button);
-                    break;
+                populateClickableComponentList();
             }
+            MoveCursorInDirectionCustom(direction);
         }
         public override void receiveKeyPress(Keys key)
         {
@@ -403,13 +395,44 @@ namespace VanillaPlusProfessions.Talents.UI
             }
         }
 
+        protected void MoveCursorInDirectionCustom(int direction)
+        {
+            if (currentlySnappedComponent == null)
+            {
+                List<ClickableComponent> list = allClickableComponents;
+                if (list != null && list.Count > 0)
+                {
+                    snapToDefaultClickableComponent();
+                    currentlySnappedComponent ??= allClickableComponents[0];
+                }
+            }
+            if (currentlySnappedComponent == null)
+            {
+                return;
+            }
+            ClickableComponent old = currentlySnappedComponent;
+            currentlySnappedComponent = direction switch
+            {
+                0 => getComponentWithID(currentlySnappedComponent.upNeighborID),
+                1 => getComponentWithID(currentlySnappedComponent.rightNeighborID),
+                2 => getComponentWithID(currentlySnappedComponent.downNeighborID),
+                3 => getComponentWithID(currentlySnappedComponent.leftNeighborID),
+                _ => null
+            };
+            currentlySnappedComponent ??= old;
+            snapCursorToCurrentSnappedComponent();
+            if (currentlySnappedComponent != old)
+            {
+                Game1.playSound("shiny4");
+            }
+        }
+
         public override void receiveLeftClick(int x, int y, bool playSound = true)
         {
             if (AnyActiveBranches)
             {
                 return;
             }
-            base.receiveLeftClick(x, y, playSound);
             if (ResetItemAll.containsPoint(x, y) && !ShouldConfirmOneReset)
             {
                 if (ShouldConfirmFullReset)
@@ -441,7 +464,7 @@ namespace VanillaPlusProfessions.Talents.UI
             {
                 if (ShouldConfirmOneReset)
                 {
-                    skillTrees[CurrentSkill].RefundPoints();
+                    GetCurrentTree().RefundPoints();
                     Game1.player.Items.ReduceId("(O)StardropTea", 1);
                     ShouldConfirmOneReset = false;
                 }
@@ -449,7 +472,7 @@ namespace VanillaPlusProfessions.Talents.UI
                 {
                     if (Game1.player.Items.ContainsId(ResetItemOne.item.QualifiedItemId))
                     {   
-                        if (skillTrees[CurrentSkill].TalentsBought is not 0)
+                        if (GetCurrentTree().TalentsBought is not 0)
                         {
                             ShouldConfirmOneReset = true;
                         }
@@ -497,47 +520,52 @@ namespace VanillaPlusProfessions.Talents.UI
                 }
                 FixBaseButtonNeighborIDs();
             }
+            else if (CloseButton.containsPoint(x, y))
+            {
+                exitThisMenu();
+            }
             else
             {
-                for (int i = 0; i < skillTrees[CurrentSkill].Bundles.Count; i++)
+                SkillTree tree = GetCurrentTree();
+                for (int i = 0; i < tree.Bundles.Count; i++)
                 {
-                    if (skillTrees[CurrentSkill].Bundles[i].button.containsPoint(x, y))
+                    if (tree.Bundles[i].button.containsPoint(x, y))
                     {
-                        if (skillTrees[CurrentSkill].Bundles[i].Availability)
+                        if (tree.Bundles[i].Availability)
                         {
-                            if (!Game1.player.mailReceived.Contains(skillTrees[CurrentSkill].Bundles[i].talent.MailFlag) && TalentCore.TalentPointCount.Value > 0)
+                            if (!Game1.player.mailReceived.Contains(tree.Bundles[i].talent.MailFlag) && TalentCore.TalentPointCount.Value > 0)
                             {
                                 Game1.player.currentLocation.playSound("wand");
 
-                                if (skillTrees[CurrentSkill].Bundles[i].talent.Branches is not null)
+                                if (tree.Bundles[i].talent.Branches is not null)
                                 {
-                                    BranchDisplayer branchDisplayer = new(skillTrees[CurrentSkill].Bundles[i].talent, i);
+                                    BranchDisplayer branchDisplayer = new(tree.Bundles[i].talent, i, XPos, YPos);
                                     SetChildMenu(branchDisplayer);
                                     AnyActiveBranches = true;
                                 }
                                 else
                                 {
-                                    AddOrRemoveTalent(skillTrees[CurrentSkill].Bundles[i].talent.Name, null, true);
-                                    Game1.player.mailReceived.Add(skillTrees[CurrentSkill].Bundles[i].talent.MailFlag);
+                                    AddOrRemoveTalent(tree.Bundles[i].talent.Name, null, true);
+                                    Game1.player.mailReceived.Add(tree.Bundles[i].talent.MailFlag);
                                     ReducePoints();
-                                    skillTrees[CurrentSkill].Bundles.ForEach(bundle => bundle.UpdateSprite());
+                                    tree.Bundles.ForEach(bundle => bundle.UpdateSprite());
                                 }
                             }
-                            else if (Game1.player.mailReceived.Contains(skillTrees[CurrentSkill].Bundles[i].talent.MailFlag))
+                            else if (Game1.player.mailReceived.Contains(tree.Bundles[i].talent.MailFlag))
                             {
                                 Game1.player.currentLocation.playSound("wand");
 
-                                if (!Game1.player.mailReceived.Contains(skillTrees[CurrentSkill].Bundles[i].talent.MailFlag + "_disabled"))
+                                if (!Game1.player.mailReceived.Contains(tree.Bundles[i].talent.MailFlag + "_disabled"))
                                 {
-                                    AddOrRemoveTalent(skillTrees[CurrentSkill].Bundles[i].talent.Name, false, null);
-                                    Game1.player.mailReceived.Add(skillTrees[CurrentSkill].Bundles[i].talent.MailFlag + "_disabled");
+                                    AddOrRemoveTalent(tree.Bundles[i].talent.Name, false, null);
+                                    Game1.player.mailReceived.Add(tree.Bundles[i].talent.MailFlag + "_disabled");
                                 }
                                 else
                                 {
-                                    AddOrRemoveTalent(skillTrees[CurrentSkill].Bundles[i].talent.Name, true, null);
-                                    Game1.player.mailReceived.Remove(skillTrees[CurrentSkill].Bundles[i].talent.MailFlag + "_disabled");
+                                    AddOrRemoveTalent(tree.Bundles[i].talent.Name, true, null);
+                                    Game1.player.mailReceived.Remove(tree.Bundles[i].talent.MailFlag + "_disabled");
                                 }
-                                skillTrees[CurrentSkill].Bundles.ForEach(bundle => bundle.UpdateSprite());
+                                tree.Bundles.ForEach(bundle => bundle.UpdateSprite());
                             }
                         }
                         break;
@@ -608,6 +636,7 @@ namespace VanillaPlusProfessions.Talents.UI
                 menu = ModEntry.BetterGameMenuAPI.CreateMenu(nameof(VanillaTabOrders.Skills));
             else
                 menu = new GameMenu(GameMenu.skillsTab);
+            DisplayHandler.OpenTalentMenuCooldown.Value = true;
             Game1.nextClickableMenu.Add(menu);
         }
 
@@ -630,7 +659,7 @@ namespace VanillaPlusProfessions.Talents.UI
                     1 => LeftArrow,
                     2 => ResetItemAll,
                     3 => ResetItemOne,
-                    4 => upperRightCloseButton,
+                    4 => CloseButton,
                     _ => skillTrees[CurrentSkill].Bundles.Find(bundle => bundle.talent.Name == name2).button
                 };
             }

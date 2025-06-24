@@ -20,6 +20,8 @@ namespace VanillaPlusProfessions.Talents.UI
 
         internal List<BundleIcon> Bundles = new();
 
+        internal Texture2D BundleIcon;
+
         internal Rectangle Rectangle;
 
         internal Rectangle LockedRect;
@@ -30,24 +32,37 @@ namespace VanillaPlusProfessions.Talents.UI
 
         internal Color? BundleColor = null;
 
-        internal static TalentSelectionMenu MainMenu = null;
+        internal TalentSelectionMenu MainMenu = null;
 
         internal int TalentsBought = 0;
 
+        internal int XPos;
+
+        internal int YPos;
+
+        internal int BundleId = -1;
+
+        internal bool ButtonsCreated = false;
+
         internal List<ClickableTextureComponent> buttons = new();
 
-        public SkillTree(string skillIndex, string treeTitle, Texture2D texture, List<Talent> talents, Rectangle rectangle, int bundleID = -1, Color? tintColor = null)
+        internal List<Talent> Talents = new();
+
+        public SkillTree(TalentSelectionMenu menu, string skillIndex, string treeTitle, Texture2D texture, List<Talent> talents, Rectangle rectangle, int bundleID = -1, Color? tintColor = null)
         {
             if (talents?.Count == 0)
             {
                 return;
             }
+            MainMenu = menu;
             SkillIndex = skillIndex;
             TreeTitle = treeTitle;
             Texture = texture;
             Rectangle = rectangle;
+            BundleIcon = ModEntry.Helper.GameContent.Load<Texture2D>(ContentEditor.ContentPaths["BundleIcons"]);
+            BundleId = bundleID;
             if (bundleID > -1)
-            {
+            {                
                 Rectangle lockedRect = TalentSelectionMenu.getSourceRectByIndex(bundleID, true);
                 LockedRect = lockedRect;
                 Rectangle availableRect = TalentSelectionMenu.getSourceRectByIndex(bundleID, false);
@@ -62,17 +77,31 @@ namespace VanillaPlusProfessions.Talents.UI
                 BoughtRect = new(32, 16, 16, 16);
                 BundleColor = tintColor;
             }
-            foreach (var tal in talents)
+            Talents = talents;
+            if (MainMenu is not null)
+            {
+                XPos = MainMenu.XPos;
+                YPos = MainMenu.YPos;
+                AssignAllButtons(MainMenu.JunimoNote, ref MainMenu.ID_Prefix);
+            }
+        }
+
+        internal void AssignAllButtons(Texture2D junimoNote, ref int idPrefix)
+        {
+            foreach (var tal in Talents)
             {
                 //Because fuck delegates capturing variables.
                 Talent talent = tal;
-                ClickableTextureComponent button = new(talent.DisplayName is null ? ModEntry.Helper.Translation.Get("Talent." + talent.Name + ".Name") : talent.DisplayName.Invoke(talent.Name), new((int)(talent.Position.X * 4), ((int)talent.Position.Y * 4), 64, 64), "", talent.Description is null? ModEntry.Helper.Translation.Get("Talent." + talent.Name + ".Desc") : talent.Description.Invoke(talent.Name), TalentSelectionMenu.JunimoNote, TalentSelectionMenu.getSourceRectByIndex(bundleID, !TalentUtility.CurrentPlayerHasTalent(talent.MailFlag)), 4f, false);
-                TalentSelectionMenu.ID_Prefix++;
-                button.myID = TalentSelectionMenu.ID_Prefix;
+                ClickableTextureComponent button = new(talent.DisplayName is null ? ModEntry.Helper.Translation.Get("Talent." + talent.Name + ".Name") : talent.DisplayName.Invoke(talent.Name), new((int)(talent.Position.X * 4), ((int)talent.Position.Y * 4), 64, 64), "", talent.Description is null ? ModEntry.Helper.Translation.Get("Talent." + talent.Name + ".Desc") : talent.Description.Invoke(talent.Name), junimoNote, TalentSelectionMenu.getSourceRectByIndex(BundleId, !TalentUtility.CurrentPlayerHasTalent(talent.MailFlag)), 4f, false);
+                idPrefix++;
+                button.myID = idPrefix;
                 button.fullyImmutable = true;
-                Bundles.Add(new(button, talent));
+                button.tryDefaultIfNoRightNeighborExists = false;
+                button.tryDefaultIfNoDownNeighborExists = false;
+                Bundles.Add(new(button, talent, XPos, YPos));
                 buttons.Add(button);
             }
+            ButtonsCreated = true;
             AssignAllNeighbors();
         }
 
@@ -107,7 +136,7 @@ namespace VanillaPlusProfessions.Talents.UI
                 AllCandidates.Add("Menu_LeftArrow", (MainMenu.LeftArrow.bounds.Location - bundlePoint).ToVector2());
                 AllCandidates.Add("Menu_ResetItemOne", (MainMenu.ResetItemOne.bounds.Location - bundlePoint).ToVector2());
                 AllCandidates.Add("Menu_ResetItemAll", (MainMenu.ResetItemAll.bounds.Location - bundlePoint).ToVector2());
-                AllCandidates.Add("Menu_upperRightCloseButton", (MainMenu.upperRightCloseButton.bounds.Location - bundlePoint).ToVector2());
+                AllCandidates.Add("Menu_CloseButton", (MainMenu.CloseButton.bounds.Location - bundlePoint).ToVector2());
 
                 ClickableTextureComponent GetComponent(string ID)
                 {
@@ -117,7 +146,7 @@ namespace VanillaPlusProfessions.Talents.UI
                         "Menu_LeftArrow" => MainMenu.LeftArrow,
                         "Menu_ResetItemOne" => MainMenu.ResetItemOne,
                         "Menu_ResetItemAll" => MainMenu.ResetItemAll,
-                        "Menu_upperRightCloseButton" => MainMenu.upperRightCloseButton,
+                        "Menu_CloseButton" => MainMenu.CloseButton,
                         _ => null
                     };
                 }
@@ -239,18 +268,20 @@ namespace VanillaPlusProfessions.Talents.UI
             }
         }
 
-        public void GameWindowChanged()
+        public void GameWindowChanged(int xPos, int yPos)
         {
+            XPos = xPos;
+            YPos = yPos;
             foreach (var item in Bundles)
             {
-                item.GameWindowChanged();
+                item.GameWindowChanged(xPos, yPos);
             }
         }
 
         public void draw(SpriteBatch b)
         {
-            SpriteText.drawString(b, TreeTitle, TalentSelectionMenu.XPos + 640 - (SpriteText.getWidthOfString(TreeTitle) / 2), TalentSelectionMenu.YPos + (SpriteText.getHeightOfString(TreeTitle) / 2), scroll_text_alignment: SpriteText.ScrollTextAlignment.Center);
-            b.Draw(Texture, new Vector2(TalentSelectionMenu.XPos, TalentSelectionMenu.YPos), Rectangle == new Rectangle() ? null : Rectangle, Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.6f);
+            SpriteText.drawString(b, TreeTitle, XPos + 640 - (SpriteText.getWidthOfString(TreeTitle) / 2), YPos + (SpriteText.getHeightOfString(TreeTitle) / 2), scroll_text_alignment: SpriteText.ScrollTextAlignment.Center);
+            b.Draw(Texture, new Vector2(XPos, YPos), Rectangle == new Rectangle() ? null : Rectangle, Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.6f);
 
             for (int i = 0; i < Bundles.Count; i++)
             {
@@ -265,7 +296,7 @@ namespace VanillaPlusProfessions.Talents.UI
                 if (Game1.player.mailReceived.Contains(Bundles[i].talent.MailFlag + "_disabled"))
                 {
                     //b.Draw(TalentSelectionMenu.BundleIcon, new Vector2(Bundles[i].button.bounds.X, Bundles[i].button.bounds.Y - 8), new(48, 16, 16, 16), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.6f);
-                    b.Draw(TalentSelectionMenu.BundleIcon, new Vector2(Bundles[i].button.bounds.X, Bundles[i].button.bounds.Y - 32), new(64, 16, 16, 16), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.6f);
+                    b.Draw(BundleIcon, new Vector2(Bundles[i].button.bounds.X, Bundles[i].button.bounds.Y - 32), new(64, 16, 16, 16), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.6f);
                 }
             }
         }
@@ -281,7 +312,7 @@ namespace VanillaPlusProfessions.Talents.UI
                     {
                         if (Game1.player.mailReceived.Remove(branch.Flag))
                         {
-                            (Game1.activeClickableMenu as TalentSelectionMenu)?.AddOrRemoveTalent(item.talent.Name, null, false);
+                            MainMenu.AddOrRemoveTalent(item.talent.Name, null, false);
                             Game1.player.mailReceived.Remove(item.talent.MailFlag);
                             Game1.player.mailReceived.Remove(item.talent.MailFlag + "_disabled");
                             TalentCore.DisabledTalents.Remove(item.talent.MailFlag);
@@ -291,10 +322,10 @@ namespace VanillaPlusProfessions.Talents.UI
                         }
                     }
                 }
-                else if (Game1.activeClickableMenu is TalentSelectionMenu menu && Game1.player.mailReceived.Contains(item.talent.MailFlag))
+                else if (Game1.player.mailReceived.Contains(item.talent.MailFlag))
                 {
                     TalentCore.DisabledTalents.Remove(item.talent.MailFlag);
-                    menu.AddOrRemoveTalent(item.talent.Name, null, false);
+                    MainMenu.AddOrRemoveTalent(item.talent.Name, null, false);
                     Game1.player.mailReceived.Remove(item.talent.MailFlag);
                     Game1.player.mailReceived.Remove(item.talent.MailFlag + "_disabled");
                     count++;

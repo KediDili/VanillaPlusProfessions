@@ -159,6 +159,7 @@
 			"TargetField": ["9", "SeedDropItems" ],
 			"Fields": {
 				"GoldenCoconut": {
+					"Chance": 0.25,
 					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current WelcomeToTheJungle"
 				}
 			}
@@ -168,7 +169,6 @@
 			"Target": "Data/WildTrees",
 			"TargetField": ["9"],
 			"Entries": {
-				"SeedItemId": "(O)88",
 				"SeedPlantable": true,
 				"PlantableLocationRules": [
 					{
@@ -185,6 +185,7 @@
 			"TargetField": ["6", "SeedDropItems" ],
 			"Fields": {
 				"GoldenCoconut": {
+					"Chance": 0.25,
 					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current WelcomeToTheJungle"
 				}
 			}
@@ -194,7 +195,6 @@
 			"Target": "Data/WildTrees",
 			"TargetField": ["6"],
 			"Entries": {
-				"SeedItemId": "(O)88",
 				"SeedPlantable": true,
 				"PlantableLocationRules": [
 					{

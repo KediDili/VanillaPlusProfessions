@@ -37,99 +37,70 @@ namespace VanillaPlusProfessions.Talents
 
         public override bool performObjectDropInAction(Item dropInItem, bool probe, Farmer who, bool returnFalseIfItemConsumed = false)
         {
-            if (returnFalseIfItemConsumed)
+            if (dropInItem.QualifiedItemId is "(TR)ParrotEgg" && lastInputItem.Value is null)
             {
-                return dropInItem.QualifiedItemId is "(TR)ParrotEgg" && heldObject.Value is null;
-            }
-            else
-            {
-                if (dropInItem is Trinket trinket && trinket.QualifiedItemId is "(TR)ParrotEgg" && heldObject.Value is null)
+                if (!probe)
                 {
-                    heldObject.Value = trinket;
-                    dropInItem.ConsumeStack(1);
+                    readyForHarvest.Value = false;
+                    lastInputItem.Value = dropInItem as Object;
                     CreateParrotAnimation();
-                    return true;
                 }
-                else if (heldObject.Value is not null)
-                {
-                    who.addItemByMenuIfNecessary(heldObject.Value);
-                    heldObject.Value = null;
-                }
-            }
-            return false;
-        }
-        public override bool performDropDownAction(Farmer who)
-        {
-            if (Game1.player.currentLocation is AnimalHouse)
-            {
-                return false;
-            }
-            else
-            {
-                Game1.addHUDMessage(new(ModEntry.Helper.Translation.Get("Message.ParrotPerch"), HUDMessage.error_type));
-                return false;
+                return true;
             }
             return false;
         }
         private void CreateParrotAnimation()
         {
-            if (ParrotAnim is null)
+            ParrotAnim.spriteTexture = ModEntry.Helper.GameContent.Load<Texture2D>(ContentEditor.ContentPaths["ItemSpritesheet"]);
+            ParrotAnim.SourceRect = new(0, 64, 16, 16);
+            ParrotAnim.SpriteHeight = 16;
+            ParrotAnim.SpriteWidth = 16;
+            ParrotAnim.UpdateSourceRect();
+        }
+        
+        public override void performRemoveAction()
+        {
+            if (lastInputItem.Value is not null)
             {
-                ParrotAnim = new();
-                ParrotAnim.spriteTexture = ModEntry.Helper.GameContent.Load<Texture2D>("TileSheets/Kedi.VPP.Items");
-                ParrotAnim.SourceRect = new(64, 0, 48, 16);
-                ParrotAnim.CurrentAnimation = new() { new(0, 150), new(2, 150) };
+                Location.debris.Add(new(lastInputItem.Value.getOne(), new(TileLocation.X * 64, TileLocation.Y * 64)));
             }
         }
-
+         
         public override void draw(SpriteBatch spriteBatch, int x, int y, float alpha = 1)
         {
             base.draw(spriteBatch, x, y, alpha);
             if (lastInputItem.Value is not null)
             {
-                if (ParrotAnim is null)
-                {
-                    ParrotAnim.draw(spriteBatch, new(x / 64, (y / 64) - 6), 0.5f);
-                }
-                else
-                {
-                    CreateParrotAnimation();
-                }
-            }
+                ParrotAnim?.draw(spriteBatch, Game1.GlobalToLocal(Game1.uiViewport, new Vector2(TileLocation.X, TileLocation.Y - 1.32f) * 64), System.Math.Max(0f, ((TileLocation.Y + 1) * 64) / 10000f));
+            } 
         }
 
         public override void updateWhenCurrentLocation(GameTime time)
         {
+            
             interval -= time.ElapsedGameTime.Milliseconds;
             if (interval < 1)
             {
                 if (Game1.timeOfDay < 2000)
                 {
                     interval = 10000f;
-                    ParrotAnim.animateOnce(time);
+                    ParrotAnim.Animate(time, 24, 3, 500);
                     Location.playSound("parrot", TileLocation);
-                }
-                else if (ParrotAnim.CurrentAnimation.Count is 2)
-                {
-                    ParrotAnim.setCurrentAnimation(new() { new(1, 150) });
-                }
-            }
-        }
-
-        public override bool performToolAction(Tool t)
-        {
-            if (t.isHeavyHitter() && t is not MeleeWeapon)
-            {
-                if (lastInputItem.Value is not null)
-                {
-                    Game1.createItemDebris(lastInputItem.Value, TileLocation * 64, 0, Location);
                 }
                 else
                 {
-                    Game1.createObjectDebris(QualifiedItemId, (int)TileLocation.X, (int)TileLocation.Y, Location);
+                    ParrotAnim.Animate(time, 24, 1, 500);
                 }
-                return false;
             }
+            else
+            {
+                ParrotAnim.Animate(time, 24, 2, 500);
+            }
+        }
+
+        //Remove this
+        public override bool performToolAction(Tool t)
+        {
             return true;
         }
 
@@ -137,7 +108,7 @@ namespace VanillaPlusProfessions.Talents
         {
             GameLocation location = Location;
             health = 10;
-            if (location is not AnimalHouse || lastInputItem.Value is null)
+            if (location is not AnimalHouse || heldObject.Value is null)
             {
                 return;
             }

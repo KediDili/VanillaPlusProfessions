@@ -19,7 +19,7 @@ namespace VanillaPlusProfessions.Compatibility
         internal Dictionary<IEnumerable<string>, Action<Dictionary<string, string>>> RunBeforeTalentMenuCloses = new();
         public void RegisterCustomSkillTree(string skillID, Func<string> displayTitle, List<Talent> talents, Texture2D treeTexture, Rectangle sourceRect, int bundleID = -1, Color? tintColor = null)
         {
-            string[] skills = ModEntry.SpaceCoreAPI.Value.GetCustomSkills();
+            string[] skills = ModEntry.SpaceCoreAPI.GetCustomSkills();
             if (skills.Contains(skillID))
             {
                 if (bundleID is <= (-1) or > 6)
@@ -42,7 +42,7 @@ namespace VanillaPlusProfessions.Compatibility
                 {
                     //wtf was i gonna do here
                 }
-                CustomTalentTrees.TryAdd(skillID, new(skillID, displayTitle.Invoke(), treeTexture, talents, sourceRect, bundleID, tintColor));
+                CustomTalentTrees.TryAdd(skillID, new(null, skillID, displayTitle.Invoke(), treeTexture, talents, sourceRect, bundleID, tintColor));
             }
             else
             {
@@ -167,7 +167,7 @@ namespace VanillaPlusProfessions.Compatibility
 
         public int[] LevelExperiences => ModEntry.levelExperiences;
 
-        public bool MasteryCaveChanges => ModEntry.ModConfig.Value.MasteryCaveChanges;
+        public int MasteryCaveChanges => ModEntry.ModConfig.Value.MasteryCaveChanges;
 
         public bool ProfessionsOnly => ModEntry.ModConfig.Value.ProfessionsOnly;
 

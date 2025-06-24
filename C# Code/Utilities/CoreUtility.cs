@@ -13,9 +13,7 @@ using StardewValley.GameData.Objects;
 using StardewValley.TerrainFeatures;
 using System.Reflection;
 using HarmonyLib;
-using System.IO;
 using StardewValley.Objects.Trinkets;
-using StardewValley.Objects;
 using VanillaPlusProfessions.Talents.Patchers;
 using StardewValley.Buildings;
 
@@ -31,11 +29,14 @@ namespace VanillaPlusProfessions.Utilities
             }
             else
             {
-                foreach (var item in ModEntry.SpaceCoreAPI.Value.GetCustomSkills())
+                if (ModEntry.SpaceCoreAPI is not null)
                 {
-                    if (ModEntry.SpaceCoreAPI.Value.GetLevelForCustomSkill(Game1.player, item) > 10)
+                    foreach (var item in ModEntry.SpaceCoreAPI?.GetCustomSkills())
                     {
-                        return true;
+                        if (ModEntry.SpaceCoreAPI.GetLevelForCustomSkill(Game1.player, item) > 10)
+                        {
+                            return true;
+                        }
                     }
                 }
                 return false;
@@ -224,13 +225,37 @@ namespace VanillaPlusProfessions.Utilities
             }
             slingshot.canPlaySound = true;
         }
+
+        internal static void showXPLeft(string command, string[] args)
+        {
+            if (!Context.IsWorldReady)
+            {
+                ModEntry.ModMonitor.Log("Load a save first!", LogLevel.Warn);
+                return;
+            }
+            StringBuilder sb = new();
+            int farming = Game1.player.GetUnmodifiedSkillLevel(0), 
+                foraging = Game1.player.GetUnmodifiedSkillLevel(2), 
+                mining = Game1.player.GetUnmodifiedSkillLevel(1), 
+                fishing = Game1.player.GetUnmodifiedSkillLevel(3), 
+                combat = Game1.player.GetUnmodifiedSkillLevel(4);
+            sb.AppendLine("");
+            sb.AppendLine("- Skill Level Experiences -");
+            sb.AppendLine($"Farming: {Game1.player.experiencePoints[0]}/" + (farming > 19 ? "120000 (Maxed)" : $"{(farming >= 10 ? ModEntry.levelExperiences[farming - 10] : Farmer.getBaseExperienceForLevel(farming))} (To {farming + 1})"));
+            sb.AppendLine($"Mining: {Game1.player.experiencePoints[1]}/" + (mining > 19 ? "120000 (Maxed)" : $"{(mining >= 10 ? ModEntry.levelExperiences[mining - 10] : Farmer.getBaseExperienceForLevel(mining))} (To {mining + 1})"));
+            sb.AppendLine($"Foraging: {Game1.player.experiencePoints[2]}/" + (foraging > 19 ? "120000 (Maxed)" : $"{(foraging >= 10 ? ModEntry.levelExperiences[foraging - 10] : Farmer.getBaseExperienceForLevel(foraging))} (To {foraging + 1})"));
+            sb.AppendLine($"Fishing: {Game1.player.experiencePoints[3]}/" + (fishing > 19 ? "120000 (Maxed)" : $"{(fishing >= 10 ? ModEntry.levelExperiences[fishing - 10] : Farmer.getBaseExperienceForLevel(fishing))} (To {fishing + 1})"));
+            sb.AppendLine($"Combat: {Game1.player.experiencePoints[4]}/" + (combat > 19 ? "120000 (Maxed)" : $"{(combat >= 10 ? ModEntry.levelExperiences[combat - 10] : Farmer.getBaseExperienceForLevel(combat))} (To {combat + 1})"));
+            ModEntry.ModMonitor.Log(sb.ToString(), LogLevel.Info);
+        }
+
         internal static void remove(string command, string[] args)
         {
-            if (Context.IsWorldReady)
+            if (Context.IsWorldReady || !Context.IsMainPlayer)
             {
                 if (!Context.IsMainPlayer)
                 {
-                    ModEntry.ModMonitor.Log("This command can be only run by the host.");
+                    ModEntry.ModMonitor.Log("This command can be only run by the host.", LogLevel.Error);
                     return;
                 }
                 if (args.Length > 0 && args[1].ToLower() == "true")
@@ -285,7 +310,8 @@ namespace VanillaPlusProfessions.Utilities
                     ModEntry.ModMonitor.Log($"Erased custom water loss data from {SlimeWaterLoss} slimes.");
                     ModEntry.ModMonitor.Log($"Erased Wild Growth data from {WildGrowth} farm animals.");
 
-                    int RainLocs = 0, FruitTreeTappers = 0, GiantCropData = 0, XrayDrop = 0, FairyBoxData = 0, Resurgence = 0;
+                    int RainLocs = 0, FruitTreeTappers = 0, GiantCropData = 0, XrayDrop = 0, FairyBoxData = 0, Resurgence = 0, Slingshots = 0,
+                        Accessorise = 0, ParrotPerches = 0;
                     Utility.ForEachLocation(Loc =>
                     {
                         if (Loc.modData.Remove(TalentCore.Key_WasRainingHere))
@@ -322,6 +348,40 @@ namespace VanillaPlusProfessions.Utilities
 
                         if (item.modData.Remove(TalentCore.Key_Resurgence))
                             Resurgence++;
+
+                        if (item is Slingshot slingshot)
+                        {
+                            slingshot.ClearEnchantments();
+                            Slingshots++;
+                        }
+
+                        if (item is TrinketRing ring)
+                        {
+                            Accessorise++;
+                            Game1.player.team.returnedDonations.Add(ring.Trinket);
+                            if (Game1.player.isWearingRing(ring.ItemId))
+                            {
+                                if (Game1.player.leftRing.Value?.GetsEffectOfRing(ring.ItemId) is true)
+                                    Game1.player.leftRing.Value.onUnequip(Game1.player);
+
+                                if (Game1.player.rightRing.Value?.GetsEffectOfRing(ring.ItemId) is true)
+                                    Game1.player.rightRing.Value.onUnequip(Game1.player);
+                            }
+                            Game1.player.team.newLostAndFoundItems.Value = true;
+                            item = null;
+                        }
+
+                        if (item is ParrotPerch perch)
+                        {
+                            if (perch.heldObject.Value is not null)
+                            {
+                                Game1.player.team.returnedDonations.Add(perch.heldObject.Value);
+                                Game1.player.team.newLostAndFoundItems.Value = true;
+                            }
+                            item = null;
+                            ParrotPerches++;
+                        }
+
                         return true;
                     });
                     ModEntry.ModMonitor.Log($"Yesterday's weather data erased from {RainLocs} game locations.");
@@ -331,6 +391,9 @@ namespace VanillaPlusProfessions.Utilities
                     ModEntry.ModMonitor.Log($"Erased X-ray predictions from {XrayDrop} geodes.");
                     ModEntry.ModMonitor.Log($"Erased Hidden Benefits data from {FairyBoxData} fairy boxes.");
                     ModEntry.ModMonitor.Log($"Erased Resurgence data from {Resurgence} watering cans.");
+                    ModEntry.ModMonitor.Log($"Erased enchantment data from {Slingshots} slingshots. - This is crucial for save integrity.");
+                    ModEntry.ModMonitor.Log($"Returned trinkets from {Accessorise} trinket rings, then destroyed the rings. - This is crucial for save integrity.");
+                    ModEntry.ModMonitor.Log($"Erased {ParrotPerches} parrot perches, and returned parrot eggs if they had any. - This is crucial for save integrity.");
                 }
                 foreach (var farmer in Game1.getAllFarmers())
                 {
@@ -412,9 +475,9 @@ namespace VanillaPlusProfessions.Utilities
                 stringBuilder.AppendLine("Mining: " + Game1.player.miningLevel.Value);
                 stringBuilder.AppendLine("Combat: " + Game1.player.combatLevel.Value);
                 stringBuilder.AppendLine("Foraging: " + Game1.player.foragingLevel.Value);
-                foreach (var item in ModEntry.SpaceCoreAPI.Value.GetCustomSkills())
+                foreach (var item in ModEntry.SpaceCoreAPI.GetCustomSkills())
                 {
-                    stringBuilder.AppendLine(item + ": " + ModEntry.SpaceCoreAPI.Value.GetLevelForCustomSkill(Game1.player, item));
+                    stringBuilder.AppendLine(item + ": " + ModEntry.SpaceCoreAPI.GetLevelForCustomSkill(Game1.player, item));
                 }
                 stringBuilder.AppendLine("");
                 stringBuilder.AppendLine("    - Skill Experience -    ");
@@ -423,9 +486,9 @@ namespace VanillaPlusProfessions.Utilities
                 stringBuilder.AppendLine("Foraging: " + Game1.player.experiencePoints[2]);
                 stringBuilder.AppendLine("Mining: " + Game1.player.experiencePoints[3]);
                 stringBuilder.AppendLine("Combat: " + Game1.player.experiencePoints[4]);
-                foreach (var item in ModEntry.SpaceCoreAPI.Value.GetCustomSkills())
+                foreach (var item in ModEntry.SpaceCoreAPI.GetCustomSkills())
                 {
-                    stringBuilder.AppendLine(item + ": " + ModEntry.SpaceCoreAPI.Value.GetExperienceForCustomSkill(Game1.player, item));
+                    stringBuilder.AppendLine(item + ": " + ModEntry.SpaceCoreAPI.GetExperienceForCustomSkill(Game1.player, item));
                 }
                 stringBuilder.AppendLine("");
                 stringBuilder.AppendLine("    - Config Options -    ");
@@ -558,11 +621,11 @@ namespace VanillaPlusProfessions.Utilities
                     }
                 }
 
-                ModEntry.ModMonitor.Log($"Farmer {Game1.player.Name}'s supposed talent point count: {number}.");
-                ModEntry.ModMonitor.Log($"Farmer {Game1.player.Name}'s current talent point count: {TalentCore.TalentPointCount.Value}.");
+                ModEntry.ModMonitor.Log($"Farmer {Game1.player.Name}'s supposed talent point count: {number}.", LogLevel.Debug);
+                ModEntry.ModMonitor.Log($"Farmer {Game1.player.Name}'s current talent point count: {TalentCore.TalentPointCount.Value}.", LogLevel.Debug);
                 TalentCore.AddTalentPoint(number - TalentCore.TalentPointCount.Value, false);
-                ModEntry.ModMonitor.Log($"Farmer {Game1.player.Name}'s new talent point count: {TalentCore.TalentPointCount.Value}.");
-                ModEntry.ModMonitor.Log($"(Negative numbers do not mean that there's a bug, just that you had more points than you were supposed to have, likely because of a bug etc.)");
+                ModEntry.ModMonitor.Log($"Farmer {Game1.player.Name}'s new talent point count: {TalentCore.TalentPointCount.Value}.", LogLevel.Debug);
+                ModEntry.ModMonitor.Log($"(Negative numbers dont mean that there's a bug with this command, just that you had more points than you were supposed to have, likely because of a bug in point rewarding code. Reset your talent trees to get rid of it.)", LogLevel.Debug);
                 ModEntry.IsUninstalling.Value = false;
                 Game1.player.mailReceived.Add(TalentCore.Key_PointsCalculated);
             }
@@ -574,7 +637,7 @@ namespace VanillaPlusProfessions.Utilities
 
         public static int GetMaxLevel()
         {
-            return ModEntry.ModConfig.Value.MasteryCaveChanges ? 20 : 10;
+            return ModEntry.ModConfig.Value.MasteryCaveChanges;
         }
 
         public static bool CurrentPlayerHasProfession(string prof, long farmerID = -1, Farmer useThisInstead = null, bool ignoreMode = false)

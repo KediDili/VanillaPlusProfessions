@@ -24,7 +24,6 @@ using StardewValley.GameData.Objects;
 using VanillaPlusProfessions.Craftables;
 using StardewValley.Triggers;
 using Microsoft.Xna.Framework;
-using StardewValley.Network;
 
 namespace VanillaPlusProfessions.Talents
 {
@@ -35,9 +34,10 @@ namespace VanillaPlusProfessions.Talents
         internal static readonly PerScreen<bool> IsActionButtonUsed = new();
         internal static readonly PerScreen<int> prevTimeSpeed = new();
         internal static readonly PerScreen<bool> IsCookoutKit = new();
-        internal static PerScreen<int> TripleShotCooldown = new();
+        internal static int TripleShotCooldown = new();
 
         internal static bool IsDayStartOrEnd = false;
+        internal static bool? GiveOrTakeStardropEffects = null;
 
         internal const string Key_TalentPoints = "Kedi.VPP.TalentPointCount";
         internal const string Key_PointsCalculated = "Kedi.VPP.TalentPointsCalculated";
@@ -62,6 +62,7 @@ namespace VanillaPlusProfessions.Talents
         internal const string Key_HiddenBenefit_FairyBox = "Kedi.VPP.HiddenBenefit";
         internal const string Key_HiddenBenefit_Crop = "Kedi.VPP.FairyBox";
         internal const string Key_HiddenBenefit_FrogEggs = "Kedi.VPP.FrogEgg";
+        internal const string Key_ElderScrolls = "Kedi.VPP.ElderScrolls";
 
         internal const string ContextTag_PoisonousMushroom = "Kedi_VPP_Poisonous_Mushroom";
         internal const string ContextTag_BlandStone = "Kedi_VPP_Bland_Stone_Node";
@@ -85,10 +86,10 @@ namespace VanillaPlusProfessions.Talents
             ModEntry.Helper.Events.GameLoop.ReturnedToTitle += OnReturnedToTitle;
             ModEntry.Helper.Events.GameLoop.SaveCreated += OnSaveCreated;
             ModEntry.Helper.Events.Multiplayer.ModMessageReceived += OnModMessageReceived;
+            ModEntry.Helper.Events.GameLoop.TimeChanged += OnTimeChanged;
 
             if (!ModEntry.ModConfig.Value.ProfessionsOnly)
             {
-                ModEntry.Helper.Events.GameLoop.TimeChanged += OnTimeChanged;
                 ModEntry.Helper.Events.Player.InventoryChanged += OnInventoryChanged;
                 ModEntry.Helper.Events.World.NpcListChanged += OnNPCListChanged;
                 ModEntry.Helper.Events.World.TerrainFeatureListChanged += OnTerrainFeatureListChanged;
@@ -166,7 +167,7 @@ namespace VanillaPlusProfessions.Talents
 
         internal static void OnChooseNightlyFarmEvent(object sender, EventArgsChooseNightlyFarmEvent e)
         {
-            if (TalentUtility.HostHasTalent("Farming_Fairys_Kiss"))
+            if (TalentUtility.HostHasTalent("FairysKiss"))
             {
                 if (e.NightEvent is null or not QiPlaneEvent or WorldChangeEvent or FairyEvent)
                 {
@@ -199,14 +200,14 @@ namespace VanillaPlusProfessions.Talents
         }
         internal static void OnNPCListChanged(object sender, NpcListChangedEventArgs e)
         {
-            if (TalentUtility.AnyPlayerHasTalent("Farming_Harvest_Season") && e.IsCurrentLocation && e.Added is not null)
+            if (TalentUtility.AnyPlayerHasTalent("HarvestSeason") && e.IsCurrentLocation && e.Added is not null)
                 foreach (var item in e.Added)
                     if (item is JunimoHarvester)
                         item.speed += 2;
         }
         internal static void OnAfterGiftGiven(object sender, EventArgsGiftGiven e)
         {
-            if (TalentUtility.CurrentPlayerHasTalent("Foraging_Primrose_Path") && e.Gift.Category == StardewValley.Object.flowersCategory)
+            if (TalentUtility.CurrentPlayerHasTalent("PrimrosePath") && e.Gift.Category == StardewValley.Object.flowersCategory)
             {
                 Farmer who = sender as Farmer;
                 Friendship friendship = who?.friendshipData[e.Npc.Name];
@@ -251,9 +252,13 @@ namespace VanillaPlusProfessions.Talents
 
         internal static void OnOneSecondUpdateTicked(object sender, OneSecondUpdateTickedEventArgs e)
         {
-            if (TripleShotCooldown.Value > 0)
+            if (TripleShotCooldown > 0)
             {
-                TripleShotCooldown.Value -= 1000;
+                TripleShotCooldown -= 1000;
+            }
+            if (!DisplayHandler.OpenTalentMenuCooldown.Value && e.IsMultipleOf(15) && ModEntry.IsGameMenu(Game1.activeClickableMenu))
+            {
+                DisplayHandler.OpenTalentMenuCooldown.Value = true;
             }
         }
         internal static void OnTimeChanged(object sender, TimeChangedEventArgs e)
@@ -261,7 +266,7 @@ namespace VanillaPlusProfessions.Talents
             if (e.OldTime < e.NewTime && IsTimeFollowing(e))
             {
                 MachineryEventHandler.OnTimeChanged(e);
-                if (TalentUtility.AllPlayersHaveTalent("Mining_Speed_Of_Darkness"))
+                if (TalentUtility.AllPlayersHaveTalent("SpeedOfDarkness"))
                 {
                     if (e.NewTime is 2400 && e.OldTime is 2350)
                     {
@@ -271,7 +276,7 @@ namespace VanillaPlusProfessions.Talents
                         Game1.player.buffs.Apply(buff);
                     }
                 }
-                if (TalentUtility.AllPlayersHaveTalent("Combat_Meditation") && !Game1.player.isMoving() && Context.IsPlayerFree)
+                if (TalentUtility.AllPlayersHaveTalent("Meditation") && !Game1.player.isMoving() && Context.IsPlayerFree)
                 {
                     if (Game1.player.health + 15 >= Game1.player.maxHealth)
                     {
@@ -286,21 +291,25 @@ namespace VanillaPlusProfessions.Talents
                 {
                     foreach (var item in Game1.player.Items)
                     {
-                        if (item is WateringCan can && can.modData.TryGetValue(Key_Resurgence, out string val))
+                        if (item is WateringCan can && !can.modData.TryAdd(Key_Resurgence, "0"))
                         {
-                            int value = int.TryParse(val, out int result) ? result : -1 ;
-                            if (value >= 90 && can.WaterLeft < can.waterCanMax)
+                            if (can.modData.TryGetValue(Key_Resurgence, out string val))
                             {
-                                can.modData[Key_Resurgence] = "0";
-                                can.WaterLeft += can.waterCanMax / 5;
-                                if (can.waterCanMax < can.WaterLeft)
-                                    can.WaterLeft = can.waterCanMax;
-                                break;
-                            }
-                            else if (!can.IsBottomless && value != -1)
-                            {
-                                can.modData[Key_Resurgence] = (value + 10).ToString();
-                                break;
+                                int value = int.TryParse(val, out int result) ? result : -1;
+                                if (value >= 90 && can.WaterLeft < can.waterCanMax)
+                                {
+                                    can.modData[Key_Resurgence] = "0";
+                                    can.WaterLeft += can.waterCanMax / 5;
+                                    if (can.waterCanMax < can.WaterLeft)
+                                        can.WaterLeft = can.waterCanMax;
+
+                                    break;
+                                }
+                                else if (!can.IsBottomless && value != -1)
+                                {
+                                    can.modData[Key_Resurgence] = (value + 10).ToString();
+                                    break;
+                                }
                             }
                         }
                     }
@@ -347,7 +356,7 @@ namespace VanillaPlusProfessions.Talents
                             }
                         }
                     }
-                    for (int i = 0; i < e.Player.Items.Count; i++)
+                    /*for (int i = 0; i < e.Player.Items.Count; i++)
                     {
                         int stack = e.Player.Items[i]?.Stack ?? 1;
                         if (e.Player.Items[i]?.QualifiedItemId == "(BC)Kedi.VPP.HiddenBenefits.ParrotPerch")
@@ -355,7 +364,7 @@ namespace VanillaPlusProfessions.Talents
                             e.Player.Items[i] = new ParrotPerch(Vector2.Zero, "Kedi.VPP.HiddenBenefits.ParrotPerch", false);
                             e.Player.Items[i].Stack = stack;
                         }
-                    }
+                    }*/
                 }
                 if (e.Added is not null)
                 {
@@ -363,51 +372,35 @@ namespace VanillaPlusProfessions.Talents
                     {
                         if (Game1.activeClickableMenu is MenuWithInventory menu && menu.heldItem != item || Game1.activeClickableMenu is null)
                         {
-                            if (!item.modData.ContainsKey(Key_XrayDrop))
+                            if (item is WateringCan can && !can.IsBottomless)
+                            {
+                                HasWaterCan.Value = true;
+                                can.modData[Key_Resurgence] = "0";
+                                break;
+                            }
+                            else if (item is StardewValley.Object obj && obj.QualifiedItemId == "(O)92")
+                            {
+                                if (TalentUtility.AnyPlayerHasTalent("SapSipper"))
+                                {
+                                    obj.Edibility = 3;
+                                }
+                                else
+                                {
+                                    obj.Edibility = -1;
+                                }
+                            }
+                            else if (!item.modData.ContainsKey(Key_XrayDrop))
                             {
                                 TalentUtility.DetermineGeodeDrop(item);
                             }
-                        }
-                        else if (item is WateringCan can && can is not null && !can.IsBottomless)
-                        {
-                            HasWaterCan.Value = true;
-                            can.modData[Key_Resurgence] = "0";
-                            break;
-                        }
-                        else if (item is StardewValley.Object obj && obj.QualifiedItemId == "(O)92")
-                        {
-                            if (TalentUtility.AnyPlayerHasTalent("SapSipper"))
-                            {
-                                obj.Edibility = 3;
-                            }
-                            else
-                            {
-                                obj.Edibility = -1;
-                            }
-                            if (TalentUtility.AnyPlayerHasTalent("BigFishSmallPond") || TalentUtility.AnyPlayerHasTalent("SugarRush"))
-                            {
-                                if (obj.Category is StardewValley.Object.FishCategory or StardewValley.Object.CookingCategory)
-                                {
-                                    obj.MarkContextTagsDirty();
-                                }
-                            }
-                        }
-                    }
-                    for (int i = 0; i < e.Player.Items.Count; i++)
-                    {
-                        int stack = e.Player.Items[i]?.Stack ?? 1;
-                        if (e.Player.Items[i]?.QualifiedItemId == "(BC)Kedi.VPP.HiddenBenefits.ParrotPerch")
-                        {
-                            e.Player.Items[i] = new ParrotPerch(Vector2.Zero, "Kedi.VPP.HiddenBenefits.ParrotPerch", false);
-                            e.Player.Items[i].Stack = stack;
-                        }
+                        }                        
                     }
                 }
                 if (e.Removed is not null)
                 {
                     foreach (var item in e.Removed)
                     {
-                        if (item is WateringCan can && can is not null && !can.IsBottomless)
+                        if (item is WateringCan can && !can.IsBottomless)
                         {
                             HasWaterCan.Value = false;
                             can.modData[Key_Resurgence] = "0";
@@ -438,7 +431,7 @@ namespace VanillaPlusProfessions.Talents
             {
                 Game1.player.modData.TryAdd(Key_TalentPoints, "0");
             }
-            if (ModEntry.SpaceCoreAPI.Value?.GetCustomSkills().Length > 0)
+            if (ModEntry.SpaceCoreAPI?.GetCustomSkills().Length > 0)
             {
                 SkillsByName = ModEntry.Helper.Reflection.GetField<Dictionary<string, Skills.Skill>>(typeof(Skills), "SkillsByName").GetValue();
             }
@@ -465,15 +458,15 @@ namespace VanillaPlusProfessions.Talents
                 }
             }
 
-            if (ModEntry.ItemExtensionsAPI.Value is not null)
+            if (ModEntry.ItemExtensionsAPI is not null)
             {
                 var nodeList = from obj in DataLoader.Objects(Game1.content)
-                               where ModEntry.ItemExtensionsAPI.Value.IsStone(obj.Key) && !ModEntry.ItemExtensionsAPI.Value.IsClump(obj.Key)
+                               where ModEntry.ItemExtensionsAPI.IsStone(obj.Key) && !ModEntry.ItemExtensionsAPI.IsClump(obj.Key)
                                select obj;
 
                 foreach (var item in nodeList)
                 {
-                    if (ModEntry.ItemExtensionsAPI.Value.IsResource(item.Key, out int? _, out string itemDropped) && itemDropped is not null)
+                    if (ModEntry.ItemExtensionsAPI.IsResource(item.Key, out int? _, out string itemDropped) && itemDropped is not null)
                     {
                         if (ItemRegistry.GetData(itemDropped).RawData is not ObjectData objectData || objectData?.ContextTags?.Contains(ContextTag_Banned_Node) is true)
                             continue;

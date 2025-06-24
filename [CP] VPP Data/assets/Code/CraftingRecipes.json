@@ -21,31 +21,6 @@
 			"Action": "EditData",
 			"Target": "Data/CraftingRecipes",
 			"Entries": {
-				"Quality Sprinkler": "336 1 382 1 599 1/Home/621/false/s Farming 6/",
-				"Iridium Sprinkler": "337 1 787 1 621 1/Home/645/false/s Farming 9/"
-			},
-			"When": {
-				"KediDili.VanillaPlusProfessions/HasTalents|contains=Upcycling": "true",
-				"TimeChangedUpdates": "true",
-			},
-			"Update": "OnTimeChange",
-		},
-		{
-			"Action": "EditData",
-			"Target": "Data/CraftingRecipes",
-			"Entries": {
-				"Quality Sprinkler": "336 1 382 1 599 1/Home/621/false/s Farming 6/",
-				"Iridium Sprinkler": "337 1 787 1 621 1/Home/645/false/s Farming 9/"
-			},
-			"When": {
-				"KediDili.VanillaPlusProfessions/HasTalents|contains=Upcycling": "true",
-				"TimeChangedUpdates": "false",
-			},
-		},
-		{
-			"Action": "EditData",
-			"Target": "Data/CraftingRecipes",
-			"Entries": {
                 "Cookout Kit": "388 5 771 5 382 1/Field/926/false/s Foraging 3/",
 			},
 			"When": {
@@ -103,6 +78,8 @@
                 "VPP Large Maple Syrup": "Kedi.VPP.LargeMapleSyrup/Home/724 3/false/none/[LocalizedText Strings\\Objects:MapleSyrup_Name]",
                 "VPP Large Oak Resin": "Kedi.VPP.LargeOakResin/Home/725 3/false/none/[LocalizedText Strings\\Objects:OakResin_Name]",
 				"VPP Large Pine Tar": "Kedi.VPP.LargePineTar/Home/726 3/false/none/[LocalizedText Strings\\Objects:PineTar_Name]",
+				"VPP Quality Sprinkler": "338 1 382 1 599 1/Home/621/false/none/",
+				"VPP Iridium Sprinkler": "337 1 787 1 621 1/Home/645/false/none/",
 				"Transmute (Ir)": "910 2/Home/337 5/false/none/[LocalizedText Strings\\Objects:Transmute_Ir_Name]",
 				"Transmute (Au) 2": "337 2/Home/336 5/false/none/[LocalizedText Strings\\Objects:Transmute_Au_2_Name]",
 				"VPP Trinket Workbench": "709 50 335 3/Field/Kedi.VPP.Accessorise.TrinketWorkbench/true/none/",

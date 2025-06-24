@@ -37,14 +37,14 @@ namespace VanillaPlusProfessions
         internal static IMonitor ModMonitor;
         internal static IManifest Manifest;
 
-        internal static PerScreen<IContentPatcher> ContentPatcherAPI = new();
-        internal static PerScreen<IGenericModConfigMenu> GenericModConfigMenuAPI = new();
-        internal static PerScreen<ISpaceCore> SpaceCoreAPI = new();
-        internal static PerScreen<IWearMoreRings> WearMoreRingsAPI = new();
-        internal static PerScreen<IItemExtensions> ItemExtensionsAPI = new();
+        internal static IContentPatcher ContentPatcherAPI;
+        internal static IGenericModConfigMenu GenericModConfigMenuAPI;
+        internal static ISpaceCore SpaceCoreAPI;
+        internal static IWearMoreRings WearMoreRingsAPI;
+        internal static IItemExtensions ItemExtensionsAPI;
         internal static IBetterGameMenuApi BetterGameMenuAPI;
 
-        internal static readonly VanillaPlusProfessionsAPI VanillaPlusProfessionsAPI = new();
+        internal static VanillaPlusProfessionsAPI VanillaPlusProfessionsAPI = new();
 
         internal static CustomQueries CustomQueries = new();
         internal static Harmony Harmony { get; } = new("KediDili.VanillaPlusProfessions");
@@ -52,12 +52,11 @@ namespace VanillaPlusProfessions
         internal static IProfessionManager[] Managers = new IProfessionManager[6];
         internal static int[] levelExperiences;
 
-        internal static PerScreen<bool> UpdateGeodeInMenu = new(() => false);
-        internal static PerScreen<int> GeodeStackSize = new(() => 0);
-        internal static PerScreen<bool> IsUninstalling = new(() => false);
-        internal static PerScreen<bool> IsRecalculatingPoints = new(() => false);
-
-        internal static PerScreen<Config> ModConfig = new(createNewState: () => new Config());
+        internal readonly static PerScreen<bool> UpdateGeodeInMenu = new(() => false);
+        internal readonly static PerScreen<int> GeodeStackSize = new(() => 0);
+        internal readonly static PerScreen<bool> IsUninstalling = new(() => false);
+        internal readonly static PerScreen<bool> IsRecalculatingPoints = new(() => false);
+        internal readonly static PerScreen<Config> ModConfig = new(() => new Config());
 
         //So mods can access it without needing reflection.
         public static Dictionary<string, Profession> Professions = new();
@@ -87,6 +86,7 @@ namespace VanillaPlusProfessions
 
             ContentEditor.Initialize();
             DisplayHandler.Initialize();
+
             Helper.Events.GameLoop.GameLaunched += OnGameLaunched;
             Helper.Events.Input.ButtonPressed += OnButtonPressed;
             Helper.Events.Input.ButtonReleased += OnButtonReleased;
@@ -105,6 +105,7 @@ namespace VanillaPlusProfessions
             Helper.ConsoleCommands.Add("vpp.details", "Prints out skill related information. Might be useful for troubleshooting.", CoreUtility.details);
             Helper.ConsoleCommands.Add("vpp.reset", "Can be used to reset professions added by VPP. First parameter is the level (15 or 20), second is the level (0 - Farming, 1 - Fishing, 2 - Foraging, 3 - Mining or 4 - Combat)", ManagerUtility.reset);
             Helper.ConsoleCommands.Add("vpp.resetTrinkets", "Can be used to reset trinkets from bugs caused by VPP. Warning: If you use this while there are no problems, you WILL encounter errors.", TalentUtility.RemoveAndReapplyAllTrinketEffects);
+            Helper.ConsoleCommands.Add("vpp.showXPLeft", "Shows how much XP left for the next level in all vanilla skills.", CoreUtility.showXPLeft);
             Managers = new IProfessionManager[] { new FarmingManager(), new MiningManager(), new ForagingManager(), new FishingManager(), new CombatManager(), new ComboManager() };
 
             var dict = Professions?.Keys.ToList();
@@ -125,11 +126,11 @@ namespace VanillaPlusProfessions
         {
             try
             {
-                ContentPatcherAPI.Value = Helper.ModRegistry.GetApi<IContentPatcher>("Pathoschild.ContentPatcher");
-                GenericModConfigMenuAPI.Value = Helper.ModRegistry.GetApi<IGenericModConfigMenu>("spacechase0.GenericModConfigMenu");
-                SpaceCoreAPI.Value = Helper.ModRegistry.GetApi<ISpaceCore>("spacechase0.SpaceCore");
-                WearMoreRingsAPI.Value = Helper.ModRegistry.GetApi<IWearMoreRings>("bcmpinc.WearMoreRings");
-                ItemExtensionsAPI.Value = Helper.ModRegistry.GetApi<IItemExtensions>("mistyspring.ItemExtensions");
+                ContentPatcherAPI = Helper.ModRegistry.GetApi<IContentPatcher>("Pathoschild.ContentPatcher");
+                GenericModConfigMenuAPI = Helper.ModRegistry.GetApi<IGenericModConfigMenu>("spacechase0.GenericModConfigMenu");
+                SpaceCoreAPI = Helper.ModRegistry.GetApi<ISpaceCore>("spacechase0.SpaceCore");
+                WearMoreRingsAPI = Helper.ModRegistry.GetApi<IWearMoreRings>("bcmpinc.WearMoreRings");
+                ItemExtensionsAPI = Helper.ModRegistry.GetApi<IItemExtensions>("mistyspring.ItemExtensions");
                 BetterGameMenuAPI = Helper.ModRegistry.GetApi<IBetterGameMenuApi>("leclair.bettergamemenu");
             }
             catch (Exception)
@@ -140,46 +141,48 @@ namespace VanillaPlusProfessions
             CustomQueries.Initialize();
             DisplayHandler.InitializeBetterGameMenu();
 
-            if (ContentPatcherAPI.Value is not null)
+            if (ContentPatcherAPI is not null)
             {
-                ContentPatcherAPI.Value.RegisterToken(Manifest, "HasProfessions", GetProfessions);
-                ContentPatcherAPI.Value.RegisterToken(Manifest, "HasTalents", new HasTalents());
-                ContentPatcherAPI.Value.RegisterToken(Manifest, "ContentPaths", new ContentPaths());
-                ContentPatcherAPI.Value.RegisterToken(Manifest, "ProfessionsOnly", () => new string[] { ModConfig.Value.ProfessionsOnly.ToString() });
+                ContentPatcherAPI.RegisterToken(Manifest, "HasProfessions", GetProfessions);
+                ContentPatcherAPI.RegisterToken(Manifest, "HasTalents", new HasTalents());
+                ContentPatcherAPI.RegisterToken(Manifest, "ContentPaths", new ContentPaths());
+                ContentPatcherAPI.RegisterToken(Manifest, "ProfessionsOnly", () => new string[] { ModConfig.Value.ProfessionsOnly.ToString() });
             }
             else
                 ModMonitor.Log("Content Patcher is either not installed or there was a problem while requesting the API. Skipping token additions.", LogLevel.Info);
-            if (GenericModConfigMenuAPI.Value is not null)
+            if (GenericModConfigMenuAPI is not null)
             {
-                GenericModConfigMenuAPI.Value.Register(Manifest, () => ModConfig.Value = new Config(), () => Helper.WriteConfig(ModConfig.Value));
-                GenericModConfigMenuAPI.Value.AddBoolOption(Manifest, () => ModConfig.Value.ColorBlindnessChanges, value => ModConfig.Value.ColorBlindnessChanges = value, () => Helper.Translation.Get("GMCM.ColorBlindnessChanges.Name"), () => Helper.Translation.Get("GMCM.ColorBlindnessChanges.Desc"));
-                GenericModConfigMenuAPI.Value.AddBoolOption(Manifest, () => ModConfig.Value.DeveloperOrTestingMode, value => ModConfig.Value.DeveloperOrTestingMode = value, () => Helper.Translation.Get("GMCM.DeveloperOrTestingMode.Name"), () => Helper.Translation.Get("GMCM.DeveloperOrTestingMode.Desc"));
-                GenericModConfigMenuAPI.Value.AddBoolOption(Manifest, () => ModConfig.Value.MasteryCaveChanges, value => ModConfig.Value.MasteryCaveChanges = value, () => Helper.Translation.Get("GMCM.MasteryCaveChanges.Name"), () => Helper.Translation.Get("GMCM.MasteryCaveChanges.Desc"));
-                GenericModConfigMenuAPI.Value.AddBoolOption(Manifest, () => ModConfig.Value.StaminaCostAdjustments, value => ModConfig.Value.StaminaCostAdjustments = value, () => Helper.Translation.Get("GMCM.StaminaCostAdjustments.Name"), () => Helper.Translation.Get("GMCM.StaminaCostAdjustments.Desc"));
-                GenericModConfigMenuAPI.Value.AddBoolOption(Manifest, () => ModConfig.Value.ProfessionsOnly, value => ModConfig.Value.ProfessionsOnly = value, () => Helper.Translation.Get("GMCM.ProfessionsOnly.Name"), () => Helper.Translation.Get("GMCM.ProfessionsOnly.Desc"));
-                GenericModConfigMenuAPI.Value.AddTextOption(Manifest, () => ModConfig.Value.TalentHintLevel, value => ModConfig.Value.TalentHintLevel = value, () => Helper.Translation.Get("GMCM.TalentHintLevel.Name"), () => Helper.Translation.Get("GMCM.TalentHintLevel.Desc"), new string[] {"Hidden", "Partial", "Full"}, option => Helper.Translation.Get($"GMCM.TalentHintLevel.Options.{option}"));
+                GenericModConfigMenuAPI.Register(Manifest, () => ModConfig.Value = new Config(), () => Helper.WriteConfig(ModConfig.Value));
+                GenericModConfigMenuAPI.AddBoolOption(Manifest, () => ModConfig.Value.ColorBlindnessChanges, value => ModConfig.Value.ColorBlindnessChanges = value, () => Helper.Translation.Get("GMCM.ColorBlindnessChanges.Name"), () => Helper.Translation.Get("GMCM.ColorBlindnessChanges.Desc"));
+                GenericModConfigMenuAPI.AddBoolOption(Manifest, () => ModConfig.Value.DeveloperOrTestingMode, value => ModConfig.Value.DeveloperOrTestingMode = value, () => Helper.Translation.Get("GMCM.DeveloperOrTestingMode.Name"), () => Helper.Translation.Get("GMCM.DeveloperOrTestingMode.Desc"));
+                //GenericModConfigMenuAPI.AddBoolOption(Manifest, () => ModConfig.Value.MasteryCaveChanges, value => ModConfig.Value.MasteryCaveChanges = value, () => Helper.Translation.Get("GMCM.MasteryCaveChanges.Name"), () => Helper.Translation.Get("GMCM.MasteryCaveChanges.Desc"));
+                GenericModConfigMenuAPI.AddNumberOption(Manifest, () => ModConfig.Value.MasteryCaveChanges, value => ModConfig.Value.MasteryCaveChanges = value, () => Helper.Translation.Get("GMCM.MasteryCaveChanges.Name"), () => Helper.Translation.Get("GMCM.MasteryCaveChanges.Desc"), 10, 20, 5);
+                GenericModConfigMenuAPI.AddBoolOption(Manifest, () => ModConfig.Value.StaminaCostAdjustments, value => ModConfig.Value.StaminaCostAdjustments = value, () => Helper.Translation.Get("GMCM.StaminaCostAdjustments.Name"), () => Helper.Translation.Get("GMCM.StaminaCostAdjustments.Desc"));
+                GenericModConfigMenuAPI.AddBoolOption(Manifest, () => ModConfig.Value.ProfessionsOnly, value => ModConfig.Value.ProfessionsOnly = value, () => Helper.Translation.Get("GMCM.ProfessionsOnly.Name"), () => Helper.Translation.Get("GMCM.ProfessionsOnly.Desc"));
+                GenericModConfigMenuAPI.AddTextOption(Manifest, () => ModConfig.Value.TalentHintLevel, value => ModConfig.Value.TalentHintLevel = value, () => Helper.Translation.Get("GMCM.TalentHintLevel.Name"), () => Helper.Translation.Get("GMCM.TalentHintLevel.Desc"), new string[] { "Hidden", "Partial", "Full" }, option => Helper.Translation.Get($"GMCM.TalentHintLevel.Options.{option}"));
             }
+
             else
                 ModMonitor.Log("Generic Mod Config Menu is either not installed or there was a problem while requesting the API. The config menu wont be created.", LogLevel.Info);
-            if (SpaceCoreAPI.Value is null)
+            if (SpaceCoreAPI is null)
                 ModMonitor.Log("SpaceCore is either not installed or there was a problem while requesting the API. If its the latter, custom skill mod integrations will not work.", LogLevel.Info);
             else
             {
-                SpaceCoreAPI.Value.RegisterSerializerType(typeof(ParrotPerch));
-                SpaceCoreAPI.Value.RegisterSerializerType(typeof(TrinketRing));
-                SpaceCoreAPI.Value.RegisterSerializerType(typeof(SlingshotEnchantment));
-                SpaceCoreAPI.Value.RegisterSerializerType(typeof(ThriftyEnchantment));
-                SpaceCoreAPI.Value.RegisterSerializerType(typeof(BatKillerEnchantment));
-                SpaceCoreAPI.Value.RegisterSerializerType(typeof(AutoFireEnchantment));
-                SpaceCoreAPI.Value.RegisterSerializerType(typeof(RapidEnchantment));
+                SpaceCoreAPI.RegisterSerializerType(typeof(ParrotPerch));
+                SpaceCoreAPI.RegisterSerializerType(typeof(TrinketRing));
+                SpaceCoreAPI.RegisterSerializerType(typeof(SlingshotEnchantment));
+                SpaceCoreAPI.RegisterSerializerType(typeof(ThriftyEnchantment));
+                SpaceCoreAPI.RegisterSerializerType(typeof(BatKillerEnchantment));
+                SpaceCoreAPI.RegisterSerializerType(typeof(AutoFireEnchantment));
+                SpaceCoreAPI.RegisterSerializerType(typeof(RapidEnchantment));
             }
 
-            if (WearMoreRingsAPI.Value is null)
+            if (WearMoreRingsAPI is null)
             {
                 ModMonitor.Log("Wear More Rings is either not installed or there was a problem while requesting the API. If its the latter, custom ring slots will not be recognized by this mod.", LogLevel.Info);
             }
 
-            if (ItemExtensionsAPI.Value is null)
+            if (ItemExtensionsAPI is null)
             {
                 ModMonitor.Log("Item Extensions is either not installed or there was a problem while requesting the API. If its the latter; custom gem, ore and stone nodes will not be recognized by this mod.", LogLevel.Info);
             }
@@ -199,7 +202,6 @@ namespace VanillaPlusProfessions
                 }
             }
         }
-
         /// <summary>
         /// Get the current page from the provided <see cref="GameMenu"/> or
         /// <c>BetterGameMenu</c> instance. Returns <c>null</c> if the provided
@@ -245,7 +247,6 @@ namespace VanillaPlusProfessions
             if (e.IsLocalPlayer)
             {
                 var data = e.NewLocation?.GetData()?.CustomFields ?? new();
-                
 
                 if (e.NewLocation is MineShaft shaft)
                 {
@@ -305,7 +306,7 @@ namespace VanillaPlusProfessions
                 {
                     bool success = false;
                     List<Vector2> validcoords = (from tileobjpair in e.NewLocation.Objects.Pairs
-                                                 where tileobjpair.Value is not null && (tileobjpair.Value.IsBlandStone() || (ItemExtensionsAPI.Value?.IsStone(tileobjpair.Value.QualifiedItemId) is true && ItemExtensionsAPI.Value?.IsResource(tileobjpair.Value.QualifiedItemId, out int? _, out string itemDropped) is true && itemDropped.Contains("390")))
+                                                 where tileobjpair.Value is not null && (tileobjpair.Value.IsBlandStone() || (ItemExtensionsAPI?.IsStone(tileobjpair.Value.QualifiedItemId) is true && ItemExtensionsAPI?.IsResource(tileobjpair.Value.QualifiedItemId, out int? _, out string itemDropped) is true && itemDropped.Contains("390")))
                                                  select tileobjpair.Key).ToList();
 
                     Dictionary<Vector2, string> CoordinatesForMP = new();
@@ -331,11 +332,11 @@ namespace VanillaPlusProfessions
                                                  where tileobjpair.Value is not null && tileobjpair.Value.IsBlandStone()
                                                  select tileobjpair.Key).ToList();
 
-                    if (TalentUtility.AllPlayersHaveTalent("CrystalCavern") && (data?.ContainsKey(TalentCore.Key_CrystalCavern) is true || e.NewLocation is MineShaft or VolcanoDungeon) && Game1.random.NextBool(0.0005))
+                    if (TalentUtility.AllPlayersHaveTalent("CrystalCavern") && (data?.ContainsKey(TalentCore.Key_CrystalCavern) is true || e.NewLocation is MineShaft or VolcanoDungeon) && Game1.random.NextBool(0.003))
                     {
                         TalentUtility.GemAndGeodeNodes(true, validcoords, Game1.player.currentLocation);
                     }
-                    else if (TalentUtility.AllPlayersHaveTalent("Upheaval") && (data?.ContainsKey(TalentCore.Key_Upheaval) is true || e.NewLocation is MineShaft or VolcanoDungeon) && Game1.random.NextBool(0.0005))
+                    else if (TalentUtility.AllPlayersHaveTalent("Upheaval") && (data?.ContainsKey(TalentCore.Key_Upheaval) is true || e.NewLocation is MineShaft or VolcanoDungeon) && Game1.random.NextBool(0.003))
                     {
                         TalentUtility.GemAndGeodeNodes(false, validcoords, Game1.player.currentLocation);
                     }
@@ -384,7 +385,7 @@ namespace VanillaPlusProfessions
                                         trinket.modData[TalentCore.Key_HiddenBenefit_FairyBox] = (int.Parse(trinket.modData[TalentCore.Key_HiddenBenefit_FairyBox]) + 1).ToString();
                                     }
                                     else
-                                        Game1.pauseThenMessage(250, Helper.Translation.Get("Message.FairyBreak"));
+                                        Game1.showGlobalMessage(Helper.Translation.Get("Message.FairyBreak"));
                                 }
                                 else
                                     shouldGrow = true;
@@ -393,18 +394,18 @@ namespace VanillaPlusProfessions
                                     if (!dirt.crop.modData.TryAdd(TalentCore.Key_HiddenBenefit_Crop, "true"))
                                     {
                                         if (dirt.crop.modData[TalentCore.Key_HiddenBenefit_Crop] == "true")
-                                            Game1.pauseThenMessage(250, Helper.Translation.Get("Message.AlreadyFertilized"));
+                                            Game1.showGlobalMessage(Helper.Translation.Get("Message.AlreadyFertilized"));
                                         else
                                         {
                                             Game1.playSound("wand");
                                             dirt.crop.modData[TalentCore.Key_HiddenBenefit_Crop] = "true";
-                                            Game1.pauseThenMessage(250, Helper.Translation.Get("Message.Fertilized"));
+                                            Game1.showGlobalMessage(Helper.Translation.Get("Message.Fertilized"));
                                         }
                                     }
                                     else
                                     {
                                         Game1.playSound("wand");
-                                        Game1.pauseThenMessage(250, Helper.Translation.Get("Message.Fertilized"));
+                                        Game1.showGlobalMessage(Helper.Translation.Get("Message.Fertilized"));
                                         dirt.crop.modData[TalentCore.Key_HiddenBenefit_Crop] = "true";
                                     }
                                 }
@@ -422,7 +423,7 @@ namespace VanillaPlusProfessions
                             rod.castingTimerSpeed = 0.001f;
                         }
                     }
-                    
+
                     else if (Game1.player.ActiveObject?.QualifiedItemId == "(TR)BasiliskPaw" && TalentUtility.CurrentPlayerHasTalent("HiddenBenefits") && Game1.player.currentLocation.Objects.TryGetValue(e.Cursor.Tile, out var value2) && !value2.HasTypeBigCraftable() && value2.Category != StardewValley.Object.litterCategory)
                     {
                         if (Game1.player.couldInventoryAcceptThisItem(value2))
@@ -435,6 +436,10 @@ namespace VanillaPlusProfessions
                             Game1.hudMessages.Add(new("Full inventory", HUDMessage.error_type));
                         }
                     }
+                    else if (Game1.player.currentLocation.Objects.TryGetValue(e.Cursor.Tile, out value2) && value2 is not ParrotPerch && value2.QualifiedItemId == "(BC)Kedi.VPP.HiddenBenefits.ParrotPerch" && TalentUtility.CurrentPlayerHasTalent("HiddenBenefits"))
+                    {
+                        Game1.player.currentLocation.Objects[e.Cursor.Tile] = new ParrotPerch(e.Cursor.Tile, "Kedi.VPP.HiddenBenefits.ParrotPerch", false);
+                    }
                     else if (Game1.player.ActiveObject?.Category == StardewValley.Object.litterCategory && !Game1.player.currentLocation.Objects.ContainsKey(e.Cursor.GrabTile))
                     {
                         if (Game1.player.currentLocation.Objects.TryAdd(e.Cursor.GrabTile, Game1.player.ActiveObject.getOne() as StardewValley.Object) && Game1.player.Tile != e.Cursor.GrabTile)
@@ -446,6 +451,7 @@ namespace VanillaPlusProfessions
                             }
                         }
                     }
+                    //There's a false because nothing here is supposed to be accessed yet.
                     if (false && Game1.player.ActiveObject?.QualifiedItemId is "(O)KediDili.VPPData.CP_MossyFertilizer" or "(O)KediDili.VPPData.CP_WildTotem" or "(O)KediDili.VPPData.CP_SunTotem" or "(O)KediDili.VPPData.CP_SnowTotem")
                     {
                         CraftableHandler.OnInteract(Game1.player, Game1.player.ActiveObject);
@@ -498,49 +504,36 @@ namespace VanillaPlusProfessions
                                 Game1.player.ActiveObject = null;
                             }
                         }
-                        else if (value is Chest chest4 && chest4.QualifiedItemId == "(BC)216")
+                        if (value is Chest chest4 && chest4.QualifiedItemId == "(BC)216")
                         {
-                            if (TalentUtility.AnyPlayerHasTalent("Misc_MiniFridgeBigSpace"))
+                            if (TalentUtility.AnyPlayerHasTalent("MiniFridgeBigSpace"))
                             {
                                 chest4.SpecialChestType = Chest.SpecialChestTypes.BigChest;
                             }
                         }
-                        else if (Game1.player.ActiveItem is TrinketRing ring && value.QualifiedItemId == "(BC)Kedi.VPP.Accessorise.TrinketWorkbench")
-                        {
-                            Item result = TalentUtility.AccessoriseMachineRule(value, ring, false, null, null, out int? minuteOverride);
-                            if (result is Trinket trinket)
-                            {
-                                Game1.player.addItemToInventory(trinket);
-                                for (int i = Game1.player.Items.Count - 1; i >= 0; i--)
-                                {
-                                    Item item = Game1.player.Items[i];
-                                    if (item != null && item == Game1.player.ActiveItem)
-                                    {
-                                        Game1.player.Items[i] = null;
-                                    }
-                                }
-                            }
-                        }
                     }
-                    else if (Game1.player.ActiveObject?.QualifiedItemId is "(O)96" or "(O)97" or "(O)98" or "(O)99" && Game1.player.canUnderstandDwarves && TalentUtility.CurrentPlayerHasTalent("Mining_Elder_Scrolls"))
+                    else if (Game1.player.ActiveObject?.QualifiedItemId is "(O)96" or "(O)97" or "(O)98" or "(O)99" && Game1.player.canUnderstandDwarves && TalentUtility.CurrentPlayerHasTalent("ElderScrolls"))
                     {
                         Game1.player.gainExperience(3, 250);
                         Game1.player.currentLocation.playSound("shwip");
                         var msg = HUDMessage.ForItemGained(Game1.player.ActiveObject, 1, "ElderScrolls");
                         msg.message = Helper.Translation.Get("Message.ReadDwarfScroll");
                         Game1.addHUDMessage(msg);
-                        Game1.player.ActiveObject.ConsumeStack(1);
+                        if (Game1.player.ActiveObject.ConsumeStack(1) is null)
+                        {
+                            Game1.player.ActiveObject = null;
+                        }
                     }
                     else if (Game1.player.CurrentTool is not null and Slingshot slingshot && TalentUtility.CurrentPlayerHasTalent("TripleShot"))
                     {
                         foreach (var item in Game1.player.enchantments)
                             if (item is AutoFireEnchantment) //Balance
                                 return;
-                        if (TalentCore.TripleShotCooldown.Value <= 0)
+                        if (TalentCore.TripleShotCooldown <= 0)
                         {
                             slingshot.beginUsing(Game1.player.currentLocation, (int)Game1.player.lastClick.X, (int)Game1.player.lastClick.Y, Game1.player);
                             slingshot.lastUser = Game1.player;
-                            TalentCore.TripleShotCooldown.Value = 7500;
+                            TalentCore.TripleShotCooldown = 5000;
                             Game1.player.usingSlingshot = true;
                             TalentCore.IsActionButtonUsed.Value = true;
                         }
@@ -553,26 +546,33 @@ namespace VanillaPlusProfessions
             }
             else if (IsGameMenu(Game1.activeClickableMenu))
             {
-                if (e.Button.IsUseToolButton() || e.Button.IsActionButton())
+                var menuPage = GetGameMenuPage(Game1.activeClickableMenu);
+                if (menuPage is SkillsPage page)
                 {
-                    var menuPage = GetGameMenuPage(Game1.activeClickableMenu);
-                    if (menuPage is SkillsPage page)
+                    if (e.Button.IsUseToolButton() || e.Button.IsActionButton())
                     {
-                        if (CoreUtility.IsOverlayValid() && DisplayHandler.LittleArrow.Value.containsPoint(Game1.getMouseX(true), Game1.getMouseY(true)))
+                        if (CoreUtility.IsOverlayValid() && DisplayHandler.LittlePlus.Value.containsPoint(Game1.getMouseX(true), Game1.getMouseY(true)))
                         {
                             DisplayHandler.IsOverlayActive.Value = !DisplayHandler.IsOverlayActive.Value;
                             page.skillBars = DisplayHandler.IsOverlayActive.Value ? DisplayHandler.MyCustomSkillBars.Value.ToList() : DisplayHandler.VanillaSkillBars.Value.ToList();
                         }
+                        AssignIDs(page.skillBars);
                     }
-                    else if (menuPage is NewSkillsPage pagee)
+                    else
                     {
-                        if (CoreUtility.IsOverlayValid() && DisplayHandler.LittleArrow.Value.containsPoint(Game1.getMouseX(true), Game1.getMouseY(true)))
+                        AssignIDs(null);
+                    }
+                }
+                else if (menuPage is NewSkillsPage pagee)
+                {
+                    pagee.allClickableComponents.Add(DisplayHandler.LittlePlus.Value);
+                    DisplayHandler.MyCustomSkillBars.Value = pagee.skillBars.ToArray();
+                    NewSkillsPage skillsPage2 = new(Game1.activeClickableMenu.xPositionOnScreen, Game1.activeClickableMenu.yPositionOnScreen, Game1.activeClickableMenu.width + ((LocalizedContentManager.CurrentLanguageCode is LocalizedContentManager.LanguageCode.ru or LocalizedContentManager.LanguageCode.it) ? 64 : 0), Game1.activeClickableMenu.height);
+                    DisplayHandler.VanillaSkillBars.Value = skillsPage2.skillBars.ToArray();
+                    if (e.Button.IsUseToolButton() || e.Button.IsActionButton())
+                    {
+                        if (CoreUtility.IsOverlayValid() && DisplayHandler.LittlePlus.Value.containsPoint(Game1.getMouseX(true), Game1.getMouseY(true)))
                         {
-                            var menu2 = Game1.activeClickableMenu;
-                            DisplayHandler.MyCustomSkillBars.Value = pagee.skillBars.ToArray();
-                            NewSkillsPage skillsPage2 = new(menu2.xPositionOnScreen, menu2.yPositionOnScreen, menu2.width + ((LocalizedContentManager.CurrentLanguageCode is LocalizedContentManager.LanguageCode.ru or LocalizedContentManager.LanguageCode.it) ? 64 : 0), menu2.height);
-                            DisplayHandler.VanillaSkillBars.Value = skillsPage2.skillBars.ToArray();
-
                             List<(int, string)> IndexAndProfessions = new();
                             List<string> AlreadyPickedProfessions = new();
 
@@ -601,7 +601,7 @@ namespace VanillaPlusProfessions
                                     {
                                         foreach (var pair in item.ProfessionsForLevels)
                                         {
-                                            if (pair.Level >= SpaceCoreAPI.Value.GetLevelForCustomSkill(Game1.player, item.Id))
+                                            if (pair.Level >= SpaceCoreAPI.GetLevelForCustomSkill(Game1.player, item.Id))
                                             {
                                                 if (CoreUtility.CurrentPlayerHasProfession(pair.First.GetVanillaId().ToString(), ignoreMode: true) && !AlreadyPickedProfessions.Contains(NewSkillsPage.CustomSkillPrefix + pair.First.GetVanillaId()))
                                                 {
@@ -657,8 +657,48 @@ namespace VanillaPlusProfessions
                             }
                             DisplayHandler.IsOverlayActive.Value = !DisplayHandler.IsOverlayActive.Value;
                             pagee.skillBars = DisplayHandler.IsOverlayActive.Value ? DisplayHandler.MyCustomSkillBars.Value.ToList() : DisplayHandler.VanillaSkillBars.Value.ToList();
+                            AssignIDs(pagee.skillBars);
                         }
-
+                    }
+                    else
+                    {
+                        AssignIDs(null);
+                    }
+                }
+                void AssignIDs(List<ClickableTextureComponent> skillBars)
+                {
+                    if (skillBars is not null)
+                    {
+                        foreach (var item in skillBars)
+                        {
+                            if (item.downNeighborID == -1)
+                            {
+                                item.downNeighborID = 46780;
+                                break;
+                            }
+                        }
+                    }
+                    if (DisplayHandler.MyCustomSkillBars.Value is not null)
+                    {
+                        foreach (var item in DisplayHandler.MyCustomSkillBars.Value)
+                        {
+                            if (item.downNeighborID == -1)
+                            {
+                                item.downNeighborID = 46780;
+                                break;
+                            }
+                        }
+                    }
+                    if (DisplayHandler.VanillaSkillBars.Value is not null)
+                    {
+                        foreach (var item in DisplayHandler.VanillaSkillBars.Value)
+                        {
+                            if (item.downNeighborID == -1)
+                            {
+                                item.downNeighborID = 46780;
+                                break;
+                            }
+                        }
                     }
                 }
             }
@@ -675,7 +715,7 @@ namespace VanillaPlusProfessions
             }
             if (IsGameMenu(Game1.activeClickableMenu))
             {
-                if ((e.Button.IsUseToolButton() || e.Button.IsActionButton()) && !ModConfig.Value.ProfessionsOnly)
+                if ((e.Button.IsUseToolButton() || e.Button.IsActionButton()) && DisplayHandler.OpenTalentMenuCooldown.Value && !ModConfig.Value.ProfessionsOnly)
                 {
                     var menuPage = GetGameMenuPage(Game1.activeClickableMenu);
                     if (menuPage is SkillsPage page)
@@ -787,7 +827,10 @@ namespace VanillaPlusProfessions
         private void OnDayEnding(object sender, DayEndingEventArgs e)
         {
             TalentCore.IsDayStartOrEnd = true;
-            
+            bool Orchardist = CoreUtility.AnyPlayerHasProfession("Orchardist");
+            bool Accumulation = TalentUtility.AnyPlayerHasTalent("Accumulation");
+            bool Abundance = TalentUtility.AnyPlayerHasTalent("Abundance");
+
             Utility.ForEachItem(item =>
             {
                 if (item is not null and StardewValley.Object obj)
@@ -796,7 +839,7 @@ namespace VanillaPlusProfessions
                     {
                         if (crabPot.heldObject.Value is not null)
                         {
-                            if (TalentUtility.AnyPlayerHasTalent("BaitAndSwitch") && crabPot.heldObject.Value.HasContextTag("fish_crab_pot") is true && Game1.random.NextBool(0.05))
+                            if (TalentUtility.CurrentPlayerHasTalent("BaitAndSwitch", crabPot.owner.Value) && crabPot.heldObject.Value.HasContextTag("fish_crab_pot") is true && Game1.random.NextBool(0.05))
                             {
                                 crabPot.heldObject.Value.Quality++;
                                 crabPot.heldObject.Value.FixQuality();
@@ -837,11 +880,11 @@ namespace VanillaPlusProfessions
                     }
                     if (obj.IsTapper() is true && obj.heldObject.Value is not null)
                     {
-                        if (CoreUtility.AnyPlayerHasProfession("Orchardist") && Game1.random.NextBool(0.05) && obj.Location.terrainFeatures.TryGetValue(obj.TileLocation, out TerrainFeature terrainFeature) && terrainFeature is Tree or FruitTree or GiantCrop && obj.heldObject.Value.Stack < 5)
+                        if (Orchardist && Game1.random.NextBool(0.05) && obj.Location.terrainFeatures.TryGetValue(obj.TileLocation, out TerrainFeature terrainFeature) && terrainFeature is Tree or FruitTree or GiantCrop && obj.heldObject.Value.Stack < 5)
                         {
                             obj.heldObject.Value.Stack += Game1.random.Next(1, 3);
                         }
-                        if (TalentUtility.AnyPlayerHasTalent("Accumulation"))
+                        if (Accumulation)
                         {
                             if (Game1.random.NextBool(0.005))
                             {
@@ -853,7 +896,7 @@ namespace VanillaPlusProfessions
                     if (obj.QualifiedItemId == "(BC)10" && obj.heldObject.Value is not null)
                     {
                         int tiles = TalentUtility.FlowersInBeeHouseRange(obj.Location, obj.TileLocation);
-                        if (TalentUtility.AnyPlayerHasTalent("Farming_Abundance") && Game1.random.NextBool(tiles * 0.05))
+                        if (Abundance && Game1.random.NextBool(tiles * 0.05))
                         {
                             obj.heldObject.Value.Quality++;
                             obj.heldObject.Value.FixQuality();
@@ -873,7 +916,7 @@ namespace VanillaPlusProfessions
                         slimeHutch.modData[Key_IsSlimeHutchWatered] = str;
                     }
                 }
-                else if (building is FishPond fishPond && TalentUtility.CurrentPlayerHasTalent("Fishing_Exsquidsite", farmerID: fishPond.owner.Value))
+                else if (building is FishPond fishPond && TalentUtility.CurrentPlayerHasTalent("Ex-squid-site", farmerID: fishPond.owner.Value))
                 {
                     if (fishPond.output.Value is not null && fishPond.output.Value.QualifiedItemId is "(O)812" or "(O)814" && Game1.random.NextBool(0.24))
                     {
@@ -903,7 +946,7 @@ namespace VanillaPlusProfessions
         {
             if (e.IsLocalPlayer && e.NewLevel > e.OldLevel)
             {
-                if (e.NewLevel > 10 && (int)e.Skill < 5)
+                if (e.NewLevel is 15 or 20 && (int)e.Skill < 5)
                 {
                     DisplayHandler.ShouldHandleSkillPage.Value = true;
                 }

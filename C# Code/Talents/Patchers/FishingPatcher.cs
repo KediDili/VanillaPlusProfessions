@@ -81,7 +81,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
         {
             try
             {
-                if (TalentUtility.AnyPlayerHasTalent("FishTrap") && __instance.heldObject.Value is not null)
+                if (__instance.heldObject.Value is not null) //&& TalentUtility.CurrentPlayerHasTalent("FishTrap")
                 {
                     if (DataLoader.Fish(Game1.content).TryGetValue(__instance.heldObject.Value?.ItemId, out string value) && !string.IsNullOrEmpty(value) && !value.Contains("trap") && __instance.tileIndexToShow == 714)
                     {
@@ -228,7 +228,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             return true;
         }
         
-        public static int TryOverrideChallengeFish() => TalentUtility.CurrentPlayerHasTalent("Fishing_One_Fish_Two_Fish") ? 4 : 3;
+        public static int TryOverrideChallengeFish() => TalentUtility.CurrentPlayerHasTalent("OneFishTwoFish") ? 4 : 3;
         public static IEnumerable<CodeInstruction> draw_Transpiler(IEnumerable<CodeInstruction> insns)
         {
             var list = insns.ToList();

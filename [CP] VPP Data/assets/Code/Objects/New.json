@@ -524,6 +524,7 @@
 					"DisplayName": "[LocalizedText Strings\\BigCraftables:ParrotPerch_Name]",
 					"Description": "[LocalizedText Strings\\BigCraftables:ParrotPerch_Description]",
 					"Price": 50,
+					"Type": "Crafting",
 					"Fragility": 0,
 					"CanBePlacedOutdoors": true,
 					"CanBePlacedIndoors": true,

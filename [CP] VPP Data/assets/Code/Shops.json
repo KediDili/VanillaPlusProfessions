@@ -44,88 +44,127 @@
 			"TargetField": [ "Bookseller", "Items" ],
 			"Fields": { 
 				"(O)PurpleBook": {
-					"Price": 5000,
+					//"Price": 5000,
+					"PriceModifiers":[
+						{
+							"Id": "{{ModId}}_BookclubBargains_BookOfStars",
+							"Modification": "Set",
+							"Amount": 5000,
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current BookclubBargains"
+						}
+					]
 				},
 				"RandomSkillBook1": {
-					"Price": 5000,
+					//"Price": 5000,
+					"PriceModifiers":[
+						{
+							"Id": "{{ModId}}_BookclubBargains_RandomSkillBook1",
+							"Modification": "Set",
+							"Amount": 5000,
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current BookclubBargains"
+						}
+					]
 				},
 				"RandomSkillBook2": {
-					"Price": 4000,
+					//"Price": 4000,
+					"PriceModifiers":[
+						{
+							"Id": "{{ModId}}_BookclubBargains_RandomSkillBook2",
+							"Modification": "Set",
+							"Amount": 4000,
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current BookclubBargains"
+						}
+					]
 				},
 				"RandomSkillBook3": {
-					"Price": 2500,
+					//"Price": 2500,
+					"PriceModifiers":[
+						{
+							"Id": "{{ModId}}_BookclubBargains_RandomSkillBook3",
+							"Modification": "Set",
+							"Amount": 2500,
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current BookclubBargains"
+						}
+					]
 				},
 				"RandomBook": {
-					"Price": 12500,
+					//"Price": 12500,
+					"PriceModifiers":[
+						{
+							"Id": "{{ModId}}_BookclubBargains_RandomBook",
+							"Modification": "Set",
+							"Amount": 12500,
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current BookclubBargains"
+						}
+					]
 				},
 				"(O)Book_Speed": {
-					"Price": 10000,
+					//"Price": 10000,
+					"PriceModifiers":[
+						{
+							"Id": "{{ModId}}_BookclubBargains_WayOfTheWind1",
+							"Modification": "Set",
+							"Amount": 10000,
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current BookclubBargains"
+						}
+					]
 				},
 				"(O)Book_Speed2": {
-					"Price": 15000,
+					//"Price": 15000,
+					"PriceModifiers":[
+						{
+							"Id": "{{ModId}}_BookclubBargains_WayOfTheWind1",
+							"Modification": "Set",
+							"Amount": 15000,
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current BookclubBargains"
+						}
+					]
 				},
 				"(O)Book_Horse": {
-					"Price": 20000,
+					//"Price": 20000,
+					"PriceModifiers":[
+						{
+							"Id": "{{ModId}}_BookclubBargains_WayOfTheWind1",
+							"Modification": "Set",
+							"Amount": 20000,
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current BookclubBargains"
+						}
+					]
 				},
 				"(O)Book_Grass": {
-					"Price": 15000,
+					//"Price": 15000,
+					"PriceModifiers":[
+						{
+							"Id": "{{ModId}}_BookclubBargains_OlSlitherlegs",
+							"Modification": "Set",
+							"Amount": 15000,
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current BookclubBargains"
+						}
+					]
 				},
 				"(O)Book_QueenOfSauce": {
-					"Price": 25000,
+					//"Price": 25000,
+					"PriceModifiers":[
+						{
+							"Id": "{{ModId}}_BookclubBargains_QueenOfSauce",
+							"Modification": "Set",
+							"Amount": 25000,
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current BookclubBargains"
+						}
+					]
 				},
 				"(O)SkillBook_2": {
-					"Price": 4000,
+					//"Price": 4000,
+					"PriceModifiers":[
+						{
+							"Id": "{{ModId}}_BookclubBargains_WoodcuttersWeekly",
+							"Modification": "Set",
+							"Amount": 4000,
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current BookclubBargains"
+						}
+					]
 				}
-			},
-			"When": { 
-				"KediDili.VanillaPlusProfessions/HasTalents|contains=BookclubBargains": "true",
-				"TimeChangedUpdates": "true"
-			},
-			"Update": "OnTimeChange",
-		},
-		{
-			"Action": "EditData",
-			"Target": "Data/Shops",
-			"TargetField": [ "Bookseller", "Items" ],
-			"Fields": { 
-				"(O)PurpleBook": {
-					"Price": 5000,
-				},
-				"RandomSkillBook1": {
-					"Price": 5000,
-				},
-				"RandomSkillBook2": {
-					"Price": 4000,
-				},
-				"RandomSkillBook3": {
-					"Price": 2500,
-				},
-				"RandomBook": {
-					"Price": 12500,
-				},
-				"(O)Book_Speed": {
-					"Price": 10000,
-				},
-				"(O)Book_Speed2": {
-					"Price": 15000,
-				},
-				"(O)Book_Horse": {
-					"Price": 20000,
-				},
-				"(O)Book_Grass": {
-					"Price": 15000,
-				},
-				"(O)Book_QueenOfSauce": {
-					"Price": 25000,
-				},
-				"(O)SkillBook_2": {
-					"Price": 4000,
-				}
-			},
-			"When": { 
-				"KediDili.VanillaPlusProfessions/HasTalents|contains=BookclubBargains": "true",
-				"TimeChangedUpdates": "false"
-			},
+			}
 		},
 		{
 			"Action": "EditData",

@@ -359,9 +359,9 @@
 				"{{ModId}}_MineralCavern_Name": "{{i18n:Buildings.MineralCavern.Name}}",
 				"{{ModId}}_MineralCavern_Description": "{{i18n:Buildings.MineralCavern.Desc}}",
 				"{{ModId}}_MineTent_Name": "{{i18n:Buildings.MineTent.Name}}",
-				"{{ModId}}_MineTent_Description": "{{i18n:Buildings.MineTent.Name}}",
+				"{{ModId}}_MineTent_Description": "{{i18n:Buildings.MineTent.Desc}}",
 				"{{ModId}}_Sawmill_Name": "{{i18n:Buildings.Sawmill.Name}}",
-				"{{ModId}}_Sawmill_Description": "{{i18n:Buildings.Sawmill.Description}}",
+				"{{ModId}}_Sawmill_Description": "{{i18n:Buildings.Sawmill.Desc}}",
 			}
 		},
 		{

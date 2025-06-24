@@ -30,7 +30,7 @@ namespace VanillaPlusProfessions.Compatibility
             {
                 return result;
             }
-            if (ModEntry.ModMonitor.IsVerbose)
+            if (ModEntry.ModMonitor.IsVerbose || ModEntry.ModConfig.Value.DeveloperOrTestingMode)
             {
                 ModEntry.ModMonitor.Log($"Location named {context.Location.NameOrUniqueName} doesn't have the metadata for VPP to know whether it rained yesterday or not but it was passed to the {nameof(WasRainingHereYesterday)} query. This message is not an error and only intended for troubleshooting purposes in case of bugs.\n - Query string: {string.Join(" ", query)}", StardewModdingAPI.LogLevel.Warn);
             }
@@ -47,7 +47,8 @@ namespace VanillaPlusProfessions.Compatibility
             {
                 return GameStateQuery.Helpers.WithPlayer(context.Player ?? Game1.player, farmer, farmer =>
                 {
-                    return !ModEntry.ModConfig.Value.ProfessionsOnly && TalentUtility.CurrentPlayerHasTalent(talentToCheck, who: farmer);
+                    bool value = !ModEntry.ModConfig.Value.ProfessionsOnly && TalentUtility.CurrentPlayerHasTalent(talentToCheck, who: farmer);
+                    return value;
                 });
             }
             return false;

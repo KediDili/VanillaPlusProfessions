@@ -203,7 +203,7 @@
 	"Talent.ColdPress.Desc": "Oil makers produce additional types of oils.",
 
 	"Talent.Upcycling.Name": "Upcycling",
-	"Talent.Upcycling.Desc": "Higher-tier sprinklers require lower ones as materials.",
+	"Talent.Upcycling.Desc": "Higher-tier sprinklers will have alternate recipes that require lower ones as materials.", //Modified in 1.0.8
 
 	"Talent.Fertigation.Name": "Fertigation",
 	"Talent.Fertigation.Desc": "Both pressure nozzles and enrichers can be added to sprinklers.",
@@ -587,7 +587,7 @@
 	"Message.ForageBubbleReset": "Bubble-spawning forage has been reset.",
 	"Message.RabbitBirth": "A new baby rabbit has been born!",
 	"Message.StoneBroken": "You've broke {{Stones}} stones today. Your attack and defense are increased by {{Buff}}.",
-	"Message.MasteryCave": "Only a grand master who has reached level 20 in all of the five ways may enter. ({0}/5)",
+	"Message.MasteryCave": "Only a grand master who has reached level {{Level}} in all of the five ways may enter. ({0}/5)", //Modified in 1.0.8
 	"Message.ParrotPerch": "This can be placed only to animal buildings!",
 	"Message.MossyFertilizer": "This tree already has Mossy Fertilizer!",
 	"Message.TotemFailed": "The wild totem found no place suitable for forage spawning.",
@@ -608,8 +608,9 @@
 	"GMCM.ColorBlindnessChanges.Name": "Color Blindness Changes",
 	"GMCM.ColorBlindnessChanges.Desc": "Retextures VPP and vanilla skill bar icons into striped versions.",
 	"GMCM.MasteryCaveChanges.Name": "Mastery Cave Changes",
-	"GMCM.MasteryCaveChanges.Desc": "Changes Mastery Cave to be unlocked when you level up skills to levels 20 instead of 10.",
-	"GMCM.StaminaCostAdjustments.Name": "Stamina Cost Adjustments", // New
+	"GMCM.MasteryCaveChanges.Desc": "Changes Mastery Cave to be unlocked when you level up skills to levels 20 or 15 instead of 10.", //Modified in 1.0.8
+
+	"GMCM.StaminaCostAdjustments.Name": "Stamina Cost Adjustments",
 	"GMCM.StaminaCostAdjustments.Desc": "Changes axes, pickaxes, water cans and hoes to use slightly more energy. This option intends to prevent level 20 in any vanilla skill causing no energy cost for players who don't like this.", // New
 	"GMCM.ProfessionsOnly.Name": "Professions Only",
 	"GMCM.ProfessionsOnly.Desc": "Changes VPP to only apply changes to your game for VPP's professions, this deactives everything related to talent system. Changes require a restart to take effect.",
@@ -623,9 +624,8 @@
 
 	//Items
 	"Item.Xray.GeodeDrop": "(X-ray Geode Drop: {{dropName}})",
-	"Item.Syrup.ProduceNameFormat": "{0} Syrup", //New
-	"Item.Dust.ProduceNameFormat": "{0} Dust", //New
-
+	"Item.Syrup.ProduceNameFormat": "{0} Syrup",
+	"Item.Dust.ProduceNameFormat": "{0} Dust",
 	//Extra Info
 	"ExtraInfo.MinecartRepository": "You can build a Minecart Repository from Robin's shop now.",
 	"ExtraInfo.MineralCavern": "You can build Mineral Caverns from Robin's shop."

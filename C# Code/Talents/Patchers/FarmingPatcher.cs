@@ -73,7 +73,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
         {
             try
             {
-                if (__instance.buildingType.Value == "Mill")
+                if (__instance.buildingType.Value == "Mill" && TalentUtility.CurrentPlayerHasTalent("FineGrind"))
                 {
                     int maxDailyConversions = conversion.MaxDailyConversions, requiredCount = 0, chestItemCount = -1;
                     Chest sourceChest = __instance.GetBuildingChest(conversion.SourceChest), destinationChest = __instance.GetBuildingChest(conversion.DestinationChest);
@@ -98,34 +98,34 @@ namespace VanillaPlusProfessions.Talents.Patchers
                         }
                         if (fail)
                             continue;
-
+                        
                         requiredCount += item.Stack;
                         requiredCount -= requiredCount % conversion.RequiredCount;
                         items.Add(chestItemCount);
+                        int outputAmount = 1;
                         if (requiredCount >= conversion.RequiredCount && (maxDailyConversions < conversion.MaxDailyConversions || conversion.MaxDailyConversions == -1))
                         {
                             for (int i = 0; i < conversion.ProducedItems.Count; i++)
                             {
                                 var producedItem = conversion.ProducedItems[i];
                                 Item item2 = ItemQueryResolver.TryResolveRandomItem(producedItem, itemQueryContext, inputItem: item);
-                                if (requiredCount / conversion.RequiredCount > item2.maximumStackSize())
-                                {
-                                    var stacks = SplitStacks(requiredCount, item2.maximumStackSize());
-                                    for (int h = 0; h < stacks.Count; h++)
-                                    {
-                                        Item ıtem = ItemRegistry.Create(item2.QualifiedItemId, stacks[h], item2.Quality);
-                                        destinationChest.addItem(ıtem);
-                                    }
-                                }
-                                else
-                                {
-                                    item2.Stack *= requiredCount / conversion.RequiredCount;
-                                }
                                 if (GameStateQuery.CheckConditions(producedItem.Condition, __instance.GetParentLocation(), targetItem: item2, inputItem: item))
                                 {
-                                    int producedCount = item2.Stack;
-                                    Item ıtem = destinationChest.addItem(item2);
-                                    if (ıtem == null || ıtem.Stack != producedCount)
+                                    outputAmount = item2.Stack * (requiredCount / conversion.RequiredCount);
+                                    Item ıtem = null;
+                                    if (outputAmount > item2.maximumStackSize())
+                                    {
+                                        var stacks = SplitStacks(outputAmount, item2.maximumStackSize());
+                                        for (int h = 0; h < stacks.Count; h++)
+                                        {
+                                            destinationChest.addItem(ItemRegistry.Create(item2.QualifiedItemId, stacks[h], item2.Quality));
+                                        }
+                                    }
+                                    else
+                                    {
+                                        ıtem = destinationChest.addItem(ItemRegistry.Create(item2.QualifiedItemId, outputAmount, item2.Quality));
+                                    }
+                                    if ((ıtem == null || ıtem.Stack != outputAmount) && i == conversion.ProducedItems.Count - 1)
                                     {
                                         if (maxDailyConversions > -1)
                                         {
@@ -157,13 +157,17 @@ namespace VanillaPlusProfessions.Talents.Patchers
 
         public static List<int> SplitStacks(int number, int maxStack)
         {
-            int amount = number % maxStack > 0 ? 1 : 0;
-            amount += number / maxStack;
-            List<int> stacks = new(amount);
+            //There's an error here.
+            bool extraEntry = number % maxStack != 0;
+            int amount = (number / maxStack) + (extraEntry ? 1 : 0);
+            List<int> stacks = new();
             //5 - 5 - 5 - 4 => 24
-            for (int j = 0; j < stacks.Count; j++)
+            for (int j = 0; j < amount; j++)
             {
-                stacks[j] = j == stacks.Count - 1 ? number % maxStack : number / maxStack;
+                if (extraEntry && j == amount - 1)
+                    stacks.Add(number % maxStack);
+                else
+                    stacks.Add(number / (number / maxStack));
             }
             return stacks;
         }
@@ -227,7 +231,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
                         }
                         else
                         {
-                            junimoHarvester.home.GetBuildingChest("Output").addItem(ItemRegistry.Create<StardewValley.Object>(__instance.netSeedIndex.Value));
+                            junimoHarvester.tryToAddItemToHut(ItemRegistry.Create<StardewValley.Object>(__instance.netSeedIndex.Value));
                         }
                     }
                 }

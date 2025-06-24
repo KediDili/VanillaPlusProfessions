@@ -20,6 +20,7 @@ using VanillaPlusProfessions.Utilities;
 using StardewValley.Buffs;
 using VanillaPlusProfessions.Craftables;
 using Microsoft.Xna.Framework.Input;
+using StardewValley.GameData.Buildings;
 
 namespace VanillaPlusProfessions.Talents.Patchers
 {
@@ -136,7 +137,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
         {
             try
             {
-                if (TalentUtility.CurrentPlayerHasTalent("Accessorise", who: f) && ModEntry.ModConfig.Value.MasteryCaveChanges)
+                if (TalentUtility.CurrentPlayerHasTalent("Accessorise", who: f) && ModEntry.ModConfig.Value.MasteryCaveChanges > 10)
                 {
                     __result = f.CombatLevel >= 10;
                 }
@@ -182,6 +183,12 @@ namespace VanillaPlusProfessions.Talents.Patchers
                     chest.modData.Add("Pathoschild.Automate/StoreItems", "Disabled");
                     chest.modData.Add("Pathoschild.Automate/TakeItems", "Disabled");
                     chest.modData.Add("Pathoschild.ChestsAnywhere/IsIgnored", "true");
+                    if (__instance.QualifiedItemId == "(BC)KediDili.VPPData.CP_MinecartChest")
+                    {
+                        Game1.player.team.GetOrCreateGlobalInventory(MachineryEventHandler.GlobalInventoryId_Minecarts);
+                        chest.GlobalInventoryId = MachineryEventHandler.GlobalInventoryId_Minecarts;
+                        chest.SpecialChestType = Chest.SpecialChestTypes.BigChest;
+                    }
                     if (!location.Objects.TryAdd(placementTile, chest))
                     {
                         location.Objects[placementTile] = chest;

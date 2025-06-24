@@ -60,12 +60,8 @@ namespace VanillaPlusProfessions.Managers
         {
             try
             {
+                if (CoreUtility.CurrentPlayerHasProfession("Warrior", useThisInstead: who))
                 {
-                    if (isBomb)
-                    {
-                        // Base takeDamange should be sufficient for bombs
-                        return;
-                    }
                     int actualDamage = Math.Max(1, damage - __instance.resilience.Value);
                     if (Game1.random.NextDouble() < __instance.missChance.Value - __instance.missChance.Value * addedPrecision)
                     {
@@ -88,6 +84,7 @@ namespace VanillaPlusProfessions.Managers
                                 interval = 70f
                             }, __instance.currentLocation);
                             __instance.currentLocation.playSound("ghost");
+                            __instance.deathAnimation();
                         }
                     }
                     __result = actualDamage;
@@ -196,15 +193,16 @@ namespace VanillaPlusProfessions.Managers
         {
             try
             {
-                if (__instance.temporaryInvincibilityTimer == 0 && __instance.isRidingHorse())
+                if (__instance.temporaryInvincibilityTimer == 0)
                 {
-                    if (CoreUtility.CurrentPlayerHasProfession("Technician", useThisInstead: __instance) && 
+                    if ((CoreUtility.CurrentPlayerHasProfession("Technician", useThisInstead: __instance) && 
                         ((MeleeWeapon.defenseCooldown > 0 && MeleeWeapon.defenseCooldown < 4000)
                         || (MeleeWeapon.daggerCooldown > 0 && MeleeWeapon.daggerCooldown < 4000)
                         || (MeleeWeapon.clubCooldown > 0 && MeleeWeapon.clubCooldown < 4000)
-                        || (MeleeWeapon.attackSwordCooldown < 4000 && MeleeWeapon.attackSwordCooldown > 0))
-                        || ((Game1.random.NextBool(0.1) && TalentUtility.CurrentPlayerHasTalent("Sidestep", who: __instance) && !__instance.isWearingRing("520")
-                        && __instance.currentLocation is SlimeHutch)))
+                        || (MeleeWeapon.attackSwordCooldown < 4000 && MeleeWeapon.attackSwordCooldown > 0)
+                        || (TalentCore.TripleShotCooldown > 0 && TalentCore.TripleShotCooldown < 4000)
+                        ))
+                        || ((Game1.random.NextBool(0.1) && TalentUtility.CurrentPlayerHasTalent("Sidestep", who: __instance) && ((!__instance.isWearingRing("520") && __instance.currentLocation is SlimeHutch)) || __instance.currentLocation is not SlimeHutch)))
                     {
                         TalentUtility.MakeFarmerInvincible(__instance);
                         __result = false;
@@ -226,6 +224,7 @@ namespace VanillaPlusProfessions.Managers
                     MeleeWeapon.daggerCooldown = 0;
                     MeleeWeapon.defenseCooldown = 0;
                     MeleeWeapon.attackSwordCooldown = 0;
+                    TalentCore.TripleShotCooldown = 0; 
                     Game1.playSound("objectiveComplete");
                     OnCrit = false;
                 }
@@ -235,6 +234,7 @@ namespace VanillaPlusProfessions.Managers
                     MeleeWeapon.daggerCooldown /= 2;
                     MeleeWeapon.defenseCooldown /= 2;
                     MeleeWeapon.attackSwordCooldown /= 2;
+                    TalentCore.TripleShotCooldown /= 2;
                 }
             }
             catch (Exception e)
@@ -352,11 +352,11 @@ namespace VanillaPlusProfessions.Managers
 
                 result = addedMaxDamage is 0 || addedMinDamage is 0 ? vanillaDamage : Game1.random.Next(minDamage + addedMinDamage, maxDamage + addedMaxDamage + 1);
 
-                if (TalentUtility.CurrentPlayerHasTalent("DebiliatingStab", who: who) && weapon is not null && weapon.type.Value is 1)
+                if (TalentUtility.CurrentPlayerHasTalent("DebiliatingStab", who: who) && weapon is not null && weapon.type.Value is 1 && monster.Speed > 1)
                 {
                     monster.Speed--;
                 }
-                else if (TalentUtility.CurrentPlayerHasTalent("SeveringSwipe", who: who) && weapon is not null && weapon.type.Value is 3)
+                else if (TalentUtility.CurrentPlayerHasTalent("SeveringSwipe", who: who) && weapon is not null && weapon.type.Value is 3 && monster.DamageToFarmer > 0)
                 {
                     monster.DamageToFarmer = (int)(monster.DamageToFarmer * 0.90f);
                 }

@@ -23,6 +23,7 @@ using StardewValley.Objects.Trinkets;
 using SpaceCore.Interface;
 using VanillaPlusProfessions.Craftables;
 using VanillaPlusProfessions.Compatibility;
+using System.Reflection;
 
 namespace VanillaPlusProfessions
 {
@@ -30,11 +31,12 @@ namespace VanillaPlusProfessions
     {
         internal static PerScreen<ClickableTextureComponent[]> MyCustomSkillBars = new();
         internal static PerScreen<ClickableTextureComponent[]> VanillaSkillBars = new();
-        internal static PerScreen<ClickableTextureComponent> LittleArrow = new();
+        internal static PerScreen<ClickableTextureComponent> LittlePlus = new();
         internal static PerScreen<ClickableTextureComponent> GiveFrogEggBack = new();
         internal static readonly PerScreen<bool> IsOverlayActive = new();
         internal static readonly PerScreen<bool> WasSkillMenuRaised = new();
         internal static readonly PerScreen<bool> ShouldHandleSkillPage = new();
+        internal static readonly PerScreen<bool> OpenTalentMenuCooldown = new();
         internal static Texture2D SkillIcons;
         internal static Texture2D ProfessionIcons;
 
@@ -57,7 +59,7 @@ namespace VanillaPlusProfessions
         {
             if (ModEntry.BetterGameMenuAPI is not null)
             {
-                ModEntry.BetterGameMenuAPI.OnPageCreated(OnPageCreated);
+                ModEntry.BetterGameMenuAPI?.OnPageCreated(OnPageCreated);
             }
         }
         private static void OnPageCreated(IPageCreatedEvent e)
@@ -69,7 +71,7 @@ namespace VanillaPlusProfessions
         {
             if (Game1.activeClickableMenu is PondQueryMenu pondMenu)
             {
-                if (GiveFrogEggBack?.Value?.containsPoint(Game1.getMouseX(true), Game1.getMouseY(true)) is true)
+                if ((e.Button.IsActionButton() || e.Button.IsUseToolButton()) && GiveFrogEggBack?.Value?.containsPoint(Game1.getMouseX(true), Game1.getMouseY(true)) is true)
                 {
                     string s = (AccessTools.Field(typeof(PondQueryMenu), "_pond").GetValue(pondMenu) as FishPond).modData[TalentCore.Key_HiddenBenefit_FrogEggs];
                     if (s.Length > 0)
@@ -139,17 +141,22 @@ namespace VanillaPlusProfessions
             }
 
             // not using ModEntry.GetGameMenuPage() because BetterGameMenu won't have a SkillsPage initialized at MenuChanged
-            if (e.NewMenu is GameMenu menu1 && menu1.pages[1] is SkillsPage or NewSkillsPage && CoreUtility.IsOverlayValid() && ShouldHandleSkillPage.Value)
-                HandleSkillPage(menu1.pages[1], menu1);
+            if (e.NewMenu is GameMenu menu1)
+            {
+                if (menu1.pages[1] is SkillsPage or NewSkillsPage && CoreUtility.IsOverlayValid() && ShouldHandleSkillPage.Value)
+                {
+                    OpenTalentMenuCooldown.Value = true;
+                    HandleSkillPage(menu1.pages[1], menu1);
+                }
+            }
 
             if (e.NewMenu is GeodeMenu)
             {
-                ModEntry.UpdateGeodeInMenu ??= new(() => false);
                 ModEntry.UpdateGeodeInMenu.Value = true;
             }
             if (e.OldMenu is BobberBar bobberBar)
             {
-                if (TalentUtility.CurrentPlayerHasTalent("Fishing_Here_Fishy_Fishy"))
+                if (TalentUtility.CurrentPlayerHasTalent("HereFishyFishy"))
                 {
                     if (bobberBar.distanceFromCatching is 0f)
                         lossAmount.Value++;
@@ -159,7 +166,7 @@ namespace VanillaPlusProfessions
             }
             else if (e.NewMenu is BobberBar bobberBar1)
             {
-                if (TalentUtility.CurrentPlayerHasTalent("Fishing_Here_Fishy_Fishy"))
+                if (TalentUtility.CurrentPlayerHasTalent("HereFishyFishy"))
                 {
                     if (lossAmount.Value > 1)
                     {
@@ -167,7 +174,7 @@ namespace VanillaPlusProfessions
                         bobberBar1.bobberBarPos -= lossAmount.Value * 20;
                     }
                 }
-                if (TalentUtility.CurrentPlayerHasTalent("Fishing_One_Fish_Two_Fish"))
+                if (TalentUtility.CurrentPlayerHasTalent("OneFishTwoFish"))
                 {
                     if (bobberBar1.challengeBaitFishes > -1)
                     {
@@ -210,7 +217,7 @@ namespace VanillaPlusProfessions
                                 item = ItemRegistry.Create(strings[1], int.TryParse(strings[2], out int result) ? result : 1);
                             else
                                 item = ItemRegistry.Create(strings[0]);
-                            
+
                             if (strings[0] is "Artifact")
                             {
                                 if (LibraryMuseum.HasDonatedArtifact(menu.ItemsToGrabMenu.actualInventory[i].QualifiedItemId))
@@ -231,12 +238,17 @@ namespace VanillaPlusProfessions
                     }
                 }
             }
-            if (e.NewMenu is PondQueryMenu querye && AccessTools.Field(typeof(PondQueryMenu), "_pond").GetValue(querye) is not null and FishPond pond)
+            if (e.NewMenu is PondQueryMenu querye && AccessTools.Field(typeof(PondQueryMenu), "_pond").GetValue(querye) is FishPond pond)
             {
                 GiveFrogEggBack.Value = pond.modData.TryGetValue(TalentCore.Key_HiddenBenefit_FrogEggs, out string value) && value != ""
                     ? new(new((querye.xPositionOnScreen * 9 / 10) - ((querye.xPositionOnScreen * 9 / 10) % 4) + 4, (querye.yPositionOnScreen * 14 / 5) - ((querye.yPositionOnScreen * 9 / 10) % 4) + 4, 64, 64), SkillIcons, new(0, 27, 16, 16), 4f, false)
                     : null;
-
+                GiveFrogEggBack.Value.myID = 46780;
+                querye.populateClickableComponentList();
+                querye.emptyButton.leftNeighborID = GiveFrogEggBack.Value.myID;
+                querye.changeNettingButton.leftNeighborID = GiveFrogEggBack.Value.myID;
+                querye.okButton.leftNeighborID = GiveFrogEggBack.Value.myID;
+                querye.allClickableComponents.Add(GiveFrogEggBack.Value);
             }
 
             MachineryEventHandler.OnMenuChanged(e);
@@ -299,7 +311,6 @@ namespace VanillaPlusProfessions
                 {
                     if (IsOverlayActive.Value)
                     {
-                        
                         string hoverText = ModEntry.Helper.Reflection.GetField<string>(page, "hoverText").GetValue();
                         string hoverTitle = ModEntry.Helper.Reflection.GetField<string>(page, "hoverTitle").GetValue();
                         for (int FF = 0; FF < 5; FF++)
@@ -334,24 +345,22 @@ namespace VanillaPlusProfessions
                         {
                             StringBuilder sb = new();
                             sb.Append(gameMenu.hoverText);
-                            drawHoverText(e.SpriteBatch, sb, Game1.smallFont, null);
+                            drawHoverText(e.SpriteBatch, sb, Game1.smallFont, hoverTitle);
                         }
 
-                        if (MyCustomSkillBars.Value?.Any() is true && !MyCustomSkillBars.Value.Contains(null))
+
+                        foreach (ClickableTextureComponent c in MyCustomSkillBars.Value)
                         {
-                            foreach (ClickableTextureComponent c in MyCustomSkillBars.Value)
+                            if (c.scale == 0f)
                             {
-                                if (c.scale == 0f)
-                                {
-                                    IClickableMenu.drawTextureBox(e.SpriteBatch, Game1.menuTexture, new Rectangle(0, 256, 60, 60), c.bounds.X - 16 - 8, c.bounds.Y - 16 - 16, 96, 96, Color.White, drawShadow: false);
-                                    e.SpriteBatch.Draw(ProfessionIcons, new Vector2(c.bounds.X - 8, c.bounds.Y - 16), new Rectangle((Convert.ToInt32(c.name) - 467830) % 6 * 16, (Convert.ToInt32(c.name) - 467830) / 6 * 16, 16, 16), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 1f);
-                                }
+                                IClickableMenu.drawTextureBox(e.SpriteBatch, Game1.menuTexture, new Rectangle(0, 256, 60, 60), c.bounds.X - 16 - 8, c.bounds.Y - 16 - 16, 96, 96, Color.White, drawShadow: false);
+                                e.SpriteBatch.Draw(ProfessionIcons, new Vector2(c.bounds.X - 8, c.bounds.Y - 16), new Rectangle((Convert.ToInt32(c.name) - 467830) % 6 * 16, (Convert.ToInt32(c.name) - 467830) / 6 * 16, 16, 16), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 1f);
                             }
                         }
                     }
                     if (CoreUtility.IsOverlayValid())
                     {
-                        LittleArrow.Value.draw(e.SpriteBatch);
+                        LittlePlus.Value.draw(e.SpriteBatch);
                         page.drawMouse(e.SpriteBatch);
                     }
                 }
@@ -370,20 +379,14 @@ namespace VanillaPlusProfessions
                                 continue;
                             if (item.name.StartsWith('C'))
                             {
-                                string thisSkillId = ModEntry.SpaceCoreAPI.Value.GetCustomSkills().First(s => item.name[1..] == ModEntry.SpaceCoreAPI.Value.GetDisplayNameOfCustomSkill(s));
-
-                                int level = ModEntry.SpaceCoreAPI.Value.GetLevelForCustomSkill(Game1.player, thisSkillId);
+                                string thisSkillId = ModEntry.SpaceCoreAPI.GetCustomSkills().First(s => item.name[1..] == ModEntry.SpaceCoreAPI.GetDisplayNameOfCustomSkill(s));
+                                int level = ModEntry.SpaceCoreAPI.GetLevelForCustomSkill(Game1.player, thisSkillId);
 
                                 for (int i = 0; i < 10; i++)
                                 {
                                     if (i is 4 or 9)
                                     {
-                                        if (level < (1 + i))
-                                            e.SpriteBatch.Draw(SkillIcons, new Vector2(item.bounds.X + item.bounds.Width + 24 + (36 * i) + (i is 9 ? 24 : 0), item.bounds.Y - (skillScrollOffset * 56)), new Rectangle(16, ModEntry.ModConfig.Value.ColorBlindnessChanges ? 9 : 0, 13, 9), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.5f);
-                                        else
-                                        {
-                                            e.SpriteBatch.Draw(SkillIcons, new Vector2(item.bounds.X + item.bounds.Width + 24 + (36 * i) + (i is 9 ? 24 : 0), item.bounds.Y - (skillScrollOffset * 56)), new Rectangle(30, ModEntry.ModConfig.Value.ColorBlindnessChanges ? 9 : 0, 13, 9), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.5f);
-                                        }
+                                        e.SpriteBatch.Draw(SkillIcons, new Vector2(item.bounds.X + item.bounds.Width + 24 + (36 * i) + (i is 9 ? 24 : 0), item.bounds.Y - (skillScrollOffset * 56)), new Rectangle(level < (1 + i) ? 16 : 30, ModEntry.ModConfig.Value.ColorBlindnessChanges ? 9 : 0, 13, 9), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.5f);
                                     }
                                     else
                                     {
@@ -405,47 +408,38 @@ namespace VanillaPlusProfessions
                                 {
                                     if (i is 4 or 9)
                                     {
-                                        if (level < (11 + i))
-                                            e.SpriteBatch.Draw(SkillIcons, new Vector2(item.bounds.X + item.bounds.Width + 24 + (36 * i) + (i is 9 ? 24 : 0), item.bounds.Y - (skillScrollOffset * 56)), new Rectangle(16, ModEntry.ModConfig.Value.ColorBlindnessChanges ? 9 : 0, 13, 9), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.5f);
-                                        else
-                                        {
-                                            e.SpriteBatch.Draw(SkillIcons, new Vector2(item.bounds.X + item.bounds.Width + 24 + (36 * i) + (i is 9 ? 24 : 0), item.bounds.Y - (skillScrollOffset * 56)), new Rectangle(30, ModEntry.ModConfig.Value.ColorBlindnessChanges ? 9 : 0, 13, 9), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.5f);
-                                        }
+                                        e.SpriteBatch.Draw(SkillIcons, new Vector2(item.bounds.X + item.bounds.Width + 24 + (36 * i) + (i is 9 ? 24 : 0), item.bounds.Y - (skillScrollOffset * 56)), new Rectangle(level < (11 + i) == true ? 16 : 30, ModEntry.ModConfig.Value.ColorBlindnessChanges ? 9 : 0, 13, 9), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.5f);
                                     }
                                     else
                                     {
-                                       if (level < (11 + i))
+                                        if (level < (11 + i))
                                             e.SpriteBatch.Draw(SkillIcons, new Vector2(item.bounds.X + item.bounds.Width + 24 + (36 * i) + (i > 3 ? 24 : 0), item.bounds.Y - (skillScrollOffset * 56)), new Rectangle(0, ModEntry.ModConfig.Value.ColorBlindnessChanges ? 9 : 0, 7, 9), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.5f);
-                                       else
-                                       {
-                                           e.SpriteBatch.Draw(SkillIcons,
-                                           new Vector2(item.bounds.X + item.bounds.Width + 24 + (36 * i) + (i > 3 ? 24 : 0), item.bounds.Y - (skillScrollOffset * 56)),
-                                           new Rectangle(8, ModEntry.ModConfig.Value.ColorBlindnessChanges ? 9 : 0, 7, 9), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.5f);
-                                       }
+                                        else
+                                        {
+                                            e.SpriteBatch.Draw(SkillIcons,
+                                            new Vector2(item.bounds.X + item.bounds.Width + 24 + (36 * i) + (i > 3 ? 24 : 0), item.bounds.Y - (skillScrollOffset * 56)),
+                                            new Rectangle(8, ModEntry.ModConfig.Value.ColorBlindnessChanges ? 9 : 0, 7, 9), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.5f);
+                                        }
                                     }
                                 }
                             }
                         }
-                        if (MyCustomSkillBars.Value?.Any() is true && !MyCustomSkillBars.Value.Contains(null))
+                        foreach (ClickableTextureComponent c in MyCustomSkillBars.Value)
                         {
-                            foreach (ClickableTextureComponent c in MyCustomSkillBars.Value)
+                            if (c.containsPoint(Game1.getMouseX(true), Game1.getMouseY(true) + (skillScrollOffset * 56)) && c.hoverText.Length > 0 && !c.name.Equals("-1"))
                             {
-                                if (c.containsPoint(Game1.getMouseX(true), Game1.getMouseY(true) + (skillScrollOffset * 56)) && c.hoverText.Length > 0 && !c.name.Equals("-1"))
+                                IClickableMenu.drawTextureBox(e.SpriteBatch, Game1.menuTexture, new Rectangle(0, 256, 60, 60), c.bounds.X - 24, c.bounds.Y - 32 - (skillScrollOffset * 56), 96, 96, Color.White, drawShadow: false);
+                                if (c.name.StartsWith('C'))
                                 {
-                                    IClickableMenu.drawTextureBox(e.SpriteBatch, Game1.menuTexture, new Rectangle(0, 256, 60, 60), c.bounds.X - 24, c.bounds.Y - 32 - (skillScrollOffset * 56), 96, 96, Color.White, drawShadow: false);
-
-                                    if (c.name.StartsWith('C'))
-                                    {
-                                        Texture2D profIcon = SpaceCore.Skills.GetSkillList()
-                                            .SelectMany(s => SpaceCore.Skills.GetSkill(s).Professions)
-                                            .Single(p => p.Id == c.name[1..])
-                                            .Icon;
-                                        e.SpriteBatch.Draw(profIcon, new Vector2(c.bounds.X - 8, c.bounds.Y - 16 - (skillScrollOffset * 56)), new Rectangle(0, 0, 16, 16), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 1f);
-                                    }
-                                    else
-                                    {
-                                        e.SpriteBatch.Draw(ProfessionIcons, new Vector2(c.bounds.X - 8, c.bounds.Y - 16 - (skillScrollOffset * 56)), new Rectangle((Convert.ToInt32(c.name) - 467830) % 6 * 16, (Convert.ToInt32(c.name) - 467830) / 6 * 16, 16, 16), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 1f);
-                                    }
+                                    Texture2D profIcon = SpaceCore.Skills.GetSkillList()
+                                        .SelectMany(s => SpaceCore.Skills.GetSkill(s).Professions)
+                                        .Single(p => p.Id == c.name[1..])
+                                        .Icon;
+                                    e.SpriteBatch.Draw(profIcon, new Vector2(c.bounds.X - 8, c.bounds.Y - 16 - (skillScrollOffset * 56)), new Rectangle(0, 0, 16, 16), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 1f);
+                                }
+                                else
+                                {
+                                    e.SpriteBatch.Draw(ProfessionIcons, new Vector2(c.bounds.X - 8, c.bounds.Y - 16 - (skillScrollOffset * 56)), new Rectangle((Convert.ToInt32(c.name) - 467830) % 6 * 16, (Convert.ToInt32(c.name) - 467830) / 6 * 16, 16, 16), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 1f);
                                 }
                             }
                         }
@@ -453,7 +447,7 @@ namespace VanillaPlusProfessions
 
                     if (CoreUtility.IsOverlayValid())
                     {
-                        LittleArrow.Value.draw(e.SpriteBatch);
+                        LittlePlus.Value.draw(e.SpriteBatch);
                         page2.drawMouse(e.SpriteBatch);
                     }
                     if (hoverText.Length > 0)
@@ -466,15 +460,33 @@ namespace VanillaPlusProfessions
                     {
                         StringBuilder sb = new();
                         sb.Append(gameMenu.hoverText);
-                        drawHoverText(e.SpriteBatch, sb, Game1.smallFont, null);
+                        drawHoverText(e.SpriteBatch, sb, Game1.smallFont, hoverTitle);
                     }
+                }
+            }
+            if (TalentCore.GiveOrTakeStardropEffects is not null)
+            {
+                if (TalentCore.GiveOrTakeStardropEffects is true)
+                {
+                    Game1.activeClickableMenu = null;
+                    Game1.player.addItemByMenuIfNecessary(ItemRegistry.Create("(O)434"), null);
+                    TalentCore.GiveOrTakeStardropEffects = null;
+                }
+                else
+                {
+                    Game1.player.maxStamina.Value -= 34;
+                    if (Game1.player.Stamina > Game1.player.maxStamina.Value)
+                    {
+                        Game1.player.Stamina = Game1.player.maxStamina.Value;
+                    }
+                    TalentCore.GiveOrTakeStardropEffects = null;
                 }
             }
             if (Game1.activeClickableMenu is BobberBar bobberBar)
             {
-                if (TalentUtility.CurrentPlayerHasTalent("Fishing_Take_A_Break"))
+                if (TalentUtility.CurrentPlayerHasTalent("TakeABreak"))
                 {
-                    bobberBar.distanceFromCatchPenaltyModifier = !bobberBar.treasureCaught && bobberBar.treasurePosition + 12f <= bobberBar.bobberBarPos - 32f + bobberBar.bobberBarHeight && bobberBar.treasurePosition - 16f >= bobberBar.bobberBarPos - 32f
+                    bobberBar.distanceFromCatchPenaltyModifier = !bobberBar.treasureCaught && bobberBar.treasurePosition != 0 && bobberBar.treasurePosition + 12f <= bobberBar.bobberBarPos - 32f + bobberBar.bobberBarHeight && bobberBar.treasurePosition - 16f >= bobberBar.bobberBarPos - 32f
                         ? 0f
                         : 1f;
                 }
@@ -496,7 +508,6 @@ namespace VanillaPlusProfessions
         public static void HandleSkillPage(IClickableMenu page, IClickableMenu menu)
         {
             ShouldHandleSkillPage.Value = false;
-            
             if (page is NewSkillsPage newSkillsPage)
             {
                 MyCustomSkillBars.Value = newSkillsPage.skillBars.ToArray();
@@ -538,10 +549,16 @@ namespace VanillaPlusProfessions
                     MyCustomSkillBars.Value[IndexAndProfessions[index].Item1].hoverText = Game1.parseText(description.Join(delimiter: "\n"), Game1.smallFont, (int)Game1.dialogueFont.MeasureString(LevelUpMenu.getProfessionTitleFromNumber(IndexAndProfessions[index].Item2)).X + 100);
                 }
             }
-            LittleArrow.Value = new(menu.upperRightCloseButton.bounds, Game1.mouseCursors, new Rectangle(392, 361, 10, 11), 4f, false);
-            LittleArrow.Value.bounds.Y += 100;
-            LittleArrow.Value.bounds.X += 16;
-            LittleArrow.Value.visible = true;
+            LittlePlus.Value = new(menu.upperRightCloseButton.bounds, Game1.mouseCursors, new Rectangle(392, 361, 10, 11), 4f, false);
+            LittlePlus.Value.bounds.Y += 100;
+            LittlePlus.Value.bounds.X += 16;
+            LittlePlus.Value.visible = true;
+            LittlePlus.Value.myID = 46780;
+            if (page.allClickableComponents is null)
+            {
+                page.populateClickableComponentList();
+            }
+            page.allClickableComponents.Add(LittlePlus.Value);
             IsOverlayActive.Value = false;
         }
         private static void drawHoverText(SpriteBatch b, StringBuilder text, SpriteFont font, string boldTitleText)
@@ -656,44 +673,23 @@ namespace VanillaPlusProfessions
                     }
                     ModEntry.Helper.Reflection.GetField<List<int>>(levelUpMenu, "professionsToChoose").SetValue(_professionsToChoose);
                 }
-                /*else if (currentLevel < 10)
+               
+                if (_professionsToChoose.Count > 0 && levelUpMenu is LevelUpMenu lvlupMenu)
                 {
-                    List<CraftingRecipe> newCraftingRecipes = ModEntry.Helper.Reflection.GetField<List<CraftingRecipe>>(levelUpMenu, "newCraftingRecipes").GetValue();
-                    var extraInfoForLevel = ModEntry.Helper.Reflection.GetField<List<string>>(levelUpMenu, "extraInfoForLevel").GetValue();
-                    int newHeight = 0;
-                    for (int i = 0; i < newCraftingRecipes.Count; i++)
-                    {
-                        Game1.player.craftingRecipes.Remove(newCraftingRecipes[i].name);
-                        Game1.player.cookingRecipes.Remove(newCraftingRecipes[i].name);
-                    }
-                    newCraftingRecipes.Clear();
-                    foreach (var v in CraftingRecipe.craftingRecipes)
-                    {
-                        string[] conditions = ArgUtility.Get(v.Value.Split('/'), 4, "").Split(" ");
-                        if (conditions[0] == (currentskill_string ?? Farmer.getSkillNameFromIndex(currentskill_int)) && conditions[1] == (currentLevel.ToString() ?? ""))
-                        {
-                            CraftingRecipe recipe = new CraftingRecipe(v.Key, isCookingRecipe: false);
-                            newCraftingRecipes.Add(recipe);
-                            Game1.player.craftingRecipes.TryAdd(v.Key, 0);
-                            newHeight += (recipe.bigCraftable ? 128 : 64);
-                        }
-                    }
-                    foreach (var v in CraftingRecipe.cookingRecipes)
-                    {
-                        string[] conditions = ArgUtility.Get(v.Value.Split('/'), 3, "").Split(" ");
-                        if (conditions[0] == (currentskill_string ?? Farmer.getSkillNameFromIndex(currentskill_int)) && conditions[1] == (currentLevel.ToString() ?? ""))
-                        {
-                            CraftingRecipe recipe = new CraftingRecipe(v.Key, isCookingRecipe: true);
-                            newCraftingRecipes.Add(recipe);
-                            Game1.player.cookingRecipes.TryAdd(v.Key, 0);
-                            newHeight += (recipe.bigCraftable ? 128 : 64);
-                        }
-                    }
-                    int val = newHeight + 256 + extraInfoForLevel.Count * 64 * 3 / 4;
-                    ModEntry.Helper.Reflection.GetField<int>(levelUpMenu, "height").SetValue(val);
-                    ModEntry.Helper.Reflection.GetField<List<CraftingRecipe>>(levelUpMenu, "newCraftingRecipes").SetValue(newCraftingRecipes);
                     levelUpMenu.gameWindowSizeChanged(new(), new());
-                }*/
+                    lvlupMenu.leftProfession = new ClickableComponent(new Rectangle(lvlupMenu.xPositionOnScreen, lvlupMenu.yPositionOnScreen + 128, lvlupMenu.width / 2, lvlupMenu.height), "")
+                    {
+                        myID = 102,
+                        rightNeighborID = 103
+                    };
+                    lvlupMenu.rightProfession = new ClickableComponent(new Rectangle(lvlupMenu.width / 2 + lvlupMenu.xPositionOnScreen, lvlupMenu.yPositionOnScreen + 128, lvlupMenu.width / 2, lvlupMenu.height), "")
+                    {
+                        myID = 103,
+                        leftNeighborID = 102
+                    };
+                    levelUpMenu.allClickableComponents.Clear();
+                    levelUpMenu.populateClickableComponentList();
+                }
             }
         }
         public static string AreSkillConditionsMet(string str, int integer) => integer is -1 ? str : str is null ? integer.ToString() : null;

@@ -7,7 +7,7 @@ namespace VanillaPlusProfessions
 
         public bool DeveloperOrTestingMode = false;
 
-        public bool MasteryCaveChanges = true;
+        public int MasteryCaveChanges = 20;
 
         public bool ProfessionsOnly = false;
 

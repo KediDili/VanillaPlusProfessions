@@ -4,26 +4,14 @@
 			"Action": "EditData",
 			"Target": "Data/mail",
 			"Entries": {
-				"Kedi.VPP.Afishionado.Mail": "{{i18n:Mail.Afishionado.Main |Day={{Day}} |Season={{Season}} |Fact={{i18n: Mail.Afishionado.Fact.{{Random:{{Range: 1. 7}}}}}}|Ending={{i18n: Mail.Afishionado.Ending.{{Random:{{Range: 1. 61}}}}}}%item id (O){{Random: 686, 687, 691, Kedi.VPP.SnailTackle, Kedi.VPP.SnailTackle, Kedi.VPP.SnailTackle, 692, 693, 694, 695, 686, 687, 691, 692, 693, 694, 695, 686, 687, 691, 692, 693, 694, 695, 856, 877}}%%"
+				"Kedi.VPP.DwarvenBuddies.Unknown": "{{i18n:Mail.DwarvenBuddies.Unknown}}%item id (O){{Random: {{MetalBarPool}}}} {{Random:1, 2 , 3}}%%",
+				"Kedi.VPP.DwarvenBuddies.Reveal": "{{i18n:Mail.DwarvenBuddies.Reveal}}%item id (O){{Random: {{MetalBarPool}}}} {{Random:1, 2 , 3}}%%",
+				"Kedi.VPP.DwarvenBuddies.After": "{{i18n:Mail.DwarvenBuddies.After}}%item id (O){{Random: {{MetalBarPool}}}} {{Random:1, 2 , 3}}%%",
+				"Kedi.VPP.ShadowBuddies.Unknown": "{{i18n:Mail.ShadowBuddies.Unknown}}%item id (O){{Random: {{GeodePool}}}} {{Random:1, 2 , 3}}%%",
+				"Kedi.VPP.ShadowBuddies.Reveal": "{{i18n:Mail.ShadowBuddies.Reveal}}%item id (O){{Random: {{GeodePool}}}} {{Random:1, 2 , 3}}%%",
+				"Kedi.VPP.ShadowBuddies.After": "{{i18n:Mail.ShadowBuddies.After}}%item id (O){{Random: {{GeodePool}}}} {{Random:1, 2 , 3}}%%",
+				"Kedi.VPP.Afishionado.Mail": "{{i18n:Mail.Afishionado.Main |Day={{Day}} |Season={{Season}} |Fact={{i18n: Mail.Afishionado.Fact.{{Random:{{Range: 1, 7}}}}}} |Ending={{i18n: Mail.Afishionado.Ending.{{Random:{{Range: 1, 11}}}}}}}}%item id (O){{Random: 686, 687, 691, Kedi.VPP.SnailTackle, Kedi.VPP.SnailTackle, Kedi.VPP.SnailTackle, 692, 693, 694, 695, 686, 687, 691, 692, 693, 694, 695, 686, 687, 691, 692, 693, 694, 695, 856, 877}}%%"
 			},
 		},
-		{
-			"Action": "EditData",
-			"Target": "Data/mail",
-			"Entries": {
-				"Kedi.VPP.ShadowBuddies.Unknown": "{{i18n:Mail.ShadowBuddies.Unknown}}%item id (O){{Random: {{GeodePool}}}} {{Random:1, 2 , 3}}",
-				"Kedi.VPP.ShadowBuddies.Reveal": "{{i18n:Mail.ShadowBuddies.Reveal}}%item id (O){{Random: {{GeodePool}}}} {{Random:1, 2 , 3}}",
-				"Kedi.VPP.ShadowBuddies.After": "{{i18n:Mail.ShadowBuddies.After}}%item id (O){{Random: {{GeodePool}}}} {{Random:1, 2 , 3}}",
-			},
-		},
-		{
-			"Action": "EditData",
-			"Target": "Data/mail",
-			"Entries": {
-				"Kedi.VPP.DwarvenBuddies.Unknown": "{{i18n:Mail.ShadowBuddies.Unknown}}%item id (O){{Random: {{MetalBarPool}}}} {{Random:1, 2 , 3}}",
-				"Kedi.VPP.DwarvenBuddies.Reveal": "{{i18n:Mail.ShadowBuddies.Reveal}}%item id (O){{Random: {{MetalBarPool}}}} {{Random:1, 2 , 3}}",
-				"Kedi.VPP.DwarvenBuddies.After": "{{i18n:Mail.ShadowBuddies.After}}%item id (O){{Random: {{MetalBarPool}}}} {{Random:1, 2 , 3}}",
-			},
-		}
 	]
 }

@@ -6,40 +6,32 @@
 			"Entries": {
 				"{{ModId}}_ShadowBuddies": {
                     "Id": "{{ModId}}_ShadowBuddies",
-                    "Trigger": "DayEnding",
-                    "Condition": "!PLAYER_NPC_RELATIONSHIP Current Krobus Roommate Divorced, DAY_OF_WEEK Thu, KediDili.VanillaPlusProfessions_PlayerHasTalent Current ShadowBuddies",
+                    "Trigger": "DayStarted",
+                    "Condition": "!PLAYER_NPC_RELATIONSHIP Current Krobus Roommate Divorced, KediDili.VanillaPlusProfessions_PlayerHasTalent Current ShadowBuddies, RANDOM 0.15",
 					"MarkActionApplied": false,
-                    "Actions": [
-                        "AddMail Current Kedi.VPP.ShadowBuddies.{{FriendsWithKrobus}}",
-                    ]
+                    "Action": "AddMail Current Kedi.VPP.ShadowBuddies.{{FriendsWithKrobus}} tomorrow",
                 },
 				"{{ModId}}_DwarvenBuddies": {
                     "Id": "{{ModId}}_DwarvenBuddies",
-                    "Trigger": "DayEnding",
-                    "Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current DwarvenBuddies, DAY_OF_WEEK Mon",
+                    "Trigger": "DayStarted",
+                    "Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current DwarvenBuddies, RANDOM 0.15",
 					"MarkActionApplied": false,
-                    "Actions": [
-                        "AddMail Current Kedi.VPP.DwarvenBuddies.{{FriendsWithDwarf}}",
-                    ]
-                },
+                    "Action": "AddMail Current Kedi.VPP.DwarvenBuddies.{{FriendsWithDwarf}} tomorrow",
+				},
 				"{{ModId}}_GiftOfFriendShip": {
                     "Id": "{{ModId}}_GiftOfFriendShip",
                     "Trigger": "DayStarted",
                     "Condition": "RANDOM 0.05, KediDili.VanillaPlusProfessions_PlayerHasTalent Current GiftOfFriendship",
 					"MarkActionApplied": false,
-                    "Actions": [
-                        "AddConversationTopic VPP_GiftOfFriendship 1",
-                    ]
+                    "Action": "AddConversationTopic VPP_GiftOfFriendship 1",
                 },
 				"{{ModId}}_Afishionado": {
                     "Id": "{{ModId}}_Afishionado",
                     "Trigger": "DayStarted",
                     "Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current A-fish-ionado, DAY_OF_WEEK Sat",
 					"MarkActionApplied": false,
-                    "Actions": [
-						"AddMail Current Kedi.VPP.Afishionado.Mail",
-                    ]
-                },
+                    "Action": "AddMail Current Kedi.VPP.Afishionado.Mail tomorrow",
+                }
 			}
 		},
 		{
@@ -58,6 +50,8 @@
 						"If KediDili.VanillaPlusProfessions_PlayerHasTalent Current HiddenBenefits ## MarkCraftingRecipeKnown Current \"VPP Parrot Perch\" true ## MarkCraftingRecipeKnown Current \"VPP Parrot Perch\" false",
 						"If KediDili.VanillaPlusProfessions_PlayerHasTalent Current AlchemicReversal ## MarkCraftingRecipeKnown Current \"Transmute (Ir)\" true ## MarkCraftingRecipeKnown Current \"Transmute (Ir)\" false",
 						"If KediDili.VanillaPlusProfessions_PlayerHasTalent Current AlchemicReversal ## MarkCraftingRecipeKnown Current \"Transmute (Au) 2\" true ## MarkCraftingRecipeKnown Current \"Transmute (Au) 2\" false",
+						"If KediDili.VanillaPlusProfessions_PlayerHasTalent Current Upcycling, PLAYER_BASE_FARMING_LEVEL Current 6 ## MarkCraftingRecipeKnown Current \"VPP Quality Sprinkler\" true ## MarkCraftingRecipeKnown Current \"VPP Quality Sprinkler\" false",
+						"If KediDili.VanillaPlusProfessions_PlayerHasTalent Current Upcycling, PLAYER_BASE_FARMING_LEVEL Current 9 ## MarkCraftingRecipeKnown Current \"VPP Iridium Sprinkler\" true ## MarkCraftingRecipeKnown Current \"VPP Iridium Sprinkler\" false",						
 						"If KediDili.VanillaPlusProfessions_PlayerHasTalent Current SpringThaw ## MarkCraftingRecipeKnown Current \"VPP Large Maple Syrup\" true ## MarkCraftingRecipeKnown Current \"VPP Large Maple Syrup\" false",
 						"If KediDili.VanillaPlusProfessions_PlayerHasTalent Current SpringThaw ## MarkCraftingRecipeKnown Current \"VPP Large Oak Resin\" true ## MarkCraftingRecipeKnown Current \"VPP Large Oak Resin\" false",						
 						"If KediDili.VanillaPlusProfessions_PlayerHasTalent Current SpringThaw ## MarkCraftingRecipeKnown Current \"VPP Large Pine Tar\" true ## MarkCraftingRecipeKnown Current \"VPP Large Pine Tar\" false",
@@ -78,6 +72,46 @@
 			"When":{
 				"KediDili.VanillaPlusProfessions/ProfessionsOnly": "false",
 				"TimeChangedUpdates": "true"
+			},
+			"Update": "OnTimeChange",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/TriggerActions",
+			"Entries":{
+				"{{ModId}}_RecipeTalentUpdates":{
+					"Id": "{{ModId}}_RecipeTalentUpdates",
+                    "Trigger": "KediDili.VanillaPlusProfessions_UpdateRecipes",
+					"MarkActionApplied": false,
+                    "Actions": [
+						"If KediDili.VanillaPlusProfessions_PlayerHasTalent Current TakeItSlow ## MarkCraftingRecipeKnown Current \"VPP Snail Tackle\" true ## MarkCraftingRecipeKnown Current \"VPP Snail Tackle\" false",
+						"If KediDili.VanillaPlusProfessions_PlayerHasTalent Current OverTheRainbow ## MarkCraftingRecipeKnown Current \"Prismatic Shard\" true ## MarkCraftingRecipeKnown Current \"Prismatic Shard\" false",
+						"If KediDili.VanillaPlusProfessions_PlayerHasTalent Current Accessorise ## MarkCraftingRecipeKnown Current \"VPP Trinket Workbench\" true ## MarkCraftingRecipeKnown Current \"VPP Trinket Workbench\" false",
+						"If KediDili.VanillaPlusProfessions_PlayerHasTalent Current Fertigation ## MarkCraftingRecipeKnown Current \"VPP Fertigator\" true ## MarkCraftingRecipeKnown Current \"VPP Fertigator\" false",
+						"If KediDili.VanillaPlusProfessions_PlayerHasTalent Current HiddenBenefits ## MarkCraftingRecipeKnown Current \"VPP Parrot Perch\" true ## MarkCraftingRecipeKnown Current \"VPP Parrot Perch\" false",
+						"If KediDili.VanillaPlusProfessions_PlayerHasTalent Current AlchemicReversal ## MarkCraftingRecipeKnown Current \"Transmute (Ir)\" true ## MarkCraftingRecipeKnown Current \"Transmute (Ir)\" false",
+						"If KediDili.VanillaPlusProfessions_PlayerHasTalent Current AlchemicReversal ## MarkCraftingRecipeKnown Current \"Transmute (Au) 2\" true ## MarkCraftingRecipeKnown Current \"Transmute (Au) 2\" false",
+						"If KediDili.VanillaPlusProfessions_PlayerHasTalent Current Upcycling, PLAYER_BASE_FARMING_LEVEL Current 6 ## MarkCraftingRecipeKnown Current \"VPP Quality Sprinkler\" true ## MarkCraftingRecipeKnown Current \"VPP Quality Sprinkler\" false",
+						"If KediDili.VanillaPlusProfessions_PlayerHasTalent Current Upcycling, PLAYER_BASE_FARMING_LEVEL Current 9 ## MarkCraftingRecipeKnown Current \"VPP Iridium Sprinkler\" true ## MarkCraftingRecipeKnown Current \"VPP Iridium Sprinkler\" false",						
+						"If KediDili.VanillaPlusProfessions_PlayerHasTalent Current SpringThaw ## MarkCraftingRecipeKnown Current \"VPP Large Maple Syrup\" true ## MarkCraftingRecipeKnown Current \"VPP Large Maple Syrup\" false",
+						"If KediDili.VanillaPlusProfessions_PlayerHasTalent Current SpringThaw ## MarkCraftingRecipeKnown Current \"VPP Large Oak Resin\" true ## MarkCraftingRecipeKnown Current \"VPP Large Oak Resin\" false",						
+						"If KediDili.VanillaPlusProfessions_PlayerHasTalent Current SpringThaw ## MarkCraftingRecipeKnown Current \"VPP Large Pine Tar\" true ## MarkCraftingRecipeKnown Current \"VPP Large Pine Tar\" false",
+						
+						"If KediDili.VanillaPlusProfessions_PlayerHasTalent Current SurvivalCooking ## MarkCookingRecipeKnown Current \"VPP Grilled Leek\" true ## MarkCookingRecipeKnown Current \"VPP Grilled Leek\" false",						
+						"If KediDili.VanillaPlusProfessions_PlayerHasTalent Current SurvivalCooking ## MarkCookingRecipeKnown Current \"VPP Seaweed Salad\" true ## MarkCookingRecipeKnown Current \"VPP Seaweed Salad\" false",
+						"If KediDili.VanillaPlusProfessions_PlayerHasTalent Current SurvivalCooking ## MarkCookingRecipeKnown Current \"VPP Trail Mix\" true ## MarkCookingRecipeKnown Current \"VPP Trail Mix\" false",
+						"If KediDili.VanillaPlusProfessions_PlayerHasTalent Current SurvivalCooking ## MarkCookingRecipeKnown Current \"VPP Roasted Fiddleheads\" true ## MarkCookingRecipeKnown Current \"VPP Roasted Fiddleheads\" false",
+						"If KediDili.VanillaPlusProfessions_PlayerHasTalent Current SurvivalCooking ## MarkCookingRecipeKnown Current \"VPP Wild Fruit Salad\" true ## MarkCookingRecipeKnown Current \"VPP Wild Fruit Salad\" false",
+						"If KediDili.VanillaPlusProfessions_PlayerHasTalent Current SurvivalCooking ## MarkCookingRecipeKnown Current \"VPP Grilled Fish\" true ## MarkCookingRecipeKnown Current \"VPP Grilled Fish\" false",
+						"If KediDili.VanillaPlusProfessions_PlayerHasTalent Current SurvivalCooking ## MarkCookingRecipeKnown Current \"VPP Baked Tubers\" true ## MarkCookingRecipeKnown Current \"VPP Baked Tubers\" false",
+						"If KediDili.VanillaPlusProfessions_PlayerHasTalent Current SurvivalCooking ## MarkCookingRecipeKnown Current \"VPP Mushroom Kebab\" true ## MarkCookingRecipeKnown Current \"VPP Mushroom Kebab\" false",
+						"If KediDili.VanillaPlusProfessions_PlayerHasTalent Current SurvivalCooking ## MarkCookingRecipeKnown Current \"VPP Fried Bug Steak\" true ## MarkCookingRecipeKnown Current \"VPP Fried Bug Steak\" false",
+						"If KediDili.VanillaPlusProfessions_PlayerHasTalent Current SurvivalCooking ## MarkCookingRecipeKnown Current \"VPP Steamed Clams\" true ## MarkCookingRecipeKnown Current \"VPP Steamed Clams\" false",
+                    ]
+				}
+			},
+			"When":{
+				"KediDili.VanillaPlusProfessions/ProfessionsOnly": "false",
 			}
 		}
 	]

@@ -23,7 +23,7 @@ namespace VanillaPlusProfessions.Talents
         {
             Trinket = trinket;
             string ringID = TalentUtility.GetIDOfRing(trinket);
-            if (ringID is not null)
+            if (ringID is not null && Game1.objectData.ContainsKey(ringID))
             {
                 ObjectData data = Game1.objectData[ringID];
                 ItemId = ringID;
@@ -40,6 +40,14 @@ namespace VanillaPlusProfessions.Talents
         {
             base.onEquip(who);
             Trinket.Apply(who);
+        }
+
+        public override void onMonsterSlay(Monster monster, GameLocation location, Farmer who)
+        {
+            base.onMonsterSlay(monster, location, who);
+            Trinket.OnDamageMonster(who, monster, 0, false, false);
+            //This method's not needed to give actual damage values, since
+            //it's only the parrot trinket that uses this.
         }
 
         public override void update(GameTime time, GameLocation environment, Farmer who)

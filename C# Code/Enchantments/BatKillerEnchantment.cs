@@ -7,7 +7,6 @@ namespace VanillaPlusProfessions.Enchantments
     [XmlType("Mods_Kedi.VPP.BatKillerEnchantment")]
     public class BatKillerEnchantment : SlingshotEnchantment
     {
-
         public BatKillerEnchantment() { }
         public override string GetName() => "Bat Killer";
         public override void OnCalculateDamage(Monster monster, GameLocation location, Farmer who, bool isBomb, ref int amount)

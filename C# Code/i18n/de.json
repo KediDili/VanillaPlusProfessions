@@ -203,7 +203,7 @@
 	"Talent.ColdPress.Desc": "Ölpressen produzieren mehr Sorten an Ölen.",
 
 	"Talent.Upcycling.Name": "Upcycling",
-	"Talent.Upcycling.Desc": "Die Herstellung von Sprinklern höherer Stufen erfordert einen Sprinkler der niederigeren Stufe.",
+	"Talent.Upcycling.Desc": "Die Herstellung von Sprinklern höherer Stufen erfordert einen Sprinkler der niederigeren Stufe.", //Updated on 1.0.8
 
 	"Talent.Fertigation.Name": "Fertigation",
 	"Talent.Fertigation.Desc": "Sowohl Druck-Drüsen als auch Bereicherer können an Sprinkler montiert werden.",
@@ -587,7 +587,7 @@
 	"Message.ForageBubbleReset": "Orte mit Blasen wurden zurückgesetzt.",
 	"Message.RabbitBirth": "Ein neues Babykaninchen wurde geboren!",
 	"Message.StoneBroken": "Du hast heute bereits {{Stones}} Steine aufgebrochen. Dein Angriff und deine Verteidigung erhöhen sich um {{Buff}}.",
-	"Message.MasteryCave": "Nur ein Großmeister, der Stufe 20 auf jedem der fünf Wege erreicht hat, wird der Zutritt gewährt. ({0}/5)",
+	"Message.MasteryCave": "Nur ein Großmeister, der Stufe {{Level}} auf jedem der fünf Wege erreicht hat, wird der Zutritt gewährt. ({0}/5)",
 	"Message.ParrotPerch": "Das kann nur an Tiergebäuden angebracht werden!",
 	"Message.MossyFertilizer": "Dieser Baum wurde bereits mit Moosdünger gedüngt!",
 	"Message.TotemFailed": "Das Wild-Totem hat keinen passenden Ort gefunden, um sammelbare Gegenstände erscheinen zu lassen.",
@@ -608,8 +608,8 @@
 	"GMCM.ColorBlindnessChanges.Name": "Anpassung zur Farbenblindheit",
 	"GMCM.ColorBlindnessChanges.Desc": "Ändert die VPP und Standard Fähigkeitsbalken in gestreifte Versionen.",
 	"GMCM.MasteryCaveChanges.Name": "Anpassung Meisterungs Höhle",
-	"GMCM.MasteryCaveChanges.Desc": "Ändert das Level, um die Meisterungshöhle betreten zu können, von 10 auf 20.",
-	"GMCM.StaminaCostAdjustments.Name": "Anpassungen zum Energieverbrauch", // New
+	"GMCM.MasteryCaveChanges.Desc": "Ändert das Level, um die Meisterungshöhle betreten zu können, von 10 auf 20.", //Changed in English
+	"GMCM.StaminaCostAdjustments.Name": "Anpassungen zum Energieverbrauch",
 	"GMCM.StaminaCostAdjustments.Desc": "Erhöht leicht den Energieverbrauch bei der Nutzung von Äxten, Spitzhacken, Gießkannen und Hacken. Das soll verhindern, dass Spieler bei der Benutzung der Tools auf Level 20 keine Energie mehr verbrauchen.", // New
 	"GMCM.ProfessionsOnly.Name": "Nur Berufe",
 	"GMCM.ProfessionsOnly.Desc": "Ändert VPP so, dass nur die Berufe, nicht aber die Talente verfügbar sind. Entfernt alles, was mit den Talenten in Verbindung steht, aus dem Spiel. Benötigt einen Spielneustart, um wirksam zu werden.",

@@ -202,7 +202,7 @@
 	"Talent.ColdPress.Desc": "Les machines à huile produisent\ndes types d'huile supplémentaires.",
 
 	"Talent.Upcycling.Name": "Upcyclage",
-	"Talent.Upcycling.Desc": "Les arroseurs de niveau supérieur ont besoin\nd'arroseurs de niveau inférieur comme matériaux.",
+	"Talent.Upcycling.Desc": "Les arroseurs de niveau supérieur ont besoin\nd'arroseurs de niveau inférieur comme matériaux.", //Updated on 1.0.8
 
 	"Talent.Fertigation.Name": "Fertigation",
 	"Talent.Fertigation.Desc": "Des buses de projection et des enrichisseurs\npeuvent être ajoutés aux arroseurs.",
@@ -470,7 +470,7 @@
 	"Talent.HiddenBenefits.Name": "Avantages cachés",
 	"Talent.HiddenBenefits.Desc": "Tous les bibelots de base\nauront une seconde utilité.",
 
-    "Talent.RendingStrike.Name": "Frappe lacérante",
+	"Talent.RendingStrike.Name": "Frappe lacérante",
 	"Talent.RendingStrike.Desc": "Les dégâts infligés aux monstres à l'aide\nd'une dague réduisent leur vitesse.",
 
 	"Talent.DebiliatingStab.Name": "Frappe débilitante",
@@ -586,7 +586,7 @@
 	"Message.ForageBubbleReset": "Les bulles ont été réinitialisées avec une cueillette.",
 	"Message.RabbitBirth": "Un nouveau lapereau est né !",
 	"Message.StoneBroken": "Vous avez cassé {{Stones}} pierres aujourd'hui. Votre attaque et votre défense sont augmentées de {{Buff}}.",
-	"Message.MasteryCave": "Seul un grand maître ayant atteint le niveau 20 dans les cinq voies peut entrer. ({0}/5)",
+	"Message.MasteryCave": "Seul un grand maître ayant atteint le niveau {{Level}} dans les cinq voies peut entrer. ({0}/5)",
 	"Message.ParrotPerch": "Ceci ne peut être placé que sur les bâtiments d'élevage !",
 	"Message.MossyFertilizer": "Cet arbre a déjà de l'engrais mousseux !",
 	"Message.TotemFailed": "Le totem sauvage n'a pas trouvé d'endroit approprié pour l'apparition de cueillette.",
@@ -607,7 +607,7 @@
 	"GMCM.ColorBlindnessChanges.Name": "Changements liés au daltonisme",
 	"GMCM.ColorBlindnessChanges.Desc": "Retexture les icônes des barres de compétences VPP et celles de base en versions rayées.",
 	"GMCM.MasteryCaveChanges.Name": "Grotte de maîtrise",
-	"GMCM.MasteryCaveChanges.Desc": "Modifie la grotte de maîtrise pour qu'elle soit déverrouillée lorsque vous montez en compétences jusqu'au niveau 20 au lieu de 10.",
+	"GMCM.MasteryCaveChanges.Desc": "Modifie la grotte de maîtrise pour qu'elle soit déverrouillée lorsque vous montez en compétences jusqu'au niveau 20 au lieu de 10.", //Changed in English
 	"GMCM.ProfessionsOnly.Name": "Professions uniquement",
 	"GMCM.ProfessionsOnly.Desc": "Modifie VPP pour qu'il n'applique les changements à votre jeu que pour les professions VPP,\nce qui désactive tout ce qui est lié au système de talents.\nLes changements nécessitent un redémarrage du jeu pour être pris en compte.",
 	"GMCM.TalentHintLevel.Name": "Visibilité des talents",

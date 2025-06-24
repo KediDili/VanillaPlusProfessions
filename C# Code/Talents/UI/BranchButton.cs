@@ -15,8 +15,8 @@ namespace VanillaPlusProfessions.Talents.UI
         public void draw(SpriteBatch b)
         {
             string name = branch.DisplayName.Invoke(branch.Name);
-            IClickableMenu.drawTextureBox(b, Game1.mouseCursors, new(384, 396, 15, 15), button.X + 16, button.Y + SpriteText.characterHeight, SpriteText.getWidthOfString(name) + 32, SpriteText.getHeightOfString(branch.DisplayName.Invoke(branch.Name)) + 32, Color.White, 4f, false, 0.1f);
-            SpriteText.drawStringHorizontallyCenteredAt(b, branch.DisplayName.Invoke(branch.Name), button.X + (SpriteText.getWidthOfString(branch.DisplayName.Invoke(branch.Name)) / 2) + 32, button.Y + SpriteText.getHeightOfString(branch.DisplayName.Invoke(branch.Name)) * 2 / 3);
+            IClickableMenu.drawTextureBox(b, Game1.mouseCursors, new(384, 396, 15, 15), button.X + 16, button.Y + SpriteText.characterHeight, SpriteText.getWidthOfString(name) + 32, SpriteText.getHeightOfString(name) + 32, Color.White, 4f, false, 0.1f);
+            SpriteText.drawStringHorizontallyCenteredAt(b, name, button.X + (SpriteText.getWidthOfString(name) / 2) + 32, button.Y + SpriteText.getHeightOfString(name) * 2 / 3);
         }
     }
 }

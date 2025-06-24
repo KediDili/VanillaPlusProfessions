@@ -20,9 +20,11 @@
 					"OutputItem": [
 						{
 							"Id": "Kedi.VPP.Smokehouse.OutputItem",
-							"ItemId": "FLAVORED_ITEM SmokedFish DROP_IN_ID DROP_IN_QUALITY",
+							"ItemId": "FLAVORED_ITEM SmokedFish DROP_IN_PRESERVE DROP_IN_QUALITY",
 							"PreserveId": "DROP_IN_PRESERVE",
 							"CopyPrice": true,
+							"CopyQuality": true,
+							"CopyColor": true,
 							"QualityModifiers": [
 								{
 									"Id": "Kedi.VPP.Smokehouse.Modifier",

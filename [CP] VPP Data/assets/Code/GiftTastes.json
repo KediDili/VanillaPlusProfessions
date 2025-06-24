@@ -12,9 +12,26 @@
 				}
 			],
 			"When": {
-				"KediDili.VanillaPlusProfessions/HasTalents|contains=EveryonesBestFriend": "true"
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=EveryonesBestFriend": "true",
+				"TimeChangedUpdates": true,
 			},
-			"Update": "{{TalentUpdateRate}}",
+			"Update": "OnTimeChange",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/NPCGiftTastes",
+			"TextOperations": [
+				{
+					"Operation": "Append",
+					"Target": ["Entries", "Universal_Love"],
+					"Value": "72",
+					"Delimiter": " "
+				}
+			],
+			"When": {
+				"TimeChangedUpdates": false,
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=EveryonesBestFriend": "true",
+			},
 		},
 		{
 			"Action": "EditData",
@@ -28,9 +45,26 @@
 				}
 			],
 			"When": {
-				"KediDili.VanillaPlusProfessions/HasTalents|contains=EveryonesBestFriend": "true"
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=EveryonesBestFriend": "true",
+				"TimeChangedUpdates": true,
 			},
-			"Update": "{{TalentUpdateRate}}",
+			"Update": "OnTimeChange",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/NPCGiftTastes",
+			"TextOperations": [
+				{
+					"Operation": "Append",
+					"Target": ["Entries", "Universal_Love"],
+					"Value": "565",
+					"Delimiter": " "
+				}
+			],
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=EveryonesBestFriend": "true",
+				"TimeChangedUpdates": false,
+			},
 		},
 		{
 			"Action": "EditData",
@@ -44,9 +78,26 @@
 				}
 			],
 			"When": {
-				"KediDili.VanillaPlusProfessions/HasTalents|contains=EveryonesBestFriend": "true"
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=EveryonesBestFriend": "true",
+				"TimeChangedUpdates": true,
 			},
-			"Update": "{{TalentUpdateRate}}",
+			"Update": "OnTimeChange",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/NPCGiftTastes",
+			"TextOperations": [
+				{
+					"Operation": "Append",
+					"Target": ["Entries", "Universal_Love"],
+					"Value": "564",
+					"Delimiter": " "
+				}
+			],
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=EveryonesBestFriend": "true",
+				"TimeChangedUpdates": false,
+			},
 		},
 		{
 			"Action": "EditData",
@@ -60,9 +111,26 @@
 				}
 			],
 			"When": {
-				"KediDili.VanillaPlusProfessions/HasTalents|contains=EveryonesBestFriend": "true"
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=EveryonesBestFriend": "true",
+				"TimeChangedUpdates": true,
 			},
-			"Update": "{{TalentUpdateRate}}",
+			"Update": "OnTimeChange",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/NPCGiftTastes",
+			"TextOperations": [
+				{
+					"Operation": "Append",
+					"Target": ["Entries", "Universal_Love"],
+					"Value": "562",
+					"Delimiter": " "
+				}
+			],
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=EveryonesBestFriend": "true",
+				"TimeChangedUpdates": false,
+			},
 		},
 		{
 			"Action": "EditData",
@@ -76,9 +144,26 @@
 				}
 			],
 			"When": {
-				"KediDili.VanillaPlusProfessions/HasTalents|contains=EveryonesBestFriend": "true"
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=EveryonesBestFriend": "true",
+				"TimeChangedUpdates": true,
 			},
-			"Update": "{{TalentUpdateRate}}",
+			"Update": "OnTimeChange",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/NPCGiftTastes",
+			"TextOperations": [
+				{
+					"Operation": "Append",
+					"Target": ["Entries", "Universal_Love"],
+					"Value": "563",
+					"Delimiter": " "
+				}
+			],
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=EveryonesBestFriend": "true",
+				"TimeChangedUpdates": false,
+			},
 		},
 		{
 			"Action": "EditData",
@@ -92,9 +177,92 @@
 				}
 			],
 			"When": {
-				"KediDili.VanillaPlusProfessions/HasTalents|contains=EveryonesBestFriend": "true"
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=EveryonesBestFriend": "true",
+				"TimeChangedUpdates": true,
 			},
-			"Update": "{{TalentUpdateRate}}",
-		}
+			"Update": "OnTimeChange",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/NPCGiftTastes",
+			"TextOperations": [
+				{
+					"Operation": "Append",
+					"Target": ["Entries", "Universal_Love"],
+					"Value": "578",
+					"Delimiter": " "
+				}
+			],
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=EveryonesBestFriend": "true",
+				"TimeChangedUpdates": false,
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/NPCGiftTastes",
+			"TextOperations": [
+				{
+					"Operation": "RemoveDelimited",
+					"Target": ["Entries", "Universal_Like"],
+					"Search": "72",
+					"Delimiter": " "
+				}
+			],
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=EveryonesBestFriend": "true",
+				"TimeChangedUpdates": true,
+			},
+			"Update": "OnTimeChange",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/NPCGiftTastes",
+			"TextOperations": [
+				{
+					"Operation": "RemoveDelimited",
+					"Target": ["Entries", "Universal_Like"],
+					"Search": "72",
+					"Delimiter": " "
+				}
+			],
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=EveryonesBestFriend": "true",
+				"TimeChangedUpdates": false,
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/NPCGiftTastes",
+			"TextOperations": [
+				{
+					"Operation": "RemoveDelimited",
+					"Target": ["Entries", "Universal_Like"],
+					"Search": "72",
+					"Delimiter": " "
+				}
+			],
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=EveryonesBestFriend": "true",
+				"TimeChangedUpdates": true,
+			},
+			"Update": "OnTimeChange",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/NPCGiftTastes",
+			"TextOperations": [
+				{
+					"Operation": "RemoveDelimited",
+					"Target": ["Entries", "Universal_Like"],
+					"Search": "72",
+					"Delimiter": " "
+				}
+			],
+			"When": {
+				"TimeChangedUpdates": false,
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=EveryonesBestFriend": "true",
+			},
+		},
 	]
 }

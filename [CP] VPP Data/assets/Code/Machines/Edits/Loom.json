@@ -24,19 +24,19 @@
 					"Id": "Kedi.VPP.Pastoralism",
 					"Amount": 0,
 					"Modification": "Set",
-					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 0"
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 0 0"
 				},
 				"Kedi.VPP.Pastoralism.Silver": {
 					"Id": "Kedi.VPP.Pastoralism",
 					"Amount": 1,
 					"Modification": "Set",
-					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 1"
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 1 1"
 				},
 				"Kedi.VPP.Pastoralism.Gold": {
 					"Id": "Kedi.VPP.Pastoralism",
 					"Amount": 2,
 					"Modification": "Set",
-					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 2"
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 2 2"
 				},
 				"Kedi.VPP.Pastoralism.Iridium": {
 					"Id": "Kedi.VPP.Pastoralism",

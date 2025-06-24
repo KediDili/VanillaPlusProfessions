@@ -12,13 +12,13 @@
       "UniqueID": "Pathoschild.ContentPatcher",
       "IsRequired": false
     },
-   {
-     "UniqueID": "bcmpinc.WearMoreRings",
-     "IsRequired": false
-   },
     {
       "UniqueID": "spacechase0.SpaceCore",
       "IsRequired": true
+    },
+    {
+      "UniqueID": "bcmpinc.WearMoreRings",
+      "IsRequired": false
     }
   ]
 }

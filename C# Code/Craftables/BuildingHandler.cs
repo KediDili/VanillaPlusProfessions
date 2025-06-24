@@ -77,10 +77,10 @@ namespace VanillaPlusProfessions.Craftables
                                     interior.resourceClumps.Add(new ResourceClump(clumpData.Id, 2, 2, item.Value.TileLocation));
                                 }
                             }
-                            if (!found && ModEntry.ItemExtensionsAPI.Value is not null && !string.IsNullOrEmpty(clumpToSpawn))
+                            if (!found && ModEntry.ItemExtensionsAPI is not null && !string.IsNullOrEmpty(clumpToSpawn))
                             {
-                                ModEntry.ItemExtensionsAPI.Value.TrySpawnClump(clumpToSpawn, item.Value.TileLocation, interior, out string error, true);
-                                if (error is not null and "")
+                                ModEntry.ItemExtensionsAPI.TrySpawnClump(clumpToSpawn, item.Value.TileLocation, interior, out string error, true);
+                                if (!string.IsNullOrEmpty(error))
                                 {
                                     ModEntry.ModMonitor.Log(error, StardewModdingAPI.LogLevel.Error);
                                 }

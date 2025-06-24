@@ -6,31 +6,7 @@
 			"Target": "Data/Machines",
 			"Entries":{
 				"(BC)Kedi.VPP.Accessorise.TrinketWorkbench": {
-					"OutputRules": [
-						{
-							"Id": "Default",
-							"Triggers": [
-								{
-									"Id": "ItemPlacedInMachine_Ring",
-									"Trigger": "ItemPlacedInMachine",
-									"RequiredTags": [ "ring_item" ],
-									"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Accessorise"
-								},
-								{
-									"Id": "ItemPlacedInMachine_Trinket",
-									"Trigger": "ItemPlacedInMachine",
-									"RequiredTags": [ "category_trinket" ],
-									"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Accessorise"
-								}, 
-							],
-							"OutputItem": [
-								{
-									"ID": "Default",
-									"OutputMethod": "VanillaPlusProfessions.Utilities.TalentUtility, VanillaPlusProfessions: AccessoriseMachineRule"
-								}
-							]
-						}
-					]
+					"InteractMethod": "VanillaPlusProfessions.Utilities.TalentUtility, VanillaPlusProfessions: AccessoriseMachineRule"
 				}
 			}
 		}

@@ -6,37 +6,32 @@
 			"Target": "Data/Machines",
 			"TargetField": [
 				"(BC)154",
-				"OutputRules"
+				"ReadyTimeModifiers"
 			],
-			"Fields": {
-				"Default": {
-					"DaysUntilReady": -1,
-					"MinutesUntilReady": 990
+			"Entries": {
+				"Kedi.VPP.DoubleHook.BaitBin":{
+					"Id": "Kedi.VPP.DoubleHook.BaitBin",
+					"Amount": 2,
+					"Modification": "Divide",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current DoubleHook",
 				}
 			},
-			"When": {
-				"KediDili.VanillaPlusProfessions/HasTalents|contains=DoubleHook": true,
-				"TimeChangedUpdates": "true",
-			},
-			"Update": "OnTimeChange",
 		},
 		{
-			"LogName": "Double Hook - Bait Bin",
+			"LogName": "Double Hook - Deluxe Bait Bin",
 			"Action": "EditData",
 			"Target": "Data/Machines",
 			"TargetField": [
-				"(BC)154",
-				"OutputRules"
+				"(BC)DeluxeWormBin",
+				"ReadyTimeModifiers"
 			],
-			"Fields": {
-				"Default": {
-					"DaysUntilReady": -1,
-					"MinutesUntilReady": 990
+			"Entries": {
+				"Kedi.VPP.DoubleHook.BaitBin":{
+					"Id": "Kedi.VPP.DoubleHook.DeluxeBaitBin",
+					"Amount": 2,
+					"Modification": "Divide",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current DoubleHook",
 				}
-			},
-			"When": {
-				"KediDili.VanillaPlusProfessions/HasTalents|contains=DoubleHook": true,
-				"TimeChangedUpdates": "false",
 			},
 		},
 		{
@@ -51,8 +46,30 @@
 			],
 			"Entries": {
 				"Kedi.VPP.Clickbait": {
-					"Id": "Kedi.VPP.Clickbait",
+					"Id": "Kedi.VPP.Clickbait.BaitBin",
 					"Condition": "RANDOM 0.5, KediDili.VanillaPlusProfessions_PlayerHasTalent Current Clickbait",
+					"MinStack": 4,
+					"MaxStack": 5,
+					"ItemId": "(O)774"
+				}
+			}
+		},
+		{
+			"LogName": "Clickbait - Deluxe Bait Bin",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [
+				"(BC)DeluxeWormBin",
+				"OutputRules",
+				"Default",
+				"OutputItem"
+			],
+			"Entries": {
+				"Kedi.VPP.Clickbait": {
+					"Id": "Kedi.VPP.Clickbait.DeluxeBaitBin",
+					"Condition": "RANDOM 0.5, KediDili.VanillaPlusProfessions_PlayerHasTalent Current Clickbait",
+					"MinStack": 4,
+					"MaxStack": 5,
 					"ItemId": "(O)774"
 				}
 			}

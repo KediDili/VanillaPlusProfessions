@@ -6,8 +6,6 @@ using StardewValley;
 using StardewValley.Menus;
 using StardewValley.BellsAndWhistles;
 using Microsoft.Xna.Framework.Input;
-using System.Linq;
-using SpaceCore.UI;
 
 namespace VanillaPlusProfessions.Talents.UI
 {
@@ -21,18 +19,24 @@ namespace VanillaPlusProfessions.Talents.UI
 
         int Index;
 
+        int XPos;
+
+        int YPos;
+
         const int startingID = 467900;
 
-        public BranchDisplayer(Talent original, int index)
+        public BranchDisplayer(Talent original, int index, int xPos, int yPos)
         {
+            XPos = xPos;
+            YPos = yPos;
             for (int i = 0; i < original.Branches.Length; i++)
             {
                 BranchButton branchButton = new()
                 {
                     branch = original.Branches[i],
-                    button = new((int)original.Branches[i].Position.X + TalentSelectionMenu.XPos, (int)original.Branches[i].Position.Y + TalentSelectionMenu.YPos, 60 + SpriteText.getWidthOfString(original.Branches[i].Name), 60 + SpriteText.characterHeight + 40)
+                    button = new((int)original.Branches[i].Position.X + XPos, (int)original.Branches[i].Position.Y + YPos, 60 + SpriteText.getWidthOfString(original.Branches[i].Name), 60 + SpriteText.characterHeight + 40)
                 };
-                buttonList.Add(new(branchButton.button, "") 
+                buttonList.Add(new(branchButton.button, "")
                 {
                     fullyImmutable = true
                 });
@@ -182,7 +186,7 @@ namespace VanillaPlusProfessions.Talents.UI
                         menu.ReducePoints();
                         Game1.player.mailReceived.Add(Branches[i].branch.Flag);
                         Game1.player.mailReceived.Add(Original.MailFlag);
-                        foreach (var item in TalentSelectionMenu.skillTrees[TalentSelectionMenu.CurrentSkill].Bundles)
+                        foreach (var item in menu.GetCurrentTree().Bundles)
                         {
                             item.UpdateSprite();
                         }

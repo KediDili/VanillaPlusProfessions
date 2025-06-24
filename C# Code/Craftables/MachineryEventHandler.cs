@@ -13,6 +13,7 @@ using StardewValley.Buildings;
 using StardewValley.Extensions;
 using StardewValley.Inventories;
 using StardewValley.BellsAndWhistles;
+using StardewModdingAPI;
 
 namespace VanillaPlusProfessions.Craftables
 {
@@ -27,6 +28,8 @@ namespace VanillaPlusProfessions.Craftables
         internal const string Key_IsConsistentMineLocation2 = "KediDili.VanillaPlusProfessions_IsConsistentMineLocation";
         internal const string Key_LastInput2 = "KediDili.VanillaPlusProfessions_LastInput";
         internal const string Key_NodeMakerData2 = "KediDili.VanillaPlusProfessions_NodeMakerData";
+
+        internal const string GlobalInventoryId_Minecarts = "KediDili.VanillaPlusProfessions-Minecarts";
 
         internal static Dictionary<string, List<Vector2>> DrillLocations = new();
         internal static Dictionary<string, List<Vector2>> NodeMakerLocations = new();
@@ -293,39 +296,53 @@ namespace VanillaPlusProfessions.Craftables
 
         public static void OnMenuChanged(MenuChangedEventArgs e)
         {
-            if (e.NewMenu is ItemGrabMenu menu2 && menu2.context is Building mineTent && mineTent.buildingType.Value == "KediDili.VPPData.CP_MineTent" && mineTent.GetBuildingChest("Default_Chest") is not null and Chest buildingChest)
+            if (e.NewMenu is ItemGrabMenu menu2)
             {
-                //Should I make it in initial creation of the building?
-                buildingChest.SpecialChestType = Chest.SpecialChestTypes.BigChest;
-                ItemGrabMenu newItemGrabMenu = new(buildingChest.GetItemsForPlayer(), reverseGrab: false, showReceivingMenu: true, InventoryMenu.highlightAllItems, buildingChest.grabItemFromInventory, null, buildingChest.grabItemFromChest, snapToBottom: false, canBeExitedWithKey: true, playRightClickSound: true, allowRightClick: true, showOrganizeButton: true, 1, buildingChest, -1, buildingChest)
+                if (menu2.context is Building mineTent && mineTent.buildingType.Value == "KediDili.VPPData.CP_MineTent" && mineTent.GetBuildingChest("Default_Chest") is not null and Chest buildingChest)
                 {
-                    chestColorPicker = null,
-                    colorPickerToggleButton = null,
-                    discreteColorPickerCC = null
-                };
-                Game1.activeClickableMenu = newItemGrabMenu;
+                    //Should I make it in initial creation of the building? - Nah, looks like it works
+                    buildingChest.SpecialChestType = Chest.SpecialChestTypes.BigChest;
+                    //Game1.player.team.GetOrCreateGlobalInventory(GlobalInventoryId_Minecarts);
+                    //buildingChest.GlobalInventoryId = GlobalInventoryId_Minecarts;
+                    ItemGrabMenu newItemGrabMenu = new(buildingChest.GetItemsForPlayer(), reverseGrab: false, showReceivingMenu: true, InventoryMenu.highlightAllItems, buildingChest.grabItemFromInventory, null, buildingChest.grabItemFromChest, snapToBottom: false, canBeExitedWithKey: true, playRightClickSound: true, allowRightClick: true, showOrganizeButton: true, 1, buildingChest, -1, buildingChest)
+                    {
+                        chestColorPicker = null,
+                        colorPickerToggleButton = null,
+                        discreteColorPickerCC = null
+                    };
+                    Game1.activeClickableMenu = newItemGrabMenu;
+                }
+                else if (menu2.context is Chest chest && chest.QualifiedItemId == "(BC)KediDili.VPPData.CP_MinecartChest")
+                {
+                    ModEntry.ModMonitor.Log("Yup 356", LogLevel.Info);
+                    menu2.exitFunction = OnMenuExit;
+                }
             }
+
             else if (e.OldMenu is ItemGrabMenu menu && menu.context is Chest chest && (chest.QualifiedItemId == "(BC)KediDili.VPPData.CP_MinecartChest" || chest.QualifiedItemId == "(BC)KediDili.VPPData.CP_DrillCollector"))
             {
+                chest.fixLidFrame();
                 if (chest.Items.Count > 0 && chest.QualifiedItemId == "(BC)KediDili.VPPData.CP_MinecartChest")
                 {
-                    chest.fixLidFrame();
-                    if (MineTent is null)
-                    {
-                        Utility.ForEachBuilding(building => ShouldKeepSearching(building, chest), true);
-                        Game1.playSound("wand");
-                    }
-                    else if (!ShouldKeepSearching(MineTent, chest))
-                    {
-                        Game1.playSound("wand");
-                    }
-                }
-                else if (chest.QualifiedItemId == "(BC)KediDili.VPPData.CP_DrillCollector")
-                {
-                    chest.fixLidFrame();
+                    ModEntry.ModMonitor.Log("Yup 3", LogLevel.Info);
+                    OnMenuExit();
                 }
             }
         }
+        public static void OnMenuExit()
+        {
+            if (MineTent is null || Context.IsMultiplayer)
+            {
+                Utility.ForEachBuilding(building => ShouldKeepSearching(building), true);
+                ModEntry.ModMonitor.Log("Yup 4", LogLevel.Info);
+                Game1.playSound("wand");
+            }
+            else if (!ShouldKeepSearching(MineTent))
+            {
+                Game1.playSound("wand");
+            }
+        }
+
         public static bool IsThereAContainerNearby(StardewValley.Object drill, out List<Chest> container, bool hasToBeNotFull = false)
         {
             container = new();
@@ -351,18 +368,17 @@ namespace VanillaPlusProfessions.Craftables
             }
             return container.Count > 0;
         }
-        public static bool ShouldKeepSearching(Building building, Chest chest)
+        public static bool ShouldKeepSearching(Building building)
         {
             if (Game1.activeClickableMenu is not null)
                 return false;
             if (building.buildingType.Value == "KediDili.VPPData.CP_MineTent")
             {
                 Chest defaultChest = (MineTent ?? building).GetBuildingChest("Default_Chest");
-                foreach (var objs in chest.Items)
+                foreach (var objs in Game1.player.team.GetOrCreateGlobalInventory(GlobalInventoryId_Minecarts))
                 {
                     if (objs is null)
                         continue;
-
                     if (Utility.canItemBeAddedToThisInventoryList(objs.getOne(), defaultChest.Items, defaultChest.GetActualCapacity()) && objs is not Tool)
                     {
                         if (defaultChest.Items.Count > 0)
@@ -378,15 +394,16 @@ namespace VanillaPlusProfessions.Craftables
                         if (objs.Stack is not 0)
                         {
                             defaultChest.Items.Add(objs);
-                            chest.Items.RemoveButKeepEmptySlot(objs);
+                            Game1.player.team.GetOrCreateGlobalInventory(GlobalInventoryId_Minecarts).RemoveButKeepEmptySlot(objs);
                         }
                         
                         if (objs.Stack == 0)
                         {
-                            chest.Items.RemoveButKeepEmptySlot(objs);
+                            Game1.player.team.GetOrCreateGlobalInventory(GlobalInventoryId_Minecarts).RemoveButKeepEmptySlot(objs);
                         }
                     }
                 }
+                Game1.player.team.GetOrCreateGlobalInventoryMutex(GlobalInventoryId_Minecarts).Update(building.GetParentLocation());
                 MineTent = building;
                 return false;
             }
@@ -395,7 +412,11 @@ namespace VanillaPlusProfessions.Craftables
 
         public static void OnMachineInteract(StardewValley.Object machine, Farmer who)
         {
-
+            ModEntry.ModMonitor.Log("Base method runs.", LogLevel.Info);
+            if (machine.QualifiedItemId == "(BC)KediDili.VPPData.CP_MinecartChest")
+            {
+                
+            }
         }
     }
 }

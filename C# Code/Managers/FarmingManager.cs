@@ -62,7 +62,7 @@ namespace VanillaPlusProfessions.Managers
             }
             catch (System.Exception e)
             {
-                CoreUtility.PrintError(e, PatcherName, "NPC. getGiftTasteForThisItem", "postfixed", true);
+                CoreUtility.PrintError(e, PatcherName, "NPC.getGiftTasteForThisItem", "postfixed", true);
             }
         }
         

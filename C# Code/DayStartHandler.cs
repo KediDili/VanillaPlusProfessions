@@ -16,7 +16,6 @@ using StardewValley.GameData.GiantCrops;
 using VanillaPlusProfessions.Utilities;
 using xTile.Dimensions;
 using VanillaPlusProfessions.Craftables;
-using StardewValley.GameData.FishPonds;
 
 namespace VanillaPlusProfessions
 {
@@ -54,11 +53,12 @@ namespace VanillaPlusProfessions
                         can.WaterLeft = can.waterCanMax;
                     }
                     TalentCore.HasWaterCan.Value = true;
+                    can.modData[TalentCore.Key_Resurgence] = "0";
                     break;
                 }
             }
         
-            if (TalentUtility.AnyPlayerHasTalent("Farming_Good_Soaking"))
+            if (TalentUtility.AnyPlayerHasTalent("GoodSoaking"))
             {
                 Utility.ForEachLocation(loc =>
                 {
@@ -261,9 +261,7 @@ namespace VanillaPlusProfessions
                                             obj.Stack = 2;
                                         if (shouldUseAutoGrabber && autoGrabber is not null)
                                         {
-                                            Chest chest = autoGrabber.heldObject.Value as Chest;
-
-                                            if (chest is not null && chest.addItem(obj) is null)
+                                            if (autoGrabber.heldObject.Value is Chest chest && chest?.addItem(obj) is null)
                                                 autoGrabber.showNextIndex.Value = true;
                                         }
                                         else
@@ -281,9 +279,7 @@ namespace VanillaPlusProfessions
                                             obj.Stack = 2;
                                         if (shouldUseAutoGrabber && autoGrabber is not null)
                                         {
-                                            Chest chest = autoGrabber.heldObject.Value as Chest;
-
-                                            if (chest is not null && chest.addItem(obj) is null)
+                                            if (autoGrabber.heldObject.Value is Chest chest && chest.addItem(obj) is null)
                                                 autoGrabber.showNextIndex.Value = true;
                                         }
                                         else
@@ -315,7 +311,7 @@ namespace VanillaPlusProfessions
                         {
                             for (int YY = 0; YY < slimeHutch.Map.Layers[0].LayerHeight; YY++)
                             {
-                                if (slimeHutch.isTilePlaceable(new(XX, YY), false) && !slimeHutch.isTileOnWall(XX, YY) && slimeHutch.isTileLocationOpen(new Location(XX, YY)))
+                                if (slimeHutch.isTilePlaceable(new(XX, YY), false) && !slimeHutch.Objects.ContainsKey(new(XX,YY)) && !slimeHutch.isTileOnWall(XX, YY) && slimeHutch.isTileLocationOpen(new Location(XX, YY)))
                                     nullobjs.Add(new(XX, YY));
                             }
                         }
@@ -430,26 +426,23 @@ namespace VanillaPlusProfessions
                                 @object = (StardewValley.Object)crabPot.Location.getFish(1f, bait, r.Next(1, 5), who, 5, crabPot.TileLocation);
                             } while (@object.HasContextTag("fish_legendary") || @object.HasContextTag("trash_item")); //so that you dont get legendaries in crabpots 
 
-                            if (FishTrap && (crabPot.heldObject.Value is null || crabPot.heldObject.Value?.HasContextTag("trash_item") is true) && r.NextBool(0.20))
-                                crabPot.heldObject.Value = @object;
-                            if (crabPot.heldObject?.Value is null)
+                            if (crabPot.heldObject.Value is null || crabPot.heldObject.Value?.HasContextTag("trash_item") is true)
                             {
+                                if (FishTrap && r.NextBool(0.20))
+                                    crabPot.heldObject.Value = @object;
                                 if (DeadMansChest && r.NextBool(0.1))
                                     crabPot.heldObject.Value = ItemRegistry.Create("(O)275") as StardewValley.Object;
                             }
-
-                            if (crabPot.heldObject.Value is not null)
+                            if (crabPot.heldObject.Value is not null && !crabPot.heldObject.Value.HasContextTag("trash_item") && crabPot.heldObject.Value.Category == StardewValley.Object.FishCategory)
                             {
-                                if (Trawler && crabPot.bait.Value is not null)
+                                if (Trawler && crabPot.bait.Value is not null && crabPot.heldObject.Value.Quality < 2)
                                     crabPot.heldObject.Value.Quality = r.NextBool(0.7) ? 2 : 4;
                                 if (crabPot.heldObject.Value.Stack < 5)
                                 {
+                                    if (Diversification && crabPot.bait.Value?.QualifiedItemId is "(O)774")
+                                        crabPot.heldObject.Value.Stack += 1;
                                     if (Hydrologist)
                                         crabPot.heldObject.Value.Stack += r.NextBool(0.85) ? 0 : 1;
-
-                                    else if (Diversification && crabPot.heldObject.Value?.QualifiedItemId != "(O)275")
-                                        if (crabPot.bait?.Value?.QualifiedItemId is "(O)774")
-                                            crabPot.heldObject.Value.Stack += 1;
                                 }
                             }
                             
@@ -504,7 +497,7 @@ namespace VanillaPlusProfessions
                         }
                         return true;
                     }
-                    if (bigcraftable.QualifiedItemId == "(BC)217" && bigcraftable is Chest chest)
+                    if (bigcraftable is Chest chest && chest.QualifiedItemId == "(BC)217")
                     {
                         chest.SpecialChestType = MiniFridgeBigSpace
                             ? Chest.SpecialChestTypes.BigChest

@@ -15,6 +15,7 @@ using StardewValley.Internal;
 using System.Xml.Linq;
 using xTile;
 using StardewValley.Menus;
+using StardewValley.Objects;
 
 namespace VanillaPlusProfessions.Craftables
 {
@@ -44,6 +45,17 @@ namespace VanillaPlusProfessions.Craftables
 
         internal static void OnInteract(Farmer who, Item item)
         {
+            /*if (item.ItemId == "KediDili.VPPData.CP_MinecartChest")
+            {
+                Game1.player.team.GetOrCreateGlobalInventory(MachineryEventHandler.GlobalInventoryId_Minecarts);
+                Chest chest = new(true, "KediDili.VPPData.CP_MinecartChest")
+                {
+                    SpecialChestType = Chest.SpecialChestTypes.BigChest,
+                    GlobalInventoryId = MachineryEventHandler.GlobalInventoryId_Minecarts
+                };                
+                Game1.player.team.GetOrCreateGlobalInventoryMutex(MachineryEventHandler.GlobalInventoryId_Minecarts).RequestLock(chest.ShowMenu);
+            }*/
+            //There's a false because nothing here is supposed to be accessed yet.
             if (item is StardewValley.Object obj && false)
             {
                 GameLocation location = who.currentLocation;

@@ -16,13 +16,17 @@ namespace VanillaPlusProfessions.Talents.UI
 
         Color? BundleColor;
 
-        internal static string LockedName;
+        internal int XPos;
 
-        internal static string LockedDesc;
+        internal int YPos;
 
-        internal static string NumberLocked;
+        internal string LockedName;
 
-        internal static string Disabled;
+        internal string LockedDesc;
+
+        internal string NumberLocked;
+
+        internal string Disabled;
 
         int TalentsBought;
 
@@ -51,45 +55,45 @@ namespace VanillaPlusProfessions.Talents.UI
         internal void UpdateSprite()
         {
             InitializeFully();
-            Rectangle rect = new();
-            if (Game1.activeClickableMenu is TalentSelectionMenu { AnyActiveBranches: true })
+            if (Tree.MainMenu is not null)
             {
-                button.visible = false;
-                return;
-            }
-            if (!Availability)
-            {
-                //locked
-                rect = LockedRect;
-                button.texture = TalentSelectionMenu.BundleIcon;
-                button.sourceRect = rect;
-            }
-            else if (TalentUtility.CurrentPlayerHasTalent(talent.MailFlag, ignoreDisabledTalents: true))
-            {
-                //bloom
-                button.texture = BundleColor.HasValue
-                    ? TalentSelectionMenu.BundleIcon
-                    : TalentSelectionMenu.JunimoNote;
-                rect = BoughtRect;
-            }
-            else if (TalentUtility.CurrentPlayerHasTalent(talent.MailFlag, ignoreDisabledTalents: false))
-            {
-                //available - disabled
-                button.texture = BundleColor.HasValue
-                    ? TalentSelectionMenu.BundleIcon
-                    : TalentSelectionMenu.JunimoNote;
-                rect = AvailableRect;
-            }
-            else if (Availability)
-            {
-                //available
-                button.texture = BundleColor.HasValue
-                    ? TalentSelectionMenu.BundleIcon
-                    : TalentSelectionMenu.JunimoNote;
+                if (Tree.MainMenu.AnyActiveBranches)
+                {
+                    button.visible = false;
+                    return;
+                }
+                if (!Availability)
+                {
+                    //locked
+                    button.sourceRect = LockedRect;
+                    button.texture = Tree.BundleIcon;
+                }
+                else if (TalentUtility.CurrentPlayerHasTalent(talent.MailFlag, ignoreDisabledTalents: true))
+                {
+                    //bloom
+                    button.texture = BundleColor.HasValue
+                        ? Tree.BundleIcon
+                        : Tree.MainMenu.JunimoNote;
+                    button.sourceRect = BoughtRect;
+                }
+                else if (TalentUtility.CurrentPlayerHasTalent(talent.MailFlag, ignoreDisabledTalents: false))
+                {
+                    //available - disabled
+                    button.texture = BundleColor.HasValue
+                        ? Tree.BundleIcon
+                        : Tree.MainMenu.JunimoNote;
+                    button.sourceRect = AvailableRect;
+                }
+                else if (Availability)
+                {
+                    //available
+                    button.texture = BundleColor.HasValue
+                        ? Tree.BundleIcon
+                        : Tree.MainMenu.JunimoNote;
 
-                rect = AvailableRect;
+                    button.sourceRect = AvailableRect;
+                }
             }
-            button.sourceRect = rect;
         }
         internal string GetTalentDescription()
         {
@@ -153,17 +157,25 @@ namespace VanillaPlusProfessions.Talents.UI
             return Game1.parseText(desc, Game1.smallFont, SpriteText.getWidthOfString(button.name) + 100);
         }
 
-        public void GameWindowChanged()
+        public void GameWindowChanged(int xPos, int yPos)
         {
-            button.bounds.X = TalentSelectionMenu.XPos + (int)(talent.Position.X * 4);
-            button.bounds.Y = TalentSelectionMenu.YPos + (int)(talent.Position.Y * 4);
+            XPos = xPos;
+            YPos = yPos;
+            button.bounds.X = XPos + (int)(talent.Position.X * 4);
+            button.bounds.Y = YPos + (int)(talent.Position.Y * 4);
         }
-        internal BundleIcon(ClickableTextureComponent component, Talent talentData)
+        internal BundleIcon(ClickableTextureComponent component, Talent talentData, int xPos, int yPos)
         {
-            component.bounds.X += TalentSelectionMenu.XPos;
-            component.bounds.Y += TalentSelectionMenu.YPos;
+            XPos = xPos;
+            YPos = yPos;
+            component.bounds.X += XPos;
+            component.bounds.Y += YPos;
             button = component;
             talent = talentData;
+            LockedName = ModEntry.Helper.Translation.Get("Talent.LockedTalent.Name");
+            LockedDesc = ModEntry.Helper.Translation.Get("Talent.LockedTalent.Desc");
+            NumberLocked = ModEntry.Helper.Translation.Get("Talent.LockedTalent.Numbered");
+            Disabled = ModEntry.Helper.Translation.Get("Talent.DisabledTalent");
         }
 
         internal void InitializeFully()

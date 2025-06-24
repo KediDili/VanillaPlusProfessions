@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using Microsoft.Xna.Framework;
 using StardewModdingAPI;
 using StardewValley;
@@ -270,33 +271,33 @@ namespace VanillaPlusProfessions.Utilities
                 ModEntry.ModMonitor.Log("Load a save first!", LogLevel.Warn);
             }
         }
+
         public static bool CurrentPlayerHasTalent(string flag, long farmerID = -1, Farmer who = null, bool ignoreDisabledTalents = true)
         {
             if (ModEntry.ModConfig.Value.ProfessionsOnly)
-            {
                 return false;
-            }
+
             if (farmerID is not -1)
-            {
                 who = Game1.GetPlayer(farmerID) ?? Game1.MasterPlayer;
-            }
+
             who ??= Game1.player;
             if (who is null)
                 return false;
 
             if (!Context.IsWorldReady && who.mailReceived?.Count == 0)
-            {
                 return false;
-            }
+
             flag = GetFlag(flag);
+            bool returnValue = false;
             if (!ignoreDisabledTalents)
-            {
-                return who.mailReceived.Contains(flag);
-            }
+                returnValue = who.mailReceived.Contains(flag);
             else 
-            {
-                return who.mailReceived.Contains(flag) && !who.mailReceived.Contains(flag + "_disabled");
-            }
+                returnValue = who.mailReceived.Contains(flag) && !who.mailReceived.Contains(flag + "_disabled");
+
+            if (ModEntry.ModMonitor.IsVerbose || ModEntry.ModConfig.Value.DeveloperOrTestingMode)
+                ModEntry.ModMonitor.Log($"Checked talent {flag}: {returnValue}", LogLevel.Warn);
+
+            return returnValue;
         }
 
         internal static string GetFlag(string name) => TalentCore.Talents.TryGetValue(name, out Talent talent) ? talent.MailFlag : name;
@@ -439,30 +440,30 @@ namespace VanillaPlusProfessions.Utilities
                     break;
                 }
             }
-            if (CurrentPlayerHasTalent("MonsterSpecialist"))
+            if (CurrentPlayerHasTalent("MonsterSpecialist", who: who))
             {
-                if (CurrentPlayerHasTalent("Combat_Monster_Specialist_Ground"))
+                if (CurrentPlayerHasTalent("Combat_Monster_Specialist_Ground", who: who))
                 {
                     if (monsterData is not null)
                         return monsterData.MonsterType == IVanillaPlusProfessions.MonsterType.Ground;
                     else
                         return monster is GreenSlime or BigSlime or Grub or Duggy or LavaLurk or Leaper;
                 }
-                else if (CurrentPlayerHasTalent("Combat_Monster_Specialist_Humanoid"))
+                else if (CurrentPlayerHasTalent("Combat_Monster_Specialist_Humanoid", who: who))
                 {
                     if (monsterData is not null)
                         return monsterData.MonsterType == IVanillaPlusProfessions.MonsterType.Humanoid;
                     else
                         return monster is RockGolem or Skeleton or Mummy or ShadowBrute or Shooter or ShadowShaman;
                 }
-                else if (CurrentPlayerHasTalent("Combat_Monster_Specialist_Flying"))
+                else if (CurrentPlayerHasTalent("Combat_Monster_Specialist_Flying", who: who))
                 {
                     if (monsterData is not null)
                         return monsterData.MonsterType == IVanillaPlusProfessions.MonsterType.Flying;
                     else
                         return monster is Bat or Ghost or AngryRoger or Serpent or BlueSquid or SquidKid or Fly;
                 }
-                else if (CurrentPlayerHasTalent("Combat_Monster_Specialist_Armoured"))
+                else if (CurrentPlayerHasTalent("Combat_Monster_Specialist_Armoured", who: who))
                 {
                     if (monsterData is not null)
                         return monsterData.MonsterType == IVanillaPlusProfessions.MonsterType.Armoured;
@@ -477,25 +478,16 @@ namespace VanillaPlusProfessions.Utilities
         {
             if (talentStatuses["GiftOfTheTalented"] == ValidTalentStatuses[0])
             {
-                Game1.player.addItemByMenuIfNecessary(ItemRegistry.Create("(O)434"), null, true);
+                TalentCore.GiveOrTakeStardropEffects = true;
             }
-            else if (talentStatuses["GiftOfTheTalented"] == ValidTalentStatuses[1])
+            else if (talentStatuses["GiftOfTheTalented"] == ValidTalentStatuses[1] || talentStatuses["GiftOfTheTalented"] == ValidTalentStatuses[2])
             {
-                Game1.player.maxStamina.Value -= 40;
-                if (Game1.player.Stamina > Game1.player.maxStamina.Value)
-                {
-                    Game1.player.Stamina = Game1.player.maxStamina.Value;
-                }
-                Game1.player.maxHealth -= 40;
-                if (Game1.player.health > Game1.player.maxHealth)
-                {
-                    Game1.player.health = Game1.player.maxHealth;
-                }
+                
+                TalentCore.GiveOrTakeStardropEffects = false;
             }
-            else if (talentStatuses["GiftOfTheTalented"] == ValidTalentStatuses[2])
+            else
             {
-                Game1.player.maxHealth += 40;
-                Game1.player.maxStamina.Value += 40;
+                TalentCore.GiveOrTakeStardropEffects = null;
             }
         }
 
@@ -527,21 +519,14 @@ namespace VanillaPlusProfessions.Utilities
                         }
                         else if (obj.QualifiedItemId == "(O)92" && switchSapEdibility)
                         {
-                            if (talentStatuses["SapSipper"] == ValidTalentStatuses[0] || talentStatuses["SapSipper"] == ValidTalentStatuses[2])
-                            {
-                                obj.Edibility = 3;
-                            }
-                            else
-                            {
-                                obj.Edibility = -1;
-                            }
+                            obj.Edibility = talentStatuses["SapSipper"] == ValidTalentStatuses[0] || talentStatuses["SapSipper"] == ValidTalentStatuses[2] ? 3 : -1;
                         }
                     }
                     else if (item is TrinketRing ring && switchTrinketRings)
                     {
                         Game1.player.team.returnedDonations.Add(ring.Trinket);
                         Game1.player.team.newLostAndFoundItems.Value = true;
-                        item.ConsumeStack(1);
+                        item = item.ConsumeStack(1);
                     }
                     return true;
                 });
@@ -558,7 +543,7 @@ namespace VanillaPlusProfessions.Utilities
 
         public static bool IsBlandStone(this StardewValley.Object obj)
         {
-            if (ModEntry.ItemExtensionsAPI.Value is not null && ModEntry.ItemExtensionsAPI.Value.IsResource(obj.ItemId, out int? _, out string itemDropped))
+            if (ModEntry.ItemExtensionsAPI is not null && ModEntry.ItemExtensionsAPI.IsResource(obj.ItemId, out int? _, out string itemDropped))
             {
                 return itemDropped is "390" or "(O)390";
             }
@@ -599,15 +584,15 @@ namespace VanillaPlusProfessions.Utilities
         public static List<TrinketRing> GetAllTrinketRings(Farmer who)
         {
             List<TrinketRing> result = new();
-            if (ModEntry.WearMoreRingsAPI.Value is not null)
+            if (ModEntry.WearMoreRingsAPI is not null)
             {
-                for (int i = 0; i < ModEntry.WearMoreRingsAPI.Value?.RingSlotCount(); i++)
+                for (int i = 0; i < ModEntry.WearMoreRingsAPI?.RingSlotCount(); i++)
                 {
                     try
                     {
-                        if (ModEntry.WearMoreRingsAPI.Value?.GetRing(i) is not null)
+                        if (ModEntry.WearMoreRingsAPI?.GetRing(i) is not null)
                         {
-                            if (ModEntry.WearMoreRingsAPI.Value?.GetRing(i) is CombinedRing combinedRing && combinedRing is not null)
+                            if (ModEntry.WearMoreRingsAPI?.GetRing(i) is CombinedRing combinedRing && combinedRing is not null)
                             {
                                 if (combinedRing.combinedRings[0] is TrinketRing)
                                     result.Add(combinedRing.combinedRings[0] as TrinketRing);
@@ -615,7 +600,7 @@ namespace VanillaPlusProfessions.Utilities
                                 if (combinedRing.combinedRings[1] is TrinketRing)
                                     result.Add(combinedRing.combinedRings[1] as TrinketRing);
                             }
-                            if (ModEntry.WearMoreRingsAPI.Value?.GetRing(i) is TrinketRing trinketRing && trinketRing != null)
+                            if (ModEntry.WearMoreRingsAPI?.GetRing(i) is TrinketRing trinketRing && trinketRing != null)
                                 result.Add(trinketRing);
                         }
                     }
@@ -654,30 +639,22 @@ namespace VanillaPlusProfessions.Utilities
             return result;
         }
 
-        public static Item AccessoriseMachineRule(StardewValley.Object machine, Item inputItem, bool probe, MachineItemOutput outputData, Farmer player, out int? overrideMinutesUntilReady)
+        public static bool AccessoriseMachineRule(StardewValley.Object machine, GameLocation location, Farmer player)
         {
-            overrideMinutesUntilReady = null;
-            
+            Item inputItem = player.ActiveItem;
             if (inputItem is Trinket trinket)
             {
-                if (probe is false)
-                {
-                    Game1.player.addItemToInventory(new TrinketRing(trinket));
-                    inputItem = null;
-                    Game1.player.ActiveObject = null;
-                    return null;
-                }
-                else
-                {
-                    return inputItem;
-                }
+                TrinketRing output = new(trinket);
+                Game1.player.ActiveItem = null;
+                Game1.player.addItemToInventory(output);
             }
             else if (inputItem is TrinketRing ring)
             {
-                return ring.Trinket;
+                Trinket output = ring.Trinket;
+                Game1.player.ActiveItem = null;
+                Game1.player.addItemToInventory(output);
             }
-            
-            return null;
+            return true;
         }
 
         public static void GemAndGeodeNodes(bool flag, List<Vector2> list, GameLocation mine)
@@ -707,7 +684,7 @@ namespace VanillaPlusProfessions.Utilities
 
         private static bool ShouldAddToThePool(string node, bool flag, MineShaft mineShaft)
         {
-            if (ModEntry.ItemExtensionsAPI.Value.GetResourceData(node, false, out object resourceData))
+            if (ModEntry.ItemExtensionsAPI.GetResourceData(node, false, out object resourceData))
             {
                 string SpawnOnFloors = ModEntry.Helper.Reflection.GetProperty<string>(resourceData, "SpawnOnFloors").GetValue();
                 double SpawnFrequency = ModEntry.Helper.Reflection.GetProperty<double>(resourceData, "SpawnFrequency").GetValue();
@@ -795,7 +772,7 @@ namespace VanillaPlusProfessions.Utilities
             }
             if (ItemExtensions_GemNodeList.Contains(result) || ItemExtensions_GeodeNodeList.Contains(result))
             {
-                if (ModEntry.ItemExtensionsAPI.Value.IsResource(result, out int? nodeHealth, out string _))
+                if (ModEntry.ItemExtensionsAPI.IsResource(result, out int? nodeHealth, out string _))
                 {
                     health = nodeHealth;
                 }

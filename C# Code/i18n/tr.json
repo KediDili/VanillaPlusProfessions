@@ -121,12 +121,12 @@
 	"Profession.Combat-Fish.Desc": "Balıklar sapan mühimmatı olarak kullanılabilir.",
 
 	//Talents
-	"Talent.Farming.Title": "Çiftçilik Maharetleri",
-	"Talent.Fishing.Title": "Balıkçılık Maharetleri",
-	"Talent.Foraging.Title": "Toplayıcılık Maharetleri",
-	"Talent.Mining.Title": "Madencilik Maharetleri",
+	"Talent.Farming.Title": "Çiftçi Maharetleri",
+	"Talent.Fishing.Title": "Balık Maharetleri",
+	"Talent.Foraging.Title": "Toplama Maharetleri",
+	"Talent.Mining.Title": "Maden Maharetleri",
 	"Talent.Combat.Title": "Savaş Maharetleri",
-	"Talent.Misc.Title": "Günlük Hayat Maharetleri",
+	"Talent.Misc.Title": "Günlük Maharetler",
 
 	"Talent.LockedTalent.Name": "Kilitli",
 	"Talent.LockedTalent.Desc": "Önce diğer\nmaharetleri al!",
@@ -203,7 +203,7 @@
 	"Talent.ColdPress.Desc": "Yağ makineleri daha fazla tür yağ üretebilir.",
 
 	"Talent.Upcycling.Name": "İleri Dönüşüm",
-	"Talent.Upcycling.Desc": "Yüksek fıskiyeler materyal olarak daha düşük fıskiyeleri gerektirir.",
+	"Talent.Upcycling.Desc": "Yüksek fıskiyeler, daha düşük fıskiyeleri malzeme olarak kullanan alternatif tariflere sahip olur.",
 
 	"Talent.Fertigation.Name": "Fertigasyon",
 	"Talent.Fertigation.Desc": "Basınç memeleri ve gübreleyiciler aynı anda fıskiyelere eklenebilir.",
@@ -303,7 +303,7 @@
 	"Talent.Berry-mania.Name": "Yemiş Çılgınlığı",
 	"Talent.Berry-mania.Desc": "Yemiş sezonları bir hafta sürer.",
 
-	"Talent.DiamondOfTheKitchen.Name": "Mutfak Elması",
+	"Talent.DiamondOfTheKitchen.Name": "Mutfakçı Elması",
 	"Talent.DiamondOfTheKitchen.Desc": "Yermantarları ormanlarda ortaya çıkar.",
 
 	"Talent.LocalKnowledge.Name": "Yerel Bilgi",
@@ -319,7 +319,7 @@
 	"Talent.DesertBloom.Desc": "Pelikan Kasabası'nda yağmur yağdığında Patisko Çölü'nde çiçekler belirebilir.",
 
 	"Talent.BountifulBoletes.Name": "Verimli Mantarlar",
-	"Talent.BountifulBoletes.Desc": "Yağmurlu günlerden sonra High chance for mushrooms to spawn after rainy days.",
+	"Talent.BountifulBoletes.Desc": "Yağmurlu günlerden sonra mantar bulma şansı yükselir.",
 
 	"Talent.RenewingMist.Name": "Yenileyici Sis",
 	"Talent.RenewingMist.Desc": "Yağmurdan sonraki ilk güneşli gün normalin iki katı toplama belirir.",
@@ -536,7 +536,7 @@
 	"Talent.BookclubBargains.Name": "Kitap Kulübü İskontosu",
 	"Talent.BookclubBargains.Desc": "Kitapçı'daki fiyatları düşürür.",
 
-	"Talent.CycleOfKnowledge.Name": "Bilgi Döngüsü",
+	"Talent.CycleOfKnowledge.Name": "Bilginin Döngüsü",
 	"Talent.CycleOfKnowledge.Desc": "Gereksiz kitaplar geri dönüştürülebilir.",
 
 	"Talent.NarrowEscape.Name": "Ucuz Kurtuluş",
@@ -569,7 +569,7 @@
 	"Talent.HauteCuisine.Name": "Nitelikli Mutfak",
 	"Talent.HauteCuisine.Desc": "Pişirilmiş yemeklerin satış fiyatlarını artırır.",
 
-	"Talent.MiniFridgeBigSpace.Name": "Mini Buzdolabı, Büyük Alan",
+	"Talent.MiniFridgeBigSpace.Name": "Mini Dolap, Büyük Alan",
 	"Talent.MiniFridgeBigSpace.Desc": "Mini buzdolapları için envanter alanını artırır.",
 
 	"Talent.GoodEats.Name": "Güzel Yemekler",
@@ -587,7 +587,7 @@
 	"Message.ForageBubbleReset": "Baloncuk oluşturan toplama yenilendi.",
 	"Message.RabbitBirth": "Yeni bir bebek tavşan doğdu!",
 	"Message.StoneBroken": "Bugün {{Stones}} taş kırdın. Saldırın ve savunman {{Buff}} arttı.",
-	"Message.MasteryCave": "Ancak beş yolun tamamında 20. seviyeye gelmiş büyük bir usta içeri girebilir. ({0}/5)",
+	"Message.MasteryCave": "Ancak beş yolun tamamında {{Level}}. seviyeye gelmiş büyük bir usta içeri girebilir. ({0}/5)",
 	"Message.ParrotPerch": "Bu sadece hayvan binalarına yerleştirilebilir!",
 	"Message.MossyFertilizer": "Bu ağaçta zaten Yosunlu Gübre var!",
 	"Message.TotemFailed": "Totem, toplama çağırmak için uygun bir yer bulamadı.",
@@ -608,9 +608,9 @@
 	"GMCM.ColorBlindnessChanges.Name": "Renk Körlüğü Değişimleri",
 	"GMCM.ColorBlindnessChanges.Desc": "VPP ve vanilla beceri barlarını çizgili versiyonlarla değiştirir.",
 	"GMCM.MasteryCaveChanges.Name": "Ustalık Mağarası Değişimleri",
-	"GMCM.MasteryCaveChanges.Desc": "Ustalık Mağarası'nı bütün becerilerde seviye 10 yerine 20'ye gelindiğinde açılacak şekilde değiştirir.",
-	"GMCM.StaminaCostAdjustments.Name": "Enerji Kaybı Ayarlamaları", // New
-	"GMCM.StaminaCostAdjustments.Desc": "Balta, kazma, su kabı ve çapayı birazcık daha fazla enerji kullanacak şekilde değiştirir. Bu seçenek, bu durumu sevmeyen oyuncular için vanilla becerilerde seviye 20'nin aletlerde enerji kullanımı tamamen kaldırmamasını amaçlar.", // New
+	"GMCM.MasteryCaveChanges.Desc": "Ustalık Mağarası'nı bütün becerilerde seviye 10 yerine 20 veya 15'e gelindiğinde açılacak şekilde değiştirir.",
+	"GMCM.StaminaCostAdjustments.Name": "Enerji Kaybı Ayarlamaları",
+	"GMCM.StaminaCostAdjustments.Desc": "Balta, kazma, su kabı ve çapayı birazcık daha fazla enerji kullanacak şekilde değiştirir. Bu seçenek, bu durumu sevmeyen oyuncular için vanilla becerilerde seviye 20'nin aletlerde enerji kullanımı tamamen kaldırmamasını amaçlar.",
 	"GMCM.ProfessionsOnly.Name": "Sadece Uzmanlıklar",
 	"GMCM.ProfessionsOnly.Desc": "VPP'yi sadece uzmanlıkları oyuna ekleyecek şekilde değiştirir, maharet sistemine dair her şeyi kapatır. Değiştirildiğinde etkiye girmesi için yeniden başlatma gerekir.",
 	"GMCM.TalentHintLevel.Name": "Maharet İpucu Seviyesi",
