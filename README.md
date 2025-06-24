@@ -27,8 +27,30 @@ How to add compatibility with various talents and professions of this mod is doc
 7) Enjoy!
 
 ## Translations
-There are currently no translations so far except Turkish which I made myself, but contributions are welcome. Every translator will be credited on Nexus and GitHub.
-Please send the translation files to me through Discord(@kedidili4678), GitHub, or Nexus(KeDili)
+There're been translations sent and posted, which are listed below:
+- KediDili (Turkish - included with the mod)
+- Wailwolf (French - included with the mod)
+- Herasson (German - included with the mod)
+- ParanoiaNM (Chinese﻿)
+- BaoBao (Vietnamese﻿)
+- Ner0nWinTb (Polish﻿)
+- Mitsuki619 (Brazilian Portuguese﻿)
+- hopaifu (Russian﻿)
+- Gonzy42 (Spanish﻿)
+
+- Japanese: Missing
+- Korean: Missing
+- Italian: Missing
+- Indonesian: Missing
+- Thai: Missing
+- LATAM Spanish: Missing
+- Castilian Spanish: Missing
+- Portuguese: Missing
+- Traditional Chinese: Missing
+
+Please send the translation files to me through Discord(kedidili4678), GitHub, or Nexus(KeDili).
+As of 24.06.2025, I will not accept or include AI translations. Past ones can stay up since they had permission. (But I'll welcome replacements if they don't use AI.)
+If you want me to include your new translation, you'll have to do it the old way.
 
 ## Credits
 **Airyn**: Art assets, proofreading, the scope creep, ideas and everything else he contributed. I can thank him a thousand times but that wouldn't be enough.
