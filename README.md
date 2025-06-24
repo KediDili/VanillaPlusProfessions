@@ -32,7 +32,7 @@ There're been translations sent and posted, which are listed below:
 - Wailwolf (French - included with the mod)
 - Herasson (German - included with the mod)
 - ParanoiaNM ([Chinese](https://www.nexusmods.com/stardewvalley/mods/30374)﻿)
-- BaoBao ([Vietnamese](﻿https://www.nexusmods.com/stardewvalley/mods/30513))
+- BaoBao ([Vietnamese](https://www.nexusmods.com/stardewvalley/mods/30513))
 - Ner0nWinTb ([Polish](https://www.nexusmods.com/stardewvalley/mods/30494)﻿)
 - Mitsuki619 ([Brazilian Portuguese](https://www.nexusmods.com/stardewvalley/mods/30320﻿))
 - hopaifu ([Russian](https://www.nexusmods.com/stardewvalley/mods/30572)﻿)
