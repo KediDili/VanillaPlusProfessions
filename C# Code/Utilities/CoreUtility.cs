@@ -234,17 +234,17 @@ namespace VanillaPlusProfessions.Utilities
                 return;
             }
             StringBuilder sb = new();
-            int farming = Game1.player.GetUnmodifiedSkillLevel(0), 
-                foraging = Game1.player.GetUnmodifiedSkillLevel(2), 
-                mining = Game1.player.GetUnmodifiedSkillLevel(1), 
-                fishing = Game1.player.GetUnmodifiedSkillLevel(3), 
+            int farming = Game1.player.GetUnmodifiedSkillLevel(0),
+                foraging = Game1.player.GetUnmodifiedSkillLevel(2),
+                mining = Game1.player.GetUnmodifiedSkillLevel(3),
+                fishing = Game1.player.GetUnmodifiedSkillLevel(1),
                 combat = Game1.player.GetUnmodifiedSkillLevel(4);
             sb.AppendLine("");
-            sb.AppendLine("- Skill Level Experiences -");
+            sb.AppendLine("    - Skill Level Experiences -    ");
             sb.AppendLine($"Farming: {Game1.player.experiencePoints[0]}/" + (farming > 19 ? "120000 (Maxed)" : $"{(farming >= 10 ? ModEntry.levelExperiences[farming - 10] : Farmer.getBaseExperienceForLevel(farming))} (To {farming + 1})"));
-            sb.AppendLine($"Mining: {Game1.player.experiencePoints[1]}/" + (mining > 19 ? "120000 (Maxed)" : $"{(mining >= 10 ? ModEntry.levelExperiences[mining - 10] : Farmer.getBaseExperienceForLevel(mining))} (To {mining + 1})"));
+            sb.AppendLine($"Mining: {Game1.player.experiencePoints[3]}/" + (mining > 19 ? "120000 (Maxed)" : $"{(mining >= 10 ? ModEntry.levelExperiences[mining - 10] : Farmer.getBaseExperienceForLevel(mining))} (To {mining + 1})"));
             sb.AppendLine($"Foraging: {Game1.player.experiencePoints[2]}/" + (foraging > 19 ? "120000 (Maxed)" : $"{(foraging >= 10 ? ModEntry.levelExperiences[foraging - 10] : Farmer.getBaseExperienceForLevel(foraging))} (To {foraging + 1})"));
-            sb.AppendLine($"Fishing: {Game1.player.experiencePoints[3]}/" + (fishing > 19 ? "120000 (Maxed)" : $"{(fishing >= 10 ? ModEntry.levelExperiences[fishing - 10] : Farmer.getBaseExperienceForLevel(fishing))} (To {fishing + 1})"));
+            sb.AppendLine($"Fishing: {Game1.player.experiencePoints[1]}/" + (fishing > 19 ? "120000 (Maxed)" : $"{(fishing >= 10 ? ModEntry.levelExperiences[fishing - 10] : Farmer.getBaseExperienceForLevel(fishing))} (To {fishing + 1})"));
             sb.AppendLine($"Combat: {Game1.player.experiencePoints[4]}/" + (combat > 19 ? "120000 (Maxed)" : $"{(combat >= 10 ? ModEntry.levelExperiences[combat - 10] : Farmer.getBaseExperienceForLevel(combat))} (To {combat + 1})"));
             ModEntry.ModMonitor.Log(sb.ToString(), LogLevel.Info);
         }
@@ -358,7 +358,7 @@ namespace VanillaPlusProfessions.Utilities
                         if (item is TrinketRing ring)
                         {
                             Accessorise++;
-                            Game1.player.team.returnedDonations.Add(ring.Trinket);
+                            Game1.player.team.returnedDonations.Add(ring.GetRingTrinket(true));
                             if (Game1.player.isWearingRing(ring.ItemId))
                             {
                                 if (Game1.player.leftRing.Value?.GetsEffectOfRing(ring.ItemId) is true)

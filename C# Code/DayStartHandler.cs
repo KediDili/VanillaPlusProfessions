@@ -29,6 +29,7 @@ namespace VanillaPlusProfessions
             TalentCore.IsDayStartOrEnd = true;
 
             CraftableHandler.OnDayStarted();
+            MachineryEventHandler.BirdsOnFeeders.Clear();
 
             bool RefreshingWaters = TalentUtility.CurrentPlayerHasTalent("RefreshingWaters"),
             Caretaker = CoreUtility.AnyPlayerHasProfession("Caretaker"),

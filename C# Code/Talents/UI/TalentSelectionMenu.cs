@@ -631,6 +631,7 @@ namespace VanillaPlusProfessions.Talents.UI
                     }
                 }
             }
+            //Known bug: If you use BGM with EnableMod config off, you'll still get the BGM menu. It's so minor honestly.
             IClickableMenu menu;
             if (ModEntry.BetterGameMenuAPI is not null)
                 menu = ModEntry.BetterGameMenuAPI.CreateMenu(nameof(VanillaTabOrders.Skills));

@@ -87,11 +87,6 @@ namespace VanillaPlusProfessions.Talents.Patchers
                 prefix: new HarmonyMethod(PatcherType, nameof(gainExperience_Prefix))
             );
             CoreUtility.PatchMethod(
-                PatcherName, "Stats.takeStep",
-                original: AccessTools.Method(typeof(Stats), nameof(Stats.takeStep)),
-                prefix: new HarmonyMethod(PatcherType, nameof(takeStep_Postfix))
-            );
-            CoreUtility.PatchMethod(
                 PatcherName, "Boots.onEquip",
                 original: AccessTools.Method(typeof(Boots), nameof(Boots.onEquip)),
                 prefix: new HarmonyMethod(PatcherType, nameof(onEquip_Postfix))
@@ -185,8 +180,8 @@ namespace VanillaPlusProfessions.Talents.Patchers
                     chest.modData.Add("Pathoschild.ChestsAnywhere/IsIgnored", "true");
                     if (__instance.QualifiedItemId == "(BC)KediDili.VPPData.CP_MinecartChest")
                     {
-                        Game1.player.team.GetOrCreateGlobalInventory(MachineryEventHandler.GlobalInventoryId_Minecarts);
-                        chest.GlobalInventoryId = MachineryEventHandler.GlobalInventoryId_Minecarts;
+                        Game1.player.team.GetOrCreateGlobalInventory(ModEntry.GlobalInventoryId_Minecarts);
+                        chest.GlobalInventoryId = ModEntry.GlobalInventoryId_Minecarts;
                         chest.SpecialChestType = Chest.SpecialChestTypes.BigChest;
                     }
                     if (!location.Objects.TryAdd(placementTile, chest))
@@ -208,13 +203,6 @@ namespace VanillaPlusProfessions.Talents.Patchers
                 if (TalentUtility.CurrentPlayerHasTalent("Grit", who: __instance) && !__instance.isRidingHorse() && __instance.temporaryInvincibilityTimer == 0 && !(damager is BigSlime or GreenSlime && __instance.isWearingRing("520")))
                 {
                     __instance.currentTemporaryInvincibilityDuration = (int)(__instance.currentTemporaryInvincibilityDuration * 1.2);
-                }
-                if (__instance.currentLocation.debris.LastOrDefault()?.debrisMessage.Value is not null and string str && int.TryParse(str, out int result))
-                {
-                    foreach (var trinketRing in TalentUtility.GetAllTrinketRings(__instance))
-                    {
-                        trinketRing.Trinket.OnReceiveDamage(__instance, result);
-                    }
                 }
             }
             catch (Exception e)
@@ -536,21 +524,6 @@ namespace VanillaPlusProfessions.Talents.Patchers
             catch (Exception e)
             {
                 CoreUtility.PrintError(e, PatcherName, "BasicProjectile.behaviorOnCollisionWithMonster", "postfixed", true);
-            }
-        }
-
-        public static void takeStep_Postfix()
-        {
-            try
-            {
-                foreach (var trinketRing in TalentUtility.GetAllTrinketRings(Game1.player))
-                {
-                    trinketRing.Trinket.OnFootstep(Game1.player);
-                }
-            }
-            catch (Exception e)
-            {
-                CoreUtility.PrintError(e, PatcherName, "Farmer.takeStep", "postfixed", true);
             }
         }
 

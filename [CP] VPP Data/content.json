@@ -161,7 +161,7 @@
 	"Changes": [
 		{
 			"Action": "Include",
-			"FromFile": "assets/Code/FishPonds.json, assets/Code/GiftTastes.json, assets/Code/Trinkets.json, assets/Code/Mail.json, assets/Code/Dialogue.json, assets/Code/CraftingRecipes.json, assets/Code/Locations.json, assets/Code/WildTrees.json, assets/Code/TailoringRecipes.json, assets/Code/TriggerActions.json, assets/Code/Shops.json, assets/Code/GarbageCans.json",
+			"FromFile": "assets/Code/FishPonds.json, assets/Code/GiftTastes.json, assets/Code/Crops.json, assets/Code/Trinkets.json, assets/Code/Mail.json, assets/Code/Dialogue.json, assets/Code/CraftingRecipes.json, assets/Code/Locations.json, assets/Code/WildTrees.json, assets/Code/TailoringRecipes.json, assets/Code/TriggerActions.json, assets/Code/Shops.json, assets/Code/GarbageCans.json",
 		},
 		{
 			"Action": "Include",
@@ -173,7 +173,7 @@
 		},
 		{
 			"Action": "Include",
-			"FromFile": "assets/Code/Machines/New/TrinketWorkbench.json, assets/Code/Machines/New/ProgrammableDrill.json, assets/Code/Machines/New/ThermalReactor.json, assets/Code/Machines/New/NodeMaker.json, assets/Code/Machines/New/ParrotPerch.json"
+			"FromFile": "assets/Code/Machines/New/TrinketWorkbench.json, assets/Code/Machines/New/ProgrammableDrill.json, assets/Code/Machines/New/ThermalReactor.json, assets/Code/Machines/New/NodeMaker.json, assets/Code/Machines/New/ParrotPerch.json, assets/Code/Machines/New/BirdFeeder.json, assets/Code/Machines/New/SeedSifter.json"
 		},
 	]
 }

@@ -420,6 +420,7 @@ namespace VanillaPlusProfessions.Talents
         internal static void OnSaveLoaded(object sender, SaveLoadedEventArgs e)
         {
             ModEntry.Helper.GameContent.InvalidateCache(PathUtilities.NormalizeAssetName("Strings/UI"));
+            
             if (Game1.player.modData.TryGetValue(Key_TalentPoints, out string value))
             {
                 if (int.TryParse(value, out int result) && result >= 0)

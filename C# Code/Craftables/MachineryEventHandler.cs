@@ -29,8 +29,6 @@ namespace VanillaPlusProfessions.Craftables
         internal const string Key_LastInput2 = "KediDili.VanillaPlusProfessions_LastInput";
         internal const string Key_NodeMakerData2 = "KediDili.VanillaPlusProfessions_NodeMakerData";
 
-        internal const string GlobalInventoryId_Minecarts = "KediDili.VanillaPlusProfessions-Minecarts";
-
         internal static Dictionary<string, List<Vector2>> DrillLocations = new();
         internal static Dictionary<string, List<Vector2>> NodeMakerLocations = new();
         internal static Dictionary<string, List<Vector2>> ThermalReactorLocations = new();
@@ -41,25 +39,28 @@ namespace VanillaPlusProfessions.Craftables
 
         public static void OnPlayerWarp()
         {
-            if (!BirdsOnFeeders.ContainsKey(Game1.player.currentLocation.Name))
+            if (BirdsOnFeeders.ContainsKey(Game1.player.currentLocation.Name))
             {
                 List<Bird> sdsd = new();
-                foreach (var item in Game1.player.currentLocation.Objects.Pairs)
+                foreach (var item in Game1.player.currentLocation.Objects.Values)
                 {
-                    if (item.Value.QualifiedItemId == "(BC)BirdFeeder" && item.Value.lastInputItem.Value is not null)
+                    if (item.QualifiedItemId == "(BC)KediDili.VPPData.CP_BirdFeeder" && item.heldObject.Value is not null)
                     {
-                        List<Vector2> v = new List<Vector2>() { new(-16, 16), new(16, 16), new(16, -16), new(-16, -16) };
+                        List<Vector2> v = new() { new(-1, 1), new(1, 1), new(1, -1), new(-1, -1), new(0, 1), new(0, 1), new(1, 0), new(-1, 0) };
                         for (int i = 0; i < Game1.random.Next(1, 4); i++)
                         {
-                            var pos = (item.Value.TileLocation * 64f) + Game1.random.ChooseFrom(v);
-                            Bird bird = new(new(0, 0), new(Game1.birdsSpriteSheet, 2, 16, 16, pos, new Point[] { pos.ToPoint()}, Array.Empty<Point>()));
+                            Bird bird = new(new((int)(item.TileLocation.X - 0.5f), (int)(item.TileLocation.Y - 0.5f)), new(Game1.birdsSpriteSheet, Game1.random.Next(0, 4), 16, 16, item.TileLocation, Array.Empty<Point>(), Array.Empty<Point>()));
+                            
+                            var offset = Game1.random.ChooseFrom(v);
+                            bird.position += offset * 64;
+                            v.Remove(offset);
                             sdsd.Add(bird);
                         }
                     }
                 }
                 if (sdsd.Count > 0)
                 {
-                    BirdsOnFeeders.Add(Game1.player.currentLocation.Name, sdsd);
+                    BirdsOnFeeders[Game1.player.currentLocation.Name] = sdsd;
                 }
             }
         }
@@ -302,8 +303,6 @@ namespace VanillaPlusProfessions.Craftables
                 {
                     //Should I make it in initial creation of the building? - Nah, looks like it works
                     buildingChest.SpecialChestType = Chest.SpecialChestTypes.BigChest;
-                    //Game1.player.team.GetOrCreateGlobalInventory(GlobalInventoryId_Minecarts);
-                    //buildingChest.GlobalInventoryId = GlobalInventoryId_Minecarts;
                     ItemGrabMenu newItemGrabMenu = new(buildingChest.GetItemsForPlayer(), reverseGrab: false, showReceivingMenu: true, InventoryMenu.highlightAllItems, buildingChest.grabItemFromInventory, null, buildingChest.grabItemFromChest, snapToBottom: false, canBeExitedWithKey: true, playRightClickSound: true, allowRightClick: true, showOrganizeButton: true, 1, buildingChest, -1, buildingChest)
                     {
                         chestColorPicker = null,
@@ -314,7 +313,6 @@ namespace VanillaPlusProfessions.Craftables
                 }
                 else if (menu2.context is Chest chest && chest.QualifiedItemId == "(BC)KediDili.VPPData.CP_MinecartChest")
                 {
-                    ModEntry.ModMonitor.Log("Yup 356", LogLevel.Info);
                     menu2.exitFunction = OnMenuExit;
                 }
             }
@@ -324,7 +322,6 @@ namespace VanillaPlusProfessions.Craftables
                 chest.fixLidFrame();
                 if (chest.Items.Count > 0 && chest.QualifiedItemId == "(BC)KediDili.VPPData.CP_MinecartChest")
                 {
-                    ModEntry.ModMonitor.Log("Yup 3", LogLevel.Info);
                     OnMenuExit();
                 }
             }
@@ -334,7 +331,6 @@ namespace VanillaPlusProfessions.Craftables
             if (MineTent is null || Context.IsMultiplayer)
             {
                 Utility.ForEachBuilding(building => ShouldKeepSearching(building), true);
-                ModEntry.ModMonitor.Log("Yup 4", LogLevel.Info);
                 Game1.playSound("wand");
             }
             else if (!ShouldKeepSearching(MineTent))
@@ -375,7 +371,7 @@ namespace VanillaPlusProfessions.Craftables
             if (building.buildingType.Value == "KediDili.VPPData.CP_MineTent")
             {
                 Chest defaultChest = (MineTent ?? building).GetBuildingChest("Default_Chest");
-                foreach (var objs in Game1.player.team.GetOrCreateGlobalInventory(GlobalInventoryId_Minecarts))
+                foreach (var objs in Game1.player.team.GetOrCreateGlobalInventory(ModEntry.GlobalInventoryId_Minecarts))
                 {
                     if (objs is null)
                         continue;
@@ -394,16 +390,16 @@ namespace VanillaPlusProfessions.Craftables
                         if (objs.Stack is not 0)
                         {
                             defaultChest.Items.Add(objs);
-                            Game1.player.team.GetOrCreateGlobalInventory(GlobalInventoryId_Minecarts).RemoveButKeepEmptySlot(objs);
+                            Game1.player.team.GetOrCreateGlobalInventory(ModEntry.GlobalInventoryId_Minecarts).RemoveButKeepEmptySlot(objs);
                         }
                         
                         if (objs.Stack == 0)
                         {
-                            Game1.player.team.GetOrCreateGlobalInventory(GlobalInventoryId_Minecarts).RemoveButKeepEmptySlot(objs);
+                            Game1.player.team.GetOrCreateGlobalInventory(ModEntry.GlobalInventoryId_Minecarts).RemoveButKeepEmptySlot(objs);
                         }
                     }
                 }
-                Game1.player.team.GetOrCreateGlobalInventoryMutex(GlobalInventoryId_Minecarts).Update(building.GetParentLocation());
+                Game1.player.team.GetOrCreateGlobalInventoryMutex(ModEntry.GlobalInventoryId_Minecarts).Update(building.GetParentLocation());
                 MineTent = building;
                 return false;
             }
@@ -412,7 +408,6 @@ namespace VanillaPlusProfessions.Craftables
 
         public static void OnMachineInteract(StardewValley.Object machine, Farmer who)
         {
-            ModEntry.ModMonitor.Log("Base method runs.", LogLevel.Info);
             if (machine.QualifiedItemId == "(BC)KediDili.VPPData.CP_MinecartChest")
             {
                 

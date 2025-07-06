@@ -401,7 +401,7 @@ namespace VanillaPlusProfessions.Managers
                     monster.stopGlowing();
                 }
 
-                if (TalentUtility.CurrentPlayerHasTalent("Combat_Aftershock", who: who) && weapon is not null && weapon.type.Value is 2 && monster.Health > 0)
+                if (TalentUtility.CurrentPlayerHasTalent("Aftershock", who: who) && weapon is not null && weapon.type.Value is 2 && monster.Health > 0)
                 {
                     if (monster.MaxHealth - (result / 10) > 0)
                     {
@@ -437,16 +437,11 @@ namespace VanillaPlusProfessions.Managers
                         }
                     }
                 }
-
-                foreach (var trinketRing in TalentUtility.GetAllTrinketRings(who))
-                {
-                    trinketRing.Trinket.OnDamageMonster(who, monster, result, false, OnCrit);
-                }
                 return result;
             }
             catch (Exception e)
             {
-                CoreUtility.PrintError(e, PatcherName, "CombatManager.TryOverrideVanillaDamage", "<individual method>", true);
+                CoreUtility.PrintError(e, PatcherName, "CombatManager.TryOverrideVanillaDamage", "<individual method, transpiled in>", true);
             }
             return vanillaDamage;
         }

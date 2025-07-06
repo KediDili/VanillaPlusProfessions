@@ -13,6 +13,8 @@ using StardewValley.Buildings;
 using StardewValley.GameData.Buildings;
 using StardewValley.Internal;
 using StardewValley.Objects;
+using VanillaPlusProfessions.Craftables;
+using StardewValley.Locations;
 
 namespace VanillaPlusProfessions.Talents.Patchers
 {
@@ -221,9 +223,9 @@ namespace VanillaPlusProfessions.Talents.Patchers
         {
             try
             {
-                if (!string.IsNullOrEmpty(__instance?.netSeedIndex.Value) && !__instance.dead.Value && TalentUtility.CurrentPlayerHasTalent("CycleOfLife"))
+                if (!string.IsNullOrEmpty(__instance?.netSeedIndex.Value) && !__instance.dead.Value && __result)
                 {
-                    if (__result && Game1.random.NextBool() && !__instance.RegrowsAfterHarvest())
+                    if (Game1.random.NextBool() && !__instance.RegrowsAfterHarvest() && TalentUtility.CurrentPlayerHasTalent("CycleOfLife"))
                     {
                         if (junimoHarvester is null)
                         {

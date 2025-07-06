@@ -1,0 +1,14 @@
+{
+	"Changes": [
+		{
+			"LogName": "Trinket Workbench",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"Entries":{
+				"(BC){{ModId}}_SeedSifter": {
+					
+				},				
+			}
+		}
+	]
+}

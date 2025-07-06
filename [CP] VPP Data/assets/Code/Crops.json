@@ -1,0 +1,62 @@
+{
+	"Changes": [
+		{
+			"Action": "EditData",
+			"Target": "Data/Crops",
+			"Entries": {
+				"{{ModId}}_DeluxeWildSpringSeeds":{
+					"Seasons": [ "Spring" ],
+					"DaysInPhase": [3,4],
+					"RegrowDays": -1,
+					"NeedsWatering": true,
+					"PlantableLocationRules": null,
+					"HarvestItemId": "16",
+					"HarvestMinStack": 1,
+					"HarvestMaxStack": 1,
+					"HarvestMethod": "Grab",
+					"Texture": "TileSheets\\crops",
+					"SpriteIndex": 23,
+				},
+				"{{ModId}}_DeluxeWildSummerSeeds":{
+					"Seasons": [ "Summer" ],
+					"DaysInPhase": [ 3, 4 ],
+					"RegrowDays": -1,
+					"NeedsWatering": true,
+					"PlantableLocationRules": null,
+					"HarvestItemId": "396",
+					"HarvestMinStack": 1,
+					"HarvestMaxStack": 1,
+					"HarvestMethod": "Grab",
+					"Texture": "TileSheets\\crops",
+					"SpriteIndex": 23,
+				},
+				"{{ModId}}_DeluxeWildFallSeeds":{
+					"Seasons": [ "Fall" ],
+					"DaysInPhase": [ 3, 4 ],
+					"RegrowDays": -1,
+					"NeedsWatering": true,
+					"PlantableLocationRules": null,
+					"HarvestItemId": "404",
+					"HarvestMinStack": 1,
+					"HarvestMaxStack": 1,
+					"HarvestMethod": "Grab",
+					"Texture": "TileSheets\\crops",
+					"SpriteIndex": 23,
+				},
+				"{{ModId}}_DeluxeWildWinterSeeds":{
+					"Seasons": [ "Winter" ],
+					"DaysInPhase": [ 3, 4 ],
+					"RegrowDays": -1,
+					"NeedsWatering": true,
+					"PlantableLocationRules": null,
+					"HarvestItemId": "412",
+					"HarvestMinStack": 1,
+					"HarvestMaxStack": 1,
+					"HarvestMethod": "Grab",
+					"Texture": "TileSheets\\crops",
+					"SpriteIndex": 23,
+				},
+			}
+		}
+	]
+} 

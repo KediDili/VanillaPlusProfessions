@@ -74,6 +74,9 @@ namespace VanillaPlusProfessions
         internal const string Key_SlimeWateredDaysSince = "Kedi.VPP.SlimeWateredDaysSince";
         internal const string Key_FishRewardOrQuestDayLeft = "Kedi.VPP.FishQuestOrRewardDuration";
 
+        internal const string GlobalInventoryID_RingTrinkets = "KediDili.VanillaPlusProfessions-RingTrinkets";
+        internal const string GlobalInventoryId_Minecarts = "KediDili.VanillaPlusProfessions-Minecarts";
+        internal const string Key_RingTrinkets = "Kedi.VPP.RingTrinketId";
         public override void Entry(IModHelper helper)
         {
             Helper = helper;
@@ -94,6 +97,7 @@ namespace VanillaPlusProfessions
             Helper.Events.GameLoop.DayEnding += OnDayEnding;
             Helper.Events.Player.LevelChanged += OnLevelChanged;
             Helper.Events.Player.Warped += OnWarped;
+            Helper.Events.GameLoop.UpdateTicked += OnUpdateTicked;
             
             CorePatcher.ApplyPatches();
             TalentCore.Initialize();
@@ -104,7 +108,6 @@ namespace VanillaPlusProfessions
             Helper.ConsoleCommands.Add("vpp.recalculatepoints", "Recalculates all talent points, useful for existing saves that are being loaded for the first time with this mod.", CoreUtility.recalculate);
             Helper.ConsoleCommands.Add("vpp.details", "Prints out skill related information. Might be useful for troubleshooting.", CoreUtility.details);
             Helper.ConsoleCommands.Add("vpp.reset", "Can be used to reset professions added by VPP. First parameter is the level (15 or 20), second is the level (0 - Farming, 1 - Fishing, 2 - Foraging, 3 - Mining or 4 - Combat)", ManagerUtility.reset);
-            Helper.ConsoleCommands.Add("vpp.resetTrinkets", "Can be used to reset trinkets from bugs caused by VPP. Warning: If you use this while there are no problems, you WILL encounter errors.", TalentUtility.RemoveAndReapplyAllTrinketEffects);
             Helper.ConsoleCommands.Add("vpp.showXPLeft", "Shows how much XP left for the next level in all vanilla skills.", CoreUtility.showXPLeft);
             Managers = new IProfessionManager[] { new FarmingManager(), new MiningManager(), new ForagingManager(), new FishingManager(), new CombatManager(), new ComboManager() };
 
@@ -242,11 +245,26 @@ namespace VanillaPlusProfessions
             }
         }
 
+        private void OnUpdateTicked(object sender, UpdateTickedEventArgs e)
+        {
+            if (Context.IsWorldReady)
+            {
+                if (MachineryEventHandler.BirdsOnFeeders.TryGetValue(Game1.currentLocation.NameOrUniqueName, out var val))
+                {
+                    foreach (var bird in val)
+                    {
+                        bird.Update(Game1.currentGameTime);
+                    }
+                }
+            }            
+        }
+
         private void OnWarped(object sender, WarpedEventArgs e)
         {
             if (e.IsLocalPlayer)
             {
                 var data = e.NewLocation?.GetData()?.CustomFields ?? new();
+                MachineryEventHandler.OnPlayerWarp();
 
                 if (e.NewLocation is MineShaft shaft)
                 {
@@ -827,6 +845,7 @@ namespace VanillaPlusProfessions
         private void OnDayEnding(object sender, DayEndingEventArgs e)
         {
             TalentCore.IsDayStartOrEnd = true;
+            MachineryEventHandler.BirdsOnFeeders.Clear();
             bool Orchardist = CoreUtility.AnyPlayerHasProfession("Orchardist");
             bool Accumulation = TalentUtility.AnyPlayerHasTalent("Accumulation");
             bool Abundance = TalentUtility.AnyPlayerHasTalent("Abundance");
@@ -932,6 +951,16 @@ namespace VanillaPlusProfessions
                 if (!loc.modData.TryAdd(TalentCore.Key_WasRainingHere, loc.IsRainingHere().ToString().ToLower()))
                 {
                     loc.modData[TalentCore.Key_WasRainingHere] = loc.IsRainingHere().ToString().ToLower();
+                }
+                foreach (var obj in loc.Objects.Values)
+                {
+                    if (obj.isForage() && CraftablePatcher.ForageCropLocations.TryGetValue(obj.Location.NameOrUniqueName, out List<Vector2> tiles1))
+                    {
+                        if (tiles1.Contains(obj.TileLocation))
+                        {
+                            obj.modData.TryAdd(CraftablePatcher.Key_VPPDeluxeForage, "");
+                        }
+                    }
                 }
                 return true;
             });

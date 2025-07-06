@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.NetworkInformation;
 using Microsoft.Xna.Framework;
 using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Extensions;
 using StardewValley.GameData;
-using StardewValley.GameData.Machines;
 using StardewValley.ItemTypeDefinitions;
 using StardewValley.Locations;
 using StardewValley.Monsters;
@@ -16,6 +14,7 @@ using StardewValley.Objects.Trinkets;
 using StardewValley.TerrainFeatures;
 using StardewValley.Triggers;
 using VanillaPlusProfessions.Compatibility;
+using VanillaPlusProfessions.Craftables;
 using VanillaPlusProfessions.Talents;
 using VanillaPlusProfessions.Talents.Patchers;
 
@@ -246,31 +245,6 @@ namespace VanillaPlusProfessions.Utilities
             }
             return validCrops.Count;
         }
-        public static void RemoveAndReapplyAllTrinketEffects(string command, string[] args)
-        {
-            if (Context.IsWorldReady)
-            {
-                ModEntry.ModMonitor.Log("Clearing 'echo' companions...", LogLevel.Info);
-                Game1.player.companions.Clear();
-                ModEntry.ModMonitor.Log("Removing and reapplying all trinket ring effects...", LogLevel.Info);
-                foreach (var item in GetAllTrinketRings(Game1.player))
-                {
-                    item.onUnequip(Game1.player);
-                    item.onEquip(Game1.player);
-                }
-                ModEntry.ModMonitor.Log("Removing and reapplying all regular trinket effects...", LogLevel.Info);
-                foreach (var item in Game1.player.trinketItems)
-                {
-                    item.onUnequip(Game1.player);
-                    item.onEquip(Game1.player);
-                }
-                ModEntry.ModMonitor.Log("Done!", LogLevel.Info);
-            }
-            else
-            {
-                ModEntry.ModMonitor.Log("Load a save first!", LogLevel.Warn);
-            }
-        }
 
         public static bool CurrentPlayerHasTalent(string flag, long farmerID = -1, Farmer who = null, bool ignoreDisabledTalents = true)
         {
@@ -334,8 +308,9 @@ namespace VanillaPlusProfessions.Utilities
             bool Efflorescence = HostHasTalent("Efflorescence") && ItemRegistry.GetData(crop.GetData().HarvestItemId).IsErrorItem && ItemRegistry.GetData(crop.GetData().HarvestItemId).Category == StardewValley.Object.flowersCategory;
             bool Nourishing_Rain = HostHasTalent("NourishingRain") && dirt.Location.modData.TryGetValue(TalentCore.Key_WasRainingHere, out string value2) && value2 is "true";
             bool Tropical_Bliss = HostHasTalent("TropicalBliss") && dirt.Location.InIslandContext() && (crop.GetData()?.Seasons.Contains(Season.Summer) is true || crop.GetData()?.Seasons.Count > 1);
-            
-            return Efflorescence || Nourishing_Rain || Tropical_Bliss;
+            bool Deluxe_Wild_Seeds = !CraftablePatcher.IsVPPForageCrop(crop, false) && crop.currentLocation.GetData()?.CustomFields?.ContainsKey("Kedi.VPP.ForestLocation") is true || crop.currentLocation is Forest or Woods;
+
+            return Efflorescence || Nourishing_Rain || Tropical_Bliss || Deluxe_Wild_Seeds;
         }
         public static bool AnyPlayerHasTalent(string flag)
         {
@@ -354,50 +329,6 @@ namespace VanillaPlusProfessions.Utilities
             return false;
         }
         public static bool HostHasTalent(string flag) => CurrentPlayerHasTalent(GetFlag(flag), who: Game1.MasterPlayer);
-
-        /*public static void OvercrowdingBuildingEdits(string talent, bool isAppliedOrUnapplied)
-        {
-            if (talent == "Overcrowding")
-            {
-                ModEntry.Helper.GameContent.InvalidateCache("Data\\Buildings");
-                if (!isAppliedOrUnapplied)
-                {
-                    Utility.ForEachBuilding(building =>
-                    {
-                        if (building.GetIndoors() is AnimalHouse animalHouse && building.buildingType.Value is "Coop" or "Big Coop" or "Deluxe Coop" or "Barn" or "Big Barn" or "Deluxe Barn")
-                        {
-                            building.maxOccupants.Value = building.maxOccupants.Value switch
-                            {
-                                5 => 4,
-                                10 => 8,
-                                15 => 12,
-                                _ => building.maxOccupants.Value,
-                            };
-                            animalHouse.animalLimit.Value = building.maxOccupants.Value;
-                        }
-                        return true;
-                    });
-                }
-                else
-                {
-                    Utility.ForEachBuilding(building =>
-                    {
-                        if (building.GetIndoors() is AnimalHouse animalHouse && building.buildingType.Value is "Coop" or "Big Coop" or "Deluxe Coop" or "Barn" or "Big Barn" or "Deluxe Barn")
-                        {
-                            building.maxOccupants.Value = building.maxOccupants.Value switch
-                            {
-                                4 => 5,
-                                8 => 10,
-                                12 => 15,
-                                _ => building.maxOccupants.Value,
-                            };
-                            animalHouse.animalLimit.Value = building.maxOccupants.Value;
-                        }
-                        return true;
-                    });
-                }
-            }
-        }*/
 
         public static List<Vector2> GetTilesAroundBeeHouse(float xStart, float yStart)
         {
@@ -524,7 +455,7 @@ namespace VanillaPlusProfessions.Utilities
                     }
                     else if (item is TrinketRing ring && switchTrinketRings)
                     {
-                        Game1.player.team.returnedDonations.Add(ring.Trinket);
+                        Game1.player.team.returnedDonations.Add(ring.GetRingTrinket(true));
                         Game1.player.team.newLostAndFoundItems.Value = true;
                         item = item.ConsumeStack(1);
                     }
@@ -534,7 +465,7 @@ namespace VanillaPlusProfessions.Utilities
                 {
                     foreach (var trinketRing in GetAllTrinketRings(Game1.player))
                     {
-                        Game1.player.team.returnedDonations.Add(trinketRing.Trinket);
+                        Game1.player.team.returnedDonations.Add(trinketRing.GetRingTrinket(true));
                         Game1.player.team.newLostAndFoundItems.Value = true;
                     }
                 }
@@ -644,15 +575,29 @@ namespace VanillaPlusProfessions.Utilities
             Item inputItem = player.ActiveItem;
             if (inputItem is Trinket trinket)
             {
-                TrinketRing output = new(trinket);
-                Game1.player.ActiveItem = null;
-                Game1.player.addItemToInventory(output);
+                if (!ModEntry.Helper.ModRegistry.IsLoaded("mushymato.TrinketTinker") || !GameStateQuery.CheckConditions($"mushymato.TrinketTinker_DIRECT_EQUIP_ONLY {trinket.ItemId}"))
+                {
+                    //get the new guid and give it to the trinket's moddata
+                    trinket.modData.TryAdd(ModEntry.Key_RingTrinkets, Guid.NewGuid().ToString());
+
+                    //Add the trinket to the global inventory
+                    player.team.GetOrCreateGlobalInventory(ModEntry.GlobalInventoryID_RingTrinkets).Add(trinket);
+
+                    //Create the trinket ring and give it the same guid.
+                    TrinketRing output = new(trinket);
+                    output.modData.Add(ModEntry.Key_RingTrinkets, trinket.modData[ModEntry.Key_RingTrinkets]);
+
+                    //"Destroy" the input and give the ring
+                    player.ActiveItem = null;
+                    player.addItemToInventory(output);
+                }
             }
             else if (inputItem is TrinketRing ring)
             {
-                Trinket output = ring.Trinket;
-                Game1.player.ActiveItem = null;
-                Game1.player.addItemToInventory(output);
+                Trinket trinket1 = ring.GetRingTrinket(true);
+
+                player.ActiveItem = null;
+                player.addItemToInventory(trinket1);
             }
             return true;
         }

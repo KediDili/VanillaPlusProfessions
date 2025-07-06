@@ -69,5 +69,20 @@ namespace VanillaPlusProfessions.Craftables
             }
             return null;
         }
+
+        public static bool BirdFeederInteraction(StardewValley.Object machine, GameLocation location, Farmer player)
+        {
+            if (machine.heldObject.Value is null && ValidInput(player.ActiveObject?.ItemId ?? ""))
+            {
+                machine.heldObject.Value = player.ActiveObject.getOne() as Object;
+                machine.showNextIndex.Value = true;
+                player.ActiveObject.ConsumeStack(1);
+            }
+            bool ValidInput(string id)
+            {
+                return id is "270" or "770" or "MixedFlowerSeeds";
+            }
+            return true;
+        }
     }
 }

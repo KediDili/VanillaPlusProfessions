@@ -17,7 +17,7 @@ namespace VanillaPlusProfessions.Compatibility
             GameStateQuery.Register(ModEntry.Manifest.UniqueID + "_IsLavaLocation", IsLavaLocation);
             GameStateQuery.Register(ModEntry.Manifest.UniqueID + "_IsConsistentMineLocation", IsConsistentMineLocation);
         }
-        
+
         bool WasRainingHereYesterday(string[] query, GameStateQueryContext context)
         {
             if (context.Location is null)

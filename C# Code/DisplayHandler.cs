@@ -23,7 +23,6 @@ using StardewValley.Objects.Trinkets;
 using SpaceCore.Interface;
 using VanillaPlusProfessions.Craftables;
 using VanillaPlusProfessions.Compatibility;
-using System.Reflection;
 
 namespace VanillaPlusProfessions
 {
@@ -96,6 +95,7 @@ namespace VanillaPlusProfessions
         {
             if (e.Step is StardewValley.Mods.RenderSteps.World_Sorted)
             {
+                MachineryEventHandler.OnWorldDrawn(e.SpriteBatch);
                 foreach (var item in Game1.currentLocation.Objects.Pairs)
                 {
                     if (item.Value.IsSprinkler() && item.Value.heldObject.Value is not null && item.Value.heldObject.Value.QualifiedItemId is "(O)Kedi.VPP.PressureNozzleEnricher")
@@ -115,6 +115,7 @@ namespace VanillaPlusProfessions
                         }
                     }
                 }
+                
             }
         }
         private static void OnMenuChanged(object sender, MenuChangedEventArgs e)
@@ -243,12 +244,15 @@ namespace VanillaPlusProfessions
                 GiveFrogEggBack.Value = pond.modData.TryGetValue(TalentCore.Key_HiddenBenefit_FrogEggs, out string value) && value != ""
                     ? new(new((querye.xPositionOnScreen * 9 / 10) - ((querye.xPositionOnScreen * 9 / 10) % 4) + 4, (querye.yPositionOnScreen * 14 / 5) - ((querye.yPositionOnScreen * 9 / 10) % 4) + 4, 64, 64), SkillIcons, new(0, 27, 16, 16), 4f, false)
                     : null;
-                GiveFrogEggBack.Value.myID = 46780;
-                querye.populateClickableComponentList();
-                querye.emptyButton.leftNeighborID = GiveFrogEggBack.Value.myID;
-                querye.changeNettingButton.leftNeighborID = GiveFrogEggBack.Value.myID;
-                querye.okButton.leftNeighborID = GiveFrogEggBack.Value.myID;
-                querye.allClickableComponents.Add(GiveFrogEggBack.Value);
+                if (GiveFrogEggBack.Value is not null)
+                {
+                    GiveFrogEggBack.Value.myID = 46780;
+                    querye.populateClickableComponentList();
+                    querye.emptyButton.leftNeighborID = GiveFrogEggBack.Value.myID;
+                    querye.changeNettingButton.leftNeighborID = GiveFrogEggBack.Value.myID;
+                    querye.okButton.leftNeighborID = GiveFrogEggBack.Value.myID;
+                    querye.allClickableComponents.Add(GiveFrogEggBack.Value);
+                }
             }
 
             MachineryEventHandler.OnMenuChanged(e);
@@ -502,6 +506,9 @@ namespace VanillaPlusProfessions
         }
         private static void OnWindowResized(object sender, WindowResizedEventArgs e)
         {
+            /*var menu = ModEntry.GetGameMenuPage(Game1.activeClickableMenu);
+            if (menu is NewSkillsPage or SkillsPage && CoreUtility.IsOverlayValid())
+                HandleSkillPage(menu, Game1.activeClickableMenu);*/
             if (ModEntry.GetGameMenuPage(Game1.activeClickableMenu) is SkillsPage page && CoreUtility.IsOverlayValid())
                 HandleSkillPage(page, Game1.activeClickableMenu);
         }
