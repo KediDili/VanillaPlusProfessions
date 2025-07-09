@@ -37,8 +37,7 @@ namespace VanillaPlusProfessions.Craftables
 
         internal static void OnInteract(Farmer who, Item item)
         {
-            //There's a false because nothing here is supposed to be accessed yet.
-            if (item is StardewValley.Object obj && false)
+            if (ModEntry.ShouldForageCraftablesWork() && item is StardewValley.Object obj)
             {
                 GameLocation location = who.currentLocation;
                 string contextId = location.GetLocationContextId();

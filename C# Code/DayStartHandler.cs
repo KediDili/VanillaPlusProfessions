@@ -29,6 +29,28 @@ namespace VanillaPlusProfessions
             TalentCore.IsDayStartOrEnd = true;
 
             CraftableHandler.OnDayStarted();
+            foreach (var feederLoc in MachineryEventHandler.BirdsOnFeeders.Keys)
+            {
+                var location = Game1.getLocationFromName(feederLoc);
+                if (location.modData.TryGetValue(TalentCore.Key_WasRainingHere, out string val) && val.ToLower() == "true")
+                    continue;
+                foreach (var item in location.Objects.Values.Select( obj => { return obj.QualifiedItemId == "(BC)KediDili.VPPData.CP_BirdFeeder" && obj.lastInputItem.Value != null ? obj : null; }))
+                {
+                    if (item is not null)
+                    {
+                        int count = item.modData.ContainsKey(MachineryEventHandler.Key_BirdFeederTime) ? int.Parse(item.modData[MachineryEventHandler.Key_BirdFeederTime]) : 0;
+                        (++count).ToString();
+                        if (count >= 7)
+                        {
+                            item.lastInputItem.Value = null;
+                            item.showNextIndex.Value = false;
+                            count = 0;
+                        }
+                        item.modData[MachineryEventHandler.Key_BirdFeederTime] = count.ToString();
+                    }
+                }
+            }
+
             MachineryEventHandler.BirdsOnFeeders.Clear();
 
             bool RefreshingWaters = TalentUtility.CurrentPlayerHasTalent("RefreshingWaters"),

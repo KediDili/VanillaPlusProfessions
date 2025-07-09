@@ -6,7 +6,7 @@
 			"Target": "Data/Machines",
 			"Entries":{
 				"(BC){{ModId}}_BirdFeeder": {
-					"InteractMethod": "VanillaPlusProfessions.Craftables.MachineryOutputMethods, VanillaPlusProfessions: BirdFeederInteraction"
+					"InteractMethod": "VanillaPlusProfessions.Craftables.MachineryOutputMethods, VanillaPlusProfessions: BirdFeederInteraction",
 				}
 			}
 		}

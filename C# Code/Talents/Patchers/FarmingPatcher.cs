@@ -15,6 +15,8 @@ using StardewValley.Internal;
 using StardewValley.Objects;
 using VanillaPlusProfessions.Craftables;
 using StardewValley.Locations;
+using System;
+using StardewModdingAPI;
 
 namespace VanillaPlusProfessions.Talents.Patchers
 {
@@ -70,7 +72,46 @@ namespace VanillaPlusProfessions.Talents.Patchers
                 original: AccessTools.Method(typeof(Building), nameof(Building.CheckItemConversionRule)),
                 prefix: new HarmonyMethod(PatcherType, nameof(CheckItemConversionRule_Prefix))
             );
+            CoreUtility.PatchMethod(
+                PatcherName, "Utility.pickFarmEvent",
+                original: AccessTools.Method(typeof(Utility), nameof(Utility.pickFarmEvent)),
+                postfix: new HarmonyMethod(PatcherType, nameof(pickFarmEvent_Postfix))
+            );
         }
+        public static void pickFarmEvent_Postfix(ref FarmEvent __result)
+        {
+            if (TalentUtility.HostHasTalent("FairysKiss") && Context.IsMainPlayer)
+            {
+                if (__result is null)
+                {
+                    bool multiplayerFlag = true;
+                    foreach (Farmer farmer in Game1.getOnlineFarmers())
+                    {
+                        Friendship friendship = farmer.GetSpouseFriendship();
+                        if (friendship != null && friendship.IsMarried() && friendship.WeddingDate == Game1.Date)
+                        {
+                            multiplayerFlag = false;
+                            break;
+                        }
+                    }
+                    if (!Game1.weddingToday && multiplayerFlag)
+                    {
+                        Random random = Utility.CreateDaySaveRandom();
+
+                        int fairyRoseNumber = (from terrainFeature in Game1.getFarm().terrainFeatures.Values
+                                               where terrainFeature is HoeDirt hoedirt && hoedirt.crop is Crop cCrop &&
+                                               cCrop.indexOfHarvest.Value == "595" && cCrop.currentPhase.Value == cCrop.phaseDays.Count - 1
+                                               select terrainFeature).Count();
+
+                        double baseChance = 0.01;
+
+                        if (random.NextBool(baseChance + (fairyRoseNumber * 0.007)))
+                            __result = new FairyEvent();
+                    }
+                }
+            }
+        }
+
         public static bool CheckItemConversionRule_Prefix(Building __instance, BuildingItemConversion conversion, ItemQueryContext itemQueryContext)
         {
             try

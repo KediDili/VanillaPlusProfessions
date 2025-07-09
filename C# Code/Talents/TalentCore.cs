@@ -104,7 +104,7 @@ namespace VanillaPlusProfessions.Talents
                 }
 
                 SpaceEvents.AfterGiftGiven += OnAfterGiftGiven;
-                SpaceEvents.ChooseNightlyFarmEvent += OnChooseNightlyFarmEvent;
+                //SpaceEvents.ChooseNightlyFarmEvent += OnChooseNightlyFarmEvent;
 
                 ModEntry.VanillaPlusProfessionsAPI.RegisterTalentStatusAction(new string[] { "AlchemicReversal", "OverTheRainbow", "SurvivalCooking", "DriftFencing", "TakeItSlow", "Upcycling", "CampSpirit", "SpringThaw", "Accessorise", "EssenceInfusion", "DoubleHook", "ColdPress", "SugarRush", "SapSipper", "TrashedTreasure", "EyeSpy", "FisheryGrant", "MonumentalDiscount", "Overcrowding", "InTheWeeds", "LegendaryVariety", "EveryonesBestFriend", "BookclubBargains", "WelcomeToTheJungle", "VastDomain", "HiddenBenefits", "SleepUnderTheStars" }, TalentUtility.DataUpdates);
                 ModEntry.VanillaPlusProfessionsAPI.RegisterTalentStatusAction(new string[] { "SapSipper", "SugarRush", "Accessorise" }, TalentUtility.OnItemBasedTalentBoughtOrRefunded);
@@ -163,40 +163,6 @@ namespace VanillaPlusProfessions.Talents
         internal static void OnSaveCreated(object sender, SaveCreatedEventArgs e)
         {
             Game1.player.mailReceived.Add(Key_PointsCalculated);
-        }
-
-        internal static void OnChooseNightlyFarmEvent(object sender, EventArgsChooseNightlyFarmEvent e)
-        {
-            if (TalentUtility.HostHasTalent("FairysKiss"))
-            {
-                if (e.NightEvent is null or not QiPlaneEvent or WorldChangeEvent or FairyEvent)
-                {
-                    bool multiplayerFlag = true;
-                    foreach (Farmer farmer in Game1.getOnlineFarmers())
-                    {
-                        Friendship friendship = farmer.GetSpouseFriendship();
-                        if (friendship != null && friendship.IsMarried() && friendship.WeddingDate == Game1.Date)
-                        {
-                            multiplayerFlag = false;
-                            break;
-                        }
-                    }
-                    if (!Game1.weddingToday && multiplayerFlag)
-                    {
-                        Random random = Utility.CreateDaySaveRandom();
-
-                        int fairyRoseNumber = (from terrainFeature in Game1.getFarm().terrainFeatures.Pairs
-                                               where terrainFeature.Value is HoeDirt hoedirt && hoedirt.crop is not null and Crop cCrop &&
-                                               cCrop.indexOfHarvest.Value == "595" && cCrop.fullyGrown.Value
-                                               select terrainFeature).Count();
-
-                        double baseChance = 0.01;
-
-                        if (random.NextBool(baseChance + (fairyRoseNumber * 0.007)))
-                            e.NightEvent = new FairyEvent();
-                    }
-                }
-            }
         }
         internal static void OnNPCListChanged(object sender, NpcListChangedEventArgs e)
         {

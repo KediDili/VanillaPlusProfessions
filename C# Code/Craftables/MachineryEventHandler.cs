@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using HarmonyLib;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewModdingAPI.Events;
@@ -29,6 +27,8 @@ namespace VanillaPlusProfessions.Craftables
         internal const string Key_LastInput2 = "KediDili.VanillaPlusProfessions_LastInput";
         internal const string Key_NodeMakerData2 = "KediDili.VanillaPlusProfessions_NodeMakerData";
 
+        internal const string Key_BirdFeederTime = "KediDili.VanillaPlusProfessions_BirdFeederTime";
+
         internal static Dictionary<string, List<Vector2>> DrillLocations = new();
         internal static Dictionary<string, List<Vector2>> NodeMakerLocations = new();
         internal static Dictionary<string, List<Vector2>> ThermalReactorLocations = new();
@@ -39,17 +39,17 @@ namespace VanillaPlusProfessions.Craftables
 
         public static void OnPlayerWarp()
         {
-            if (BirdsOnFeeders.ContainsKey(Game1.player.currentLocation.Name))
+            if (ModEntry.ShouldForageCraftablesWork() && !BirdsOnFeeders.ContainsKey(Game1.player.currentLocation.Name) && !Game1.player.currentLocation.IsRainingHere() && !Game1.player.currentLocation.IsGreenRainingHere())
             {
                 List<Bird> sdsd = new();
                 foreach (var item in Game1.player.currentLocation.Objects.Values)
                 {
-                    if (item.QualifiedItemId == "(BC)KediDili.VPPData.CP_BirdFeeder" && item.heldObject.Value is not null)
+                    if (item.QualifiedItemId == "(BC)KediDili.VPPData.CP_BirdFeeder" && item.lastInputItem.Value is not null)
                     {
                         List<Vector2> v = new() { new(-1, 1), new(1, 1), new(1, -1), new(-1, -1), new(0, 1), new(0, 1), new(1, 0), new(-1, 0) };
                         for (int i = 0; i < Game1.random.Next(1, 4); i++)
                         {
-                            Bird bird = new(new((int)(item.TileLocation.X - 0.5f), (int)(item.TileLocation.Y - 0.5f)), new(Game1.birdsSpriteSheet, Game1.random.Next(0, 4), 16, 16, item.TileLocation, Array.Empty<Point>(), Array.Empty<Point>()));
+                            Bird bird = new(new((int)(item.TileLocation.X - 0.5f), (int)(item.TileLocation.Y - 0.5f)), new(Game1.birdsSpriteSheet, Game1.random.Next(0, 4), 16, 16, new(-8,-8), Array.Empty<Point>(), Array.Empty<Point>()));
                             
                             var offset = Game1.random.ChooseFrom(v);
                             bird.position += offset * 64;
@@ -408,10 +408,7 @@ namespace VanillaPlusProfessions.Craftables
 
         public static void OnMachineInteract(StardewValley.Object machine, Farmer who)
         {
-            if (machine.QualifiedItemId == "(BC)KediDili.VPPData.CP_MinecartChest")
-            {
-                
-            }
+            
         }
     }
 }

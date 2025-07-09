@@ -195,14 +195,7 @@ namespace VanillaPlusProfessions.Managers
             {
                 if (__instance.temporaryInvincibilityTimer == 0)
                 {
-                    if ((CoreUtility.CurrentPlayerHasProfession("Technician", useThisInstead: __instance) && 
-                        ((MeleeWeapon.defenseCooldown > 0 && MeleeWeapon.defenseCooldown < 4000)
-                        || (MeleeWeapon.daggerCooldown > 0 && MeleeWeapon.daggerCooldown < 4000)
-                        || (MeleeWeapon.clubCooldown > 0 && MeleeWeapon.clubCooldown < 4000)
-                        || (MeleeWeapon.attackSwordCooldown < 4000 && MeleeWeapon.attackSwordCooldown > 0)
-                        || (TalentCore.TripleShotCooldown > 0 && TalentCore.TripleShotCooldown < 4000)
-                        ))
-                        || ((Game1.random.NextBool(0.1) && TalentUtility.CurrentPlayerHasTalent("Sidestep", who: __instance) && ((!__instance.isWearingRing("520") && __instance.currentLocation is SlimeHutch)) || __instance.currentLocation is not SlimeHutch)))
+                    if (ShouldBeInvincible(__instance))
                     {
                         TalentUtility.MakeFarmerInvincible(__instance);
                         __result = false;
@@ -214,6 +207,21 @@ namespace VanillaPlusProfessions.Managers
                 CoreUtility.PrintError(e, PatcherName, "Farmer.CanBeDamaged", "postfixed", true);
             }
         }
+
+        public static bool ShouldBeInvincible(Farmer who)
+        {
+            bool HasTechnician = CoreUtility.CurrentPlayerHasProfession("Technician", useThisInstead: who);
+            bool DefenseCooldown = MeleeWeapon.defenseCooldown > 0 && MeleeWeapon.defenseCooldown < 4000;
+            bool DaggerSpecialMove = MeleeWeapon.daggerCooldown > 0 && MeleeWeapon.daggerCooldown < 4000;
+            bool ClubSpecialMove = MeleeWeapon.clubCooldown > 0 && MeleeWeapon.clubCooldown < 4000;
+            bool TripleShotCooldown = TalentCore.TripleShotCooldown > 0 && TalentCore.TripleShotCooldown < 4000;
+
+            bool HasSideStep = TalentUtility.CurrentPlayerHasTalent("Sidestep", who: who);
+            bool IsInSlimeHutch = who.currentLocation is SlimeHutch;
+            bool IsWearingSlimeCharmer = who.isWearingRing("520");
+            return (HasTechnician && DefenseCooldown && DaggerSpecialMove && ClubSpecialMove && TripleShotCooldown) || (Game1.random.NextBool(0.1) && HasSideStep && !(!IsWearingSlimeCharmer && IsInSlimeHutch));
+        }
+
         public static void doAnimateSpecialMove_Postfix()
         {
             try

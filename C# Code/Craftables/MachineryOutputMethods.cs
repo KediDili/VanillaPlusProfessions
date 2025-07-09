@@ -70,13 +70,13 @@ namespace VanillaPlusProfessions.Craftables
             return null;
         }
 
-        public static bool BirdFeederInteraction(StardewValley.Object machine, GameLocation location, Farmer player)
+        public static bool BirdFeederInteraction(Object machine, GameLocation location, Farmer player)
         {
             if (machine.heldObject.Value is null && ValidInput(player.ActiveObject?.ItemId ?? ""))
             {
-                machine.heldObject.Value = player.ActiveObject.getOne() as Object;
+                machine.lastInputItem.Value = player.ActiveObject.getOne() as Object;
                 machine.showNextIndex.Value = true;
-                player.ActiveObject.ConsumeStack(1);
+                player.ActiveObject = player.ActiveObject.ConsumeStack(1) as Object;
             }
             bool ValidInput(string id)
             {

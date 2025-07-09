@@ -17,7 +17,7 @@ namespace VanillaPlusProfessions.Talents
 
         public TrinketRing()
         {
-
+            
         }
 
         public TrinketRing(Trinket trinket) : this()
@@ -60,7 +60,7 @@ namespace VanillaPlusProfessions.Talents
 
                 Game1.player.trinketItems.Add(trinket1);
             }
-                
+            
             base.onEquip(Game1.player);
         }
         public override void onUnequip(Farmer who)

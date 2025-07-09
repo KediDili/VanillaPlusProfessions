@@ -235,7 +235,7 @@ namespace VanillaPlusProfessions.Utilities
             {
                 for (int i = 0; i < CheckTiles.Count; i++)
                 {
-                    if (location.terrainFeatures.TryGetValue(startTileLocation, out var terrainFeature) && terrainFeature is HoeDirt dirt && dirt.crop != null)
+                    if (location.terrainFeatures.TryGetValue(CheckTiles[i], out var terrainFeature) && terrainFeature is HoeDirt dirt && dirt.crop != null)
                     {
                         ParsedItemData data = ItemRegistry.GetData(dirt.crop.indexOfHarvest.Value);
                         if (data != null && data.Category == StardewValley.Object.flowersCategory && dirt.crop.currentPhase.Value >= dirt.crop.phaseDays.Count - 1 && !dirt.crop.dead.Value)
@@ -332,21 +332,39 @@ namespace VanillaPlusProfessions.Utilities
 
         public static List<Vector2> GetTilesAroundBeeHouse(float xStart, float yStart)
         {
-            return new()
+            Vector2 tile;
+            List<Vector2> PositiveList = new();
+
+            for (int x = 0; x < 6; x++)
             {
-                new(xStart, yStart - 2),
-                new(xStart - 1, yStart - 1),
-                new(xStart, yStart - 1),
-                new(xStart + 1, yStart - 1),
-                new(xStart - 2, yStart),
-                new(xStart - 1, yStart),
-                new(xStart + 1, yStart),
-                new(xStart + 2, yStart),
-                new(xStart - 1, yStart + 1),
-                new(xStart, yStart + 1),
-                new(xStart + 1, yStart + 1),
-                new(xStart, yStart + 2)
-            };
+                for (int y = 0; y < 6; y++)
+                {
+                    if (x + y > 5)
+                        break;
+                    else if (x + y == 0)
+                        continue;
+
+                        tile = new(x, y);
+                    if (!PositiveList.Contains(tile))
+                        PositiveList.Add(tile);
+                }
+            }
+            List<Vector2> CumulativeList = new();
+            for (int i = 0; i < PositiveList.Count; i++)
+            {
+                tile = PositiveList[i];
+                bool xPositive = tile.X > 0;
+                bool yPositive = tile.Y > 0;
+                CumulativeList.Add(new(xStart + tile.X, yStart + tile.Y));
+                if (yPositive)
+                    CumulativeList.Add(new(xStart + tile.X, yStart - tile.Y));
+                if (xPositive)
+                    CumulativeList.Add(new(xStart - tile.X, yStart + tile.Y));
+                //To prevent duplicates from the center plus
+                if (xPositive && yPositive)
+                    CumulativeList.Add(new(xStart - tile.X, yStart - tile.Y));
+            }
+            return CumulativeList;
         }
 
         public static void DetermineGeodeDrop(Item geode, bool update = true) //remove the update parameter

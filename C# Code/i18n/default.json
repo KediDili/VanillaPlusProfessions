@@ -152,7 +152,7 @@
 	"Talent.GoodSoaking.Desc": "Soil is automatically watered the day after rain.",
 
 	"Talent.NourishingRain.Name": "Nourishing Rain",
-	"Talent.NourishingRain.Desc": "For each rainy day, growth time for outdoor crops is reduced by 2 days.",
+	"Talent.NourishingRain.Desc": "For each rainy day, growth time for outdoor crops is reduced by 1 day.", //Modified in 1.0.9
 
 	"Talent.WildGrowth.Name": "Wild Growth",
 	"Talent.WildGrowth.Desc": "Chance for animals to produce both deluxe & normal items.",
@@ -611,7 +611,7 @@
 	"GMCM.MasteryCaveChanges.Desc": "Changes Mastery Cave to be unlocked when you level up skills to levels 20 or 15 instead of 10.", //Modified in 1.0.8
 
 	"GMCM.StaminaCostAdjustments.Name": "Stamina Cost Adjustments",
-	"GMCM.StaminaCostAdjustments.Desc": "Changes axes, pickaxes, water cans and hoes to use slightly more energy. This option intends to prevent level 20 in any vanilla skill causing no energy cost for players who don't like this.", // New
+	"GMCM.StaminaCostAdjustments.Desc": "Changes axes, pickaxes, water cans and hoes to use slightly more energy. This option intends to prevent level 20 in any vanilla skill causing no energy cost for players who don't like this.",
 	"GMCM.ProfessionsOnly.Name": "Professions Only",
 	"GMCM.ProfessionsOnly.Desc": "Changes VPP to only apply changes to your game for VPP's professions, this deactives everything related to talent system. Changes require a restart to take effect.",
 	"GMCM.TalentHintLevel.Name": "Talent Hint Level",

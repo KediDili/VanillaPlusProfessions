@@ -109,6 +109,8 @@ namespace VanillaPlusProfessions
             Helper.ConsoleCommands.Add("vpp.details", "Prints out skill related information. Might be useful for troubleshooting.", CoreUtility.details);
             Helper.ConsoleCommands.Add("vpp.reset", "Can be used to reset professions added by VPP. First parameter is the level (15 or 20), second is the level (0 - Farming, 1 - Fishing, 2 - Foraging, 3 - Mining or 4 - Combat)", ManagerUtility.reset);
             Helper.ConsoleCommands.Add("vpp.showXPLeft", "Shows how much XP left for the next level in all vanilla skills.", CoreUtility.showXPLeft);
+            Helper.ConsoleCommands.Add("vpp.test", "It's a dummy command, supposed to be used ONLY by the mod's devs.", CoreUtility.Test);
+
             Managers = new IProfessionManager[] { new FarmingManager(), new MiningManager(), new ForagingManager(), new FishingManager(), new CombatManager(), new ComboManager() };
 
             var dict = Professions?.Keys.ToList();
@@ -127,6 +129,11 @@ namespace VanillaPlusProfessions
 
         public static void OnGameLaunched(object sender, GameLaunchedEventArgs e)
         {
+            if (ModConfig.Value.MasteryCaveChanges != 10 && ModConfig.Value.MasteryCaveChanges != 15 && ModConfig.Value.MasteryCaveChanges != 20)
+            {
+                ModConfig.Value.MasteryCaveChanges = 20;
+                ModMonitor.Log("Mastery Cave Changes was changed to an invalid value. Modified it to 20.", LogLevel.Warn);
+            }
             try
             {
                 ContentPatcherAPI = Helper.ModRegistry.GetApi<IContentPatcher>("Pathoschild.ContentPatcher");
@@ -155,10 +162,9 @@ namespace VanillaPlusProfessions
                 ModMonitor.Log("Content Patcher is either not installed or there was a problem while requesting the API. Skipping token additions.", LogLevel.Info);
             if (GenericModConfigMenuAPI is not null)
             {
-                GenericModConfigMenuAPI.Register(Manifest, () => ModConfig.Value = new Config(), () => Helper.WriteConfig(ModConfig.Value));
+                GenericModConfigMenuAPI.Register(Manifest, () => ModConfig.Value = new Config(), () => SaveConfig());
                 GenericModConfigMenuAPI.AddBoolOption(Manifest, () => ModConfig.Value.ColorBlindnessChanges, value => ModConfig.Value.ColorBlindnessChanges = value, () => Helper.Translation.Get("GMCM.ColorBlindnessChanges.Name"), () => Helper.Translation.Get("GMCM.ColorBlindnessChanges.Desc"));
                 GenericModConfigMenuAPI.AddBoolOption(Manifest, () => ModConfig.Value.DeveloperOrTestingMode, value => ModConfig.Value.DeveloperOrTestingMode = value, () => Helper.Translation.Get("GMCM.DeveloperOrTestingMode.Name"), () => Helper.Translation.Get("GMCM.DeveloperOrTestingMode.Desc"));
-                //GenericModConfigMenuAPI.AddBoolOption(Manifest, () => ModConfig.Value.MasteryCaveChanges, value => ModConfig.Value.MasteryCaveChanges = value, () => Helper.Translation.Get("GMCM.MasteryCaveChanges.Name"), () => Helper.Translation.Get("GMCM.MasteryCaveChanges.Desc"));
                 GenericModConfigMenuAPI.AddNumberOption(Manifest, () => ModConfig.Value.MasteryCaveChanges, value => ModConfig.Value.MasteryCaveChanges = value, () => Helper.Translation.Get("GMCM.MasteryCaveChanges.Name"), () => Helper.Translation.Get("GMCM.MasteryCaveChanges.Desc"), 10, 20, 5);
                 GenericModConfigMenuAPI.AddBoolOption(Manifest, () => ModConfig.Value.StaminaCostAdjustments, value => ModConfig.Value.StaminaCostAdjustments = value, () => Helper.Translation.Get("GMCM.StaminaCostAdjustments.Name"), () => Helper.Translation.Get("GMCM.StaminaCostAdjustments.Desc"));
                 GenericModConfigMenuAPI.AddBoolOption(Manifest, () => ModConfig.Value.ProfessionsOnly, value => ModConfig.Value.ProfessionsOnly = value, () => Helper.Translation.Get("GMCM.ProfessionsOnly.Name"), () => Helper.Translation.Get("GMCM.ProfessionsOnly.Desc"));
@@ -190,6 +196,17 @@ namespace VanillaPlusProfessions
                 ModMonitor.Log("Item Extensions is either not installed or there was a problem while requesting the API. If its the latter; custom gem, ore and stone nodes will not be recognized by this mod.", LogLevel.Info);
             }
         }
+
+        public static void SaveConfig()
+        {
+            if (ModConfig.Value.MasteryCaveChanges != 10 && ModConfig.Value.MasteryCaveChanges != 15 && ModConfig.Value.MasteryCaveChanges != 20)
+            {
+                ModConfig.Value.MasteryCaveChanges = 20;
+                ModMonitor.Log("Mastery Cave Changes was changed to an invalid value. Modified it to 20.", LogLevel.Warn);
+            }
+            Helper.WriteConfig(ModConfig.Value);
+        }
+
         public static IEnumerable<string> GetProfessions()
         {
             if (!Context.IsWorldReady)
@@ -470,7 +487,7 @@ namespace VanillaPlusProfessions
                         }
                     }
                     //There's a false because nothing here is supposed to be accessed yet.
-                    if (false && Game1.player.ActiveObject?.QualifiedItemId is "(O)KediDili.VPPData.CP_MossyFertilizer" or "(O)KediDili.VPPData.CP_WildTotem" or "(O)KediDili.VPPData.CP_SunTotem" or "(O)KediDili.VPPData.CP_SnowTotem")
+                    if (ShouldForageCraftablesWork() && Game1.player.ActiveObject?.QualifiedItemId is "(O)KediDili.VPPData.CP_MossyFertilizer" or "(O)KediDili.VPPData.CP_WildTotem" or "(O)KediDili.VPPData.CP_SunTotem" or "(O)KediDili.VPPData.CP_SnowTotem")
                     {
                         CraftableHandler.OnInteract(Game1.player, Game1.player.ActiveObject);
                     }
@@ -842,6 +859,12 @@ namespace VanillaPlusProfessions
                 }
             }
         }
+        internal static bool ShouldForageCraftablesWork()
+        {
+            return true;
+        }
+
+
         private void OnDayEnding(object sender, DayEndingEventArgs e)
         {
             TalentCore.IsDayStartOrEnd = true;
@@ -905,7 +928,7 @@ namespace VanillaPlusProfessions
                         }
                         if (Accumulation)
                         {
-                            if (Game1.random.NextBool(0.005))
+                            if (Game1.random.NextBool(0.05))
                             {
                                 obj.heldObject.Value.Quality++;
                                 obj.heldObject.Value.FixQuality();

@@ -6,7 +6,6 @@ using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using VanillaPlusProfessions.Utilities;
-using xTile.Tiles;
 
 namespace VanillaPlusProfessions.Craftables
 {
@@ -103,7 +102,7 @@ namespace VanillaPlusProfessions.Craftables
                 ForageCropLocations.TryAdd(crop.currentLocation.NameOrUniqueName, new());
                 ForageCropLocations[crop.currentLocation.NameOrUniqueName].Add(crop.tilePosition);
             }
-            return !returnValue;
+            return ModEntry.ShouldForageCraftablesWork() && !returnValue;
         }
     }
 }

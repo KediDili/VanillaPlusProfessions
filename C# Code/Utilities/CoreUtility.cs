@@ -16,6 +16,7 @@ using HarmonyLib;
 using StardewValley.Objects.Trinkets;
 using VanillaPlusProfessions.Talents.Patchers;
 using StardewValley.Buildings;
+using System.Collections.Generic;
 
 namespace VanillaPlusProfessions.Utilities
 {
@@ -93,6 +94,15 @@ namespace VanillaPlusProfessions.Utilities
                 {
                     ModEntry.ModMonitor.Log($"This is an error thrown by VPP. Some features may not work, but this shouldn't break your game. Reproduce this with only VPP before you make a bug report and make sure it hasn't been reported before.", LogLevel.Warn);
                 }
+            }
+        }
+
+        public static void Test(string command, string[] args)
+        {
+            List<Vector2> list = TalentUtility.GetTilesAroundBeeHouse(Game1.player.Tile.X, Game1.player.Tile.Y);
+            for (int i = 0; i < list.Count; i++)
+            {
+                ModEntry.ModMonitor.Log($"({list[i].X}, {list[i].Y})", LogLevel.Debug);
             }
         }
 
