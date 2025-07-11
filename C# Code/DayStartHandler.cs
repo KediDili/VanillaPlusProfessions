@@ -51,6 +51,9 @@ namespace VanillaPlusProfessions
                 }
             }
 
+            string[] possibleLocations = new string[] { "WitchSwamp", "BugLair", "Sewers", "PirateCove", "Railroad", "BusTunnel", "Mines121", "Caldera" };
+            TalentCore.VoidButterflyLocation = Game1.random.ChooseFrom(possibleLocations);
+
             MachineryEventHandler.BirdsOnFeeders.Clear();
 
             bool RefreshingWaters = TalentUtility.CurrentPlayerHasTalent("RefreshingWaters"),
@@ -65,7 +68,8 @@ namespace VanillaPlusProfessions
             CombatFarm = CoreUtility.AnyPlayerHasProfession("Combat-Farm"),
             FishFarm = CoreUtility.AnyPlayerHasProfession("Fish-Farm"),
             MiniFridgeBigSpace = TalentUtility.AnyPlayerHasTalent("MiniFridgeBigSpace"),
-            HarmoniousBlooming = TalentUtility.AnyPlayerHasTalent("HarmoniousBlooming");
+            HarmoniousBlooming = TalentUtility.AnyPlayerHasTalent("HarmoniousBlooming"),
+            CrabRave = TalentUtility.HostHasTalent("CrabRave") && Game1.player.isWearingRing("810");
 
             foreach (var item in Game1.player.Items)
             {
@@ -159,6 +163,7 @@ namespace VanillaPlusProfessions
                 Vector2 vector = new(int.Parse(strings[0]), int.Parse(strings[1]));
                 if (Game1.getFarm().terrainFeatures.TryGetValue(vector, out TerrainFeature terrainFeature) && terrainFeature is HoeDirt dirt && dirt.crop is Crop crop)
                 {
+                    Game1.getFarm().modData[TalentCore.Key_FaeBlessings] = "0+0";
                     HandleCropFairy(crop);
                 }
             }
@@ -436,12 +441,12 @@ namespace VanillaPlusProfessions
             {
                 if (item is not null and StardewValley.Object bigcraftable)
                 {
-                    if (Trawler || Hydrologist || FishTrap || Diversification || DeadMansChest)
+                    if (Trawler || Hydrologist || FishTrap || Diversification || DeadMansChest || CrabRave)
                     {
                         if (bigcraftable is not null and CrabPot crabPot)
                         {
                             Random r = new();
-                            string bait = crabPot.bait.Value?.ItemId ?? "";
+                            string bait = crabPot.bait.Value?.ItemId ?? "685";
                             Farmer who = Game1.GetPlayer(crabPot.owner.Value, true) ?? Game1.MasterPlayer;
                             StardewValley.Object @object = (StardewValley.Object)crabPot.Location.getFish(1f, bait, r.Next(1, 5), who, 5, crabPot.TileLocation);
                             do
@@ -455,6 +460,8 @@ namespace VanillaPlusProfessions
                                     crabPot.heldObject.Value = @object;
                                 if (DeadMansChest && r.NextBool(0.1))
                                     crabPot.heldObject.Value = ItemRegistry.Create("(O)275") as StardewValley.Object;
+                                if (CrabRave && r.NextBool(0.1) && crabPot.owner.Value == Game1.player.UniqueMultiplayerID)
+                                    crabPot.heldObject.Value = ItemRegistry.Create("(O)" + Game1.random.ChooseFrom(new string[] { "715", "716", "717" })) as StardewValley.Object;
                             }
                             if (crabPot.heldObject.Value is not null && !crabPot.heldObject.Value.HasContextTag("trash_item") && crabPot.heldObject.Value.Category == StardewValley.Object.FishCategory)
                             {
@@ -539,7 +546,7 @@ namespace VanillaPlusProfessions
                 {
                     string giantCropId = pair.Key;
                     GiantCropData giantCrop = pair.Value;
-                    if ((giantCrop.Chance < 1f && !Utility.CreateDaySaveRandom((int)crop.Dirt.Tile.X, (int)crop.Dirt.Tile.Y, Game1.hash.GetDeterministicHashCode(giantCropId)).NextBool(giantCrop.Chance)) || !GameStateQuery.CheckConditions(giantCrop.Condition, farm))
+                    if (!GameStateQuery.CheckConditions(giantCrop.Condition, farm))
                     {
                         continue;
                     }

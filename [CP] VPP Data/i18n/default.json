@@ -64,7 +64,7 @@
 	"Objects.SunTotem.Desc": "You can feel the warmth the totem has within.",
 	
 	
-	"CraftingRecipes.Transmute.Au": "Transmute (Reverse - Au)", //New
+	"CraftingRecipes.Transmute.Au": "Transmute (Reverse - Au)",
 	"CraftingRecipes.Transmute.Ir": "Transmute (Reverse - Ir)",
 
 	"BigCraftables.ParrotPerch.Name": "Parrot Perch",
@@ -191,7 +191,7 @@
 	"Dialogue.GiftOfFriendship.Evelyn": "Oh, hello dear. I made this dessert for the family last night. Why don't you have some as well?$h [223 222 651 234 232 604 608 611 612 238 731 904]",
 	"Dialogue.GiftOfFriendship.George": "@! I'm happy to see you. Take this. It's a small thing, but it's the best an old geezer like me can give.$h [(B)515 334 335 336 ]",
 	"Dialogue.GiftOfFriendship.Gus": "Good to see you, @! I've been meaning to say that I'm thankful to be friends with you. Go on, it's on the house!$h [ 196 206 205 214 213 208 219 209 224]",
-	"Dialogue.GiftOfFriendship.Haley": "Hey, @! I saw this last time I was at the mall and thought of you. I'm glad we're friends! I must've been so rude to you when we first met, so thanks for putting up with me. [{{GiftItem}}]",
+	"Dialogue.GiftOfFriendship.Haley": "Hey, @! I saw this last time I was at the mall and thought of you. I'm glad we're friends! I must've been so rude to you when we first met, so thanks for putting up with me. [{{PoolItem}}]",
 	"Dialogue.GiftOfFriendship.Harvey": "Hello, @! I've been meaning to give you this to help you stay healthy. I value our friendship so much, you know. Take care!$h [196 230 237 200 207 231 606]",
 	"Dialogue.GiftOfFriendship.Jas": "Hello ${Mr.^Ms.^Mx.}$ @, Aunt Marnie and I bought this for you because we love you so much! I hope you like it!$h [221 611 608 222]",
 	"Dialogue.GiftOfFriendship.Jodi": "Are you hungry, @? I made this earlier and saved you some in case you came around. I consider you part of the family now, you know!$h [ 220 214 231 200 222 198 607]",
@@ -205,7 +205,7 @@
 	"Dialogue.GiftOfFriendship.Maru": "Hello there, @! I've been using these in my experiments recently. I want to create something to help out farmers like you! Would you like to try it out when it's ready?$h [334 335 336 337 787 557]",
 	"Dialogue.GiftOfFriendship.Pam": "Hey there, kid. I ordered this from Joja together with my usual. Don't tell Pierre, will ya? Anyway, thanks for bein' with me all this time. Even though I'm not a good mom, you helped me see things better. [88 90 164 165 802 588 386]",
 	"Dialogue.GiftOfFriendship.Penny": "Hi, @! When I was tidying the kitchen earlier, I remembered our 'Chili de @'. You know how I love to cook, so I made this for you!$h [195 197 198 199 201 209 219 648]",
-	"Dialogue.GiftOfFriendship.Pierre": "Hey, Farmer @! I ordered this specifically for you. Thanks for supporting my shop over Joja since day one!$h [368 369 370 371 465 466 805 918 919 599 621 645 (F)2625 (F)2632 (F)2634 (F)1684 (F)2798 (F)807 (F)2626 (F)2875 (F)2397 (F)2624 (BC)36 (BC)107 (BC)137 (BC)113 (BC)47 (BC)109 (BC)48 (BC)184 (BC)188 (BC)192 (BC)204 ]",
+	"Dialogue.GiftOfFriendship.Pierre": "Hey, Farmer @! I ordered this specifically for you. Thanks for supporting my shop over Joja since day one!$h [368 369 370 371 465 466 805 918 919 599 621 645 (F)2625 (F)2632 (F)2634 (F)1684 (F)2798 (F)807 (F)2626 (F)2875 (F)2397 (F)2624 (BC)36 (BC)107 (BC)137 (BC)113 (BC)47 (BC)108 (BC)48 (BC)184 (BC)188 (BC)192 (BC)204 ]",
 	"Dialogue.GiftOfFriendship.Pierre.Joja": "Hey, Farmer @! I ordered this specifically for you. Even with everything Joja's done to this town, you've still been a good friend to me. [368 369 370 371 465 466 805 918 919 599 621 645 (F)2625 (F)2632 (F)2634 (F)1684 (F)2798 (F)807 (F)2626 (F)2875 (F)2397 (F)2624 (BC)36 (BC)107 (BC)137 (BC)113 (BC)47 (BC)109 (BC)48 (BC)184 (BC)188 (BC)192 (BC)204 ]",
 	"Dialogue.GiftOfFriendship.Robin": "I'm trying my hand at some sculpture techniques Leah showed me, but it's slow-going. I'm salvaging the mistakes into new projects though! Want one, @$h? [(F)1280 (F)2742 (F)1669 (F)1300 (F)1440 (F)986 (F)989 (F)1368 (F)1364 (F)1671 (BC)232 (BC)BigChest (BC)BigStoneChest (BC)130 ]",
 	"Dialogue.GiftOfFriendship.Sam": "Hey there, @! You hungry? I got takeout from the saloon for us to share.$h [206 213 214 224]",

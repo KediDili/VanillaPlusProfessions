@@ -27,7 +27,7 @@
 				"KediDili.VanillaPlusProfessions/HasTalents|contains=Overcrowding": "true",
 				"TimeChangedUpdates": "true",
 			},
-			"Update": "OnTimeChange",
+			"Update": "OnTimeChange, OnDayStart",
 		},
 		{
 			"Action": "EditData",
@@ -54,6 +54,33 @@
 			},
 			"When": {
 				"KediDili.VanillaPlusProfessions/HasTalents|contains=Overcrowding": "true",
+				"TimeChangedUpdates": "false",
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Buildings",
+			"Fields": {
+				"Deluxe Coop": {
+					"AllowAnimalPregnancy": true
+				},
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=BreedLikeRabbits": "true",
+				"TimeChangedUpdates": "true",
+			},
+			"Update": "OnTimeChange, OnDayStart",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Buildings",
+			"Fields": {
+				"Deluxe Coop": {
+					"AllowAnimalPregnancy": true
+				},
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=BreedLikeRabbits": "true",
 				"TimeChangedUpdates": "false",
 			},
 		},

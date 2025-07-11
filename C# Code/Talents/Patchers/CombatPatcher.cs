@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Netcode;
 using HarmonyLib;
 using StardewValley;
 using StardewValley.Enchantments;
@@ -13,14 +11,11 @@ using Microsoft.Xna.Framework;
 using StardewValley.Objects;
 using StardewValley.Objects.Trinkets;
 using StardewValley.Extensions;
-using StardewValley.Network;
 using Microsoft.Xna.Framework.Graphics;
 using System.Reflection.Emit;
 using VanillaPlusProfessions.Utilities;
 using StardewValley.Buffs;
 using VanillaPlusProfessions.Craftables;
-using Microsoft.Xna.Framework.Input;
-using StardewValley.GameData.Buildings;
 
 namespace VanillaPlusProfessions.Talents.Patchers
 {

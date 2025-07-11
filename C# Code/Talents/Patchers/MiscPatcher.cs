@@ -334,10 +334,11 @@ namespace VanillaPlusProfessions.Talents.Patchers
         {
             try
             {
-                bool anyPrismaticButterflies = false;
-
-                if (TalentUtility.HostHasTalent("ButterflyEffect") && !anyPrismaticButterflies && Game1.player.team.sharedDailyLuck.Value < -0.02)
+                if (TalentUtility.HostHasTalent("ButterflyEffect") && Game1.player.team.sharedDailyLuck.Value < -0.02)
                 {
+                    if (!__instance.Name.Equals(TalentCore.VoidButterflyLocation))
+                        return;
+
                     foreach (Critter critter in __instance.critters)
                     {
                         if (critter is VoidButterfly)
@@ -345,28 +346,20 @@ namespace VanillaPlusProfessions.Talents.Patchers
                             return;
                         }
                     }
-                    Random r = Utility.CreateDaySaveRandom(Game1.player.UniqueMultiplayerID % 10000);
-                    string[] possibleLocations = new string[] { "WitchSwamp", "BugLair", "Sewers", "PirateCove", "Railroad", "BusTunnel", "Mines121", "Caldera" };
-                    string locationChoice = possibleLocations[r.Next(possibleLocations.Length)];
-                    if (!__instance.Name.Equals(locationChoice))
-                    {
-                        return;
-                    }
-                    Vector2 prism_v = __instance.getRandomTile(r);
+                    Vector2 prism_v = __instance.getRandomTile(Game1.random);
                     for (int i = 0; i < 32; i++)
                     {
                         if (__instance.isTileLocationOpen(prism_v))
                         {
                             break;
                         }
-                        prism_v = __instance.getRandomTile(r);
+                        prism_v = __instance.getRandomTile(Game1.random);
                     }
-                    __instance.critters.Add(new VoidButterfly(__instance, prism_v)
+                    __instance.critters.Add(new VoidButterfly(__instance, prism_v, true)
                     {
-                        stayInbounds = true
+                        stayInbounds = true,
                     });
                 }
-
             }
             catch (Exception e)
             {

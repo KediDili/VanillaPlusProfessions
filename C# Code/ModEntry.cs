@@ -861,7 +861,7 @@ namespace VanillaPlusProfessions
         }
         internal static bool ShouldForageCraftablesWork()
         {
-            return true;
+            return false;
         }
 
 

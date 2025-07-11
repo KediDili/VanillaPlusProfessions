@@ -6,7 +6,7 @@
 			"Target": "Data/Machines",
 			"Entries":{
 				"(BC)Kedi.VPP.Accessorise.TrinketWorkbench": {
-					"InteractMethod": "VanillaPlusProfessions.Utilities.TalentUtility, VanillaPlusProfessions: AccessoriseMachineRule"
+					"InteractMethod": "VanillaPlusProfessions.Utilities.TalentUtility, VanillaPlusProfessions: AccessoriseMachineRule",
 				}
 			}
 		}

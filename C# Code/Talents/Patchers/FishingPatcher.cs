@@ -30,8 +30,8 @@ namespace VanillaPlusProfessions.Talents.Patchers
             );
             CoreUtility.PatchMethod(
                 PatcherName, "FishPond.GetFishProduce",
-                original: AccessTools.Method(typeof(FishPond), nameof(FishPond.GetFishProduce)),
-                prefix: new HarmonyMethod(PatcherType, nameof(TryOverrideFishPondChance))
+                original: AccessTools.Method(typeof(FishPond), nameof(FishPond.dayUpdate)),
+                postfix: new HarmonyMethod(PatcherType, nameof(dayUpdate_Postfix))
             );
             CoreUtility.PatchMethod(
                 PatcherName, "BobberBar.draw",
@@ -182,10 +182,11 @@ namespace VanillaPlusProfessions.Talents.Patchers
             {
                 foreach (var item in insns)
                 {
-                    if (item.opcode.Equals(OpCodes.Ldc_I4_8))
+                    if (item.opcode.Equals(OpCodes.Ldc_I4_5))
                     {
                         item.opcode = OpCodes.Call;
                         item.operand = AccessTools.Method(PatcherType, nameof(TryOverrideBubbleDistance));
+                        break;
                     }
                 }
             }
@@ -195,7 +196,42 @@ namespace VanillaPlusProfessions.Talents.Patchers
             }
             return insns;
         }
-        public static int TryOverrideBubbleDistance() => TalentUtility.AnyPlayerHasTalent("BubbleTrouble") ? 5 : 8;
+        public static int TryOverrideBubbleDistance() => TalentUtility.AnyPlayerHasTalent("BubbleTrouble") ? 8 : 5;
+
+        //What if we turn this into a postfix?
+
+        public static void dayUpdate_Postfix(FishPond __instance)
+        {
+            try
+            {
+                if ((__instance.output.Value is null || __instance.output.Value.QualifiedItemId != "(O)812") && Game1.random.NextBool())
+                {
+                    Item output = ItemRegistry.GetObjectTypeDefinition().CreateFlavoredRoe(__instance.GetFishObject());
+                    int stack = 0;
+                    if (TalentUtility.CurrentPlayerHasTalent("HiddenBenefits", __instance.owner.Value) && Game1.random.NextBool())
+                    {
+                        if (__instance.modData.TryGetValue(TalentCore.Key_HiddenBenefit_FrogEggs, out string str) && !string.IsNullOrEmpty(str))
+                        {
+                            stack++;
+                        }
+                    }
+                    if (TalentUtility.CurrentPlayerHasTalent("SpawningSeason", __instance.owner.Value))
+                    {
+                        stack++;
+                    }
+                    for (int i = 0; i < stack; i++)
+                    {
+                        if (i is 0)
+                            __instance.output.Value = output;
+                        __instance.output.Value.Stack++;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                CoreUtility.PrintError(e, PatcherName, "FishPond.dayUpdate", "postfixed", true);
+            }
+        }
 
         public static bool TryOverrideFishPondChance(FishPond __instance, Random random, ref Item __result)
         {

@@ -123,12 +123,12 @@
 		{
 			
 			"Name": "WillyItemPool",
-			"Value": " ",			
+			"Value": "142 145 132 722 136 720 716 721 715 717 719 372",			
 		},
 		{
 			
 			"Name": "WillyItemPool",
-			"Value": "{{WillyItemPool}}",
+			"Value": "267 131 148 {{WillyItemPool}}",
 			"When":{
 				"Season": "Spring"
 			}
@@ -136,7 +136,7 @@
 		{
 			
 			"Name": "WillyItemPool",
-			"Value": "{{WillyItemPool}}",
+			"Value": "267 138 130 {{WillyItemPool}}",
 			"When":{
 				"Season": "Summer"
 			}
@@ -144,7 +144,7 @@
 		{
 			
 			"Name": "WillyItemPool",
-			"Value": "{{WillyItemPool}}",
+			"Value": "269 131 139 148 154 {{WillyItemPool}}",
 			"When":{
 				"Season": "Fall"
 			}
@@ -152,7 +152,7 @@
 		{
 			
 			"Name": "WillyItemPool",
-			"Value": "{{WillyItemPool}}",
+			"Value": "269 131 130 151 154 {{WillyItemPool}}",
 			"When":{
 				"Season": "Winter"
 			}
@@ -161,7 +161,7 @@
 	"Changes": [
 		{
 			"Action": "Include",
-			"FromFile": "assets/Code/FishPonds.json, assets/Code/GiftTastes.json, assets/Code/Crops.json, assets/Code/Trinkets.json, assets/Code/Mail.json, assets/Code/Dialogue.json, assets/Code/CraftingRecipes.json, assets/Code/Locations.json, assets/Code/WildTrees.json, assets/Code/TailoringRecipes.json, assets/Code/TriggerActions.json, assets/Code/Shops.json, assets/Code/GarbageCans.json",
+			"FromFile": "assets/Code/FishPonds.json, assets/Code/FarmAnimals.json, assets/Code/Dialogue.json, assets/Code/GiftTastes.json, assets/Code/Crops.json, assets/Code/Trinkets.json, assets/Code/Mail.json, assets/Code/CraftingRecipes.json, assets/Code/Locations.json, assets/Code/WildTrees.json, assets/Code/TailoringRecipes.json, assets/Code/TriggerActions.json, assets/Code/Shops.json, assets/Code/GarbageCans.json",
 		},
 		{
 			"Action": "Include",
@@ -169,7 +169,7 @@
 		},
 		{
 			"Action": "Include",
-			"FromFile": "assets/Code/Machines/Edits/Loom.json, assets/Code/Machines/Edits/OilMaker.json, assets/Code/Machines/Edits/CharcoalKiln.json, assets/Code/Machines/Edits/Furnaces.json, assets/Code/Machines/Edits/RecyclingMachine.json, assets/Code/Machines/Edits/MayonnaiseMachine.json, assets/Code/Machines/Edits/CheesePress.json, assets/Code/Machines/Edits/BaitBin.json, assets/Code/Machines/Edits/Dehydrator.json, assets/Code/Machines/Edits/FishSmoker.json, assets/Code/Machines/Edits/Keg.json, assets/Code/Machines/Edits/Cask.json, assets/Code/Machines/Edits/PreservesJar.json"
+			"FromFile": "assets/Code/Machines/Edits/Loom.json, assets/Code/Machines/Edits/BeeHouse.json, assets/Code/Machines/Edits/OilMaker.json, assets/Code/Machines/Edits/CharcoalKiln.json, assets/Code/Machines/Edits/Furnaces.json, assets/Code/Machines/Edits/RecyclingMachine.json, assets/Code/Machines/Edits/MayonnaiseMachine.json, assets/Code/Machines/Edits/CheesePress.json, assets/Code/Machines/Edits/BaitBin.json, assets/Code/Machines/Edits/Dehydrator.json, assets/Code/Machines/Edits/FishSmoker.json, assets/Code/Machines/Edits/Keg.json, assets/Code/Machines/Edits/Cask.json, assets/Code/Machines/Edits/PreservesJar.json"
 		},
 		{
 			"Action": "Include",

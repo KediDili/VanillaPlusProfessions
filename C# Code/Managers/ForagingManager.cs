@@ -1,7 +1,4 @@
-﻿using HarmonyLib;
-using StardewValley;
-using StardewValley.TerrainFeatures;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace VanillaPlusProfessions.Managers
 {

@@ -13,10 +13,6 @@ using StardewValley.Buildings;
 using StardewValley.GameData.Buildings;
 using StardewValley.Internal;
 using StardewValley.Objects;
-using VanillaPlusProfessions.Craftables;
-using StardewValley.Locations;
-using System;
-using StardewModdingAPI;
 
 namespace VanillaPlusProfessions.Talents.Patchers
 {
@@ -40,7 +36,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             CoreUtility.PatchMethod(
                 PatcherName, "QuestionEvent.setUp",
                 original: AccessTools.Method(typeof(QuestionEvent), nameof(QuestionEvent.setUp)),
-                transpiler: new HarmonyMethod(PatcherType, nameof(setUp_Transpiler))
+                postfix: new HarmonyMethod(PatcherType, nameof(setUp_Postfix))
             );
             CoreUtility.PatchMethod(
                 PatcherName, "FairyEvent.ChooseCrop",
@@ -72,46 +68,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
                 original: AccessTools.Method(typeof(Building), nameof(Building.CheckItemConversionRule)),
                 prefix: new HarmonyMethod(PatcherType, nameof(CheckItemConversionRule_Prefix))
             );
-            CoreUtility.PatchMethod(
-                PatcherName, "Utility.pickFarmEvent",
-                original: AccessTools.Method(typeof(Utility), nameof(Utility.pickFarmEvent)),
-                postfix: new HarmonyMethod(PatcherType, nameof(pickFarmEvent_Postfix))
-            );
         }
-        public static void pickFarmEvent_Postfix(ref FarmEvent __result)
-        {
-            if (TalentUtility.HostHasTalent("FairysKiss") && Context.IsMainPlayer)
-            {
-                if (__result is null)
-                {
-                    bool multiplayerFlag = true;
-                    foreach (Farmer farmer in Game1.getOnlineFarmers())
-                    {
-                        Friendship friendship = farmer.GetSpouseFriendship();
-                        if (friendship != null && friendship.IsMarried() && friendship.WeddingDate == Game1.Date)
-                        {
-                            multiplayerFlag = false;
-                            break;
-                        }
-                    }
-                    if (!Game1.weddingToday && multiplayerFlag)
-                    {
-                        Random random = Utility.CreateDaySaveRandom();
-
-                        int fairyRoseNumber = (from terrainFeature in Game1.getFarm().terrainFeatures.Values
-                                               where terrainFeature is HoeDirt hoedirt && hoedirt.crop is Crop cCrop &&
-                                               cCrop.indexOfHarvest.Value == "595" && cCrop.currentPhase.Value == cCrop.phaseDays.Count - 1
-                                               select terrainFeature).Count();
-
-                        double baseChance = 0.01;
-
-                        if (random.NextBool(baseChance + (fairyRoseNumber * 0.007)))
-                            __result = new FairyEvent();
-                    }
-                }
-            }
-        }
-
         public static bool CheckItemConversionRule_Prefix(Building __instance, BuildingItemConversion conversion, ItemQueryContext itemQueryContext)
         {
             try
@@ -233,6 +190,32 @@ namespace VanillaPlusProfessions.Talents.Patchers
             }
         }
 
+        public static void setUp_Postfix(QuestionEvent __instance, int ___whichQuestion, ref AnimalHouse ___animalHouse, ref bool __result)
+        {
+            if (___whichQuestion is 2)
+            {
+                FarmAnimal a = null;
+                AnimalHouse animalHouse2 = null;
+                Utility.ForEachBuilding(delegate (Building b)
+                {
+                    if ((b.owner.Value == Game1.player.UniqueMultiplayerID || !Game1.IsMultiplayer) && b.AllowsAnimalPregnancy() && b.GetIndoors() is AnimalHouse animalHouse && !animalHouse.isFull() && Game1.random.NextDouble() < animalHouse.animalsThatLiveHere.Count * ReturnBirthChance())
+                    {
+                        a = Utility.getAnimal(animalHouse.animalsThatLiveHere[Game1.random.Next(animalHouse.animalsThatLiveHere.Count)]);
+                        animalHouse2 = animalHouse;
+                        return false;
+                    }
+                    return true;
+                });
+                if (a != null && !a.isBaby() && a.allowReproduction.Value && a.CanHavePregnancy() && animalHouse2 is not null)
+                {
+                    ___animalHouse = animalHouse2;
+                    Game1.drawObjectDialogue(Game1.content.LoadString("Strings\\Events:AnimalBirth", a.displayName, a.shortDisplayType()));
+                    Game1.messagePause = true;
+                    __instance.animal = a;
+                    __result = false;
+                }
+            }
+        }
 
         public static IEnumerable<CodeInstruction> dayUpdate_Transpiler(IEnumerable<CodeInstruction> codeInstructions)
         {
@@ -479,27 +462,6 @@ namespace VanillaPlusProfessions.Talents.Patchers
         }
 
         public static float ReturnBirthChance() => TalentUtility.CurrentPlayerHasTalent("BrimmingWithLife") ? 0.011f : 0.0055f;
-        
-        public static IEnumerable<CodeInstruction> setUp_Transpiler(IEnumerable<CodeInstruction> instructions)
-        {
-            List<CodeInstruction> insns = new List<CodeInstruction>();
-            try
-            {
-                foreach (var codeInstruction in instructions)
-                {
-                    if (codeInstruction.OperandIs(0.0055f))
-                    {
-                        insns.Add(new(OpCodes.Call, AccessTools.Method(PatcherType, nameof(ReturnBirthChance))));
-                        continue;
-                    }
-                    insns.Add(codeInstruction);
-                }
-            }
-            catch (System.Exception e)
-            {
-                CoreUtility.PrintError(e, PatcherName, "QuestionEvent.setUp", "transpiled", true);
-            }
-            return insns;
-        }
+
     }
 }

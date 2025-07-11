@@ -1,7 +1,5 @@
 ﻿using StardewValley;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using StardewValley.TerrainFeatures;
 namespace VanillaPlusProfessions.Compatibility
 {
     public interface IItemExtensions

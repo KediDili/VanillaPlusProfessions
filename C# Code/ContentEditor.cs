@@ -11,7 +11,6 @@ using StardewValley.GameData.FarmAnimals;
 using StardewValley.GameData.Weapons;
 using StardewValley.Menus;
 using VanillaPlusProfessions.Utilities;
-using System.Data;
 using StardewModdingAPI.Utilities;
 using VanillaPlusProfessions.Talents;
 using VanillaPlusProfessions.Craftables;
@@ -94,23 +93,12 @@ namespace VanillaPlusProfessions
         }
         internal static void HandleLocations(ref IDictionary<string, LocationData> editor)
         {
-            bool ClearAsMud = TalentUtility.AnyPlayerHasTalent("ClearAsMud"),
-            CrabRave = TalentUtility.HostHasTalent("CrabRave") && Game1.MasterPlayer?.isWearingRing("(O)810") is true;
-            
-            if (ClearAsMud || CrabRave)
+            bool ClearAsMud = TalentUtility.AnyPlayerHasTalent("ClearAsMud");
+
+            if (ClearAsMud)
             {
                 foreach (var loc in editor)
                 {
-                    if (CrabRave)
-                    {
-                        foreach (var fish in loc.Value.Fish)
-                        {
-                            if (fish.Chance * 2 <= 1f && fish.ItemId is "(O)717" or "(O)716" or "(O)715")
-                            {
-                                fish.Chance *= 2;
-                            }
-                        }
-                    }
                     if (ClearAsMud)
                     {
                         loc.Value.ChanceForClay = 0.1;

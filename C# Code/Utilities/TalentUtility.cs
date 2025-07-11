@@ -50,7 +50,7 @@ namespace VanillaPlusProfessions.Utilities
             bool updateGarbageCans = talentStatuses.ContainsKey("TrashedTreasure") || talentStatuses.ContainsKey("EyeSpy");
 
             //Fishery Grant/Monumental Discount
-            bool updateBuildings = talentStatuses.ContainsKey("FisheryGrant") || talentStatuses.ContainsKey("MonumentalDiscount") || talentStatuses.ContainsKey("Overcrowding");
+            bool updateBuildings = talentStatuses.ContainsKey("FisheryGrant") || talentStatuses.ContainsKey("MonumentalDiscount") || talentStatuses.ContainsKey("Overcrowding") || talentStatuses.ContainsKey("BreedLikeRabbits");
 
             //In The Weeds / Legendary Variety
             bool updateFishPonds = talentStatuses.ContainsKey("InTheWeeds") || talentStatuses.ContainsKey("LegendaryVariety");
@@ -59,6 +59,11 @@ namespace VanillaPlusProfessions.Utilities
             if (talentStatuses.ContainsKey("EveryonesBestFriend"))
             {
                 ModEntry.Helper.GameContent.InvalidateCache("Data/NPCGiftTastes");
+            }
+
+            if (talentStatuses.ContainsKey("BreedLikeRabbits"))
+            {
+                ModEntry.Helper.GameContent.InvalidateCache("Data/FarmAnimals");
             }
 
             //Bookclub Bargains
@@ -321,10 +326,8 @@ namespace VanillaPlusProfessions.Utilities
 
             foreach (var farmer in Game1.getOnlineFarmers())
             {
-                if (flag is not null)
-                {
-                    return CurrentPlayerHasTalent(GetFlag(flag), who: farmer);
-                }
+                if (flag is not null && CurrentPlayerHasTalent(GetFlag(flag), who: farmer))
+                    return true;
             }
             return false;
         }

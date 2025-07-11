@@ -1,0 +1,21 @@
+{
+	"Changes": [
+		{
+			"LogName": "HarmoniousBlooming and Abundance",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [
+				"(BC)10",
+				"OutputRules",
+			],
+			"Fields": {
+				"Default":{
+					"RecalculateOnCollect": false,
+				}
+			},
+			"When":{
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=HarmoniousBlooming, Abundance": true
+			}
+		}
+	]
+}

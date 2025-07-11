@@ -1,0 +1,33 @@
+{
+	"Changes": [
+		{
+			"Action": "EditData",
+			"Target": "Data/FishPondData",
+			"Fields":{
+				"Rabbit":{
+					"CanGetPregnant": true,
+					"BirthText": "{{i18n:Message.RabbitBirth}}"
+				}
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=BreedLikeRabbits": "true",
+				"TimeChangedUpdates": true
+			},
+			"Update": "OnTimeChange, OnDayStart",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/FishPondData",
+			"Fields":{
+				"Rabbit":{
+					"CanGetPregnant": true,
+					"BirthText": "{{i18n:Message.RabbitBirth}}"
+				}
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=BreedLikeRabbits": "true",
+				"TimeChangedUpdates": false
+			},
+		}
+	]
+}

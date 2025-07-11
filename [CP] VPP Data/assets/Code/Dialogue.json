@@ -2,24 +2,35 @@
 	"Changes": [
 		{
 			"Action": "EditData",
-			"Target": "Characters/Dialogue/Abigail, Characters/Dialogue/Alex, Characters/Dialogue/Caroline, Characters/Dialogue/Clint, Characters/Dialogue/Demetrius, Characters/Dialogue/Dwarf, Characters/Dialogue/Elliott, Characters/Dialogue/Emily, Characters/Dialogue/Evelyn, Characters/Dialogue/George, Characters/Dialogue/Gus, Characters/Dialogue/Harvey, Characters/Dialogue/Jas, Characters/Dialogue/Jodi, Characters/Dialogue/Kent, Characters/Dialogue/Leah, Characters/Dialogue/Lewis, Characters/Dialogue/Leo, Characters/Dialogue/Linus, Characters/Dialogue/Marnie, Characters/Dialogue/Maru, Characters/Dialogue/Pam, Characters/Dialogue/Penny, Characters/Dialogue/Robin, Characters/Dialogue/Sam, Characters/Dialogue/Sandy, Characters/Dialogue/Sebastian, Characters/Dialogue/Shane, Characters/Dialogue/Vincent, Characters/Dialogue/Wizard,",
+			"Target": "Characters/Dialogue/Abigail, Characters/Dialogue/Alex, Characters/Dialogue/Caroline, Characters/Dialogue/Clint, Characters/Dialogue/Demetrius, Characters/Dialogue/Dwarf, Characters/Dialogue/Elliott, Characters/Dialogue/Emily, Characters/Dialogue/Evelyn, Characters/Dialogue/George, Characters/Dialogue/Gus, Characters/Dialogue/Harvey, Characters/Dialogue/Jas, Characters/Dialogue/Jodi, Characters/Dialogue/Kent, Characters/Dialogue/Leah, Characters/Dialogue/Lewis, Characters/Dialogue/Leo, Characters/Dialogue/Linus, Characters/Dialogue/Marnie, Characters/Dialogue/Maru, Characters/Dialogue/Pam, Characters/Dialogue/Penny, Characters/Dialogue/Robin, Characters/Dialogue/Sam, Characters/Dialogue/Sandy, Characters/Dialogue/Sebastian, Characters/Dialogue/Shane, Characters/Dialogue/Vincent, Characters/Dialogue/Wizard",
 			"Entries": {
 				"VPP_GiftOfFriendship": "{{i18n:Dialogue.GiftOfFriendship.{{TargetWithoutPath}}}}"				
 			},
 			"When": {
-				"Hearts:{{TargetWithoutPath}}|contains={{Range:8,14}}": true,
-				"Random: {{Range: 1, 20}}": "20"
+				"Hearts:{{TargetWithoutPath}}": "{{Range:8,14}}",
+				//"Random: {{Range: 1, 5}}": "5"
 			}
 		},
 		{
 			"Action": "EditData",
-			"Target": "Characters/Dialogue/Haley, Characters/Dialogue/Willy",
+			"Target": "Characters/Dialogue/Haley",
 			"Entries": {
-				"VPP_GiftOfFriendship": "{{ i18n:Dialogue.GiftOfFriendship.{{TargetWithoutPath}}|PoolItem={{TargetWithoutPath}}ItemPool }}"
+				"VPP_GiftOfFriendship": "{{i18n:Dialogue.GiftOfFriendship.Haley|PoolItem={{HaleyItemPool}}}}"
 			},
 			"When": {
-				"Hearts:{{TargetWithoutPath}}|contains={{Range:8,14}}": true,
-				"Random: {{Range: 1, 20}}": "20"
+				"Hearts:Haley": "{{Range:8,14}}",
+				//"Random: {{Range: 1, 5}}": "5"
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Characters/Dialogue/Willy",
+			"Entries": {
+				"VPP_GiftOfFriendship": "{{i18n:Dialogue.GiftOfFriendship.Willy|PoolItem={{WillyItemPool}}}}"
+			},
+			"When": {
+				"Hearts:Willy": "{{Range:8,14}}",
+				//"Random: {{Range: 1, 5}}": "5"
 			}
 		},
 		{
@@ -30,7 +41,7 @@
 			},
 			"When": {
 				"Hearts:Pierre|contains={{Range:8,14}}": true,
-				"Random: {{Range: 1, 20}}": "20",
+				//"Random: {{Range: 1, 5}}": "5"
 				"HasFlag:CurrentPlayer|contains=jojaMember": "false"
 			}
 		},
@@ -43,7 +54,7 @@
 			},
 			"When": {
 				"Hearts:Pierre|contains={{Range:8,14}}": true,
-				"Random: {{Range: 1, 20}}": "20",
+				//"Random: {{Range: 1, 5}}": "5"
 				"HasFlag:CurrentPlayer|contains=jojaMember": "true"
 			}
 		},
@@ -54,7 +65,9 @@
 				"VPP_GiftOfFriendship": "{{i18n:Dialogue.GiftOfFriendship.Krobus}}"
 			},
 			"When": {
-				"DayOfWeek|contains=Fri": "false"
+				"Hearts:Krobus|contains={{Range:8,14}}": true,
+				"DayOfWeek|contains=Fri": "false",
+				//"Random: {{Range: 1, 5}}": "5"
 			}
 		}
 	]

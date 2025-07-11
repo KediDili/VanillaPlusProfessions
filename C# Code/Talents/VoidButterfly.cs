@@ -13,15 +13,31 @@ namespace VanillaPlusProfessions.Talents
 
         bool startedCapturing = false;
 
-        public VoidButterfly(GameLocation location, Vector2 position) : base(location, position, false, false, -1, false)
+        public VoidButterfly(GameLocation location, Vector2 position, bool islandButterfly) : base(location, position, islandButterfly, true, 62, false)
         {
-            sprite.spriteTexture = null;
-            sprite.sourceRect = new(0, 0, 16, 16);
+            editAnim();
+        }
+
+        void editAnim()
+        {
+            sprite.textureName.Value = ContentEditor.ContentPaths["ItemSpritesheet"];
+            baseFrame = 62;
+            sprite.UpdateSourceRect();
+            sprite.loop = false;
         }
 
         public override void drawAboveFrontLayer(SpriteBatch b)
         {
-            sprite.draw(b, Game1.GlobalToLocal(Game1.viewport, position + new Vector2(-64f, -128f + yJumpOffset + yOffset)), position.Y / 10000f, 0, 0, Color.DarkGray * 0.8f, flip, 4f);
+            sprite.draw(b, Game1.GlobalToLocal(Game1.viewport, position + new Vector2(-64f, -128f + yJumpOffset + yOffset)), position.Y / 10000f, 0, 0, Color.White, flip, 4f);
+        }
+
+        public override void draw(SpriteBatch b)
+        {
+            if (sprite != null)
+            {
+                sprite.draw(b, Game1.GlobalToLocal(Game1.viewport, position + new Vector2(-64f, -128f + yJumpOffset + yOffset)), position.Y / 10000f + position.X / 1000000f, 0, 0, Color.White, flip, 4f);
+                b.Draw(Game1.shadowTexture, Game1.GlobalToLocal(Game1.viewport, position + new Vector2(0f, -4f)), Game1.shadowTexture.Bounds, Color.White * (1f - Math.Min(1f, Math.Abs((yJumpOffset + yOffset) / 64f))), 0f, new Vector2(Game1.shadowTexture.Bounds.Center.X, Game1.shadowTexture.Bounds.Center.Y), 3f + Math.Max(-3f, (yJumpOffset + yOffset) / 64f), SpriteEffects.None, (position.Y - 1f) / 10000f);
+            }
         }
 
         public override bool update(GameTime time, GameLocation environment)
@@ -39,7 +55,7 @@ namespace VanillaPlusProfessions.Talents
                 }
                 else if (captureTimer < 0f && startedCapturing)
                 {
-                    Utility.makeTemporarySpriteJuicier(new TemporaryAnimatedSprite("LooseSprites\\Cursors_1_6", new Rectangle(144, 249, 7, 7), Game1.random.Next(100, 200), 6, 1, base.position + new Vector2(-48f, -96f), flicker: false, flipped: false, Math.Max(0f, (base.position.Y + 64f - 24f) / 10000f) + base.position.X / 64f * 1E-05f, 0f, Color.Black, 4f, 0f, 0f, 0f)
+                    Utility.makeTemporarySpriteJuicier(new TemporaryAnimatedSprite("LooseSprites\\Cursors_1_6", new Rectangle(144, 249, 7, 7), Game1.random.Next(100, 200), 6, 1, position + new Vector2(-48f, -96f), flicker: false, flipped: false, Math.Max(0f, (position.Y + 64f - 24f) / 10000f) + base.position.X / 64f * 1E-05f, 0f, Color.Black, 4f, 0f, 0f, 0f)
                     {
                         drawAboveAlwaysFront = true
                     }, environment, 16);
@@ -47,7 +63,7 @@ namespace VanillaPlusProfessions.Talents
 
                     buffEffects.LuckLevel.Value = 10;
 
-                    Game1.player.buffs.Apply(new("Kedi.VPP.VoidButterfly", "VoidButterfly", "Void Butterfly", -2, Game1.buffsIcons, 20, buffEffects, false, "Luck", "The Void Butterfly's unlikely blessing."));
+                    Game1.player.buffs.Apply(new("Kedi.VPP.VoidButterfly", "VoidButterfly", "Void Butterfly", -2, Game1.buffsIcons, 5, buffEffects, false, "Luck", "The Void Butterfly's unlikely blessing."));
 
                     return true;
                 }
@@ -57,6 +73,7 @@ namespace VanillaPlusProfessions.Talents
                 startedCapturing = false;
                 captureTimer = 0f;
             }
+            
             return base.update(time, environment);
         }
     }

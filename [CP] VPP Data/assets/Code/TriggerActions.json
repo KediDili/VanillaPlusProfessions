@@ -21,7 +21,7 @@
 				"{{ModId}}_GiftOfFriendShip": {
                     "Id": "{{ModId}}_GiftOfFriendShip",
                     "Trigger": "DayStarted",
-                    "Condition": "RANDOM 0.05, KediDili.VanillaPlusProfessions_PlayerHasTalent Current GiftOfFriendship",
+                    "Condition": "RANDOM 1, KediDili.VanillaPlusProfessions_PlayerHasTalent Current GiftOfFriendship", //0.05
 					"MarkActionApplied": false,
                     "Action": "AddConversationTopic VPP_GiftOfFriendship 1",
                 },
