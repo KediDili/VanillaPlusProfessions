@@ -12,6 +12,7 @@ using StardewValley.Extensions;
 using StardewValley.Monsters;
 using Microsoft.Xna.Framework;
 using VanillaPlusProfessions.Talents;
+using StardewValley.GameData.FruitTrees;
 using StardewValley.GameData.GiantCrops;
 using VanillaPlusProfessions.Utilities;
 using xTile.Dimensions;
@@ -34,7 +35,7 @@ namespace VanillaPlusProfessions
                 var location = Game1.getLocationFromName(feederLoc);
                 if (location.modData.TryGetValue(TalentCore.Key_WasRainingHere, out string val) && val.ToLower() == "true")
                     continue;
-                foreach (var item in location.Objects.Values.Select( obj => { return obj.QualifiedItemId == "(BC)KediDili.VPPData.CP_BirdFeeder" && obj.lastInputItem.Value != null ? obj : null; }))
+                foreach (var item in location.Objects.Values.Select(obj => { return obj.QualifiedItemId == "(BC)KediDili.VPPData.CP_BirdFeeder" && obj.lastInputItem.Value != null ? obj : null; }))
                 {
                     if (item is not null)
                     {
@@ -84,7 +85,7 @@ namespace VanillaPlusProfessions
                     break;
                 }
             }
-        
+
             if (TalentUtility.AnyPlayerHasTalent("GoodSoaking"))
             {
                 Utility.ForEachLocation(loc =>
@@ -225,7 +226,7 @@ namespace VanillaPlusProfessions
                         continue;
                     foreach (var item in location.terrainFeatures.Values)
                     {
-                        if (item is FruitTree tree) 
+                        if (item is FruitTree tree)
                         {
                             for (int i = 0; i < tree.fruit.Count; i++)
                                 tree.fruit[i].Quality = 4;
@@ -339,7 +340,7 @@ namespace VanillaPlusProfessions
                         {
                             for (int YY = 0; YY < slimeHutch.Map.Layers[0].LayerHeight; YY++)
                             {
-                                if (slimeHutch.isTilePlaceable(new(XX, YY), false) && !slimeHutch.Objects.ContainsKey(new(XX,YY)) && !slimeHutch.isTileOnWall(XX, YY) && slimeHutch.isTileLocationOpen(new Location(XX, YY)))
+                                if (slimeHutch.isTilePlaceable(new(XX, YY), false) && !slimeHutch.Objects.ContainsKey(new(XX, YY)) && !slimeHutch.isTileOnWall(XX, YY) && slimeHutch.isTileLocationOpen(new Location(XX, YY)))
                                     nullobjs.Add(new(XX, YY));
                             }
                         }
@@ -475,48 +476,84 @@ namespace VanillaPlusProfessions
                                         crabPot.heldObject.Value.Stack += r.NextBool(0.85) ? 0 : 1;
                                 }
                             }
-                            
+
                             return true;
                         }
                     }
 
-                    if (bigcraftable is not null && bigcraftable.IsTapper() is true)
+                    if (bigcraftable is not null && bigcraftable.Location is not null && bigcraftable.IsTapper() is true && FarmForage)
                     {
-                        if (FarmForage && bigcraftable.modData.TryGetValue(ModEntry.Key_TFTapperDaysLeft, out string value))
+                        TerrainFeature? TreeOrGiantCrop = null;
+                        if (bigcraftable.Location.terrainFeatures.TryGetValue(bigcraftable.TileLocation, out TerrainFeature terrainFeature) && terrainFeature is FruitTree tree)
                         {
-                            bigcraftable.modData[ModEntry.Key_TFTapperDaysLeft] = (Convert.ToInt32(value) - 1).ToString();
-                            if (Convert.ToInt32(bigcraftable.modData[ModEntry.Key_TFTapperDaysLeft]) < 1)
+                            TreeOrGiantCrop = terrainFeature;
+                        }
+                        else if (bigcraftable.Location.resourceClumps?.Count > 0 is true)
+                        {
+                            foreach (var resourceClump in bigcraftable.Location.resourceClumps)
                             {
-                                if (bigcraftable.heldObject.Value is null)
+                                if (resourceClump is GiantCrop crop && crop.getBoundingBox().Contains(bigcraftable.TileLocation * 64))
                                 {
-                                    bigcraftable.heldObject.Value = ManagerUtility.CreateFlavoredSyrupOrDust(bigcraftable.lastInputItem.Value as StardewValley.Object);
-                                }
-                                else
-                                {
-                                    bigcraftable.heldObject.Value.Stack++;
-                                    bigcraftable.heldObject.Value.FixStackSize();
-                                }
-                                 
-                                if (bigcraftable.Location.terrainFeatures.TryGetValue(bigcraftable.TileLocation, out TerrainFeature terrainFeature) && terrainFeature is FruitTree tree)
-                                {
-                                    bigcraftable.modData[ModEntry.Key_TFTapperDaysLeft] = ManagerUtility.GetProduceTimeBasedOnPrice(tree, out StardewValley.Object _);
-                                }
-                                else if (bigcraftable.Location.resourceClumps?.Count > 0 is true)
-                                {
-                                    foreach (var resourceClump in bigcraftable.Location.resourceClumps)
-                                    {
-                                        if (resourceClump is GiantCrop crop && crop.getBoundingBox().Contains(bigcraftable.TileLocation * 64))
-                                        {
-                                            bigcraftable.modData[ModEntry.Key_TFTapperDaysLeft] = ManagerUtility.GetProduceTimeBasedOnPrice(crop, out StardewValley.Object _);
-                                            break;
-                                        }
-                                    }
+                                    TreeOrGiantCrop = crop;
+                                    break;
                                 }
                             }
                         }
+                        if (TreeOrGiantCrop is null) return true;
+                        FruitTreeData fruitTreeData = (TreeOrGiantCrop as FruitTree)?.GetData();
+                        GiantCropData giantCropData = (TreeOrGiantCrop as GiantCrop)?.GetData();
+                        StardewValley.Object? ingredient = null;
+                        if (fruitTreeData?.CustomFields?.TryGetValue(ModEntry.Key_FruitTreeOrGiantCrop, out string value) is true && value is not null)
+                        {
+                            ingredient = ItemRegistry.Create<StardewValley.Object>(value);
+                            ingredient.modData?.TryAdd("Kedi.VPP.CurrentPreserveType", "Other");
+                        }
+                        else if (giantCropData?.CustomFields?.TryGetValue(ModEntry.Key_FruitTreeOrGiantCrop, out string value2) is true && value2 is not null)
+                        {
+                            ingredient = ItemRegistry.Create<StardewValley.Object>(value2);
+                            ingredient.modData?.TryAdd("Kedi.VPP.CurrentPreserveType", "Other");
+                        }
+                        else
+                        {
+                            ManagerUtility.GetProduceTimeBasedOnPrice(TreeOrGiantCrop, out StardewValley.Object produce);
+                            ingredient = produce;
+                            ingredient.modData?.TryAdd("Kedi.VPP.CurrentPreserveType", "Kedi.VPP.FruitSyrup");
+                        }
+                        if (bigcraftable.heldObject.Value is null)
+                        {
+                            bigcraftable.heldObject.Value = ManagerUtility.CreateFlavoredSyrupOrDust(ingredient);
+                            // subtract 1 since we're doing this on day start instead of on collection/placement
+                            var days = 6;
+                            if (ingredient is not null)
+                            {
+                                days = ingredient.Price / 20 - 1;
+                            }
+                            bigcraftable.MinutesUntilReady = Utility.CalculateMinutesUntilMorning(Game1.timeOfDay, days);
+                        }
+                        else if (bigcraftable.readyForHarvest.Value)
+                        {
+                            if (bigcraftable.modData.TryGetValue(ModEntry.Key_TFTapperDaysLeft, out string value3))
+                            {
+                                if (Convert.ToInt32(value3) - 1 < 1)
+                                {
+                                    bigcraftable.heldObject.Value.Stack++;
+                                    bigcraftable.heldObject.Value.FixStackSize();
+                                    bigcraftable.modData[ModEntry.Key_TFTapperDaysLeft] = ManagerUtility.GetProduceTimeBasedOnPrice(TreeOrGiantCrop, out StardewValley.Object _);
+                                }
+                                else
+                                {
+                                    bigcraftable.modData[ModEntry.Key_TFTapperDaysLeft] = (Convert.ToInt32(value3) - 1).ToString();
+                                }
+                            }
+                            else
+                            {
+                                bigcraftable.modData[ModEntry.Key_TFTapperDaysLeft] = ManagerUtility.GetProduceTimeBasedOnPrice(TreeOrGiantCrop, out StardewValley.Object _);
+                            }
+
+                        }
                         return true;
                     }
-                    
+
                     if (HarmoniousBlooming && bigcraftable.QualifiedItemId == "(BC)10" && bigcraftable.heldObject.Value is not null)
                     {
                         int tiles = TalentUtility.FlowersInBeeHouseRange(bigcraftable.Location, bigcraftable.TileLocation);

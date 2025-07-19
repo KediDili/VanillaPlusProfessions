@@ -98,7 +98,7 @@ namespace VanillaPlusProfessions
             Helper.Events.Player.LevelChanged += OnLevelChanged;
             Helper.Events.Player.Warped += OnWarped;
             Helper.Events.GameLoop.UpdateTicked += OnUpdateTicked;
-            
+
             CorePatcher.ApplyPatches();
             TalentCore.Initialize();
             BuildingPatcher.ApplyPatches();
@@ -273,7 +273,7 @@ namespace VanillaPlusProfessions
                         bird.Update(Game1.currentGameTime);
                     }
                 }
-            }            
+            }
         }
 
         private void OnWarped(object sender, WarpedEventArgs e)
@@ -806,30 +806,6 @@ namespace VanillaPlusProfessions
                     FruitTreeData fruitTreeData = (TreeOrCrop as FruitTree)?.GetData();
                     GiantCropData giantCropData = (TreeOrCrop as GiantCrop)?.GetData();
                     var obsj = Game1.player.ActiveObject;
-
-                    obsj.modData[Key_TFTapperDaysLeft] = "0";
-
-                    StardewValley.Object dsdsd;
-                    if (fruitTreeData?.CustomFields?.TryGetValue(Key_FruitTreeOrGiantCrop, out string value) is true && value is not null)
-                    {
-                        dsdsd = ItemRegistry.Create<StardewValley.Object>(value);
-                        dsdsd.modData?.TryAdd("Kedi.VPP.CurrentPreserveType", "Other");
-                        obsj.modData[Key_TFTapperDaysLeft] = (dsdsd.Price / 20).ToString();
-                    }
-                    else if (giantCropData?.CustomFields?.TryGetValue(Key_FruitTreeOrGiantCrop, out string value2) is true && value2 is not null)
-                    {
-                        dsdsd = ItemRegistry.Create<StardewValley.Object>(value2);
-                        dsdsd.modData?.TryAdd("Kedi.VPP.CurrentPreserveType", "Other");
-                        obsj.modData[Key_TFTapperDaysLeft] = (dsdsd.Price / 20).ToString();
-                    }
-                    else
-                    {
-                        obsj.modData[Key_TFTapperDaysLeft] = ManagerUtility.GetProduceTimeBasedOnPrice(TreeOrCrop, out StardewValley.Object produce);
-                        dsdsd = produce;
-                        dsdsd.modData?.TryAdd("Kedi.VPP.CurrentPreserveType", "Kedi.VPP.FruitSyrup");
-                    }
-                    if (dsdsd is not null)
-                        obsj.lastInputItem.Value = dsdsd;
 
                     if (TreeOrCrop.modData.TryAdd(Key_TFHasTapper, "true")
                     && TreeOrCrop.modData.TryAdd(Key_TFTapperID, Game1.player.ActiveObject.QualifiedItemId))
