@@ -35,7 +35,7 @@ namespace VanillaPlusProfessions.Managers
                 CoreUtility.PatchMethod(
                     PatcherName, tools[i].Name + ".canThisBeAttached",
                     original: AccessTools.Method(tools[i], "canThisBeAttached", new Type[] { typeof(StardewValley.Object), typeof(int) }),
-                    postfix: new HarmonyMethod(PatcherType, "canThisBeAttached_"+ tools[i].Name + "_Postfix")
+                    postfix: new HarmonyMethod(PatcherType, "canThisBeAttached_" + tools[i].Name + "_Postfix")
                 );
             }
             CoreUtility.PatchMethod(
@@ -67,11 +67,6 @@ namespace VanillaPlusProfessions.Managers
                 PatcherName, "Slingshot.GetAmmoCollisionSound",
                 original: AccessTools.Method(typeof(Slingshot), nameof(Slingshot.GetAmmoCollisionSound)),
                 postfix: new HarmonyMethod(PatcherType, nameof(GetAmmoCollisionSound_Postfix))
-            );
-            CoreUtility.PatchMethod(
-                PatcherName, "Object.CheckForActionOnMachine",
-                original: AccessTools.Method(typeof(StardewValley.Object), "CheckForActionOnMachine"),
-                postfix: new HarmonyMethod(PatcherType, nameof(CheckForActionOnMachine_Postfix))
             );
             CoreUtility.PatchMethod(
                 PatcherName, "Object.OutputGeodeCrusher",
@@ -222,7 +217,7 @@ namespace VanillaPlusProfessions.Managers
             catch (Exception e)
             {
                 CoreUtility.PrintError(e, PatcherName, "FishingRod.GetTackleQualifiedItemIDs", "postfixed", true);
-            }            
+            }
         }
 
         public static void DrawIconBar_Postfix(StardewValley.Object __instance, SpriteBatch spriteBatch, Vector2 location, float scaleSize)
@@ -343,42 +338,6 @@ namespace VanillaPlusProfessions.Managers
                 if (ammo.Category == -4)
                     return ammo.Price * 5;
             return 50;
-        }
-        public static void CheckForActionOnMachine_Postfix(StardewValley.Object __instance, bool justCheckingForActivity, ref bool __result)
-        {
-            try
-            {
-                if (__instance is not null && __instance.IsTapper() && __instance.Location.terrainFeatures.TryGetValue(__instance.TileLocation, out var terrainFeature) && terrainFeature is FruitTree or GiantCrop)
-                {
-                    if (!justCheckingForActivity && !__result && __instance.heldObject.Value is not null)
-                    {
-                        if (terrainFeature is FruitTree tree)
-                        {
-                            __instance.modData[ModEntry.Key_TFTapperDaysLeft] = ManagerUtility.GetProduceTimeBasedOnPrice(tree, out StardewValley.Object _);
-                        }
-                        else if (terrainFeature is GiantCrop crop)
-                        {
-                            __instance.modData[ModEntry.Key_TFTapperDaysLeft] = ManagerUtility.GetProduceTimeBasedOnPrice(crop, out StardewValley.Object _);
-                        }
-                        Game1.player.addItemByMenuIfNecessary(__instance.heldObject.Value);
-                        __instance.heldObject.Value = null;
-                        __result = true;
-                        return;
-                    }
-                    else
-                    {
-                        if (!justCheckingForActivity && terrainFeature is FruitTree tree)
-                            tree.performUseAction(__instance.TileLocation);
-                    }
-
-                    //This stays inside here, otherwise it'll break Ars Venefici.
-                    __result = false;
-                }
-            }
-            catch (Exception e)
-            {
-                CoreUtility.PrintError(e, PatcherName, "Object.CheckForActionOnMachine", "postfixed", true);
-            }
         }
         public static void GetAmmoDamage_Postfix(StardewValley.Object ammunition, ref int __result)
         {
