@@ -12,11 +12,11 @@ using StardewValley.Extensions;
 using StardewValley.Monsters;
 using Microsoft.Xna.Framework;
 using VanillaPlusProfessions.Talents;
-using StardewValley.GameData.FruitTrees;
 using StardewValley.GameData.GiantCrops;
 using VanillaPlusProfessions.Utilities;
 using xTile.Dimensions;
 using VanillaPlusProfessions.Craftables;
+using StardewValley.GameData.FruitTrees;
 
 namespace VanillaPlusProfessions
 {
@@ -33,13 +33,13 @@ namespace VanillaPlusProfessions
             foreach (var feederLoc in MachineryEventHandler.BirdsOnFeeders.Keys)
             {
                 var location = Game1.getLocationFromName(feederLoc);
-                if (location.modData.TryGetValue(TalentCore.Key_WasRainingHere, out string val) && val.ToLower() == "true")
+                if (location.modData.TryGetValue(Constants.Key_WasRainingHere, out string val) && val.ToLower() == "true")
                     continue;
-                foreach (var item in location.Objects.Values.Select(obj => { return obj.QualifiedItemId == "(BC)KediDili.VPPData.CP_BirdFeeder" && obj.lastInputItem.Value != null ? obj : null; }))
+                foreach (var item in location.Objects.Values.Select( obj => { return obj.QualifiedItemId == Constants.Id_BirdFeeder && obj.lastInputItem.Value != null ? obj : null; }))
                 {
                     if (item is not null)
                     {
-                        int count = item.modData.ContainsKey(MachineryEventHandler.Key_BirdFeederTime) ? int.Parse(item.modData[MachineryEventHandler.Key_BirdFeederTime]) : 0;
+                        int count = item.modData.ContainsKey(Constants.Key_BirdFeederTime) ? int.Parse(item.modData[Constants.Key_BirdFeederTime]) : 0;
                         (++count).ToString();
                         if (count >= 7)
                         {
@@ -47,15 +47,13 @@ namespace VanillaPlusProfessions
                             item.showNextIndex.Value = false;
                             count = 0;
                         }
-                        item.modData[MachineryEventHandler.Key_BirdFeederTime] = count.ToString();
+                        item.modData[Constants.Key_BirdFeederTime] = count.ToString();
                     }
                 }
             }
-
-            string[] possibleLocations = new string[] { "WitchSwamp", "BugLair", "Sewers", "PirateCove", "Railroad", "BusTunnel", "Mines121", "Caldera" };
-            TalentCore.VoidButterflyLocation = Game1.random.ChooseFrom(possibleLocations);
-
             MachineryEventHandler.BirdsOnFeeders.Clear();
+            ModEntry.EmptyCritterRoom ??= Game1.getLocationFromNameInLocationsList("KediDili.VPPData.CP_EmptyCritterRoom");
+            TalentCore.VoidButterflyLocation = Game1.random.ChooseFrom(Constants.VoidButterfly_Locations);
 
             bool RefreshingWaters = TalentUtility.CurrentPlayerHasTalent("RefreshingWaters"),
             Caretaker = CoreUtility.AnyPlayerHasProfession("Caretaker"),
@@ -81,16 +79,16 @@ namespace VanillaPlusProfessions
                         can.WaterLeft = can.waterCanMax;
                     }
                     TalentCore.HasWaterCan.Value = true;
-                    can.modData[TalentCore.Key_Resurgence] = "0";
+                    can.modData[Constants.Key_Resurgence] = "0";
                     break;
                 }
             }
-
+        
             if (TalentUtility.AnyPlayerHasTalent("GoodSoaking"))
             {
                 Utility.ForEachLocation(loc =>
                 {
-                    if (loc.modData.TryGetValue(TalentCore.Key_WasRainingHere, out string value) && value is "true")
+                    if (loc.modData.TryGetValue(Constants.Key_WasRainingHere, out string value) && value is "true")
                     {
                         foreach (var item in loc.terrainFeatures.Pairs)
                         {
@@ -158,13 +156,13 @@ namespace VanillaPlusProfessions
 
             }, false, false);
 
-            if (Game1.getFarm().modData.TryGetValue(TalentCore.Key_FaeBlessings, out string value))
+            if (Game1.getFarm().modData.TryGetValue(Constants.Key_FaeBlessings, out string value))
             {
                 string[] strings = value.Split('+');
                 Vector2 vector = new(int.Parse(strings[0]), int.Parse(strings[1]));
                 if (Game1.getFarm().terrainFeatures.TryGetValue(vector, out TerrainFeature terrainFeature) && terrainFeature is HoeDirt dirt && dirt.crop is Crop crop)
                 {
-                    Game1.getFarm().modData[TalentCore.Key_FaeBlessings] = "0+0";
+                    Game1.getFarm().modData[Constants.Key_FaeBlessings] = "0+0";
                     HandleCropFairy(crop);
                 }
             }
@@ -172,10 +170,10 @@ namespace VanillaPlusProfessions
             {
                 Utility.ForEachCrop(crop =>
                 {
-                    if (crop.modData.TryGetValue(TalentCore.Key_HiddenBenefit_Crop, out string val) && val == "true")
+                    if (crop.modData.TryGetValue(Constants.Key_HiddenBenefit_Crop, out string val) && val == "true")
                     {
                         crop.growCompletely();
-                        crop.modData[TalentCore.Key_HiddenBenefit_Crop] = "false";
+                        crop.modData[Constants.Key_HiddenBenefit_Crop] = "false";
                     }
 
                     return true;
@@ -199,19 +197,19 @@ namespace VanillaPlusProfessions
 
                 foreach (var farmer in list)
                 {
-                    if (farmer.modData.TryGetValue(ModEntry.Key_DaysLeftForForageGuess, out string vall))
-                        farmer.modData[ModEntry.Key_DaysLeftForForageGuess] = vall is "0" ? "4" : (int.Parse(vall) - 1).ToString();
+                    if (farmer.modData.TryGetValue(Constants.Key_DaysLeftForForageGuess, out string vall))
+                        farmer.modData[Constants.Key_DaysLeftForForageGuess] = vall is "0" ? "4" : (int.Parse(vall) - 1).ToString();
 
                     else
-                        farmer.modData.TryAdd(ModEntry.Key_DaysLeftForForageGuess, "4");
+                        farmer.modData.TryAdd(Constants.Key_DaysLeftForForageGuess, "4");
 
-                    if (farmer.modData[ModEntry.Key_DaysLeftForForageGuess] is "4")
+                    if (farmer.modData[Constants.Key_DaysLeftForForageGuess] is "4")
                     {
-                        if (!farmer.modData.TryAdd(ModEntry.Key_HasFoundForage, "false"))
-                            farmer.modData[ModEntry.Key_HasFoundForage] = "false";
+                        if (!farmer.modData.TryAdd(Constants.Key_HasFoundForage, "false"))
+                            farmer.modData[Constants.Key_HasFoundForage] = "false";
 
-                        if (!farmer.modData.TryAdd(ModEntry.Key_ForageGuessItemID, chosenNewForage))
-                            farmer.modData[ModEntry.Key_ForageGuessItemID] = chosenNewForage;
+                        if (!farmer.modData.TryAdd(Constants.Key_ForageGuessItemID, chosenNewForage))
+                            farmer.modData[Constants.Key_ForageGuessItemID] = chosenNewForage;
 
                         if (!Game1.doesHUDMessageExist(ModEntry.Helper.Translation.Get("Message.ForageBubbleReset")))
                             Game1.addHUDMessage(new(ModEntry.Helper.Translation.Get("Message.ForageBubbleReset"), HUDMessage.newQuest_type));
@@ -226,7 +224,7 @@ namespace VanillaPlusProfessions
                         continue;
                     foreach (var item in location.terrainFeatures.Values)
                     {
-                        if (item is FruitTree tree)
+                        if (item is FruitTree tree) 
                         {
                             for (int i = 0; i < tree.fruit.Count; i++)
                                 tree.fruit[i].Quality = 4;
@@ -275,7 +273,7 @@ namespace VanillaPlusProfessions
                                         break;
                                     }
                                 }
-                                if (animal.modData.TryGetValue(TalentCore.Key_WildGrowth, out string value) && value is not null && animal.GetHarvestType() == StardewValley.GameData.FarmAnimals.FarmAnimalHarvestType.DropOvernight)
+                                if (animal.modData.TryGetValue(Constants.Key_WildGrowth, out string value) && value is not null && animal.GetHarvestType() == StardewValley.GameData.FarmAnimals.FarmAnimalHarvestType.DropOvernight)
                                 {
                                     var data = animal.GetAnimalData();
                                     if (data is null)
@@ -340,7 +338,7 @@ namespace VanillaPlusProfessions
                         {
                             for (int YY = 0; YY < slimeHutch.Map.Layers[0].LayerHeight; YY++)
                             {
-                                if (slimeHutch.isTilePlaceable(new(XX, YY), false) && !slimeHutch.Objects.ContainsKey(new(XX, YY)) && !slimeHutch.isTileOnWall(XX, YY) && slimeHutch.isTileLocationOpen(new Location(XX, YY)))
+                                if (slimeHutch.isTilePlaceable(new(XX, YY), false) && !slimeHutch.Objects.ContainsKey(new(XX,YY)) && !slimeHutch.isTileOnWall(XX, YY) && slimeHutch.isTileLocationOpen(new Location(XX, YY)))
                                     nullobjs.Add(new(XX, YY));
                             }
                         }
@@ -372,7 +370,7 @@ namespace VanillaPlusProfessions
                                     slimeHutch.Objects[key1].IsSpawnedObject = true;
                                     number++;
                                 }
-                                else if (slime.modData.TryGetValue(ModEntry.Key_SlimeWateredDaysSince, out string value) && !slime.prismatic.Value)
+                                else if (slime.modData.TryGetValue(Constants.Key_SlimeWateredDaysSince, out string value) && !slime.prismatic.Value)
                                 {
                                     if (int.TryParse(value, out int val) && val > 7 && Game1.random.NextBool(0.15) && number < 3)
                                     {
@@ -382,11 +380,11 @@ namespace VanillaPlusProfessions
                                         slimeHutch.Objects[key1].CanBeGrabbed = true; number++;
                                         slimeHutch.Objects[key1].IsSpawnedObject = true;
                                     }
-                                    slime.modData[ModEntry.Key_SlimeWateredDaysSince] = slimeHutch.modData.TryGetValue(ModEntry.Key_IsSlimeHutchWatered, out string wall) && wall == "false" ? (++val).ToString() : "0";
+                                    slime.modData[Constants.Key_SlimeWateredDaysSince] = slimeHutch.modData.TryGetValue(Constants.Key_IsSlimeHutchWatered, out string wall) && wall == "false" ? (++val).ToString() : "0";
                                 }
                                 else
                                 {
-                                    slime.modData.TryAdd(ModEntry.Key_SlimeWateredDaysSince, "0");
+                                    slime.modData.TryAdd(Constants.Key_SlimeWateredDaysSince, "0");
                                 }
                             }
                         }
@@ -399,13 +397,13 @@ namespace VanillaPlusProfessions
                         var data = pond.GetFishPondData();
                         if (data?.PopulationGates?.Count! > 0)
                             return true;
-                        if (pond.modData.TryGetValue(ModEntry.Key_FishRewardOrQuestDayLeft, out string value) && value is not null)
+                        if (pond.modData.TryGetValue(Constants.Key_FishRewardOrQuestDayLeft, out string value) && value is not null)
                         {
                             if (value is not "0" && pond.neededItem.Value is null && pond.neededItemCount.Value is -1)
                             {
                                 if (pond.output.Value is not null)
                                     pond.output.Value.Stack *= 2;
-                                pond.modData[ModEntry.Key_FishRewardOrQuestDayLeft] = (int.Parse(value) - 1).ToString();
+                                pond.modData[Constants.Key_FishRewardOrQuestDayLeft] = (int.Parse(value) - 1).ToString();
                                 return true;
                             }
                             else if (value is "0" && pond.neededItem.Value is not null)
@@ -413,7 +411,7 @@ namespace VanillaPlusProfessions
                         }
                         else
                         {
-                            pond.modData.TryAdd(ModEntry.Key_FishRewardOrQuestDayLeft, "6");
+                            pond.modData.TryAdd(Constants.Key_FishRewardOrQuestDayLeft, "6");
                         }
                         if (pond.neededItem.Value == null)
                         {
@@ -476,7 +474,7 @@ namespace VanillaPlusProfessions
                                         crabPot.heldObject.Value.Stack += r.NextBool(0.85) ? 0 : 1;
                                 }
                             }
-
+                            
                             return true;
                         }
                     }
@@ -503,12 +501,12 @@ namespace VanillaPlusProfessions
                         FruitTreeData fruitTreeData = (TreeOrGiantCrop as FruitTree)?.GetData();
                         GiantCropData giantCropData = (TreeOrGiantCrop as GiantCrop)?.GetData();
                         StardewValley.Object? ingredient = null;
-                        if (fruitTreeData?.CustomFields?.TryGetValue(ModEntry.Key_FruitTreeOrGiantCrop, out string value) is true && value is not null)
+                        if (fruitTreeData?.CustomFields?.TryGetValue(Constants.Key_FruitTreeOrGiantCrop, out string value) is true && value is not null)
                         {
                             ingredient = ItemRegistry.Create<StardewValley.Object>(value);
                             ingredient.modData?.TryAdd("Kedi.VPP.CurrentPreserveType", "Other");
                         }
-                        else if (giantCropData?.CustomFields?.TryGetValue(ModEntry.Key_FruitTreeOrGiantCrop, out string value2) is true && value2 is not null)
+                        else if (giantCropData?.CustomFields?.TryGetValue(Constants.Key_FruitTreeOrGiantCrop, out string value2) is true && value2 is not null)
                         {
                             ingredient = ItemRegistry.Create<StardewValley.Object>(value2);
                             ingredient.modData?.TryAdd("Kedi.VPP.CurrentPreserveType", "Other");
@@ -532,29 +530,29 @@ namespace VanillaPlusProfessions
                         }
                         else if (bigcraftable.readyForHarvest.Value)
                         {
-                            if (bigcraftable.modData.TryGetValue(ModEntry.Key_TFTapperDaysLeft, out string value3))
+                            if (bigcraftable.modData.TryGetValue(Constants.Key_TFTapperDaysLeft, out string value3))
                             {
                                 if (Convert.ToInt32(value3) - 1 < 1)
                                 {
                                     bigcraftable.heldObject.Value.Stack++;
                                     bigcraftable.heldObject.Value.FixStackSize();
-                                    bigcraftable.modData[ModEntry.Key_TFTapperDaysLeft] = ManagerUtility.GetProduceTimeBasedOnPrice(TreeOrGiantCrop, out StardewValley.Object _);
+                                    bigcraftable.modData[Constants.Key_TFTapperDaysLeft] = ManagerUtility.GetProduceTimeBasedOnPrice(TreeOrGiantCrop, out StardewValley.Object _);
                                 }
                                 else
                                 {
-                                    bigcraftable.modData[ModEntry.Key_TFTapperDaysLeft] = (Convert.ToInt32(value3) - 1).ToString();
+                                    bigcraftable.modData[Constants.Key_TFTapperDaysLeft] = (Convert.ToInt32(value3) - 1).ToString();
                                 }
                             }
                             else
                             {
-                                bigcraftable.modData[ModEntry.Key_TFTapperDaysLeft] = ManagerUtility.GetProduceTimeBasedOnPrice(TreeOrGiantCrop, out StardewValley.Object _);
+                                bigcraftable.modData[Constants.Key_TFTapperDaysLeft] = ManagerUtility.GetProduceTimeBasedOnPrice(TreeOrGiantCrop, out StardewValley.Object _);
                             }
 
                         }
                         return true;
                     }
 
-                    if (HarmoniousBlooming && bigcraftable.QualifiedItemId == "(BC)10" && bigcraftable.heldObject.Value is not null)
+                    if (HarmoniousBlooming && bigcraftable.QualifiedItemId == Constants.Id_BeeHouse && bigcraftable.heldObject.Value is not null)
                     {
                         int tiles = TalentUtility.FlowersInBeeHouseRange(bigcraftable.Location, bigcraftable.TileLocation);
                         if (Game1.random.NextBool(tiles * 0.05) && bigcraftable.heldObject.Value.Stack < 5)

@@ -293,16 +293,16 @@ namespace VanillaPlusProfessions.Talents.Patchers
                 }
                 if (!hasGivenAnyAtAll)
                 {
-                    if (!farmAnimal.modData.TryAdd(TalentCore.Key_WildGrowth, "none"))
+                    if (!farmAnimal.modData.TryAdd(Constants.Key_WildGrowth, "none"))
                     {
-                        farmAnimal.modData[TalentCore.Key_WildGrowth] = "none";
+                        farmAnimal.modData[Constants.Key_WildGrowth] = "none";
                     }
                 }
                 else
                 {
-                    if (!farmAnimal.modData.TryAdd(TalentCore.Key_WildGrowth, isDeluxe.ToString().ToLower()))
+                    if (!farmAnimal.modData.TryAdd(Constants.Key_WildGrowth, isDeluxe.ToString().ToLower()))
                     {
-                        farmAnimal.modData[TalentCore.Key_WildGrowth] = isDeluxe.ToString().ToLower();
+                        farmAnimal.modData[Constants.Key_WildGrowth] = isDeluxe.ToString().ToLower();
                     }
                 }
             }
@@ -334,7 +334,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             {
                 if (TalentUtility.AllPlayersHaveTalent("FaeBlessings"))
                 {
-                    Game1.getFarm().modData[TalentCore.Key_FaeBlessings] = $"{__result.X}+{__result.Y}";
+                    Game1.getFarm().modData[Constants.Key_FaeBlessings] = $"{__result.X}+{__result.Y}";
                 }
             }
             catch (System.Exception e)
@@ -436,10 +436,10 @@ namespace VanillaPlusProfessions.Talents.Patchers
                         {
                             if (farm.Objects[tile].heldObject.Value is not null)
                             {
-                                if (farm.Objects[tile].modData.ContainsKey(TalentCore.Key_StaticCharge) && farm.Objects[tile].heldObject.Value.Stack < 2)
+                                if (farm.Objects[tile].modData.ContainsKey(Constants.Key_StaticCharge) && farm.Objects[tile].heldObject.Value.Stack < 2)
                                     farm.Objects[tile].heldObject.Value.Stack++;
                                 else
-                                    farm.Objects[tile].modData.TryAdd(TalentCore.Key_StaticCharge, "placeholder");
+                                    farm.Objects[tile].modData.TryAdd(Constants.Key_StaticCharge, "placeholder");
                             }
                         }
                     }

@@ -128,7 +128,7 @@
 					"Description": "[LocalizedText Strings\\Buildings:{{ModId}}_Sawmill_Description]",
 					"Texture": "Buildings\\{{ModId}}\\Sawmill",
 					"Builder": "Robin",
-					"BuildCondition": "FALSE", //PLAYER_FORAGING_LEVEL Current 16
+					"BuildCondition": "TRUE", //PLAYER_FORAGING_LEVEL Current 16
 					"BuildCost": 10000,
 					"BuildDays": 3,
 					"BuildMaterials": [
@@ -144,120 +144,113 @@
 						},
 					],
 					"Size": {
-						"X": 7,
+						"X": 8, //7
 						"Y": 5
 					},
 					"SourceRect": {
 						"X": 0,
 						"Y": 0,
-						"Width": 112,
+						"Width": 128, //112
 						"Height": 112
 					},
-					"CollisionMap": "XXOOOOO\nXXOOOOO\nXXXXXXO\nXXXXXXO\nXXXXXXX",
+					"CollisionMap": "XXOOOOOO\nXXXXXXXO\nXXXOOOOX\nXXXXXOOX\nXXXXXXOX",
 					"ActionTiles":[
 						{
-							"Id": "Open_Input_Chest_1",
+							"Id": "Open_Input_Chest_1", //+
 							"Tile": {
-								"X": 3, 
-								"Y": 4
+								"X": 2,
+								"Y": 3
 							},
-							"Action": "BuildingChest Input",
+							"Action": "BuildingChest InputOrOutput",
 						},
 						{
-							"Id": "Open_Input_Chest_2",
+							"Id": "Open_Input_Chest_2", //+
 							"Tile": {
-								"X": 4, 
-								"Y": 4
+								"X": 3,
+								"Y": 3
 							},
-							"Action": "BuildingChest Input",
-						},
-						{
-							"Id": "Open_Output_Chest",
-							"Tile": {
-								"X": 6, 
-								"Y": 4
-							},
-							"Action": "BuildingChest Output",
+							"Action": "BuildingChest InputOrOutput",
 						},
 					],
 					"DrawLayers": [
 						{
-							"Id": "WoodPile",
+							"Id": "LogBeingCut", //+
 							"SourceRect": {
-								"X": 176,
-								"Y": 16,
-								"Width": 16,
-								"Height": 32,
+								"X": 232,
+								"Y": 32,
+								"Width": 24,
+								"Height": 13,
 							},
-							"DrawPosition": "96, 77",
-							"OnlyDrawIfChestHasContents": "Output",
+							"SortTileOffset": 0.001,
+							"SortTileOffset": 0.03,
+							"OnlyDrawIfChestHasContents": "InputOrOutput",
+							"DrawPosition": "38, 85",
 						},
 						{
-							"Id": "WoodPilePlate",
-							"SourceRect": {
-								"X": 256,
-								"Y": 48,
-								"Width": 16,
-								"Height": 16,
-							},
-							"DrawPosition": "96, 96",
-							"DrawInBackground": true,
-						},
-						{
-							"Id": "TurningSaw",
+							"Id": "TurningSaw", //+
 							"SourceRect": {
 								"X": 128,
-								"Y": 0,
+								"Y": 38,
 								"Width": 16,
-								"Height": 16,
+								"Height": 10,
 							},
 							"FrameCount": 3,
 							"FrameDuration": 300,
-							"DrawPosition": "72, 76",
+							"SortTileOffset": 0.04,
+							"DrawPosition": "59, 82",
 						},
 						{
-							"Id": "LogBeingCut",
+							"Id": "SawBench",
 							"SourceRect": {
-								"X": 128,
-								"Y": 16,
+								"X": 240,
+								"Y": 48,
 								"Width": 48,
-								"Height": 16,
+								"Height": 32,
 							},
-							"SortTileOffset": -0.001,
-							"OnlyDrawIfChestHasContents": "Input",
-							"DrawPosition": "40, 84",
-						},						
+							"DrawPosition": "33, 78",
+							"SortTileOffset": 0.05,
+						},
+						{
+							"Id": "SawmillRails", //++
+							"SourceRect": {
+								"X": 176,
+								"Y": 32,
+								"Width": 56,
+								"Height": 13,
+							},
+							"DrawPosition": "38, 93",
+						},
 						{
 							"Id": "TurningWatermill",
 							"SourceRect": {
-								"X": 176,
+								"X": 192,
 								"Y": 48,
 								"Width": 10,
-								"Height": 64,
+								"Height": 55,
 							},
 							"FrameCount": 4,
 							"FrameDuration": 200,
-							"DrawPosition": "11, 36",
+							"DrawPosition": "11, 45",
 						},
 						{
 							"Id": "TurningMiniCoverThingy",
 							"SourceRect": {
-								"X": 116,
-								"Y": 39,
+								"X": 192,
+								"Y": 103,
 								"Width": 10,
 								"Height": 9,
 							},
 							"FrameCount": 4,
 							"FrameDuration": 200,
-							"DrawPosition": "22, 66",
+							"DrawPosition": "22, 70",
 						},
 						{
 							"Id": "PouringWater",
 							"SourceRect": {
-								"X": 112,
-								"Y": 0,
+								"X": 232,
+								"Y": 64,
 								"Width": 2,
-								"Height": 48,
+								"Height": 37,
 							},
 							"FrameCount": 2,
 							"FrameDuration": 250,
@@ -267,7 +260,7 @@
 						{
 							"Id": "BottomWater",
 							"SourceRect": {
-								"X": 224,
+								"X": 192,
 								"Y": 48,
 								"Width": 32,
 								"Height": 64,
@@ -278,7 +271,7 @@
 						{
 							"Id": "WaterTiles2",
 							"SourceRect": {
-								"X": 192,
+								"X": 128,
 								"Y": 0,
 								"Width": 32,
 								"Height": 32,
@@ -291,7 +284,7 @@
 						{
 							"Id": "WaterTiles1",
 							"SourceRect": {
-								"X": 192,
+								"X": 128,
 								"Y": 0,
 								"Width": 32,
 								"Height": 32,
@@ -300,11 +293,11 @@
 							"DrawPosition": "0, 80",
 							"FrameDuration": 180,
 							"DrawInBackground": true,
-						},						
+						},
 						{
 							"Id": "SideWaterTiles",
 							"SourceRect": {
-								"X": 112,
+								"X": 128,
 								"Y": 48,
 								"Width": 32,
 								"Height": 64,
@@ -317,25 +310,18 @@
 					],
 					"Chests": [ 
 						{
-							"Id": "Input",
-							"Type": "Load",
-							"Sound": "stoneCrack",
+							"Id": "InputOrOutput",
+							"Type": "Chest",
+							"Sound": "woodHit",
 							"InvalidItemMessageCondition": "!ITEM_ID Input (O)709"
-						},
-						{
-							"Id": "Output",
-							"Type": "Collect",
-							"Sound": "stoneCrack",
-							"DisplayTile": "6, 4",
-							"DisplayHeight": 1
 						},
 					],
 					"ItemConversions": [
 						{
 							"Id": "HardwoodToWood",
 							"RequiredTags": ["id_o_709"],
-							"SourceChest": "Input",
-							"DestinationChest": "Output",
+							"SourceChest": "InputOrOutput",
+							"DestinationChest": "InputOrOutput",
 							"ProducedItems": [
 								{
 									"Id": "Wood",
@@ -369,7 +355,7 @@
 			"Target": "Data/PaintData",
 			"Entries": {
 				"{{ModId}}_MineTent": "Trim/-10 5/Roof/0 15",
-				"{{ModId}}_Sawmill": "Building/-10 5/Trim/-10 5/Roof/0 15",
+				//"{{ModId}}_Sawmill": "Building/-10 5/Trim/-10 5/Roof/0 15",
 			}
 		}
 	]

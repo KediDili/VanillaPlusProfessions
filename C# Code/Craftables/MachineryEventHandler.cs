@@ -16,24 +16,12 @@ using StardewModdingAPI;
 namespace VanillaPlusProfessions.Craftables
 {
     public class MachineryEventHandler
-    {
-        // What? Did you never want to fix things without bothering others?
-        internal const string Key_IsLavaLocation = "KediDili.VanillaPlusProfessions/IsLavaLocation"; 
-        internal const string Key_IsConsistentMineLocation = "KediDili.VanillaPlusProfessions/IsConsistentMineLocation";
-        internal const string Key_LastInput = "KediDili.VanillaPlusProfessions/LastInput";
-        internal const string Key_NodeMakerData = "KediDili.VanillaPlusProfessions/NodeMakerData";
-        internal const string Key_IsLavaLocation2 = "KediDili.VanillaPlusProfessions_IsLavaLocation";
-        internal const string Key_IsConsistentMineLocation2 = "KediDili.VanillaPlusProfessions_IsConsistentMineLocation";
-        internal const string Key_LastInput2 = "KediDili.VanillaPlusProfessions_LastInput";
-        internal const string Key_NodeMakerData2 = "KediDili.VanillaPlusProfessions_NodeMakerData";
-
-        internal const string Key_BirdFeederTime = "KediDili.VanillaPlusProfessions_BirdFeederTime";
-
+    {     
         internal static Dictionary<string, List<Vector2>> DrillLocations = new();
         internal static Dictionary<string, List<Vector2>> NodeMakerLocations = new();
         internal static Dictionary<string, List<Vector2>> ThermalReactorLocations = new();
 
-        internal static Dictionary<string, List<Bird>> BirdsOnFeeders = new();
+        internal static Dictionary<string, List<Critter>> BirdsOnFeeders = new();
 
         internal static Building MineTent;
 
@@ -41,20 +29,49 @@ namespace VanillaPlusProfessions.Craftables
         {
             if (ModEntry.ShouldForageCraftablesWork() && !BirdsOnFeeders.ContainsKey(Game1.player.currentLocation.Name) && !Game1.player.currentLocation.IsRainingHere() && !Game1.player.currentLocation.IsGreenRainingHere())
             {
-                List<Bird> sdsd = new();
+                List<Critter> sdsd = new();
                 foreach (var item in Game1.player.currentLocation.Objects.Values)
                 {
-                    if (item.QualifiedItemId == "(BC)KediDili.VPPData.CP_BirdFeeder" && item.lastInputItem.Value is not null)
+                    if (item.QualifiedItemId == Constants.Id_BirdFeeder && item.lastInputItem.Value is not null)
                     {
+                        string feedID = item.lastInputItem.Value.ItemId;
                         List<Vector2> v = new() { new(-1, 1), new(1, 1), new(1, -1), new(-1, -1), new(0, 1), new(0, 1), new(1, 0), new(-1, 0) };
                         for (int i = 0; i < Game1.random.Next(1, 4); i++)
                         {
-                            Bird bird = new(new((int)(item.TileLocation.X - 0.5f), (int)(item.TileLocation.Y - 0.5f)), new(Game1.birdsSpriteSheet, Game1.random.Next(0, 4), 16, 16, new(-8,-8), Array.Empty<Point>(), Array.Empty<Point>()));
-                            
+                            Critter bird = feedID switch
+                            {
+                                "270" => new Crow((int)item.TileLocation.X, (int)item.TileLocation.Y),
+                                "431" => new Parrot(item.TileLocation * 64, false),
+                                "384" => new Parrot(item.TileLocation * 64, true),
+                                _ => null
+                            };
+                            Season season = Game1.player.currentLocation.GetSeason();
+                            int whichBird = ((season == Season.Fall) ? 45 : 25);
+                            if (Game1.random.NextBool() && Game1.MasterPlayer.mailReceived.Contains("Farm_Eternal"))
+                            {
+                                whichBird = ((season == Season.Fall) ? 135 : 125);
+                            }
+                            if (whichBird == 25 && Game1.random.NextDouble() < 0.05)
+                            {
+                                whichBird = 165;
+                            }
+                            bird ??= item.lastInputItem.Value.Category switch
+                            {
+                                StardewValley.Object.FishCategory => new Seagull(item.TileLocation * 64, 0),
+                                StardewValley.Object.baitCategory => new Birdie(item.TileLocation * 64, 0, whichBird),
+                                _ => null
+                            };
+                            if (bird is null)
+                                break;
+
                             var offset = Game1.random.ChooseFrom(v);
-                            bird.position += offset * 64;
-                            v.Remove(offset);
-                            sdsd.Add(bird);
+                            bird.position.X += offset.X * 64;
+                            bird.position.Y += offset.Y * 64;
+                            if (Game1.player.currentLocation.CanItemBePlacedHere(new Vector2(item.TileLocation.X + offset.X, item.TileLocation.Y + offset.Y)))
+                            {
+                                v.Remove(offset);
+                                sdsd.Add(bird);
+                            }
                         }
                     }
                 }
@@ -71,7 +88,7 @@ namespace VanillaPlusProfessions.Craftables
             {
                 for (int i = 0; i < value.Count; i++)
                 {
-                    value[i].Draw(b);
+                    value[i].draw(b);
                 }
             }
         }
@@ -114,7 +131,7 @@ namespace VanillaPlusProfessions.Craftables
                                 }
                                 foreach (var validItem in validPool)
                                 {
-                                    if (obj.modData.TryGetValue(Key_LastInput, out string value) && value is not null and "")
+                                    if (obj.modData.TryGetValue(Constants.Key_LastInput, out string value) && value is not null and "")
                                     {
                                         if (chest.Items.ContainsId(value))
                                         {
@@ -167,9 +184,9 @@ namespace VanillaPlusProfessions.Craftables
                                             }
                                         }
                                     }
-                                    if (obj.modData.TryAdd(Key_LastInput, obj.heldObject.Value.QualifiedItemId))
+                                    if (obj.modData.TryAdd(Constants.Key_LastInput, obj.heldObject.Value.QualifiedItemId))
                                     {
-                                        obj.modData[Key_LastInput] = obj.heldObject.Value.QualifiedItemId;
+                                        obj.modData[Constants.Key_LastInput] = obj.heldObject.Value.QualifiedItemId;
                                     }
                                     if (obj.heldObject.Value.Stack is not 0)
                                     {
@@ -371,7 +388,7 @@ namespace VanillaPlusProfessions.Craftables
             if (building.buildingType.Value == "KediDili.VPPData.CP_MineTent")
             {
                 Chest defaultChest = (MineTent ?? building).GetBuildingChest("Default_Chest");
-                foreach (var objs in Game1.player.team.GetOrCreateGlobalInventory(ModEntry.GlobalInventoryId_Minecarts))
+                foreach (var objs in Game1.player.team.GetOrCreateGlobalInventory(Constants.GlobalInventoryId_Minecarts))
                 {
                     if (objs is null)
                         continue;
@@ -390,16 +407,16 @@ namespace VanillaPlusProfessions.Craftables
                         if (objs.Stack is not 0)
                         {
                             defaultChest.Items.Add(objs);
-                            Game1.player.team.GetOrCreateGlobalInventory(ModEntry.GlobalInventoryId_Minecarts).RemoveButKeepEmptySlot(objs);
+                            Game1.player.team.GetOrCreateGlobalInventory(Constants.GlobalInventoryId_Minecarts).RemoveButKeepEmptySlot(objs);
                         }
                         
                         if (objs.Stack == 0)
                         {
-                            Game1.player.team.GetOrCreateGlobalInventory(ModEntry.GlobalInventoryId_Minecarts).RemoveButKeepEmptySlot(objs);
+                            Game1.player.team.GetOrCreateGlobalInventory(Constants.GlobalInventoryId_Minecarts).RemoveButKeepEmptySlot(objs);
                         }
                     }
                 }
-                Game1.player.team.GetOrCreateGlobalInventoryMutex(ModEntry.GlobalInventoryId_Minecarts).Update(building.GetParentLocation());
+                Game1.player.team.GetOrCreateGlobalInventoryMutex(Constants.GlobalInventoryId_Minecarts).Update(building.GetParentLocation());
                 MineTent = building;
                 return false;
             }

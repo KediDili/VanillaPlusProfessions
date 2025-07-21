@@ -72,11 +72,11 @@ namespace VanillaPlusProfessions
             {
                 if ((e.Button.IsActionButton() || e.Button.IsUseToolButton()) && GiveFrogEggBack?.Value?.containsPoint(Game1.getMouseX(true), Game1.getMouseY(true)) is true)
                 {
-                    string s = (AccessTools.Field(typeof(PondQueryMenu), "_pond").GetValue(pondMenu) as FishPond).modData[TalentCore.Key_HiddenBenefit_FrogEggs];
+                    string s = (AccessTools.Field(typeof(PondQueryMenu), "_pond").GetValue(pondMenu) as FishPond).modData[Constants.Key_HiddenBenefit_FrogEggs];
                     if (s.Length > 0)
                     {
                         Game1.player.addItemByMenuIfNecessary(s.StringToTrinket());
-                        (AccessTools.Field(typeof(PondQueryMenu), "_pond").GetValue(pondMenu) as FishPond).modData[TalentCore.Key_HiddenBenefit_FrogEggs] = "";
+                        (AccessTools.Field(typeof(PondQueryMenu), "_pond").GetValue(pondMenu) as FishPond).modData[Constants.Key_HiddenBenefit_FrogEggs] = "";
                         GiveFrogEggBack.Value.visible = false;
                     }
                 }
@@ -96,7 +96,7 @@ namespace VanillaPlusProfessions
             if (e.Step is StardewValley.Mods.RenderSteps.World_Sorted)
             {
                 MachineryEventHandler.OnWorldDrawn(e.SpriteBatch);
-                foreach (var item in Game1.currentLocation.Objects.Pairs)
+                foreach (var item in Game1.player.currentLocation.Objects.Pairs)
                 {
                     if (item.Value.IsSprinkler() && item.Value.heldObject.Value is not null && item.Value.heldObject.Value.QualifiedItemId is "(O)Kedi.VPP.PressureNozzleEnricher")
                     {
@@ -104,11 +104,11 @@ namespace VanillaPlusProfessions
                         var rect = data.GetSourceRect();
                         e.SpriteBatch.Draw(data.GetTexture(), Game1.GlobalToLocal(Game1.viewport, new Vector2(item.Key.X * 64f, item.Key.Y * 64f - 8f)), rect, Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, item.Key.Y - 10000000 / 8700000f);
                     }
-                    else if (item.Value.IsTapper() && Game1.currentLocation.terrainFeatures.TryGetValue(item.Key, out TerrainFeature terrainFeature) && terrainFeature is FruitTree or GiantCrop)
+                    else if (item.Value.IsTapper() && Game1.player.currentLocation.terrainFeatures.TryGetValue(item.Key, out TerrainFeature terrainFeature) && terrainFeature is FruitTree or GiantCrop)
                     {
-                        if (terrainFeature.modData.TryGetValue(ModEntry.Key_TFHasTapper, out string value) && value.ToLower() is "true")
+                        if (terrainFeature.modData.TryGetValue(Constants.Key_TFHasTapper, out string value) && value.ToLower() is "true")
                         {
-                            var data = ItemRegistry.GetData(terrainFeature.modData[ModEntry.Key_TFTapperID]);
+                            var data = ItemRegistry.GetData(terrainFeature.modData[Constants.Key_TFTapperID]);
                             var rect = data.GetSourceRect();
                             rect.Height /= 2;
                             e.SpriteBatch.Draw(data.GetTexture(), Game1.GlobalToLocal(Game1.viewport, new Vector2(terrainFeature.Tile.X * 64f, terrainFeature.Tile.Y * 64f - 64f)), rect, Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, (terrainFeature.getBoundingBox().Bottom + 10000) / 87000f - terrainFeature.Tile.X / 1000000f);
@@ -241,7 +241,7 @@ namespace VanillaPlusProfessions
             }
             if (e.NewMenu is PondQueryMenu querye && AccessTools.Field(typeof(PondQueryMenu), "_pond").GetValue(querye) is FishPond pond)
             {
-                GiveFrogEggBack.Value = pond.modData.TryGetValue(TalentCore.Key_HiddenBenefit_FrogEggs, out string value) && value != ""
+                GiveFrogEggBack.Value = pond.modData.TryGetValue(Constants.Key_HiddenBenefit_FrogEggs, out string value) && value != ""
                     ? new(new((querye.xPositionOnScreen * 9 / 10) - ((querye.xPositionOnScreen * 9 / 10) % 4) + 4, (querye.yPositionOnScreen * 14 / 5) - ((querye.yPositionOnScreen * 9 / 10) % 4) + 4, 64, 64), SkillIcons, new(0, 27, 16, 16), 4f, false)
                     : null;
                 if (GiveFrogEggBack.Value is not null)

@@ -2,7 +2,7 @@
 	"Changes": [
 		{
 			"Action": "EditData",
-			"Target": "Data/FishPondData",
+			"Target": "Data/FarmAnimals",
 			"Fields":{
 				"Rabbit":{
 					"CanGetPregnant": true,
@@ -17,7 +17,7 @@
 		},
 		{
 			"Action": "EditData",
-			"Target": "Data/FishPondData",
+			"Target": "Data/FarmAnimals",
 			"Fields":{
 				"Rabbit":{
 					"CanGetPregnant": true,

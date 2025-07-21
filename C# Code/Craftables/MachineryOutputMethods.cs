@@ -53,7 +53,7 @@ namespace VanillaPlusProfessions.Craftables
                 string nodeToCreate = null;
                 if (ItemRegistry.GetData(inputItem.QualifiedItemId).RawData is ObjectData data)
                 {
-                    if (((data.CustomFields?.TryGetValue(MachineryEventHandler.Key_NodeMakerData, out string nodes) is true || data.CustomFields?.TryGetValue(MachineryEventHandler.Key_NodeMakerData2, out nodes) is true) && !string.IsNullOrEmpty(nodes)) || (ContentEditor.NodeMakerData.TryGetValue(inputItem.ItemId, out nodes) is true && !string.IsNullOrEmpty(nodes)))
+                    if (((data.CustomFields?.TryGetValue(Constants.Key_NodeMakerData, out string nodes) is true || data.CustomFields?.TryGetValue(Constants.Key_NodeMakerData2, out nodes) is true) && !string.IsNullOrEmpty(nodes)) || (ContentEditor.NodeMakerData.TryGetValue(inputItem.ItemId, out nodes) is true && !string.IsNullOrEmpty(nodes)))
                     {
                         string[] strings = ArgUtility.SplitBySpace(nodes);
                         if (strings.Length > 0)
@@ -72,16 +72,13 @@ namespace VanillaPlusProfessions.Craftables
 
         public static bool BirdFeederInteraction(Object machine, GameLocation location, Farmer player)
         {
-            if (machine.heldObject.Value is null && ValidInput(player.ActiveObject?.ItemId ?? ""))
+            if (machine.heldObject.Value is null && (player.ActiveObject?.ItemId is "270" or "431" or "384" || player.ActiveObject?.Category is StardewValley.Object.FishCategory or StardewValley.Object.baitCategory))
             {
                 machine.lastInputItem.Value = player.ActiveObject.getOne() as Object;
                 machine.showNextIndex.Value = true;
                 player.ActiveObject = player.ActiveObject.ConsumeStack(1) as Object;
             }
-            bool ValidInput(string id)
-            {
-                return id is "270" or "770" or "MixedFlowerSeeds";
-            }
+
             return true;
         }
     }

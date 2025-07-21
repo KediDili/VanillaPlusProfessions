@@ -9,7 +9,13 @@
 					"DaysInPhase": [3,4],
 					"RegrowDays": -1,
 					"NeedsWatering": true,
-					"PlantableLocationRules": null,
+					"PlantableLocationRules": [
+						{
+							"Id": "Default",
+							"Result": "Allow",
+							"Condition": "LOCATION_NAME Target Farm Forest Woods"
+						}
+					],
 					"HarvestItemId": "16",
 					"HarvestMinStack": 1,
 					"HarvestMaxStack": 1,
@@ -22,7 +28,13 @@
 					"DaysInPhase": [ 3, 4 ],
 					"RegrowDays": -1,
 					"NeedsWatering": true,
-					"PlantableLocationRules": null,
+					"PlantableLocationRules": [
+						{
+							"Id": "Default",
+							"Result": "Allow",
+							"Condition": "LOCATION_NAME Target Farm Forest Woods"
+						}
+					],
 					"HarvestItemId": "396",
 					"HarvestMinStack": 1,
 					"HarvestMaxStack": 1,
@@ -35,7 +47,13 @@
 					"DaysInPhase": [ 3, 4 ],
 					"RegrowDays": -1,
 					"NeedsWatering": true,
-					"PlantableLocationRules": null,
+					"PlantableLocationRules": [
+						{
+							"Id": "Default",
+							"Result": "Allow",
+							"Condition": "LOCATION_NAME Target Farm Forest Woods"
+						}
+					],
 					"HarvestItemId": "404",
 					"HarvestMinStack": 1,
 					"HarvestMaxStack": 1,
@@ -48,7 +66,13 @@
 					"DaysInPhase": [ 3, 4 ],
 					"RegrowDays": -1,
 					"NeedsWatering": true,
-					"PlantableLocationRules": null,
+					"PlantableLocationRules": [
+						{
+							"Id": "Default",
+							"Result": "Allow",
+							"Condition": "LOCATION_NAME Target Farm Forest Woods"
+						}
+					],
 					"HarvestItemId": "412",
 					"HarvestMinStack": 1,
 					"HarvestMaxStack": 1,

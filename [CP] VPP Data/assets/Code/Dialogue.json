@@ -8,7 +8,7 @@
 			},
 			"When": {
 				"Hearts:{{TargetWithoutPath}}": "{{Range:8,14}}",
-				//"Random: {{Range: 1, 5}}": "5"
+				"Random: {{Range: 1, 5}}": "5"
 			}
 		},
 		{
@@ -19,7 +19,7 @@
 			},
 			"When": {
 				"Hearts:Haley": "{{Range:8,14}}",
-				//"Random: {{Range: 1, 5}}": "5"
+				"Random: {{Range: 1, 5}}": "5"
 			}
 		},
 		{
@@ -30,7 +30,7 @@
 			},
 			"When": {
 				"Hearts:Willy": "{{Range:8,14}}",
-				//"Random: {{Range: 1, 5}}": "5"
+				"Random: {{Range: 1, 5}}": "5"
 			}
 		},
 		{
@@ -41,7 +41,7 @@
 			},
 			"When": {
 				"Hearts:Pierre|contains={{Range:8,14}}": true,
-				//"Random: {{Range: 1, 5}}": "5"
+				"Random: {{Range: 1, 5}}": "5",
 				"HasFlag:CurrentPlayer|contains=jojaMember": "false"
 			}
 		},
@@ -54,7 +54,7 @@
 			},
 			"When": {
 				"Hearts:Pierre|contains={{Range:8,14}}": true,
-				//"Random: {{Range: 1, 5}}": "5"
+				"Random: {{Range: 1, 5}}": "5",
 				"HasFlag:CurrentPlayer|contains=jojaMember": "true"
 			}
 		},
@@ -67,7 +67,7 @@
 			"When": {
 				"Hearts:Krobus|contains={{Range:8,14}}": true,
 				"DayOfWeek|contains=Fri": "false",
-				//"Random: {{Range: 1, 5}}": "5"
+				"Random: {{Range: 1, 5}}": "5"
 			}
 		}
 	]

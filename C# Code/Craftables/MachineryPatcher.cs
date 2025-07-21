@@ -1,5 +1,10 @@
-﻿using StardewValley.BellsAndWhistles;
-using HarmonyLib;
+﻿using HarmonyLib;
+using StardewValley.BellsAndWhistles;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection.Emit;
+using VanillaPlusProfessions.Utilities;
 
 namespace VanillaPlusProfessions.Craftables
 {
@@ -7,27 +12,32 @@ namespace VanillaPlusProfessions.Craftables
     {
         public static void ApplyPatches()
         {
-            ModEntry.Harmony.Patch(
-                original: AccessTools.Method(typeof(Bird), nameof(Bird.FlyToNewPoint)),
-                prefix: new(AccessTools.Method(typeof(MachineryPatcher), nameof(FlyToNewPoint_Prefix)))
+            CoreUtility.PatchMethod("MachineryPatcher", "Critter.draw",
+                original: AccessTools.Method(typeof(Critter), nameof(Critter.draw)),
+                transpiler: new(typeof(MachineryPatcher), nameof(draw_Transpiler))
             );
         }
-        public static bool FlyToNewPoint_Prefix(Bird __instance)
+
+        public static IEnumerable<CodeInstruction> draw_Transpiler(IEnumerable<CodeInstruction> insns)
         {
-            if (MachineryEventHandler.BirdsOnFeeders.Count > 0)
+            List<CodeInstruction> list = new();
+            try
             {
-                foreach (var item in MachineryEventHandler.BirdsOnFeeders)
+                foreach (var item in insns)
                 {
-                    for (int i = 0; i < item.Value.Count; i++)
+                    if (item.Is(OpCodes.Ldc_R4, 1000000f))
                     {
-                        if (__instance == item.Value[i])
-                        {
-                            return false;
-                        }
+                        list.Add(new(OpCodes.Ldc_R4, 2000000f));
+                        continue;
                     }
+                    list.Add(item);
                 }
             }
-            return true;
+            catch (System.Exception e)
+            {
+                CoreUtility.PrintError(e, "MachineryPatcher", "Critter.draw", "transpiler");
+            }
+            return list;
         }
     }
 }

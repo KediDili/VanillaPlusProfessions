@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="1" height="1" tilewidth="16" tileheight="16" infinite="0" nextlayerid="9" nextobjectid="4">
+ <properties>
+  <property name="AmbientLight" value="110 110 110"/>
+  <property name="AmbientNightLight" value="130 130 100"/>
+  <property name="ProduceArea" value="6 4 8 7"/>
+  <property name="Warp" value="11 15 Farm 14 11"/>
+ </properties>
+ <layer id="1" name="Back" width="1" height="1">
+  <data encoding="csv">
+0
+</data>
+ </layer>
+ <layer id="2" name="Buildings" width="1" height="1">
+  <data encoding="csv">
+0
+</data>
+ </layer>
+ <layer id="3" name="Front" width="1" height="1">
+  <data encoding="csv">
+0
+</data>
+ </layer>
+ <layer id="4" name="Paths" width="1" height="1">
+  <data encoding="csv">
+0
+</data>
+ </layer>
+ <objectgroup id="5" name="Back"/>
+ <objectgroup id="6" name="Buildings"/>
+ <objectgroup id="7" name="Front"/>
+ <objectgroup id="8" name="Paths"/>
+</map>

@@ -1498,6 +1498,18 @@
 					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current VastDomain",
 				}
 			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Locations",
+			"Entries":{
+				"{{ModId}}_EmptyCritterRoom": {
+					"Id": "{{ModId}}_EmptyCritterRoom",
+					"CreateOnLoad": {
+                        "MapPath": "Maps/{{ModId}}_EmptyCritterRoom"
+                    }				
+				}
+			}
 		}
 	]
 }

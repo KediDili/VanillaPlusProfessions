@@ -40,40 +40,7 @@ namespace VanillaPlusProfessions.Talents
         internal static bool IsDayStartOrEnd = false;
         internal static bool? GiveOrTakeStardropEffects = null;
 
-        internal const string Key_TalentPoints = "Kedi.VPP.TalentPointCount";
-        internal const string Key_PointsCalculated = "Kedi.VPP.TalentPointsCalculated";
-        internal const string Key_DisabledTalents = "Kedi.VPP.DisabledTalents";
-
-        internal const string Key_XrayDrop = "Kedi.VPP.XrayDrop";
-        internal const string Key_AccessoriseRing = "Kedi.VPP.AccessoriseRing";
-        internal const string Key_CrystalCavern = "Kedi.VPP.CrystalCavern";
-        internal const string Key_Upheaval = "Kedi.VPP.Upheaval";
-        internal const string Key_SharedFocus = "Kedi.VPP.SharedFocus";
-        internal const string Key_Resurgence = "Kedi.VPP.Resurgence";
-        internal const string Key_SlowerSliming = "Kedi.VPP.SlowerSliming";
-        internal const string Key_FaeBlessings = "Kedi.VPP.FaeBlessings";
-        internal const string Key_LocalKnowledge = "Kedi.VPP.LocalKnowledge";
-        internal const string Key_WasRainingHere = "Kedi.VPP.WasRainingHere";
-        internal const string Key_DownInTheDepths = "Kedi.VPP.DownInTheDepths";
-        internal const string Key_WildGrowth = "Kedi.VPP.WildGrowth";
-        internal const string Key_StaticCharge = "Kedi.VPP.StaticCharge";
-        internal const string Key_Reforestation = "Kedi.VPP.Reforestation";
-        internal const string Key_Flurry = "Kedi.VPP.Flurry";
-        internal const string Key_RendingStrike = "Kedi.VPP.RendingStrike";
-        internal const string Key_HiddenBenefit_FairyBox = "Kedi.VPP.HiddenBenefit";
-        internal const string Key_HiddenBenefit_Crop = "Kedi.VPP.FairyBox";
-        internal const string Key_HiddenBenefit_FrogEggs = "Kedi.VPP.FrogEgg";
-        internal const string Key_ElderScrolls = "Kedi.VPP.ElderScrolls";
-
-        internal const string ContextTag_PoisonousMushroom = "Kedi_VPP_Poisonous_Mushroom";
-        internal const string ContextTag_BlandStone = "Kedi_VPP_Bland_Stone_Node";
-        internal const string ContextTag_SurvivalCooking = "kedi_vpp_survival_cooking_food";
-        internal const string ContextTag_Matryoshka_Banned_FromDropping = "kedi_vpp_banned_from_dropping";
-        internal const string ContextTag_Matryoshka_Banned_FromBeingDropped = "kedi_vpp_banned_from_being_dropped";
-        internal const string ContextTag_Banned_Node = "kedi_vpp_banned_node";
-        internal const string ContextTag_Banned_NatureSecrets = "kedi_vpp_banned_naturesecrets";
-        internal const string ContextTag_Banned_Adventurer = "kedi_vpp_banned_adventurer";
-        internal const string ContextTag_Banned_Ranger = "kedi_vpp_banned_ranger";
+        
 
         internal static Dictionary<string, Talent> Talents = new();
         internal static Dictionary<string, Skills.Skill> SkillsByName = new();
@@ -163,7 +130,7 @@ namespace VanillaPlusProfessions.Talents
 
         internal static void OnSaveCreated(object sender, SaveCreatedEventArgs e)
         {
-            Game1.player.mailReceived.Add(Key_PointsCalculated);
+            Game1.player.mailReceived.Add(Constants.Key_PointsCalculated);
         }
 
         internal static void OnChooseNightlyFarmEvent(object sender, EventArgsChooseNightlyFarmEvent e)
@@ -297,14 +264,14 @@ namespace VanillaPlusProfessions.Talents
                 {
                     foreach (var item in Game1.player.Items)
                     {
-                        if (item is WateringCan can && !can.modData.TryAdd(Key_Resurgence, "0"))
+                        if (item is WateringCan can && !can.modData.TryAdd(Constants.Key_Resurgence, "0"))
                         {
-                            if (can.modData.TryGetValue(Key_Resurgence, out string val))
+                            if (can.modData.TryGetValue(Constants.Key_Resurgence, out string val))
                             {
                                 int value = int.TryParse(val, out int result) ? result : -1;
                                 if (value >= 90 && can.WaterLeft < can.waterCanMax)
                                 {
-                                    can.modData[Key_Resurgence] = "0";
+                                    can.modData[Constants.Key_Resurgence] = "0";
                                     can.WaterLeft += can.waterCanMax / 5;
                                     if (can.waterCanMax < can.WaterLeft)
                                         can.WaterLeft = can.waterCanMax;
@@ -313,7 +280,7 @@ namespace VanillaPlusProfessions.Talents
                                 }
                                 else if (!can.IsBottomless && value != -1)
                                 {
-                                    can.modData[Key_Resurgence] = (value + 10).ToString();
+                                    can.modData[Constants.Key_Resurgence] = (value + 10).ToString();
                                     break;
                                 }
                             }
@@ -324,7 +291,7 @@ namespace VanillaPlusProfessions.Talents
             if (TalentUtility.AllPlayersHaveTalent("SharedFocus"))
             {
                 var data = Game1.MasterPlayer.currentLocation.modData;
-                if ((Game1.MasterPlayer.currentLocation is MineShaft or VolcanoDungeon || data?.ContainsKey(Key_SharedFocus) is true) && prevTimeSpeed.Value is 0)
+                if ((Game1.MasterPlayer.currentLocation is MineShaft or VolcanoDungeon || data?.ContainsKey(Constants.Key_SharedFocus) is true) && prevTimeSpeed.Value is 0)
                 {
                     Game1.isTimePaused = true;
                     prevTimeSpeed.Value = Game1.realMilliSecondsPerGameTenMinutes;
@@ -334,7 +301,7 @@ namespace VanillaPlusProfessions.Talents
                     Game1.gameTimeInterval = Game1.realMilliSecondsPerGameMinute * currentSecondAmount;
                     Game1.isTimePaused = false;
                 }
-                else if ((Game1.MasterPlayer.currentLocation is not MineShaft or VolcanoDungeon || data?.ContainsKey(Key_SharedFocus) is false) && prevTimeSpeed.Value != 0)
+                else if ((Game1.MasterPlayer.currentLocation is not MineShaft or VolcanoDungeon || data?.ContainsKey(Constants.Key_SharedFocus) is false) && prevTimeSpeed.Value != 0)
                 {
                     Game1.isTimePaused = true;
                     Game1.realMilliSecondsPerGameTenMinutes = prevTimeSpeed.Value;
@@ -372,7 +339,7 @@ namespace VanillaPlusProfessions.Talents
                             if (item is WateringCan can && !can.IsBottomless)
                             {
                                 HasWaterCan.Value = true;
-                                can.modData[Key_Resurgence] = "0";
+                                can.modData[Constants.Key_Resurgence] = "0";
                                 break;
                             }
                             else if (item is StardewValley.Object obj && obj.QualifiedItemId == "(O)92")
@@ -386,7 +353,7 @@ namespace VanillaPlusProfessions.Talents
                                     obj.Edibility = -1;
                                 }
                             }
-                            else if (!item.modData.ContainsKey(Key_XrayDrop))
+                            else if (!item.modData.ContainsKey(Constants.Key_XrayDrop))
                             {
                                 TalentUtility.DetermineGeodeDrop(item);
                             }
@@ -400,12 +367,12 @@ namespace VanillaPlusProfessions.Talents
                         if (item is WateringCan can && !can.IsBottomless)
                         {
                             HasWaterCan.Value = false;
-                            can.modData[Key_Resurgence] = "0";
+                            can.modData[Constants.Key_Resurgence] = "0";
                             break;
                         }
                         else if (Game1.activeClickableMenu is MenuWithInventory menu && menu.heldItem != item || Game1.activeClickableMenu is null)
                         {
-                            if (!item.modData.ContainsKey(Key_XrayDrop))
+                            if (!item.modData.ContainsKey(Constants.Key_XrayDrop))
                             {
                                 TalentUtility.DetermineGeodeDrop(item);
                             }
@@ -418,7 +385,7 @@ namespace VanillaPlusProfessions.Talents
         {
             ModEntry.Helper.GameContent.InvalidateCache(PathUtilities.NormalizeAssetName("Strings/UI"));
 
-            if (Game1.player.modData.TryGetValue(Key_TalentPoints, out string value))
+            if (Game1.player.modData.TryGetValue(Constants.Key_TalentPoints, out string value))
             {
                 if (int.TryParse(value, out int result) && result >= 0)
                 {
@@ -427,7 +394,7 @@ namespace VanillaPlusProfessions.Talents
             }
             else
             {
-                Game1.player.modData.TryAdd(Key_TalentPoints, "0");
+                Game1.player.modData.TryAdd(Constants.Key_TalentPoints, "0");
             }
             if (ModEntry.SpaceCoreAPI?.GetCustomSkills().Length > 0)
             {
@@ -444,7 +411,7 @@ namespace VanillaPlusProfessions.Talents
             Game1.player.team.specialOrders.OnElementChanged += OnSpecialOrderChanged;
             Game1.player.mailReceived.OnValueAdded += OnMailFlagGiven;
 
-            if (Game1.player.modData.TryGetValue(Key_DisabledTalents, out string value2) && value is not null and "")
+            if (Game1.player.modData.TryGetValue(Constants.Key_DisabledTalents, out string value2) && value is not null and "")
             {
                 DisabledTalents = value2.Split('|').ToList();
             }
@@ -466,7 +433,7 @@ namespace VanillaPlusProfessions.Talents
                 {
                     if (ModEntry.ItemExtensionsAPI.IsResource(item.Key, out int? _, out string itemDropped) && itemDropped is not null)
                     {
-                        if (ItemRegistry.GetData(itemDropped).RawData is not ObjectData objectData || objectData?.ContextTags?.Contains(ContextTag_Banned_Node) is true)
+                        if (ItemRegistry.GetData(itemDropped).RawData is not ObjectData objectData || objectData?.ContextTags?.Contains(Constants.ContextTag_Banned_Node) is true)
                             continue;
 
                         if (objectData is ObjectData && objectData.Category == StardewValley.Object.GemCategory)
@@ -540,8 +507,8 @@ namespace VanillaPlusProfessions.Talents
                 {
                     if (item.Value is Tree tree && tree.growthStage.Value is 0)
                     {
-                        if (!tree.modData.TryAdd(Key_Reforestation, "true"))
-                            tree.modData[Key_Reforestation] = "true";
+                        if (!tree.modData.TryAdd(Constants.Key_Reforestation, "true"))
+                            tree.modData[Constants.Key_Reforestation] = "true";
                     }
                 }
             }

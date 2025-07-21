@@ -36,11 +36,11 @@ namespace VanillaPlusProfessions.Talents
 
         public Trinket GetRingTrinket(bool remove = false)
         {
-            string guid = modData[ModEntry.Key_RingTrinkets];
-            Item trinketFound = Game1.player.team.GetOrCreateGlobalInventory(ModEntry.GlobalInventoryID_RingTrinkets).Where(trinket => { return trinket.modData.TryGetValue(ModEntry.Key_RingTrinkets, out string trinketGuid) && trinketGuid == guid; }).FirstOrDefault();
+            string guid = modData[Constants.Key_RingTrinkets];
+            Item trinketFound = Game1.player.team.GetOrCreateGlobalInventory(Constants.GlobalInventoryID_RingTrinkets).Where(trinket => { return trinket.modData.TryGetValue(Constants.Key_RingTrinkets, out string trinketGuid) && trinketGuid == guid; }).FirstOrDefault();
             if (remove)
             {
-                Game1.player.team.GetOrCreateGlobalInventory(ModEntry.GlobalInventoryID_RingTrinkets).Remove(trinketFound);
+                Game1.player.team.GetOrCreateGlobalInventory(Constants.GlobalInventoryID_RingTrinkets).Remove(trinketFound);
             }
 
             return trinketFound as Trinket;
@@ -52,7 +52,7 @@ namespace VanillaPlusProfessions.Talents
         {
             if (!Game1.player.trinketItems.Any())
                 Game1.player.trinketItems.Add(null);
-            if (modData.ContainsKey(ModEntry.Key_RingTrinkets))
+            if (modData.ContainsKey(Constants.Key_RingTrinkets))
             {
                 Trinket trinket1 = GetRingTrinket();
                 if (ModEntry.WearMoreRingsAPI is not null && Game1.player.trinketItems.Count == 1)
@@ -65,7 +65,7 @@ namespace VanillaPlusProfessions.Talents
         }
         public override void onUnequip(Farmer who)
         {
-            if (modData.ContainsKey(ModEntry.Key_RingTrinkets))
+            if (modData.ContainsKey(Constants.Key_RingTrinkets))
             {
                 Trinket trinket = GetRingTrinket();
                 Game1.player.trinketItems.Remove(trinket);

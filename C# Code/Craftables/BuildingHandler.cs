@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using StardewValley;
 using StardewValley.Buildings;
 using StardewValley.Extensions;
@@ -10,11 +9,9 @@ namespace VanillaPlusProfessions.Craftables
 {
     public class BuildingHandler
     {
-        internal const string Key_ResourceClumpName = "KediDili.VanillaPlusProfessions/ResourceClumpName";
-
         public static void OnDayStarted(Building building)
         {
-            if (building.buildingType.Value == "KediDili.VPPData.CP_MineralCavern")
+            if (building.buildingType.Value == Constants.Id_MineralCavern)
             {
                 var interior = building.GetIndoors();
 
@@ -33,7 +30,7 @@ namespace VanillaPlusProfessions.Craftables
                                     var dataOther = ItemRegistry.GetData(obj.QualifiedItemId).RawData;
                                     var dataThis = ItemRegistry.GetData(item.Value.QualifiedItemId).RawData;
 
-                                    if (!(dataOther is ObjectData objDataOther && dataThis is ObjectData objDataThis && objDataOther.CustomFields?.TryGetValue(Key_ResourceClumpName, out string value2) is true && objDataThis.CustomFields?.TryGetValue(Key_ResourceClumpName, out string value3) is true && value2 == value3))
+                                    if (!(dataOther is ObjectData objDataOther && dataThis is ObjectData objDataThis && objDataOther.CustomFields?.TryGetValue(Constants.Key_ResourceClumpName, out string value2) is true && objDataThis.CustomFields?.TryGetValue(Constants.Key_ResourceClumpName, out string value3) is true && value2 == value3))
                                     {
                                         if (!ContentEditor.ResourceClumpData.TryGetValue(item.Value.ItemId, out ClumpData clumpData))
                                         {
@@ -89,16 +86,6 @@ namespace VanillaPlusProfessions.Craftables
                     }
                 }
             }
-        }
-
-        public List<Vector2> GetSurroundingTiles(Vector2 position)
-        {
-            return new List<Vector2>()
-            {
-                new(position.X - 1, position.Y - 1), new(position.X, position.Y - 1), new(position.X + 1, position.Y - 1),
-                new(position.X - 1, position.Y), /*------ original position -------*/ new(position.X + 1, position.Y),
-                new(position.X - 1, position.Y + 1), new(position.X, position.Y + 1), new(position.X + 1, position.Y + 1),
-            };
         }
     }
 }

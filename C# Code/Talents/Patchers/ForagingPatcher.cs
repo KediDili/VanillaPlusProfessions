@@ -145,7 +145,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
                     List<string> listToEdit = __result;
                     foreach (var item in __result)
                     {
-                        if (ItemContextTagManager.HasBaseTag(ArgUtility.SplitQuoteAware(item, '/')[2], TalentCore.ContextTag_SurvivalCooking))
+                        if (ItemContextTagManager.HasBaseTag(ArgUtility.SplitQuoteAware(item, '/')[2], Constants.ContextTag_SurvivalCooking))
                         {
                             listToEdit.Remove(item);
                         }
@@ -163,7 +163,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
         {
             try
             {
-                if (__instance.hasSeed.Value && __instance.modData.ContainsKey(TalentCore.Key_Reforestation) && TalentUtility.CurrentPlayerHasTalent("Foraging_Reforestation") && __instance.growthStage.Value is 5)
+                if (__instance.hasSeed.Value && __instance.modData.ContainsKey(Constants.Key_Reforestation) && TalentUtility.CurrentPlayerHasTalent("Foraging_Reforestation") && __instance.growthStage.Value is 5)
                 {
                     WildTreeData data = __instance.GetData();
                     if (data != null && data.SeedDropItems?.Count > 0)
@@ -252,7 +252,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
                                                 && (forageData.Season is null || (forageData.Season is not null && Game1.season == forageData.Season))
                                                 select forageData.ItemId).ToList();
 
-                        strings.RemoveWhere(str => string.IsNullOrEmpty(str) || ItemContextTagManager.HasBaseTag(str, TalentCore.ContextTag_Banned_NatureSecrets) || !ItemRegistry.Exists("(O)" + str));
+                        strings.RemoveWhere(str => string.IsNullOrEmpty(str) || ItemContextTagManager.HasBaseTag(str, Constants.ContextTag_Banned_NatureSecrets) || !ItemRegistry.Exists("(O)" + str));
 
                         if (strings.Count > 0)
                         {

@@ -136,9 +136,9 @@ namespace VanillaPlusProfessions.Talents.Patchers
             {
                 if (TalentUtility.CurrentPlayerHasTalent("HiddenBenefits", who: who) && who.CurrentItem is not null and Trinket trinket && trinket.QualifiedItemId is "(TR)FrogEgg")
                 {
-                    if (!__instance.modData.TryGetValue(TalentCore.Key_HiddenBenefit_FrogEggs, out string str) || (__instance.modData.TryGetValue(TalentCore.Key_HiddenBenefit_FrogEggs, out str) && string.IsNullOrEmpty(str)))
+                    if (!__instance.modData.TryGetValue(Constants.Key_HiddenBenefit_FrogEggs, out string str) || (__instance.modData.TryGetValue(Constants.Key_HiddenBenefit_FrogEggs, out str) && string.IsNullOrEmpty(str)))
                     {
-                        __instance.modData[TalentCore.Key_HiddenBenefit_FrogEggs] = trinket.TrinketToString();
+                        __instance.modData[Constants.Key_HiddenBenefit_FrogEggs] = trinket.TrinketToString();
                         AccessTools.Method(typeof(FishPond), "showObjectThrownIntoPondAnimation").Invoke(__instance, new object[] { who, trinket, null });
                         who.ActiveItem = null;
                         return false;
@@ -210,7 +210,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
                     int stack = 0;
                     if (TalentUtility.CurrentPlayerHasTalent("HiddenBenefits", __instance.owner.Value) && Game1.random.NextBool())
                     {
-                        if (__instance.modData.TryGetValue(TalentCore.Key_HiddenBenefit_FrogEggs, out string str) && !string.IsNullOrEmpty(str))
+                        if (__instance.modData.TryGetValue(Constants.Key_HiddenBenefit_FrogEggs, out string str) && !string.IsNullOrEmpty(str))
                         {
                             stack++;
                         }
@@ -242,7 +242,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
                 {
                     if (TalentUtility.CurrentPlayerHasTalent("HiddenBenefits", __instance.owner.Value) && (__instance.output.Value is null || __instance.output.Value.QualifiedItemId != "(O)812"))
                     {
-                        if (__instance.modData.TryGetValue(TalentCore.Key_HiddenBenefit_FrogEggs, out string str) && !string.IsNullOrEmpty(str))
+                        if (__instance.modData.TryGetValue(Constants.Key_HiddenBenefit_FrogEggs, out string str) && !string.IsNullOrEmpty(str))
                         {
                             __instance.output.Value = ItemRegistry.GetObjectTypeDefinition().CreateFlavoredRoe(__instance.GetFishObject());
                         }

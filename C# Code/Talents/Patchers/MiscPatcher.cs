@@ -74,12 +74,12 @@ namespace VanillaPlusProfessions.Talents.Patchers
         {
             try
             {
-                if (CoreUtility.CurrentPlayerHasProfession("Ranger") && !__instance.HasContextTag(TalentCore.ContextTag_Banned_Ranger)) //Ranger ++
+                if (CoreUtility.CurrentPlayerHasProfession("Ranger") && !__instance.HasContextTag(Constants.ContextTag_Banned_Ranger)) //Ranger ++
                 {
                     if (__instance.Category == StardewValley.Object.GreensCategory && __instance.HasContextTag("forage_item"))
                         __instance.Price *= 2;
                 }
-                if (CoreUtility.CurrentPlayerHasProfession("Adventurer") && !__instance.HasContextTag(TalentCore.ContextTag_Banned_Adventurer)) //Adventurer ++
+                if (CoreUtility.CurrentPlayerHasProfession("Adventurer") && !__instance.HasContextTag(Constants.ContextTag_Banned_Adventurer)) //Adventurer ++
                 {
                     if (__instance.Category == StardewValley.Object.sellAtFishShopCategory || __instance.HasContextTag("forage_item_beach") || __instance.HasContextTag("forage_item_secret") || __instance.HasContextTag("forage_item_mines"))
                         __instance.Price *= 2;

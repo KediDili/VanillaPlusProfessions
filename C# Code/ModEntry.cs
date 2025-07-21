@@ -12,8 +12,6 @@ using StardewValley.Objects.Trinkets;
 using StardewValley.Objects;
 using StardewValley.Locations;
 using StardewValley.Buffs;
-using StardewValley.GameData.FruitTrees;
-using StardewValley.GameData.GiantCrops;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewModdingAPI.Utilities;
@@ -28,6 +26,7 @@ using VanillaPlusProfessions.Talents.UI;
 using SpaceCore;
 using VanillaPlusProfessions.Craftables;
 using StardewValley.Internal;
+using StardewValley.BellsAndWhistles;
 
 namespace VanillaPlusProfessions
 {
@@ -51,6 +50,7 @@ namespace VanillaPlusProfessions
 
         internal static IProfessionManager[] Managers = new IProfessionManager[6];
         internal static int[] levelExperiences;
+        internal static GameLocation EmptyCritterRoom;
 
         internal readonly static PerScreen<bool> UpdateGeodeInMenu = new(() => false);
         internal readonly static PerScreen<int> GeodeStackSize = new(() => 0);
@@ -61,22 +61,6 @@ namespace VanillaPlusProfessions
         //So mods can access it without needing reflection.
         public static Dictionary<string, Profession> Professions = new();
 
-        internal const string Key_HasFoundForage = "Kedi.VPP.HasFoundForageGame";
-        internal const string Key_DaysLeftForForageGuess = "Kedi.VPP.GuessForageGameDaysLeft";
-        internal const string Key_ForageGuessItemID = "Kedi.VPP.GuessForageID";
-
-        internal const string Key_TFTapperDaysLeft = "Kedi.VPP.ProduceDaysLeft";
-        internal const string Key_TFTapperID = "Kedi.VPP.TapperID";
-        internal const string Key_TFHasTapper = "Kedi.VPP.IsTapped";
-        internal const string Key_FruitTreeOrGiantCrop = "Kedi.VPP.DoesUseCustomItem";
-
-        internal const string Key_IsSlimeHutchWatered = "Kedi.VPP.IsWatered";
-        internal const string Key_SlimeWateredDaysSince = "Kedi.VPP.SlimeWateredDaysSince";
-        internal const string Key_FishRewardOrQuestDayLeft = "Kedi.VPP.FishQuestOrRewardDuration";
-
-        internal const string GlobalInventoryID_RingTrinkets = "KediDili.VanillaPlusProfessions-RingTrinkets";
-        internal const string GlobalInventoryId_Minecarts = "KediDili.VanillaPlusProfessions-Minecarts";
-        internal const string Key_RingTrinkets = "Kedi.VPP.RingTrinketId";
         public override void Entry(IModHelper helper)
         {
             Helper = helper;
@@ -98,13 +82,14 @@ namespace VanillaPlusProfessions
             Helper.Events.Player.LevelChanged += OnLevelChanged;
             Helper.Events.Player.Warped += OnWarped;
             Helper.Events.GameLoop.UpdateTicked += OnUpdateTicked;
-
+            
             CorePatcher.ApplyPatches();
             TalentCore.Initialize();
             BuildingPatcher.ApplyPatches();
             CraftablePatcher.ApplyPatches();
+            MachineryPatcher.ApplyPatches();
 
-            Helper.ConsoleCommands.Add("vpp.removeAll", "Removes all professions, talents and metadata added by Vanilla Plus Professions.", CoreUtility.remove);
+            Helper.ConsoleCommands.Add("vpp.removeAll", "Removes all professions, talents and metadata added by Vanilla Plus Professions if added true after writing the command. Use only for testing or uninstalling.", CoreUtility.remove);
             Helper.ConsoleCommands.Add("vpp.recalculatepoints", "Recalculates all talent points, useful for existing saves that are being loaded for the first time with this mod.", CoreUtility.recalculate);
             Helper.ConsoleCommands.Add("vpp.details", "Prints out skill related information. Might be useful for troubleshooting.", CoreUtility.details);
             Helper.ConsoleCommands.Add("vpp.reset", "Can be used to reset professions added by VPP. First parameter is the level (15 or 20), second is the level (0 - Farming, 1 - Fishing, 2 - Foraging, 3 - Mining or 4 - Combat)", ManagerUtility.reset);
@@ -266,14 +251,15 @@ namespace VanillaPlusProfessions
         {
             if (Context.IsWorldReady)
             {
-                if (MachineryEventHandler.BirdsOnFeeders.TryGetValue(Game1.currentLocation.NameOrUniqueName, out var val))
+                if (MachineryEventHandler.BirdsOnFeeders.TryGetValue(Game1.player.currentLocation.NameOrUniqueName, out var val))
                 {
                     foreach (var bird in val)
                     {
-                        bird.Update(Game1.currentGameTime);
+                        //Nyehehehe
+                        bird.update(Game1.currentGameTime, EmptyCritterRoom);
                     }
                 }
-            }
+            }            
         }
 
         private void OnWarped(object sender, WarpedEventArgs e)
@@ -281,43 +267,88 @@ namespace VanillaPlusProfessions
             if (e.IsLocalPlayer)
             {
                 var data = e.NewLocation?.GetData()?.CustomFields ?? new();
+                MineShaft shaft = e.NewLocation as MineShaft;
                 MachineryEventHandler.OnPlayerWarp();
 
-                if (e.NewLocation is MineShaft shaft)
+                if (e.NewLocation is not null)
                 {
                     if (CoreUtility.CurrentPlayerHasProfession("Mine-Forage", useThisInstead: e.Player) && Game1.random.NextBool(0.15) && shaft.getMineArea(shaft.mineLevel) is 80 && !shaft.rainbowLights.Value)
                     {
                         shaft.rainbowLights.Value = true;
-                        if (Context.IsMainPlayer && Context.IsMainPlayer && Context.HasRemotePlayers)
+                        if (Context.IsMainPlayer && Context.HasRemotePlayers)
                         {
                             Helper.Multiplayer.SendMessage(true, Manifest.UniqueID + "/MushroomLevel", new string[] { Manifest.UniqueID });
                         }
                     }
+                    if (TalentUtility.AllPlayersHaveTalent("Fallout") && shaft.getMineArea() is 80 or 121)
+                    {
+                        List<Vector2> validcoords = (from tileobjpair in e.NewLocation.Objects.Pairs
+                                                     where tileobjpair.Value is not null && tileobjpair.Value.IsBlandStone()
+                                                     select tileobjpair.Key).ToList();
+                        bool success = false;
+
+                        Dictionary<Vector2, string> CoordinatesForMP = new();
+                        for (int i = 0; i < validcoords.Count; i++)
+                        {
+                            if (Game1.random.NextBool(0.0001 * shaft.mineLevel))
+                            {
+                                e.NewLocation.Objects[validcoords[i]] = ItemRegistry.Create<StardewValley.Object>("95");
+                                e.NewLocation.Objects[validcoords[i]].MinutesUntilReady = 25;
+                                CoordinatesForMP.Add(validcoords[i], e.NewLocation.Objects[validcoords[i]].ItemId);
+                                success = true;
+                            }
+                        }
+                        if (success && Context.IsMainPlayer && Context.HasRemotePlayers)
+                        {
+                            Helper.Multiplayer.SendMessage(CoordinatesForMP, Manifest.UniqueID + "/SwitchMineStones", new string[] { Manifest.UniqueID });
+                        }
+                    }
+                    if (TalentUtility.AllPlayersHaveTalent("DownInTheDepths"))
+                    {
+                        if (shaft.modData.ContainsKey(Constants.Key_DownInTheDepths))
+                            shaft.modData[Constants.Key_DownInTheDepths] = "0";
+                    }
+                    if (TalentUtility.AllPlayersHaveTalent("RoomAndPillar") && shaft.isQuarryArea)
+                    {
+                        bool success = false;
+                        List<Vector2> validcoords = (from tileobjpair in e.NewLocation.Objects.Pairs
+                                                     where tileobjpair.Value is not null && (tileobjpair.Value.IsBlandStone() || (ItemExtensionsAPI?.IsStone(tileobjpair.Value.QualifiedItemId) is true && ItemExtensionsAPI?.IsResource(tileobjpair.Value.QualifiedItemId, out int? _, out string itemDropped) is true && itemDropped.Contains("390")))
+                                                     select tileobjpair.Key).ToList();
+
+                        Dictionary<Vector2, string> CoordinatesForMP = new();
+
+                        for (int i = 0; i < validcoords.Count; i++)
+                        {
+                            if (Game1.random.NextBool(0.0008))
+                            {
+                                e.NewLocation.Objects[validcoords[i]] = ItemRegistry.Create<StardewValley.Object>(TalentUtility.GetNodeForRoomAndPillar());
+                                e.NewLocation.Objects[validcoords[i]].MinutesUntilReady = 25;
+                                CoordinatesForMP.Add(validcoords[i], e.NewLocation.Objects[validcoords[i]].ItemId);
+                                success = true;
+                            }
+                        }
+                        if (success && Context.IsMainPlayer && Context.HasRemotePlayers)
+                        {
+                            Helper.Multiplayer.SendMessage(CoordinatesForMP, Manifest.UniqueID + "/SwitchMineStones", new string[] { Manifest.UniqueID });
+                        }
+                    }
                 }
-                if (TalentUtility.AllPlayersHaveTalent("Fallout") && e.NewLocation is MineShaft shaft45 && shaft45?.getMineArea() is 80 or 121)
+                if (data?.ContainsKey(Constants.Key_CrystalCavern) is true || data?.ContainsKey(Constants.Key_Upheaval) is true || e.NewLocation is MineShaft or VolcanoDungeon)
                 {
                     List<Vector2> validcoords = (from tileobjpair in e.NewLocation.Objects.Pairs
                                                  where tileobjpair.Value is not null && tileobjpair.Value.IsBlandStone()
                                                  select tileobjpair.Key).ToList();
-                    bool success = false;
 
-                    Dictionary<Vector2, string> CoordinatesForMP = new();
-                    for (int i = 0; i < validcoords.Count; i++)
+                    if (TalentUtility.AllPlayersHaveTalent("CrystalCavern") && (data?.ContainsKey(Constants.Key_CrystalCavern) is true || e.NewLocation is MineShaft or VolcanoDungeon) && Game1.random.NextBool(0.003))
                     {
-                        if (Game1.random.NextBool(0.0001 * shaft45.mineLevel))
-                        {
-                            e.NewLocation.Objects[validcoords[i]] = ItemRegistry.Create<StardewValley.Object>("95");
-                            e.NewLocation.Objects[validcoords[i]].MinutesUntilReady = 25;
-                            CoordinatesForMP.Add(validcoords[i], e.NewLocation.Objects[validcoords[i]].ItemId);
-                            success = true;
-                        }
+                        TalentUtility.GemAndGeodeNodes(true, validcoords, Game1.player.currentLocation);
                     }
-                    if (success && Context.IsMainPlayer && Context.HasRemotePlayers)
+                    else if (TalentUtility.AllPlayersHaveTalent("Upheaval") && (data?.ContainsKey(Constants.Key_Upheaval) is true || e.NewLocation is MineShaft or VolcanoDungeon) && Game1.random.NextBool(0.003))
                     {
-                        Helper.Multiplayer.SendMessage(CoordinatesForMP, Manifest.UniqueID + "/SwitchMineStones", new string[] { Manifest.UniqueID });
+                        TalentUtility.GemAndGeodeNodes(false, validcoords, Game1.player.currentLocation);
                     }
                 }
-                if (TalentUtility.CurrentPlayerHasTalent("Fortified", who: e.Player) && e.NewLocation is not null)
+                if (TalentUtility.CurrentPlayerHasTalent("Fortified", who: e.Player))
                 {
                     int monsters = e.NewLocation.characters.Where(item => item.IsMonster).Count();
                     if (monsters > 0)
@@ -330,50 +361,6 @@ namespace VanillaPlusProfessions
                     else
                     {
                         e.Player.buffs.Remove("VPP.Fortified.Defense");
-                    }
-                }
-                if (TalentUtility.AllPlayersHaveTalent("DownInTheDepths") && e.NewLocation is MineShaft shaft6)
-                {
-                    if (shaft6.modData.ContainsKey(TalentCore.Key_DownInTheDepths))
-                        shaft6.modData[TalentCore.Key_DownInTheDepths] = "0";
-                }
-                if (TalentUtility.AllPlayersHaveTalent("RoomAndPillar") && e.NewLocation is MineShaft shaft5 && shaft5.isQuarryArea)
-                {
-                    bool success = false;
-                    List<Vector2> validcoords = (from tileobjpair in e.NewLocation.Objects.Pairs
-                                                 where tileobjpair.Value is not null && (tileobjpair.Value.IsBlandStone() || (ItemExtensionsAPI?.IsStone(tileobjpair.Value.QualifiedItemId) is true && ItemExtensionsAPI?.IsResource(tileobjpair.Value.QualifiedItemId, out int? _, out string itemDropped) is true && itemDropped.Contains("390")))
-                                                 select tileobjpair.Key).ToList();
-
-                    Dictionary<Vector2, string> CoordinatesForMP = new();
-
-                    for (int i = 0; i < validcoords.Count; i++)
-                    {
-                        if (Game1.random.NextBool(0.0008))
-                        {
-                            e.NewLocation.Objects[validcoords[i]] = ItemRegistry.Create<StardewValley.Object>(TalentUtility.GetNodeForRoomAndPillar());
-                            e.NewLocation.Objects[validcoords[i]].MinutesUntilReady = 25;
-                            CoordinatesForMP.Add(validcoords[i], e.NewLocation.Objects[validcoords[i]].ItemId);
-                            success = true;
-                        }
-                    }
-                    if (success && Context.IsMainPlayer && Context.HasRemotePlayers)
-                    {
-                        Helper.Multiplayer.SendMessage(CoordinatesForMP, Manifest.UniqueID + "/SwitchMineStones", new string[] { Manifest.UniqueID });
-                    }
-                }
-                if (data?.ContainsKey(TalentCore.Key_CrystalCavern) is true || data?.ContainsKey(TalentCore.Key_Upheaval) is true || e.NewLocation is MineShaft or VolcanoDungeon)
-                {
-                    List<Vector2> validcoords = (from tileobjpair in e.NewLocation.Objects.Pairs
-                                                 where tileobjpair.Value is not null && tileobjpair.Value.IsBlandStone()
-                                                 select tileobjpair.Key).ToList();
-
-                    if (TalentUtility.AllPlayersHaveTalent("CrystalCavern") && (data?.ContainsKey(TalentCore.Key_CrystalCavern) is true || e.NewLocation is MineShaft or VolcanoDungeon) && Game1.random.NextBool(0.003))
-                    {
-                        TalentUtility.GemAndGeodeNodes(true, validcoords, Game1.player.currentLocation);
-                    }
-                    else if (TalentUtility.AllPlayersHaveTalent("Upheaval") && (data?.ContainsKey(TalentCore.Key_Upheaval) is true || e.NewLocation is MineShaft or VolcanoDungeon) && Game1.random.NextBool(0.003))
-                    {
-                        TalentUtility.GemAndGeodeNodes(false, validcoords, Game1.player.currentLocation);
                     }
                 }
             }
@@ -412,12 +399,12 @@ namespace VanillaPlusProfessions
                             if (value is HoeDirt dirt && dirt.crop is not null && !dirt.crop.fullyGrown.Value && dirt.crop.currentPhase.Value != dirt.crop.phaseDays.Count - 1)
                             {
                                 bool shouldGrow = false;
-                                if (!trinket.modData.TryAdd(TalentCore.Key_HiddenBenefit_FairyBox, "1"))
+                                if (!trinket.modData.TryAdd(Constants.Key_HiddenBenefit_FairyBox, "1"))
                                 {
-                                    if (trinket.modData[TalentCore.Key_HiddenBenefit_FairyBox] is not "3")
+                                    if (trinket.modData[Constants.Key_HiddenBenefit_FairyBox] is not "3")
                                     {
                                         shouldGrow = true;
-                                        trinket.modData[TalentCore.Key_HiddenBenefit_FairyBox] = (int.Parse(trinket.modData[TalentCore.Key_HiddenBenefit_FairyBox]) + 1).ToString();
+                                        trinket.modData[Constants.Key_HiddenBenefit_FairyBox] = (int.Parse(trinket.modData[Constants.Key_HiddenBenefit_FairyBox]) + 1).ToString();
                                     }
                                     else
                                         Game1.showGlobalMessage(Helper.Translation.Get("Message.FairyBreak"));
@@ -426,14 +413,14 @@ namespace VanillaPlusProfessions
                                     shouldGrow = true;
                                 if (shouldGrow)
                                 {
-                                    if (!dirt.crop.modData.TryAdd(TalentCore.Key_HiddenBenefit_Crop, "true"))
+                                    if (!dirt.crop.modData.TryAdd(Constants.Key_HiddenBenefit_Crop, "true"))
                                     {
-                                        if (dirt.crop.modData[TalentCore.Key_HiddenBenefit_Crop] == "true")
+                                        if (dirt.crop.modData[Constants.Key_HiddenBenefit_Crop] == "true")
                                             Game1.showGlobalMessage(Helper.Translation.Get("Message.AlreadyFertilized"));
                                         else
                                         {
                                             Game1.playSound("wand");
-                                            dirt.crop.modData[TalentCore.Key_HiddenBenefit_Crop] = "true";
+                                            dirt.crop.modData[Constants.Key_HiddenBenefit_Crop] = "true";
                                             Game1.showGlobalMessage(Helper.Translation.Get("Message.Fertilized"));
                                         }
                                     }
@@ -441,7 +428,7 @@ namespace VanillaPlusProfessions
                                     {
                                         Game1.playSound("wand");
                                         Game1.showGlobalMessage(Helper.Translation.Get("Message.Fertilized"));
-                                        dirt.crop.modData[TalentCore.Key_HiddenBenefit_Crop] = "true";
+                                        dirt.crop.modData[Constants.Key_HiddenBenefit_Crop] = "true";
                                     }
                                 }
                             }
@@ -797,36 +784,34 @@ namespace VanillaPlusProfessions
 
             if (Game1.player.CurrentTool is Pickaxe or Axe && Game1.player.currentLocation.Objects.TryGetValue(e.Cursor.GrabTile, out StardewValley.Object obj) && obj.IsTapper())
             {
-                TreeOrCrop.modData[Key_TFHasTapper] = "false";
+                TreeOrCrop.modData[Constants.Key_TFHasTapper] = "false";
             }
             else if (CoreUtility.CurrentPlayerHasProfession("Farm-Forage"))
             {
                 if (Game1.player.ActiveObject?.IsHeldOverHead() == true && Game1.player.ActiveObject?.IsTapper() == true && e.Button.IsUseToolButton())
                 {
-                    FruitTreeData fruitTreeData = (TreeOrCrop as FruitTree)?.GetData();
-                    GiantCropData giantCropData = (TreeOrCrop as GiantCrop)?.GetData();
                     var obsj = Game1.player.ActiveObject;
 
-                    if (TreeOrCrop.modData.TryAdd(Key_TFHasTapper, "true")
-                    && TreeOrCrop.modData.TryAdd(Key_TFTapperID, Game1.player.ActiveObject.QualifiedItemId))
+                    if (TreeOrCrop.modData.TryAdd(Constants.Key_TFHasTapper, "true")
+                    && TreeOrCrop.modData.TryAdd(Constants.Key_TFTapperID, Game1.player.ActiveObject.QualifiedItemId))
                     {
                         Game1.player.ActiveObject.Stack--;
                         if (Game1.player.ActiveObject.Stack <= 0)
                             Game1.player.removeItemFromInventory(Game1.player.ActiveObject);
                         TreeOrCrop.Location.Objects.Add(ManagerUtility.GetFeatureTile(TreeOrCrop), obsj);
                     }
-                    else if (TreeOrCrop.modData.TryGetValue(Key_TFHasTapper, out var value2) && TreeOrCrop.modData.ContainsKey(Key_TFTapperID) && value2 is "false")
+                    else if (TreeOrCrop.modData.TryGetValue(Constants.Key_TFHasTapper, out var value2) && TreeOrCrop.modData.ContainsKey(Constants.Key_TFTapperID) && value2 is "false")
                     {
-                        TreeOrCrop.modData[Key_TFHasTapper] = "true";
-                        TreeOrCrop.modData[Key_TFTapperID] = Game1.player.ActiveObject.QualifiedItemId;
+                        TreeOrCrop.modData[Constants.Key_TFHasTapper] = "true";
+                        TreeOrCrop.modData[Constants.Key_TFTapperID] = Game1.player.ActiveObject.QualifiedItemId;
                         Game1.player.ActiveObject.Stack--;
                         if (Game1.player.ActiveObject.Stack <= 0)
                             Game1.player.removeItemFromInventory(Game1.player.ActiveObject);
                         TreeOrCrop.Location.Objects.Add(ManagerUtility.GetFeatureTile(TreeOrCrop), obsj);
                     }
-                    else if (value2 is "true" && TreeOrCrop.modData.ContainsKey(Key_TFTapperID) && !TreeOrCrop.Location.Objects.TryGetValue(TreeOrCrop.Tile, out StardewValley.Object _))
+                    else if (value2 is "true" && TreeOrCrop.modData.ContainsKey(Constants.Key_TFTapperID) && !TreeOrCrop.Location.Objects.TryGetValue(TreeOrCrop.Tile, out StardewValley.Object _))
                     {
-                        TreeOrCrop.modData[Key_TFHasTapper] = "false";
+                        TreeOrCrop.modData[Constants.Key_TFHasTapper] = "false";
                     }
                 }
                 else if (TreeOrCrop is FruitTree tree)
@@ -837,9 +822,8 @@ namespace VanillaPlusProfessions
         }
         internal static bool ShouldForageCraftablesWork()
         {
-            return false;
+            return true;
         }
-
 
         private void OnDayEnding(object sender, DayEndingEventArgs e)
         {
@@ -911,7 +895,7 @@ namespace VanillaPlusProfessions
                             }
                         }
                     }
-                    if (obj.QualifiedItemId == "(BC)10" && obj.heldObject.Value is not null)
+                    if (obj.QualifiedItemId == Constants.Id_BeeHouse && obj.heldObject.Value is not null)
                     {
                         int tiles = TalentUtility.FlowersInBeeHouseRange(obj.Location, obj.TileLocation);
                         if (Abundance && Game1.random.NextBool(tiles * 0.05))
@@ -929,9 +913,9 @@ namespace VanillaPlusProfessions
                 if (building.GetIndoors() is SlimeHutch slimeHutch && CoreUtility.CurrentPlayerHasProfession("Combat-Farm", farmerID: building.owner.Value))
                 {
                     var str = (!slimeHutch.waterSpots.Contains(true)).ToString().ToLower();
-                    if (!slimeHutch.modData.TryAdd(Key_IsSlimeHutchWatered, str))
+                    if (!slimeHutch.modData.TryAdd(Constants.Key_IsSlimeHutchWatered, str))
                     {
-                        slimeHutch.modData[Key_IsSlimeHutchWatered] = str;
+                        slimeHutch.modData[Constants.Key_IsSlimeHutchWatered] = str;
                     }
                 }
                 else if (building is FishPond fishPond && TalentUtility.CurrentPlayerHasTalent("Ex-squid-site", farmerID: fishPond.owner.Value))
@@ -947,9 +931,9 @@ namespace VanillaPlusProfessions
             );
             Utility.ForEachLocation(loc =>
             {
-                if (!loc.modData.TryAdd(TalentCore.Key_WasRainingHere, loc.IsRainingHere().ToString().ToLower()))
+                if (!loc.modData.TryAdd(Constants.Key_WasRainingHere, loc.IsRainingHere().ToString().ToLower()))
                 {
-                    loc.modData[TalentCore.Key_WasRainingHere] = loc.IsRainingHere().ToString().ToLower();
+                    loc.modData[Constants.Key_WasRainingHere] = loc.IsRainingHere().ToString().ToLower();
                 }
                 foreach (var obj in loc.Objects.Values)
                 {
@@ -957,17 +941,17 @@ namespace VanillaPlusProfessions
                     {
                         if (tiles1.Contains(obj.TileLocation))
                         {
-                            obj.modData.TryAdd(CraftablePatcher.Key_VPPDeluxeForage, "");
+                            obj.modData.TryAdd(Constants.Key_VPPDeluxeForage, "");
                         }
                     }
                 }
                 return true;
             });
-            if (!Game1.player.modData.TryAdd(TalentCore.Key_TalentPoints, TalentCore.TalentPointCount.Value.ToString()))
-                Game1.player.modData[TalentCore.Key_TalentPoints] = TalentCore.TalentPointCount.Value.ToString();
-            if (!Game1.player.modData.TryAdd(TalentCore.Key_DisabledTalents, string.Join('|', TalentCore.DisabledTalents.ToArray())))
+            if (!Game1.player.modData.TryAdd(Constants.Key_TalentPoints, TalentCore.TalentPointCount.Value.ToString()))
+                Game1.player.modData[Constants.Key_TalentPoints] = TalentCore.TalentPointCount.Value.ToString();
+            if (!Game1.player.modData.TryAdd(Constants.Key_DisabledTalents, string.Join('|', TalentCore.DisabledTalents.ToArray())))
             {
-                Game1.player.modData[TalentCore.Key_DisabledTalents] = string.Join('|', TalentCore.DisabledTalents.ToArray());
+                Game1.player.modData[Constants.Key_DisabledTalents] = string.Join('|', TalentCore.DisabledTalents.ToArray());
             }
         }
         private void OnLevelChanged(object sender, LevelChangedEventArgs e)

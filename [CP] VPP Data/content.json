@@ -111,7 +111,7 @@
 		},
 		{
 			"Name": "HaleyItemPool",
-			"Value": "(S)248 (S)249 (S)181 (S)51 (S)52 (S)53 (S)63 (S)65 (S)206 (S)126",
+			"Value": "(S)1248 (S)1249 (S)1181 (S)51 (S)52 (S)53 (S)63 (S)65 (S)1206 (S)126",
 		},
 		{
 			"Name": "HaleyItemPool",
@@ -175,5 +175,10 @@
 			"Action": "Include",
 			"FromFile": "assets/Code/Machines/New/TrinketWorkbench.json, assets/Code/Machines/New/ProgrammableDrill.json, assets/Code/Machines/New/ThermalReactor.json, assets/Code/Machines/New/NodeMaker.json, assets/Code/Machines/New/ParrotPerch.json, assets/Code/Machines/New/BirdFeeder.json, assets/Code/Machines/New/SeedSifter.json"
 		},
+		{
+			"Action": "Load",
+			"Target": "Maps/{{ModId}}_EmptyCritterRoom",
+			"FromFile": "assets/Maps/EmptyCritterRoom.tmx",
+		}
 	]
 }

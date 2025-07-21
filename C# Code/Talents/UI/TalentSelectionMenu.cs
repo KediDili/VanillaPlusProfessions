@@ -132,15 +132,15 @@ namespace VanillaPlusProfessions.Talents.UI
                 string talent = item.Name;
                 if (TalentUtility.CurrentPlayerHasTalent(talent))
                 {
-                    TalentsBeforeMenuOpen.Add(talent, TalentUtility.ValidTalentStatuses[0]);
+                    TalentsBeforeMenuOpen.Add(talent, Constants.ValidTalentStatuses[0]);
                 }
                 else if (TalentUtility.CurrentPlayerHasTalent(talent, ignoreDisabledTalents: false))
                 {
-                    TalentsBeforeMenuOpen.Add(talent, TalentUtility.ValidTalentStatuses[1]);
+                    TalentsBeforeMenuOpen.Add(talent, Constants.ValidTalentStatuses[1]);
                 }
                 else
                 {
-                    TalentsBeforeMenuOpen.Add(talent, TalentUtility.ValidTalentStatuses[2]);
+                    TalentsBeforeMenuOpen.Add(talent, Constants.ValidTalentStatuses[2]);
                 }
             }
 
@@ -582,14 +582,14 @@ namespace VanillaPlusProfessions.Talents.UI
             {
                 if ((Game1.player.mailReceived.Contains(flag + "_disabled") && EnableOrDisable.Value) || (!Game1.player.mailReceived.Contains(flag + "_disabled") && !EnableOrDisable.Value))
                 {
-                    value = TalentUtility.ValidTalentStatuses[EnableOrDisable.Value ? 0 : 2];
+                    value = Constants.ValidTalentStatuses[EnableOrDisable.Value ? 0 : 2];
                 }
             }
             else if (BoughtOrRefunded.HasValue)
             {
                 if ((Game1.player.mailReceived.Contains(flag) && !BoughtOrRefunded.Value) || (!Game1.player.mailReceived.Contains(flag) && BoughtOrRefunded.Value))
                 {
-                    value = TalentUtility.ValidTalentStatuses[BoughtOrRefunded.Value ? 0 : 1];
+                    value = Constants.ValidTalentStatuses[BoughtOrRefunded.Value ? 0 : 1];
                 }
             }
             if (value != "")

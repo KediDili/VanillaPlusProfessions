@@ -1,6 +1,7 @@
 ﻿using HarmonyLib;
 using Microsoft.Xna.Framework;
 using StardewValley;
+using StardewValley.BellsAndWhistles;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -12,9 +13,6 @@ namespace VanillaPlusProfessions.Craftables
     public class CraftablePatcher
     {
         internal static Dictionary<string, List<Vector2>> ForageCropLocations = new();
-
-        internal static string Key_VPPDeluxeForage = "KediDili.VanillaPlusProfessions/DeluxeForage";
-        
         public static void ApplyPatches()
         {
             try
@@ -31,6 +29,17 @@ namespace VanillaPlusProfessions.Craftables
             try
             {
                 ModEntry.Harmony.Patch(
+                    original: AccessTools.Method(typeof(Crow), nameof(Crow.update)),
+                    transpiler: new(AccessTools.Method(typeof(CraftablePatcher), nameof(update_Transpiler)))
+                );
+            }
+            catch (System.Exception e)
+            {
+                CoreUtility.PrintError(e, nameof(CraftablePatcher), "'Crow.update'", "transpiling");
+            }
+            try
+            {
+                ModEntry.Harmony.Patch(
                     original: AccessTools.Method(typeof(GameLocation), nameof(GameLocation.OnHarvestedForage)),
                     postfix: new(AccessTools.Method(typeof(CraftablePatcher), nameof(OnHarvestedForage_Postfix)))
                 );
@@ -40,11 +49,37 @@ namespace VanillaPlusProfessions.Craftables
                 CoreUtility.PrintError(e, nameof(CraftablePatcher), "'GameLocation.OnHarvestedForage'", "postfixing");
             }
         }
+        public static IEnumerable<CodeInstruction> update_Transpiler(IEnumerable<CodeInstruction> insns)
+        {
+            var list = insns.ToList();
+            int index = 0, count = 3;
+            try
+            {
+                foreach (var ins in list)
+                {
+                    if (ins.opcode == OpCodes.Ldc_I4_5)
+                    {
+                        count--;
+                        if (count == 0)
+                        {
+                            ins.opcode = OpCodes.Ldc_I4_4;
+                        }
+                    }
+                    index++;
+                }
+            }
+            catch (System.Exception e)
+            {
+                CoreUtility.PrintError(e, nameof(CraftablePatcher), "'Crow.update'", "transpiling");
+            }
+            return list;
+        }
+
         public static void OnHarvestedForage_Postfix(Farmer who, Object forage)
         {
             try
             {
-                if (forage.modData.ContainsKey(Key_VPPDeluxeForage))
+                if (forage.modData.ContainsKey(Constants.Key_VPPDeluxeForage))
                 {
                     who.gainExperience(2, 50);
                     if (ForageCropLocations.ContainsKey(forage.Location.NameOrUniqueName))
@@ -68,7 +103,7 @@ namespace VanillaPlusProfessions.Craftables
                 {
                     if (ins.operand is MethodInfo info && info == method)
                     {
-                        if (count != 0)
+                        if (count != 0d)
                         {
                             count--;
                         }

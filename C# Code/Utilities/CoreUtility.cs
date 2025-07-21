@@ -276,21 +276,21 @@ namespace VanillaPlusProfessions.Utilities
                     {
                         if (Building is FishPond)
                         {
-                            if (Building.modData.Remove(ModEntry.Key_FishRewardOrQuestDayLeft))
+                            if (Building.modData.Remove(Constants.Key_FishRewardOrQuestDayLeft))
                                 FishFarm++;
 
-                            if (Building.modData.TryGetValue(TalentCore.Key_HiddenBenefit_FrogEggs, out string val))
+                            if (Building.modData.TryGetValue(Constants.Key_HiddenBenefit_FrogEggs, out string val))
                             {
                                 Game1.player.team.newLostAndFoundItems.Value = true;
                                 Game1.player.team.returnedDonations.Add(val.StringToTrinket());
-                                if (Building.modData.Remove(TalentCore.Key_HiddenBenefit_FrogEggs))
+                                if (Building.modData.Remove(Constants.Key_HiddenBenefit_FrogEggs))
                                 {
                                     FrogEggs++;
                                 }
                             }
                         }
 
-                        if (Building.modData.Remove(ModEntry.Key_IsSlimeHutchWatered) && Building.GetIndoors() is SlimeHutch)
+                        if (Building.modData.Remove(Constants.Key_IsSlimeHutchWatered) && Building.GetIndoors() is SlimeHutch)
                             SlimeHutchWater++;
 
                         if (Building.GetIndoors() is AnimalHouse house)
@@ -300,7 +300,7 @@ namespace VanillaPlusProfessions.Utilities
                                 if (!house.animalsThatLiveHere.Contains(id))
                                     continue;
 
-                                if (animal.modData.Remove(TalentCore.Key_WildGrowth))
+                                if (animal.modData.Remove(Constants.Key_WildGrowth))
                                     WildGrowth++;
                             }
                         }
@@ -308,7 +308,7 @@ namespace VanillaPlusProfessions.Utilities
                         {
                             foreach (var slime in hutch.characters)
                             {
-                                if (slime.modData.Remove(ModEntry.Key_SlimeWateredDaysSince))
+                                if (slime.modData.Remove(Constants.Key_SlimeWateredDaysSince))
                                     SlimeWaterLoss++;
                             }
                         }
@@ -324,7 +324,7 @@ namespace VanillaPlusProfessions.Utilities
                         Accessorise = 0, ParrotPerches = 0;
                     Utility.ForEachLocation(Loc =>
                     {
-                        if (Loc.modData.Remove(TalentCore.Key_WasRainingHere))
+                        if (Loc.modData.Remove(Constants.Key_WasRainingHere))
                         {
                             RainLocs++;
                         }
@@ -332,12 +332,12 @@ namespace VanillaPlusProfessions.Utilities
                         {
                             if (item.Value is FruitTree tree)
                             {
-                                if (tree.modData.Remove(ModEntry.Key_TFHasTapper) & tree.modData.Remove(ModEntry.Key_TFTapperID) & tree.modData.Remove(ModEntry.Key_TFTapperDaysLeft))
+                                if (tree.modData.Remove(Constants.Key_TFHasTapper) & tree.modData.Remove(Constants.Key_TFTapperID) & tree.modData.Remove(Constants.Key_TFTapperDaysLeft))
                                     FruitTreeTappers++;
                             }
                             else if (item.Value is GiantCrop crop)
                             {
-                                if (crop.modData.Remove(ModEntry.Key_TFHasTapper) & crop.modData.Remove(ModEntry.Key_TFTapperID) & crop.modData.Remove(ModEntry.Key_TFTapperDaysLeft))
+                                if (crop.modData.Remove(Constants.Key_TFHasTapper) & crop.modData.Remove(Constants.Key_TFTapperID) & crop.modData.Remove(Constants.Key_TFTapperDaysLeft))
                                     GiantCropData++;
                             }
                         }
@@ -345,18 +345,18 @@ namespace VanillaPlusProfessions.Utilities
                     });
                     Utility.ForEachCrop(crop =>
                     {
-                        crop.modData.Remove(TalentCore.Key_HiddenBenefit_Crop);
+                        crop.modData.Remove(Constants.Key_HiddenBenefit_Crop);
                         return true;
                     });
                     Utility.ForEachItem(item =>
                     {
-                        if (item.modData.Remove(TalentCore.Key_XrayDrop))
+                        if (item.modData.Remove(Constants.Key_XrayDrop))
                             XrayDrop++;
 
-                        if (item.modData.Remove(TalentCore.Key_HiddenBenefit_FairyBox))
+                        if (item.modData.Remove(Constants.Key_HiddenBenefit_FairyBox))
                             FairyBoxData++;
 
-                        if (item.modData.Remove(TalentCore.Key_Resurgence))
+                        if (item.modData.Remove(Constants.Key_Resurgence))
                             Resurgence++;
 
                         if (item is Slingshot slingshot)
@@ -409,11 +409,11 @@ namespace VanillaPlusProfessions.Utilities
                 {
                     if (args.Length > 0 && args[1].ToLower() == "true")
                     {
-                        farmer.modData.Remove(ModEntry.Key_ForageGuessItemID);
-                        farmer.modData.Remove(ModEntry.Key_DaysLeftForForageGuess);
-                        farmer.modData.Remove(ModEntry.Key_HasFoundForage);
-                        farmer.modData.Remove(TalentCore.Key_TalentPoints);
-                        farmer.modData.Remove(TalentCore.Key_DisabledTalents);
+                        farmer.modData.Remove(Constants.Key_ForageGuessItemID);
+                        farmer.modData.Remove(Constants.Key_DaysLeftForForageGuess);
+                        farmer.modData.Remove(Constants.Key_HasFoundForage);
+                        farmer.modData.Remove(Constants.Key_TalentPoints);
+                        farmer.modData.Remove(Constants.Key_DisabledTalents);
                         ModEntry.ModMonitor.Log($"Erased Forage Guess mini game and talent points data from Farmer {farmer.Name}.");
                     }
 
@@ -436,7 +436,7 @@ namespace VanillaPlusProfessions.Utilities
                     }
                     ModEntry.ModMonitor.Log($"Erased All Talent flags from Farmer {farmer.Name}.");
 
-                    farmer.mailReceived.Remove(TalentCore.Key_PointsCalculated);
+                    farmer.mailReceived.Remove(Constants.Key_PointsCalculated);
                     if (farmer.farmingLevel.Value > 10)
                     {
                         farmer.farmingLevel.Value = 10;
@@ -512,7 +512,7 @@ namespace VanillaPlusProfessions.Utilities
                 stringBuilder.AppendLine("    - Talents & Professions -    ");
                 stringBuilder.AppendLine($"Talent Points: {TalentCore.TalentPointCount.Value}");
                 stringBuilder.AppendLine($"Unlocked Achievement Count: {Game1.player.achievements.Count}");
-                stringBuilder.AppendLine($"Save Changes Applied: {Game1.player.mailReceived.Contains(TalentCore.Key_PointsCalculated)}");
+                stringBuilder.AppendLine($"Save Changes Applied: {Game1.player.mailReceived.Contains(Constants.Key_PointsCalculated)}");
                 stringBuilder.Append($"Talents Bought:");
                 foreach (var item in TalentCore.Talents)
                 {
@@ -637,7 +637,7 @@ namespace VanillaPlusProfessions.Utilities
                 ModEntry.ModMonitor.Log($"Farmer {Game1.player.Name}'s new talent point count: {TalentCore.TalentPointCount.Value}.", LogLevel.Debug);
                 ModEntry.ModMonitor.Log($"(Negative numbers dont mean that there's a bug with this command, just that you had more points than you were supposed to have, likely because of a bug in point rewarding code. Reset your talent trees to get rid of it.)", LogLevel.Debug);
                 ModEntry.IsUninstalling.Value = false;
-                Game1.player.mailReceived.Add(TalentCore.Key_PointsCalculated);
+                Game1.player.mailReceived.Add(Constants.Key_PointsCalculated);
             }
             else
             {

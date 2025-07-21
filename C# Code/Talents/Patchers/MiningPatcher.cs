@@ -67,7 +67,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
         {
             try
             {
-                if (Utility.IsGeode(__instance, true) && TalentUtility.CurrentPlayerHasTalent("X-ray") && __instance.modData.TryGetValue(TalentCore.Key_XrayDrop, out string value) && value is not null or "")
+                if (Utility.IsGeode(__instance, true) && TalentUtility.CurrentPlayerHasTalent("X-ray") && __instance.modData.TryGetValue(Constants.Key_XrayDrop, out string value) && value is not null or "")
                 {
                     __result = Game1.parseText(__result.Replace("\n", "").Replace("\r", "") + " " + ModEntry.Helper.Translation.Get("Item.Xray.GeodeDrop", new { dropName = ItemRegistry.GetData(value).DisplayName }), Game1.smallFont, ModEntry.Helper.Reflection.GetMethod(__instance, "getDescriptionWidth").Invoke<int>(null));
                 }
@@ -84,7 +84,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             {
                 if (__result is not null && geode is not null && !geode.ItemId.Contains("MysteryBox"))
                 {
-                    if (TalentUtility.CurrentPlayerHasTalent("X-ray") && geode.modData.TryGetValue(TalentCore.Key_XrayDrop, out string drop) is true && !IsUpdating)
+                    if (TalentUtility.CurrentPlayerHasTalent("X-ray") && geode.modData.TryGetValue(Constants.Key_XrayDrop, out string drop) is true && !IsUpdating)
                     {
                         if (drop is not null or "" && Utility.IsGeode(geode, true))
                         {
@@ -119,10 +119,10 @@ namespace VanillaPlusProfessions.Talents.Patchers
                             }
                         }
                     }
-                    else if (TalentUtility.CurrentPlayerHasTalent("Matryoshka") && Game1.random.NextBool(0.15) && !geode.HasContextTag(TalentCore.ContextTag_Matryoshka_Banned_FromDropping))
+                    else if (TalentUtility.CurrentPlayerHasTalent("Matryoshka") && Game1.random.NextBool(0.15) && !geode.HasContextTag(Constants.ContextTag_Matryoshka_Banned_FromDropping))
                     {
                         var geodes = (from KeyValuePair<string, ObjectData> @object in Game1.objectData
-                                      where (@object.Value.GeodeDropsDefaultItems || @object.Value.GeodeDrops?.Count > 0 is true) && !@object.Value.ContextTags?.Contains(TalentCore.ContextTag_Matryoshka_Banned_FromBeingDropped) is true && geode.ItemId != @object.Key
+                                      where (@object.Value.GeodeDropsDefaultItems || @object.Value.GeodeDrops?.Count > 0 is true) && !@object.Value.ContextTags?.Contains(Constants.ContextTag_Matryoshka_Banned_FromBeingDropped) is true && geode.ItemId != @object.Key
                                       select @object.Key).ToList();
                         __result = ItemRegistry.Create(Game1.random.ChooseFrom(geodes), 1, geode.Quality);
                     }

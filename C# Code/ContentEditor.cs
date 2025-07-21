@@ -89,7 +89,7 @@ namespace VanillaPlusProfessions
                 editor["536"].GeodeDrops = editor["749"].GeodeDrops;
                 editor["535"].GeodeDrops = editor["749"].GeodeDrops;
             }
-            editor["420"].ContextTags.Add(TalentCore.ContextTag_PoisonousMushroom);
+            editor["420"].ContextTags.Add(Constants.ContextTag_PoisonousMushroom);
         }
         internal static void HandleLocations(ref IDictionary<string, LocationData> editor)
         {

@@ -1,6 +1,8 @@
 ﻿using HarmonyLib;
+using StardewValley.Buildings;
 using StardewValley.Menus;
 using System.Collections.Generic;
+using System.Reflection.Emit;
 
 namespace VanillaPlusProfessions.Craftables
 {
@@ -26,6 +28,22 @@ namespace VanillaPlusProfessions.Craftables
                 {
                     __result.Add(ModEntry.Helper.Translation.Get("ExtraInfo.MineralCavern"));
                 }
+            }
+            if (whichSkill == 2)
+            {
+                if (whichLevel is 14)
+                {
+                    __result.Add(ModEntry.Helper.Translation.Get("ExtraInfo.AnimalsDropSeeds"));
+                }
+                else if (whichLevel is 16)
+                {
+                    __result.Add(ModEntry.Helper.Translation.Get("ExtraInfo.Sawmill"));
+                }
+                else if (whichLevel is 18)
+                {
+                    __result.Add(ModEntry.Helper.Translation.Get("ExtraInfo.SecretGlade"));
+                }
+
             }
         }
     }

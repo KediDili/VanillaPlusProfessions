@@ -35,7 +35,7 @@ namespace VanillaPlusProfessions.Managers
                 CoreUtility.PatchMethod(
                     PatcherName, tools[i].Name + ".canThisBeAttached",
                     original: AccessTools.Method(tools[i], "canThisBeAttached", new Type[] { typeof(StardewValley.Object), typeof(int) }),
-                    postfix: new HarmonyMethod(PatcherType, "canThisBeAttached_" + tools[i].Name + "_Postfix")
+                    postfix: new HarmonyMethod(PatcherType, "canThisBeAttached_"+ tools[i].Name + "_Postfix")
                 );
             }
             CoreUtility.PatchMethod(
@@ -91,16 +91,16 @@ namespace VanillaPlusProfessions.Managers
         {
             try
             {
-                if (__result is true && CoreUtility.AnyPlayerHasProfession("Forage-Fish") && debris.item is not null && debris.item.HasContextTag("category_forage") && Game1.player.modData.TryGetValue(ModEntry.Key_HasFoundForage, out var str))
+                if (__result is true && CoreUtility.AnyPlayerHasProfession("Forage-Fish") && debris.item is not null && debris.item.HasContextTag("category_forage") && Game1.player.modData.TryGetValue(Constants.Key_HasFoundForage, out var str))
                 {
                     if (str == "false")
                     {
-                        if (Game1.player.modData[ModEntry.Key_ForageGuessItemID] == debris.item.QualifiedItemId)
+                        if (Game1.player.modData[Constants.Key_ForageGuessItemID] == debris.item.QualifiedItemId)
                         {
                             var list = Game1.getOnlineFarmers();
 
                             foreach (var item in list)
-                                item.modData[ModEntry.Key_HasFoundForage] = "true";
+                                item.modData[Constants.Key_HasFoundForage] = "true";
                             Game1.addHUDMessage(new($"You threw in the correct forage! You can start making bubbles appear with {debris.item.DisplayName} when you throw it in the water, and there isn't a bubble in the map already.", 1));
                         }
                         else
@@ -108,7 +108,7 @@ namespace VanillaPlusProfessions.Managers
                             Game1.addHUDMessage(new($"Sorry, {debris.item.DisplayName} isn't the correct forage to throw in. Try again with another!", 1));
                         }
                     }
-                    if (__instance.fishSplashPoint.Value == Point.Zero && Game1.player.modData[ModEntry.Key_HasFoundForage] is "true")
+                    if (__instance.fishSplashPoint.Value == Point.Zero && Game1.player.modData[Constants.Key_HasFoundForage] is "true")
                     {
                         List<Point> list = new();
                         for (int x = 0; x < __instance.waterTiles.waterTiles.GetLength(0); x++)
@@ -132,9 +132,9 @@ namespace VanillaPlusProfessions.Managers
             {
                 if (__instance is not null)
                 {
-                    if (!__instance.stump.Value && __instance.modData?.TryGetValue(ModEntry.Key_TFHasTapper, out string value) is true && value is "true")
+                    if (!__instance.stump.Value && __instance.modData?.TryGetValue(Constants.Key_TFHasTapper, out string value) is true && value is "true")
                     {
-                        var metaData = ItemRegistry.GetData(__instance.modData[ModEntry.Key_TFTapperID]);
+                        var metaData = ItemRegistry.GetData(__instance.modData[Constants.Key_TFTapperID]);
                         Rectangle rect = metaData.GetSourceRect();
                         rect.Height = 16;
                         spriteBatch.Draw(metaData.GetTexture(), Game1.GlobalToLocal(Game1.viewport, new Vector2(__instance.Tile.X * 64f, (__instance.Tile.Y - 1) * 64f)), rect, Color.White, 0, Vector2.Zero, 4f, SpriteEffects.None, __instance.getBoundingBox().Bottom / 10000f + 0.001f);
@@ -217,7 +217,7 @@ namespace VanillaPlusProfessions.Managers
             catch (Exception e)
             {
                 CoreUtility.PrintError(e, PatcherName, "FishingRod.GetTackleQualifiedItemIDs", "postfixed", true);
-            }
+            }            
         }
 
         public static void DrawIconBar_Postfix(StardewValley.Object __instance, SpriteBatch spriteBatch, Vector2 location, float scaleSize)
@@ -267,20 +267,20 @@ namespace VanillaPlusProfessions.Managers
                 }
                 if (__instance is MineShaft shaft && shaft.mineLevel != 77377 && !shaft.ladderHasSpawned)
                 {
-                    if (shaft.modData.TryGetValue(TalentCore.Key_DownInTheDepths, out string val))
+                    if (shaft.modData.TryGetValue(Constants.Key_DownInTheDepths, out string val))
                     {
-                        shaft.modData[TalentCore.Key_DownInTheDepths] = (int.Parse(val) + 1).ToString();
+                        shaft.modData[Constants.Key_DownInTheDepths] = (int.Parse(val) + 1).ToString();
                         if (val is "8")
                         {
                             shaft.createLadderDown(x, y);
                             shaft.createLadderAt(new(x, y));
                             shaft.ladderHasSpawned = true;
-                            shaft.modData[TalentCore.Key_DownInTheDepths] = "0";
+                            shaft.modData[Constants.Key_DownInTheDepths] = "0";
                         }
                     }
                     else
                     {
-                        shaft.modData.Add(TalentCore.Key_DownInTheDepths, "0");
+                        shaft.modData.Add(Constants.Key_DownInTheDepths, "0");
                     }
                 }
             }

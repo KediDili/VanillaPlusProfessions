@@ -338,22 +338,22 @@ namespace VanillaPlusProfessions.Managers
                 }
                 if (TalentUtility.CurrentPlayerHasTalent("Flurry", who: who) && weapon is not null && weapon.type.Value is 1)
                 {
-                    if (monster.modData.TryGetValue(TalentCore.Key_Flurry, out string val))
+                    if (monster.modData.TryGetValue(Constants.Key_Flurry, out string val))
                     {
                         if (val is not "5")
                         {
-                            monster.modData[TalentCore.Key_Flurry] = (int.Parse(val) + 1).ToString();
+                            monster.modData[Constants.Key_Flurry] = (int.Parse(val) + 1).ToString();
                             addedMaxDamage += (int.Parse(val) + 1) * 2;
                             addedMinDamage += (int.Parse(val) + 1) * 2;
                         }
                         else
                         {
-                            monster.modData[TalentCore.Key_Flurry] = "1";
+                            monster.modData[Constants.Key_Flurry] = "1";
                         }
                     }
                     else
                     {
-                        monster.modData.TryAdd(TalentCore.Key_Flurry, "1");
+                        monster.modData.TryAdd(Constants.Key_Flurry, "1");
                     }
                 }
 
@@ -433,13 +433,13 @@ namespace VanillaPlusProfessions.Managers
                     }
                     else
                     {
-                        if (!monster.modData.TryAdd(TalentCore.Key_RendingStrike, "1"))
+                        if (!monster.modData.TryAdd(Constants.Key_RendingStrike, "1"))
                         {
-                            monster.modData[TalentCore.Key_RendingStrike] = (int.Parse(monster.modData[TalentCore.Key_RendingStrike]) + 1).ToString();
-                            if (monster.modData[TalentCore.Key_RendingStrike] == "4")
+                            monster.modData[Constants.Key_RendingStrike] = (int.Parse(monster.modData[Constants.Key_RendingStrike]) + 1).ToString();
+                            if (monster.modData[Constants.Key_RendingStrike] == "4")
                             {
                                 monster.DamageToFarmer -= 10;
-                                monster.modData[TalentCore.Key_RendingStrike] = "0";
+                                monster.modData[Constants.Key_RendingStrike] = "0";
                             }
                         }
                     }

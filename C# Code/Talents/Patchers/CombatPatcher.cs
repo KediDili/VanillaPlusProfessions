@@ -175,8 +175,8 @@ namespace VanillaPlusProfessions.Talents.Patchers
                     chest.modData.Add("Pathoschild.ChestsAnywhere/IsIgnored", "true");
                     if (__instance.QualifiedItemId == "(BC)KediDili.VPPData.CP_MinecartChest")
                     {
-                        Game1.player.team.GetOrCreateGlobalInventory(ModEntry.GlobalInventoryId_Minecarts);
-                        chest.GlobalInventoryId = ModEntry.GlobalInventoryId_Minecarts;
+                        Game1.player.team.GetOrCreateGlobalInventory(Constants.GlobalInventoryId_Minecarts);
+                        chest.GlobalInventoryId = Constants.GlobalInventoryId_Minecarts;
                         chest.SpecialChestType = Chest.SpecialChestTypes.BigChest;
                     }
                     if (!location.Objects.TryAdd(placementTile, chest))
@@ -507,10 +507,10 @@ namespace VanillaPlusProfessions.Talents.Patchers
             {
                 if (__instance.damagesMonsters.Value && __instance.itemId.Value is not null)
                 {
-                    if (n is Monster monster && monster is not GreenSlime or BigSlime && ItemContextTagManager.HasBaseTag(__instance.itemId.Value, "slime_item") && !monster.modData.ContainsKey(TalentCore.Key_SlowerSliming))
+                    if (n is Monster monster && monster is not GreenSlime or BigSlime && ItemContextTagManager.HasBaseTag(__instance.itemId.Value, "slime_item") && !monster.modData.ContainsKey(Constants.Key_SlowerSliming))
                     {
                         monster.speed -= 1;
-                        monster.modData[TalentCore.Key_SlowerSliming] = "slimed";
+                        monster.modData[Constants.Key_SlowerSliming] = "slimed";
                         monster.startGlowing(Color.Green, false, 0.5f);
                     }
                 }

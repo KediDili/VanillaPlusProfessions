@@ -21,14 +21,7 @@ using VanillaPlusProfessions.Talents.Patchers;
 namespace VanillaPlusProfessions.Utilities
 {
     public static class TalentUtility
-    {
-        private readonly static string[] GemNodes = new string[] { "2", "4", "6", "8", "10", "12", "14" };
-        private readonly static string[] GeodeNodes = new string[] { "75", "76", "77" };
-        private readonly static string[] OreNodes = new string[] { "290", "751", "764", "765", "95"};
-        public readonly static string[] BlandStones = new string[] { "32", "668", "670", "34", "36", "38", "40", "42", "48", "50", "52", "54", "56", "58", "343", "450", "760", "845", "846", "844" };
-        
-        public readonly static string[] ValidTalentStatuses = new string[] { "Enabled", "Refunded", "Disabled" };
-        
+    {       
         public static List<string> ItemExtensions_GeodeNodeList = new();
         public static List<string> ItemExtensions_GemNodeList = new();
 
@@ -122,7 +115,7 @@ namespace VanillaPlusProfessions.Utilities
                 ModEntry.Helper.GameContent.InvalidateCache("Data/Buildings");
                 if (talentStatuses.TryGetValue("Overcrowding", out string val))
                 {
-                    if (val == ValidTalentStatuses[0] || val == ValidTalentStatuses[2])
+                    if (val == Constants.ValidTalentStatuses[0] || val == Constants.ValidTalentStatuses[2])
                     {
                         Utility.ForEachBuilding(building =>
                         {
@@ -140,7 +133,7 @@ namespace VanillaPlusProfessions.Utilities
                             return true;
                         });
                     }
-                    else if (val == ValidTalentStatuses[1])
+                    else if (val == Constants.ValidTalentStatuses[1])
                     {
                         Utility.ForEachBuilding(building =>
                         {
@@ -311,7 +304,7 @@ namespace VanillaPlusProfessions.Utilities
         public static bool ShouldCropGrowByOneDay(HoeDirt dirt, Crop crop)
         {
             bool Efflorescence = HostHasTalent("Efflorescence") && ItemRegistry.GetData(crop.GetData().HarvestItemId).IsErrorItem && ItemRegistry.GetData(crop.GetData().HarvestItemId).Category == StardewValley.Object.flowersCategory;
-            bool Nourishing_Rain = HostHasTalent("NourishingRain") && dirt.Location.modData.TryGetValue(TalentCore.Key_WasRainingHere, out string value2) && value2 is "true";
+            bool Nourishing_Rain = HostHasTalent("NourishingRain") && dirt.Location.modData.TryGetValue(Constants.Key_WasRainingHere, out string value2) && value2 is "true";
             bool Tropical_Bliss = HostHasTalent("TropicalBliss") && dirt.Location.InIslandContext() && (crop.GetData()?.Seasons.Contains(Season.Summer) is true || crop.GetData()?.Seasons.Count > 1);
             bool Deluxe_Wild_Seeds = !CraftablePatcher.IsVPPForageCrop(crop, false) && crop.currentLocation.GetData()?.CustomFields?.ContainsKey("Kedi.VPP.ForestLocation") is true || crop.currentLocation is Forest or Woods;
 
@@ -377,7 +370,7 @@ namespace VanillaPlusProfessions.Utilities
                 MiningPatcher.IsUpdating = true;
                 Item drop = Utility.getTreasureFromGeode(geode);
                 MiningPatcher.IsUpdating = false;
-                geode.modData[TalentCore.Key_XrayDrop] = drop.QualifiedItemId;
+                geode.modData[Constants.Key_XrayDrop] = drop.QualifiedItemId;
             }
         }
 
@@ -428,11 +421,11 @@ namespace VanillaPlusProfessions.Utilities
         }
         public static void GiftOfTheTalented_ApplyOrUnApply(Dictionary<string, string> talentStatuses)
         {
-            if (talentStatuses["GiftOfTheTalented"] == ValidTalentStatuses[0])
+            if (talentStatuses["GiftOfTheTalented"] == Constants.ValidTalentStatuses[0])
             {
                 TalentCore.GiveOrTakeStardropEffects = true;
             }
-            else if (talentStatuses["GiftOfTheTalented"] == ValidTalentStatuses[1] || talentStatuses["GiftOfTheTalented"] == ValidTalentStatuses[2])
+            else if (talentStatuses["GiftOfTheTalented"] == Constants.ValidTalentStatuses[1] || talentStatuses["GiftOfTheTalented"] == Constants.ValidTalentStatuses[2])
             {
                 
                 TalentCore.GiveOrTakeStardropEffects = false;
@@ -450,13 +443,13 @@ namespace VanillaPlusProfessions.Utilities
             bool markContextTagsDirty_SugarRush = false;
             bool hasSurvivalCooking = CurrentPlayerHasTalent("SurvivalCooking");
 
-            if (talentStatuses.TryGetValue("Accessorise", out string val) && val == ValidTalentStatuses[1])
+            if (talentStatuses.TryGetValue("Accessorise", out string val) && val == Constants.ValidTalentStatuses[1])
                 switchTrinketRings = true;
             
             if (talentStatuses.TryGetValue("SapSipper", out val))
                 switchSapEdibility = true;
             
-            if (talentStatuses.TryGetValue("SugarRush", out val) && (val == ValidTalentStatuses[0] || val == ValidTalentStatuses[2]))
+            if (talentStatuses.TryGetValue("SugarRush", out val) && (val == Constants.ValidTalentStatuses[0] || val == Constants.ValidTalentStatuses[2]))
                 markContextTagsDirty_SugarRush = true;
 
             if (markContextTagsDirty_SugarRush || switchSapEdibility || switchTrinketRings)
@@ -471,7 +464,7 @@ namespace VanillaPlusProfessions.Utilities
                         }
                         else if (obj.QualifiedItemId == "(O)92" && switchSapEdibility)
                         {
-                            obj.Edibility = talentStatuses["SapSipper"] == ValidTalentStatuses[0] || talentStatuses["SapSipper"] == ValidTalentStatuses[2] ? 3 : -1;
+                            obj.Edibility = talentStatuses["SapSipper"] == Constants.ValidTalentStatuses[0] || talentStatuses["SapSipper"] == Constants.ValidTalentStatuses[2] ? 3 : -1;
                         }
                     }
                     else if (item is TrinketRing ring && switchTrinketRings)
@@ -499,19 +492,19 @@ namespace VanillaPlusProfessions.Utilities
             {
                 return itemDropped is "390" or "(O)390";
             }
-            return BlandStones.Contains(obj.ItemId) || obj.HasContextTag(TalentCore.ContextTag_BlandStone);
+            return Constants.BlandStones.Contains(obj.ItemId) || obj.HasContextTag(Constants.ContextTag_BlandStone);
         }
 
         public static string GetNodeForRoomAndPillar()
         {
-            return Game1.random.ChooseFrom(OreNodes);
+            return Game1.random.ChooseFrom(Constants.OreNodes);
         }
 
         public static string GetIDOfRing(Trinket trinket)
         {
             TrinketData data = trinket.GetTrinketData();
 
-            if (data.CustomFields?.TryGetValue(TalentCore.Key_AccessoriseRing, out string value) is true && !string.IsNullOrEmpty(value))
+            if (data.CustomFields?.TryGetValue(Constants.Key_AccessoriseRing, out string value) is true && !string.IsNullOrEmpty(value))
             {
                 return value;
             }
@@ -599,14 +592,14 @@ namespace VanillaPlusProfessions.Utilities
                 if (!ModEntry.Helper.ModRegistry.IsLoaded("mushymato.TrinketTinker") || !GameStateQuery.CheckConditions($"mushymato.TrinketTinker_DIRECT_EQUIP_ONLY {trinket.ItemId}"))
                 {
                     //get the new guid and give it to the trinket's moddata
-                    trinket.modData.TryAdd(ModEntry.Key_RingTrinkets, Guid.NewGuid().ToString());
+                    trinket.modData.TryAdd(Constants.Key_RingTrinkets, Guid.NewGuid().ToString());
 
                     //Add the trinket to the global inventory
-                    player.team.GetOrCreateGlobalInventory(ModEntry.GlobalInventoryID_RingTrinkets).Add(trinket);
+                    player.team.GetOrCreateGlobalInventory(Constants.GlobalInventoryID_RingTrinkets).Add(trinket);
 
                     //Create the trinket ring and give it the same guid.
                     TrinketRing output = new(trinket);
-                    output.modData.Add(ModEntry.Key_RingTrinkets, trinket.modData[ModEntry.Key_RingTrinkets]);
+                    output.modData.Add(Constants.Key_RingTrinkets, trinket.modData[Constants.Key_RingTrinkets]);
 
                     //"Destroy" the input and give the ring
                     player.ActiveItem = null;
@@ -687,7 +680,7 @@ namespace VanillaPlusProfessions.Utilities
 
             if (flag)
             {
-                GemNodeList.AddRange(GemNodes);
+                GemNodeList.AddRange(Constants.GemNodes);
                 foreach (string gemNode in ItemExtensions_GemNodeList)
                 {
                     if (ShouldAddToThePool(gemNode, flag, mineShaft))
@@ -698,7 +691,7 @@ namespace VanillaPlusProfessions.Utilities
             }
             else
             {
-                GeodeNodeList.AddRange(GeodeNodes);
+                GeodeNodeList.AddRange(Constants.GeodeNodes);
                 foreach (string geodeNode in ItemExtensions_GeodeNodeList)
                 {
                     if (ShouldAddToThePool(geodeNode, flag, mineShaft))
@@ -725,7 +718,7 @@ namespace VanillaPlusProfessions.Utilities
             }
             else
             {
-                string locdata = Game1.player.currentLocation.GetData().CustomFields[flag ? TalentCore.Key_CrystalCavern : TalentCore.Key_Upheaval].Trim();
+                string locdata = Game1.player.currentLocation.GetData().CustomFields[flag ? Constants.Key_CrystalCavern : Constants.Key_Upheaval].Trim();
                 if (!string.IsNullOrEmpty(locdata))
                 {
                     string[] strings = locdata.Split('/', StringSplitOptions.TrimEntries);
