@@ -32,7 +32,7 @@ namespace VanillaPlusProfessions
             ShakerData = ModEntry.Helper.ModContent.Load<List<WildTreeItemData>>("assets\\ShakerData.json");
             BuccaneerData = ModEntry.Helper.ModContent.Load<Dictionary<string, string>>("assets\\BuccaneerData.json");
             NodeMakerData = ModEntry.Helper.ModContent.Load<Dictionary<string, string>>("assets\\NodeMakerData.json");
-            ResourceClumpData = ModEntry.Helper.ModContent.Load<Dictionary<string, ClumpData>> ("assets\\ResourceClumpData.json");
+            ResourceClumpData = ModEntry.Helper.ModContent.Load<Dictionary<string, ClumpData>>("assets\\ResourceClumpData.json");
             ContentPaths = new()
             {
                 { "ItemSpritesheet", "TileSheets\\KediDili.VPPData.CP\\ItemIcons" },
@@ -62,20 +62,20 @@ namespace VanillaPlusProfessions
                 foreach (var item in editor)
                     if (item.Value.GrowthChance * 3 / 2 <= 1)
                         item.Value.GrowthChance *= 3 / 2;
-           /*WildTreeChopItemData data = new()
-            {
-                Id = "Kedi.VPP.NatureTalents",
-                ItemId = "RANDOM_ITEMS (O)",
-                ForStump = true,
-                PerItemCondition = "ITEM_CONTEXT_TAG Target category_forage !kedi_vpp_banned_naturesecrets",
-                Condition = "KediDili.VanillaPlusProfessions_PlayerHasTalent Current NatureSecrets",
-                Chance = 1,
-            };
-            foreach (var item in editor)
-            {
-                item.Value.ChopItems ??= new();
-                item.Value.ChopItems.Add(data);
-            }*/
+            /*WildTreeChopItemData data = new()
+             {
+                 Id = "Kedi.VPP.NatureTalents",
+                 ItemId = "RANDOM_ITEMS (O)",
+                 ForStump = true,
+                 PerItemCondition = "ITEM_CONTEXT_TAG Target category_forage !kedi_vpp_banned_naturesecrets",
+                 Condition = "KediDili.VanillaPlusProfessions_PlayerHasTalent Current NatureSecrets",
+                 Chance = 1,
+             };
+             foreach (var item in editor)
+             {
+                 item.Value.ChopItems ??= new();
+                 item.Value.ChopItems.Add(data);
+             }*/
         }
         internal static void HandleObjects(ref IDictionary<string, ObjectData> editor)
         {
@@ -185,7 +185,7 @@ namespace VanillaPlusProfessions
             {
                 e.Edit(asset =>
                 {
-                    var editor = asset.AsDictionary<string,string>();
+                    var editor = asset.AsDictionary<string, string>();
 
                     editor.Data["MasteryCave"] = ModEntry.Helper.Translation.Get("Message.MasteryCave", new { Level = ModEntry.ModConfig.Value.MasteryCaveChanges });
 
@@ -235,7 +235,7 @@ namespace VanillaPlusProfessions
                     if (CoreUtility.CurrentPlayerHasProfession("Breeder"))
                     {
                         var list = from animal in editor
-                                   where animal.Value.House is "Coop" or "Big Coop" or "Deluxe Coop"
+                                   where (animal.Value.House is "Coop" or "Big Coop" or "Deluxe Coop" || animal.Value.ProfessionForHappinessBoost is Farmer.butcher)
                                    select animal.Key;
                         foreach (var animal in list)
                             editor[animal].SellPrice *= 2;
@@ -261,17 +261,17 @@ namespace VanillaPlusProfessions
             {
                 e.LoadFrom(() => new Dictionary<string, string>(), AssetLoadPriority.Exclusive);
             }
-            
+
             if (e.NameWithoutLocale.IsEquivalentTo(ContentPaths["SkillBars"]))
             {
                 e.LoadFromModFile<Texture2D>(PathUtilities.NormalizePath("assets\\skillbars.png"), AssetLoadPriority.Exclusive);
             }
-            
+
             if (e.NameWithoutLocale.IsEquivalentTo(ContentPaths["ProfessionIcons"]))
             {
                 e.LoadFromModFile<Texture2D>(PathUtilities.NormalizePath("assets\\ProfessionIcons.png"), AssetLoadPriority.Exclusive);
             }
-            
+
             if (e.NameWithoutLocale.IsEquivalentTo(ContentPaths["TalentBG"]))
             {
                 e.LoadFromModFile<Texture2D>(PathUtilities.NormalizePath("assets\\TalentBG.png"), AssetLoadPriority.Exclusive);
