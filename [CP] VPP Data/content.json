@@ -12,7 +12,12 @@
 			"Default": "true",
 			"AllowMultiple": "false",
 			"AllowBlank": "false",
-		}
+		},
+		"DazzleChance": {
+			"Default": "0.25",
+			"AllowMultiple": "false",
+			"AllowBlank": "false",
+		},
 	},
 	"DynamicTokens":[
 		{
@@ -111,7 +116,7 @@
 		},
 		{
 			"Name": "HaleyItemPool",
-			"Value": "(S)1248 (S)1249 (S)1181 (S)51 (S)52 (S)53 (S)63 (S)65 (S)1206 (S)126",
+			"Value": "(S)1050 (S)1051 (S)1052 (S)1062 (S)1064 (S)1115 (S)1202 (S)1201 (S)1278 (S)1025 (S)1277 (S)1230",
 		},
 		{
 			"Name": "HaleyItemPool",
@@ -150,11 +155,28 @@
 			}
 		},
 		{
-			
 			"Name": "WillyItemPool",
 			"Value": "269 131 130 151 154 {{WillyItemPool}}",
 			"When":{
 				"Season": "Winter"
+			}
+		},
+		{
+			"Name": "WizardTotemPool",
+			"Value": "",
+		},
+		{
+			"Name": "WizardTotemPool",
+			"Value": "skellady.SBVCP_WarpTotemSunberry",
+			"When": {
+				"HasMod": "skellady.SBVCP"
+			}
+		},
+		{
+			"Name": "WizardTotemPool",
+			"Value": "Lumisteria.MtVapius_OwlCarving {{WizardTotemPool}}",
+			"When": {
+				"HasMod": "Lumisteria.MtVapius"
 			}
 		},
 	],

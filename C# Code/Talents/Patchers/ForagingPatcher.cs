@@ -12,6 +12,8 @@ using StardewValley.Objects;
 using StardewValley.TerrainFeatures;
 using VanillaPlusProfessions.Utilities;
 using StardewValley.Quests;
+using xTile.Dimensions;
+using StardewValley.Characters;
 
 namespace VanillaPlusProfessions.Talents.Patchers
 {
@@ -72,12 +74,12 @@ namespace VanillaPlusProfessions.Talents.Patchers
                 Item producedItem = ItemRegistry.Create(__instance.GetItemData().QualifiedItemId, __instance.numberProducedPerCraft);
                 if (__instance.isCookingRecipe && producedItem is StardewValley.Object @object)
                 {
-                    if (TalentCore.IsCookoutKit.Value)
+                    if (TalentCore.TalentCoreEntry.Value.IsCookoutKit)
                     {
                         @object.Edibility += (int)(@object.Edibility / 0.5f);
                         @object.Quality = 1;
                     }
-                    if (TalentUtility.CurrentPlayerHasTalent("HiddenBenefits") && Game1.random.NextBool(0.1))
+                    if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_HiddenBenefits) && Game1.random.NextBool(0.1))
                     {
                         if (Game1.player.currentLocation.GetFridge()?.Items.ContainsId("(TR)IceRod") is true)
                         {
@@ -110,7 +112,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             {
                 if (__instance.fertilized.Value && __instance.growthStage.Value < 5 && !__instance.stump.Value)
                 {
-                    if (TalentUtility.CurrentPlayerHasTalent("Foraging_Grove_Tending"))
+                    if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_GroveTending))
                     {
                         __instance.growthStage.Value++;
                     }
@@ -128,7 +130,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             {
                 if (__instance.QualifiedItemId is "(BC)278" && !justCheckingForActivity)
                 {
-                    TalentCore.IsCookoutKit.Value = true;
+                    TalentCore.TalentCoreEntry.Value.IsCookoutKit = true;
                 }
             }
             catch (Exception e)
@@ -140,7 +142,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
         {
             try
             {
-                if (__instance.cooking && !TalentCore.IsCookoutKit.Value && __result is not null)
+                if (__instance.cooking && !TalentCore.TalentCoreEntry.Value.IsCookoutKit && __result is not null)
                 {
                     List<string> listToEdit = __result;
                     foreach (var item in __result)
@@ -163,7 +165,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
         {
             try
             {
-                if (__instance.hasSeed.Value && __instance.modData.ContainsKey(Constants.Key_Reforestation) && TalentUtility.CurrentPlayerHasTalent("Foraging_Reforestation") && __instance.growthStage.Value is 5)
+                if (__instance.hasSeed.Value && __instance.modData.ContainsKey(Constants.Key_Reforestation) && TalentUtility.CurrentPlayerHasTalent(Constants.Talent_Reforestation) && __instance.growthStage.Value is 5)
                 {
                     WildTreeData data = __instance.GetData();
                     if (data != null && data.SeedDropItems?.Count > 0)
@@ -224,13 +226,13 @@ namespace VanillaPlusProfessions.Talents.Patchers
             }
         }
 
-        public static float TryOverrideLivingHatChance() => TalentUtility.CurrentPlayerHasTalent("EyeSpy") ? 0.0001f : 1E-05f;
+        public static float TryOverrideLivingHatChance() => TalentUtility.CurrentPlayerHasTalent(Constants.Talent_EyeSpy) ? 0.0001f : 1E-05f;
 
         public static void OutputSolarPanel_Postfix(ref int overrideMinutesUntilReady)
         {
             try
             {
-                if (TalentUtility.AnyPlayerHasTalent("StaticCharge"))
+                if (TalentUtility.AnyPlayerHasTalent(Constants.Talent_StaticCharge))
                     overrideMinutesUntilReady -= 4000; //2600 - 600 = 2000; 2000 * 2 = 4000;
             }
             catch (Exception e)
@@ -245,14 +247,14 @@ namespace VanillaPlusProfessions.Talents.Patchers
             {
                 if (__result && !__instance.falling.Value && __instance.stump.Value && Game1.random.NextBool(0.5))
                 {
-                    if (TalentUtility.AnyPlayerHasTalent("NatureSecrets") && __instance.Location?.GetData()?.Forage?.Count > 0)
+                    if (TalentUtility.AnyPlayerHasTalent(Constants.Talent_NatureSecrets) && __instance.Location?.GetData()?.Forage?.Count > 0)
                     {
                         List<string> strings = (from forageData in __instance.Location.GetData().Forage
                                                 where GameStateQuery.CheckConditions(forageData.Condition, __instance.Location ?? t.getLastFarmerToUse().currentLocation ?? Game1.player.currentLocation, t.getLastFarmerToUse() ?? Game1.player)
                                                 && (forageData.Season is null || (forageData.Season is not null && Game1.season == forageData.Season))
                                                 select forageData.ItemId).ToList();
 
-                        strings.RemoveWhere(str => string.IsNullOrEmpty(str) || ItemContextTagManager.HasBaseTag(str, Constants.ContextTag_Banned_NatureSecrets) || !ItemRegistry.Exists("(O)" + str));
+                        strings.RemoveWhere(str => string.IsNullOrEmpty(str) || !TalentUtility.EligibleForForagePerks(str, Constants.Talent_NatureSecrets) || !ItemRegistry.Exists("(O)" + str));
 
                         if (strings.Count > 0)
                         {
@@ -262,7 +264,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
                 }
                 if (t is null && explosion is 0 && !IsAnyCharAround(__instance.Location, __instance.Tile))
                 {
-                    if (TalentUtility.AnyPlayerHasTalent("SurgeProtection"))
+                    if (TalentUtility.AnyPlayerHasTalent(Constants.Talent_SurgeProtection))
                     {
                         Game1.createMultipleObjectDebris("382", (int)__instance.Tile.X, (int)__instance.Tile.Y, 3);
                         __instance.falling.Value = false;
@@ -279,7 +281,29 @@ namespace VanillaPlusProfessions.Talents.Patchers
         {
             try
             {
-                Vector2 pos = tilePosition;
+                var NPCs = Utility.GetNpcsWithinDistance(tilePosition, 2, loc);
+                if (!NPCs.Any())
+                {
+                    foreach (Farmer player in loc.farmers)
+                    {
+                        if (Vector2.Distance(player.Tile, tilePosition) <= 2 && player.UniqueMultiplayerID != Game1.player.UniqueMultiplayerID)
+                        {
+                            return true;
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (var @char in NPCs)
+                    {
+                        if (!(@char is Pet or Child or Horse or Monster or TrashBear or Junimo or JunimoHarvester or Raccoon))
+                        {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+/*                Vector2 pos = tilePosition;
                 bool xincrement = false;
                 bool yincrement = false;
                 for (int x = 0; x < 3; x++)
@@ -315,7 +339,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
                         }
                     }
                     xincrement = false;
-                }
+                }*/
             }
             catch (Exception e)
             {
@@ -329,16 +353,29 @@ namespace VanillaPlusProfessions.Talents.Patchers
         {
             try
             {
-                if (TalentUtility.AnyPlayerHasTalent("Berry-mania") && __instance.size.Value is 1 or 2)
+                if (__instance.size.Value is 1 or 2)
                 {
                     Season season = __instance.Location.GetSeason();
-                    if (season is Season.Spring && Game1.dayOfMonth > 13 && Game1.dayOfMonth < 22)
+                    if (__instance.Location.ParentBuilding?.buildingType.Value == Constants.Id_SecretGlade)
                     {
-                        __result = true;
+                        if (season is Season.Spring or Season.Fall)
+                        {
+                            __result = true;
+                            __instance.tileSheetOffset.Value = 1;
+                        }
                     }
-                    else if (season is Season.Fall && Game1.dayOfMonth > 6 && Game1.dayOfMonth < 15)
+                    else if (TalentUtility.AnyPlayerHasTalent(Constants.Talent_Berrymania))
                     {
-                        __result = true;
+                        if (season is Season.Spring && Game1.dayOfMonth > 13 && Game1.dayOfMonth < 22)
+                        {
+                            __result = true;
+                            __instance.tileSheetOffset.Value = 1;
+                        }
+                        else if (season is Season.Fall && Game1.dayOfMonth > 6 && Game1.dayOfMonth < 15)
+                        {
+                            __result = true;
+                            __instance.tileSheetOffset.Value = 1;
+                        }
                     }
                 }
             }

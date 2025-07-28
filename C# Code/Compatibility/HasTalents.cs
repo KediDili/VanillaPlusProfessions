@@ -14,7 +14,7 @@ namespace VanillaPlusProfessions.Compatibility
         public bool UpdateContext() => true;
         public IEnumerable<string> GetValues(string input)
         {
-            if (ModEntry.ModConfig.Value.ProfessionsOnly)
+            if (ModEntry.CoreModEntry.Value.ModConfig.ProfessionsOnly)
             {
                 yield return null;
                 yield break;

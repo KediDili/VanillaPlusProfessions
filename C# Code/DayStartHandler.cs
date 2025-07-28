@@ -24,9 +24,9 @@ namespace VanillaPlusProfessions
     {
         internal static void OnDayStarted(object sender, DayStartedEventArgs e)
         {
-            DisplayHandler.ShouldHandleSkillPage.Value = true;
+            DisplayHandler.CoreDisplayHandler.Value.ShouldHandleSkillPage = true;
             ComboManager.StonesBroken.Value = 0;
-            DisplayHandler.WasSkillMenuRaised.Value = false;
+            DisplayHandler.CoreDisplayHandler.Value.WasSkillMenuRaised = false;
             TalentCore.IsDayStartOrEnd = true;
 
             CraftableHandler.OnDayStarted();
@@ -55,20 +55,20 @@ namespace VanillaPlusProfessions
             ModEntry.EmptyCritterRoom ??= Game1.getLocationFromNameInLocationsList("KediDili.VPPData.CP_EmptyCritterRoom");
             TalentCore.VoidButterflyLocation = Game1.random.ChooseFrom(Constants.VoidButterfly_Locations);
 
-            bool RefreshingWaters = TalentUtility.CurrentPlayerHasTalent("RefreshingWaters"),
-            Caretaker = CoreUtility.AnyPlayerHasProfession("Caretaker"),
-            WildGrowth = TalentUtility.AnyPlayerHasTalent("WildGrowth"),
-            Trawler = CoreUtility.AnyPlayerHasProfession("Trawler"),
-            Hydrologist = CoreUtility.AnyPlayerHasProfession("Hydrologist"),
-            FishTrap = TalentUtility.AnyPlayerHasTalent("FishTrap"),
-            Diversification = TalentUtility.AnyPlayerHasTalent("Diversification"),
-            DeadMansChest = TalentUtility.AnyPlayerHasTalent("DeadMansChest"),
-            FarmForage = CoreUtility.AnyPlayerHasProfession("Farm-Forage"),
-            CombatFarm = CoreUtility.AnyPlayerHasProfession("Combat-Farm"),
-            FishFarm = CoreUtility.AnyPlayerHasProfession("Fish-Farm"),
-            MiniFridgeBigSpace = TalentUtility.AnyPlayerHasTalent("MiniFridgeBigSpace"),
-            HarmoniousBlooming = TalentUtility.AnyPlayerHasTalent("HarmoniousBlooming"),
-            CrabRave = TalentUtility.HostHasTalent("CrabRave") && Game1.player.isWearingRing("810");
+            bool RefreshingWaters = TalentUtility.CurrentPlayerHasTalent(Constants.Talent_RefreshingWaters),
+            Caretaker = CoreUtility.AnyPlayerHasProfession(Constants.Profession_Caretaker), 
+            WildGrowth = TalentUtility.AnyPlayerHasTalent(Constants.Talent_WildGrowth),
+            Trawler = CoreUtility.AnyPlayerHasProfession(Constants.Profession_Trawler),
+            Hydrologist = CoreUtility.AnyPlayerHasProfession(Constants.Profession_Hydrologist),
+            FishTrap = TalentUtility.AnyPlayerHasTalent(Constants.Talent_FishTrap),
+            Diversification = TalentUtility.AnyPlayerHasTalent(Constants.Talent_Diversification),
+            DeadMansChest = TalentUtility.AnyPlayerHasTalent(Constants.Talent_DeadMansChest),
+            FarmForage = CoreUtility.AnyPlayerHasProfession(Constants.Profession_FarmForage),
+            CombatFarm = CoreUtility.AnyPlayerHasProfession(Constants.Profession_CombatFarm),
+            FishFarm = CoreUtility.AnyPlayerHasProfession(Constants.Profession_FishFarm),
+            MiniFridgeBigSpace = TalentUtility.AnyPlayerHasTalent(Constants.Talent_MiniFridgeBigSpace),
+            HarmoniousBlooming = TalentUtility.AnyPlayerHasTalent(Constants.Talent_HarmoniousBlooming),
+            CrabRave = TalentUtility.HostHasTalent(Constants.Talent_CrabRave) && Game1.player.isWearingRing("810");
 
             foreach (var item in Game1.player.Items)
             {
@@ -78,13 +78,13 @@ namespace VanillaPlusProfessions
                     {
                         can.WaterLeft = can.waterCanMax;
                     }
-                    TalentCore.HasWaterCan.Value = true;
+                    TalentCore.TalentCoreEntry.Value.HasWaterCan = true;
                     can.modData[Constants.Key_Resurgence] = "0";
                     break;
                 }
             }
         
-            if (TalentUtility.AnyPlayerHasTalent("GoodSoaking"))
+            if (TalentUtility.AnyPlayerHasTalent(Constants.Talent_GoodSoaking))
             {
                 Utility.ForEachLocation(loc =>
                 {
@@ -166,7 +166,7 @@ namespace VanillaPlusProfessions
                     HandleCropFairy(crop);
                 }
             }
-            if (TalentUtility.AnyPlayerHasTalent("HiddenBenefits"))
+            if (TalentUtility.AnyPlayerHasTalent(Constants.Talent_HiddenBenefits))
             {
                 Utility.ForEachCrop(crop =>
                 {
@@ -179,13 +179,13 @@ namespace VanillaPlusProfessions
                     return true;
                 });
             }
-            if (CoreUtility.CurrentPlayerHasProfession("Artificer"))
+            if (CoreUtility.CurrentPlayerHasProfession(Constants.Profession_Artificer))
                 FishingRod.maxTackleUses = 40;
 
-            if (CoreUtility.CurrentPlayerHasProfession("Plunderer"))
+            if (CoreUtility.CurrentPlayerHasProfession(Constants.Profession_Plunderer))
                 FishingRod.baseChanceForTreasure = 1;
 
-            if (CoreUtility.AnyPlayerHasProfession("Forage-Fish"))
+            if (CoreUtility.AnyPlayerHasProfession(Constants.Profession_ForageFish))
             {
                 var list = Game1.getOnlineFarmers();
 
@@ -211,12 +211,12 @@ namespace VanillaPlusProfessions
                         if (!farmer.modData.TryAdd(Constants.Key_ForageGuessItemID, chosenNewForage))
                             farmer.modData[Constants.Key_ForageGuessItemID] = chosenNewForage;
 
-                        if (!Game1.doesHUDMessageExist(ModEntry.Helper.Translation.Get("Message.ForageBubbleReset")))
-                            Game1.addHUDMessage(new(ModEntry.Helper.Translation.Get("Message.ForageBubbleReset"), HUDMessage.newQuest_type));
+                        if (!Game1.doesHUDMessageExist(ModEntry.CoreModEntry.Value.Helper.Translation.Get("Message.ForageBubbleReset")))
+                            Game1.addHUDMessage(new(ModEntry.CoreModEntry.Value.Helper.Translation.Get("Message.ForageBubbleReset"), HUDMessage.newQuest_type));
                     }
                 }
             }
-            if (CoreUtility.CurrentPlayerHasProfession("Horticulturist"))
+            if (CoreUtility.CurrentPlayerHasProfession(Constants.Profession_Horticulturist))
             {
                 foreach (var location in Game1.locations)
                 {
@@ -240,29 +240,18 @@ namespace VanillaPlusProfessions
                     {
                         bool shouldUseAutoGrabber = false;
                         StardewValley.Object autoGrabber = null;
-                        if (WildGrowth)
-                        {
-                            foreach (var item in animalHouse.Objects.Pairs)
-                            {
-                                if (item.Value is not null and StardewValley.Object obj_Autograbber && obj_Autograbber.QualifiedItemId == "(BC)165")
-                                {
-                                    shouldUseAutoGrabber = true;
-                                    autoGrabber = item.Value;
-                                    break;
-                                }
-                            }
-                        }
+                        
                         foreach (var (id, animal) in animalHouse.Animals.Pairs)
                         {
                             if (!animalHouse.animalsThatLiveHere.Contains(id))
                                 continue;
 
-                            if (Caretaker)
+                            if (Caretaker && Game1.random.NextBool(0.35))
                             {
-                                if (Game1.random.NextBool(0.35))
-                                    animal.fullness.Value = 255;
+                                animal.fullness.Value = 255;
                             }
-                            if (WildGrowth)
+                            
+                            if (WildGrowth && Game1.random.NextBool(ModEntry.CoreModEntry.Value.ModConfig.WildGrowth_Chance))
                             {
                                 foreach (var item in animalHouse.Objects.Pairs)
                                 {
@@ -515,7 +504,7 @@ namespace VanillaPlusProfessions
                         {
                             ManagerUtility.GetProduceTimeBasedOnPrice(TreeOrGiantCrop, out StardewValley.Object produce);
                             ingredient = produce;
-                            ingredient.modData?.TryAdd("Kedi.VPP.CurrentPreserveType", "Kedi.VPP.FruitSyrup");
+                            ingredient?.modData?.TryAdd("Kedi.VPP.CurrentPreserveType", "Kedi.VPP.FruitSyrup");
                         }
                         if (bigcraftable.heldObject.Value is null)
                         {

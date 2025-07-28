@@ -16,6 +16,7 @@ using System.Reflection.Emit;
 using VanillaPlusProfessions.Utilities;
 using StardewValley.Buffs;
 using VanillaPlusProfessions.Craftables;
+using StardewModdingAPI;
 
 namespace VanillaPlusProfessions.Talents.Patchers
 {
@@ -127,7 +128,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
         {
             try
             {
-                if (TalentUtility.CurrentPlayerHasTalent("Accessorise", who: f) && ModEntry.ModConfig.Value.MasteryCaveChanges > 10)
+                if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_Accessorise, who: f) && ModEntry.CoreModEntry.Value.ModConfig.MasteryCaveChanges > 10)
                 {
                     __result = f.CombatLevel >= 10;
                 }
@@ -142,31 +143,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
         {
             try
             {
-                if (__instance.QualifiedItemId == "(BC)KediDili.VPPData.CP_ProgrammableDrill")
-                {
-                    MachineryEventHandler.DrillLocations.TryAdd(Game1.player.currentLocation.Name, new());
-                    if (!MachineryEventHandler.DrillLocations[Game1.player.currentLocation.Name].Contains(new Vector2(x / 64, y / 64)))
-                    {
-                        MachineryEventHandler.DrillLocations[Game1.player.currentLocation.Name].Add(new Vector2(x / 64, y / 64));
-                    }
-                }
-                else if (__instance.QualifiedItemId == "(BC)KediDili.VPPData.CP_ThermalReactor")
-                {
-                    MachineryEventHandler.ThermalReactorLocations.TryAdd(Game1.player.currentLocation.Name, new());
-                    if (!MachineryEventHandler.ThermalReactorLocations[Game1.player.currentLocation.Name].Contains(new Vector2(x / 64, y / 64)))
-                    {
-                        MachineryEventHandler.ThermalReactorLocations[Game1.player.currentLocation.Name].Add(new Vector2(x / 64, y / 64));
-                    }
-                }
-                else if (__instance.QualifiedItemId == "(BC)KediDili.VPPData.CP_NodeMaker")
-                {
-                    MachineryEventHandler.NodeMakerLocations.TryAdd(Game1.player.currentLocation.Name, new());
-                    if (!MachineryEventHandler.NodeMakerLocations[Game1.player.currentLocation.Name].Contains(new Vector2(x / 64, y / 64)))
-                    {
-                        MachineryEventHandler.NodeMakerLocations[Game1.player.currentLocation.Name].Add(new Vector2(x / 64, y / 64));
-                    }
-                }
-                else if (__instance.QualifiedItemId == "(BC)KediDili.VPPData.CP_MinecartChest" || __instance.QualifiedItemId == "(BC)KediDili.VPPData.CP_DrillCollector")
+                if (__instance.QualifiedItemId == "(BC)KediDili.VPPData.CP_MinecartChest" || __instance.QualifiedItemId == "(BC)KediDili.VPPData.CP_DrillCollector")
                 {
                     Vector2 placementTile = new(x / 64, y / 64);
                     var chest = new Chest(true, __instance.ItemId);
@@ -184,6 +161,62 @@ namespace VanillaPlusProfessions.Talents.Patchers
                         location.Objects[placementTile] = chest;
                     }
                 }
+                List<Vector2> vectors = new();
+                string currentLocName = Game1.player.currentLocation.NameOrUniqueName;
+                if (__instance.ItemId == Constants.Id_ProgrammableDrill)
+                {
+                    if (!MachineryEventHandler.DrillLocations.TryAdd(currentLocName, new()))
+                    {
+                        vectors = MachineryEventHandler.DrillLocations[currentLocName];
+                    }
+
+                    if (!vectors.Contains(new Vector2(x / 64, y / 64)))
+                    {
+                        vectors.Add(new Vector2(x / 64, y / 64));
+                    }
+
+                    MachineryEventHandler.DrillLocations[currentLocName] = vectors;
+                    if (Context.HasRemotePlayers)
+                    {
+                        ModEntry.CoreModEntry.Value.Helper.Multiplayer.SendMessage(vectors, "KediDili.VanillaPlusProfessions/DrillLocationData" , new string[] { "KediDili.VanillaPlusProfessions" });
+                    }
+                }
+                else if (__instance.ItemId == Constants.Id_ThermalReactor)
+                {
+                    if (!MachineryEventHandler.ThermalReactorLocations.TryAdd(currentLocName, new()))
+                    {
+                        vectors = MachineryEventHandler.ThermalReactorLocations[currentLocName];
+                    }
+
+                    if (!vectors.Contains(new Vector2(x / 64, y / 64)))
+                    {
+                        vectors.Add(new Vector2(x / 64, y / 64));
+                    }
+
+                    MachineryEventHandler.ThermalReactorLocations[currentLocName] = vectors;
+                    if (Context.HasRemotePlayers)
+                    {
+                        ModEntry.CoreModEntry.Value.Helper.Multiplayer.SendMessage(vectors, "KediDili.VanillaPlusProfessions/ThermalReactorLocationData", new string[] { "KediDili.VanillaPlusProfessions" });
+                    }
+                }
+                else if (__instance.ItemId == Constants.Id_NodeMaker)
+                {
+                    if (!MachineryEventHandler.NodeMakerLocations.TryAdd(currentLocName, new()))
+                    {
+                        vectors = MachineryEventHandler.NodeMakerLocations[currentLocName];
+                    }
+
+                    if (!vectors.Contains(new Vector2(x / 64, y / 64)))
+                    {
+                        vectors.Add(new Vector2(x / 64, y / 64));
+                    }
+
+                    MachineryEventHandler.NodeMakerLocations[currentLocName] = vectors;
+                    if (Context.HasRemotePlayers)
+                    {
+                        ModEntry.CoreModEntry.Value.Helper.Multiplayer.SendMessage(vectors, "KediDili.VanillaPlusProfessions/NodeMakerLocationData", new string[] { "KediDili.VanillaPlusProfessions" });
+                    }
+                }
             }
             catch (Exception e)
             {
@@ -195,7 +228,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
         {
             try
             {
-                if (TalentUtility.CurrentPlayerHasTalent("Grit", who: __instance) && !__instance.isRidingHorse() && __instance.temporaryInvincibilityTimer == 0 && !(damager is BigSlime or GreenSlime && __instance.isWearingRing("520")))
+                if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_Grit, who: __instance) && !__instance.isRidingHorse() && __instance.temporaryInvincibilityTimer == 0 && !(damager is BigSlime or GreenSlime && __instance.isWearingRing("520")))
                 {
                     __instance.currentTemporaryInvincibilityDuration = (int)(__instance.currentTemporaryInvincibilityDuration * 1.2);
                 }
@@ -210,7 +243,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
         {
             try
             {
-                if (TalentUtility.CurrentPlayerHasTalent("HiddenBenefits", who: farmer))
+                if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_HiddenBenefits, who: farmer))
                 {
                     farmer.maxStamina.Value += 30;
                     farmer.maxHealth += 30;
@@ -225,7 +258,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
         {
             try
             {
-                if (TalentUtility.CurrentPlayerHasTalent("HiddenBenefits", who: farmer))
+                if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_HiddenBenefits, who: farmer))
                 {
                     farmer.maxStamina.Value -= 30;
                     farmer.maxHealth -= 30;
@@ -281,7 +314,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
         {
             try
             {
-                if (TalentUtility.CurrentPlayerHasTalent("Bullseye", who: who))
+                if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_Bullseye, who: who))
                 {
                     return 0.5f + who.buffs.CriticalChanceMultiplier;
                 }
@@ -297,7 +330,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
         {
             try
             {
-                if (TalentUtility.CurrentPlayerHasTalent("Bullseye", who: who))
+                if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_Bullseye, who: who))
                 {
                     return 0.5f + who.buffs.CriticalPowerMultiplier;
                 }
@@ -406,7 +439,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
         {
             try
             {
-                if (__instance.lastUser.usingSlingshot && __instance.lastUser.IsLocalPlayer && TalentCore.IsActionButtonUsed.Value)
+                if (__instance.lastUser.usingSlingshot && __instance.lastUser.IsLocalPlayer && TalentCore.TalentCoreEntry.Value.IsActionButtonUsed)
                 {
                     int mouseX = __instance.aimPos.X;
                     int mouseY = __instance.aimPos.Y;
@@ -446,12 +479,12 @@ namespace VanillaPlusProfessions.Talents.Patchers
         {
             try
             {
-                if (__instance.Player == who && TalentUtility.CurrentPlayerHasTalent("Slippery", who: who))
+                if (__instance.Player == who && TalentUtility.CurrentPlayerHasTalent(Constants.Talent_Slippery, who: who))
                 {
                     who.buffs.Remove("13");
                     BuffEffects dsdsd = new();
                     dsdsd.Speed.Value = 1;
-                    who.buffs.Apply(new("VPP.Slippery.Speed", "talents", "Slippery Talent", 20000, ModEntry.Helper.GameContent.Load<Texture2D>(ContentEditor.ContentPaths["ItemSpritesheet"]), 28, dsdsd, false, Game1.parseText(ModEntry.Helper.Translation.Get("Buff.Slippery.Name")), Game1.parseText(ModEntry.Helper.Translation.Get("Buff.Slippery.Desc"), Game1.smallFont, TalentUtility.BuffDescriptionLength(ModEntry.Helper.Translation.Get("Buff.Slippery.Name")))));
+                    who.buffs.Apply(new("VPP.Slippery.Speed", "talents", "Slippery Talent", 20000, ModEntry.CoreModEntry.Value.Helper.GameContent.Load<Texture2D>(ContentEditor.ContentPaths["ItemSpritesheet"]), 28, dsdsd, false, Game1.parseText(ModEntry.CoreModEntry.Value.Helper.Translation.Get("Buff.Slippery.Name")), Game1.parseText(ModEntry.CoreModEntry.Value.Helper.Translation.Get("Buff.Slippery.Desc"), Game1.smallFont, TalentUtility.BuffDescriptionLength(ModEntry.CoreModEntry.Value.Helper.Translation.Get("Buff.Slippery.Name")))));
                 }
             }
             catch (Exception e)
@@ -464,7 +497,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
         {
             try
             {
-                if (!__result && TalentUtility.CurrentPlayerHasTalent("Consolidation"))
+                if (!__result && TalentUtility.CurrentPlayerHasTalent(Constants.Talent_Consolidation))
                 {
                     if (__instance.QualifiedItemId == ring.QualifiedItemId)
                     {
@@ -486,7 +519,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
         {
             try
             {
-                if (TalentUtility.CurrentPlayerHasTalent("DazzlingStrike") && __instance.itemId.Value is not null)
+                if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_DazzlingStrike) && __instance.itemId.Value is not null)
                 {
                     var obj = ItemRegistry.Create<StardewValley.Object>(__instance.itemId.Value);
                     if (obj.HasContextTag("category_gem") && Game1.random.NextBool(0.8))
@@ -554,14 +587,14 @@ namespace VanillaPlusProfessions.Talents.Patchers
                     else if (item is MagicEnchantment)
                         containsStarburst = true;
                 }
-                if (!containsSlingShots && TalentUtility.CurrentPlayerHasTalent("Enchanting"))
+                if (!containsSlingShots && TalentUtility.CurrentPlayerHasTalent(Constants.Talent_Enchanting))
                 {
                     __result.Add(new AutoFireEnchantment());
                     __result.Add(new RapidEnchantment());
                     __result.Add(new BatKillerEnchantment());
                     __result.Add(new ThriftyEnchantment());
                 }
-                if (!containsStarburst && TalentUtility.CurrentPlayerHasTalent("Starburst"))
+                if (!containsStarburst && TalentUtility.CurrentPlayerHasTalent(Constants.Talent_Starburst))
                 {
                     __result.Add(new MagicEnchantment());
                 }

@@ -591,6 +591,10 @@
 	"Message.ParrotPerch": "This can be placed only to animal buildings!",
 	"Message.MossyFertilizer": "This tree already has Mossy Fertilizer!",
 	"Message.TotemFailed": "The wild totem found no place suitable for forage spawning.",
+	"Message.SunTotemSuccess.Normal": "Clouds and debris are disappearing in the distance...#You can feel the sun rays hurting your eyes.", //Added in 1.1.0
+	"Message.SunTotemSuccess.Summer": "The light within has made sure you will get more even more light tomorrow.", //Added in 1.1.0
+	"Message.SnowTotemSuccess.Normal": "The little cold crystals are out to make a difference in the sky...", //Added in 1.1.0
+	"Message.SnowTotemSuccess.Winter": "The little cold crystals are summoning their friends from nearby clouds...", //Added in 1.1.0
 
 	//Buffs
 	"Buff.Slippery.Name": "Slippery",
@@ -605,11 +609,11 @@
 	"Buff.SpeedOfDarkness.Desc": "Run! Make it to your bed!",
 
 	//Config
+	"GMCM.MainOptionsSection.Name": "Main Options", //Added in 1.1.0
 	"GMCM.ColorBlindnessChanges.Name": "Color Blindness Changes",
 	"GMCM.ColorBlindnessChanges.Desc": "Retextures VPP and vanilla skill bar icons into striped versions.",
 	"GMCM.MasteryCaveChanges.Name": "Mastery Cave Changes",
 	"GMCM.MasteryCaveChanges.Desc": "Changes Mastery Cave to be unlocked when you level up skills to levels 20 or 15 instead of 10.", //Modified in 1.0.8
-
 	"GMCM.StaminaCostAdjustments.Name": "Stamina Cost Adjustments",
 	"GMCM.StaminaCostAdjustments.Desc": "Changes axes, pickaxes, water cans and hoes to use slightly more energy. This option intends to prevent level 20 in any vanilla skill causing no energy cost for players who don't like this.",
 	"GMCM.ProfessionsOnly.Name": "Professions Only",
@@ -622,11 +626,39 @@
 	"GMCM.DeveloperOrTestingMode.Name": "Developer Or Testing Mode",
 	"GMCM.DeveloperOrTestingMode.Desc": "This option should be kept turned off by most users. Enable only if you know what this option does.",
 
+	"GMCM.BalanceSection.Name": "Balance", //Added in 1.1.0
+	"GMCM.BalanceSection.Paragraph": "This section is added so that you will be able to set your own game balance, because 'Balance' is defined differently for everyone. There's also an option for Dazzle in the CP part of the mod. Do not hesitate to ask for extra configs for other talents/professions. If it's doable and reasonable, I'll look into it.", //Added in 1.1.0
+	"GMCM.CycleOfLifeChance.Name": "Cycle Of Life Chance", //Added in 1.1.0
+	"GMCM.CycleOfLifeChance.Desc": "Checked per crop.", //Added in 1.1.0
+	"GMCM.FalloutChance.Name": "Fallout Chance", //Added in 1.1.0
+	"GMCM.FalloutChance.Desc": "Checked per stone, multiplied with mine level.", //Added in 1.1.0
+	"GMCM.CrystalCavernChance.Name": "Crystal Cavern Chance", //Added in 1.1.0
+	"GMCM.CrystalCavernChance.Desc": "Checked only once while entering a floor.", //Added in 1.1.0
+	"GMCM.UpheavalChance.Name": "Upheaval Chance", //Added in 1.1.0
+	"GMCM.UpheavalChance.Desc": "Checked only once while entering a floor.", //Added in 1.1.0
+	"GMCM.WildGrowthChance.Name": "Wild Growth Chance", //Added in 1.1.0
+	"GMCM.WildGrowthChance.Desc": "Checked per animal once every morning.", //Added in 1.1.0
+	"GMCM.VolatilityChance.Name": "Volatility Chance", //Added in 1.1.0 
+	"GMCM.VolatilityChance.Desc": "Checked per stone when it's broken.", //Added in 1.1.0
+	"GMCM.SpawningSeasonChance.Name": "Spawning Season Chance", //Added in 1.1.0
+	"GMCM.SpawningSeasonChance.Desc": "Checked per fish pond.", //Added in 1.1.0
+	"GMCM.AdmirationMultiplier.Name": "Admiration Multiplier", //Added in 1.1.0
+	"GMCM.AdmirationMultiplier.Desc": "MULTIPLIED with the base friendship loss, which means decimals below 1 will decrease it.", //Added in 1.1.0
+	"GMCM.AquaculturalistMultiplier.Name": "Aquaculturalist Multiplier", //Added in 1.1.0
+	"GMCM.AquaculturalistMultiplier.Desc": "Multiplied with all stack values in fish pond data, if applicable.", //Added in 1.1.0
+	"GMCM.MeditationHealth.Name": "Meditation Health", //Added in 1.1.0
+	"GMCM.MeditationHealth.Desc": "Added to farmer's health every time it triggers.", //Added in 1.1.0
+	"GMCM.DownInTheDepthsStones.Name": "Down In The Depth Stones", //Added in 1.1.0
+	"GMCM.DownInTheDepthsStones.Desc": "How many stones should you break MAXIMUM to trigger the talent?", //Added in 1.1.0
+
 	//Items
 	"Item.Xray.GeodeDrop": "(X-ray Geode Drop: {{dropName}})",
 	"Item.Syrup.ProduceNameFormat": "{0} Syrup",
 	"Item.Dust.ProduceNameFormat": "{0} Dust",
 	//Extra Info
 	"ExtraInfo.MinecartRepository": "You can build a Minecart Repository from Robin's shop now.",
-	"ExtraInfo.MineralCavern": "You can build Mineral Caverns from Robin's shop."
+	"ExtraInfo.MineralCavern": "You can build Mineral Caverns from Robin's shop.",
+	"ExtraInfo.Sawmill": "You can build Sawmills from Robin's shop.", //Added in 1.1.0
+	"ExtraInfo.AnimalsDropSeedsOnEatGrass": "Farm animals may drop seeds when they eat grass.", //Added in 1.1.0
+	"ExtraInfo.SecretGlade": "You can build Secret Glades from Wizard's bookstand." //Added in 1.1.0
 }

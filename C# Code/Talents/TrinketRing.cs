@@ -55,7 +55,7 @@ namespace VanillaPlusProfessions.Talents
             if (modData.ContainsKey(Constants.Key_RingTrinkets))
             {
                 Trinket trinket1 = GetRingTrinket();
-                if (ModEntry.WearMoreRingsAPI is not null && Game1.player.trinketItems.Count == 1)
+                if (ModEntry.CoreModEntry.Value.WearMoreRingsAPI is not null && Game1.player.trinketItems.Count == 1)
                     Game1.player.trinketItems.Add(null);
 
                 Game1.player.trinketItems.Add(trinket1);

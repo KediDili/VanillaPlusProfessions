@@ -85,12 +85,23 @@
 				"VPP Trinket Workbench": "709 50 335 3/Field/Kedi.VPP.Accessorise.TrinketWorkbench/true/none/",
                 "VPP Fertigator": "915 1 913 1/Field/Kedi.VPP.Fertigator/false/none/",
 				"VPP Parrot Perch": "709 10/Field/Kedi.VPP.HiddenBenefits.ParrotPerch/true/none/",
+				"VPP Box Trough": "388 388/Field/{{ModId}}_BoxTrough/true/none/",
 				"VPP Glowing Crystal": "80 35 390 30 382 1/Field/{{ModId}}_GlowingCrystal/true/s Mining 11/", //35 quartz, 30 stone, 1 coal
                 "VPP Programmable Drill": "122 1 334 10 335 5/Field/{{ModId}}_ProgrammableDrill/true/s Mining 12/", //1 Dwarf gadget, 10 copper bars, 5 iron bars
                 "VPP Thermal Reactor": "82 45 573 1 84 3/Field/{{ModId}}_ThermalReactor/true/s Mining 13/", //45 fire quartz, Hematite, 3 frozen tears
                 "VPP Node Maker": "111 1 335 15 336 15/Field/{{ModId}}_NodeMaker/true/s Mining 14/", // Rusty Cog, 5 iron bars, 5 gold bars
                 "VPP Minecart Chest": "709 25 390 16 Kedi.VPP.LargeOakResin 1/Field/{{ModId}}_MinecartChest/true/s Mining 16/", //25 hardwood, 16 stone, 1 large oak resin
                 "VPP Machinery Collector": "122 1 334 20/Field/{{ModId}}_DrillCollector/true/s Mining 17/", //1 Dwarf gadget, 20 copper bars
+				"VPP Bird Feeder": "388 20 335 2/Field/{{ModId}}_BirdFeeder/true/s Foraging 11",
+				"VPP Mossy Fertilizer": "92 20 771 20/Field/{{ModId}}_MossyFertilizer/false/s Foraging 12",
+				"VPP Sun Totem": "709 2 768 5/Field/{{ModId}}_SunTotem/false/s Foraging 13",
+				"VPP Snow Totem": "709 2 84 2/Field/{{ModId}}_SnowTotem/false/s Foraging 13",
+				"VPP Wild Totem": "709 2 Moss 30/Field/{{ModId}}_WildTotem/false/s Foraging 13",
+				"VPP Deluxe Spring Seeds": "495 5/Field/{{ModId}}_DeluxeWildSpringSeeds 1/false/s Foraging 14",
+				"VPP Deluxe Summer Seeds": "496 5/Field/{{ModId}}_DeluxeWildSummerSeeds 1/false/s Foraging 14",
+				"VPP Deluxe Fall Seeds": "497 5/Field/{{ModId}}_DeluxeWildFallSeeds 1/false/s Foraging 14",
+				"VPP Deluxe Winter Seeds": "498 5/Field/{{ModId}}_DeluxeWildWinterSeeds 1/false/s Foraging 14",
+				"VPP Seed Sifter": "388 50 335 3/Field/{{ModId}}_SeedSifter/true/s Foraging 17",
 			},
 		},
 		{
@@ -108,7 +119,8 @@
 				"VPP Fried Bug Steak": "874/12 3/Kedi.VPP.FriedBugSteak/none/",
 				"VPP Steamed Clams": "372 2/12 3/Kedi.VPP.SteamedClams/none/",
                 "VPP Miners Meal": "238 1 243 1 200 1/12 3/{{ModId}}_MinersMeal/s Mining 19/",
+				"VPP Foragers Bowl": "296 2 398 2 410 2 414 5/12 3/{{ModId}}_ForagersBowl/s Foraging 19/",
 			}
-		},
+		}
 	]
 } 

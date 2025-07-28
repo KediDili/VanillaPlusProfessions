@@ -4,17 +4,17 @@ using StardewValley.Buildings;
 using StardewValley.Extensions;
 using StardewValley.GameData.Objects;
 using StardewValley.TerrainFeatures;
-
+using System.Linq;
+using VanillaPlusProfessions.Utilities;
 namespace VanillaPlusProfessions.Craftables
 {
     public class BuildingHandler
     {
         public static void OnDayStarted(Building building)
         {
+            var interior = building.GetIndoors();
             if (building.buildingType.Value == Constants.Id_MineralCavern)
             {
-                var interior = building.GetIndoors();
-
                 foreach (var item in interior.Objects.Pairs)
                 {
                     bool isValid = true;
@@ -74,17 +74,38 @@ namespace VanillaPlusProfessions.Craftables
                                     interior.resourceClumps.Add(new ResourceClump(clumpData.Id, 2, 2, item.Value.TileLocation));
                                 }
                             }
-                            if (!found && ModEntry.ItemExtensionsAPI is not null && !string.IsNullOrEmpty(clumpToSpawn))
+                            if (!found && ModEntry.CoreModEntry.Value.ItemExtensionsAPI is not null && !string.IsNullOrEmpty(clumpToSpawn))
                             {
-                                ModEntry.ItemExtensionsAPI.TrySpawnClump(clumpToSpawn, item.Value.TileLocation, interior, out string error, true);
+                                ModEntry.CoreModEntry.Value.ItemExtensionsAPI.TrySpawnClump(clumpToSpawn, item.Value.TileLocation, interior, out string error, true);
                                 if (!string.IsNullOrEmpty(error))
                                 {
-                                    ModEntry.ModMonitor.Log(error, StardewModdingAPI.LogLevel.Error);
+                                    ModEntry.CoreModEntry.Value.ModMonitor.Log(error, StardewModdingAPI.LogLevel.Error);
                                 }
                             }
                         }
                     }
                 }
+            }
+            else if (building.buildingType.Value == Constants.Id_SecretGlade)
+            {
+                var validForages = (from obj in TalentUtility.FilterObjectData(new() { StardewValley.Object.GreensCategory, StardewValley.Object.flowersCategory, StardewValley.Object.FruitsCategory, StardewValley.Object.VegetableCategory }, excludeTags: new() { "forage_item_desert", "forage_item_beach" })
+                                    where TalentUtility.EligibleForForagePerks(obj.Key, Constants.Id_SecretGlade)
+                                    select obj.Key).ToList();
+
+                for (int x = 0; x < interior.map.DisplayWidth / 64; x++)
+                {
+                    for (int y = 0; y < interior.map.DisplayHeight / 64; y++)
+                    {
+                        Vector2 tile = new(x, y);
+                        if (!Game1.random.NextBool(0.15) || interior.Objects.ContainsKey(tile) || interior.doesTileHaveProperty(x, y, "Spawnable", "Back") == null || interior.doesEitherTileOrTileIndexPropertyEqual(x, y, "Spawnable", "Back", "F") || !interior.CanItemBePlacedHere(tile) || interior.hasTileAt(x, y, "Front") || interior.isBehindBush(tile) || (!Game1.random.NextBool(0.1) && interior.isBehindTree(tile)))
+                        {
+                            continue;
+                        }
+                        var obj = ItemRegistry.Create<Object>("(O)" + Game1.random.ChooseFrom(validForages));
+                        obj.IsSpawnedObject = true;
+                        interior.Objects.Add(tile, obj);
+                    }
+                }                
             }
         }
     }

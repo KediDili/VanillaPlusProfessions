@@ -24,47 +24,50 @@ using StardewValley.GameData.Objects;
 using VanillaPlusProfessions.Craftables;
 using StardewValley.Triggers;
 using Microsoft.Xna.Framework;
+using StardewValley.BellsAndWhistles;
 
 namespace VanillaPlusProfessions.Talents
 {
     public class TalentCore
     {
-        internal static readonly PerScreen<int> TalentPointCount = new(createNewState: () => 0);
-        internal static readonly PerScreen<bool> HasWaterCan = new();
-        internal static readonly PerScreen<bool> IsActionButtonUsed = new();
-        internal static readonly PerScreen<int> prevTimeSpeed = new();
-        internal static readonly PerScreen<bool> IsCookoutKit = new();
+        internal readonly static PerScreen<TalentCore> TalentCoreEntry = new( createNewState: () => new());
+
+        internal int TalentPointCount;
+        internal bool HasWaterCan;
+        internal bool IsActionButtonUsed;
+        internal int prevTimeSpeed;
+        internal bool IsCookoutKit;
         internal static string VoidButterflyLocation;
-        internal static int TripleShotCooldown = new();
+        internal int TripleShotCooldown;
 
         internal static bool IsDayStartOrEnd = false;
-        internal static bool? GiveOrTakeStardropEffects = null;
-
-        
+        internal bool? GiveOrTakeStardropEffects = null;
 
         internal static Dictionary<string, Talent> Talents = new();
         internal static Dictionary<string, Skills.Skill> SkillsByName = new();
 
+        [Obsolete("This field is obsolete as of 1.0.4. The disabled talents are handled through the mail flags now. This field is here to prevent save loss")]
         internal static List<string> DisabledTalents = new();
 
-        internal static void Initialize()
+        internal void Initialize(ModEntry modEntry)
         {
-            HasWaterCan.Value = false;
-            ModEntry.Helper.Events.GameLoop.SaveLoaded += OnSaveLoaded;
-            ModEntry.Helper.Events.GameLoop.ReturnedToTitle += OnReturnedToTitle;
-            ModEntry.Helper.Events.GameLoop.SaveCreated += OnSaveCreated;
-            ModEntry.Helper.Events.Multiplayer.ModMessageReceived += OnModMessageReceived;
-            ModEntry.Helper.Events.GameLoop.TimeChanged += OnTimeChanged;
+            HasWaterCan = false;
+            TalentCoreEntry.Value = this;
+            modEntry.Helper.Events.GameLoop.SaveLoaded += OnSaveLoaded;
+            modEntry.Helper.Events.GameLoop.ReturnedToTitle += OnReturnedToTitle;
+            modEntry.Helper.Events.GameLoop.SaveCreated += OnSaveCreated;
+            modEntry.Helper.Events.Multiplayer.ModMessageReceived += OnModMessageReceived;
+            modEntry.Helper.Events.GameLoop.TimeChanged += OnTimeChanged;
 
-            if (!ModEntry.ModConfig.Value.ProfessionsOnly)
+            if (!ModEntry.CoreModEntry.Value.ModConfig.ProfessionsOnly)
             {
-                ModEntry.Helper.Events.Player.InventoryChanged += OnInventoryChanged;
-                ModEntry.Helper.Events.World.NpcListChanged += OnNPCListChanged;
-                ModEntry.Helper.Events.World.TerrainFeatureListChanged += OnTerrainFeatureListChanged;
-                ModEntry.Helper.Events.World.ChestInventoryChanged += OnChestInventoryChanged;
-                ModEntry.Helper.Events.GameLoop.OneSecondUpdateTicked += OnOneSecondUpdateTicked;
+                modEntry.Helper.Events.Player.InventoryChanged += OnInventoryChanged;
+                modEntry.Helper.Events.World.NpcListChanged += OnNPCListChanged;
+                modEntry.Helper.Events.World.TerrainFeatureListChanged += OnTerrainFeatureListChanged;
+                modEntry.Helper.Events.World.ChestInventoryChanged += OnChestInventoryChanged;
+                modEntry.Helper.Events.GameLoop.OneSecondUpdateTicked += OnOneSecondUpdateTicked;
 
-                List<Talent> Talentlist = ModEntry.Helper.ModContent.Load<List<Talent>>("assets\\talents.json");
+                List<Talent> Talentlist = modEntry.Helper.ModContent.Load<List<Talent>>("assets\\talents.json");
 
                 for (int i = 0; i < Talentlist.Count; i++)
                 {
@@ -74,9 +77,9 @@ namespace VanillaPlusProfessions.Talents
                 SpaceEvents.AfterGiftGiven += OnAfterGiftGiven;
                 SpaceEvents.ChooseNightlyFarmEvent += OnChooseNightlyFarmEvent;
 
-                ModEntry.VanillaPlusProfessionsAPI.RegisterTalentStatusAction(new string[] { "AlchemicReversal", "OverTheRainbow", "SurvivalCooking", "DriftFencing", "TakeItSlow", "Upcycling", "CampSpirit", "SpringThaw", "Accessorise", "EssenceInfusion", "DoubleHook", "ColdPress", "SugarRush", "SapSipper", "TrashedTreasure", "EyeSpy", "FisheryGrant", "MonumentalDiscount", "Overcrowding", "InTheWeeds", "LegendaryVariety", "EveryonesBestFriend", "BookclubBargains", "WelcomeToTheJungle", "VastDomain", "HiddenBenefits", "SleepUnderTheStars", "BreedLikeRabbits" }, TalentUtility.DataUpdates);
-                ModEntry.VanillaPlusProfessionsAPI.RegisterTalentStatusAction(new string[] { "SapSipper", "SugarRush", "Accessorise" }, TalentUtility.OnItemBasedTalentBoughtOrRefunded);
-                ModEntry.VanillaPlusProfessionsAPI.RegisterTalentStatusAction(new string[] { "GiftOfTheTalented" }, TalentUtility.GiftOfTheTalented_ApplyOrUnApply);
+                modEntry.VanillaPlusProfessionsAPI.RegisterTalentStatusAction(new string[] { Constants.Talent_AlchemicReversal, Constants.Talent_OverTheRainbow, Constants.Talent_SurvivalCooking, Constants.Talent_DriftFencing, Constants.Talent_TakeItSlow, Constants.Talent_Upcycling, Constants.Talent_CampSpirit, Constants.Talent_SpringThaw, Constants.Talent_Accessorise, Constants.Talent_EssenceInfusion, Constants.Talent_DoubleHook, Constants.Talent_ColdPress, Constants.Talent_SugarRush, Constants.Talent_SapSipper, Constants.Talent_TrashedTreasure, Constants.Talent_EyeSpy, Constants.Talent_FisheryGrant, Constants.Talent_MonumentalDiscount, Constants.Talent_Overcrowding, Constants.Talent_InTheWeeds, Constants.Talent_BigFishSmallPond, Constants.Talent_EveryonesBestFriend, Constants.Talent_BookclubBargains, Constants.Talent_WelcomeToTheJungle, Constants.Talent_VastDomain, Constants.Talent_HiddenBenefits, Constants.Talent_SleepUnderTheStars, Constants.Talent_BreedLikeRabbits, Constants.Talent_OneFishTwoFish }, TalentUtility.DataUpdates);
+                modEntry.VanillaPlusProfessionsAPI.RegisterTalentStatusAction(new string[] { Constants.Talent_SapSipper, Constants.Talent_SugarRush, Constants.Talent_Accessorise }, TalentUtility.OnItemBasedTalentBoughtOrRefunded);
+                modEntry.VanillaPlusProfessionsAPI.RegisterTalentStatusAction(new string[] { Constants.Talent_GiftOfTheTalented }, TalentUtility.GiftOfTheTalented_ApplyOrUnApply);
 
                 FarmingPatcher.ApplyPatches();
                 MiningPatcher.ApplyPatches();
@@ -89,14 +92,14 @@ namespace VanillaPlusProfessions.Talents
             }
             else
             {
-                ModEntry.ModMonitor.LogOnce("Talent system is disabled, and only VPP professions will work. If you didn't intend this, turn the ProfessionsOnly config off.", LogLevel.Info);
+                ModEntry.CoreModEntry.Value.ModMonitor.LogOnce("Talent system is disabled, and only VPP professions will work. If you didn't intend this, turn the ProfessionsOnly config off.", LogLevel.Info);
             }
         }
-        internal static void OnModMessageReceived(object sender, ModMessageReceivedEventArgs e)
+        internal void OnModMessageReceived(object sender, ModMessageReceivedEventArgs e)
         {
-            if (e.FromModID == ModEntry.Manifest.UniqueID && e.FromPlayerID == Game1.MasterPlayer.UniqueMultiplayerID && !Context.IsMainPlayer)
+            if (e.FromModID == ModEntry.CoreModEntry.Value.Manifest.UniqueID && e.FromPlayerID == Game1.MasterPlayer.UniqueMultiplayerID && !Context.IsMainPlayer)
             {
-                if (e.Type == ModEntry.Manifest.UniqueID + "/SwitchMineStones" && e.ReadAs<Dictionary<Vector2, string>>() is Dictionary<Vector2, string> dict)
+                if (e.Type == ModEntry.CoreModEntry.Value.Manifest.UniqueID + "/SwitchMineStones" && e.ReadAs<Dictionary<Vector2, string>>() is Dictionary<Vector2, string> dict)
                 {
                     foreach (var key in dict.Keys)
                     {
@@ -108,13 +111,36 @@ namespace VanillaPlusProfessions.Talents
                         Game1.player.currentLocation.Objects[key] = stone;
                     }
                 }
-                else if (e.Type == ModEntry.Manifest.UniqueID + "/MushroomLevel")
+                else if (e.Type == ModEntry.CoreModEntry.Value.Manifest.UniqueID + "/BirdFeederData" && e.ReadAs<List<Critter>>() is List<Critter> birdList)
+                {
+                    MachineryEventHandler.BirdsOnFeeders.Add(Game1.MasterPlayer.currentLocation.NameOrUniqueName, birdList);
+                }
+                if (e.ReadAs<List<Vector2>>() is List<Vector2> tileList)
+                {
+                    string locName = Game1.GetPlayer(e.FromPlayerID, true)?.currentLocation?.NameOrUniqueName;
+                    if (locName is not null)
+                    {
+                        if (e.Type.StartsWith(ModEntry.CoreModEntry.Value.Manifest.UniqueID + "/DrillLocationData"))
+                        {
+                            MachineryEventHandler.DrillLocations[locName] = tileList;
+                        }
+                        else if (e.Type.StartsWith(ModEntry.CoreModEntry.Value.Manifest.UniqueID + "/ThermalReactorLocationData"))
+                        {
+                            MachineryEventHandler.ThermalReactorLocations[locName] = tileList;
+                        }
+                        else if (e.Type.StartsWith(ModEntry.CoreModEntry.Value.Manifest.UniqueID + "/NodeMakerLocationData"))
+                        {
+                            MachineryEventHandler.NodeMakerLocations[locName] = tileList;
+                        }
+                    }
+                }
+                else if (e.Type == ModEntry.CoreModEntry.Value.Manifest.UniqueID + "/MushroomLevel")
                 {
                     (Game1.player.currentLocation as MineShaft).rainbowLights.Value = true;
                 }
             }
         }
-        internal static void OnChestInventoryChanged(object sender, ChestInventoryChangedEventArgs e)
+        internal void OnChestInventoryChanged(object sender, ChestInventoryChangedEventArgs e)
         {
             if (e.QuantityChanged is not null)
             {
@@ -128,14 +154,14 @@ namespace VanillaPlusProfessions.Talents
             }
         }
 
-        internal static void OnSaveCreated(object sender, SaveCreatedEventArgs e)
+        internal void OnSaveCreated(object sender, SaveCreatedEventArgs e)
         {
             Game1.player.mailReceived.Add(Constants.Key_PointsCalculated);
         }
 
-        internal static void OnChooseNightlyFarmEvent(object sender, EventArgsChooseNightlyFarmEvent e)
+        internal void OnChooseNightlyFarmEvent(object sender, EventArgsChooseNightlyFarmEvent e)
         {
-            if (TalentUtility.HostHasTalent("FairysKiss"))
+            if (TalentUtility.HostHasTalent(Constants.Talent_FairysKiss))
             {
                 if (e.NightEvent is null)
                 {
@@ -165,22 +191,17 @@ namespace VanillaPlusProfessions.Talents
                     }
                 }
             }
-            if (TalentUtility.HostHasTalent("BreedLikeRabbits"))
-            {
-                e.NightEvent = new QuestionEvent(2);
-                e.NightEvent = new QuestionEvent(2);
-            }
         }
-        internal static void OnNPCListChanged(object sender, NpcListChangedEventArgs e)
+        internal void OnNPCListChanged(object sender, NpcListChangedEventArgs e)
         {
-            if (TalentUtility.AnyPlayerHasTalent("HarvestSeason") && e.IsCurrentLocation && e.Added is not null)
+            if (TalentUtility.AnyPlayerHasTalent(Constants.Talent_HarvestSeason) && e.IsCurrentLocation && e.Added is not null)
                 foreach (var item in e.Added)
                     if (item is JunimoHarvester)
                         item.speed += 2;
         }
-        internal static void OnAfterGiftGiven(object sender, EventArgsGiftGiven e)
+        internal void OnAfterGiftGiven(object sender, EventArgsGiftGiven e)
         {
-            if (TalentUtility.CurrentPlayerHasTalent("PrimrosePath") && e.Gift.Category == StardewValley.Object.flowersCategory)
+            if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_PrimrosePath) && e.Gift.Category == StardewValley.Object.flowersCategory)
             {
                 Farmer who = sender as Farmer;
                 Friendship friendship = who?.friendshipData[e.Npc.Name];
@@ -223,44 +244,45 @@ namespace VanillaPlusProfessions.Talents
             return e.OldTime + 10 == e.NewTime;
         }
 
-        internal static void OnOneSecondUpdateTicked(object sender, OneSecondUpdateTickedEventArgs e)
+        internal void OnOneSecondUpdateTicked(object sender, OneSecondUpdateTickedEventArgs e)
         {
             if (TripleShotCooldown > 0)
             {
                 TripleShotCooldown -= 1000;
             }
-            if (!DisplayHandler.OpenTalentMenuCooldown.Value && e.IsMultipleOf(15) && ModEntry.IsGameMenu(Game1.activeClickableMenu))
+            if (!DisplayHandler.CoreDisplayHandler.Value.OpenTalentMenuCooldown && e.IsMultipleOf(15) && ModEntry.IsGameMenu(Game1.activeClickableMenu))
             {
-                DisplayHandler.OpenTalentMenuCooldown.Value = true;
+                DisplayHandler.CoreDisplayHandler.Value.OpenTalentMenuCooldown = true;
             }
         }
-        internal static void OnTimeChanged(object sender, TimeChangedEventArgs e)
+        internal void OnTimeChanged(object sender, TimeChangedEventArgs e)
         {
             if (e.OldTime < e.NewTime && IsTimeFollowing(e))
             {
                 MachineryEventHandler.OnTimeChanged(e);
-                if (TalentUtility.AllPlayersHaveTalent("SpeedOfDarkness"))
+                if (TalentUtility.AllPlayersHaveTalent(Constants.Talent_SpeedOfDarkness))
                 {
                     if (e.NewTime is 2400 && e.OldTime is 2350)
                     {
                         BuffEffects buffEffects = new();
                         buffEffects.Speed.Value = 1;
-                        Buff buff = new("VPP.SpeedOfDarkness.Speed", "VPP.SpeedOfDarkness", "Speed Of Darkness", -2, ModEntry.Helper.GameContent.Load<Texture2D>(ContentEditor.ContentPaths["ItemSpritesheet"]), 27, buffEffects, false, ModEntry.Helper.Translation.Get("Buff.SpeedOfDarkness.Name"), Game1.parseText(ModEntry.Helper.Translation.Get("Buff.SpeedOfDarkness.Desc"), Game1.smallFont, TalentUtility.BuffDescriptionLength(ModEntry.Helper.Translation.Get("Buff.SpeedOfDarkness.Name"))));
+                        Buff buff = new("VPP.SpeedOfDarkness.Speed", "VPP.SpeedOfDarkness", "Speed Of Darkness", -2, ModEntry.CoreModEntry.Value.Helper.GameContent.Load<Texture2D>(ContentEditor.ContentPaths["ItemSpritesheet"]), 27, buffEffects, false, ModEntry.CoreModEntry.Value.Helper.Translation.Get("Buff.SpeedOfDarkness.Name"), Game1.parseText(ModEntry.CoreModEntry.Value.Helper.Translation.Get("Buff.SpeedOfDarkness.Desc"), Game1.smallFont, TalentUtility.BuffDescriptionLength(ModEntry.CoreModEntry.Value.Helper.Translation.Get("Buff.SpeedOfDarkness.Name"))));
                         Game1.player.buffs.Apply(buff);
                     }
                 }
-                if (TalentUtility.AllPlayersHaveTalent("Meditation") && !Game1.player.isMoving() && Context.IsPlayerFree)
+                if (TalentUtility.AllPlayersHaveTalent(Constants.Talent_Meditation) && !Game1.player.isMoving() && Context.IsPlayerFree)
                 {
-                    if (Game1.player.health + 15 >= Game1.player.maxHealth)
+                    int extraHealth = ModEntry.CoreModEntry.Value.ModConfig.Meditation_Health;
+                    if (Game1.player.health + extraHealth >= Game1.player.maxHealth)
                     {
                         Game1.player.health = Game1.player.maxHealth;
                     }
                     else if (Game1.player.health < Game1.player.maxHealth)
                     {
-                        Game1.player.health += 15;
+                        Game1.player.health += extraHealth;
                     }
                 }
-                if (TalentUtility.CurrentPlayerHasTalent("Resurgence") && HasWaterCan.Value)
+                if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_Resurgence) && HasWaterCan)
                 {
                     foreach (var item in Game1.player.Items)
                     {
@@ -288,32 +310,32 @@ namespace VanillaPlusProfessions.Talents
                     }
                 }
             }
-            if (TalentUtility.AllPlayersHaveTalent("SharedFocus"))
+            if (TalentUtility.AllPlayersHaveTalent(Constants.Talent_SharedFocus))
             {
                 var data = Game1.MasterPlayer.currentLocation.modData;
-                if ((Game1.MasterPlayer.currentLocation is MineShaft or VolcanoDungeon || data?.ContainsKey(Constants.Key_SharedFocus) is true) && prevTimeSpeed.Value is 0)
+                if ((Game1.MasterPlayer.currentLocation is MineShaft or VolcanoDungeon || data?.ContainsKey(Constants.Key_SharedFocus) is true) && prevTimeSpeed is 0)
                 {
                     Game1.isTimePaused = true;
-                    prevTimeSpeed.Value = Game1.realMilliSecondsPerGameTenMinutes;
+                    prevTimeSpeed = Game1.realMilliSecondsPerGameTenMinutes;
                     int currentSecondAmount = Game1.gameTimeInterval / Game1.realMilliSecondsPerGameMinute;
                     Game1.realMilliSecondsPerGameTenMinutes = 12000;
                     Game1.realMilliSecondsPerGameMinute = 1200;
                     Game1.gameTimeInterval = Game1.realMilliSecondsPerGameMinute * currentSecondAmount;
                     Game1.isTimePaused = false;
                 }
-                else if ((Game1.MasterPlayer.currentLocation is not MineShaft or VolcanoDungeon || data?.ContainsKey(Constants.Key_SharedFocus) is false) && prevTimeSpeed.Value != 0)
+                else if ((Game1.MasterPlayer.currentLocation is not MineShaft or VolcanoDungeon || data?.ContainsKey(Constants.Key_SharedFocus) is false) && prevTimeSpeed != 0)
                 {
                     Game1.isTimePaused = true;
-                    Game1.realMilliSecondsPerGameTenMinutes = prevTimeSpeed.Value;
+                    Game1.realMilliSecondsPerGameTenMinutes = prevTimeSpeed;
                     int currentSecondAmount = Game1.gameTimeInterval / Game1.realMilliSecondsPerGameMinute;
                     Game1.realMilliSecondsPerGameMinute = Game1.realMilliSecondsPerGameTenMinutes / 10;
-                    prevTimeSpeed.Value = 0;
+                    prevTimeSpeed = 0;
                     Game1.gameTimeInterval = Game1.realMilliSecondsPerGameMinute * currentSecondAmount;
                     Game1.isTimePaused = false;
                 }
             }
         }
-        internal static void OnInventoryChanged(object sender, InventoryChangedEventArgs e)
+        internal void OnInventoryChanged(object sender, InventoryChangedEventArgs e)
         {
             if (e.IsLocalPlayer)
             {
@@ -338,13 +360,13 @@ namespace VanillaPlusProfessions.Talents
                         {
                             if (item is WateringCan can && !can.IsBottomless)
                             {
-                                HasWaterCan.Value = true;
+                                HasWaterCan = true;
                                 can.modData[Constants.Key_Resurgence] = "0";
                                 break;
                             }
                             else if (item is StardewValley.Object obj && obj.QualifiedItemId == "(O)92")
                             {
-                                if (TalentUtility.AnyPlayerHasTalent("SapSipper"))
+                                if (TalentUtility.AnyPlayerHasTalent(Constants.Talent_SapSipper))
                                 {
                                     obj.Edibility = 3;
                                 }
@@ -366,7 +388,7 @@ namespace VanillaPlusProfessions.Talents
                     {
                         if (item is WateringCan can && !can.IsBottomless)
                         {
-                            HasWaterCan.Value = false;
+                            HasWaterCan = false;
                             can.modData[Constants.Key_Resurgence] = "0";
                             break;
                         }
@@ -381,9 +403,10 @@ namespace VanillaPlusProfessions.Talents
                 }
             }
         }
-        internal static void OnSaveLoaded(object sender, SaveLoadedEventArgs e)
+        internal void OnSaveLoaded(object sender, SaveLoadedEventArgs e)
         {
-            ModEntry.Helper.GameContent.InvalidateCache(PathUtilities.NormalizeAssetName("Strings/UI"));
+            ModEntry.CoreModEntry.Value.Helper.GameContent.InvalidateCache(PathUtilities.NormalizeAssetName("Strings/UI"));
+            ModEntry.CoreModEntry.Value.Helper.GameContent.InvalidateCache(PathUtilities.NormalizeAssetName("LooseSprites/Cursors_1_6"));
 
             if (Game1.player.modData.TryGetValue(Constants.Key_TalentPoints, out string value))
             {
@@ -396,18 +419,17 @@ namespace VanillaPlusProfessions.Talents
             {
                 Game1.player.modData.TryAdd(Constants.Key_TalentPoints, "0");
             }
-            if (ModEntry.SpaceCoreAPI?.GetCustomSkills().Length > 0)
+            if (ModEntry.CoreModEntry.Value.SpaceCoreAPI?.GetCustomSkills().Length > 0)
             {
-                SkillsByName = ModEntry.Helper.Reflection.GetField<Dictionary<string, Skills.Skill>>(typeof(Skills), "SkillsByName").GetValue();
+                SkillsByName = ModEntry.CoreModEntry.Value.Helper.Reflection.GetField<Dictionary<string, Skills.Skill>>(typeof(Skills), "SkillsByName").GetValue();
             }
-            if (TalentUtility.CurrentPlayerHasTalent("Accessorise"))
+            if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_Accessorise))
             {
                 foreach (var item in TalentUtility.GetAllTrinketRings(Game1.player))
                 {
                     item.onEquip(Game1.player);
                 }
             }
-            //Game1.player.achievements.OnValueAdded += OnAchievementAdded;
             Game1.player.team.specialOrders.OnElementChanged += OnSpecialOrderChanged;
             Game1.player.mailReceived.OnValueAdded += OnMailFlagGiven;
 
@@ -423,15 +445,15 @@ namespace VanillaPlusProfessions.Talents
                 }
             }
 
-            if (ModEntry.ItemExtensionsAPI is not null)
+            if (ModEntry.CoreModEntry.Value.ItemExtensionsAPI is not null)
             {
                 var nodeList = from obj in DataLoader.Objects(Game1.content)
-                               where ModEntry.ItemExtensionsAPI.IsStone(obj.Key) && !ModEntry.ItemExtensionsAPI.IsClump(obj.Key)
+                               where ModEntry.CoreModEntry.Value.ItemExtensionsAPI.IsStone(obj.Key) && !ModEntry.CoreModEntry.Value.ItemExtensionsAPI.IsClump(obj.Key)
                                select obj;
 
                 foreach (var item in nodeList)
                 {
-                    if (ModEntry.ItemExtensionsAPI.IsResource(item.Key, out int? _, out string itemDropped) && itemDropped is not null)
+                    if (ModEntry.CoreModEntry.Value.ItemExtensionsAPI.IsResource(item.Key, out int? _, out string itemDropped) && itemDropped is not null)
                     {
                         if (ItemRegistry.GetData(itemDropped).RawData is not ObjectData objectData || objectData?.ContextTags?.Contains(Constants.ContextTag_Banned_Node) is true)
                             continue;
@@ -448,12 +470,12 @@ namespace VanillaPlusProfessions.Talents
                 }
             }
 
-            if (TalentUtility.AnyPlayerHasTalent("Overcrowding") || TalentUtility.AnyPlayerHasTalent("BreedLikeRabbits"))
+            if (TalentUtility.AnyPlayerHasTalent(Constants.Talent_Overcrowding) || TalentUtility.AnyPlayerHasTalent(Constants.Talent_BreedLikeRabbits))
             {
-                ModEntry.Helper.GameContent.InvalidateCache("Data\\Buildings");
-                if (TalentUtility.AnyPlayerHasTalent("BreedLikeRabbits"))
+                ModEntry.CoreModEntry.Value.Helper.GameContent.InvalidateCache("Data\\Buildings");
+                if (TalentUtility.AnyPlayerHasTalent(Constants.Talent_BreedLikeRabbits))
                 {
-                    ModEntry.Helper.GameContent.InvalidateCache("Data/FarmAnimals");
+                    ModEntry.CoreModEntry.Value.Helper.GameContent.InvalidateCache("Data/FarmAnimals");
                 }
                 Utility.ForEachBuilding(building =>
                 {
@@ -472,14 +494,14 @@ namespace VanillaPlusProfessions.Talents
                 });
             }
         }
-        internal static void OnMailFlagGiven(string flag)
+        internal void OnMailFlagGiven(string flag)
         {
             if (flag == "Farm_Eternal")
             {
                 AddTalentPoint(10);
             }
         }
-        internal static void OnSpecialOrderChanged(NetList<SpecialOrder, NetRef<SpecialOrder>> list, int index, SpecialOrder OldOrder, SpecialOrder NewOrder)
+        internal void OnSpecialOrderChanged(NetList<SpecialOrder, NetRef<SpecialOrder>> list, int index, SpecialOrder OldOrder, SpecialOrder NewOrder)
         {
             if (NewOrder is not null)
             {
@@ -488,20 +510,20 @@ namespace VanillaPlusProfessions.Talents
             }
         }
 
-        public static void AddTalentPoint(int increase = 1, bool postMessage = true)
+        public void AddTalentPoint(int increase = 1, bool postMessage = true)
         {
-            if (postMessage && ModEntry.IsRecalculatingPoints.Value)
+            if (postMessage && ModEntry.CoreModEntry.Value.IsRecalculatingPoints)
             {
-                ModEntry.IsRecalculatingPoints.Value = false;
+                ModEntry.CoreModEntry.Value.IsRecalculatingPoints = false;
             }
-            TalentPointCount.Value += increase;
-            if (postMessage && !ModEntry.ModConfig.Value.ProfessionsOnly)
-                Game1.showGlobalMessage(ModEntry.Helper.Translation.Get("Message.TalentPoint"));
+            TalentPointCount += increase;
+            if (postMessage && !ModEntry.CoreModEntry.Value.ModConfig.ProfessionsOnly)
+                Game1.showGlobalMessage(ModEntry.CoreModEntry.Value.Helper.Translation.Get("Message.TalentPoint"));
         }
 
-        internal static void OnTerrainFeatureListChanged(object sender, TerrainFeatureListChangedEventArgs e)
+        internal void OnTerrainFeatureListChanged(object sender, TerrainFeatureListChangedEventArgs e)
         {
-            if (e.Added.Any() && TalentUtility.CurrentPlayerHasTalent("Reforestation"))
+            if (e.Added.Any() && TalentUtility.CurrentPlayerHasTalent(Constants.Talent_Reforestation))
             {
                 foreach (var item in e.Added)
                 {
@@ -513,9 +535,9 @@ namespace VanillaPlusProfessions.Talents
                 }
             }
         }
-        internal static void OnReturnedToTitle(object sender, ReturnedToTitleEventArgs e)
+        internal void OnReturnedToTitle(object sender, ReturnedToTitleEventArgs e)
         {
-            TalentPointCount.Value = 0;
+            TalentPointCount = 0;
         }
     }
 }

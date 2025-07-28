@@ -49,7 +49,7 @@ namespace VanillaPlusProfessions.Talents
         }
         private void CreateParrotAnimation()
         {
-            ParrotAnim.spriteTexture = ModEntry.Helper.GameContent.Load<Texture2D>(ContentEditor.ContentPaths["ItemSpritesheet"]);
+            ParrotAnim.spriteTexture = ModEntry.CoreModEntry.Value.Helper.GameContent.Load<Texture2D>(ContentEditor.ContentPaths["ItemSpritesheet"]);
             ParrotAnim.SourceRect = new(0, 64, 16, 16);
             ParrotAnim.SpriteHeight = 16;
             ParrotAnim.SpriteWidth = 16;

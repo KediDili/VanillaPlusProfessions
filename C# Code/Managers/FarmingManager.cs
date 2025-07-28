@@ -36,7 +36,7 @@ namespace VanillaPlusProfessions.Managers
         {
             try
             {
-                if (CoreUtility.CurrentPlayerHasProfession("Caretaker", useThisInstead: who))
+                if (CoreUtility.CurrentPlayerHasProfession(Constants.Profession_Caretaker, useThisInstead: who))
                     who.Stamina += 4;
             }
             catch (System.Exception e)
@@ -49,7 +49,7 @@ namespace VanillaPlusProfessions.Managers
         {
             try
             {
-                if (CoreUtility.CurrentPlayerHasProfession("Connoisseur"))
+                if (CoreUtility.CurrentPlayerHasProfession(Constants.Profession_Connoisseur))
                 {
                     var obj = __instance.GetData();
                     string field = "false";

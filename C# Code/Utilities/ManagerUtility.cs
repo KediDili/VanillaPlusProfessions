@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-using StardewValley.Menus;
+﻿using StardewValley.Menus;
 using StardewValley.Objects;
 using StardewValley;
 using StardewValley.Extensions;
 using StardewValley.Monsters;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using StardewValley.TerrainFeatures;
 using StardewModdingAPI;
 using System.Linq;
@@ -19,12 +17,12 @@ namespace VanillaPlusProfessions.Utilities
         {
             if (args.Length < 2)
             {
-                ModEntry.ModMonitor.Log("Insufficient arguments.", LogLevel.Warn);
+                ModEntry.CoreModEntry.Value.ModMonitor.Log("Insufficient arguments.", LogLevel.Warn);
                 return;
             }
             if (!Context.IsWorldReady)
             {
-                ModEntry.ModMonitor.Log("Load a save first (or wait until your save loads).", LogLevel.Warn);
+                ModEntry.CoreModEntry.Value.ModMonitor.Log("Load a save first (or wait until your save loads).", LogLevel.Warn);
                 return;
             }
             int skill = -1;
@@ -134,8 +132,8 @@ namespace VanillaPlusProfessions.Utilities
                     result.preserve.Value = (Object.PreserveType)1115;
                     result.preservedParentSheetIndex.Value = ingredient.ParentSheetIndex.ToString();
                     result.Name = result.displayName = ingredient.Name + " " + (value is Constants.Id_FruitSyrup ? "Syrup" : "Dust");
-                    result.displayName = ModEntry.Helper.Translation.Get("Item." + (value is Constants.Id_FruitSyrup ? "Syrup" : "Dust") + ".ProduceNameFormat").ToString().Replace("{0}", ingredient.DisplayName);
-                    result.displayNameFormat = ModEntry.Helper.Translation.Get("Item." + (value is Constants.Id_FruitSyrup ? "Syrup" : "Dust") + ".ProduceNameFormat").ToString().Replace("{0}", ingredient.DisplayName); ;
+                    result.displayName = ModEntry.CoreModEntry.Value.Helper.Translation.Get("Item." + (value is Constants.Id_FruitSyrup ? "Syrup" : "Dust") + ".ProduceNameFormat").ToString().Replace("{0}", ingredient.DisplayName);
+                    result.displayNameFormat = ModEntry.CoreModEntry.Value.Helper.Translation.Get("Item." + (value is Constants.Id_FruitSyrup ? "Syrup" : "Dust") + ".ProduceNameFormat").ToString().Replace("{0}", ingredient.DisplayName); ;
                     result.Price += ingredient.Price / 2;
                     if (value is Constants.Id_FruitSyrup && ingredient.Edibility != -300)
                         result.Edibility = ingredient.Edibility * 2;
@@ -147,7 +145,7 @@ namespace VanillaPlusProfessions.Utilities
 
         public static void FertilizerStackEffects()
         {
-            if (!CoreUtility.CurrentPlayerHasProfession("Agronomist") || (CoreUtility.CurrentPlayerHasProfession("Agronomist") && !Game1.random.NextBool(0.3)))
+            if (!CoreUtility.CurrentPlayerHasProfession(Constants.Profession_Agronomist) || (CoreUtility.CurrentPlayerHasProfession(Constants.Profession_Agronomist) && !Game1.random.NextBool(0.3)))
                 Game1.player.ActiveObject.Stack--;
             if (Game1.player.ActiveObject.Stack == 0)
                 Game1.player.ActiveObject = null;
@@ -163,7 +161,6 @@ namespace VanillaPlusProfessions.Utilities
         }
         public static string GemDustToFertilizer(Object @object)
         {
-           
             if (@object.heldObject.Value is null)
                 return "";
             for (int i = 0; i < Constants.Fertilizer_Color_Tags.Count; i++)

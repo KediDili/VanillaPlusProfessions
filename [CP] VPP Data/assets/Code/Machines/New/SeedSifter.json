@@ -6,8 +6,43 @@
 			"Target": "Data/Machines",
 			"Entries":{
 				"(BC){{ModId}}_SeedSifter": {
-					
-				},				
+					"HasOutput": true,
+					"OutputRules": [
+						{
+							"Id": "{{ModId}}_SeedSifter",
+							"Triggers": [
+								{
+									"Id": "{{ModId}}_SeedSifter_Forage",
+									"Trigger": "ItemPlacedInMachine",
+									"ContextTags": [ "forage_item", "season_spring" ]
+								},								
+							],
+							"OutputItem": [
+								{
+									"Id": "{{ModId}}_SeedSifter_Forage_Spring",
+									"ItemId": "{{ModId}}_DeluxeWildSpringSeeds",
+									"Condition": "ITEM_CONTEXT_TAG Input season_spring"
+								},
+								{
+									"Id": "{{ModId}}_SeedSifter_Forage_Spring",
+									"ItemId": "{{ModId}}_DeluxeWildSummerSeeds",
+									"Condition": "ITEM_CONTEXT_TAG Input season_summer"
+								},
+								{
+									"Id": "{{ModId}}_SeedSifter_Forage_Spring",
+									"ItemId": "{{ModId}}_DeluxeWildFallSeeds",
+									"Condition": "ITEM_CONTEXT_TAG Input season_fall"
+								},
+								{
+									"Id": "{{ModId}}_SeedSifter_Forage_Spring",
+									"ItemId": "{{ModId}}_DeluxeWildWinterSeeds",
+									"Condition": "ITEM_CONTEXT_TAG Input season_winter"
+								},
+							],
+							"MinutesUntilReady": 30
+						}
+					]
+				},
 			}
 		}
 	]

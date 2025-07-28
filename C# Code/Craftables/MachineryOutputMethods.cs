@@ -11,7 +11,7 @@ namespace VanillaPlusProfessions.Craftables
         public static Item ProgrammableDrillOutput(StardewValley.Object machine, Item inputItem, bool probe, MachineItemOutput outputData, Farmer player, out int? overrideMinutesUntilReady)
         {
             overrideMinutesUntilReady = null;
-            if (inputItem.HasContextTag("ore_item") || inputItem.Category == StardewValley.Object.GemCategory || inputItem.QualifiedItemId is "(O)382" or "(O)390" || (inputItem is StardewValley.Object obj && obj.IsGeode()))
+            if (inputItem.HasContextTag("ore_item") || inputItem.Category == StardewValley.Object.GemCategory || inputItem.QualifiedItemId is "(O)382" or "(O)390" || (inputItem is StardewValley.Object obj && obj.HasContextTag("geode")))
             {
                 int minStack = 0;
                 int maxStack = 0;
@@ -25,7 +25,7 @@ namespace VanillaPlusProfessions.Craftables
                     minStack = 2;
                     maxStack = 10;
                 }
-                else if ((inputItem is StardewValley.Object obj2 && obj2.IsGeode()))
+                else if (inputItem is StardewValley.Object obj2 && obj2.HasContextTag("geode"))
                 {
                     minStack = 10;
                     maxStack = 30;
@@ -48,7 +48,7 @@ namespace VanillaPlusProfessions.Craftables
         public static Item NodeMakerOutput(StardewValley.Object machine, Item inputItem, bool probe, MachineItemOutput outputData, Farmer player, out int? overrideMinutesUntilReady)
         {
             overrideMinutesUntilReady = null;
-            if (inputItem.HasContextTag("ore_item") || inputItem.Category == StardewValley.Object.GemCategory || inputItem.QualifiedItemId is "(O)382" or "(O)390" or "(O)881" || (inputItem is StardewValley.Object obj && obj.IsGeode()))
+            if (inputItem.HasContextTag("ore_item") || inputItem.Category == StardewValley.Object.GemCategory || inputItem.QualifiedItemId is "(O)382" or "(O)390" or "(O)881" || (inputItem is StardewValley.Object obj && obj.HasContextTag("geode")))
             {
                 string nodeToCreate = null;
                 if (ItemRegistry.GetData(inputItem.QualifiedItemId).RawData is ObjectData data)

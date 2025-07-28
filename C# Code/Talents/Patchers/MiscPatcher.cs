@@ -74,17 +74,17 @@ namespace VanillaPlusProfessions.Talents.Patchers
         {
             try
             {
-                if (CoreUtility.CurrentPlayerHasProfession("Ranger") && !__instance.HasContextTag(Constants.ContextTag_Banned_Ranger)) //Ranger ++
+                if (CoreUtility.CurrentPlayerHasProfession(Constants.Profession_Ranger) && TalentUtility.EligibleForForagePerks(__instance.ItemId, Constants.Profession_Ranger)) //Ranger ++
                 {
                     if (__instance.Category == StardewValley.Object.GreensCategory && __instance.HasContextTag("forage_item"))
                         __instance.Price *= 2;
                 }
-                if (CoreUtility.CurrentPlayerHasProfession("Adventurer") && !__instance.HasContextTag(Constants.ContextTag_Banned_Adventurer)) //Adventurer ++
+                if (CoreUtility.CurrentPlayerHasProfession(Constants.Profession_Adventurer) && TalentUtility.EligibleForForagePerks(__instance.ItemId, Constants.Profession_Adventurer)) //Adventurer ++
                 {
                     if (__instance.Category == StardewValley.Object.sellAtFishShopCategory || __instance.HasContextTag("forage_item_beach") || __instance.HasContextTag("forage_item_secret") || __instance.HasContextTag("forage_item_mines"))
                         __instance.Price *= 2;
                 }
-                if (TalentUtility.CurrentPlayerHasTalent("HauteCuisine") && Game1.activeClickableMenu is CraftingPage)
+                if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_HauteCuisine) && Game1.activeClickableMenu is CraftingPage)
                 {
                     if (__instance.Category == StardewValley.Object.CookingCategory)
                     {
@@ -93,19 +93,19 @@ namespace VanillaPlusProfessions.Talents.Patchers
                         __instance.FixQuality();
                     }
                 }
-                if (TalentUtility.CurrentPlayerHasTalent("Roemance"))
+                if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_Roemance))
                 {
                     if (__instance.ItemId is "812" or "447" or "445")
                         __instance.Price *= 5 / 4;
                 }
-                if (CoreUtility.CurrentPlayerHasProfession("Ironmonger"))
+                if (CoreUtility.CurrentPlayerHasProfession(Constants.Profession_Ironmonger))
                 {
                     if (__instance.HasContextTag("ore_item"))
                         __instance.Price *= 2;
                 }
-                if (TalentUtility.CurrentPlayerHasTalent("InsiderInfo"))
+                if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_InsiderInfo))
                 {
-                    Dictionary<string, string> InsiderInfo = ModEntry.Helper.GameContent.Load<Dictionary<string, string>>(ContentEditor.ContentPaths["InsiderInfo"]);
+                    Dictionary<string, string> InsiderInfo = ModEntry.CoreModEntry.Value.Helper.GameContent.Load<Dictionary<string, string>>(ContentEditor.ContentPaths["InsiderInfo"]);
                     foreach (var item in InsiderInfo)
                     {
                         if (Game1.player.friendshipData.TryGetValue(item.Key ?? "", out Friendship val) && val.Points >= 1500)
@@ -152,7 +152,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
         {
             try
             {
-                if (__instance.QualifiedItemId == "(BC)216" && TalentUtility.AnyPlayerHasTalent("MiniFridgeBigSpace"))
+                if (__instance.QualifiedItemId == "(BC)216" && TalentUtility.AnyPlayerHasTalent(Constants.Talent_MiniFridgeBigSpace))
                 {
                     __instance.SpecialChestType = Chest.SpecialChestTypes.BigChest;
                 }
@@ -197,13 +197,13 @@ namespace VanillaPlusProfessions.Talents.Patchers
             return toReturn;
         }
 
-        public static int ReplaceGoldCost(int og) => TalentUtility.CurrentPlayerHasTalent("NarrowEscape") ? 200 : og; 
+        public static int ReplaceGoldCost(int og) => TalentUtility.CurrentPlayerHasTalent(Constants.Talent_NarrowEscape) ? 200 : og; 
         
         public static void readNote(int which)
         {
             try
             {
-                if (TalentUtility.CurrentPlayerHasTalent("LostAndFound") && Game1.netWorldState.Value.LostBooksFound >= which)
+                if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_LostAndFound) && Game1.netWorldState.Value.LostBooksFound >= which)
                 {
                     string name = "";
                     int index = 0;
@@ -334,7 +334,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
         {
             try
             {
-                if (TalentUtility.HostHasTalent("ButterflyEffect") && Game1.player.team.sharedDailyLuck.Value < -0.02)
+                if (TalentUtility.HostHasTalent(Constants.Talent_ButterflyEffect) && Game1.player.team.sharedDailyLuck.Value < -0.02)
                 {
                     if (!__instance.Name.Equals(TalentCore.VoidButterflyLocation))
                         return;
@@ -392,9 +392,9 @@ namespace VanillaPlusProfessions.Talents.Patchers
         {
             try
             {
-                if (TalentUtility.CurrentPlayerHasTalent("Admiration"))
+                if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_Admiration))
                 {
-                    return oldDecay / 2;
+                    return (int)(oldDecay * ModEntry.CoreModEntry.Value.ModConfig.Admiration_Multiplier);
                 }
             }
             catch (Exception e)
@@ -408,7 +408,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
         {
             try
             {
-                if (TalentUtility.CurrentPlayerHasTalent("GoodEats") && obj?.Buffs?.Any() is true)
+                if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_GoodEats) && obj?.Buffs?.Any() is true)
                 {
                     List<Buff> buffs = new();
                     foreach (var item in obj.Buffs)

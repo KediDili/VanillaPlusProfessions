@@ -112,7 +112,7 @@ namespace VanillaPlusProfessions.Managers
             {
                 if (who == Game1.player)
                 {
-                    if (CoreUtility.CurrentPlayerHasProfession("Appraiser", useThisInstead: who) && stoneId is "843" or "844")
+                    if (CoreUtility.CurrentPlayerHasProfession(Constants.Profession_Appraiser, useThisInstead: who) && stoneId is "843" or "844")
                     {
                         int number = Game1.random.Next(0, 3);
                         for (int i = 0; i < number; i++)
@@ -120,7 +120,7 @@ namespace VanillaPlusProfessions.Managers
                             Game1.createObjectDebris("(O)848", x, y);
                         }
                     }
-                    if (TalentUtility.CurrentPlayerHasTalent("Volatility", who: who) && r.NextBool(0.05))
+                    if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_Volatility, who: who) && r.NextBool(ModEntry.CoreModEntry.Value.ModConfig.Volatility_Chance))
                     {
                         if (stoneId == "751")
                         {
@@ -149,8 +149,8 @@ namespace VanillaPlusProfessions.Managers
         public static bool Conditions(Item item, bool doesStackMatter = true)
         {
             return doesStackMatter
-                ? item?.QualifiedItemId == "(O)82" && item?.Stack >= 5 && CoreUtility.CurrentPlayerHasProfession("Enchanter")
-                : item?.QualifiedItemId == "(O)82" && CoreUtility.CurrentPlayerHasProfession("Enchanter");
+                ? item?.QualifiedItemId == "(O)82" && item?.Stack >= 5 && CoreUtility.CurrentPlayerHasProfession(Constants.Profession_Enchanter)
+                : item?.QualifiedItemId == "(O)82" && CoreUtility.CurrentPlayerHasProfession(Constants.Profession_Enchanter);
         }
     }
 }

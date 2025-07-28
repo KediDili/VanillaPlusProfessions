@@ -35,6 +35,17 @@
 		},
 		{
 			"Action": "EditData",
+			"Target": "Characters/Dialogue/Willy",
+			"Entries": {
+				"VPP_GiftOfFriendship": "{{i18n:Dialogue.GiftOfFriendship.Wizard|WizardIntermodTotems={{WizardTotemPool}}}}"
+			},
+			"When": {
+				"Hearts:Wizard": "{{Range:8,14}}",
+				"Random: {{Range: 1, 5}}": "5"
+			}
+		},
+		{
+			"Action": "EditData",
 			"Target": "Characters/Dialogue/Pierre",
 			"Entries": {
 				"VPP_GiftOfFriendship": "{{i18n:Dialogue.GiftOfFriendship.Pierre}}"

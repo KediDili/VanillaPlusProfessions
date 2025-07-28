@@ -59,7 +59,7 @@ namespace VanillaPlusProfessions.Managers
         {
             try
             {
-                if (CoreUtility.CurrentPlayerHasProfession("Warrior", useThisInstead: who))
+                if (CoreUtility.CurrentPlayerHasProfession(Constants.Profession_Warrior, useThisInstead: who))
                 {
                     int actualDamage = Math.Max(1, damage - __instance.resilience.Value);
                     if (Game1.random.NextDouble() < __instance.missChance.Value - __instance.missChance.Value * addedPrecision)
@@ -99,7 +99,7 @@ namespace VanillaPlusProfessions.Managers
         {
             try
             {
-                if (__instance.isArmoredBug.Value && CoreUtility.CurrentPlayerHasProfession("Warrior", useThisInstead: who))
+                if (__instance.isArmoredBug.Value && CoreUtility.CurrentPlayerHasProfession(Constants.Profession_Warrior, useThisInstead: who))
                 {
                     int actualDamage = Math.Max(1, damage - __instance.resilience.Value);
                     if (Game1.random.NextDouble() < __instance.missChance.Value - __instance.missChance.Value * addedPrecision)
@@ -135,7 +135,7 @@ namespace VanillaPlusProfessions.Managers
         {
             try
             {
-                if (___pupating.Value && CoreUtility.CurrentPlayerHasProfession("Warrior"))
+                if (___pupating.Value && CoreUtility.CurrentPlayerHasProfession(Constants.Profession_Warrior))
                 {
                     int actualDamage = Math.Max(1, damage - __instance.resilience.Value);
                     __instance.Health -= actualDamage;
@@ -162,7 +162,7 @@ namespace VanillaPlusProfessions.Managers
         {
             try
             {
-                if (!___shellGone.Value && __instance.Sprite.currentFrame % 4 == 0 && CoreUtility.CurrentPlayerHasProfession("Warrior"))
+                if (!___shellGone.Value && __instance.Sprite.currentFrame % 4 == 0 && CoreUtility.CurrentPlayerHasProfession(Constants.Profession_Warrior))
                 {
                     int actualDamage = Math.Max(1, damage - __instance.resilience.Value);
                     __instance.Health -= actualDamage;
@@ -197,6 +197,7 @@ namespace VanillaPlusProfessions.Managers
                     if (ShouldBeInvincible(__instance))
                     {
                         TalentUtility.MakeFarmerInvincible(__instance);
+                        __instance.currentLocation.debris.Add(new("Dodge", 5, __instance.StandingPixel.ToVector2(), Color.White, 4f, 0f));
                         __result = false;
                     }
                 }
@@ -209,13 +210,13 @@ namespace VanillaPlusProfessions.Managers
 
         public static bool ShouldBeInvincible(Farmer who)
         {
-            bool HasTechnician = CoreUtility.CurrentPlayerHasProfession("Technician", useThisInstead: who);
+            bool HasTechnician = CoreUtility.CurrentPlayerHasProfession(Constants.Profession_Technician, useThisInstead: who);
             bool DefenseCooldown = MeleeWeapon.defenseCooldown > 0 && MeleeWeapon.defenseCooldown < 4000;
             bool DaggerSpecialMove = MeleeWeapon.daggerCooldown > 0 && MeleeWeapon.daggerCooldown < 4000;
             bool ClubSpecialMove = MeleeWeapon.clubCooldown > 0 && MeleeWeapon.clubCooldown < 4000;
-            bool TripleShotCooldown = TalentCore.TripleShotCooldown > 0 && TalentCore.TripleShotCooldown < 4000;
+            bool TripleShotCooldown = TalentCore.TalentCoreEntry.Value.TripleShotCooldown > 0 && TalentCore.TalentCoreEntry.Value.TripleShotCooldown < 4000;
 
-            bool HasSideStep = TalentUtility.CurrentPlayerHasTalent("Sidestep", who: who);
+            bool HasSideStep = TalentUtility.CurrentPlayerHasTalent(Constants.Talent_Sidestep, who: who);
             bool IsInSlimeHutch = who.currentLocation is SlimeHutch;
             bool IsWearingSlimeCharmer = who.isWearingRing("520");
             return (HasTechnician && DefenseCooldown && DaggerSpecialMove && ClubSpecialMove && TripleShotCooldown) || (Game1.random.NextBool(0.1) && HasSideStep && !(!IsWearingSlimeCharmer && IsInSlimeHutch));
@@ -225,23 +226,23 @@ namespace VanillaPlusProfessions.Managers
         {
             try
             {
-                if (OnCrit && CoreUtility.CurrentPlayerHasProfession("Assailant"))
+                if (OnCrit && CoreUtility.CurrentPlayerHasProfession(Constants.Profession_Assailant))
                 {
                     MeleeWeapon.clubCooldown = 0;
                     MeleeWeapon.daggerCooldown = 0;
                     MeleeWeapon.defenseCooldown = 0;
                     MeleeWeapon.attackSwordCooldown = 0;
-                    TalentCore.TripleShotCooldown = 0; 
+                    TalentCore.TalentCoreEntry.Value.TripleShotCooldown = 0; 
                     Game1.playSound("objectiveComplete");
                     OnCrit = false;
                 }
-                if (CoreUtility.CurrentPlayerHasProfession("Speedster"))
+                if (CoreUtility.CurrentPlayerHasProfession(Constants.Profession_Speedster))
                 {
                     MeleeWeapon.clubCooldown /= 2;
                     MeleeWeapon.daggerCooldown /= 2;
                     MeleeWeapon.defenseCooldown /= 2;
                     MeleeWeapon.attackSwordCooldown /= 2;
-                    TalentCore.TripleShotCooldown /= 2;
+                    TalentCore.TalentCoreEntry.Value.TripleShotCooldown /= 2;
                 }
             }
             catch (Exception e)
@@ -326,7 +327,7 @@ namespace VanillaPlusProfessions.Managers
                 int addedMaxDamage = 0;
                 int addedMinDamage = 0;
                 int result = 0;
-                if (who.health <= who.maxHealth / 4 && who.professions.Contains(63))
+                if (who.health <= who.maxHealth / 4 && CoreUtility.CurrentPlayerHasProfession(Constants.Profession_Berserker, useThisInstead:who))
                 {
                     addedMaxDamage += maxDamage;
                     addedMinDamage += minDamage;
@@ -336,7 +337,7 @@ namespace VanillaPlusProfessions.Managers
                     addedMaxDamage += maxDamage;
                     addedMinDamage += minDamage;
                 }
-                if (TalentUtility.CurrentPlayerHasTalent("Flurry", who: who) && weapon is not null && weapon.type.Value is 1)
+                if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_Flurry, who: who) && weapon is not null && weapon.type.Value is 1)
                 {
                     if (monster.modData.TryGetValue(Constants.Key_Flurry, out string val))
                     {
@@ -359,15 +360,15 @@ namespace VanillaPlusProfessions.Managers
 
                 result = addedMaxDamage is 0 || addedMinDamage is 0 ? vanillaDamage : Game1.random.Next(minDamage + addedMinDamage, maxDamage + addedMaxDamage + 1);
 
-                if (TalentUtility.CurrentPlayerHasTalent("DebiliatingStab", who: who) && weapon is not null && weapon.type.Value is 1 && monster.Speed > 1)
+                if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_DebiliatingStab, who: who) && weapon is not null && weapon.type.Value is 1 && monster.Speed > 1)
                 {
                     monster.Speed--;
                 }
-                else if (TalentUtility.CurrentPlayerHasTalent("SeveringSwipe", who: who) && weapon is not null && weapon.type.Value is 3 && monster.DamageToFarmer > 0)
+                else if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_SeveringSwipe, who: who) && weapon is not null && weapon.type.Value is 3 && monster.DamageToFarmer > 0)
                 {
                     monster.DamageToFarmer = (int)(monster.DamageToFarmer * 0.90f);
                 }
-                else if (TalentUtility.CurrentPlayerHasTalent("ConcussiveImpact", who: who) && weapon is not null && weapon.type.Value is 2)
+                else if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_ConcussiveImpact, who: who) && weapon is not null && weapon.type.Value is 2)
                 {
                     monster.startGlowing(Color.Red, false, 0.5f);
                     Monster fuckDelegates = monster;
@@ -408,7 +409,7 @@ namespace VanillaPlusProfessions.Managers
                     monster.stopGlowing();
                 }
 
-                if (TalentUtility.CurrentPlayerHasTalent("Aftershock", who: who) && weapon is not null && weapon.type.Value is 2 && monster.Health > 0)
+                if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_Aftershock, who: who) && weapon is not null && weapon.type.Value is 2 && monster.Health > 0)
                 {
                     if (monster.MaxHealth - (result / 10) > 0)
                     {
@@ -416,16 +417,16 @@ namespace VanillaPlusProfessions.Managers
                         TalentUtility.ApplyExtraDamage(monster, who, result / 10);
                     }
                 }
-                else if (TalentUtility.CurrentPlayerHasTalent("Champion", who: who) && weapon is not null && weapon.type.Value is 3)
+                else if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_Champion, who: who) && weapon is not null && weapon.type.Value is 3)
                 {
                     BuffEffects sdsdsd = new();
                     sdsdsd.Defense.Value = 2;
 
-                    Buff buff = new("VPP.Champion.Defense", "Champion talent", "Champion talent", 6000, Game1.buffsIcons, 10, sdsdsd, false, ModEntry.Helper.Translation.Get("Buff.Champion.Name"), Game1.parseText(ModEntry.Helper.Translation.Get("Buff.Champion.Desc"), Game1.smallFont, TalentUtility.BuffDescriptionLength(ModEntry.Helper.Translation.Get("Buff.Champion.Name"))));
+                    Buff buff = new("VPP.Champion.Defense", "Champion talent", "Champion talent", 6000, Game1.buffsIcons, 10, sdsdsd, false, ModEntry.CoreModEntry.Value.Helper.Translation.Get("Buff.Champion.Name"), Game1.parseText(ModEntry.CoreModEntry.Value.Helper.Translation.Get("Buff.Champion.Desc"), Game1.smallFont, TalentUtility.BuffDescriptionLength(ModEntry.CoreModEntry.Value.Helper.Translation.Get("Buff.Champion.Name"))));
                     who.buffs.Apply(buff);
                 }
 
-                if (TalentUtility.CurrentPlayerHasTalent("RendingStrike", who: who))
+                if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_RendingStrike, who: who))
                 {
                     if (Rended is null || Rended != monster)
                     {
@@ -457,7 +458,7 @@ namespace VanillaPlusProfessions.Managers
         {
             try
             {
-                if (CoreUtility.CurrentPlayerHasProfession("Assassin", useThisInstead: who))
+                if (CoreUtility.CurrentPlayerHasProfession(Constants.Profession_Assassin, useThisInstead: who))
                 {
                     if (monster is MetalHead or HotHead or DwarvishSentry or RockCrab)
                     {
@@ -472,11 +473,11 @@ namespace VanillaPlusProfessions.Managers
                 {
                     OnCrit = Game1.random.NextDouble() < (double)(critChance + who.LuckLevel * (critChance / 40f));
                 }
-                if (OnCrit && TalentUtility.CurrentPlayerHasTalent("Combat_Ferocity", who: who))
+                if (OnCrit && TalentUtility.CurrentPlayerHasTalent(Constants.Talent_Ferocity, who: who))
                 {
                     BuffEffects buffEffects2 = new();
                     buffEffects2.CriticalPowerMultiplier.Value += 0.1f;
-                    who.buffs.Apply(new("VPP.Ferocity.Speed", "VPP.Ferocity.Talent", "Ferocity", 10000, Game1.buffsIcons, 11, buffEffects2, false, ModEntry.Helper.Translation.Get("Buff.Ferocity.Name"), Game1.parseText(ModEntry.Helper.Translation.Get("Buff.Ferocity.Desc"), Game1.smallFont, TalentUtility.BuffDescriptionLength(ModEntry.Helper.Translation.Get("Buff.Ferocity.Name")))));
+                    who.buffs.Apply(new("VPP.Ferocity.Speed", "VPP.Ferocity.Talent", "Ferocity", 10000, Game1.buffsIcons, 11, buffEffects2, false, ModEntry.CoreModEntry.Value.Helper.Translation.Get("Buff.Ferocity.Name"), Game1.parseText(ModEntry.CoreModEntry.Value.Helper.Translation.Get("Buff.Ferocity.Desc"), Game1.smallFont, TalentUtility.BuffDescriptionLength(ModEntry.CoreModEntry.Value.Helper.Translation.Get("Buff.Ferocity.Name")))));
                 }
             }
             catch (Exception e)

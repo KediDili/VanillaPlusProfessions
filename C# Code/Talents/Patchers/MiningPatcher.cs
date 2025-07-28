@@ -45,7 +45,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             try
             {
                 IsExplosionForExplosivePersonality = true;
-                if ((__instance.isForage() || __instance.bigCraftable.Value || __instance.QualifiedItemId is "(O)590" or "(O)SeedSpot") && TalentUtility.CurrentPlayerHasTalent("Mining_Detonation_Dampener", who: who))
+                if ((__instance.isForage() || __instance.bigCraftable.Value || __instance.QualifiedItemId is "(O)590" or "(O)SeedSpot") && TalentUtility.CurrentPlayerHasTalent(Constants.Talent_DetonationDampener, who: who))
                 {
                     if (__instance.QualifiedItemId is not "(BC)78")
                     {
@@ -67,9 +67,9 @@ namespace VanillaPlusProfessions.Talents.Patchers
         {
             try
             {
-                if (Utility.IsGeode(__instance, true) && TalentUtility.CurrentPlayerHasTalent("X-ray") && __instance.modData.TryGetValue(Constants.Key_XrayDrop, out string value) && value is not null or "")
+                if (Utility.IsGeode(__instance, true) && TalentUtility.CurrentPlayerHasTalent(Constants.Talent_Xray) && __instance.modData.TryGetValue(Constants.Key_XrayDrop, out string value) && value is not null or "")
                 {
-                    __result = Game1.parseText(__result.Replace("\n", "").Replace("\r", "") + " " + ModEntry.Helper.Translation.Get("Item.Xray.GeodeDrop", new { dropName = ItemRegistry.GetData(value).DisplayName }), Game1.smallFont, ModEntry.Helper.Reflection.GetMethod(__instance, "getDescriptionWidth").Invoke<int>(null));
+                    __result = Game1.parseText(__result.Replace("\n", "").Replace("\r", "") + " " + ModEntry.CoreModEntry.Value.Helper.Translation.Get("Item.Xray.GeodeDrop", new { dropName = ItemRegistry.GetData(value).DisplayName }), Game1.smallFont, ModEntry.CoreModEntry.Value.Helper.Reflection.GetMethod(__instance, "getDescriptionWidth").Invoke<int>(null));
                 }
             }
             catch (Exception e)
@@ -84,9 +84,9 @@ namespace VanillaPlusProfessions.Talents.Patchers
             {
                 if (__result is not null && geode is not null && !geode.ItemId.Contains("MysteryBox"))
                 {
-                    if (TalentUtility.CurrentPlayerHasTalent("X-ray") && geode.modData.TryGetValue(Constants.Key_XrayDrop, out string drop) is true && !IsUpdating)
+                    if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_Xray) && geode.modData.TryGetValue(Constants.Key_XrayDrop, out string drop) is true && !IsUpdating)
                     {
-                        if (drop is not null or "" && Utility.IsGeode(geode, true))
+                        if (drop is not null or "" && Utility.IsGeode(geode, true) && TalentUtility.EligibleForGeodePerks(geode.ItemId, Constants.Talent_Xray, false))
                         {
                             Item tryItem = ItemRegistry.Create(drop, geode.Category == __result?.Category ? __result?.Stack ?? 1 : 1, 0);
                             var data = ItemRegistry.GetDataOrErrorItem(tryItem.ItemId);
@@ -119,14 +119,14 @@ namespace VanillaPlusProfessions.Talents.Patchers
                             }
                         }
                     }
-                    else if (TalentUtility.CurrentPlayerHasTalent("Matryoshka") && Game1.random.NextBool(0.15) && !geode.HasContextTag(Constants.ContextTag_Matryoshka_Banned_FromDropping))
+                    else if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_Matryoshka) && Game1.random.NextBool(0.15) && TalentUtility.EligibleForGeodePerks(geode.ItemId, Constants.Talent_Matryoshka, true))
                     {
                         var geodes = (from KeyValuePair<string, ObjectData> @object in Game1.objectData
-                                      where (@object.Value.GeodeDropsDefaultItems || @object.Value.GeodeDrops?.Count > 0 is true) && !@object.Value.ContextTags?.Contains(Constants.ContextTag_Matryoshka_Banned_FromBeingDropped) is true && geode.ItemId != @object.Key
+                                      where (@object.Value.GeodeDropsDefaultItems || @object.Value.GeodeDrops?.Count > 0 is true) && TalentUtility.EligibleForGeodePerks(geode.ItemId, Constants.Talent_Matryoshka, false) && geode.ItemId != @object.Key
                                       select @object.Key).ToList();
                         __result = ItemRegistry.Create(Game1.random.ChooseFrom(geodes), 1, geode.Quality);
                     }
-                    else if (TalentUtility.CurrentPlayerHasTalent("MuseumPiece") && LibraryMuseum.totalArtifacts != Game1.player.archaeologyFound.Keys.Count() && geode.ItemId is not null && Game1.random.NextBool(0.1))
+                    else if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_MuseumPiece) && LibraryMuseum.totalArtifacts != Game1.player.archaeologyFound.Keys.Count() && geode.ItemId is not null && Game1.random.NextBool(0.1))
                     {
                         List<(string, ObjectGeodeDropData)> validIDs = new();
 

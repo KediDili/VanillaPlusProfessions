@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using StardewValley;
 using StardewValley.BellsAndWhistles;
+using StardewValley.Extensions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -17,7 +18,8 @@ namespace VanillaPlusProfessions.Craftables
         {
             try
             {
-                ModEntry.Harmony.Patch(
+                CoreUtility.PatchMethod(
+                    "CraftablePatcher", "Crop.newDay",
                     original: AccessTools.Method(typeof(Crop), nameof(Crop.newDay)),
                     transpiler: new(AccessTools.Method(typeof(CraftablePatcher), nameof(newDay_Transpiler)))
                 );
@@ -28,7 +30,8 @@ namespace VanillaPlusProfessions.Craftables
             }
             try
             {
-                ModEntry.Harmony.Patch(
+                CoreUtility.PatchMethod(
+                    "CraftablePatcher", "Crow.update",
                     original: AccessTools.Method(typeof(Crow), nameof(Crow.update)),
                     transpiler: new(AccessTools.Method(typeof(CraftablePatcher), nameof(update_Transpiler)))
                 );
@@ -39,7 +42,8 @@ namespace VanillaPlusProfessions.Craftables
             }
             try
             {
-                ModEntry.Harmony.Patch(
+                CoreUtility.PatchMethod(
+                    "CraftablePatcher", "GameLocation.OnHarvestedForage",
                     original: AccessTools.Method(typeof(GameLocation), nameof(GameLocation.OnHarvestedForage)),
                     postfix: new(AccessTools.Method(typeof(CraftablePatcher), nameof(OnHarvestedForage_Postfix)))
                 );
@@ -48,7 +52,31 @@ namespace VanillaPlusProfessions.Craftables
             {
                 CoreUtility.PrintError(e, nameof(CraftablePatcher), "'GameLocation.OnHarvestedForage'", "postfixing");
             }
+            try
+            {
+                CoreUtility.PatchMethod("CraftablePatcher", "FarmAnimal.Eat",
+                    original: AccessTools.Method(typeof(FarmAnimal), nameof(FarmAnimal.Eat)),
+                    postfix: new(AccessTools.Method(typeof(CraftablePatcher), nameof(Eat_Postfix)))
+                );
+            }
+            catch (System.Exception e)
+            {
+                CoreUtility.PrintError(e, nameof(CraftablePatcher), "'GameLocation.OnHarvestedForage'", "postfixing");
+            }
         }
+        
+        public static void Eat_Postfix(FarmAnimal __instance)
+        {
+            if (ModEntry.ShouldForageCraftablesWork() && Game1.GetPlayer(__instance.ownerID.Value) is Farmer who && who.GetUnmodifiedSkillLevel(3) >= 16 & Game1.random.NextBool(0.02))
+            {
+                var list = (from asd in DataLoader.Objects(Game1.content)
+                            where asd.Value.Category == StardewValley.Object.SeedsCategory && TalentUtility.EligibleForCropPerks(asd.Key, Constants.LevelPerk_Foraging_16)
+                            select asd.Key).ToList();
+                           
+                Game1.createObjectDebris(Game1.random.ChooseFrom(list), (int)__instance.Tile.X, (int)__instance.Tile.Y, __instance.ownerID.Value);
+            }
+        }
+
         public static IEnumerable<CodeInstruction> update_Transpiler(IEnumerable<CodeInstruction> insns)
         {
             var list = insns.ToList();

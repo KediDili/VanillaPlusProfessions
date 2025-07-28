@@ -30,7 +30,7 @@ namespace VanillaPlusProfessions.Managers
         {
             try
             {
-                if (!string.IsNullOrEmpty(bait) && CoreUtility.CurrentPlayerHasProfession("Oceanologist", useThisInstead: who))
+                if (!string.IsNullOrEmpty(bait) && CoreUtility.CurrentPlayerHasProfession(Constants.Profession_Oceanologist, useThisInstead: who))
                 {
                     if (FailAmount < 100 && (__result is null || __result?.HasContextTag("trash_item") == true))
                     {

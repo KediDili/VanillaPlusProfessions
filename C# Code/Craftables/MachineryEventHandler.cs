@@ -27,12 +27,12 @@ namespace VanillaPlusProfessions.Craftables
 
         public static void OnPlayerWarp()
         {
-            if (ModEntry.ShouldForageCraftablesWork() && !BirdsOnFeeders.ContainsKey(Game1.player.currentLocation.Name) && !Game1.player.currentLocation.IsRainingHere() && !Game1.player.currentLocation.IsGreenRainingHere())
+            if (ModEntry.ShouldForageCraftablesWork() && Context.IsMainPlayer && !BirdsOnFeeders.ContainsKey(Game1.player.currentLocation.NameOrUniqueName) && !Game1.player.currentLocation.IsRainingHere() && !Game1.player.currentLocation.IsGreenRainingHere())
             {
                 List<Critter> sdsd = new();
                 foreach (var item in Game1.player.currentLocation.Objects.Values)
                 {
-                    if (item.QualifiedItemId == Constants.Id_BirdFeeder && item.lastInputItem.Value is not null)
+                    if (item.ItemId == Constants.Id_BirdFeeder && item.lastInputItem.Value is not null)
                     {
                         string feedID = item.lastInputItem.Value.ItemId;
                         List<Vector2> v = new() { new(-1, 1), new(1, 1), new(1, -1), new(-1, -1), new(0, 1), new(0, 1), new(1, 0), new(-1, 0) };
@@ -77,14 +77,18 @@ namespace VanillaPlusProfessions.Craftables
                 }
                 if (sdsd.Count > 0)
                 {
-                    BirdsOnFeeders[Game1.player.currentLocation.Name] = sdsd;
+                    BirdsOnFeeders[Game1.player.currentLocation.NameOrUniqueName] = sdsd;
+                    if (Context.HasRemotePlayers)
+                    {
+                        ModEntry.CoreModEntry.Value.Helper.Multiplayer.SendMessage(BirdsOnFeeders[Game1.player.currentLocation.NameOrUniqueName], "KediDili.VanillaPlusProfessions/BirdFeederData", new string[] { "KediDili.VanillaPlusProfessions" });
+                    }
                 }
             }
         }
 
         public static void OnWorldDrawn(SpriteBatch b)
         {
-            if (BirdsOnFeeders.TryGetValue(Game1.player.currentLocation.Name, out var value))
+            if (BirdsOnFeeders.TryGetValue(Game1.player.currentLocation.NameOrUniqueName, out var value))
             {
                 for (int i = 0; i < value.Count; i++)
                 {
@@ -103,7 +107,7 @@ namespace VanillaPlusProfessions.Craftables
                 {
                     Chest inputChest = new();
                     Chest batteryChest = new();
-                    if (loc.Objects.TryGetValue(item2, out var obj) && obj?.QualifiedItemId == "(BC)KediDili.VPPData.CP_ProgrammableDrill" && IsThereAContainerNearby(obj, out List<Chest> container))
+                    if (loc.Objects.TryGetValue(item2, out var obj) && obj?.ItemId == Constants.Id_ProgrammableDrill && IsThereAContainerNearby(obj, out List<Chest> container))
                     {
                         var validPool = (from @object in Game1.objectData
                                          where @object.Value.ContextTags?.Contains("ore_item") is true || @object.Key == "382" || @object.Key == "390" || @object.Value.Category == StardewValley.Object.GemCategory || @object.Value.GeodeDrops is not null || @object.Value.GeodeDropsDefaultItems
@@ -265,7 +269,7 @@ namespace VanillaPlusProfessions.Craftables
                         {
                             foreach (var chest in container)
                             {
-                                ModEntry.Helper.Reflection.GetField<IInventory>(typeof(StardewValley.Object), "autoLoadFrom", true).SetValue(chest.Items);
+                                ModEntry.CoreModEntry.Value.Helper.Reflection.GetField<IInventory>(typeof(StardewValley.Object), "autoLoadFrom", true).SetValue(chest.Items);
 
                                 if (obj.heldObject.Value is null)
                                 {

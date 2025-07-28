@@ -28,7 +28,7 @@
 						},
 					],
 					"BuildDays": 2,
-					"BuildCondition": "PLAYER_MINING_LEVEL Current 18",
+					"BuildCondition": "PLAYER_BASE_MINING_LEVEL Current 18",
 					"Size": {
 						"X": 5,
 						"Y": 3
@@ -65,7 +65,7 @@
 						},
 					],
 					"BuildDays": 2,
-					"BuildCondition": "!BUILDINGS_CONSTRUCTED All {{ModId}}_MineTent 1 1 true, PLAYER_MINING_LEVEL Current 16",
+					"BuildCondition": "!BUILDINGS_CONSTRUCTED All {{ModId}}_MineTent 1 1 true, PLAYER_BASE_MINING_LEVEL Current 16",
 					"Size": {
 						"X": 5,
 						"Y": 3
@@ -89,26 +89,25 @@
 					],
 					"DrawLayers": [
 						{
-							"Id": "UnderlayForPassable",
+							"Id": "Overhang",
 							"SourceRect": {
-								"X": 80,
-								"Y": 32,
-								"Width": 80,
-								"Height": 32,
+								"X": 25,
+								"Y": 40,
+								"Width": 31,
+								"Height": 16
 							},
-							"DrawPosition": "0, 32",
-							"DrawInBackground": true
+							"DrawPosition": "25, 40"
 						},
 						{
 							"Id": "GemsAndOres",
 							"SourceRect": {
-								"X": 96,
+								"X": 80,
 								"Y": 0,
 								"Width": 48,
 								"Height": 32,
 							},
 							"OnlyDrawIfChestHasContents": "Default_Chest",
-							"DrawPosition": "16, 48",
+							"DrawPosition": "24, 54",
 							"DrawInBackground": true,
 						}
 					],
@@ -128,7 +127,7 @@
 					"Description": "[LocalizedText Strings\\Buildings:{{ModId}}_Sawmill_Description]",
 					"Texture": "Buildings\\{{ModId}}\\Sawmill",
 					"Builder": "Robin",
-					"BuildCondition": "TRUE", //PLAYER_FORAGING_LEVEL Current 16
+					"BuildCondition": "PLAYER_BASE_FORAGING_LEVEL Current 16",
 					"BuildCost": 10000,
 					"BuildDays": 3,
 					"BuildMaterials": [
@@ -335,6 +334,65 @@
 						}
 					],
 					"DrawShadow": false,
+				},
+				"{{ModId}}_SecretGlade":{
+					"Name": "[LocalizedText Strings\\Buildings:{{ModId}}_SecretGlade_Name]",
+					"Description": "[LocalizedText Strings\\Buildings:{{ModId}}_SecretGlade_Description]",
+					"Texture": "Buildings\\{{ModId}}\\SecretGlade",
+					"Builder": "Wizard",
+					"BuildCondition": "PLAYER_BASE_FORAGING_LEVEL Current 18",
+					"BuildCost": 20000,
+					"MagicalConstruction": true,
+					"HumanDoor": {
+						"X": 3,
+						"Y": 2
+					},
+					"SortTileOffset": 1,
+					"BuildMaterials": [
+						{
+							"Id": "Hardwood",
+							"ItemId": "(O)709", //Double check
+							"Amount": 450
+						},
+						{
+							"Id": "Fiber",
+							"ItemId": "(O)771",
+							"Amount": 700
+						},
+						{
+							"Id": "MixedFlowerSeeds",
+							"ItemId": "(O)MixedFlowerSeeds",
+							"Amount": 20
+						},
+					],
+					"Size": {
+						"X": 7,
+						"Y": 3
+					},
+					/*"DrawLayers": [
+						{
+							"Id": "DoorBottom", //+
+							"SourceRect": {
+								"X": 112,
+								"Y": 0,
+								"Width": 16,
+								"Height": 32,
+							},
+							"SortTileOffset": 0.001,
+							"SortTileOffset": 0.03,
+							"DrawInBackground": true,
+							"DrawPosition": "48, 48",
+						},
+					],*/
+					"SourceRect": {
+						"X": 0,
+						"Y": 0,
+						"Width": 112,
+						"Height": 96,
+					},
+					"IndoorMap": "{{ModId}}\\SecretGlade",
+					"CollisionMap": "XXXXXXX\nXXXXXXX\nXXXOXXX",
+					"DrawShadow": false,
 				}
 			}
 		},
@@ -348,6 +406,8 @@
 				"{{ModId}}_MineTent_Description": "{{i18n:Buildings.MineTent.Desc}}",
 				"{{ModId}}_Sawmill_Name": "{{i18n:Buildings.Sawmill.Name}}",
 				"{{ModId}}_Sawmill_Description": "{{i18n:Buildings.Sawmill.Desc}}",
+				"{{ModId}}_SecretGlade_Name": "{{i18n:Buildings.SecretGlade.Name}}",
+				"{{ModId}}_SecretGlade_Description": "{{i18n:Buildings.SecretGlade.Desc}}",
 			}
 		},
 		{
@@ -355,7 +415,7 @@
 			"Target": "Data/PaintData",
 			"Entries": {
 				"{{ModId}}_MineTent": "Trim/-10 5/Roof/0 15",
-				//"{{ModId}}_Sawmill": "Building/-10 5/Trim/-10 5/Roof/0 15",
+				"{{ModId}}_Sawmill": "Building/-10 5/Roof/0 15",
 			}
 		}
 	]

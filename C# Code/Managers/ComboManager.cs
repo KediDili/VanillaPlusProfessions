@@ -91,7 +91,7 @@ namespace VanillaPlusProfessions.Managers
         {
             try
             {
-                if (__result is true && CoreUtility.AnyPlayerHasProfession("Forage-Fish") && debris.item is not null && debris.item.HasContextTag("category_forage") && Game1.player.modData.TryGetValue(Constants.Key_HasFoundForage, out var str))
+                if (__result is true && CoreUtility.AnyPlayerHasProfession(Constants.Profession_ForageFish) && debris.item is not null && debris.item.HasContextTag("category_forage") && Game1.player.modData.TryGetValue(Constants.Key_HasFoundForage, out var str))
                 {
                     if (str == "false")
                     {
@@ -105,7 +105,7 @@ namespace VanillaPlusProfessions.Managers
                         }
                         else
                         {
-                            Game1.addHUDMessage(new($"Sorry, {debris.item.DisplayName} isn't the correct forage to throw in. Try again with another!", 1));
+                            Game1.addHUDMessage(new($"Sorry, {debris.item.DisplayName} isn't the correct forage to throw in.", 1));
                         }
                     }
                     if (__instance.fishSplashPoint.Value == Point.Zero && Game1.player.modData[Constants.Key_HasFoundForage] is "true")
@@ -151,7 +151,7 @@ namespace VanillaPlusProfessions.Managers
         {
             try
             {
-                if ((inputItem.HasContextTag("category_minerals") || inputItem.HasContextTag("category_gem")) && inputItem is StardewValley.Object obj && CoreUtility.CurrentPlayerHasProfession("Farm-Mine"))
+                if ((inputItem.HasContextTag("category_minerals") || inputItem.HasContextTag("category_gem")) && inputItem is StardewValley.Object obj && CoreUtility.CurrentPlayerHasProfession(Constants.Profession_FarmMine))
                 {
                     var oneofObj = obj.getOne();
                     oneofObj.modData.TryAdd("Kedi.VPP.CurrentPreserveType", "Kedi.VPP.GemDust");
@@ -191,7 +191,7 @@ namespace VanillaPlusProfessions.Managers
         {
             try
             {
-                if (CoreUtility.CurrentPlayerHasProfession("Fish-Mine"))
+                if (CoreUtility.CurrentPlayerHasProfession(Constants.Profession_FishMine))
                 {
                     if (__result.Count > 0 && __instance.CanUseTackle())
                     {
@@ -244,11 +244,11 @@ namespace VanillaPlusProfessions.Managers
                 if (who is null || who != Game1.player)
                     return;
 
-                if (CoreUtility.CurrentPlayerHasProfession("Mine-Combat", useThisInstead: who))
+                if (CoreUtility.CurrentPlayerHasProfession(Constants.Profession_MineCombat, useThisInstead: who))
                 {
                     StonesBroken.Value++;
                 }
-                if (StonesBroken.Value / 100 > 0 && StonesBroken.Value % 100 == 0 && !Game1.doesHUDMessageExist(ModEntry.Helper.Translation.Get("Message.StoneBroken", new { Stones = StonesBroken.Value - 1, Buff = StonesBroken.Value / 100 })))
+                if (StonesBroken.Value / 100 > 0 && StonesBroken.Value % 100 == 0 && !Game1.doesHUDMessageExist(ModEntry.CoreModEntry.Value.Helper.Translation.Get("Message.StoneBroken", new { Stones = StonesBroken.Value - 1, Buff = StonesBroken.Value / 100 })))
                 {
                     BuffEffects buffEffects = new();
                     buffEffects.Attack.Value = StonesBroken.Value / 100;
@@ -258,9 +258,9 @@ namespace VanillaPlusProfessions.Managers
                     buffEffects2.Defense.Value = StonesBroken.Value / 100;
                     who.buffs.Apply(new("VPP.Mining-Combat.Defense", "VPP.CombatMining.ComboProfession", "Mining-Combat", Buff.ENDLESS, Game1.buffsIcons, 11, buffEffects, false, "Defense"));
 
-                    Game1.addHUDMessage(new(ModEntry.Helper.Translation.Get("Message.StoneBroken", new { Stones = StonesBroken.Value, Buff = StonesBroken.Value / 100 }), 1));
+                    Game1.addHUDMessage(new(ModEntry.CoreModEntry.Value.Helper.Translation.Get("Message.StoneBroken", new { Stones = StonesBroken.Value, Buff = StonesBroken.Value / 100 }), 1));
                 }
-                if (MiningPatcher.IsExplosionForExplosivePersonality && Game1.random.NextBool(0.15) && TalentUtility.CurrentPlayerHasTalent("ExplosivePersonality", who: who))
+                if (MiningPatcher.IsExplosionForExplosivePersonality && Game1.random.NextBool(0.15) && TalentUtility.CurrentPlayerHasTalent(Constants.Talent_ExplosivePersonality, who: who))
                 {
                     Game1.createObjectDebris(Game1.random.ChooseFrom(new string[] { "535", "536", "537", "749" }), x, y);
                     MiningPatcher.IsExplosionForExplosivePersonality = false;
@@ -269,13 +269,17 @@ namespace VanillaPlusProfessions.Managers
                 {
                     if (shaft.modData.TryGetValue(Constants.Key_DownInTheDepths, out string val))
                     {
-                        shaft.modData[Constants.Key_DownInTheDepths] = (int.Parse(val) + 1).ToString();
-                        if (val is "8")
+                        int count = int.Parse(val) + 1;
+                        if (count == ModEntry.CoreModEntry.Value.ModConfig.DownInTheDepths_Stones)
                         {
                             shaft.createLadderDown(x, y);
                             shaft.createLadderAt(new(x, y));
                             shaft.ladderHasSpawned = true;
                             shaft.modData[Constants.Key_DownInTheDepths] = "0";
+                        }
+                        else
+                        {
+                            shaft.modData[Constants.Key_DownInTheDepths] = count.ToString();
                         }
                     }
                     else
@@ -295,7 +299,7 @@ namespace VanillaPlusProfessions.Managers
             {
                 if (slot is not 0)
                 {
-                    if (o.HasContextTag("category_gem") && CoreUtility.CurrentPlayerHasProfession("Fish-Mine"))
+                    if (o.HasContextTag("category_gem") && CoreUtility.CurrentPlayerHasProfession(Constants.Profession_FishMine))
                     {
                         __result = __instance.CanUseTackle();
                     }
@@ -310,15 +314,15 @@ namespace VanillaPlusProfessions.Managers
         {
             try
             {
-                if (o.Category == -4 && CoreUtility.CurrentPlayerHasProfession("Combat-Fish"))
+                if (o.Category == -4 && CoreUtility.CurrentPlayerHasProfession(Constants.Profession_CombatFish))
                 {
                     __result = true;
                 }
-                else if (TalentUtility.CurrentPlayerHasTalent("Slimeshot") && o.HasContextTag("slime_item"))
+                else if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_Slimeshot) && o.HasContextTag("slime_item"))
                 {
                     __result = true;
                 }
-                else if (TalentUtility.CurrentPlayerHasTalent("DazzlingStrike") && o.HasContextTag("category_gem"))
+                else if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_DazzlingStrike) && o.HasContextTag("category_gem"))
                 {
                     __result = true;
                 }
@@ -343,7 +347,7 @@ namespace VanillaPlusProfessions.Managers
         {
             try
             {
-                if (CoreUtility.CurrentPlayerHasProfession("Combat-Fish"))
+                if (CoreUtility.CurrentPlayerHasProfession(Constants.Profession_CombatFish))
                 {
                     __result = FishPriceToDamage(ammunition);
                 }
@@ -366,11 +370,6 @@ namespace VanillaPlusProfessions.Managers
                 {
                     __result = "slimedead";
                 }
-                /*else if (ammunition is Trinket trinket && trinket.QualifiedItemId == "(TR)MagicQuiver")
-                {
-                    __result = "magic_arrow_hit";
-                    ammunition.Stack++;
-                }*/
             }
             catch (Exception e)
             {

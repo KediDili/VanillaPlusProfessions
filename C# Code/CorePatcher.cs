@@ -94,7 +94,7 @@ namespace VanillaPlusProfessions
         }
         public static bool checkForMonsterSlayerAchievement_Prefix(bool isDirectUnlock)
         {
-            if (!ModEntry.ModConfig.Value.ProfessionsOnly && Game1.hasStartedDay && isDirectUnlock)
+            if (!ModEntry.CoreModEntry.Value.ModConfig.ProfessionsOnly && Game1.hasStartedDay && isDirectUnlock)
             {
                 return !Game1.player.hasCompletedAllMonsterSlayerQuests.Value;
             }
@@ -108,11 +108,11 @@ namespace VanillaPlusProfessions
             
             //Additionally, there's a "gain achievement for mines' bottom" thing causes a bug, since it triggers every time you go down.
 
-            if (!ModEntry.ModConfig.Value.ProfessionsOnly && Game1.hasStartedDay)
+            if (!ModEntry.CoreModEntry.Value.ModConfig.ProfessionsOnly && Game1.hasStartedDay)
             {
                 if (which != "Achievement_TheBottom" || (which == "Achievement_TheBottom" && Game1.player.deepestMineLevel < 120))
                 {
-                    TalentCore.AddTalentPoint();
+                    TalentCore.TalentCoreEntry.Value.AddTalentPoint();
                 }
             }
         }
@@ -138,7 +138,7 @@ namespace VanillaPlusProfessions
         }
         public static float GetEnergyCostRate()
         {
-            return ModEntry.ModConfig.Value.StaminaCostAdjustments ? 0.08f : 0.1f;
+            return ModEntry.CoreModEntry.Value.ModConfig.StaminaCostAdjustments ? 0.08f : 0.1f;
         }
 
         public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
@@ -277,9 +277,23 @@ namespace VanillaPlusProfessions
                         whichSkill = i;
                 if (whichSkill > -1)
                 {
-                    foreach (var item in ModEntry.Professions.Values)
-                        if (item.Skill == whichSkill)
-                            Game1.player.professions.Remove(item.ID);
+                    foreach (var item in ModEntry.Professions)
+                    {
+                        if (item.Value.Skill == whichSkill)
+                        {
+                            if (Game1.player.professions.Remove(item.Value.ID))
+                            {
+                                if (item.Key == Constants.Profession_Plunderer)
+                                {
+                                    FishingRod.baseChanceForTreasure = 1; 
+                                }
+                                else if (item.Key == Constants.Profession_Artificer)
+                                {
+                                    FishingRod.maxTackleUses = 40;
+                                }
+                            }
+                        }
+                    }
 
                     int level = Farmer.checkForLevelGain(0, Game1.player.experiencePoints[whichSkill]);
                     if (level >= 15)
@@ -358,7 +372,7 @@ namespace VanillaPlusProfessions
             {
                 for (int level = 1; level <= 10; level++)
                 {
-                    if (oldXP < ModEntry.levelExperiences[level - 1] && newXP >= ModEntry.levelExperiences[level - 1])
+                    if (oldXP < ModEntry.CoreModEntry.Value.levelExperiences[level - 1] && newXP >= ModEntry.CoreModEntry.Value.levelExperiences[level - 1])
                     {
                         //but I cant leave it like this, otherwise players will keep getting level up messages
 

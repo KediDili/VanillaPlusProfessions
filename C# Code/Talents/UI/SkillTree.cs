@@ -59,7 +59,7 @@ namespace VanillaPlusProfessions.Talents.UI
             TreeTitle = treeTitle;
             Texture = texture;
             Rectangle = rectangle;
-            BundleIcon = ModEntry.Helper.GameContent.Load<Texture2D>(ContentEditor.ContentPaths["BundleIcons"]);
+            BundleIcon = ModEntry.CoreModEntry.Value.Helper.GameContent.Load<Texture2D>(ContentEditor.ContentPaths["BundleIcons"]);
             BundleId = bundleID;
             if (bundleID > -1)
             {                
@@ -92,7 +92,7 @@ namespace VanillaPlusProfessions.Talents.UI
             {
                 //Because fuck delegates capturing variables.
                 Talent talent = tal;
-                ClickableTextureComponent button = new(talent.DisplayName is null ? ModEntry.Helper.Translation.Get("Talent." + talent.Name + ".Name") : talent.DisplayName.Invoke(talent.Name), new((int)(talent.Position.X * 4), ((int)talent.Position.Y * 4), 64, 64), "", talent.Description is null ? ModEntry.Helper.Translation.Get("Talent." + talent.Name + ".Desc") : talent.Description.Invoke(talent.Name), junimoNote, TalentSelectionMenu.getSourceRectByIndex(BundleId, !TalentUtility.CurrentPlayerHasTalent(talent.MailFlag)), 4f, false);
+                ClickableTextureComponent button = new(talent.DisplayName is null ? ModEntry.CoreModEntry.Value.Helper.Translation.Get("Talent." + talent.Name + ".Name") : talent.DisplayName.Invoke(talent.Name), new((int)(talent.Position.X * 4), ((int)talent.Position.Y * 4), 64, 64), "", talent.Description is null ? ModEntry.CoreModEntry.Value.Helper.Translation.Get("Talent." + talent.Name + ".Desc") : talent.Description.Invoke(talent.Name), junimoNote, TalentSelectionMenu.getSourceRectByIndex(BundleId, !TalentUtility.CurrentPlayerHasTalent(talent.MailFlag)), 4f, false);
                 idPrefix++;
                 button.myID = idPrefix;
                 button.fullyImmutable = true;
@@ -331,7 +331,7 @@ namespace VanillaPlusProfessions.Talents.UI
                     count++;
                 }         
             }
-            TalentCore.TalentPointCount.Value += count;
+            TalentCore.TalentCoreEntry.Value.TalentPointCount += count;
             TalentsBought = 0;
             foreach (var item in Bundles)
             {

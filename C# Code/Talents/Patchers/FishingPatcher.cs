@@ -65,7 +65,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
         {
             try
             {
-                if (TalentUtility.CurrentPlayerHasTalent("FishsWishes", who: player) && (Game1.GetPlayer(__instance.owner.Value) ?? player ?? Game1.player).professions.Contains(11))
+                if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_FishsWishes, who: player) && (Game1.GetPlayer(__instance.owner.Value) ?? player ?? Game1.player).professions.Contains(11))
                 {
                     __result = __instance.bait.Value is null;
                 }
@@ -134,7 +134,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
         {
             try
             {
-                if (TalentUtility.CurrentPlayerHasTalent("HiddenBenefits", who: who) && who.CurrentItem is not null and Trinket trinket && trinket.QualifiedItemId is "(TR)FrogEgg")
+                if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_HiddenBenefits, who: who) && who.CurrentItem is not null and Trinket trinket && trinket.QualifiedItemId is "(TR)FrogEgg")
                 {
                     if (!__instance.modData.TryGetValue(Constants.Key_HiddenBenefit_FrogEggs, out string str) || (__instance.modData.TryGetValue(Constants.Key_HiddenBenefit_FrogEggs, out str) && string.IsNullOrEmpty(str)))
                     {
@@ -145,7 +145,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
                         // add bool __result and return true here;
                     }
                 }
-                if (TalentUtility.CurrentPlayerHasTalent("InTheWeeds", who: who) && who.CurrentItem is not null and StardewValley.Object obj && obj.QualifiedItemId is "(O)152" or "(O)153")
+                if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_InTheWeeds, who: who) && who.CurrentItem is not null and StardewValley.Object obj && obj.QualifiedItemId is "(O)152" or "(O)153")
                 {
                     obj.Category = StardewValley.Object.FishCategory;
                 }
@@ -161,7 +161,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
         {
             try
             {
-                if (TalentUtility.CurrentPlayerHasTalent("ItWasThisBig"))
+                if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_ItWasThisBig))
                 {
                     if (__instance.recordSize)
                     {
@@ -196,7 +196,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             }
             return insns;
         }
-        public static int TryOverrideBubbleDistance() => TalentUtility.AnyPlayerHasTalent("BubbleTrouble") ? 8 : 5;
+        public static int TryOverrideBubbleDistance() => TalentUtility.AnyPlayerHasTalent(Constants.Talent_BubbleTrouble) ? 8 : 5;
 
         //What if we turn this into a postfix?
 
@@ -204,18 +204,18 @@ namespace VanillaPlusProfessions.Talents.Patchers
         {
             try
             {
-                if ((__instance.output.Value is null || __instance.output.Value.QualifiedItemId != "(O)812") && Game1.random.NextBool())
+                if ((__instance.output.Value is null || __instance.output.Value.QualifiedItemId != "(O)812"))
                 {
                     Item output = ItemRegistry.GetObjectTypeDefinition().CreateFlavoredRoe(__instance.GetFishObject());
                     int stack = 0;
-                    if (TalentUtility.CurrentPlayerHasTalent("HiddenBenefits", __instance.owner.Value) && Game1.random.NextBool())
+                    if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_HiddenBenefits, __instance.owner.Value) && Game1.random.NextBool())
                     {
                         if (__instance.modData.TryGetValue(Constants.Key_HiddenBenefit_FrogEggs, out string str) && !string.IsNullOrEmpty(str))
                         {
                             stack++;
                         }
                     }
-                    if (TalentUtility.CurrentPlayerHasTalent("SpawningSeason", __instance.owner.Value))
+                    if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_SpawningSeason, __instance.owner.Value) && Game1.random.NextBool(ModEntry.CoreModEntry.Value.ModConfig.SpawningSeason_Chance))
                     {
                         stack++;
                     }
@@ -240,14 +240,14 @@ namespace VanillaPlusProfessions.Talents.Patchers
                 random ??= Game1.random;
                 if (__instance.output.Value is not null)
                 {
-                    if (TalentUtility.CurrentPlayerHasTalent("HiddenBenefits", __instance.owner.Value) && (__instance.output.Value is null || __instance.output.Value.QualifiedItemId != "(O)812"))
+                    if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_HiddenBenefits, __instance.owner.Value) && (__instance.output.Value is null || __instance.output.Value.QualifiedItemId != "(O)812"))
                     {
                         if (__instance.modData.TryGetValue(Constants.Key_HiddenBenefit_FrogEggs, out string str) && !string.IsNullOrEmpty(str))
                         {
                             __instance.output.Value = ItemRegistry.GetObjectTypeDefinition().CreateFlavoredRoe(__instance.GetFishObject());
                         }
                     }
-                    if (TalentUtility.CurrentPlayerHasTalent("SpawningSeason", __instance.owner.Value) && (__instance.output.Value is null || __instance.output.Value.QualifiedItemId != "(O)812"))
+                    if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_SpawningSeason, __instance.owner.Value) && (__instance.output.Value is null || __instance.output.Value.QualifiedItemId != "(O)812"))
                     {
                         if (random.NextBool())
                         {
@@ -264,7 +264,9 @@ namespace VanillaPlusProfessions.Talents.Patchers
             return true;
         }
         
-        public static int TryOverrideChallengeFish() => TalentUtility.CurrentPlayerHasTalent("OneFishTwoFish") ? 4 : 3;
+        public static int TryOverrideChallengeFish() => TalentUtility.CurrentPlayerHasTalent(Constants.Talent_OneFishTwoFish) ? 4 : 3;
+        public static int TryOverrideSourceRectHeight() => TalentUtility.CurrentPlayerHasTalent(Constants.Talent_OneFishTwoFish) ? 46 : 38;
+        
         public static IEnumerable<CodeInstruction> draw_Transpiler(IEnumerable<CodeInstruction> insns)
         {
             var list = insns.ToList();
@@ -277,6 +279,20 @@ namespace VanillaPlusProfessions.Talents.Patchers
                         item.opcode = OpCodes.Call;
                         item.operand = AccessTools.Method(PatcherType, nameof(TryOverrideChallengeFish));
                         break;
+                    }
+                }
+                int a = 1;
+                foreach (var item in list)
+                {
+                    if (item.opcode == OpCodes.Ldc_I4_S && (sbyte)item.operand == (sbyte)38)
+                    {
+                        if (a == 0)
+                        {
+                            item.opcode = OpCodes.Call;
+                            item.operand = AccessTools.Method(PatcherType, nameof(TryOverrideSourceRectHeight));
+                            break;
+                        }
+                        a--;
                     }
                 }
             }

@@ -8,7 +8,7 @@
 				"Forage"
 			],
 			"Entries": {
-				"Kedi.VPP.Gleaner.Rice": {
+				/*"Kedi.VPP.Gleaner.Rice": {
 					"Id": "Kedi.VPP.Gleaner.Rice",
 					"ItemId": "(O)273",
 					"Chance": 0.1,
@@ -359,7 +359,7 @@
 					"ItemId": "(O)491",
 					"Chance": 0.1,
 					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, SEASON Fall Summer Winter",
-				},
+				},*/
 				"Kedi.VPP.DiamondOfTheKitchen": {
 					"Id": "Kedi.VPP.DiamondOfTheKitchen",
 					"ItemId": "(O)430",
@@ -371,7 +371,7 @@
 					"ItemId": "RANDOM_ITEMS (O)",
 					"PerItemCondition": "ANY \"ITEM_CONTEXT_TAG Target edible_mushroom\" \"ITEM_CONTEXT_TAG Target Kedi_VPP_Poisonous_Mushroom\"",
 					"Chance": 1,
-					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Host BountifulBoletes, WEATHER Target Sun, RANDOM 0.3, KediDili.VanillaPlusProfessions_WasRainingHereYesterday Target",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Host BountifulBoletes, WEATHER Target Sun, KediDili.VanillaPlusProfessions_WasRainingHereYesterday Target",
 				},
 				"Kedi.VPP.Starfall": {
 					"Id": "Kedi.VPP.Starfall",
@@ -443,7 +443,7 @@
 				"Forage"
 			],
 			"Entries": {
-				"Kedi.VPP.Gleaner.Rice": {
+				/*"Kedi.VPP.Gleaner.Rice": {
 					"Id": "Kedi.VPP.Gleaner.Rice",
 					"ItemId": "(O)273",
 					"Chance": 0.1,
@@ -794,7 +794,7 @@
 					"ItemId": "(O)491",
 					"Chance": 0.1,
 					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Fall Summer Winter",
-				},
+				},*/
 				"Kedi.VPP.DiamondOfTheKitchen": {
 					"Id": "Kedi.VPP.DiamondOfTheKitchen",
 					"ItemId": "(O)430",
@@ -818,7 +818,7 @@
 				"Forage"
 			],
 			"Entries": {
-				"Kedi.VPP.Gleaner.Rice": {
+				/*"Kedi.VPP.Gleaner.Rice": {
 					"Id": "Kedi.VPP.Gleaner.Rice",
 					"ItemId": "(O)273",
 					"Chance": 0.1,
@@ -1169,7 +1169,7 @@
 					"ItemId": "(O)491",
 					"Chance": 0.1,
 					"Condition": "{{KediDili.VanillaPlusProfessions/HasProfessions|contains=Wayfarer}}, IS_HOST, SEASON Fall Summer Winter",
-				},
+				},*/
 				"Kedi.VPP.DiamondOfTheKitchen": {
 					"Id": "Kedi.VPP.DiamondOfTheKitchen",
 					"ItemId": "(O)430",
@@ -1181,7 +1181,7 @@
 					"ItemId": "RANDOM_ITEMS (O)",
 					"PerItemCondition": "ANY \"ITEM_CONTEXT_TAG Target edible_mushroom\" \"ITEM_CONTEXT_TAG Target Kedi_VPP_Poisonous_Mushroom\"",
 					"Chance": 1,
-					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Host BountifulBoletes, WEATHER Target Sun, RANDOM 0.3, KediDili.VanillaPlusProfessions_WasRainingHereYesterday Target",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Host BountifulBoletes, WEATHER Target Sun, KediDili.VanillaPlusProfessions_WasRainingHereYesterday Target",
 				}
 			}
 		},
@@ -1238,7 +1238,7 @@
 					"ItemId": "RANDOM_ITEMS (O)",
 					"PerItemCondition": "ANY \"ITEM_CONTEXT_TAG Target edible_mushroom\" \"ITEM_CONTEXT_TAG Target Kedi_VPP_Poisonous_Mushroom\"",
 					"Chance": 1,
-					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Host BountifulBoletes, WEATHER Target Sun, RANDOM 0.3, KediDili.VanillaPlusProfessions_WasRainingHereYesterday Target",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Host BountifulBoletes, WEATHER Target Sun, KediDili.VanillaPlusProfessions_WasRainingHereYesterday Target",
 				}
 			}
 		},
@@ -1255,7 +1255,7 @@
 					"ItemId": "RANDOM_ITEMS (O)",
 					"PerItemCondition": "ANY \"ITEM_CONTEXT_TAG Target edible_mushroom\" \"ITEM_CONTEXT_TAG Target Kedi_VPP_Poisonous_Mushroom\"",
 					"Chance": 1,
-					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Host BountifulBoletes, WEATHER Target Sun, RANDOM 0.3, KediDili.VanillaPlusProfessions_WasRainingHereYesterday Target",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Host BountifulBoletes, WEATHER Target Sun, KediDili.VanillaPlusProfessions_WasRainingHereYesterday Target",
 				}
 			}
 		},
@@ -1272,7 +1272,7 @@
 					"ItemId": "RANDOM_ITEMS (O)",
 					"PerItemCondition": "ANY \"ITEM_CONTEXT_TAG Target edible_mushroom\" \"ITEM_CONTEXT_TAG Target Kedi_VPP_Poisonous_Mushroom\"",
 					"Chance": 1,
-					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Host BountifulBoletes, WEATHER Target Sun, RANDOM 0.3, KediDili.VanillaPlusProfessions_WasRainingHereYesterday Target",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Host BountifulBoletes, WEATHER Target Sun, KediDili.VanillaPlusProfessions_WasRainingHereYesterday Target",
 				}
 			}
 		},
@@ -1289,7 +1289,7 @@
 					"ItemId": "RANDOM_ITEMS (O)",
 					"PerItemCondition": "ANY \"ITEM_CONTEXT_TAG Target edible_mushroom\" \"ITEM_CONTEXT_TAG Target Kedi_VPP_Poisonous_Mushroom\"",
 					"Chance": 1,
-					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Host BountifulBoletes, WEATHER Target Sun, RANDOM 0.3, KediDili.VanillaPlusProfessions_WasRainingHereYesterday Target",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Host BountifulBoletes, WEATHER Target Sun, KediDili.VanillaPlusProfessions_WasRainingHereYesterday Target",
 				}
 			}
 		},

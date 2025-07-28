@@ -68,12 +68,40 @@ namespace VanillaPlusProfessions.Talents.Patchers
                 original: AccessTools.Method(typeof(Building), nameof(Building.CheckItemConversionRule)),
                 prefix: new HarmonyMethod(PatcherType, nameof(CheckItemConversionRule_Prefix))
             );
+            CoreUtility.PatchMethod(
+                PatcherName, "AnimalHouse.feedAllAnimals",
+                original: AccessTools.Method(typeof(AnimalHouse), nameof(AnimalHouse.feedAllAnimals)),
+                postfix: new HarmonyMethod(PatcherType, nameof(feedAllAnimals_Postfix))
+            );
         }
+
+        public static void feedAllAnimals_Postfix(AnimalHouse __instance)
+        {
+            GameLocation rootLocation = __instance.GetRootLocation();
+            for (int x = 0; x < __instance.map.Layers[0].LayerWidth; x++)
+            {
+                for (int y = 0; y < __instance.map.Layers[0].LayerHeight; y++)
+                {
+                    Vector2 tileLocation = new(x, y);
+                    if (__instance.objects.TryGetValue(tileLocation, out var boxTrough) && boxTrough.ItemId == Constants.Id_BoxTrough && boxTrough.lastInputItem.Value is null)
+                    {
+                        Object hay = GameLocation.GetHayFromAnySilo(rootLocation);
+                        if (hay == null)
+                        {
+                            return;
+                        }
+                        boxTrough.lastInputItem.Value = hay;
+                        boxTrough.showNextIndex.Value = true;
+                    }
+                }
+            }
+        }
+
         public static bool CheckItemConversionRule_Prefix(Building __instance, BuildingItemConversion conversion, ItemQueryContext itemQueryContext)
         {
             try
             {
-                if (__instance.buildingType.Value == "Mill" && TalentUtility.CurrentPlayerHasTalent("FineGrind"))
+                if (__instance.buildingType.Value == "Mill" && TalentUtility.CurrentPlayerHasTalent(Constants.Talent_FineGrind))
                 {
                     int maxDailyConversions = conversion.MaxDailyConversions, requiredCount = 0, chestItemCount = -1;
                     Chest sourceChest = __instance.GetBuildingChest(conversion.SourceChest), destinationChest = __instance.GetBuildingChest(conversion.DestinationChest);
@@ -249,7 +277,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             {
                 if (!string.IsNullOrEmpty(__instance?.netSeedIndex.Value) && !__instance.dead.Value && __result)
                 {
-                    if (Game1.random.NextBool() && !__instance.RegrowsAfterHarvest() && TalentUtility.CurrentPlayerHasTalent("CycleOfLife"))
+                    if (Game1.random.NextBool(ModEntry.CoreModEntry.Value.ModConfig.CycleOfLife_Chance) && !__instance.RegrowsAfterHarvest() && TalentUtility.CurrentPlayerHasTalent(Constants.Talent_CycleOfLife))
                     {
                         if (junimoHarvester is null)
                         {
@@ -332,7 +360,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
         {
             try
             {
-                if (TalentUtility.AllPlayersHaveTalent("FaeBlessings"))
+                if (TalentUtility.AllPlayersHaveTalent(Constants.Talent_FaeBlessings))
                 {
                     Game1.getFarm().modData[Constants.Key_FaeBlessings] = $"{__result.X}+{__result.Y}";
                 }
@@ -372,7 +400,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
         {
             try
             {
-                if (TalentUtility.HostHasTalent("Trickster"))
+                if (TalentUtility.HostHasTalent(Constants.Talent_Trickster))
                 {
                     if (dirt.crop is not null and Crop crop && crop.currentPhase.Value == crop.phaseDays.Count - 1)
                     {
@@ -424,13 +452,13 @@ namespace VanillaPlusProfessions.Talents.Patchers
         {
             try
             {
-                if (TalentUtility.CurrentPlayerHasTalent("StormSurge") || TalentUtility.CurrentPlayerHasTalent("StaticCharge"))
+                if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_StormSurge) || TalentUtility.CurrentPlayerHasTalent(Constants.Talent_StaticCharge))
                 {
                     Farm farm = Game1.getFarm();
                     var LightningRods = from obj in farm.Objects.Pairs
                                         where obj.Value is not null && obj.Value.QualifiedItemId == "(BC)9"
                                         select obj.Key;
-                    if (TalentUtility.CurrentPlayerHasTalent("StaticCharge"))
+                    if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_StaticCharge))
                     {
                         foreach (var tile in LightningRods)
                         {
@@ -443,7 +471,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
                             }
                         }
                     }
-                    if (TalentUtility.CurrentPlayerHasTalent("StormSurge"))
+                    if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_StormSurge))
                     {
                         int CropsAndTrees = (from TerrainFeature terrainFeature in farm.terrainFeatures.Values
                                              where (terrainFeature is FruitTree) || (terrainFeature is HoeDirt dirt && dirt.crop is not null and Crop crop && !crop.dead.Value)
@@ -461,7 +489,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             return Game1.random.NextDouble() < 0.25 - Game1.player.team.AverageDailyLuck() - Game1.player.team.AverageLuckLevel() / 100.0;
         }
 
-        public static float ReturnBirthChance() => TalentUtility.CurrentPlayerHasTalent("BrimmingWithLife") ? 0.011f : 0.0055f;
+        public static float ReturnBirthChance() => TalentUtility.CurrentPlayerHasTalent(Constants.Talent_BrimmingWithLife) ? 0.011f : 0.0055f;
 
     }
 }

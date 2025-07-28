@@ -1,8 +1,11 @@
 ﻿using HarmonyLib;
+using StardewValley;
 using StardewValley.Buildings;
 using StardewValley.Menus;
+using StardewValley.TerrainFeatures;
 using System.Collections.Generic;
 using System.Reflection.Emit;
+using VanillaPlusProfessions.Utilities;
 
 namespace VanillaPlusProfessions.Craftables
 {
@@ -10,10 +13,30 @@ namespace VanillaPlusProfessions.Craftables
     {
         public static void ApplyPatches()
         {
-            ModEntry.Harmony.Patch(
+            CoreUtility.PatchMethod(
+                "BuildingPatcher", "LevelUpMenu.getExtraInfoForLevel",
                 original: AccessTools.Method(typeof(LevelUpMenu), nameof(LevelUpMenu.getExtraInfoForLevel)),
                 postfix: new(AccessTools.Method(typeof(BuildingPatcher), nameof(getExtraInfoForLevel)))
             );
+            CoreUtility.PatchMethod(
+                "BuildingPatcher", "LevelUpMenu.getExtraInfoForLevel",
+                original: AccessTools.Method(typeof(Bush), nameof(Bush.GetShakeOffItem)),
+                postfix: new(AccessTools.Method(typeof(BuildingPatcher), nameof(GetShakeOffItem)))
+            );
+        }
+        public static void GetShakeOffItem(Bush __instance, ref string __result)
+        {
+            if (__instance.Location.ParentBuilding?.buildingType.Value == Constants.Id_SecretGlade)
+            {
+                Season season = __instance.Location.ParentBuilding.GetParentLocation().GetSeason();
+                __result = season switch
+                {
+                    Season.Spring => "(O)296",
+                    Season.Fall => "(O)410",
+                    _ => null,
+                };
+                __instance.tileSheetOffset.Value = 1;
+            }
         }
 
         public static void getExtraInfoForLevel(int whichSkill, int whichLevel, ref List<string> __result)
@@ -22,28 +45,27 @@ namespace VanillaPlusProfessions.Craftables
             {
                 if (whichLevel is 16)
                 {
-                    __result.Add(ModEntry.Helper.Translation.Get("ExtraInfo.MinecartRepository"));
+                    __result.Add(ModEntry.CoreModEntry.Value.Helper.Translation.Get("ExtraInfo.MinecartRepository"));
                 }
                 else if (whichLevel is 18)
                 {
-                    __result.Add(ModEntry.Helper.Translation.Get("ExtraInfo.MineralCavern"));
+                    __result.Add(ModEntry.CoreModEntry.Value.Helper.Translation.Get("ExtraInfo.MineralCavern"));
                 }
             }
             if (whichSkill == 2)
             {
                 if (whichLevel is 14)
                 {
-                    __result.Add(ModEntry.Helper.Translation.Get("ExtraInfo.AnimalsDropSeeds"));
+                    __result.Add(ModEntry.CoreModEntry.Value.Helper.Translation.Get("ExtraInfo.AnimalsDropSeeds"));
                 }
                 else if (whichLevel is 16)
                 {
-                    __result.Add(ModEntry.Helper.Translation.Get("ExtraInfo.Sawmill"));
+                    __result.Add(ModEntry.CoreModEntry.Value.Helper.Translation.Get("ExtraInfo.Sawmill"));
                 }
                 else if (whichLevel is 18)
                 {
-                    __result.Add(ModEntry.Helper.Translation.Get("ExtraInfo.SecretGlade"));
+                    __result.Add(ModEntry.CoreModEntry.Value.Helper.Translation.Get("ExtraInfo.SecretGlade"));
                 }
-
             }
         }
     }

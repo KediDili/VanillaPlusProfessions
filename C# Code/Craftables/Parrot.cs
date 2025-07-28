@@ -26,7 +26,7 @@ namespace VanillaPlusProfessions.Craftables
 
         public Parrot(Vector2 position, bool isGold)
         {
-            baseFrame = isGold ? 44 : Game1.random.NextBool() ? 11 : 33;
+            baseFrame = isGold ? 44 : Game1.random.Next(0, 4) * 11;
             this.position = position;
             sprite = new AnimatedSprite("LooseSprites\\parrots", baseFrame, 24, 24);
             startingPosition = position;
@@ -56,6 +56,7 @@ namespace VanillaPlusProfessions.Craftables
             updateTimer -= time.ElapsedGameTime.Milliseconds;
             jumpTimer -= time.ElapsedGameTime.Milliseconds;
             shakeTimer -= time.ElapsedGameTime.Milliseconds;
+
             if (gravityAffectedDY < 0)
             {
                 position.X += flip ? -gravityAffectedDY : gravityAffectedDY;
@@ -63,7 +64,7 @@ namespace VanillaPlusProfessions.Craftables
             if (updateTimer <= 0)
             {
                 updateTimer = FullUpdateTimer;
-                if (Game1.random.NextBool(0.03) && jumpTimer <= 0)
+                if (Game1.random.NextBool(0.02) && jumpTimer <= 0)
                 {
                     sprite.setCurrentAnimation(new List<FarmerSprite.AnimationFrame>
                     {
@@ -71,10 +72,7 @@ namespace VanillaPlusProfessions.Craftables
                         new(baseFrame + 1, 250, 0, false, flip: flip, frameBehavior: who => Squawk(who)),
                         new(baseFrame, 100, 0, flip: flip),
                     });
-                    sprite.endOfAnimationFunction = (Farmer who) => sprite.currentFrame = baseFrame;
                     sprite.loop = false;
-                
-                    sprite.animateOnce(time);
                     resetTimer = 501;
                 }
                 else if (Game1.random.NextBool(0.025) && shakeTimer <= 0)
@@ -105,16 +103,8 @@ namespace VanillaPlusProfessions.Craftables
                 shake.X = Utility.RandomFloat(-0.5f, 0.5f) * 4f;
                 shake.Y = Utility.RandomFloat(-0.5f, 0.5f) * 4f;
             }
-            if (gravityAffectedDY < 0f || yJumpOffset < 0f)
-            {
-                yJumpOffset += gravityAffectedDY;
-                gravityAffectedDY += 0.25f;
-            }
-            if (position.X < -128f || position.Y < -128f || position.X > environment.map.DisplayWidth || position.Y > environment.map.DisplayHeight)
-            {
-                return true;
-            }
-            return false;
+            
+            return base.update(time, environment);
         }
     }
 }

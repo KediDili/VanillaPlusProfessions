@@ -2,7 +2,7 @@
 	"Changes": [
 		{
 			"Action": "Load",
-			"Target": "Maps/{{ModId}}/MineralCavern",
+			"Target": "Maps/{{ModId}}/MineralCavern, Maps/{{ModId}}/SecretGlade",
 			"FromFile": "assets/Maps/{{TargetWithoutPath}}.tmx"
 		},
 		{

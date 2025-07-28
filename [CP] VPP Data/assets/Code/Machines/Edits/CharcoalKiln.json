@@ -54,7 +54,7 @@
 					"Id": "Kedi.VPP.Synthesis",
 					"Trigger": "ItemPlacedInMachine",
 					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Synthesis",
-					"RequiredTags": [ "geode" ]
+					"RequiredTags": [ "geode", "!kedi_vpp_banned_geode", "!kedi_vpp_banned_synthesis" ]
 				}
 			},
 		},
@@ -80,19 +80,19 @@
 					"Id": "Kedi.VPP.Dazzle",
 					"Modification": "Set",
 					"Amount": 1,
-					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Dazzle, ITEM_QUALITY Input 0 0, RANDOM 0.25"
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Dazzle, ITEM_QUALITY Input 0 0, RANDOM {{DazzleChance}}"
 				},
 				"Kedi.VPP.Dazzle.Gold": {
 					"Id": "Kedi.VPP.Dazzle.Gold",
 					"Modification": "Set",
 					"Amount": 2,
-					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Dazzle, ITEM_QUALITY Input 1 1, RANDOM 0.25"
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Dazzle, ITEM_QUALITY Input 1 1, RANDOM {{DazzleChance}}"
 				},
 				"Kedi.VPP.Dazzle.Iridium": {
 					"Id": "Kedi.VPP.Dazzle.Iridium",
 					"Modification": "Set",
 					"Amount": 4,
-					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Dazzle, ITEM_QUALITY Input 2 2, RANDOM 0.25"
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Dazzle, ITEM_QUALITY Input 2 2, RANDOM {{DazzleChance}}"
 				},
 			}
 		},

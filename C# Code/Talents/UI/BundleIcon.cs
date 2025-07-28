@@ -100,12 +100,12 @@ namespace VanillaPlusProfessions.Talents.UI
             string desc = "";
             if (!Availability)
             {
-                if (ModEntry.ModConfig.Value.TalentHintLevel == "Hidden")
+                if (ModEntry.CoreModEntry.Value.ModConfig.TalentHintLevel == "Hidden")
                 {
                     desc = LockedDesc;
                     return Game1.parseText(desc, Game1.smallFont, SpriteText.getWidthOfString(LockedName) + 100);
                 }
-                else if (ModEntry.ModConfig.Value.TalentHintLevel == "Partial")
+                else if (ModEntry.CoreModEntry.Value.ModConfig.TalentHintLevel == "Partial")
                 {
                     if (talent.Requirements.Length > 0)
                     {
@@ -172,10 +172,10 @@ namespace VanillaPlusProfessions.Talents.UI
             component.bounds.Y += YPos;
             button = component;
             talent = talentData;
-            LockedName = ModEntry.Helper.Translation.Get("Talent.LockedTalent.Name");
-            LockedDesc = ModEntry.Helper.Translation.Get("Talent.LockedTalent.Desc");
-            NumberLocked = ModEntry.Helper.Translation.Get("Talent.LockedTalent.Numbered");
-            Disabled = ModEntry.Helper.Translation.Get("Talent.DisabledTalent");
+            LockedName = ModEntry.CoreModEntry.Value.Helper.Translation.Get("Talent.LockedTalent.Name");
+            LockedDesc = ModEntry.CoreModEntry.Value.Helper.Translation.Get("Talent.LockedTalent.Desc");
+            NumberLocked = ModEntry.CoreModEntry.Value.Helper.Translation.Get("Talent.LockedTalent.Numbered");
+            Disabled = ModEntry.CoreModEntry.Value.Helper.Translation.Get("Talent.DisabledTalent");
         }
 
         internal void InitializeFully()

@@ -33,7 +33,7 @@
 				"Kedi.VPP.StraightRun.Staircase": {
 					"Id": "Kedi.VPP.StraightRun.Staircase",
 					"ItemId": "(BC)71",
-					"Price": "2000",
+					"Price": 2000,
 					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current StraightRun"
 				}
 			}
@@ -448,17 +448,29 @@
 			"Target": "Data/Shops",
 			"TargetField": [ "Carpenter", "Items"],
 			"Entries": {
-				"{{ModId}}_Shops_Minecart": {
-					"Id": "{{ModId}}_Shops_Minecart",
+				"{{ModId}}_Shops_MinecartChest": {
+					"Id": "{{ModId}}_Shops_MinecartChest",
 					"ItemId": "{{ModId}}_MinecartChest",
 					"Price": 6000,
-					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CraftSupplies, PLAYER_MINING_LEVEL Current 16",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CraftSupplies, PLAYER_BASE_MINING_LEVEL Current 16",
 				},
-				"{{ModId}}_Shops_Crystal": {
-					"Id": "{{ModId}}_Shops_Crystal",
+				"{{ModId}}_Shops_GlowingCrystal": {
+					"Id": "{{ModId}}_Shops_GlowingCrystal",
 					"ItemId": "{{ModId}}_GlowingCrystal",
 					"Price": 2500,
-					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CraftSupplies, PLAYER_MINING_LEVEL Current 11",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CraftSupplies, PLAYER_BASE_MINING_LEVEL Current 11",
+				},
+				"{{ModId}}_Shops_BirdFeeder": {
+					"Id": "{{ModId}}_Shops_BirdFeeder",
+					"ItemId": "{{ModId}}_BirdFeeder",
+					"Price": 2500,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CraftSupplies, PLAYER_BASE_FORAGING_LEVEL Current 11",
+				},
+				"{{ModId}}_Shops_SeedSifter": {
+					"Id": "{{ModId}}_Shops_SeedSifter",
+					"ItemId": "{{ModId}}_SeedSifter",
+					"Price": 2500,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CraftSupplies, PLAYER_BASE_FORAGING_LEVEL Current 16",
 				},
 			}
 		},
@@ -467,11 +479,17 @@
 			"Target": "Data/Shops",
 			"TargetField": [ "Saloon", "Items"],
 			"Entries": {
-				"{{ModId}}_Shops_Meal": {
-					"Id": "{{ModId}}_Shops_Meal",
+				"{{ModId}}_Shops_MinersMeal": {
+					"Id": "{{ModId}}_Shops_MinersMeal",
 					"ItemId": "{{ModId}}_MinersMeal",
 					"Price": 7500,
-					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CraftSupplies, PLAYER_MINING_LEVEL Current 19",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CraftSupplies, PLAYER_BASE_MINING_LEVEL Current 19",
+				},
+				"{{ModId}}_Shops_Meal": {
+					"Id": "{{ModId}}_Shops_ForagersBowl",
+					"ItemId": "{{ModId}}_ForagersBowl",
+					"Price": 7500,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CraftSupplies, PLAYER_BASE_FORAGING_LEVEL Current 19",
 				},
 			}
 		}
