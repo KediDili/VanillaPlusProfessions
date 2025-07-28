@@ -31,18 +31,24 @@ namespace VanillaPlusProfessions
         internal void Initialize(ModEntry modEntry)
         {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             ModEntry.Helper.Events.Content.AssetRequested += OnAssetRequested;
             ShakerData = ModEntry.Helper.ModContent.Load<List<WildTreeItemData>>("assets\\ShakerData.json");
             BuccaneerData = ModEntry.Helper.ModContent.Load<Dictionary<string, string>>("assets\\BuccaneerData.json");
             NodeMakerData = ModEntry.Helper.ModContent.Load<Dictionary<string, string>>("assets\\NodeMakerData.json");
             ResourceClumpData = ModEntry.Helper.ModContent.Load<Dictionary<string, ClumpData>>("assets\\ResourceClumpData.json");
 =======
+=======
+>>>>>>> Stashed changes
             CoreContentEditor.Value = this;
             modEntry.Helper.Events.Content.AssetRequested += OnAssetRequested;
             ShakerData = modEntry.Helper.ModContent.Load<List<WildTreeItemData>>("assets\\ShakerData.json");
             BuccaneerData = modEntry.Helper.ModContent.Load<Dictionary<string, string>>("assets\\BuccaneerData.json");
             NodeMakerData = modEntry.Helper.ModContent.Load<Dictionary<string, string>>("assets\\NodeMakerData.json");
             ResourceClumpData = modEntry.Helper.ModContent.Load<Dictionary<string, ClumpData>> ("assets\\ResourceClumpData.json");
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
             ContentPaths = new()
             {
@@ -322,7 +328,11 @@ namespace VanillaPlusProfessions
                     {
                         var list = from animal in editor
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                                    where (animal.Value.House is "Coop" or "Big Coop" or "Deluxe Coop" || animal.Value.ProfessionForHappinessBoost is Farmer.butcher)
+=======
+                                   where animal.Value.House is "Coop" or "Big Coop" or "Deluxe Coop" || animal.Value.ProfessionForHappinessBoost is Farmer.butcher
+>>>>>>> Stashed changes
 =======
                                    where animal.Value.House is "Coop" or "Big Coop" or "Deluxe Coop" || animal.Value.ProfessionForHappinessBoost is Farmer.butcher
 >>>>>>> Stashed changes
