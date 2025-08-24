@@ -385,6 +385,10 @@ namespace VanillaPlusProfessions
                     }
                     if (CoreUtility.IsOverlayValid())
                     {
+                        if (LittlePlus is null)
+                        {
+                            HandleSkillPage(page, Game1.activeClickableMenu);
+                        }
                         LittlePlus.draw(e.SpriteBatch);
                         page.drawMouse(e.SpriteBatch);
                     }
@@ -499,6 +503,10 @@ namespace VanillaPlusProfessions
 
                     if (CoreUtility.IsOverlayValid())
                     {
+                        if (LittlePlus is null)
+                        {
+                            HandleSkillPage(page2, Game1.activeClickableMenu);
+                        }
                         LittlePlus.draw(e.SpriteBatch);
                         page2.drawMouse(e.SpriteBatch);
                     }
