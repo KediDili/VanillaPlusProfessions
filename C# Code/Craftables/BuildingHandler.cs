@@ -30,18 +30,15 @@ namespace VanillaPlusProfessions.Craftables
                                     var dataOther = ItemRegistry.GetData(obj.QualifiedItemId).RawData;
                                     var dataThis = ItemRegistry.GetData(item.Value.QualifiedItemId).RawData;
 
-                                    if (!(dataOther is ObjectData objDataOther && dataThis is ObjectData objDataThis && objDataOther.CustomFields?.TryGetValue(Constants.Key_ResourceClumpName, out string value2) is true && objDataThis.CustomFields?.TryGetValue(Constants.Key_ResourceClumpName, out string value3) is true && value2 == value3))
+                                    if (!(dataOther is ObjectData objDataOther && dataThis is ObjectData objDataThis && objDataOther.CustomFields?.TryGetValue(Constants.Key_MineralCavern_NodeToBoulder, out string value2) is true && objDataThis.CustomFields?.TryGetValue(Constants.Key_MineralCavern_NodeToBoulder, out string value3) is true && value2 == value3))
                                     {
-                                        if (!ContentEditor.ResourceClumpData.TryGetValue(item.Value.ItemId, out ClumpData clumpData))
-                                        {
-                                            isValid = false;
-                                            clumpToSpawn = "";
-                                            break;
-                                        }
+                                        isValid = false;
+                                        clumpToSpawn = "";
+                                        break;
                                     }
                                     else
                                     {
-                                        clumpToSpawn = value2;
+                                        clumpToSpawn = Game1.random.ChooseFrom(value2.Split(' '));
                                         isValid = true;
                                     }
                                 }
@@ -54,8 +51,8 @@ namespace VanillaPlusProfessions.Craftables
                             { 
                                 break; 
                             }
-                        }
-                        if (isValid && Game1.random.NextBool(0.3))
+                        }//Game1.random.NextBool(0.3) && 
+                        if (isValid && !string.IsNullOrEmpty(clumpToSpawn))
                         {
                             for (int y = 0; y < 2; y++)
                             {
@@ -65,22 +62,28 @@ namespace VanillaPlusProfessions.Craftables
                                     interior.Objects.Remove(v);
                                 }
                             }
-                            bool found = false;
-                            foreach (var value in ContentEditor.NodeMakerData.Values)
+
+                            if (int.TryParse(clumpToSpawn, out int result))
                             {
-                                if (value.Contains(item.Value.ItemId) && ContentEditor.ResourceClumpData.TryGetValue(item.Value.ItemId, out ClumpData clumpData))
+                                if (!interior.modData.TryAdd(Constants.Key_ClumpSaveName, $"{result}/{item.Value.TileLocation.X}+{item.Value.TileLocation}"))
                                 {
-                                    found = true;
-                                    interior.resourceClumps.Add(new ResourceClump(clumpData.Id, 2, 2, item.Value.TileLocation));
+                                    interior.modData[Constants.Key_ClumpSaveName] += $"||{result}/{item.Value.TileLocation.X}+{item.Value.TileLocation}";
                                 }
+                                interior.resourceClumps.Add(new ResourceClump(result, 2, 2, item.Value.TileLocation));
+                                break;
                             }
-                            if (!found && ModEntry.CoreModEntry.Value.ItemExtensionsAPI is not null && !string.IsNullOrEmpty(clumpToSpawn))
+                            else if (ModEntry.CoreModEntry.Value.ItemExtensionsAPI is not null)
                             {
+                                if (!interior.modData.TryAdd(Constants.Key_ClumpSaveName, $"{clumpToSpawn}/{item.Value.TileLocation.X}+{item.Value.TileLocation}"))
+                                {
+                                    interior.modData[Constants.Key_ClumpSaveName] += $"||{clumpToSpawn}/{item.Value.TileLocation.X}+{item.Value.TileLocation}";
+                                }
                                 ModEntry.CoreModEntry.Value.ItemExtensionsAPI.TrySpawnClump(clumpToSpawn, item.Value.TileLocation, interior, out string error, true);
                                 if (!string.IsNullOrEmpty(error))
                                 {
                                     ModEntry.CoreModEntry.Value.ModMonitor.Log(error, StardewModdingAPI.LogLevel.Error);
                                 }
+                                break;
                             }
                         }
                     }
@@ -92,20 +95,23 @@ namespace VanillaPlusProfessions.Craftables
                                     where TalentUtility.EligibleForForagePerks(obj.Key, Constants.Id_SecretGlade)
                                     select obj.Key).ToList();
 
-                for (int x = 0; x < interior.map.DisplayWidth / 64; x++)
+                if (validForages?.Any() is true)
                 {
-                    for (int y = 0; y < interior.map.DisplayHeight / 64; y++)
+                    for (int x = 0; x < interior.map.DisplayWidth / 64; x++)
                     {
-                        Vector2 tile = new(x, y);
-                        if (!Game1.random.NextBool(0.15) || interior.Objects.ContainsKey(tile) || interior.doesTileHaveProperty(x, y, "Spawnable", "Back") == null || interior.doesEitherTileOrTileIndexPropertyEqual(x, y, "Spawnable", "Back", "F") || !interior.CanItemBePlacedHere(tile) || interior.hasTileAt(x, y, "Front") || interior.isBehindBush(tile) || (!Game1.random.NextBool(0.1) && interior.isBehindTree(tile)))
+                        for (int y = 0; y < interior.map.DisplayHeight / 64; y++)
                         {
-                            continue;
+                            Vector2 tile = new(x, y);
+                            if (!Game1.random.NextBool(0.15) || interior.Objects.ContainsKey(tile) || interior.doesTileHaveProperty(x, y, "Spawnable", "Back") == null || interior.doesEitherTileOrTileIndexPropertyEqual(x, y, "Spawnable", "Back", "F") || !interior.CanItemBePlacedHere(tile) || interior.hasTileAt(x, y, "Front") || interior.isBehindBush(tile) || (!Game1.random.NextBool(0.1) && interior.isBehindTree(tile)))
+                            {
+                                continue;
+                            }
+                            var obj = ItemRegistry.Create<Object>(Game1.random.ChooseFrom(validForages));
+                            obj.IsSpawnedObject = true;
+                            interior.Objects.Add(tile, obj);
                         }
-                        var obj = ItemRegistry.Create<Object>("(O)" + Game1.random.ChooseFrom(validForages));
-                        obj.IsSpawnedObject = true;
-                        interior.Objects.Add(tile, obj);
                     }
-                }                
+                }
             }
         }
     }

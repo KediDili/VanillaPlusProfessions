@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Microsoft.VisualBasic;
+using Microsoft.Xna.Framework;
 using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Extensions;
@@ -181,9 +182,24 @@ namespace VanillaPlusProfessions.Utilities
         
         public static List<KeyValuePair<string, ObjectData>> FilterObjectData(List<int> anyOfTheseCategories, List<string> includeTags = null, List<string> excludeTags = null)
         {
-            return (from sds in Game1.objectData
-                    where anyOfTheseCategories.Contains(sds.Value.Category) && (sds.Value.ContextTags is null || (sds.Value.ContextTags is not null && !excludeTags.Intersect(sds.Value.ContextTags).Any() && (includeTags is not null || includeTags?.Intersect(sds.Value.ContextTags).Any() is true)))
+            var firstList = (from sds in DataLoader.Objects(Game1.content)
+                    where anyOfTheseCategories.Contains(sds.Value.Category)
                     select sds).ToList();
+            if (excludeTags is not null)
+            {
+                firstList = (from sds in firstList
+                             where excludeTags.Intersect(sds.Value.ContextTags).Any() is false
+                             select sds).ToList();
+            }
+
+            if (includeTags is not null)
+            {
+                firstList = (from sds in firstList
+                             where sds.Value.ContextTags is not null && includeTags.Intersect(sds.Value.ContextTags).Any() is true
+                             select sds).ToList();
+            }
+
+            return firstList;
         }
 
         public static void ApplyExtraDamage(Monster monster, Farmer who, int damage)
@@ -325,7 +341,7 @@ namespace VanillaPlusProfessions.Utilities
             return Efflorescence || Nourishing_Rain || Tropical_Bliss || Deluxe_Wild_Seeds;
         }
 
-        public static bool EligibleForGeodePerks(string item, string perk, bool role) //role: True for gives drop, false for becomes dropped
+        public static bool EligibleForGeodePerks(string item, string perk)
         {
             if (ItemContextTagManager.HasBaseTag(item, Constants.ContextTag_Banned_Geode))
                 return false;
@@ -333,7 +349,7 @@ namespace VanillaPlusProfessions.Utilities
             switch (perk)
             {
                 case Constants.Talent_Matryoshka:
-                    return !ItemContextTagManager.HasBaseTag(item, role ? Constants.ContextTag_Matryoshka_Banned_FromDropping : Constants.ContextTag_Matryoshka_Banned_FromBeingDropped);
+                    return !ItemContextTagManager.HasBaseTag(item, Constants.ContextTag_Banned_Matryoshka);
                 case Constants.Talent_Xray:
                     return !ItemContextTagManager.HasBaseTag(item, Constants.ContextTag_Banned_Xray);
             }
@@ -348,6 +364,7 @@ namespace VanillaPlusProfessions.Utilities
             {
                 Constants.Profession_Ranger => !ItemContextTagManager.HasBaseTag(item, Constants.ContextTag_Banned_Ranger),
                 Constants.Profession_Adventurer => !ItemContextTagManager.HasBaseTag(item, Constants.ContextTag_Banned_Adventurer),
+                Constants.Profession_ForageFish => !ItemContextTagManager.HasBaseTag(item, Constants.ContextTag_Banned_Minigame),
                 Constants.Talent_NatureSecrets => !ItemContextTagManager.HasBaseTag(item, Constants.ContextTag_Banned_NatureSecrets),
                 Constants.Id_WildTotem => !ItemContextTagManager.HasBaseTag(item, Constants.ContextTag_Banned_WildTotem),
                 Constants.Id_SecretGlade => !ItemContextTagManager.HasBaseTag(item, Constants.ContextTag_Banned_SecretGlade),

@@ -119,7 +119,7 @@
 				"VPP Fried Bug Steak": "874/12 3/Kedi.VPP.FriedBugSteak/none/",
 				"VPP Steamed Clams": "372 2/12 3/Kedi.VPP.SteamedClams/none/",
                 "VPP Miners Meal": "238 1 243 1 200 1/12 3/{{ModId}}_MinersMeal/s Mining 19/",
-				"VPP Foragers Bowl": "296 2 398 2 410 2 414 5/12 3/{{ModId}}_ForagersBowl/s Foraging 19/",
+				"VPP Foragers Bowl": "296 2 398 2 410 2 414 5 Kedi.VPP.LargeMapleSyrup 1/12 3/{{ModId}}_ForagersBowl/s Foraging 19/",
 			}
 		}
 	]

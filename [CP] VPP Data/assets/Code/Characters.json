@@ -1,0 +1,276 @@
+{
+	"Changes": [
+		{
+			"Action": "EditData",
+			"Target": "Data/Characters",
+			"TargetField": [ "Abigail", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_InsiderInfoData": "66 276 608 611"
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Characters",
+			"TargetField": [ "Alex", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_InsiderInfoData": "139 201 210 211"
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Characters",
+			"TargetField": [ "Caroline", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_InsiderInfoData": "593 614 815"
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Characters",
+			"TargetField": [ "Clint", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_InsiderInfoData": "378 380 384 386 909 334 335 336 337 910"
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Characters",
+			"TargetField": [ "Demetrius", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_InsiderInfoData": "420 422 635 613"
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Characters",
+			"TargetField": [ "Dwarf", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_InsiderInfoData": "96 97 98 99 121 122 78 286 287 288"
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Characters",
+			"TargetField": [ "Elliott", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_InsiderInfoData": "393 397 372 719 718 394"
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Characters",
+			"TargetField": [ "Emily", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_InsiderInfoData": "428 440"
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Characters",
+			"TargetField": [ "Evelyn", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_InsiderInfoData": "591 597 223"
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Characters",
+			"TargetField": [ "George", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_InsiderInfoData": "20 86 205"
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Characters",
+			"TargetField": [ "Gus", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_InsiderInfoData": "216 224 213"
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Characters",
+			"TargetField": [ "Haley", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_InsiderInfoData": "88 421"
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Characters",
+			"TargetField": [ "Harvey", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_InsiderInfoData": "342 395 349 351"
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Characters",
+			"TargetField": [ "Jas", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_InsiderInfoData": "595 221"
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Characters",
+			"TargetField": [ "Jodi", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_InsiderInfoData": "220 222 231 214 225"
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Characters",
+			"TargetField": [ "Kent", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_InsiderInfoData": "259 649 408 607"
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Characters",
+			"TargetField": [ "Krobus", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_InsiderInfoData": "305 308 203"
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Characters",
+			"TargetField": [ "Leah", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_InsiderInfoData": "22 257 404, 281"
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Characters",
+			"TargetField": [ "Lewis", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_InsiderInfoData": "235 208 200 260"
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Characters",
+			"TargetField": [ "Leo", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_InsiderInfoData": "829 830 834 444"
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Characters",
+			"TargetField": [ "Linus", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_InsiderInfoData": "296 410 396 406"
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Characters",
+			"TargetField": [ "Marnie", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_InsiderInfoData": "184 186 436 438 424 426"
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Characters",
+			"TargetField": [ "Maru", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_InsiderInfoData": "400 787"
+			}
+		},
+		/*{
+			"Action": "EditData",
+			"Target": "Data/Characters",
+			"TargetField": [ "Pam", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_InsiderInfoData": ""
+			}
+		},*/
+		{
+			"Action": "EditData",
+			"Target": "Data/Characters",
+			"TargetField": [ "Penny", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_InsiderInfoData": "Book_Artifact PurpleBook 376"
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Characters",
+			"TargetField": [ "Pierre", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_InsiderInfoData": "419 247 246 245 423"
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Characters",
+			"TargetField": [ "Robin", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_InsiderInfoData": "636 709 390 388"
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Characters",
+			"TargetField": [ "Sam", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_InsiderInfoData": "206 90 562"
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Characters",
+			"TargetField": [ "Sandy", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_InsiderInfoData": "418 18 402"
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Characters",
+			"TargetField": [ "Sebastian", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_InsiderInfoData": "84 227 236 575"
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Characters",
+			"TargetField": [ "Shane", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_InsiderInfoData": "176 174 180 182"
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Characters",
+			"TargetField": [ "Vincent", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_InsiderInfoData": "721 722 612 399"
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Characters",
+			"TargetField": [ "Willy", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_InsiderInfoData": "DeluxeBait 774 685 703 686 687 691 692 693 694 695 856 877 SonarBobber"
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Characters",
+			"TargetField": [ "Wizard", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_InsiderInfoData": "768 769 155"
+			}
+		}
+	]
+} 

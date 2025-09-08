@@ -1,0 +1,221 @@
+{
+	"Changes": [
+		//Mineral Cavern + Node Maker
+		{ //ModId: Lumisteria.GlimmeringClumpsNodes
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "60", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "{{ModId}}_Node_Emerald 12",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "62", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "{{ModId}}_Node_Aquamarine 14",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Ruby", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "{{ModId}}_Node_Ruby RubyNode",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Topaz", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "{{ModId}}_Node_Topaz TopazNode",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Amethyst", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "{{ModId}}_Node_Amethyst AmethystNode",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Aquamarine", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "{{ModId}}_Node_Aquamarine AquamarineNode",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Jade", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "{{ModId}}_Node_Jade JadeNode",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Diamond", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "{{ModId}}_Node_Diamond DiamondNode",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "CopperOre", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "{{ModId}}_Node_Copper CopperNode",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Iron", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "{{ModId}}_Node_Iron IronNode",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Gold", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "{{ModId}}_Node_Gold GoldNode",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Each Copper Node", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "{{ModId}}_Clump_Copper",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Each Iron Node", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "{{ModId}}_Node_Iron",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Each Gold Node", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "{{ModId}}_Clump_Gold",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Each Iridium Node", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "{{ModId}}_Clump_Iridium",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Each Coal Node", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "{{ModId}}_Clump_CoalOre",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Emerald nodes", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "{{ModId}}_Clump_Emerald",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Aquamarine nodes", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "{{ModId}}_Clump_Aquamarine",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Ruby nodes", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "{{ModId}}_Clump_Ruby",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Diamond nodes", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "{{ModId}}_Clump_Diamond",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Topaz Nodes", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "{{ModId}}_Clump_Topaz",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Jade Nodes", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "{{ModId}}_Clump_Jade",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Amethyst Nodes", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "{{ModId}}_Clump_Amethyst",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Basic Geode Nodes", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "{{ModId}}_Clump_Geode",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Frozen Geode Nodes", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "{{ModId}}_Clump_FrozenGeode",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Magma Geode Nodes", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "{{ModId}}_Clump_MagmaGeode",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Omni Geode Nodes", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "{{ModId}}_Clump_OmniGeode",
+			}
+		},
+	]
+}

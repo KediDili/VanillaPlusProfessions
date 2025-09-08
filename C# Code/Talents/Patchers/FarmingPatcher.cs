@@ -46,7 +46,8 @@ namespace VanillaPlusProfessions.Talents.Patchers
             CoreUtility.PatchMethod(
                 PatcherName, "FarmAnimal.dayUpdate",
                 original: AccessTools.Method(typeof(FarmAnimal), nameof(FarmAnimal.dayUpdate)),
-                transpiler: new HarmonyMethod(PatcherType, nameof(dayUpdate_Transpiler))
+                transpiler: new HarmonyMethod(PatcherType, nameof(dayUpdate_Transpiler)),
+                prefix: new HarmonyMethod(PatcherType, nameof(dayUpdate_Prefix_FarmAnimal))
             );
             CoreUtility.PatchMethod(
                 PatcherName, "Crop.harvest",
@@ -74,7 +75,25 @@ namespace VanillaPlusProfessions.Talents.Patchers
                 postfix: new HarmonyMethod(PatcherType, nameof(feedAllAnimals_Postfix))
             );
         }
-
+        public static void dayUpdate_Prefix_FarmAnimal(FarmAnimal __instance)
+        {
+            if (__instance.fullness.Value < 200)
+            {
+                foreach (var obj in __instance.homeInterior.Objects.Values)
+                {
+                    if (obj.ItemId == Constants.Id_BoxTrough)
+                    {
+                        if (obj.lastInputItem.Value is not null)
+                        {
+                            obj.lastInputItem.Value = null;
+                            obj.showNextIndex.Value = false;
+                            __instance.fullness.Value = 255;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
         public static void feedAllAnimals_Postfix(AnimalHouse __instance)
         {
             GameLocation rootLocation = __instance.GetRootLocation();
@@ -244,24 +263,24 @@ namespace VanillaPlusProfessions.Talents.Patchers
                 }
             }
         }
-
+        
         public static IEnumerable<CodeInstruction> dayUpdate_Transpiler(IEnumerable<CodeInstruction> codeInstructions)
         {
-            List<CodeInstruction> result = new();
+            List<CodeInstruction> result = codeInstructions.ToList();
             try
             {
-                bool found = false;
+                int count = 0;
                 var methodinfo = AccessTools.PropertySetter(typeof(Item), nameof(Item.Stack));
                 foreach (var code in codeInstructions)
                 {
-                    result.Add(code);
-                    if (code.opcode.Equals(OpCodes.Callvirt) && code.OperandIs(methodinfo) && !found)
+                    if (code.opcode.Equals(OpCodes.Callvirt) && code.OperandIs(methodinfo))
                     {
-                        result.Add(new(OpCodes.Ldarg_0));
-                        result.Add(new(OpCodes.Ldloc_S, 18));
-                        result.Add(new(OpCodes.Call, AccessTools.Method(PatcherType, nameof(SaveFarmAnimalProductData))));
-                        found = true;
+                        result.Insert(count - 8, new(OpCodes.Call, AccessTools.Method(PatcherType, nameof(SaveFarmAnimalProductData))));
+                        result.Insert(count - 9, new(OpCodes.Ldloc_S, 18));
+                        result.Insert(count - 10, new(OpCodes.Ldarg_0));
+                        break;
                     }
+                    count++;
                 }
             }
             catch (System.Exception e)
@@ -303,11 +322,15 @@ namespace VanillaPlusProfessions.Talents.Patchers
                 var data = farmAnimal.GetAnimalData();
                 bool isDeluxe = false;
                 bool hasGivenAnyAtAll = false;
+                if (product is null)
+                    return;
+
                 foreach (var item in data.DeluxeProduceItemIds)
                 {
                     if (item.ItemId == product.ItemId)
                     {
                         isDeluxe = true;
+                        hasGivenAnyAtAll = true;
                         break;
                     }
                 }
@@ -315,6 +338,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
                 {
                     if (item.ItemId == product.ItemId)
                     {
+                        isDeluxe = false;
                         hasGivenAnyAtAll = true;
                         break;
                     }

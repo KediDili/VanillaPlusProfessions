@@ -91,7 +91,7 @@ namespace VanillaPlusProfessions.Managers
         {
             try
             {
-                if (__result is true && CoreUtility.AnyPlayerHasProfession(Constants.Profession_ForageFish) && debris.item is not null && debris.item.HasContextTag("category_forage") && Game1.player.modData.TryGetValue(Constants.Key_HasFoundForage, out var str))
+                if (__result is true && CoreUtility.AnyPlayerHasProfession(Constants.Profession_ForageFish) && debris.item is not null && Game1.player.modData.TryGetValue(Constants.Key_HasFoundForage, out var str))
                 {
                     if (str == "false")
                     {
@@ -101,11 +101,20 @@ namespace VanillaPlusProfessions.Managers
 
                             foreach (var item in list)
                                 item.modData[Constants.Key_HasFoundForage] = "true";
-                            Game1.addHUDMessage(new($"You threw in the correct forage! You can start making bubbles appear with {debris.item.DisplayName} when you throw it in the water, and there isn't a bubble in the map already.", 1));
+                            Game1.addHUDMessage(new($"You threw in the correct forage! You can start making bubbles appear with {debris.item.DisplayName} when you throw it in the water while there isn't a bubble already.", 1));
                         }
                         else
                         {
-                            Game1.addHUDMessage(new($"Sorry, {debris.item.DisplayName} isn't the correct forage to throw in.", 1));
+                            string realName = ItemRegistry.Create(Game1.player.modData[Constants.Key_ForageGuessItemID]).DisplayName;
+                            string spoileredName = realName;
+                            for (int i = 0; i < realName.Length; i++)
+                            {
+                                if (char.IsLetter(realName[i]) && Game1.random.NextBool())
+                                {
+                                    spoileredName = spoileredName.Replace(realName[i], '_');
+                                }
+                            }
+                            Game1.addHUDMessage(new($"Sorry, {debris.item.DisplayName} isn't the correct forage to throw in. The correct forage is: {spoileredName}", 1));
                         }
                     }
                     if (__instance.fishSplashPoint.Value == Point.Zero && Game1.player.modData[Constants.Key_HasFoundForage] is "true")

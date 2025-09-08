@@ -67,6 +67,19 @@ namespace VanillaPlusProfessions.Craftables
                             Game1.pauseThenMessage(250, ModEntry.CoreModEntry.Value.Helper.Translation.Get("Message.MossyFertilizer"));
                     }
                 }
+                else if (obj.ItemId == Constants.Id_NodeLifter)
+                {
+                    Vector2 tile = ModEntry.CoreModEntry.Value.Helper.Input.GetCursorPosition().GrabTile;
+                    if (who.currentLocation.Objects.TryGetValue(tile, out var obj2) && obj2.Category == StardewValley.Object.litterCategory)
+                    {
+                        if (Utility.canItemBeAddedToThisInventoryList(obj2, Game1.player.Items))
+                        {
+                            Game1.player.addItemByMenuIfNecessary(obj2);
+                            who.currentLocation.Objects.Remove(tile);
+                            obj = obj.ConsumeStack(1) as StardewValley.Object;
+                        }
+                    }
+                }
             }
         }
         internal static string GetSuccessString(Season season, string effect)

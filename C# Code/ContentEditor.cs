@@ -12,7 +12,6 @@ using StardewValley.GameData.Weapons;
 using StardewValley.Menus;
 using VanillaPlusProfessions.Utilities;
 using StardewModdingAPI.Utilities;
-using VanillaPlusProfessions.Craftables;
 
 namespace VanillaPlusProfessions
 {
@@ -24,17 +23,12 @@ namespace VanillaPlusProfessions
         internal static Dictionary<string, string> BuccaneerData = new();
         internal static Dictionary<string, string> ContentPaths = new();
 
-        internal static Dictionary<string, string> NodeMakerData = new();
-        internal static Dictionary<string, ClumpData> ResourceClumpData = new();
-
         internal void Initialize(ModEntry modEntry)
         {
             CoreContentEditor.Value = this;
             modEntry.Helper.Events.Content.AssetRequested += OnAssetRequested;
             ShakerData = modEntry.Helper.ModContent.Load<List<WildTreeItemData>>("assets\\ShakerData.json");
             BuccaneerData = modEntry.Helper.ModContent.Load<Dictionary<string, string>>("assets\\BuccaneerData.json");
-            NodeMakerData = modEntry.Helper.ModContent.Load<Dictionary<string, string>>("assets\\NodeMakerData.json");
-            ResourceClumpData = modEntry.Helper.ModContent.Load<Dictionary<string, ClumpData>> ("assets\\ResourceClumpData.json");
             ContentPaths = new()
             {
                 { "ItemSpritesheet", "TileSheets\\KediDili.VPPData.CP\\ItemIcons" },
@@ -121,50 +115,50 @@ namespace VanillaPlusProfessions
             if (Gleaner)
             {
                 var list = (from sds in Game1.objectData
-                           where Game1.cropData.TryGetValue(sds.Key, out var val) && (val.Seasons is null || val.Seasons.Contains(Game1.season))
-                           select sds.Key);
+                           where Game1.cropData.TryGetValue(sds.Key, out var val) && (val.Seasons is null || val.Seasons.Contains(Game1.season)) && sds.Value.ContextTags?.Contains(Constants.ContextTag_Banned_Gleaner) is false
+                           select sds.Key).ToList();
 
                 editor["Forest"].Forage.Add(new()
                 {
-                    RandomItemId = list.ToList(),
+                    RandomItemId = list,
                     Condition = "KediDili.VanillaPlusProfessions_PlayerHasProfession Any Gleaner",
-                    MaxItems = list.Count()
+                    MaxItems = list.Count
                 });
                 editor["Backwoods"].Forage.Add(new()
                 {
-                    RandomItemId = list.ToList(),
+                    RandomItemId = list,
                     Condition = "KediDili.VanillaPlusProfessions_PlayerHasProfession Any Gleaner",
-                    MaxItems = list.Count()
+                    MaxItems = list.Count
                 });
                 editor["Mountain"].Forage.Add(new()
                 {
-                    RandomItemId = list.ToList(),
+                    RandomItemId = list,
                     Condition = "KediDili.VanillaPlusProfessions_PlayerHasProfession Any Gleaner",
-                    MaxItems = list.Count()
+                    MaxItems = list.Count
                 });
             }
             if (Wayfarer)
             {
-                var list = (from sds in Game1.objectData
-                           where Game1.cropData.TryGetValue(sds.Key, out var val) && !val.Seasons?.Contains(Game1.season) is true
-                           select sds.Key);
+
+                var list = (from sds in TalentUtility.FilterObjectData(new() { StardewValley.Object.flowersCategory, StardewValley.Object.FruitsCategory, StardewValley.Object.GreensCategory, StardewValley.Object.VegetableCategory }, new() { "forage_item" }, new() { Constants.ContextTag_Banned_Wayfarer, "season_" + Game1.season.ToString().ToLower() })
+                           select sds.Key).ToList();
                 editor["Forest"].Forage.Add(new()
                 {
-                    RandomItemId = list.ToList(),
+                    RandomItemId = list,
                     Condition = "KediDili.VanillaPlusProfessions_PlayerHasProfession Any Wayfarer",
-                    MaxItems = list.Count()
+                    MaxItems = list.Count
                 });
                 editor["Backwoods"].Forage.Add(new()
                 {
-                    RandomItemId = list.ToList(),
+                    RandomItemId = list,
                     Condition = "KediDili.VanillaPlusProfessions_PlayerHasProfession Any Wayfarer",
-                    MaxItems = list.Count()
+                    MaxItems = list.Count
                 });
                 editor["Mountain"].Forage.Add(new()
                 {
-                    RandomItemId = list.ToList(),
+                    RandomItemId = list,
                     Condition = "KediDili.VanillaPlusProfessions_PlayerHasProfession Any Wayfarer",
-                    MaxItems = list.Count()
+                    MaxItems = list.Count
                 });
             }
 

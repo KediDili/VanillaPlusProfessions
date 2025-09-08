@@ -150,10 +150,6 @@ namespace VanillaPlusProfessions
                 }
             }
 
-            if (e.NewMenu is GeodeMenu)
-            {
-                ModEntry.CoreModEntry.Value.UpdateGeodeInMenu = true;
-            }
             if (e.OldMenu is BobberBar bobberBar)
             {
                 if (TalentUtility.CurrentPlayerHasTalent("HereFishyFishy"))

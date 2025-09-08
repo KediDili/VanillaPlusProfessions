@@ -19,6 +19,9 @@
 					"IsDrink": false,
 					"ExcludeFromRandomSale": true,
 					"ExcludeFromShippingCollection": true,
+					"ContextTags": [
+						"fertilizer_item"
+					],
 					"CustomFields": {
 						"Kedi.VPP.PreserveType": "Kedi.VPP.GemDust"
 					}
@@ -35,6 +38,9 @@
 					"ColorOverlayFromNextIndex": true,
 					"SpriteIndex": 29,
 					"Edibility": -300,
+					"ContextTags": [
+						"color_sand"
+					],
 					"IsDrink": false
 				},
 				"Kedi.VPP.FruitSyrup": {
@@ -51,6 +57,10 @@
 					"GeodeDropsDefaultItems": false,
 					"ExcludeFromShippingCollection": true,
 					"ExcludeFromRandomSale": true,
+					"ContextTags": [
+						"drink_item",
+						"syrup_item"
+					],
 					"CustomFields": {
 						"Kedi.VPP.PreserveType": "Kedi.VPP.FruitSyrup"
 					}
@@ -74,17 +84,18 @@
 				},
 				"Kedi.VPP.FakePrismaticJelly": {
 					"Name": "VPPFakePrismaticJelly",
-					"DisplayName": "[LocalizedText Strings\\Objects:PrismaticJelly_Name]",
-					"Description": "[LocalizedText Strings\\Objects:PrismaticJelly_Description]",
+					"DisplayName": "[LocalizedText Strings\\Objects:VPP_DomesticPrismaticJelly_Name]",
+					"Description": "[LocalizedText Strings\\Objects:VPP_DomesticPrismaticJelly_Description]",
 					"Type": "Basic",
 					"Category": 0,
 					"Price": 5000,
-					"Texture": null,
-					"SpriteIndex": 876,
+					"Texture": "{{KediDili.VanillaPlusProfessions/ContentPaths:ItemSpritesheet}}",
+					"SpriteIndex": 67,
 					"Edibility": -300,
 					"GeodeDropsDefaultItems": false,
 					"ExcludeFromShippingCollection": true,
 					"ExcludeFromRandomSale": true,
+					"ContextTags": [ "color_prismatic" ],
 					"CustomFields": {}
 				},
 				"Kedi.VPP.LargeMapleSyrup": {
@@ -100,6 +111,7 @@
 					"GeodeDropsDefaultItems": false,
 					"ExcludeFromRandomSale": true,
 					"ExcludeFromShippingCollection": true,
+					"ContextTags": [ "large_syrup_item", "syrup_item" ],
 					"CustomFields": {}
 				},
 				"Kedi.VPP.LargePineTar": {
@@ -115,6 +127,7 @@
 					"GeodeDropsDefaultItems": false,
 					"ExcludeFromRandomSale": true,
 					"ExcludeFromShippingCollection": true,
+					"ContextTags": [  "large_syrup_item", "syrup_item" ],
 					"CustomFields": {}
 				},
 				"Kedi.VPP.LargeOakResin": {
@@ -130,6 +143,7 @@
 					"GeodeDropsDefaultItems": false,
 					"ExcludeFromRandomSale": true,
 					"ExcludeFromShippingCollection": true,
+					"ContextTags": [  "large_syrup_item", "syrup_item" ],
 					"CustomFields": {}
 				},
 				"Kedi.VPP.Fertigator": {
@@ -146,6 +160,24 @@
 					"ExcludeFromRandomSale": true,
 					"ExcludeFromShippingCollection": true,
 					"ExcludeFromFishingCollection": true,
+					"ContextTags": [ "placeable" ],
+					"CustomFields": {}
+				},
+				"{{ModId}}_NodeLifter": {
+					"Name": "VPP Node Lifter",
+					"DisplayName": "[LocalizedText Strings\\Objects:VPP_NodeLifter_Name]",
+					"Description": "[LocalizedText Strings\\Objects:VPP_NodeLifter_Description]",
+					"Type": "Crafting",
+					"Category": 0,
+					"Price": 500,
+					"Texture": "{{KediDili.VanillaPlusProfessions/ContentPaths:ItemSpritesheet}}",
+					"SpriteIndex": 57,
+					"Edibility": -300,
+					"GeodeDropsDefaultItems": false,
+					"ExcludeFromRandomSale": true,
+					"ExcludeFromShippingCollection": true,
+					"ExcludeFromFishingCollection": true,
+					"ContextTags": [ "not_placeable" ],
 					"CustomFields": {}
 				},
 				"Kedi.VPP.GrilledLeek": {
@@ -466,7 +498,7 @@
 					"GeodeDropsDefaultItems": false,
 					"ExcludeFromRandomSale": true,
 					"ExcludeFromShippingCollection": true,
-					"ContextTags": [ ],
+					"ContextTags": [  ],
 					"CustomFields": {}
 				},
 				"{{ModId}}_ForagersBowl": {
@@ -491,7 +523,7 @@
 					"GeodeDropsDefaultItems": false,
 					"ExcludeFromRandomSale": true,
 					"ExcludeFromShippingCollection": true,
-					"ContextTags": [ ],
+					"ContextTags": [ "cooking_item" ],
 					"CustomFields": {}
 				},
 				"{{ModId}}_MossyFertilizer": {
@@ -503,6 +535,7 @@
 					"Price": 250,
 					"Texture": "{{KediDili.VanillaPlusProfessions/ContentPaths:ItemSpritesheet}}",
 					"SpriteIndex": 55,
+					"ContextTags": [ "color_brown", "fertilizer_item" ],
 					"Edibility": -300,
 				},
 				"{{ModId}}_WildTotem": {
@@ -514,6 +547,7 @@
 					"Price": 250,
 					"Texture": "{{KediDili.VanillaPlusProfessions/ContentPaths:ItemSpritesheet}}",
 					"SpriteIndex": 54,
+					"ContextTags": [ "totem_item", "not_placeable" ],
 					"Edibility": -300,
 				},
 				"{{ModId}}_SunTotem": {
@@ -525,6 +559,7 @@
 					"Price": 250,
 					"Texture": "{{KediDili.VanillaPlusProfessions/ContentPaths:ItemSpritesheet}}",
 					"SpriteIndex": 52,
+					"ContextTags": [ "totem_item", "not_placeable" ],
 					"Edibility": -300,
 				},
 				"{{ModId}}_SnowTotem": {
@@ -536,6 +571,7 @@
 					"Price": 250,
 					"Texture": "{{KediDili.VanillaPlusProfessions/ContentPaths:ItemSpritesheet}}",
 					"SpriteIndex": 53,
+					"ContextTags": [ "totem_item", "not_placeable" ],
 					"Edibility": -300,
 				},
 				"{{ModId}}_DeluxeWildSpringSeeds": {
@@ -547,6 +583,7 @@
 					"Price": 50,
 					"Texture": "{{KediDili.VanillaPlusProfessions/ContentPaths:ItemSpritesheet}}",
 					"SpriteIndex": 48,
+					"ContextTags": [ "totem_item" ],
 					"Edibility": -300,
 				},
 				"{{ModId}}_DeluxeWildSummerSeeds": {
@@ -847,6 +884,10 @@
 				"VPP_WildTotem_Description": "{{i18n:Objects.WildTotem.Desc}}",
 				"VPP_MossyFertilizer_Name": "{{i18n:Objects.MossyFertilizer.Name}}",
 				"VPP_MossyFertilizer_Description": "{{i18n:Objects.MossyFertilizer.Desc}}",
+				"VPP_NodeLifter_Name": "{{i18n:Objects.NodeLifter.Name}}",
+				"VPP_NodeLifter_Description": "{{i18n:Objects.NodeLifter.Desc}}",
+				"VPP_DomesticPrismaticJelly_Name": "{{i18n:Objects.DomesticPrismaticJelly.Name}}",
+				"VPP_DomesticPrismaticJelly_Description": "{{i18n:Objects.DomesticPrismaticJelly.Desc}}",
 				
 				"VPP_DeluxeWildSpringSeeds_Name": "{{i18n:Objects.DeluxeWildSpringSeeds.Name}}",
 				"VPP_DeluxeWildSpringSeeds_Description": "{{i18n:Objects.DeluxeWildSpringSeeds.Desc}}",

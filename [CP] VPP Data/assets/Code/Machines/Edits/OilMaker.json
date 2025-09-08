@@ -33,7 +33,7 @@
 					"Id": "Kedi.VPP.MachinistProfession",
 					"Amount": 0.75,
 					"Modification": "Multiply",
-					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Machinist, ITEM_CATEGORY Input ",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Machinist, !ITEM_ID Input 430",
 				}
 			}
 		},

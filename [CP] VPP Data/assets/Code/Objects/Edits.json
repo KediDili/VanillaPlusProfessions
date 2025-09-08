@@ -66,19 +66,21 @@
 		{
 			"Action": "EditData",
 			"Target": "Data/BigCraftables",
-			"Fields": {
-				"105": {
-					"ContextTags": [
-						"tapper_item",
-						"tapper_multiplier_0.75"
-					]
-				},
-				"264": {
-					"ContextTags": [
-						"tapper_item",
-						"tapper_multiplier_1.50"
-					]
-				},
+			"TargetField": ["105", "ContextTags"],
+			"Entries": {
+				"tapper_multiplier_1.25": "tapper_multiplier_1.25"
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasProfessions|contains=Sapper": true
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/BigCraftables",
+			"TargetField": ["264", "ContextTags"],
+			"Entries": {
+				"tapper_multiplier_2.25": "tapper_multiplier_2.25",
+				"tapper_multiplier_2": null
 			},
 			"When": {
 				"KediDili.VanillaPlusProfessions/HasProfessions|contains=Sapper": true
@@ -298,6 +300,184 @@
 				"Willy": "DeluxeBait 774 685 703 686 687 691 692 693 694 695 856 877 SonarBobber",
 				"Wizard": "768 769 155",
 			}
+		},
+		//NODE MAKER DATA - ORES TO NODES
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "60", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "12"
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "62", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "14"
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "64", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "4"
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "66", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "8"
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "68", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "10"
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "70", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "6"
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "72", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "2"
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "330", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "818"
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "378", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "751 849"
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "380", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "850 290"
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "382", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "BasicCoalNode1 BasicCoalNode0 668 670 845 846 847 VolcanoCoalNode0 VolcanoCoalNode1"
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "384", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "764 VolcanoGoldNode"
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "386", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "765"
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "390", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "32 34 36 38 40 42 343 450 760 762"
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "535", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "75"
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "536", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "76"
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "537", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "77"
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "719", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "25"
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "749", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "819"
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "881", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "816 817"
+			},
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "909", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "95"
+			},
+		},
+		//MINERAL CAVERN DATA - NODES TO BOULDERS
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "765", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "622"
+			},
 		},
 	]
 }

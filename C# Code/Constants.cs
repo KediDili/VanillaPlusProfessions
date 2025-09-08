@@ -33,11 +33,8 @@ namespace VanillaPlusProfessions
         public const string Key_IsLavaLocation = "KediDili.VanillaPlusProfessions/IsLavaLocation";
         public const string Key_IsConsistentMineLocation = "KediDili.VanillaPlusProfessions/IsConsistentMineLocation";
         public const string Key_LastInput = "KediDili.VanillaPlusProfessions/LastInput";
-        public const string Key_NodeMakerData = "KediDili.VanillaPlusProfessions/NodeMakerData";
         public const string Key_IsLavaLocation2 = "KediDili.VanillaPlusProfessions_IsLavaLocation";
         public const string Key_IsConsistentMineLocation2 = "KediDili.VanillaPlusProfessions_IsConsistentMineLocation";
-        public const string Key_LastInput2 = "KediDili.VanillaPlusProfessions_LastInput";
-        public const string Key_NodeMakerData2 = "KediDili.VanillaPlusProfessions_NodeMakerData";
 
         public const string Key_TalentPoints = "Kedi.VPP.TalentPointCount";
         public const string Key_PointsCalculated = "Kedi.VPP.TalentPointsCalculated";
@@ -62,12 +59,12 @@ namespace VanillaPlusProfessions
         public const string Key_HiddenBenefit_FairyBox = "Kedi.VPP.HiddenBenefit";
         public const string Key_HiddenBenefit_Crop = "Kedi.VPP.FairyBox";
         public const string Key_HiddenBenefit_FrogEggs = "Kedi.VPP.FrogEgg";
+        public const string Key_InsiderInfo = "KediDili.VanillaPlusProfessions_InsiderInfoData";
 
-        public const string ContextTag_PoisonousMushroom = "Kedi_VPP_Poisonous_Mushroom";
+        public const string ContextTag_PoisonousMushroom = "poisonous_mushroom_item";
         public const string ContextTag_BlandStone = "Kedi_VPP_Bland_Stone_Node";
         public const string ContextTag_SurvivalCooking = "kedi_vpp_survival_cooking_food";
-        public const string ContextTag_Matryoshka_Banned_FromDropping = "kedi_vpp_banned_from_dropping";
-        public const string ContextTag_Matryoshka_Banned_FromBeingDropped = "kedi_vpp_banned_from_being_dropped";
+        public const string ContextTag_Banned_Matryoshka = "kedi_vpp_banned_matryoshka";
         public const string ContextTag_Banned_Xray = "kedi_vpp_banned_xray";
         public const string ContextTag_Banned_NatureSecrets = "kedi_vpp_banned_naturesecrets";
         public const string ContextTag_Banned_Adventurer = "kedi_vpp_banned_adventurer";
@@ -78,6 +75,9 @@ namespace VanillaPlusProfessions
         public const string ContextTag_Banned_TropicalBliss = "kedi_vpp_banned_tropicalbliss";
         public const string ContextTag_Banned_NourishingRain = "kedi_vpp_banned_nourishingrain";
         public const string ContextTag_Banned_SecretGlade = "kedi_vpp_banned_secretglade";
+        public const string ContextTag_Banned_Minigame = "vpp_forageThrowGame_banned";
+        public const string ContextTag_Banned_Wayfarer = "kedi_vpp_banned_wayfarer";
+        public const string ContextTag_Banned_Gleaner = "kedi_vpp_banned_gleaner";
 
         public const string ContextTag_Banned_Node = "kedi_vpp_banned_node";
         public const string ContextTag_Banned_Forage = "kedi_vpp_banned_forage";
@@ -88,13 +88,16 @@ namespace VanillaPlusProfessions
         public const string LevelPerk_Foraging_16 = "AnimalsDropSeedsOnEatGrass";
 
         public const string Key_ResourceClumpName = "KediDili.VanillaPlusProfessions/ResourceClumpName";
+        public const string Key_ClumpSaveName = "KediDili.VanillaPlusProfessions/ResourceClumpSave";
         public const string Key_MossyFertilizer = "KediDili.VanillaPlusProfessions/MossyFertilizer";
         public const string Key_WildTotem = "KediDili.VanillaPlusProfessions/WildTotem";
         public const string Key_BirdFeederTime = "KediDili.VanillaPlusProfessions_BirdFeederTime";
         public const string Key_VPPDeluxeForage = "KediDili.VanillaPlusProfessions/DeluxeForage";
+        public const string Key_MineralCavern_NodeToBoulder = "KediDili.VanillaPlusProfessions_NodeToBoulder";
+        public const string Key_NodeMaker_OreToNode = "KediDili.VanillaPlusProfessions_OreToNode";
 
         public readonly static string[] GemNodes = new string[] { "2", "4", "6", "8", "10", "12", "14" };
-        public readonly static string[] GeodeNodes = new string[] { "75", "76", "77" };
+        public readonly static string[] GeodeNodes = new string[] { "75", "76", "77", "819" };
         public readonly static string[] OreNodes = new string[] { "290", "751", "764", "765", "95" };
         public readonly static string[] BlandStones = new string[] { "32", "668", "670", "34", "36", "38", "40", "42", "48", "50", "52", "54", "56", "58", "343", "450", "760", "845", "846", "844" };
 
@@ -102,6 +105,7 @@ namespace VanillaPlusProfessions
 
         public const string Id_MineralCavern = "KediDili.VPPData.CP_MineralCavern";
         public const string Id_SecretGlade = "KediDili.VPPData.CP_SecretGlade";
+        public const string Id_MinecartRepository = "KediDili.VPPData.CP_MineTent";
         public const string Id_SnowTotem = "KediDili.VPPData.CP_SnowTotem";
         public const string Id_SunTotem = "KediDili.VPPData.CP_SunTotem";
         public const string Id_WildTotem = "KediDili.VPPData.CP_WildTotem";
@@ -114,7 +118,9 @@ namespace VanillaPlusProfessions
         public const string Id_NodeMaker = "KediDili.VPPData.CP_NodeMaker";
         public const string Id_ThermalReactor = "KediDili.VPPData.CP_ThermalReactor";
         public const string Id_MinecartChest = "KediDili.VPPData.CP_MinecartChest";
+        public const string Id_MachineryCollector = "KediDili.VPPData.CP_DrillCollector";
         public const string Id_BoxTrough = "KediDili.VPPData.CP_BoxTrough";
+        public const string Id_NodeLifter = "KediDili.VPPData.CP_NodeLifter";
 
         public readonly static List<string> VoidButterfly_Locations = new() { "WitchSwamp", "BugLair", "Sewers", "PirateCove", "Railroad", "BusTunnel", "UndergroundMines121", "Caldera" };
         public readonly static List<string> Fertilizer_Ids = new() { "(O)368", "(O)369", "(O)919", "(O)370", "(O)371", "(O)920", "(O)465", "(O)466", "(O)918" };

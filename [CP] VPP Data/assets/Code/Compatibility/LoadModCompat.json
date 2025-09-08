@@ -1,0 +1,32 @@
+{
+	"Changes": [
+		{
+			"Action": "Include",
+			"FromFile": "assets/Code/Compatibility/SunberryVillage.json",
+			"When": {
+				"HasMod": "skellady.SBVCP"
+			}
+		},
+		{
+			"Action": "Include",
+			"FromFile": "assets/Code/Compatibility/VisitMountVapius.json",
+			"When": {
+				"HasMod": "Lumisteria.MtVapius"
+			}
+		},
+		{
+			"Action": "Include",
+			"FromFile": "assets/Code/Compatibility/WildflourAtelierGoods.json",
+			"When": {
+				"HasMod": "Wildflour.AtelierGoods",
+			}
+		},
+		{
+			"Action": "Include",
+			"FromFile": "assets/Code/Compatibility/RidgesideVillage.json",
+			"When": {
+				"HasMod": "Rafseazz.RSVCP"
+			}
+		}
+	]
+}

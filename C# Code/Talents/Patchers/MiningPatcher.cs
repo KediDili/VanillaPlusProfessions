@@ -86,7 +86,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
                 {
                     if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_Xray) && geode.modData.TryGetValue(Constants.Key_XrayDrop, out string drop) is true && !IsUpdating)
                     {
-                        if (drop is not null or "" && Utility.IsGeode(geode, true) && TalentUtility.EligibleForGeodePerks(geode.ItemId, Constants.Talent_Xray, false))
+                        if (drop is not null or "" && Utility.IsGeode(geode, true) && TalentUtility.EligibleForGeodePerks(geode.ItemId, Constants.Talent_Xray))
                         {
                             Item tryItem = ItemRegistry.Create(drop, geode.Category == __result?.Category ? __result?.Stack ?? 1 : 1, 0);
                             var data = ItemRegistry.GetDataOrErrorItem(tryItem.ItemId);
@@ -119,10 +119,10 @@ namespace VanillaPlusProfessions.Talents.Patchers
                             }
                         }
                     }
-                    else if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_Matryoshka) && Game1.random.NextBool(0.15) && TalentUtility.EligibleForGeodePerks(geode.ItemId, Constants.Talent_Matryoshka, true))
+                    else if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_Matryoshka) && Game1.random.NextBool(0.15) && TalentUtility.EligibleForGeodePerks(geode.ItemId, Constants.Talent_Matryoshka))
                     {
                         var geodes = (from KeyValuePair<string, ObjectData> @object in Game1.objectData
-                                      where (@object.Value.GeodeDropsDefaultItems || @object.Value.GeodeDrops?.Count > 0 is true) && TalentUtility.EligibleForGeodePerks(geode.ItemId, Constants.Talent_Matryoshka, false) && geode.ItemId != @object.Key
+                                      where (@object.Value.GeodeDropsDefaultItems || @object.Value.GeodeDrops?.Count > 0 is true) && TalentUtility.EligibleForGeodePerks(geode.ItemId, Constants.Talent_Matryoshka) && geode.ItemId != @object.Key
                                       select @object.Key).ToList();
                         __result = ItemRegistry.Create(Game1.random.ChooseFrom(geodes), 1, geode.Quality);
                     }

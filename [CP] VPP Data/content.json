@@ -179,11 +179,23 @@
 				"HasMod": "Lumisteria.MtVapius"
 			}
 		},
+		{
+			"Name": "VMVGemsTier1",
+			"Value": "Lumisteria.MtVapius_Node_DemantoideOre Lumisteria.MtVapius_Node_CarnelianOre Lumisteria.MtVapius_Node_BlueAgatheOre",
+		},
+		{
+			"Name": "VMVGemsTier2",
+			"Value": "Lumisteria.MtVapius_Node_TurquoiseOre, Lumisteria.MtVapius_Node_GarnetOre, Lumisteria.MtVapius_Node_TourmalineOre",
+		},
+		{
+			"Name": "VMVGemsTier3",
+			"Value": "Lumisteria.MtVapius_Node_MorganiteOre, Lumisteria.MtVapius_Node_HeliodorOre, Lumisteria.MtVapius_Node_LabradoriteOre, Lumisteria.MtVapius_Node_VoidDiamondOre, Lumisteria.MtVapius_Node_LarimarOre",
+		},
 	],
 	"Changes": [
 		{
 			"Action": "Include",
-			"FromFile": "assets/Code/FishPonds.json, assets/Code/FarmAnimals.json, assets/Code/Dialogue.json, assets/Code/GiftTastes.json, assets/Code/Crops.json, assets/Code/Trinkets.json, assets/Code/Mail.json, assets/Code/CraftingRecipes.json, assets/Code/Locations.json, assets/Code/WildTrees.json, assets/Code/TailoringRecipes.json, assets/Code/TriggerActions.json, assets/Code/Shops.json, assets/Code/GarbageCans.json",
+			"FromFile": "assets/Code/FishPonds.json, assets/Code/Compatibility/LoadModCompat.json, assets/Code/FarmAnimals.json, assets/Code/Dialogue.json, assets/Code/GiftTastes.json, assets/Code/Crops.json, assets/Code/Trinkets.json, assets/Code/Mail.json, assets/Code/CraftingRecipes.json, assets/Code/Locations.json, assets/Code/WildTrees.json, assets/Code/TailoringRecipes.json, assets/Code/TriggerActions.json, assets/Code/Shops.json, assets/Code/GarbageCans.json",
 		},
 		{
 			"Action": "Include",
@@ -191,7 +203,7 @@
 		},
 		{
 			"Action": "Include",
-			"FromFile": "assets/Code/Machines/Edits/Loom.json, assets/Code/Machines/Edits/BeeHouse.json, assets/Code/Machines/Edits/OilMaker.json, assets/Code/Machines/Edits/CharcoalKiln.json, assets/Code/Machines/Edits/Furnaces.json, assets/Code/Machines/Edits/RecyclingMachine.json, assets/Code/Machines/Edits/MayonnaiseMachine.json, assets/Code/Machines/Edits/CheesePress.json, assets/Code/Machines/Edits/BaitBin.json, assets/Code/Machines/Edits/Dehydrator.json, assets/Code/Machines/Edits/FishSmoker.json, assets/Code/Machines/Edits/Keg.json, assets/Code/Machines/Edits/Cask.json, assets/Code/Machines/Edits/PreservesJar.json"
+			"FromFile": "assets/Code/Machines/Edits/Loom.json, assets/Code/Machines/Edits/BeeHouse.json, assets/Code/Machines/Edits/OilMaker.json, assets/Code/Machines/Edits/CharcoalKiln.json, assets/Code/Machines/Edits/Furnaces.json, assets/Code/Machines/Edits/RecyclingMachine.json, assets/Code/Machines/Edits/MayonnaiseMachine.json, assets/Code/Machines/Edits/CheesePress.json, assets/Code/Machines/Edits/BaitBin.json, assets/Code/Machines/Edits/Dehydrator.json, assets/Code/Machines/Edits/FishSmoker.json, assets/Code/Machines/Edits/Keg.json, assets/Code/Machines/Edits/Cask.json, assets/Code/Machines/Edits/PreservesJar.json, assets/Code/Machines/Edits/Crystalarium.json, assets/Code/Machines/Edits/EssenceInfusion.json"
 		},
 		{
 			"Action": "Include",

@@ -19,23 +19,22 @@ namespace VanillaPlusProfessions.Craftables
                 postfix: new(AccessTools.Method(typeof(BuildingPatcher), nameof(getExtraInfoForLevel)))
             );
             CoreUtility.PatchMethod(
-                "BuildingPatcher", "LevelUpMenu.getExtraInfoForLevel",
+                "BuildingPatcher", "Bush.GetShakeOffItem",
                 original: AccessTools.Method(typeof(Bush), nameof(Bush.GetShakeOffItem)),
                 postfix: new(AccessTools.Method(typeof(BuildingPatcher), nameof(GetShakeOffItem)))
             );
         }
         public static void GetShakeOffItem(Bush __instance, ref string __result)
         {
-            if (__instance.Location.ParentBuilding?.buildingType.Value == Constants.Id_SecretGlade)
+            if (__instance.Location.ParentBuilding?.buildingType.Value == Constants.Id_SecretGlade && __instance.tileSheetOffset.Value == 1)
             {
                 Season season = __instance.Location.ParentBuilding.GetParentLocation().GetSeason();
                 __result = season switch
                 {
                     Season.Spring => "(O)296",
                     Season.Fall => "(O)410",
-                    _ => null,
+                    _ => null
                 };
-                __instance.tileSheetOffset.Value = 1;
             }
         }
 

@@ -1,0 +1,54 @@
+{
+	"Changes": [
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"Entries":{
+				"(BC)34": { //SignOfTheVessel
+					"HasOutput": true,
+					"OutputRules": [
+						{
+							"Id": "Kedi.VPP.EssenceInfusion.Rule",
+							"Triggers": [
+								{
+									"Id": "Kedi.VPP.EssenceInfusion.Trigger",
+									"Trigger": "OutputCollected, MachinePutDown",
+									"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current EssenceInfusion"
+								}
+							],
+							"OutputItem": [
+								{
+									"Id": "Kedi.VPP.EssenceInfusion.Output",
+									"ItemId": "(O)768"
+								}
+							],
+							"DaysUntilReady": 1
+						}
+					]
+				},
+				"(BC)83": {
+					"HasOutput": true,
+					"OutputRules": [
+						{
+							"Id": "Kedi.VPP.EssenceInfusion.Rule",
+							"Triggers": [
+								{
+									"Id": "Kedi.VPP.EssenceInfusion.Trigger",
+									"Trigger": "OutputCollected, MachinePutDown",
+									"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current EssenceInfusion"
+								}
+							],
+							"OutputItem": [
+								{
+									"Id": "Kedi.VPP.EssenceInfusion.Output",
+									"ItemId": "(O)769"
+								}
+							],
+							"DaysUntilReady": 1
+						}
+					]
+				}
+			}
+		}
+	]
+}

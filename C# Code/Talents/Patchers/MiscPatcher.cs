@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
 using StardewValley.BellsAndWhistles;
 using StardewValley.Buffs;
+using StardewValley.GameData.Characters;
 using StardewValley.GameData.Objects;
 using StardewValley.Menus;
 using StardewValley.Objects;
@@ -105,12 +106,11 @@ namespace VanillaPlusProfessions.Talents.Patchers
                 }
                 if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_InsiderInfo))
                 {
-                    Dictionary<string, string> InsiderInfo = ModEntry.CoreModEntry.Value.Helper.GameContent.Load<Dictionary<string, string>>(ContentEditor.ContentPaths["InsiderInfo"]);
-                    foreach (var item in InsiderInfo)
+                    foreach (var item in Game1.player.friendshipData.Pairs)
                     {
-                        if (Game1.player.friendshipData.TryGetValue(item.Key ?? "", out Friendship val) && val.Points >= 1500)
+                        if (item.Value.Points >= 1500 && NPC.TryGetData(item.Key, out CharacterData data) && data.CustomFields?.TryGetValue(Constants.Key_InsiderInfo, out string val) is true)
                         {
-                            string[] items = ArgUtility.SplitBySpace(item.Value.Replace(",", " "));
+                            string[] items = ArgUtility.SplitBySpace(val.Replace(",", " "));
                             if (items.Contains(__instance.ItemId))
                             {
                                 __instance.Price += (int)(__instance.Price * 0.2f);

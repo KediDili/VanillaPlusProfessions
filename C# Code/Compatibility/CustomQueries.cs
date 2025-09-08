@@ -1,9 +1,7 @@
 ﻿using StardewValley;
 using StardewValley.Delegates;
-using VanillaPlusProfessions.Talents;
 using VanillaPlusProfessions.Utilities;
 using StardewValley.Locations;
-using VanillaPlusProfessions.Craftables;
 
 namespace VanillaPlusProfessions.Compatibility
 {

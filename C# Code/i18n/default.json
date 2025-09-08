@@ -54,7 +54,7 @@
 	"Profession.Gleaner.Name": "Gleaner",
 	"Profession.Gleaner.Desc": "Crop seeds can be found as forage.",
 	"Profession.Wayfarer.Name": "Wayfarer",
-	"Profession.Wayfarer.Desc": "Chance for forage to be_found out of season.",
+	"Profession.Wayfarer.Desc": "Chance for forage to be found out of season.",
 
 	//Mining
 	"Profession.Metallurgist.Name": "Metallurgist",
@@ -595,6 +595,7 @@
 	"Message.SunTotemSuccess.Summer": "The light within has made sure you will get more even more light tomorrow.", //Added in 1.1.0
 	"Message.SnowTotemSuccess.Normal": "The little cold crystals are out to make a difference in the sky...", //Added in 1.1.0
 	"Message.SnowTotemSuccess.Winter": "The little cold crystals are summoning their friends from nearby clouds...", //Added in 1.1.0
+	"Message.Dodge": "Dodge", //Added in 1.1.0
 
 	//Buffs
 	"Buff.Slippery.Name": "Slippery",

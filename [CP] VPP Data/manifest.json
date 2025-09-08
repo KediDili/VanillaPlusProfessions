@@ -17,6 +17,30 @@
 		{
 			"UniqueID": "Esca.EMP",
 			"IsRequired": true
-		}
+		},
+		
+		//FALSE Dependencies
+		
+		{
+			"UniqueID": "Wildflour.AtelierGoods",
+			"IsRequired": false
+		},
+		{
+			"UniqueID": "Atelier.Cauldron",
+			"IsRequired": false
+		},
+		{
+			"UniqueID": "skellady.SBVCP",
+			"IsRequired": false
+		},
+		{
+			"UniqueID": "Lumisteria.MtVapius",
+			"IsRequired": false
+		},
+		{
+			"UniqueID": "Rafseazz.RSVCP",
+			"IsRequired": false
+		},
+
 	]
 }

@@ -61,12 +61,16 @@
 	"Objects.ForagersBowl.Name": "Forager's Bowl", //Added in 1.1.0
 	"Objects.ForagersBowl.Desc": "A scrumptious merge of seasonal fruit delicacies. Tastes of the nature filled in a bowl!", //Added in 1.1.0
 	
+	"Objects.NodeLifter.Name": "Node Lifter", //Added in 1.1.0
+	"Objects.NodeLifter.Desc": "A handy tool to lift up misplaced nodes.", //Added in 1.1.0
+	"Objects.DomesticPrismaticJelly.Name": "Domestic Prismatic Jelly", //Added in 1.1.0
+	"Objects.DomesticPrismaticJelly.Desc": "Gathered from slimes in a slime hutch by an excellent expert. Do not confuse with the jelly from wild prismatic slimes.", //Added in 1.1.0
 	"Objects.SnowTotem.Name": "Snow Totem", //Added in 1.1.0
 	"Objects.SnowTotem.Desc": "The totem gazes at you with cold eyes...", //Added in 1.1.0
 	"Objects.SunTotem.Name": "Sun Totem", //Added in 1.1.0
 	"Objects.SunTotem.Desc": "You can feel the warmth the totem has within.", //Added in 1.1.0
 	"Objects.WildTotem.Name": "Wild Totem", //Added in 1.1.0
-	"Objects.WildTotem.Desc": "You can feel the warmth the totem has within.", //Added in 1.1.0
+	"Objects.WildTotem.Desc": "Smells like moss, rocks and maybe flowers.", //Added in 1.1.0
 	"Objects.MossyFertilizer.Name": "Mossy Fertilizer", //Added in 1.1.0
 	"Objects.MossyFertilizer.Desc": "Increases the chance wild trees will have moss on them the next day.", //Added in 1.1.0
 	"Objects.DeluxeWildSpringSeeds.Name": "Deluxe Wild Spring Seeds", //Added in 1.1.0
@@ -76,7 +80,7 @@
 	"Objects.DeluxeWildFallSeeds.Name": "Deluxe Wild Fall Seeds", //Added in 1.1.0
 	"Objects.DeluxeWildFallSeeds.Desc": "Plant in fall. Grows in 7 days, faster if planted in the Forest.", //Added in 1.1.0
 	"Objects.DeluxeWildWinterSeeds.Name": "Deluxe Wild Winter Seeds", //Added in 1.1.0
-	"Objects.DeluxeWildWinterSeeds.Desc": "Plant in winter. Grows in 7 days, faster if planted in the Forest.", //Added in 1.1.0	
+	"Objects.DeluxeWildWinterSeeds.Desc": "Plant in winter. Grows in 7 days, faster if planted in the Forest.", //Added in 1.1.0
 	
 	"CraftingRecipes.Transmute.Au": "Transmute (Reverse - Au)",
 	"CraftingRecipes.Transmute.Ir": "Transmute (Reverse - Ir)",
@@ -85,7 +89,7 @@
 	"BigCraftables.ParrotPerch.Desc": "It looks perfect for a parrot! Where will you find one though?",
 	"BigCraftables.TrinketWorkbench.Name": "Trinket Workbench",
 	"BigCraftables.TrinketWorkbench.Desc": "You can convert trinkets to rings, and rings back to trinkets here!",
-	"BigCraftables.BoxTrough.Name": "Box Trough",//Added in 1.1.0 _BoxTrough
+	"BigCraftables.BoxTrough.Name": "Box Trough", //Added in 1.1.0
 	"BigCraftables.BoxTrough.Desc": "A small, portable trough to place in your animal buildings.", //Added in 1.1.0
 	"BigCraftables.GlowingCrystal.Name": "Glowing Crystal",
 	"BigCraftables.GlowingCrystal.Desc": "Oooh... shiny and glowy!",
@@ -245,8 +249,8 @@
 	"Buildings.MineralCavern.Desc": "Don't worry, it's safe to enter! Mysteriously, stones placed inside grow bigger with time.",
 	"Buildings.MineTent.Name": "Minecart Repository",
 	"Buildings.MineTent.Desc": "Storage building to keep mined goods safe until you return. Only one of this building can be present in one save.",
-	"Buildings.Sawmill.Name": "Sawmill", //Added in 1.0.5
-	"Buildings.Sawmill.Desc": "The mill that turns with spilled water.", // Added in 1.0.5
+	"Buildings.Sawmill.Name": "Sawmill", //Added in 1.1.0
+	"Buildings.Sawmill.Desc": "The mill that turns with spilled water. Place hardwood to the saw bench to receive wood.", // Added in 1.1.0
 	"Buildings.SecretGlade.Name": "Secret Glade", // Added in 1.1.0
-	"Buildings.SecretGlade.Desc": "hjk", // Added in 1.1.0
+	"Buildings.SecretGlade.Desc": "Walk in from the door, and you'll find a serene foraging space.", // Added in 1.1.0
 }

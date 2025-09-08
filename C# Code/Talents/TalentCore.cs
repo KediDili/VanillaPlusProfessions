@@ -423,13 +423,6 @@ namespace VanillaPlusProfessions.Talents
             {
                 SkillsByName = ModEntry.CoreModEntry.Value.Helper.Reflection.GetField<Dictionary<string, Skills.Skill>>(typeof(Skills), "SkillsByName").GetValue();
             }
-            if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_Accessorise))
-            {
-                foreach (var item in TalentUtility.GetAllTrinketRings(Game1.player))
-                {
-                    item.onEquip(Game1.player);
-                }
-            }
             Game1.player.team.specialOrders.OnElementChanged += OnSpecialOrderChanged;
             Game1.player.mailReceived.OnValueAdded += OnMailFlagGiven;
 

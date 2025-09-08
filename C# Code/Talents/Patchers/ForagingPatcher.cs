@@ -38,7 +38,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             );
             CoreUtility.PatchMethod(PatcherName, "Bush.inBloom",
                 original: AccessTools.Method(typeof(Bush), nameof(Bush.inBloom)),
-                postfix: new HarmonyMethod(PatcherType, nameof(inBloom_Postfix))
+                postfix: new HarmonyMethod(PatcherType, nameof(inBloom_Bush_Postfix))
             );
             CoreUtility.PatchMethod(PatcherName, "Object.OutputSolarPanel",
                 original: AccessTools.Method(typeof(StardewValley.Object), nameof(StardewValley.Object.OutputSolarPanel)),
@@ -349,11 +349,11 @@ namespace VanillaPlusProfessions.Talents.Patchers
         }
 
         //Berry-mania
-        public static void inBloom_Postfix(Bush __instance, ref bool __result)
+        public static void inBloom_Bush_Postfix(Bush __instance, ref bool __result)
         {
             try
             {
-                if (__instance.size.Value is 1 or 2)
+                if (__instance.size.Value is 0 or 1 or 2)
                 {
                     Season season = __instance.Location.GetSeason();
                     if (__instance.Location.ParentBuilding?.buildingType.Value == Constants.Id_SecretGlade)
@@ -361,7 +361,6 @@ namespace VanillaPlusProfessions.Talents.Patchers
                         if (season is Season.Spring or Season.Fall)
                         {
                             __result = true;
-                            __instance.tileSheetOffset.Value = 1;
                         }
                     }
                     else if (TalentUtility.AnyPlayerHasTalent(Constants.Talent_Berrymania))
@@ -369,20 +368,19 @@ namespace VanillaPlusProfessions.Talents.Patchers
                         if (season is Season.Spring && Game1.dayOfMonth > 13 && Game1.dayOfMonth < 22)
                         {
                             __result = true;
-                            __instance.tileSheetOffset.Value = 1;
                         }
                         else if (season is Season.Fall && Game1.dayOfMonth > 6 && Game1.dayOfMonth < 15)
                         {
                             __result = true;
-                            __instance.tileSheetOffset.Value = 1;
                         }
                     }
                 }
             }
             catch (Exception e)
             {
-                CoreUtility.PrintError(e, PatcherName, "Object.getDescription", "prefixed", true);
+                CoreUtility.PrintError(e, PatcherName, "Bush.dayUpdate", "postfixed", true);
             }
         }
+
     }
 }

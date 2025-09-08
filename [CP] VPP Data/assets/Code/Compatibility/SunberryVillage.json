@@ -1,0 +1,394 @@
+{
+	"Changes": [
+		//Mate's Rates
+		{
+			"Action": "EditData",
+			"Target": "Data/Shops", //Ari
+			"TargetField": [ "skellady.SBVCP_AriMarket", "PriceModifiers" ],
+			"Entries": {
+				"{{ModId}}.SunberryVillage.MatesRates.Ari": {
+					"Id": "{{ModId}}.SunberryVillage.MatesRates.Ari",
+					"Amount": 0.8,
+					"Modification": "Multiply",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current MatesRates, PLAYER_HEARTS Current AriSBV 6"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Shops", //D&D
+			"TargetField": [ "skellady.SBVCP_DNDCafe", "PriceModifiers" ],
+			"Entries": {
+				"{{ModId}}.SunberryVillage.MatesRates.DialaDerya": {
+					"Id": "{{ModId}}.SunberryVillage.MatesRates.DialaDerya",
+					"Amount": 0.8,
+					"Modification": "Multiply",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current MatesRates, PLAYER_HEARTS Current DialaSBV 6, PLAYER_HEARTS Current DeryaSBV 6"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Shops", //Ezra
+			"TargetField": [ "skellady.SBVCP_EzraClothes", "PriceModifiers" ],
+			"Entries": {
+				"{{ModId}}.SunberryVillage.MatesRates.Ezra": {
+					"Id": "{{ModId}}.SunberryVillage.MatesRates.Ezra",
+					"Amount": 0.8,
+					"Modification": "Multiply",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current MatesRates, PLAYER_HEARTS Current EzraSBV 6"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Shops", //Jumana
+			"TargetField": [ "skellady.SBVCP_JumanaShop", "PriceModifiers" ],
+			"Entries": {
+				"{{ModId}}.SunberryVillage.MatesRates.Jumana": {
+					"Id": "{{ModId}}.SunberryVillage.MatesRates.Jumana",
+					"Amount": 0.8,
+					"Modification": "Multiply",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current MatesRates, PLAYER_HEARTS Current JumanaSBV 6"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Shops", //Silas
+			"TargetField": [ "skellady.SBVCP_SilasBlacksmith", "PriceModifiers" ],
+			"Entries": {
+				"{{ModId}}.SunberryVillage.MatesRates.Silas": {
+					"Id": "{{ModId}}.SunberryVillage.MatesRates.Silas",
+					"Amount": 0.8,
+					"Modification": "Multiply",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current MatesRates, PLAYER_HEARTS Current SilasSBV 6"
+				}
+			}
+		},
+
+		//Node Maker Data
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "skellady.SBVCP_SunberryGeode", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "skellady.SBVCP_SunberryGeodeNode",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "skellady.SBVCP_Purpurite", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "skellady.SBVCP_PurpuriteNode",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "skellady.SBVCP_BlueAuraQuartz", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "skellady.SBVCP_BlueAuraQuartzNode",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "skellady.SBVCP_Serpentine", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "skellady.SBVCP_SerpentineNode",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "skellady.SBVCP_Annabergite", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "skellady.SBVCP_AnnabergiteNode",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "skellady.SBVCP_Citrine", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "skellady.SBVCP_CitrineNode",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "skellady.SBVCP_SunriseOrb", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "skellady.SBVCP_SunriseOrbNode",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "skellady.SBVCP_SunsetOrb", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "skellady.SBVCP_SunsetOrbNode",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "skellady.SBVCP_MidnightOrb", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "skellady.SBVCP_MidnightOrbNode",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "skellady.SBVCP_EclipseOrb", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "skellady.SBVCP_EclipseOrbNode",
+			}
+		},
+		//Exclude Golden Sunberry Seeds and Moonberry Seeds from Wayfarer and Gleaner
+		{
+			"Action": "EditData", 
+			"Target": "Data/Objects",
+			"TargetField": [ "skellady.SBVCP_GoldenSunberrySeeds", "ContextTags" ],
+			"Entries": {
+				"kedi_vpp_banned_wayfarer": "kedi_vpp_banned_wayfarer",
+				"kedi_vpp_banned_gleaner": "kedi_vpp_banned_gleaner"
+			},
+		},
+		{
+			"Action": "EditData", 
+			"Target": "Data/Objects",
+			"TargetField": [ "skellady.SBVCP_MoonberrySeeds", "ContextTags" ],
+			"Entries": {
+				"kedi_vpp_banned_wayfarer": "kedi_vpp_banned_wayfarer",
+				"kedi_vpp_banned_gleaner": "kedi_vpp_banned_gleaner",
+			},
+		},
+		//Exclude Golden Sunberry and Moonberry from Secret Glade
+		{
+			"Action": "EditData", 
+			"Target": "Data/Objects",
+			"TargetField": [ "skellady.SBVCP_GoldenSunberry", "ContextTags" ],
+			"Entries": {
+				"kedi_vpp_banned_secretglade": "kedi_vpp_banned_secretglade",
+				"kedi_vpp_banned_wayfarer": "kedi_vpp_banned_wayfarer",
+				"kedi_vpp_banned_wildtotem": "kedi_vpp_banned_wildtotem",
+			},
+		},
+		{
+			"Action": "EditData", 
+			"Target": "Data/Objects",
+			"TargetField": [ "skellady.SBVCP_Moonberry", "ContextTags" ],
+			"Entries": {
+				"kedi_vpp_banned_secretglade": "kedi_vpp_banned_secretglade",
+				"kedi_vpp_banned_wayfarer": "kedi_vpp_banned_wayfarer",
+				"kedi_vpp_banned_wildtotem": "kedi_vpp_banned_wildtotem",
+			},
+		},
+		// Exclude Orb geodes from Synthesis and Matryoshka
+		{
+			"Action": "EditData", 
+			"Target": "Data/Objects",
+			"TargetField": [ "skellady.SBVCP_MidnightOrb", "ContextTags" ],
+			"Entries": {
+				"kedi_vpp_banned_synthesis": "kedi_vpp_banned_synthesis",
+				"kedi_vpp_banned_matryoshka": "kedi_vpp_banned_matryoshka",
+			},
+		},
+		{
+			"Action": "EditData", 
+			"Target": "Data/Objects",
+			"TargetField": [ "skellady.SBVCP_EclipseOrb", "ContextTags" ],
+			"Entries": {
+				"kedi_vpp_banned_synthesis": "kedi_vpp_banned_synthesis",
+				"kedi_vpp_banned_matryoshka": "kedi_vpp_banned_matryoshka",
+			},
+		},
+		{
+			"Action": "EditData", 
+			"Target": "Data/Objects",
+			"TargetField": [ "skellady.SBVCP_PrismaticOrb", "ContextTags" ],
+			"Entries": {
+				"kedi_vpp_banned_synthesis": "kedi_vpp_banned_synthesis",
+				"kedi_vpp_banned_matryoshka": "kedi_vpp_banned_matryoshka",
+			},
+		},
+		{
+			"Action": "EditData", 
+			"Target": "Data/Objects",
+			"TargetField": [ "skellady.SBVCP_SunriseOrb", "ContextTags" ],
+			"Entries": {
+				"kedi_vpp_banned_synthesis": "kedi_vpp_banned_synthesis",
+				"kedi_vpp_banned_matryoshka": "kedi_vpp_banned_matryoshka",
+			},
+		},
+		{
+			"Action": "EditData", 
+			"Target": "Data/Objects",
+			"TargetField": [ "skellady.SBVCP_SunsetOrb", "ContextTags" ],
+			"Entries": {
+				"kedi_vpp_banned_synthesis": "kedi_vpp_banned_synthesis",
+				"kedi_vpp_banned_matryoshka": "kedi_vpp_banned_matryoshka",
+			},
+		},
+		//Modify Sunberry Obelisk for Monumental Discount when it's added
+		{ //Modify Sunberry locations for Bountiful Boletes
+			"Action": "EditData", 
+			"Target": "Data/Locations",
+			"TargetField": [ "Custom_SBV_SecretCave", "Forage" ],
+			"Entries": {
+				"{{ModId}}.SunberryVillage.BountifulBoletes.SecretForestCave": {
+					"Id": "{{ModId}}.SunberryVillage.BountifulBoletes.SecretForestCave",
+					"ItemId": "RANDOM_ITEMS (O)",
+					"PerItemCondition": "ANY \"ITEM_CONTEXT_TAG Target edible_mushroom\" \"ITEM_CONTEXT_TAG Target poisonous_mushroom_item\"",
+					"Chance": 1,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Host BountifulBoletes, WEATHER Custom_SBV_SunberryForest Sun, KediDili.VanillaPlusProfessions_WasRainingHereYesterday Custom_SBV_SunberryForest",
+				},	
+			}
+		},
+		{ 
+			"Action": "EditData", 
+			"Target": "Data/Locations",
+			"TargetField": [ "Custom_SBV_SecretForest2", "Forage" ],
+			"Entries": {
+				"{{ModId}}.SunberryVillage.BountifulBoletes.AncientGrove": {
+					"Id": "{{ModId}}.SunberryVillage.BountifulBoletes.AncientGrove",
+					"ItemId": "RANDOM_ITEMS (O)",
+					"PerItemCondition": "ANY \"ITEM_CONTEXT_TAG Target edible_mushroom\" \"ITEM_CONTEXT_TAG Target poisonous_mushroom_item\"",
+					"Chance": 1,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Host BountifulBoletes, WEATHER Custom_SBV_SecretForest1 Sun, KediDili.VanillaPlusProfessions_WasRainingHereYesterday Custom_SBV_SecretForest1",
+				}
+			}
+		},
+		//Modify Sunberry Mines for Crystal Cavern and Upheaval
+		{
+			"Action": "EditData", 
+			"Target": "Data/Locations",
+			"TargetField": [ "Custom_SBV_Mines1", "CustomFields" ],
+			"Entries": {
+				"Kedi.VPP.Upheaval": "skellady.SBVCP_SunberryGeodeNode 75",
+				"Kedi.VPP.CrystalCavern": "44 4 6 8 10 12 14"
+			}
+		},
+		{
+			"Action": "EditData", 
+			"Target": "Data/Locations",
+			"TargetField": [ "Custom_SBV_Mines2", "CustomFields" ],
+			"Entries": {
+				"Kedi.VPP.Upheaval": "skellady.SBVCP_SunberryGeodeNode 75",
+				"Kedi.VPP.CrystalCavern": "44 4 6 8 10 12 14"
+			}
+		},
+		{
+			"Action": "EditData", 
+			"Target": "Data/Locations",
+			"TargetField": [ "Custom_SBV_Mines3", "CustomFields" ],
+			"Entries": {
+				"Kedi.VPP.Upheaval": "skellady.SBVCP_SunberryGeodeNode skellady.SBVCP_SunriseOrbNode 75",
+				"Kedi.VPP.CrystalCavern": "44 4 6 8 10 12 14"
+			}
+		},
+		{
+			"Action": "EditData", 
+			"Target": "Data/Locations",
+			"TargetField": [ "Custom_SBV_Mines4", "CustomFields" ],
+			"Entries": {
+				"Kedi.VPP.Upheaval": "skellady.SBVCP_SunberryGeodeNode skellady.SBVCP_SunberryGeodeNode skellady.SBVCP_SunsetOrbNode 75 819 75 819",
+				"Kedi.VPP.CrystalCavern": "skellady.SBVCP_SerpentineNode 44 4 6 8 10 12 14"
+			}
+		},
+		{
+			"Action": "EditData", 
+			"Target": "Data/Locations",
+			"TargetField": [ "Custom_SBV_Mines5A", "CustomFields" ],
+			"Entries": {
+				"Kedi.VPP.Upheaval": "skellady.SBVCP_SunberryGeodeNode skellady.SBVCP_SunberryGeodeNode skellady.SBVCP_SunsetOrbNode 75 819 75 819",
+				"Kedi.VPP.CrystalCavern": "skellady.SBVCP_SerpentineNode 44 4 6 8 10 12 14"
+			}
+		},
+		{
+			"Action": "EditData", 
+			"Target": "Data/Locations",
+			"TargetField": [ "Custom_SBV_Mines6", "CustomFields" ],
+			"Entries": {
+				"Kedi.VPP.Upheaval": "skellady.SBVCP_SunberryGeodeNode skellady.SBVCP_SunberryGeodeNode skellady.SBVCP_SunsetOrbNode 75 819 75 819",
+				"Kedi.VPP.CrystalCavern": "skellady.SBVCP_SerpentineNode 44 4 6 8 10 12 14"
+			}
+		},
+		{
+			"Action": "EditData", 
+			"Target": "Data/Locations",
+			"TargetField": [ "Custom_SBV_Mines7", "CustomFields" ],
+			"Entries": {
+				"Kedi.VPP.Upheaval": "skellady.SBVCP_SunberryGeodeNode skellady.SBVCP_SunberryGeodeNode skellady.SBVCP_SunberryGeodeNode skellady.SBVCP_MidnightOrbNode 75 76 75 76 75 76",
+				"Kedi.VPP.CrystalCavern": "skellady.SBVCP_CitrineNode 44 4 6 8 10 12 14 2"
+			}
+		},
+		{
+			"Action": "EditData", 
+			"Target": "Data/Locations",
+			"TargetField": [ "Custom_SBV_Mines8", "CustomFields" ],
+			"Entries": {
+				"Kedi.VPP.Upheaval": "skellady.SBVCP_SunberryGeodeNode skellady.SBVCP_SunberryGeodeNode skellady.SBVCP_SunberryGeodeNode skellady.SBVCP_MidnightOrbNode 75 76 75 76 75 76",
+				"Kedi.VPP.CrystalCavern": "skellady.SBVCP_CitrineNode 44 4 6 8 10 12 14 2"
+			}
+		},
+		{
+			"Action": "EditData", 
+			"Target": "Data/Locations",
+			"TargetField": [ "Custom_SBV_Mines10A", "CustomFields" ],
+			"Entries": {
+				"Kedi.VPP.Upheaval": "skellady.SBVCP_SunberryGeodeNode skellady.SBVCP_SunberryGeodeNode skellady.SBVCP_SunberryGeodeNode skellady.SBVCP_MidnightOrbNode 819 819 819",
+				"Kedi.VPP.CrystalCavern": "skellady.SBVCP_PurpuriteNode skellady.SBVCP_PurpuriteNode skellady.SBVCP_AnnabergiteNode 44 4 6 8 10 12 14 2 44 4 6 8 10 12 14 2"
+			}
+		},
+		{
+			"Action": "EditData", 
+			"Target": "Data/Locations",
+			"TargetField": [ "Custom_SBV_Mines11", "CustomFields" ],
+			"Entries": {
+				"Kedi.VPP.Upheaval": "skellady.SBVCP_SunberryGeodeNode skellady.SBVCP_SunberryGeodeNode skellady.SBVCP_SunberryGeodeNode 819 819 skellady.SBVCP_MidnightOrbNode 819",
+				"Kedi.VPP.CrystalCavern": "skellady.SBVCP_PurpuriteNode skellady.SBVCP_PurpuriteNode skellady.SBVCP_AnnabergiteNode 44 4 6 8 10 12 14 2 44 4 6 8 10 12 14 2"
+			}
+		},
+		{
+			"Action": "EditData", 
+			"Target": "Data/Locations",
+			"TargetField": [ "Custom_SBV_Mines12", "CustomFields" ],
+			"Entries": {
+				"Kedi.VPP.Upheaval": "skellady.SBVCP_SunberryGeodeNode skellady.SBVCP_SunberryGeodeNode skellady.SBVCP_SunberryGeodeNode skellady.SBVCP_MidnightOrbNode 819 819 819",
+				"Kedi.VPP.CrystalCavern": "skellady.SBVCP_PurpuriteNode skellady.SBVCP_PurpuriteNode skellady.SBVCP_AnnabergiteNode 44 4 6 8 10 12 14 2 44 4 6 8 10 12 14 2"
+			}
+		},
+		{
+			"Action": "EditData", 
+			"Target": "Data/Locations",
+			"TargetField": [ "Custom_SBV_Mines13", "CustomFields" ],
+			"Entries": {
+				"Kedi.VPP.Upheaval": "skellady.SBVCP_SunberryGeodeNode skellady.SBVCP_SunberryGeodeNode skellady.SBVCP_SunberryGeodeNode skellady.SBVCP_SunberryGeodeNode skellady.SBVCP_EclipseOrbNode 75 819 75 819 75 819 75 819",
+				"Kedi.VPP.CrystalCavern": "skellady.SBVCP_PurpuriteNode skellady.SBVCP_PurpuriteNode skellady.SBVCP_BlueAuraQuartzNode 44 4 6 8 10 12 14 2 44 4 6 8 10 12 14 2"
+			}
+		},
+		{
+			"Action": "EditData", 
+			"Target": "Data/Locations",
+			"TargetField": [ "Custom_SBV_Mines14", "CustomFields" ],
+			"Entries": {
+				"Kedi.VPP.Upheaval": "skellady.SBVCP_SunberryGeodeNode skellady.SBVCP_SunberryGeodeNode skellady.SBVCP_SunberryGeodeNode skellady.SBVCP_SunberryGeodeNode skellady.SBVCP_EclipseOrbNode 75 819 75 819 75 819 75 819",
+				"Kedi.VPP.CrystalCavern": "skellady.SBVCP_PurpuriteNode skellady.SBVCP_PurpuriteNode skellady.SBVCP_BlueAuraQuartzNode 44 4 6 8 10 12 14 2 44 4 6 8 10 12 14 2"
+			}
+		},
+		{
+			"Action": "EditData", 
+			"Target": "Data/Locations",
+			"TargetField": [ "Custom_SBV_Mines15", "CustomFields" ],
+			"Entries": {
+				"Kedi.VPP.Upheaval": "skellady.SBVCP_SunberryGeodeNode skellady.SBVCP_SunberryGeodeNode skellady.SBVCP_SunberryGeodeNode skellady.SBVCP_SunberryGeodeNode skellady.SBVCP_EclipseOrbNode 75 819 75 819 75 819 75 819",
+				"Kedi.VPP.CrystalCavern": "skellady.SBVCP_PurpuriteNode skellady.SBVCP_PurpuriteNode skellady.SBVCP_BlueAuraQuartzNode 44 4 6 8 10 12 14 2 44 4 6 8 10 12 14 2"
+			}
+		}
+	]
+}

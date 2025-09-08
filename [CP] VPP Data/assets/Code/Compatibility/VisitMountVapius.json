@@ -1,0 +1,1006 @@
+{
+	"Changes": [
+		//Mate's Rates
+		{
+			"Action": "EditData",
+			"Target": "Data/Shops",
+			"TargetField": [ "Lumisteria.MtVapius_MoiraShop", "PriceModifiers" ],
+			"Entries":{
+				"{{ModId}}.VisitMountVapius.MatesRates.Lumisteria.MtVapius_MoiraShop": {
+					"Id": "{{ModId}}.VisitMountVapius.MatesRates.Lumisteria.MtVapius_MoiraShop",
+					"Amount": 0.8,
+					"Modification": "Multiply",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current MatesRates, PLAYER_HEARTS Current MoiraDuboisVMV 6"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Shops",
+			"TargetField": [ "Lumisteria.MtVapius_AsterShop", "PriceModifiers" ],
+			"Entries":{
+				"{{ModId}}.VisitMountVapius.MatesRates.Lumisteria.MtVapius_MoiraShop": {
+					"Id": "{{ModId}}.VisitMountVapius.MatesRates.Lumisteria.MtVapius_MoiraShop",
+					"Amount": 0.8,
+					"Modification": "Multiply",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current MatesRates, PLAYER_HEARTS Current AsterPellegrinVMV 6"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Shops",
+			"TargetField": [ "Lumisteria.MtVapius_NaveenShop", "PriceModifiers" ],
+			"Entries":{
+				"{{ModId}}.VisitMountVapius.MatesRates.Lumisteria.MtVapius_NaveenShop": {
+					"Id": "{{ModId}}.VisitMountVapius.MatesRates.Lumisteria.MtVapius_NaveenShop",
+					"Amount": 0.8,
+					"Modification": "Multiply",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current MatesRates, PLAYER_HEARTS Current NaveenFaycombeSereneVMV 6"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Shops",
+			"TargetField": [ "Lumisteria.MtVapius_MariamShop", "PriceModifiers" ],
+			"Entries":{
+				"{{ModId}}.VisitMountVapius.MatesRates.Lumisteria.MtVapius_MariamShop": {
+					"Id": "{{ModId}}.VisitMountVapius.MatesRates.Lumisteria.MtVapius_MariamShop",
+					"Amount": 0.8,
+					"Modification": "Multiply",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current MatesRates, PLAYER_HEARTS Current MariamFortinVMV 6"
+				}
+			}
+		},
+		//VMV Obelisk - 100k
+		{
+			"Action": "EditData",
+			"Target": "Data/Buildings",
+			"Fields": {
+				"Lumisteria.MtVapius_Obelisk":{
+					"BuildCost": 100000,
+				}
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=MonumentalDiscount": "true",
+				"TimeChangedUpdates": "true",
+			},
+			"Update": "OnTimeChange",
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Buildings",
+			"Fields": {
+				"Lumisteria.MtVapius_Obelisk":{
+					"BuildCost": 100000,
+				}
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=MonumentalDiscount": "true",
+				"TimeChangedUpdates": "false",
+			},
+		},
+		//Spring Thaw + Farm-Forage
+		{
+			"Action": "EditData",
+			"Target": "Data/GiantCrops",
+			"TargetField": [ "Lumisteria.MtVapius_GiantCloudFeather", "CustomFields" ],
+			"Entries": {
+				"Kedi.VPP.DoesUseCustomItem": "245 5",
+			}
+		},
+				{
+			"Action": "EditData",
+			"Target": "Data/WildTrees",
+			"TargetField": [ "Lumisteria.MtVapius.SkyshardPineTree", "TapItems" ],
+			"Entries": {
+				"{{ModId}}.VMV.SpringThaw.SkyshardPineTree": {
+					"Id": "{{ModId}}.VMV.SpringThaw.SkyshardPineTree",
+					"ItemId": "(O)Kedi.VPP.LargePineTar",
+					"DaysUntilReady": 8,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current SpringThaw"
+				}, 
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/WildTrees",
+			"TargetField": ["Lumisteria.MtVapius.SkyshardPineTree", "TapItems"],
+			"MoveEntries": [
+                { 
+					"ID": "{{ModId}}.VMV.SpringThaw.SkyshardPineTree", 
+					"ToPosition": "Top"
+				}
+			]
+		},
+		//Mineral Cavern + Node Maker
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Lumisteria.MtVapius_Demantoide", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "Lumisteria.MtVapius_Node_DemantoideOre",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Lumisteria.MtVapius_Carnelian", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "Lumisteria.MtVapius_Node_CarnelianOre",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Lumisteria.MtVapius_BlueAgathe", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "Lumisteria.MtVapius_Node_BlueAgatheOre",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Lumisteria.MtVapius_Turquoise", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "Lumisteria.MtVapius_Node_TurquoiseOre",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Lumisteria.MtVapius_Garnet", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "Lumisteria.MtVapius_Node_GarnetOre",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Lumisteria.MtVapius_Tourmaline", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "Lumisteria.MtVapius_Node_TourmalineOre",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Lumisteria.MtVapius_Morganite", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "Lumisteria.MtVapius_Node_MorganiteOre",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Lumisteria.MtVapius_Heliodor", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "Lumisteria.MtVapius_Node_HeliodorOre",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Lumisteria.MtVapius_BlackGeode", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "Lumisteria.MtVapius_Clump_BlackGeodeRock Lumisteria.MtVapius_Clump_BigBlackGeodeRock",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Lumisteria.MtVapius_Labradorite", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "Lumisteria.MtVapius_Node_LabradoriteOre",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Lumisteria.MtVapius_VoidDiamond", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "Lumisteria.MtVapius_Node_VoidDiamondOre",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Lumisteria.MtVapius_Larimar", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_OreToNode": "Lumisteria.MtVapius_Node_LarimarOre",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Lumisteria.MtVapius_Node_DemantoideOre", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.MtVapius_Clump_DemantoideRock",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Lumisteria.MtVapius_Node_CarnelianOre", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.MtVapius_Clump_CarnelianRock",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Lumisteria.MtVapius_Node_GarnetOre", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.MtVapius_Clump_GarnetRock",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Lumisteria.MtVapius_Node_TurquoiseOre", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.MtVapius_Clump_TurquoiseRock",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Lumisteria.MtVapius_Node_MorganiteOre", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.MtVapius_Clump_MorganiteRock",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Lumisteria.MtVapius_Node_HeliodorOre", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.MtVapius_Clump_HeliodorCrystal Lumisteria.MtVapius_Clump_HeliodorRock",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Lumisteria.MtVapius_Node_BlueAgatheOre", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.MtVapius_Clump_BlueAgatheRock",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Lumisteria.MtVapius_Node_TourmalineOre", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.MtVapius_Clump_TourmalineRock",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Lumisteria.MtVapius_Node_GeodeOre", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.MtVapius_Clump_BlackGeodeRock",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Lumisteria.MtVapius_Node_LarimarOre", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.MtVapius_Clump_LarimarRock",
+			}
+		},
+		//Crystal Cavern + Upheaval
+		// Tier 1: Lumisteria.MtVapius_Node_DemantoideOre, Lumisteria.MtVapius_Node_CarnelianOre, Lumisteria.MtVapius_Node_BlueAgatheOre
+		// Tier 2: Lumisteria.MtVapius_Node_TurquoiseOre, Lumisteria.MtVapius_Node_GarnetOre, Lumisteria.MtVapius_Node_TourmalineOre
+		// Tier 3: Lumisteria.MtVapius_Node_MorganiteOre, Lumisteria.MtVapius_Node_HeliodorOre, Lumisteria.MtVapius_Node_LabradoriteOre, Lumisteria.MtVapius_Node_VoidDiamondOre, Lumisteria.MtVapius_Node_LarimarOre
+		{
+			"Action": "EditData",
+			"Target": "Data/Locations",
+			"TargetField": [ "Lumisteria.MtVapius_ForestCaveLong", "CustomFields" ],
+			"Entries": {
+				"Kedi.VPP.CrystalCavern": "{{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier3}}",
+				"Kedi.VPP.Upheaval": "Lumisteria.MtVapius_Node_GeodeOre Lumisteria.MtVapius_Node_GeodeOre Lumisteria.MtVapius_Node_GeodeOre 75 75 76",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Locations",
+			"TargetField": [ "Lumisteria.MtVapius_ForestCaveLong", "CustomFields" ],
+			"Entries": {
+				"Kedi.VPP.CrystalCavern": "{{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier3}}",
+				"Kedi.VPP.Upheaval": "Lumisteria.MtVapius_Node_GeodeOre Lumisteria.MtVapius_Node_GeodeOre Lumisteria.MtVapius_Node_GeodeOre 75 75 76",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Locations",
+			"TargetField": [ "Lumisteria.MtVapius_ForestCaveRock", "CustomFields" ],
+			"Entries": {
+				"Kedi.VPP.CrystalCavern": "{{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier3}}",
+				"Kedi.VPP.Upheaval": "Lumisteria.MtVapius_Node_GeodeOre Lumisteria.MtVapius_Node_GeodeOre Lumisteria.MtVapius_Node_GeodeOre 75 75 76 819",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Locations",
+			"TargetField": [ "Lumisteria.MtVapius_ForestCaveHigh", "CustomFields" ],
+			"Entries": {
+				"Kedi.VPP.CrystalCavern": "{{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier3}}",
+				"Kedi.VPP.Upheaval": "Lumisteria.MtVapius_Node_GeodeOre Lumisteria.MtVapius_Node_GeodeOre Lumisteria.MtVapius_Node_GeodeOre 75 75 76 77 819 819",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Locations",
+			"TargetField": [ "Lumisteria.MtVapius_ForestCaveLush", "CustomFields" ],
+			"Entries": {
+				"Kedi.VPP.CrystalCavern": "{{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier3}}",
+				"Kedi.VPP.Upheaval": "Lumisteria.MtVapius_Node_GeodeOre Lumisteria.MtVapius_Node_GeodeOre 75 76 77 819 819",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Locations",
+			"TargetField": [ "Lumisteria.MtVapius_ForestCaveStar", "CustomFields" ],
+			"Entries": {
+				"Kedi.VPP.CrystalCavern": "{{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier3}} {{VMVGemsTier2}} {{VMVGemsTier3}}",
+				"Kedi.VPP.Upheaval": "Lumisteria.MtVapius_Node_GeodeOre Lumisteria.MtVapius_Node_GeodeOre 75 76 77 819 819",
+			}
+		},
+				{
+			"Action": "EditData",
+			"Target": "Data/Locations",
+			"TargetField": [ "Lumisteria.MtVapius_ForestCaveShortcut", "CustomFields" ],
+			"Entries": {
+				"Kedi.VPP.CrystalCavern": "{{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier3}} {{VMVGemsTier3}}",
+				"Kedi.VPP.Upheaval": "Lumisteria.MtVapius_Node_GeodeOre Lumisteria.MtVapius_Node_GeodeOre 75 76 77 819 819",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Locations",
+			"TargetField": [ "Lumisteria.MtVapius_ForestCaveAmber", "CustomFields" ],
+			"Entries": {
+				"Kedi.VPP.CrystalCavern": "{{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier3}} {{VMVGemsTier3}} {{VMVGemsTier3}}",
+				"Kedi.VPP.Upheaval": "Lumisteria.MtVapius_Node_GeodeOre Lumisteria.MtVapius_Node_GeodeOre 75 76 76 76 77 819",
+			}
+		},
+		{ //Candy Maker - Machinist - Candied Fruit, Candied Flower, Candy Cane, Mosco Cotto, Calisson, Coffee Candy
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Lumisteria.MtVapius_CandyMaker", "ReadyTimeModifiers" ],
+			"Entries": {
+				"{{ModId}}.VisitMountVapius.CandyMaker.Machinist":{
+					"Id": "{{ModId}}.VisitMountVapius.CandyMaker.Machinist",
+					"Modification": "Multiply",
+					"Amount": 0.8,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Machinist, ITEM_ID Output Lumisteria.MtVapius_Candy_CandiedFruit Lumisteria.MtVapius_Candy_CandiedFlower Lumisteria.MtVapius_Candy_CandyCane Lumisteria.MtVapius_ArtisanGoods_MoscoCotto Lumisteria.MtVapius_Candy_Calisson Lumisteria.MtVapius_Candy_CoffeeCandy, !ITEM_CONTEXT_TAG Input forage_item",
+				}
+			}
+		},
+		{ //Mayonnaise Machine - Nutritionist - Goose Egg
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)24", "OutputRules", "Lumisteria.MtVapius_MayonnaiseMachineGooseMayoRules", "OutputItem", "Lumisteria.MtVapius_GooseMayonnaise", "StackModifiers" ],
+			"Entries": {
+				"{{ModId}}.VisitMountVapius.MayonnaiseMachine.GooseMayo.Nutritionist":{ 
+					"Id": "{{ModId}}.VisitMountVapius.MayonnaiseMachine.GooseMayo.Nutritionist",
+					"Modification": "Multiply",
+					"Amount": 2,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Nutritionist",
+				}
+			}
+		},
+		{ //Mayonnaise Machine - Pastoralism - Goose Egg
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)24", "OutputRules", "Lumisteria.MtVapius_MayonnaiseMachineGooseMayoRules", "OutputItem", "Lumisteria.MtVapius_GooseMayonnaise", "QualityModifiers" ],
+			"Entries": {
+				"{{ModId}}.VisitMountVapius.MayonnaiseMachine.GooseMayo.Pastoralism.None": {
+					"Id": "{{ModId}}.VisitMountVapius.MayonnaiseMachine.GooseMayo.Pastoralism.None",
+					"Amount": 0, 
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 0 0"
+				},
+				"{{ModId}}.VisitMountVapius.MayonnaiseMachine.GooseMayo.Pastoralism.Silver": {
+					"Id": "{{ModId}}.VisitMountVapius.MayonnaiseMachine.GooseMayo.Pastoralism.Silver",
+					"Amount": 1,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 1 1"
+				},
+				"{{ModId}}.VisitMountVapius.MayonnaiseMachine.GooseMayo.Pastoralism.Gold": {
+					"Id": "{{ModId}}.VisitMountVapius.MayonnaiseMachine.GooseMayo.Pastoralism.Gold",
+					"Amount": 2,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 2 2"
+				},
+				"{{ModId}}.VisitMountVapius.MayonnaiseMachine.GooseMayo.Pastoralism.Iridium": {
+					"Id": "{{ModId}}.VisitMountVapius.MayonnaiseMachine.GooseMayo.Pastoralism.Iridium",
+					"Amount": 4,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 4"
+				}
+			}
+		},
+		{ //Mayonnaise Machine - Nutritionist - Stellar Goose Egg
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)24", "OutputRules", "Lumisteria.MtVapius_MayonnaiseMachineStellarGooseMayoRules", "OutputItem", "Lumisteria.MtVapius_StellarGooseMayonnaise", "StackModifiers" ],
+			"Entries": {
+				"{{ModId}}.VisitMountVapius.MayonnaiseMachine.StellarGooseMayo.Nutritionist":{ 
+					"Id": "{{ModId}}.VisitMountVapius.MayonnaiseMachine.StellarGooseMayo.Nutritionist",
+					"Modification": "Multiply",
+					"Amount": 2,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Nutritionist",
+				}
+			}
+		},
+		{ //Mayonnaise Machine - Pastoralism - Stellar Goose Egg
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)24", "OutputRules", "Lumisteria.MtVapius_MayonnaiseMachineStellarGooseMayoRules", "OutputItem", "Lumisteria.MtVapius_StellarGooseMayonnaise", "QualityModifiers" ],
+			"Entries": {
+				"{{ModId}}.VisitMountVapius.MayonnaiseMachine.StellarGooseMayo.Pastoralism.None": {
+					"Id": "{{ModId}}.VisitMountVapius.MayonnaiseMachine.StellarGooseMayo.Pastoralism.None",
+					"Amount": 0, 
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 0 0"
+				},
+				"{{ModId}}.VisitMountVapius.MayonnaiseMachine.StellarGooseMayo.Pastoralism.Silver": {
+					"Id": "{{ModId}}.VisitMountVapius.MayonnaiseMachine.StellarGooseMayo.Pastoralism.Silver",
+					"Amount": 1,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 1 1"
+				},
+				"{{ModId}}.VisitMountVapius.MayonnaiseMachine.StellarGooseMayo.Pastoralism.Gold": {
+					"Id": "{{ModId}}.VisitMountVapius.MayonnaiseMachine.StellarGooseMayo.Pastoralism.Gold",
+					"Amount": 2,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 2 2"
+				},
+				"{{ModId}}.VisitMountVapius.MayonnaiseMachine.StellarGooseMayo.Pastoralism.Iridium": {
+					"Id": "{{ModId}}.VisitMountVapius.MayonnaiseMachine.StellarGooseMayo.Pastoralism.Iridium",
+					"Amount": 4,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 4"
+				}
+			}
+		},
+		{ //Mayonnaise Machine - Nutritionist - Speckled Egg
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)24", "OutputRules", "Lumisteria.MtVapius_MayonnaiseMachineSpeckledFowlMayoRules", "OutputItem", "Lumisteria.MtVapius_SpeckledFowlMayonnaise", "StackModifiers" ],
+			"Entries": {
+				"{{ModId}}.VisitMountVapius.MayonnaiseMachine.SpeckledFowlMayo.Nutritionist":{ 
+					"Id": "{{ModId}}.VisitMountVapius.MayonnaiseMachine.SpeckledFowlMayo.Nutritionist",
+					"Modification": "Multiply",
+					"Amount": 0.8,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Nutritionist",
+				}
+			}
+		},
+		{ //Mayonnaise Machine - Pastoralism - Speckled Egg
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)24", "OutputRules", "Lumisteria.MtVapius_MayonnaiseMachineSpeckledFowlMayoRules", "OutputItem", "Lumisteria.MtVapius_SpeckledFowlMayonnaise", "QualityModifiers" ],
+			"Entries": {
+				"{{ModId}}.VisitMountVapius.MayonnaiseMachine.SpeckledFowlMayo.Pastoralism.None": {
+					"Id": "{{ModId}}.VisitMountVapius.MayonnaiseMachine.SpeckledFowlMayo.Pastoralism.None",
+					"Amount": 0, 
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 0 0"
+				},
+				"{{ModId}}.VisitMountVapius.MayonnaiseMachine.SpeckledFowlMayo.Pastoralism.Silver": {
+					"Id": "{{ModId}}.VisitMountVapius.MayonnaiseMachine.SpeckledFowlMayo.Pastoralism.Silver",
+					"Amount": 1,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 1 1"
+				},
+				"{{ModId}}.VisitMountVapius.MayonnaiseMachine.SpeckledFowlMayo.Pastoralism.Gold": {
+					"Id": "{{ModId}}.VisitMountVapius.MayonnaiseMachine.SpeckledFowlMayo.Pastoralism.Gold",
+					"Amount": 2,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 2 2"
+				},
+				"{{ModId}}.VisitMountVapius.MayonnaiseMachine.SpeckledFowlMayo.Pastoralism.Iridium": {
+					"Id": "{{ModId}}.VisitMountVapius.MayonnaiseMachine.SpeckledFowlMayo.Pastoralism.Iridium",
+					"Amount": 4,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 4"
+				}
+			}
+		},
+		{ //Mayonnaise Machine - Nutritionist - Speckled Void Egg
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)24", "OutputRules", "Lumisteria.MtVapius_MayonnaiseMachineSpeckledFowlVoidMayoRules", "OutputItem", "Lumisteria.MtVapius_SpeckledFowlVoidMayonnaise", "StackModifiers" ],
+			"Entries": {
+				"{{ModId}}.VisitMountVapius.MayonnaiseMachine.SpeckledFowlVoidMayo.Nutritionist":{ 
+					"Id": "{{ModId}}.VisitMountVapius.MayonnaiseMachine.SpeckledFowlVoidMayo.Nutritionist",
+					"Modification": "Multiply",
+					"Amount": 0.8,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Nutritionist",
+				}
+			}
+		},
+		{ //Mayonnaise Machine - Pastoralism - Speckled Void Egg
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)24", "OutputRules", "Lumisteria.MtVapius_MayonnaiseMachineSpeckledFowlVoidMayoRules", "OutputItem", "Lumisteria.MtVapius_SpeckledFowlVoidMayonnaise", "QualityModifiers" ],
+			"Entries": {
+				"{{ModId}}.VisitMountVapius.MayonnaiseMachine.SpeckledFowlVoidMayo.Pastoralism.None": {
+					"Id": "{{ModId}}.VisitMountVapius.MayonnaiseMachine.SpeckledFowlVoidMayo.Pastoralism.None",
+					"Amount": 0, 
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 0 0"
+				},
+				"{{ModId}}.VisitMountVapius.MayonnaiseMachine.SpeckledFowlVoidMayo.Pastoralism.Silver": {
+					"Id": "{{ModId}}.VisitMountVapius.MayonnaiseMachine.SpeckledFowlVoidMayo.Pastoralism.Silver",
+					"Amount": 1,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 1 1"
+				},
+				"{{ModId}}.VisitMountVapius.MayonnaiseMachine.SpeckledFowlVoidMayo.Pastoralism.Gold": {
+					"Id": "{{ModId}}.VisitMountVapius.MayonnaiseMachine.SpeckledFowlVoidMayo.Pastoralism.Gold",
+					"Amount": 2,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 2 2"
+				},
+				"{{ModId}}.VisitMountVapius.MayonnaiseMachine.SpeckledFowlVoidMayo.Pastoralism.Iridium": {
+					"Id": "{{ModId}}.VisitMountVapius.MayonnaiseMachine.SpeckledFowlVoidMayo.Pastoralism.Iridium",
+					"Amount": 4,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 4"
+				}
+			}
+		},
+		{ //Modify Cheese Press for Musterer 
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)16", "ReadyTimeModifiers" ],
+			"Entries": {
+				"{{ModId}}.VisitMountVapius.CheesePress.Musterer":{
+					"Id": "{{ModId}}.VisitMountVapius.CheesePress.Musterer",
+					"Modification": "Multiply",
+					"Amount": 0.8,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Musterer, ITEM_ID Output Lumisteria.MtVapius_EweCheese",
+				}
+			}
+		},
+		{ //Modify Cheese Press for Pastoralism - Ewe Cheese
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)16", "OutputRules", "Lumisteria.MtVapius_CheesePressEweMilk", "OutputItem", "Lumisteria.MtVapius_EweCheese", "QualityModifiers" ],
+			"Entries": {
+				"{{ModId}}.VisitMountVapius.CheesePress.EweCheese.Pastoralism.None":{
+					"Id": "{{ModId}}.VisitMountVapius.CheesePress.EweCheese.Pastoralism.None",
+					"Modification": "Set",
+					"Amount": 0,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 0 0",
+				},
+				"{{ModId}}.VisitMountVapius.CheesePress.EweCheese.Pastoralism.Silver": {
+					"Id": "{{ModId}}.VisitMountVapius.CheesePress.EweCheese.Pastoralism.Silver",
+					"Amount": 1,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 1 1"
+				},
+				"{{ModId}}.VisitMountVapius.CheesePress.EweCheese.Pastoralism.Gold": {
+					"Id": "{{ModId}}.VisitMountVapius.CheesePress.EweCheese.Pastoralism.Gold",
+					"Amount": 2,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 2 2"
+				},
+				"{{ModId}}.VisitMountVapius.CheesePress.EweCheese.Pastoralism.Iridium": {
+					"Id": "{{ModId}}.VisitMountVapius.CheesePress.EweCheese.Pastoralism.Iridium",
+					"Amount": 4,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 4"
+				}
+			}
+		},
+		{ //Modify Cheese Press for Bio-Engineering - Ewe Cheese
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)16", "OutputRules", "Lumisteria.MtVapius_CheesePressEweMilk", "OutputItem", "Lumisteria.MtVapius_EweCheese", "StackModifiers" ],
+			"Entries": {
+				"{{ModId}}.VisitMountVapius.CheesePress.EweCheese.BioEngineering.Large":{
+					"Id": "{{ModId}}.VisitMountVapius.CheesePress.EweCheese.BioEngineering.Large",
+					"Modification": "Add",
+					"Amount": 1,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Bio-Engineering, ITEM_CONTEXT_TAG Input large_milk_item",
+				},
+				"{{ModId}}.VisitMountVapius.CheesePress.EweCheese.BioEngineering.ExtraLarge": {
+					"Id": "{{ModId}}.VisitMountVapius.CheesePress.EweCheese.BioEngineering.ExtraLarge",
+					"Amount": 2,
+					"Modification": "Add",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Bio-Engineering, ITEM_CONTEXT_TAG Input extra_large_milk_item"
+				}
+			}
+		},
+		{ //Preserves Jar - Musterer - Cream
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)15", "ReadyTimeModifiers" ],
+			"Entries": {
+				"{{ModId}}.VisitMountVapius.PreservesJar.Musterer":{
+					"Id": "{{ModId}}.VisitMountVapius.PreservesJar.Musterer",
+					"Modification": "Multiply",
+					"Amount": 0.8,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Musterer, ITEM_ID Output Lumisteria.MtVapius_Cream",
+				}
+			}
+		},
+		{ //MaturingShelves - Musterer
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Lumisteria.MtVapius_MaturingShelves", "ReadyTimeModifiers" ],
+			"Entries": {
+				"{{ModId}}.VisitMountVapius.MaturingShelves.Musterer":{
+					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.Musterer",
+					"Modification": "Multiply",
+					"Amount": 0.8,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Musterer, ITEM_ID Output Lumisteria.MtVapius_SaltspringCheese Lumisteria.MtVapius_SkyshardSharpCheese Lumisteria.MtVapius_BlueVapiusCheese",
+				}
+			}
+		},
+		{ //MaturingShelves - Bio-Engineering - Saltspring Cheese
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Lumisteria.MtVapius_MaturingShelves", "OutputRules", "Lumisteria.MtVapius_MilkLarge", "OutputItem", "Lumisteria.MtVapius_SaltspringCheese", "StackModifiers" ],
+			"Entries": {
+				"{{ModId}}.VisitMountVapius.MaturingShelves.SaltSpringCheese.BioEngineering":{
+					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.SaltSpringCheese.BioEngineering",
+					"Modification": "Add",
+					"Amount": 1,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Bio-Engineering",
+				}
+			}
+		},
+		{ 
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Lumisteria.MtVapius_MaturingShelves", "OutputRules", "Lumisteria.MtVapius_MilkExtraLarge", "OutputItem", "Lumisteria.MtVapius_SaltspringCheese", "StackModifiers" ],
+			"Entries": {
+				"{{ModId}}.VisitMountVapius.MaturingShelves.SaltSpringCheese.BioEngineering":{
+					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.SaltSpringCheese.BioEngineering",
+					"Modification": "Add",
+					"Amount": 2,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Bio-Engineering",
+				}
+			}
+		},
+		{ //MaturingShelves - Pastoralism - Saltspring Cheese
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Lumisteria.MtVapius_MaturingShelves", "OutputRules", "Lumisteria.MtVapius_Milk", "OutputItem", "Lumisteria.MtVapius_SaltspringCheese", "QualityModifiers" ],
+			"Entries": {
+				"{{ModId}}.VisitMountVapius.MaturingShelves.SaltSpringCheese.Pastoralism.None":{
+					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.SaltSpringCheese.Pastoralism.None",
+					"Modification": "Set",
+					"Amount": 0,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 0 0",
+				},
+				"{{ModId}}.VisitMountVapius.MaturingShelves.SaltSpringCheese.Pastoralism.Silver": {
+					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.SaltSpringCheese.Pastoralism.Silver",
+					"Amount": 1,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 1 1"
+				},
+				"{{ModId}}.VisitMountVapius.MaturingShelves.SaltSpringCheese.Pastoralism.Gold": {
+					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.SaltSpringCheese.Pastoralism.Gold",
+					"Amount": 2,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 2 2"
+				},
+				"{{ModId}}.VisitMountVapius.MaturingShelves.SaltSpringCheese.Pastoralism.Iridium": {
+					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.SaltSpringCheese.Pastoralism.Iridium",
+					"Amount": 4,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 4"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Lumisteria.MtVapius_MaturingShelves", "OutputRules", "Lumisteria.MtVapius_MilkLarge", "OutputItem", "Lumisteria.MtVapius_SaltspringCheese", "QualityModifiers" ],
+			"Entries": {
+				"{{ModId}}.VisitMountVapius.MaturingShelves.SaltSpringCheese.Pastoralism.None":{
+					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.SaltSpringCheese.Pastoralism.None",
+					"Modification": "Set",
+					"Amount": 0,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 0 0",
+				},
+				"{{ModId}}.VisitMountVapius.MaturingShelves.SaltSpringCheese.Pastoralism.Silver": {
+					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.SaltSpringCheese.Pastoralism.Silver",
+					"Amount": 1,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 1 1"
+				},
+				"{{ModId}}.VisitMountVapius.MaturingShelves.SaltSpringCheese.Pastoralism.Gold": {
+					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.SaltSpringCheese.Pastoralism.Gold",
+					"Amount": 2,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 2 2"
+				},
+				"{{ModId}}.VisitMountVapius.MaturingShelves.SaltSpringCheese.Pastoralism.Iridium": {
+					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.SaltSpringCheese.Pastoralism.Iridium",
+					"Amount": 4,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 4"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Lumisteria.MtVapius_MaturingShelves", "OutputRules", "Lumisteria.MtVapius_MilkExtraLarge", "OutputItem", "Lumisteria.MtVapius_SaltspringCheese", "QualityModifiers" ],
+			"Entries": {
+				"{{ModId}}.VisitMountVapius.MaturingShelves.SaltSpringCheese.Pastoralism.None":{
+					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.SaltSpringCheese.Pastoralism.None",
+					"Modification": "Set",
+					"Amount": 0,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 0 0",
+				},
+				"{{ModId}}.VisitMountVapius.MaturingShelves.SaltSpringCheese.Pastoralism.Silver": {
+					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.SaltSpringCheese.Pastoralism.Silver",
+					"Amount": 1,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 1 1"
+				},
+				"{{ModId}}.VisitMountVapius.MaturingShelves.SaltSpringCheese.Pastoralism.Gold": {
+					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.SaltSpringCheese.Pastoralism.Gold",
+					"Amount": 2,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 2 2"
+				},
+				"{{ModId}}.VisitMountVapius.MaturingShelves.SaltSpringCheese.Pastoralism.Iridium": {
+					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.SaltSpringCheese.Pastoralism.Iridium",
+					"Amount": 4,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 4"
+				}
+			}
+		},
+		{ //MaturingShelves - Bio-Engineering - Skyshard Sharp
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Lumisteria.MtVapius_MaturingShelves", "OutputRules", "Lumisteria.MtVapius_GoatMilkLarge", "OutputItem", "Lumisteria.MtVapius_SkyshardSharpCheese", "StackModifiers" ],
+			"Entries": {
+				"{{ModId}}.VisitMountVapius.MaturingShelves.SkyshardSharp.BioEngineering":{
+					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.SkyshardSharp.BioEngineering",
+					"Modification": "Add",
+					"Amount": 1,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Bio-Engineering",
+				}
+			}
+		},
+		{ 
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Lumisteria.MtVapius_MaturingShelves", "OutputRules", "Lumisteria.MtVapius_GoatMilkExtraLarge", "OutputItem", "Lumisteria.MtVapius_SkyshardSharpCheese", "StackModifiers" ],
+			"Entries": {
+				"{{ModId}}.VisitMountVapius.MaturingShelves.SkyshardSharp.BioEngineering":{
+					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.SkyshardSharp.BioEngineering",
+					"Modification": "Add",
+					"Amount": 2,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Bio-Engineering",
+				}
+			}
+		},
+		{ //MaturingShelves - Pastoralism - Skyshard Sharp
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Lumisteria.MtVapius_MaturingShelves", "OutputRules", "Lumisteria.MtVapius_GoatMilk", "OutputItem", "Lumisteria.MtVapius_SkyshardSharpCheese", "QualityModifiers" ],
+			"Entries": {
+				"{{ModId}}.VisitMountVapius.MaturingShelves.SkyshardSharp.Pastoralism.None":{
+					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.SkyshardSharp.Pastoralism.None",
+					"Modification": "Set",
+					"Amount": 0,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 0 0",
+				},
+				"{{ModId}}.VisitMountVapius.MaturingShelves.SkyshardSharp.Pastoralism.Silver": {
+					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.SkyshardSharp.Pastoralism.Silver",
+					"Amount": 1,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 1 1"
+				},
+				"{{ModId}}.VisitMountVapius.MaturingShelves.SkyshardSharp.Pastoralism.Gold": {
+					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.SkyshardSharp.Pastoralism.Gold",
+					"Amount": 2,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 2 2"
+				},
+				"{{ModId}}.VisitMountVapius.MaturingShelves.SkyshardSharp.Pastoralism.Iridium": {
+					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.SkyshardSharp.Pastoralism.Iridium",
+					"Amount": 4,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 4"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Lumisteria.MtVapius_MaturingShelves", "OutputRules", "Lumisteria.MtVapius_GoatMilkLarge", "OutputItem", "Lumisteria.MtVapius_SkyshardSharpCheese", "QualityModifiers" ],
+			"Entries": {
+				"{{ModId}}.VisitMountVapius.MaturingShelves.SkyshardSharp.Pastoralism.None":{
+					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.SkyshardSharp.Pastoralism.None",
+					"Modification": "Set",
+					"Amount": 0,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 0 0",
+				},
+				"{{ModId}}.VisitMountVapius.MaturingShelves.SkyshardSharp.Pastoralism.Silver": {
+					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.SkyshardSharp.Pastoralism.Silver",
+					"Amount": 1,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 1 1"
+				},
+				"{{ModId}}.VisitMountVapius.MaturingShelves.SkyshardSharp.Pastoralism.Gold": {
+					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.SkyshardSharp.Pastoralism.Gold",
+					"Amount": 2,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 2 2"
+				},
+				"{{ModId}}.VisitMountVapius.MaturingShelves.SkyshardSharp.Pastoralism.Iridium": {
+					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.SkyshardSharp.Pastoralism.Iridium",
+					"Amount": 4,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 4"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Lumisteria.MtVapius_MaturingShelves", "OutputRules", "Lumisteria.MtVapius_GoatMilkExtraLarge", "OutputItem", "Lumisteria.MtVapius_SkyshardSharpCheese", "QualityModifiers" ],
+			"Entries": {
+				"{{ModId}}.VisitMountVapius.MaturingShelves.SkyshardSharp.Pastoralism.None":{
+					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.SkyshardSharp.Pastoralism.None",
+					"Modification": "Set",
+					"Amount": 0,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 0 0",
+				},
+				"{{ModId}}.VisitMountVapius.MaturingShelves.SkyshardSharp.Pastoralism.Silver": {
+					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.SkyshardSharp.Pastoralism.Silver",
+					"Amount": 1,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 1 1"
+				},
+				"{{ModId}}.VisitMountVapius.MaturingShelves.SkyshardSharpSkyshardSharp.Pastoralism.Gold": {
+					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.SkyshardSharp.Pastoralism.Gold",
+					"Amount": 2,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 2 2"
+				},
+				"{{ModId}}.VisitMountVapius.MaturingShelves.SkyshardSharp.Pastoralism.Iridium": {
+					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.SkyshardSharp.Pastoralism.Iridium",
+					"Amount": 4,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 4"
+				}
+			}
+		},
+		{ //MaturingShelves - Bio-Engineering - Blue Vapius
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Lumisteria.MtVapius_MaturingShelves", "OutputRules", "Lumisteria.MtVapius_EweMilkLarge", "OutputItem", "Lumisteria.MtVapius_BlueVapiusCheese", "StackModifiers" ],
+			"Entries": {
+				"{{ModId}}.VisitMountVapius.MaturingShelves.BlueVapius.BioEngineering":{
+					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.BlueVapius.BioEngineering",
+					"Modification": "Add",
+					"Amount": 1,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Bio-Engineering",
+				}
+			}
+		},
+		{ 
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Lumisteria.MtVapius_MaturingShelves", "OutputRules", "Lumisteria.MtVapius_EweMilkExtraLarge", "OutputItem", "Lumisteria.MtVapius_BlueVapiusCheese", "StackModifiers" ],
+			"Entries": {
+				"{{ModId}}.VisitMountVapius.MaturingShelves.BlueVapius.BioEngineering":{
+					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.BlueVapius.BioEngineering",
+					"Modification": "Add",
+					"Amount": 2,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Bio-Engineering",
+				}
+			}
+		},
+		{ //MaturingShelves - Pastoralism - Blue Vapius
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Lumisteria.MtVapius_MaturingShelves", "OutputRules", "Lumisteria.MtVapius_EweMilk", "OutputItem", "Lumisteria.MtVapius_BlueVapiusCheese", "QualityModifiers" ],
+			"Entries": {
+				"{{ModId}}.VisitMountVapius.MaturingShelves.BlueVapius.Pastoralism.None":{
+					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.BlueVapius.Pastoralism.None",
+					"Modification": "Set",
+					"Amount": 0,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 0 0",
+				},
+				"{{ModId}}.VisitMountVapius.MaturingShelves.BlueVapius.Pastoralism.Silver": {
+					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.BlueVapius.Pastoralism.Silver",
+					"Amount": 1,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 1 1"
+				},
+				"{{ModId}}.VisitMountVapius.MaturingShelves.BlueVapius.Pastoralism.Gold": {
+					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.BlueVapius.Pastoralism.Gold",
+					"Amount": 2,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 2 2"
+				},
+				"{{ModId}}.VisitMountVapius.MaturingShelves.BlueVapius.Pastoralism.Iridium": {
+					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.BlueVapius.Pastoralism.Iridium",
+					"Amount": 4,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 4"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Lumisteria.MtVapius_MaturingShelves", "OutputRules", "Lumisteria.MtVapius_EweMilkLarge", "OutputItem", "Lumisteria.MtVapius_BlueVapiusCheese", "QualityModifiers" ],
+			"Entries": {
+				"{{ModId}}.VisitMountVapius.MaturingShelves.BlueVapius.Pastoralism.None":{
+					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.BlueVapius.Pastoralism.None",
+					"Modification": "Set",
+					"Amount": 0,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 0 0",
+				},
+				"{{ModId}}.VisitMountVapius.MaturingShelves.BlueVapius.Pastoralism.Silver": {
+					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.BlueVapius.Pastoralism.Silver",
+					"Amount": 1,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 1 1"
+				},
+				"{{ModId}}.VisitMountVapius.MaturingShelves.BlueVapius.Pastoralism.Gold": {
+					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.BlueVapius.Pastoralism.Gold",
+					"Amount": 2,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 2 2"
+				},
+				"{{ModId}}.VisitMountVapius.MaturingShelves.BlueVapius.Pastoralism.Iridium": {
+					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.BlueVapius.Pastoralism.Iridium",
+					"Amount": 4,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 4"
+				}
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Lumisteria.MtVapius_MaturingShelves", "OutputRules", "Lumisteria.MtVapius_EweMilkExtraLarge", "OutputItem", "Lumisteria.MtVapius_BlueVapiusCheese", "QualityModifiers" ],
+			"Entries": {
+				"{{ModId}}.VisitMountVapius.MaturingShelves.BlueVapius.Pastoralism.None":{
+					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.BlueVapius.Pastoralism.None",
+					"Modification": "Set",
+					"Amount": 0,
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 0 0",
+				},
+				"{{ModId}}.VisitMountVapius.MaturingShelves.BlueVapius.Pastoralism.Silver": {
+					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.BlueVapius.Pastoralism.Silver",
+					"Amount": 1,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 1 1"
+				},
+				"{{ModId}}.VisitMountVapius.MaturingShelves.BlueVapius.Pastoralism.Gold": {
+					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.BlueVapius.Pastoralism.Gold",
+					"Amount": 2,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 2 2"
+				},
+				"{{ModId}}.VisitMountVapius.MaturingShelves.BlueVapius.Pastoralism.Iridium": {
+					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.BlueVapius.Pastoralism.Iridium",
+					"Amount": 4,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 4"
+				}
+			}
+		},
+	]
+}

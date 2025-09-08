@@ -182,7 +182,7 @@ namespace VanillaPlusProfessions.Craftables
                                     {
                                         foreach (var containerItem in chest.Items)
                                         {
-                                            if (obj.heldObject.Value is not null && containerItem.canStackWith(obj.heldObject.Value))
+                                            if (obj.heldObject.Value is not null && containerItem?.canStackWith(obj.heldObject.Value) is true)
                                             {
                                                 obj.heldObject.Value.Stack = containerItem.addToStack(obj.heldObject.Value);
                                             }
@@ -224,7 +224,7 @@ namespace VanillaPlusProfessions.Craftables
                     {
                         foreach (var chest in container)
                         {
-                            if (obj.MinutesUntilReady == 0 && obj.heldObject.Value is not null && Utility.canItemBeAddedToThisInventoryList(obj.heldObject.Value, chest.Items, chest.GetActualCapacity()))
+                            if (obj.MinutesUntilReady <= 0 && obj.heldObject.Value is not null && Utility.canItemBeAddedToThisInventoryList(obj.heldObject.Value, chest.Items, chest.GetActualCapacity()))
                             {
                                 if (chest.Items.Count > 0)
                                 {
@@ -278,7 +278,7 @@ namespace VanillaPlusProfessions.Craftables
                                         break;
                                     }
                                 }
-                                else if (obj.heldObject.Value is not null && obj.readyForHarvest.Value)
+                                if (obj.heldObject.Value is not null && obj.readyForHarvest.Value && obj.MinutesUntilReady <= 0)
                                 {
                                     if (Utility.canItemBeAddedToThisInventoryList(obj.heldObject.Value, chest.Items, chest.GetActualCapacity()))
                                     {
@@ -320,7 +320,7 @@ namespace VanillaPlusProfessions.Craftables
         {
             if (e.NewMenu is ItemGrabMenu menu2)
             {
-                if (menu2.context is Building mineTent && mineTent.buildingType.Value == "KediDili.VPPData.CP_MineTent" && mineTent.GetBuildingChest("Default_Chest") is not null and Chest buildingChest)
+                if (menu2.context is Building mineTent && mineTent.buildingType.Value == Constants.Id_MinecartRepository && mineTent.GetBuildingChest("Default_Chest") is not null and Chest buildingChest)
                 {
                     //Should I make it in initial creation of the building? - Nah, looks like it works
                     buildingChest.SpecialChestType = Chest.SpecialChestTypes.BigChest;
@@ -332,16 +332,16 @@ namespace VanillaPlusProfessions.Craftables
                     };
                     Game1.activeClickableMenu = newItemGrabMenu;
                 }
-                else if (menu2.context is Chest chest && chest.QualifiedItemId == "(BC)KediDili.VPPData.CP_MinecartChest")
+                else if (menu2.context is Chest chest && chest.ItemId == Constants.Id_MinecartChest)
                 {
                     menu2.exitFunction = OnMenuExit;
                 }
             }
 
-            else if (e.OldMenu is ItemGrabMenu menu && menu.context is Chest chest && (chest.QualifiedItemId == "(BC)KediDili.VPPData.CP_MinecartChest" || chest.QualifiedItemId == "(BC)KediDili.VPPData.CP_DrillCollector"))
+            else if (e.OldMenu is ItemGrabMenu menu && menu.context is Chest chest && (chest.ItemId == Constants.Id_MinecartChest || chest.ItemId == Constants.Id_MachineryCollector))
             {
                 chest.fixLidFrame();
-                if (chest.Items.Count > 0 && chest.QualifiedItemId == "(BC)KediDili.VPPData.CP_MinecartChest")
+                if (chest.Items.Count > 0 && chest.ItemId == Constants.Id_MinecartChest)
                 {
                     OnMenuExit();
                 }
@@ -367,19 +367,19 @@ namespace VanillaPlusProfessions.Craftables
             {
                 return false;
             }
-            if (drill.Location.Objects.TryGetValue(new(drill.TileLocation.X + 1, drill.TileLocation.Y), out var chest) && chest is not null && chest is Chest chst && chest.QualifiedItemId == "(BC)KediDili.VPPData.CP_DrillCollector" && (!hasToBeNotFull || chst.Items.CountItemStacks() < chst.GetActualCapacity()))
+            if (drill.Location.Objects.TryGetValue(new(drill.TileLocation.X + 1, drill.TileLocation.Y), out var chest) && chest is not null && chest is Chest chst && chest.ItemId == Constants.Id_MachineryCollector && (!hasToBeNotFull || chst.Items.CountItemStacks() < chst.GetActualCapacity()))
             {
                 container.Add(chst);
             }
-            else if (drill.Location.Objects.TryGetValue(new(drill.TileLocation.X - 1, drill.TileLocation.Y), out chest) && chest is not null && chest is Chest chst2 && chest.QualifiedItemId == "(BC)KediDili.VPPData.CP_DrillCollector" && (!hasToBeNotFull || chst2.Items.CountItemStacks() < chst2.GetActualCapacity()))
+            else if (drill.Location.Objects.TryGetValue(new(drill.TileLocation.X - 1, drill.TileLocation.Y), out chest) && chest is not null && chest is Chest chst2 && chest.ItemId == Constants.Id_MachineryCollector && (!hasToBeNotFull || chst2.Items.CountItemStacks() < chst2.GetActualCapacity()))
             {
                 container.Add(chst2);
             }
-            else if (drill.Location.Objects.TryGetValue(new(drill.TileLocation.X, drill.TileLocation.Y + 1), out chest) && chest is not null && chest is Chest chst3 && chest.QualifiedItemId == "(BC)KediDili.VPPData.CP_DrillCollector" && (!hasToBeNotFull || chst3.Items.CountItemStacks() < chst3.GetActualCapacity()))
+            else if (drill.Location.Objects.TryGetValue(new(drill.TileLocation.X, drill.TileLocation.Y + 1), out chest) && chest is not null && chest is Chest chst3 && chest.ItemId == Constants.Id_MachineryCollector && (!hasToBeNotFull || chst3.Items.CountItemStacks() < chst3.GetActualCapacity()))
             {
                 container.Add(chst3);
             }
-            else if (drill.Location.Objects.TryGetValue(new(drill.TileLocation.X, drill.TileLocation.Y - 1), out chest) && chest is not null && chest is Chest chst4 && chest.QualifiedItemId == "(BC)KediDili.VPPData.CP_DrillCollector" && (!hasToBeNotFull || chst4.Items.CountItemStacks() < chst4.GetActualCapacity()))
+            else if (drill.Location.Objects.TryGetValue(new(drill.TileLocation.X, drill.TileLocation.Y - 1), out chest) && chest is not null && chest is Chest chst4 && chest.ItemId == Constants.Id_MachineryCollector && (!hasToBeNotFull || chst4.Items.CountItemStacks() < chst4.GetActualCapacity()))
             {
                 container.Add(chst4);
             }
@@ -389,23 +389,22 @@ namespace VanillaPlusProfessions.Craftables
         {
             if (Game1.activeClickableMenu is not null)
                 return false;
-            if (building.buildingType.Value == "KediDili.VPPData.CP_MineTent")
+            if (building?.buildingType.Value == Constants.Id_MinecartRepository)
             {
                 Chest defaultChest = (MineTent ?? building).GetBuildingChest("Default_Chest");
+                
                 foreach (var objs in Game1.player.team.GetOrCreateGlobalInventory(Constants.GlobalInventoryId_Minecarts))
                 {
                     if (objs is null)
                         continue;
+                    
                     if (Utility.canItemBeAddedToThisInventoryList(objs.getOne(), defaultChest.Items, defaultChest.GetActualCapacity()) && objs is not Tool)
                     {
-                        if (defaultChest.Items.Count > 0)
+                        foreach (var item in defaultChest.Items)
                         {
-                            foreach (var item in defaultChest.Items)
+                            if (item?.canStackWith(objs) is true)
                             {
-                                if (item.canStackWith(objs))
-                                {
-                                    objs.Stack = item.addToStack(objs);
-                                }
+                                objs.Stack = item.addToStack(objs);
                             }
                         }
                         if (objs.Stack is not 0)

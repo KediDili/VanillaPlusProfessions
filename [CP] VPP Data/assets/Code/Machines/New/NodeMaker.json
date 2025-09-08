@@ -19,11 +19,6 @@
 									"Id": "{{ModId}}_Output",
 									"OutputMethod": "VanillaPlusProfessions.Craftables.MachineryOutputMethods, VanillaPlusProfessions: NodeMakerOutput",
 								},
-								/*{
-									"Id": "{{ModId}}_Output_ClayNode",
-									"ItemId": "(O)818",
-									"Condition": "ITEM_ID Input (O)330"
-								},*/
 							],
 							"DaysUntilReady": 2,
 						}

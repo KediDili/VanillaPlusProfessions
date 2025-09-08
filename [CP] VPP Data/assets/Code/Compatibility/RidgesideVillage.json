@@ -1,0 +1,51 @@
+{
+	"Changes": [
+		//Secret Glade + Wild Totem
+		{
+			"Action": "EditData", 
+			"Target": "Data/Objects",
+			"TargetField": [ "Rafseazz.RSVCP_Mountain_Mistbloom", "ContextTags" ],
+			"Entries": {
+				"kedi_vpp_banned_secretglade": "kedi_vpp_banned_secretglade",
+				"kedi_vpp_banned_wildtotem": "kedi_vpp_banned_wildtotem"
+			},
+		},
+		{
+			"Action": "EditData", 
+			"Target": "Data/Objects",
+			"TargetField": [ "Rafseazz.RSVCP_Foxbloom", "ContextTags" ],
+			"Entries": {
+				"kedi_vpp_banned_secretglade": "kedi_vpp_banned_secretglade",
+				"kedi_vpp_banned_wildtotem": "kedi_vpp_banned_wildtotem"
+			},
+		},
+		//Monumental Discount
+		{
+			"Action": "EditData",
+			"Target": "Data/Buildings",
+			"Fields": {
+				"RSV_Obelisk":{
+					"BuildCost": 100000,
+				}
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=MonumentalDiscount": "true",
+				"TimeChangedUpdates": "true",
+			},
+			"Update": "OnTimeChange",
+		},
+				{
+			"Action": "EditData",
+			"Target": "Data/Buildings",
+			"Fields": {
+				"RSV_Obelisk":{
+					"BuildCost": 100000,
+				}
+			},
+			"When": {
+				"KediDili.VanillaPlusProfessions/HasTalents|contains=MonumentalDiscount": "true",
+				"TimeChangedUpdates": "false",
+			},
+		},
+	]
+}

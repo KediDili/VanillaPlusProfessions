@@ -122,7 +122,7 @@ namespace VanillaPlusProfessions.Utilities
 
         public static Object CreateFlavoredSyrupOrDust(Object ingredient)
         {
-            if (ingredient.modData.TryGetValue("Kedi.VPP.CurrentPreserveType", out string value))
+            if (ingredient?.modData?.TryGetValue("Kedi.VPP.CurrentPreserveType", out string value) is true)
             {
                 if (value is Constants.Id_FruitSyrup or Constants.Id_GemDust)
                 {

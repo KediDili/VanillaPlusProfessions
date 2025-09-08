@@ -1,0 +1,912 @@
+{
+	"Changes": [
+	//BAKER: => Cake Counter, Dessert Stand, Deluxe Dessert Stand, Rolling Pin, Stand Mixer, Pie Counter, Oven
+
+	//CONFECTIONER => Candy Jar, Chocolatier Barrel, Frozen Treat Machine, Sugar Boiler, Marshmallow Mixer
+
+	//BARISTA => Blast Chiller, Coffee Grinder, Kitchen Blender, Lemonate Stand, Tea Processor
+
+	//BOUTIQUE => Fragrance Extractor, Wax Cauldron
+
+	//BREWER => Ale Keg, Artisan Mead Keg
+
+	//GOURMAND => Produce Packer, Distiller, Kitchen Mortar
+	
+	
+		//ITEM_CONTEXT_TAG Input large_milk_item
+		//Modify Mayonnaise Machine, Produce Packer and Kitchen Mortar for Bio-Engineering & Nutritionist
+		{
+			"LogName": "Produce Packer - Void Egg Crate - Nutritionist & Bio-Engineering",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Wildflour.AtelierGoods_ProducePacker", "OutputRules", "Wildflour.AtelierGoods_Void_Egg_Crate", "OutputItem", "Wildflour.AtelierGoods_Void_Egg_Crate", "StackModifiers" ],
+			"Entries": {
+				"{{ModId}}.WildflourArtisanGoods.ProducePacker.VoidEggCrate.Nutritionist": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.ProducePacker.VoidEggCrate.Nutritionist", 
+					"Amount": 1,
+					"Modification": "Add",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Nutritionist"
+				},
+				"{{ModId}}.WildflourArtisanGoods.ProducePacker.VoidEggCrate.BioEngineering.Large": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.ProducePacker.VoidEggCrate.BioEngineering.Large", 
+					"Amount": 1,
+					"Modification": "Add",
+					"Condition": "ITEM_CONTEXT_TAG Input large_egg_item, KediDili.VanillaPlusProfessions_PlayerHasTalent Current Bio-Engineering"
+				},
+				"{{ModId}}.WildflourArtisanGoods.ProducePacker.VoidEggCrate.BioEngineering.ExtraLarge": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.ProducePacker.VoidEggCrate.BioEngineering.ExtraLarge", 
+					"Amount": 2,
+					"Modification": "Add",
+					"Condition": "ITEM_CONTEXT_TAG Input extra_large_egg_item, KediDili.VanillaPlusProfessions_PlayerHasTalent Current Bio-Engineering"
+				},
+			},
+			"When": {
+				"HasMod": "Atelier.Cauldron",
+				"Atelier.Cauldron/ConfigValue:CSA": true,
+				"Atelier.Cauldron/ConfigValue:DifficultyToggle":"Advanced"
+			},
+		},
+		{
+			"LogName": "Produce Packer - Duck Egg Crate - Nutritionist & Bio-Engineering",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Wildflour.AtelierGoods_ProducePacker", "OutputRules", "Wildflour.AtelierGoods_Duck_Egg_Crate", "OutputItem", "Wildflour.AtelierGoods_Duck_Egg_Crate", "StackModifiers" ],
+			"Entries": {
+				"{{ModId}}.WildflourArtisanGoods.ProducePacker.DuckEggCrate.Nutritionist": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.ProducePacker.DuckEggCrate.Nutritionist", 
+					"Amount": 1,
+					"Modification": "Add",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Nutritionist"
+				},
+				"{{ModId}}.WildflourArtisanGoods.ProducePacker.DuckEggCrate.BioEngineering.Large": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.ProducePacker.DuckEggCrate.BioEngineering.Large", 
+					"Amount": 1,
+					"Modification": "Add",
+					"Condition": "ITEM_CONTEXT_TAG Input large_egg_item, KediDili.VanillaPlusProfessions_PlayerHasTalent Current Bio-Engineering"
+				},
+				"{{ModId}}.WildflourArtisanGoods.ProducePacker.DuckEggCrate.BioEngineering.ExtraLarge": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.ProducePacker.DuckEggCrate.BioEngineering.ExtraLarge", 
+					"Amount": 2,
+					"Modification": "Add",
+					"Condition": "ITEM_CONTEXT_TAG Input extra_large_egg_item, KediDili.VanillaPlusProfessions_PlayerHasTalent Current Bio-Engineering"
+				},
+			},
+			"When": {
+				"HasMod": "Atelier.Cauldron",
+				"Atelier.Cauldron/ConfigValue:CSA": true,
+				"Atelier.Cauldron/ConfigValue:DifficultyToggle":"Advanced"
+			},
+		},
+		{
+			"LogName": "Produce Packer - Brown Egg Crate - Nutritionist & Bio-Engineering",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Wildflour.AtelierGoods_ProducePacker", "OutputRules", "Wildflour.AtelierGoods_Brown_Egg_Crate", "OutputItem", "Wildflour.AtelierGoods_Brown_Egg_Crate", "StackModifiers" ],
+			"Entries": {
+				"{{ModId}}.WildflourArtisanGoods.ProducePacker.BrownEggCrate.Nutritionist": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.ProducePacker.BrownEggCrate.Nutritionist", 
+					"Amount": 1,
+					"Modification": "Add",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Nutritionist"
+				},
+				"{{ModId}}.WildflourArtisanGoods.ProducePacker.BrownEggCrate.BioEngineering.Large": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.ProducePacker.BrownEggCrate.BioEngineering.Large", 
+					"Amount": 1,
+					"Modification": "Add",
+					"Condition": "ITEM_CONTEXT_TAG Input large_egg_item, KediDili.VanillaPlusProfessions_PlayerHasTalent Current Bio-Engineering"
+				},
+				"{{ModId}}.WildflourArtisanGoods.ProducePacker.BrownEggCrate.BioEngineering.ExtraLarge": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.ProducePacker.BrownEggCrate.BioEngineering.ExtraLarge", 
+					"Amount": 2,
+					"Modification": "Add",
+					"Condition": "ITEM_CONTEXT_TAG Input extra_large_egg_item, KediDili.VanillaPlusProfessions_PlayerHasTalent Current Bio-Engineering"
+				},
+			},
+			"When": {
+				"HasMod": "Atelier.Cauldron",
+				"Atelier.Cauldron/ConfigValue:CSA": true,
+				"Atelier.Cauldron/ConfigValue:DifficultyToggle":"Advanced"
+			},
+		},
+		{
+			"LogName": "Produce Packer - White Egg Crate - Nutritionist & Bio-Engineering",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Wildflour.AtelierGoods_ProducePacker", "OutputRules", "Wildflour.AtelierGoods_White_Egg_Crate", "OutputItem", "Wildflour.AtelierGoods_White_Egg_Crate", "StackModifiers" ],
+			"Entries": {
+				"{{ModId}}.WildflourArtisanGoods.ProducePacker.WhiteEggCrate.Nutritionist": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.ProducePacker.WhiteEggCrate.Nutritionist", 
+					"Amount": 1,
+					"Modification": "Add",
+					"Condition": "ITEM_CONTEXT_TAG Input large_egg_item, KediDili.VanillaPlusProfessions_PlayerHasProfession Current Nutritionist"
+				},
+				"{{ModId}}.WildflourArtisanGoods.ProducePacker.WhiteEggCrate.BioEngineering.Large": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.ProducePacker.WhiteEggCrate.BioEngineering.Large", 
+					"Amount": 1,
+					"Modification": "Add",
+					"Condition": "ITEM_CONTEXT_TAG Input large_egg_item, KediDili.VanillaPlusProfessions_PlayerHasTalent Current Bio-Engineering"
+				},
+				"{{ModId}}.WildflourArtisanGoods.ProducePacker.WhiteEggCrate.BioEngineering.ExtraLarge": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.ProducePacker.WhiteEggCrate.BioEngineering.ExtraLarge", 
+					"Amount": 2,
+					"Modification": "Add",
+					"Condition": "ITEM_CONTEXT_TAG Input extra_large_egg_item, KediDili.VanillaPlusProfessions_PlayerHasTalent Current Bio-Engineering"
+				},
+			},
+			"When": {
+				"HasMod": "Atelier.Cauldron",
+				"Atelier.Cauldron/ConfigValue:CSA": true
+			},
+		},
+		{
+			"LogName": "Produce Packer - Milk Crate - Bio-Engineering",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Wildflour.AtelierGoods_ProducePacker", "OutputRules", "Wildflour.AtelierGoods_Milk_Crate", "OutputItem", "Wildflour.AtelierGoods_Milk_Crate", "StackModifiers" ],
+			"Entries": {
+				"{{ModId}}.WildflourArtisanGoods.ProducePacker.MilkCrate.BioEngineering.Large": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.ProducePacker.MilkCrate.BioEngineering.Large", 
+					"Amount": 1,
+					"Modification": "Add",
+					"Condition": "ITEM_CONTEXT_TAG Input large_milk_item, KediDili.VanillaPlusProfessions_PlayerHasTalent Current Bio-Engineering"
+				},
+				"{{ModId}}.WildflourArtisanGoods.ProducePacker.MilkCrate.BioEngineering.ExtraLarge": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.ProducePacker.MilkCrate.BioEngineering.ExtraLarge", 
+					"Amount": 2,
+					"Modification": "Add",
+					"Condition": "ITEM_CONTEXT_TAG Input extra_large_milk_item, KediDili.VanillaPlusProfessions_PlayerHasTalent Current Bio-Engineering"
+				},
+			},
+			"When": {
+				"HasMod": "Atelier.Cauldron",
+				"Atelier.Cauldron/ConfigValue:CSA": true
+			},
+		},
+		{
+			"LogName": "Mayo Machine - Butter - Bio-Engineering",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)24", "OutputRules", "Wildflour.AtelierGoods_MayoMachine_Butter", "OutputItem", "Wildflour.AtelierGoods_Butter", "StackModifiers" ],
+			"Entries": {
+				"{{ModId}}.WildflourArtisanGoods.MayonnaiseMachine.Butter.BioEngineering.Large": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.MayonnaiseMachine.Butter.BioEngineering.Large", 
+					"Amount": 1,
+					"Modification": "Add",
+					"Condition": "ITEM_CONTEXT_TAG Input large_milk_item, KediDili.VanillaPlusProfessions_PlayerHasTalent Current Bio-Engineering"
+				},
+				"{{ModId}}.WildflourArtisanGoods.MayonnaiseMachine.Butter.BioEngineering.ExtraLarge": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.MayonnaiseMachine.Butter.BioEngineering.ExtraLarge", 
+					"Amount": 2,
+					"Modification": "Add",
+					"Condition": "ITEM_CONTEXT_TAG Input extra_large_milk_item, KediDili.VanillaPlusProfessions_PlayerHasTalent Current Bio-Engineering"
+				},				
+			},
+		},
+		{
+			"LogName": "Kitchen Mortar - Dark Chocolate - Bio-Engineering",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Wildflour.AtelierGoods_KitchenMortar", "OutputRules", "Wildflour.AtelierGoods_Chocolate", "OutputItem", "Wildflour.AtelierGoods_Dark_Chocolate", "StackModifiers" ],
+			"Entries": {
+				"{{ModId}}.WildflourArtisanGoods.KitchenMortar.DarkChocolate.BioEngineering.Large": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.KitchenMortar.DarkChocolate.BioEngineering.Large", 
+					"Amount": 1,
+					"Modification": "Add",
+					"Condition": "ITEM_CONTEXT_TAG Input large_milk_item, KediDili.VanillaPlusProfessions_PlayerHasTalent Current Bio-Engineering"
+				},
+				"{{ModId}}.WildflourArtisanGoods.KitchenMortar.DarkChocolate.BioEngineering.ExtraLarge": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.KitchenMortar.DarkChocolate.BioEngineering.ExtraLarge", 
+					"Amount": 2,
+					"Modification": "Add",
+					"Condition": "ITEM_CONTEXT_TAG Input extra_large_milk_item, KediDili.VanillaPlusProfessions_PlayerHasTalent Current Bio-Engineering"
+				},				
+			},
+		},
+		//Modify Mayonnaise Machine, Produce Packer and Kitchen Mortar for Pastoralism Bio-Engineering
+		{
+			"LogName": "Kitchen Mortar - Dark Chocolate - Pastoralism",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Wildflour.AtelierGoods_KitchenMortar", "OutputRules", "Wildflour.AtelierGoods_Chocolate", "OutputItem", "Wildflour.AtelierGoods_Dark_Chocolate", "QualityModifiers" ],
+			"Entries": {
+				"{{ModId}}.WildflourArtisanGoods.KitchenMortar.DarkChocolate.Pastoralism.None": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.KitchenMortar.DarkChocolate.Pastoralism.None", 
+					"Amount": 0, 
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 0 0"
+				},
+				"{{ModId}}.WildflourArtisanGoods.KitchenMortar.DarkChocolate.Pastoralism.Silver": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.KitchenMortar.DarkChocolate.Pastoralism.Silver",
+					"Amount": 1,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 1 1"
+				},
+				"{{ModId}}.WildflourArtisanGoods.KitchenMortar.DarkChocolate.Pastoralism.Gold": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.KitchenMortar.DarkChocolate.Pastoralism.Gold",
+					"Amount": 2,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 2 2"
+				},
+				"{{ModId}}.WildflourArtisanGoods.KitchenMortar.DarkChocolate.Pastoralism.Iridium": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.KitchenMortar.DarkChocolate.Pastoralism.Iridium",
+					"Amount": 4,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 4"
+				}
+			},
+		},
+		{
+			"LogName": "Produce Packer - Brown Egg Crate - Pastoralism",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Wildflour.AtelierGoods_ProducePacker", "OutputRules", "Wildflour.AtelierGoods_Brown_Egg_Crate", "OutputItem", "Wildflour.AtelierGoods_Brown_Egg_Crate", "QualityModifiers" ],
+			"Entries": {
+				"{{ModId}}.WildflourArtisanGoods.ProducePacker.BrownEggCrate.Pastoralism.None": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.ProducePacker.BrownEggCrate.Pastoralism.None", 
+					"Amount": 0, 
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 0 0"
+				},
+				"{{ModId}}.WildflourArtisanGoods.ProducePacker.BrownEggCrate.Pastoralism.Silver": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.ProducePacker.BrownEggCrate.Pastoralism.Silver",
+					"Amount": 1,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 1 1"
+				},
+				"{{ModId}}.WildflourArtisanGoods.ProducePacker.BrownEggCrate.Pastoralism.Gold": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.ProducePacker.BrownEggCrate.Pastoralism.Gold",
+					"Amount": 2,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 2 2"
+				},
+				"{{ModId}}.WildflourArtisanGoods.ProducePacker.BrownEggCrate.Pastoralism.Iridium": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.ProducePacker.BrownEggCrate.Pastoralism.Iridium",
+					"Amount": 4,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 4"
+				}
+			},
+			"When": {
+				"HasMod": "Atelier.Cauldron",
+				"Atelier.Cauldron/ConfigValue:CSA": true,
+				"Atelier.Cauldron/ConfigValue:DifficultyToggle":"Advanced"
+			},
+		},
+		{
+			"LogName": "Produce Packer - Void Egg Crate - Pastoralism",
+			"Action": "EditData", 
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Wildflour.AtelierGoods_ProducePacker", "OutputRules", "Wildflour.AtelierGoods_Void_Egg_Crate", "OutputItem", "Wildflour.AtelierGoods_Void_Egg_Crate", "QualityModifiers" ],
+			"Entries": {
+				"{{ModId}}.WildflourArtisanGoods.ProducePacker.VoidEggCrate.Pastoralism.None": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.ProducePacker.VoidEggCrate.Pastoralism.None", 
+					"Amount": 0, 
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 0 0"
+				},
+				"{{ModId}}.WildflourArtisanGoods.ProducePacker.VoidEggCrate.Pastoralism.Silver": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.ProducePacker.VoidEggCrate.Pastoralism.Silver",
+					"Amount": 1,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 1 1"
+				},
+				"{{ModId}}.WildflourArtisanGoods.ProducePacker.VoidEggCrate.Pastoralism.Gold": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.ProducePacker.VoidEggCrate.Pastoralism.Gold",
+					"Amount": 2,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 2 2"
+				},
+				"{{ModId}}.WildflourArtisanGoods.ProducePacker.VoidEggCrate.Pastoralism.Iridium": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.ProducePacker.VoidEggCrate.Pastoralism.Iridium",
+					"Amount": 4,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 4"
+				}
+			},
+			"When": {
+				"HasMod": "Atelier.Cauldron",
+				"Atelier.Cauldron/ConfigValue:CSA": true,
+				"Atelier.Cauldron/ConfigValue:DifficultyToggle":"Advanced"
+			},
+		},
+		{
+			"LogName": "Produce Packer - Duck Egg Crate - Pastoralism",
+			"Action": "EditData", 
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Wildflour.AtelierGoods_ProducePacker", "OutputRules", "Wildflour.AtelierGoods_Duck_Egg_Crate", "OutputItem", "Wildflour.AtelierGoods_Duck_Egg_Crate", "QualityModifiers" ],
+			"Entries": {
+				"{{ModId}}.WildflourArtisanGoods.ProducePacker.DuckEggCrate.Pastoralism.None": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.ProducePacker.DuckEggCrate.Pastoralism.None",
+					"Amount": 0, 
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 0 0"
+				},
+				"{{ModId}}.WildflourArtisanGoods.ProducePacker.DuckEggCrate.Pastoralism.Silver": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.ProducePacker.DuckEggCrate.Pastoralism.Silver",
+					"Amount": 1,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 1 1"
+				},
+				"{{ModId}}.WildflourArtisanGoods.ProducePacker.DuckEggCrate.Pastoralism.Gold": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.ProducePacker.DuckEggCrate.Pastoralism.Gold",
+					"Amount": 2,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 2 2"
+				},
+				"{{ModId}}.WildflourArtisanGoods.ProducePacker.DuckEggCrate.Pastoralism.Iridium": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.ProducePacker.DuckEggCrate.Pastoralism.Iridium",
+					"Amount": 4,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 4"
+				}
+			},
+			"When": {
+				"HasMod": "Atelier.Cauldron",
+				"Atelier.Cauldron/ConfigValue:CSA": true,
+				"Atelier.Cauldron/ConfigValue:DifficultyToggle":"Advanced"
+			},
+		},
+		{
+			"LogName": "Produce Packer - White Egg Crate - Pastoralism",
+			"Action": "EditData", 
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Wildflour.AtelierGoods_ProducePacker", "OutputRules", "Wildflour.AtelierGoods_White_Egg_Crate", "OutputItem", "Wildflour.AtelierGoods_White_Egg_Crate", "QualityModifiers" ],
+			"Entries": {
+				"{{ModId}}.WildflourArtisanGoods.ProducePacker.WhiteEggCrate.Pastoralism.None": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.ProducePacker.WhiteEggCrate.Pastoralism.None",
+					"Amount": 0, 
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 0 0"
+				},
+				"{{ModId}}.WildflourArtisanGoods.ProducePacker.WhiteEggCrate.Pastoralism.Silver": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.ProducePacker.WhiteEggCrate.Pastoralism.Silver",
+					"Amount": 1,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 1 1"
+				},
+				"{{ModId}}.WildflourArtisanGoods.ProducePacker.WhiteEggCrate.Pastoralism.Gold": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.ProducePacker.WhiteEggCrate.Pastoralism.Gold",
+					"Amount": 2,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 2 2"
+				},
+				"{{ModId}}.WildflourArtisanGoods.ProducePacker.WhiteEggCrate.Pastoralism.Iridium": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.ProducePacker.WhiteEggCrate.Pastoralism.Iridium",
+					"Amount": 4,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 4"
+				}
+			},
+			"When": {
+				"HasMod": "Atelier.Cauldron",
+				"Atelier.Cauldron/ConfigValue:CSA": true,
+			},
+		},
+		{
+			"LogName": "Produce Packer - Milk Crate - Pastoralism",
+			"Action": "EditData", 
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Wildflour.AtelierGoods_ProducePacker", "OutputRules", "Wildflour.AtelierGoods_Milk_Crate", "OutputItem", "Wildflour.AtelierGoods_Milk_Crate", "QualityModifiers" ],
+			"Entries": {
+				"{{ModId}}.WildflourArtisanGoods.ProducePacker.MilkCrate.Pastoralism.None": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.ProducePacker.MilkCrate.Pastoralism.None",
+					"Amount": 0, 
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 0 0"
+				},
+				"{{ModId}}.WildflourArtisanGoods.ProducePacker.MilkCrate.Pastoralism.Silver": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.ProducePacker.MilkCrate.Pastoralism.Silver",
+					"Amount": 1,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 1 1"
+				},
+				"{{ModId}}.WildflourArtisanGoods.ProducePacker.MilkCrate.Pastoralism.Gold": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.ProducePacker.MilkCrate.Pastoralism.Gold",
+					"Amount": 2,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 2 2"
+				},
+				"{{ModId}}.WildflourArtisanGoods.ProducePacker.MilkCrate.Pastoralism.Iridium": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.ProducePacker.MilkCrate.Pastoralism.Iridium",
+					"Amount": 4,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 4"
+				}
+			},
+			"When": {
+				"HasMod": "Atelier.Cauldron",
+				"Atelier.Cauldron/ConfigValue:CSA": true,
+			},
+		},
+		{
+			"LogName": "Mayo Machine - Butter - Pastoralism",
+			"Action": "EditData",
+			"Target": "Data/Machines", //Mayonnaise Machine
+			"TargetField": [ "(BC)24", "OutputRules", "Wildflour.AtelierGoods_MayoMachine_Butter", "OutputItem", "Wildflour.AtelierGoods_Butter", "QualityModifiers" ],
+			"Entries": {
+				"{{ModId}}.WildflourArtisanGoods.MayonnaiseMachine.Butter.Pastoralism.None": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.MayonnaiseMachine.Butter.Pastoralism.None", //ITEM_CONTEXT_TAG Input large_milk_item
+					"Amount": 0, 
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 0 0"
+				},
+				"{{ModId}}.WildflourArtisanGoods.MayonnaiseMachine.Butter.Pastoralism.Silver": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.MayonnaiseMachine.Butter.Pastoralism.Silver",
+					"Amount": 1,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 1 1"
+				},
+				"{{ModId}}.WildflourArtisanGoods.MayonnaiseMachine.Butter.Pastoralism.Gold": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.MayonnaiseMachine.Butter.Pastoralism.Gold",
+					"Amount": 2,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 2 2"
+				},
+				"{{ModId}}.WildflourArtisanGoods.MayonnaiseMachine.Butter.Pastoralism.Iridium": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.MayonnaiseMachine.Butter.Pastoralism.Iridium",
+					"Amount": 4,
+					"Modification": "Set",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Pastoralism, ITEM_QUALITY Input 4"
+				}
+			},
+		},
+		{ //Modify all the machines for Machinist & Musterer
+			"LogName": "Mayo Machine - Machinist & Musterer",
+			"Action": "EditData", 
+			"Target": "Data/Machines", //Mayonnaise Machine
+			"TargetField": [ "(BC)24", "ReadyTimeModifiers" ],
+			"Entries": {
+				"{{ModId}}.WildflourArtisanGoods.MayonnaiseMachine.Machinist": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.MayonnaiseMachine.Machinist",
+					"Modification": "Multiply",
+					"Amount": 0.75,
+					"Condition": "ITEM_CATEGORY Input -81 -80 -79 -75, !ITEM_CONTEXT_TAG Input forage_item, KediDili.VanillaPlusProfessions_PlayerHasProfession Current Machinist"
+				},
+				"{{ModId}}.WildflourArtisanGoods.ProducePacker.Musterer": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.ProducePacker.Musterer",
+					"Modification": "Multiply",
+					"Amount": 0.75,
+					"Condition": "ITEM_CATEGORY Input -6, KediDili.VanillaPlusProfessions_PlayerHasProfession Current Musterer"
+				}
+			},
+		},
+		{
+			"LogName": "Kitchen Mortar - Machinist & Musterer",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Wildflour.AtelierGoods_KitchenMortar", "ReadyTimeModifiers" ],
+			"Entries": {
+				"{{ModId}}.WildflourArtisanGoods.KitchenMortar.Machinist": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.KitchenMortar.Machinist",
+					"Modification": "Multiply",
+					"Amount": 0.75,
+					"Condition": "ITEM_CATEGORY Input -81 -80 -79 -75, !ITEM_CONTEXT_TAG Input forage_item, KediDili.VanillaPlusProfessions_PlayerHasProfession Current Machinist"
+				},
+				"{{ModId}}.WildflourArtisanGoods.KitchenMortar.Musterer": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.KitchenMortar.Musterer",
+					"Modification": "Multiply",
+					"Amount": 0.75,
+					"Condition": "ITEM_CATEGORY Input -6, KediDili.VanillaPlusProfessions_PlayerHasProfession Current Musterer"
+				}
+			},
+		},
+		{
+			"LogName": "Produce Packer - Machinist & Musterer",
+			"Action": "EditData", 
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Wildflour.AtelierGoods_ProducePacker", "ReadyTimeModifiers" ],
+			"Entries": {
+				"{{ModId}}.WildflourArtisanGoods.ProducePacker.Machinist": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.ProducePacker.Machinist",
+					"Modification": "Multiply",
+					"Amount": 0.75,
+					"Condition": "ITEM_CATEGORY Input -81 -80 -79 -75, !ITEM_CONTEXT_TAG Input forage_item, KediDili.VanillaPlusProfessions_PlayerHasProfession Current Machinist"
+				},
+				"{{ModId}}.WildflourArtisanGoods.ProducePacker.Musterer": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.ProducePacker.Musterer",
+					"Modification": "Multiply",
+					"Amount": 0.75,
+					"Condition": "ITEM_CATEGORY Input -6, KediDili.VanillaPlusProfessions_PlayerHasProfession Current Musterer"
+				}
+			},
+			"When": {
+				"HasMod": "Atelier.Cauldron",
+				"Atelier.Cauldron/ConfigValue:CSA": true,
+			},
+		},
+		{
+			"LogName": "Tea Processor - Machinist",
+			"Action": "EditData", 
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Wildflour.AtelierGoods_TeaProcessor", "ReadyTimeModifiers" ],
+			"Entries": {
+				"{{ModId}}.WildflourArtisanGoods.TeaProcessor.Machinist": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.TeaProcessor.Machinist",
+					"Modification": "Multiply",
+					"Amount": 0.75,
+					"Condition": "ITEM_CATEGORY Input -81 -80 -79 -75, !ITEM_CONTEXT_TAG Input forage_item, KediDili.VanillaPlusProfessions_PlayerHasProfession Current Machinist"
+				}
+			},
+			"When": {
+				"HasMod": "Atelier.Cauldron",
+				"Atelier.Cauldron/ConfigValue:Tea": true
+			},
+		},
+		{
+			"LogName": "Coffee Grinder - Machinist",
+			"Action": "EditData", 
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Wildflour.AtelierGoods_CoffeeGrinder", "ReadyTimeModifiers" ],
+			"Entries": {
+				"{{ModId}}.WildflourArtisanGoods.CoffeeGrinder.Machinist": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.CoffeeGrinder.Machinist",
+					"Modification": "Multiply",
+					"Amount": 0.75,
+					"Condition": "ITEM_CATEGORY Input -81 -80 -79 -75, !ITEM_CONTEXT_TAG Input forage_item, KediDili.VanillaPlusProfessions_PlayerHasProfession Current Machinist"
+				}
+			},
+			"When": {
+				"HasMod": "Atelier.Cauldron",
+				"Atelier.Cauldron/ConfigValue:Coffee": true
+			},
+		},
+		{
+			"LogName": "Lemonade Stand - Machinist",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Wildflour.AtelierGoods_LemonadeStand", "ReadyTimeModifiers" ],
+			"Entries": {
+				"{{ModId}}.WildflourArtisanGoods.LemonadeStand.Machinist": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.LemonadeStand.Machinist",
+					"Modification": "Multiply",
+					"Amount": 0.75,
+					"Condition": "ITEM_CATEGORY Input -81 -80 -79 -75, !ITEM_CONTEXT_TAG Input forage_item, KediDili.VanillaPlusProfessions_PlayerHasProfession Current Machinist"
+				}
+			},
+			"When": {
+				"HasMod": "Atelier.Cauldron",
+				"Atelier.Cauldron/ConfigValue:Lemonade": true
+			},
+		},
+		{
+			"LogName": "Kitchen Blender - Machinist",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Wildflour.AtelierGoods_KitchenBlender", "ReadyTimeModifiers" ],
+			"Entries": {
+				"{{ModId}}.WildflourArtisanGoods.KitchenBlender.Machinist": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.KitchenBlender.Machinist",
+					"Modification": "Multiply",
+					"Amount": 0.75,
+					"Condition": "ITEM_CATEGORY Input -81 -80 -79 -75, !ITEM_CONTEXT_TAG Input forage_item, KediDili.VanillaPlusProfessions_PlayerHasProfession Current Machinist"
+				}
+			},
+			"When": {
+				"HasMod": "Atelier.Cauldron",
+				"Query: ({{Atelier.Cauldron/ConfigValue:Milkshakes}} = 'true') OR ({{Atelier.Cauldron/ConfigValue:Smoothies}} = 'true')": true
+			},
+		},
+		{
+			"LogName": "Blast Chiller - Machinist",
+			"Action": "EditData", 
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Wildflour.AtelierGoods_BlastChiller", "ReadyTimeModifiers" ],
+			"Entries": {
+				"{{ModId}}.WildflourArtisanGoods.BlastChiller.Machinist": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.BlastChiller.Machinist",
+					"Modification": "Multiply",
+					"Amount": 0.75,
+					"Condition": "ITEM_CATEGORY Input -81 -80 -79 -75, !ITEM_CONTEXT_TAG Input forage_item, KediDili.VanillaPlusProfessions_PlayerHasProfession Current Machinist"
+				}
+			},
+			"When": {
+				"HasMod": "Atelier.Cauldron",
+				"Query: ({{Atelier.Cauldron/ConfigValue:Popsicles}} = 'true') OR ({{Atelier.Cauldron/ConfigValue:Coffee}} = 'true') OR ({{Atelier.Cauldron/ConfigValue:Tea}} = 'true')": true
+			},
+		},
+		{
+			"LogName": "Distiller/SyrupMaker - Machinist",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Wildflour.AtelierGoods_SyrupMaker", "ReadyTimeModifiers" ],
+			"Entries": {
+				"{{ModId}}.WildflourArtisanGoods.SyrupMaker.Machinist": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.SyrupMaker.Machinist",
+					"Modification": "Multiply",
+					"Amount": 0.75,
+					"Condition": "ITEM_CATEGORY Input -81 -80 -79 -75, !ITEM_CONTEXT_TAG Input forage_item, KediDili.VanillaPlusProfessions_PlayerHasProfession Current Machinist"
+				}
+			},
+		},
+		{
+			"LogName": "Stand Mixer - Machinist",
+			"Action": "EditData", 
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Wildflour.AtelierGoods_Mixer", "ReadyTimeModifiers" ],
+			"Entries": {
+				"{{ModId}}.WildflourArtisanGoods.StandMixer.Machinist": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.StandMixer.Machinist",
+					"Modification": "Multiply",
+					"Amount": 0.75,
+					"Condition": "ITEM_CATEGORY Input -81 -80 -79 -75, !ITEM_CONTEXT_TAG Input forage_item, KediDili.VanillaPlusProfessions_PlayerHasProfession Current Machinist"
+				}
+			},
+			"When": {
+				"HasMod": "Atelier.Cauldron",
+				"Atelier.Cauldron/ConfigValue:Cookies": true
+			},
+		},
+		{
+			"LogName": "Rolling Pin - Machinist",
+			"Action": "EditData", 
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Wildflour.AtelierGoods_Rolling_Pin", "ReadyTimeModifiers" ],
+			"Entries": {
+				"{{ModId}}.WildflourArtisanGoods.RollingPin.Machinist": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.RollingPin.Machinist",
+					"Modification": "Multiply",
+					"Amount": 0.75,
+					"Condition": "ITEM_CATEGORY Input -81 -80 -79 -75, !ITEM_CONTEXT_TAG Input forage_item, KediDili.VanillaPlusProfessions_PlayerHasProfession Current Machinist"
+				}
+			},
+			"When": {
+				"HasMod": "Atelier.Cauldron",
+				"Query: ({{Atelier.Cauldron/ConfigValue:Breads}} = 'true') OR ({{Atelier.Cauldron/ConfigValue:Doughnuts}} = 'true')": true
+			},
+		},
+		{
+			"LogName": "Marshmallow Mixer - Machinist",
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Wildflour.AtelierGoods_MarshmallowMixer", "ReadyTimeModifiers" ],
+			"Entries": {
+				"{{ModId}}.WildflourArtisanGoods.MarshmallowMixer.Machinist": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.MarshmallowMixer.Machinist",
+					"Modification": "Multiply",
+					"Amount": 0.75,
+					"Condition": "ITEM_CATEGORY Input -81 -80 -79 -75, !ITEM_CONTEXT_TAG Input forage_item, KediDili.VanillaPlusProfessions_PlayerHasProfession Current Machinist"
+				}
+			},
+			"When": {
+				"HasMod": "Atelier.Cauldron",
+				"Atelier.Cauldron/ConfigValue:WildFood": true,
+				"Atelier.Cauldron/ConfigValue:Marshmallows": true
+			},
+		},
+		{
+			"LogName": "Pie Counter - Machinist",
+			"Action": "EditData", 
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Wildflour.AtelierGoods_Pie_Station", "ReadyTimeModifiers" ],
+			"Entries": {
+				"{{ModId}}.WildflourArtisanGoods.PieCounter.Machinist": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.PieCounter.Machinist",
+					"Modification": "Multiply",
+					"Amount": 0.75,
+					"Condition": "ITEM_CATEGORY Input -81 -80 -79 -75, !ITEM_CONTEXT_TAG Input forage_item, KediDili.VanillaPlusProfessions_PlayerHasProfession Current Machinist"
+				}
+			},
+			"When": {
+				"HasMod": "Atelier.Cauldron",
+				"Atelier.Cauldron/ConfigValue:Pies": true
+			},
+		},
+		{
+			"LogName": "Ale Keg - Machinist",
+			"Action": "EditData", 
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Wildflour.AtelierGoods_AleKeg", "ReadyTimeModifiers" ],
+			"Entries": {
+				"{{ModId}}.WildflourArtisanGoods.AleKeg.Machinist": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.AleKeg.Machinist",
+					"Modification": "Multiply",
+					"Amount": 0.75,
+					"Condition": "ITEM_CATEGORY Input -81 -80 -79 -75, !ITEM_CONTEXT_TAG Input forage_item, KediDili.VanillaPlusProfessions_PlayerHasProfession Current Machinist"
+				}
+			},
+			"When": {
+				"HasMod": "Atelier.Cauldron",
+				"Atelier.Cauldron/ConfigValue:Ales": true
+			},
+		},
+		{
+			"LogName": "Artisan Mead Keg - Machinist",
+			"Action": "EditData", 
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Wildflour.AtelierGoods_MeadKeg", "ReadyTimeModifiers" ],
+			"Entries": {
+				"{{ModId}}.WildflourArtisanGoods.ArtisanMeadKeg.Machinist": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.ArtisanMeadKeg.Machinist",
+					"Modification": "Multiply",
+					"Amount": 0.75,
+					"Condition": "ITEM_CATEGORY Input -81 -80 -79 -75, !ITEM_CONTEXT_TAG Input forage_item, KediDili.VanillaPlusProfessions_PlayerHasProfession Current Machinist"
+				}
+			},
+			"When": {
+				"HasMod": "Atelier.Cauldron",
+				"Atelier.Cauldron/ConfigValue:Meads": true
+			},
+		},
+		{
+			"LogName": "Frozen Treat Machine - Machinist",
+			"Action": "EditData", 
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Wildflour.AtelierGoods_TreatMaker", "ReadyTimeModifiers" ],
+			"Entries": {
+				"{{ModId}}.WildflourArtisanGoods.FrozenTreatMachine.Machinist": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.FrozenTreatMachine.Machinist",
+					"Modification": "Multiply",
+					"Amount": 0.75,
+					"Condition": "ITEM_CATEGORY Input -81 -80 -79 -75, !ITEM_CONTEXT_TAG Input forage_item, KediDili.VanillaPlusProfessions_PlayerHasProfession Current Machinist"
+				}
+			},
+			"When": {
+				"HasMod": "Atelier.Cauldron",
+				"Atelier.Cauldron/ConfigValue:IceCream": true
+			},
+		},
+		{
+			"LogName": "Sugar Boiler - Machinist",
+			"Action": "EditData", 
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Wildflour.AtelierGoods_SugarBoiler", "ReadyTimeModifiers" ],
+			"Entries": {
+				"{{ModId}}.WildflourArtisanGoods.SugarBoiler.Machinist": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.SugarBoiler.Machinist",
+					"Modification": "Multiply",
+					"Amount": 0.75,
+					"Condition": "ITEM_CATEGORY Input -81 -80 -79 -75, !ITEM_CONTEXT_TAG Input forage_item, KediDili.VanillaPlusProfessions_PlayerHasProfession Current Machinist"
+				}
+			},
+			"When": {
+				"HasMod": "Atelier.Cauldron",
+				"Query: ({{Atelier.Cauldron/ConfigValue:Lollipops}} = 'true') OR ({{Atelier.Cauldron/ConfigValue:HardCandies}} = 'true')": true
+			},
+		},
+		{
+			"LogName": "Candy Jar - Machinist",
+			"Action": "EditData", 
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Wildflour.AtelierGoods_CandyJar", "ReadyTimeModifiers" ],
+			"Entries": {
+				"{{ModId}}.WildflourArtisanGoods.CandyJar.Machinist": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.CandyJar.Machinist",
+					"Modification": "Multiply",
+					"Amount": 0.75,
+					"Condition": "ITEM_CATEGORY Input -81 -80 -79 -75, !ITEM_CONTEXT_TAG Input forage_item, KediDili.VanillaPlusProfessions_PlayerHasProfession Current Machinist"
+				}
+			},
+			"When": {
+				"HasMod": "Atelier.Cauldron",
+				"Query: ({{Atelier.Cauldron/ConfigValue:Gumballs}} = 'true') OR ({{Atelier.Cauldron/ConfigValue:JellyBeans}} = 'true')": true
+			},
+		},
+		{
+			"LogName": "Chocolatier Barrel - Machinist",
+			"Action": "EditData", 
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Wildflour.AtelierGoods_ChocolatierBarrel", "ReadyTimeModifiers" ],
+			"Entries": {
+				"{{ModId}}.WildflourArtisanGoods.ChocolatierBarrel.Machinist": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.ChocolatierBarrel.Machinist",
+					"Modification": "Multiply",
+					"Amount": 0.75,
+					"Condition": "ITEM_CATEGORY Input -81 -80 -79 -75, !ITEM_CONTEXT_TAG Input forage_item, KediDili.VanillaPlusProfessions_PlayerHasProfession Current Machinist"
+				}
+			},
+			"When": {
+				"HasMod": "Atelier.Cauldron",
+				"Atelier.Cauldron/ConfigValue:Chocolates": true,
+				"Atelier.Cauldron/ConfigValue:WildFood": true
+			},
+		},
+		{
+			"LogName": "Cake Counter - Machinist",
+			"Action": "EditData", 
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Wildflour.AtelierGoods_Cake_Station", "ReadyTimeModifiers" ],
+			"Entries": {
+				"{{ModId}}.WildflourArtisanGoods.CakeCounter.Machinist": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.CakeCounter.Machinist",
+					"Modification": "Multiply",
+					"Amount": 0.75,
+					"Condition": "ITEM_CATEGORY Input -81 -80 -79 -75, !ITEM_CONTEXT_TAG Input forage_item, KediDili.VanillaPlusProfessions_PlayerHasProfession Current Machinist"
+				}
+			},
+			"When": {
+				"HasMod": "Atelier.Cauldron",
+				"Atelier.Cauldron/ConfigValue:Cakes": true
+			},
+		},
+		{
+			"LogName": "Deluxe Dessert Stand - Machinist",
+			"Action": "EditData", 
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Wildflour.AtelierGoods_Deluxe_Dessert_Stand", "ReadyTimeModifiers" ],
+			"Entries": {
+				"{{ModId}}.WildflourArtisanGoods.DeluxeDessertStand.Machinist": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.DeluxeDessertStand.Machinist",
+					"Modification": "Multiply",
+					"Amount": 0.75,
+					"Condition": "ITEM_CATEGORY Input -81 -80 -79 -75, !ITEM_CONTEXT_TAG Input forage_item, KediDili.VanillaPlusProfessions_PlayerHasProfession Current Machinist"
+				}
+			},
+			"When": {
+				"HasMod": "Atelier.Cauldron",
+				"Atelier.Cauldron/ConfigValue:Puddings": true
+			},
+		},
+		{
+			"LogName": "Dessert Stand - Machinist",
+			"Action": "EditData", 
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Wildflour.AtelierGoods_Dessert_Stand", "ReadyTimeModifiers" ],
+			"Entries": {
+				"{{ModId}}.WildflourArtisanGoods.DessertStand.Machinist": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.DessertStand.Machinist",
+					"Modification": "Multiply",
+					"Amount": 0.75,
+					"Condition": "ITEM_CATEGORY Input -81 -80 -79 -75, !ITEM_CONTEXT_TAG Input forage_item, KediDili.VanillaPlusProfessions_PlayerHasProfession Current Machinist"
+				}
+			},
+			"When": {
+				"HasMod": "Atelier.Cauldron",
+				"Atelier.Cauldron/ConfigValue:TinyCakes": true
+			},
+		},
+		{
+			"LogName": "Oven - Machinist",
+			"Action": "EditData", 
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Wildflour.AtelierGoods_Oven", "ReadyTimeModifiers" ],
+			"Entries": {
+				"{{ModId}}.WildflourArtisanGoods.Oven.Machinist": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.Oven.Machinist",
+					"Modification": "Multiply",
+					"Amount": 0.75,
+					"Condition": "ITEM_CATEGORY Input -81 -80 -79 -75, !ITEM_CONTEXT_TAG Input forage_item, KediDili.VanillaPlusProfessions_PlayerHasProfession Current Machinist"
+				}
+			},
+			"When": {
+				"HasMod": "Atelier.Cauldron",
+				"Atelier.Cauldron/ConfigValue:Muffins": true
+			},
+		},
+		{
+			"LogName": "Fragrance Extractor - Machinist",
+			"Action": "EditData", 
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Wildflour.AtelierGoods_FragranceStation", "ReadyTimeModifiers" ],
+			"Entries": {
+				"{{ModId}}.WildflourArtisanGoods.FragranceExtractor.Machinist": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.FragranceExtractor.Machinist",
+					"Modification": "Multiply",
+					"Amount": 0.75,
+					"Condition": "ITEM_CATEGORY Input -81 -80 -79 -75, !ITEM_CONTEXT_TAG Input forage_item, KediDili.VanillaPlusProfessions_PlayerHasProfession Current Machinist"
+				}
+			},
+			"When": {
+				"HasMod": "Atelier.Cauldron",
+				"Query: ({{Atelier.Cauldron/ConfigValue:Perfume}} = 'true') OR ({{Atelier.Cauldron/ConfigValue:Incense}} = 'true')": true
+			},
+		},
+		{
+			"LogName": "Wax Cauldron - Machinist",
+			"Action": "EditData", 
+			"Target": "Data/Machines",
+			"TargetField": [ "(BC)Wildflour.AtelierGoods_CandleStation", "ReadyTimeModifiers" ],
+			"Entries": {
+				"{{ModId}}.WildflourArtisanGoods.WaxCauldron.Machinist": {
+					"Id": "{{ModId}}.WildflourArtisanGoods.WaxCauldron.Machinist",
+					"Modification": "Multiply",
+					"Amount": 0.75,
+					"Condition": "ITEM_CATEGORY Input -81 -80 -79 -75, !ITEM_CONTEXT_TAG Input forage_item, KediDili.VanillaPlusProfessions_PlayerHasProfession Current Machinist"
+				}
+			},
+			"When": {
+				"HasMod": "Atelier.Cauldron",
+				"Query: ({{Atelier.Cauldron/ConfigValue:Candles}} = 'true') OR ({{Atelier.Cauldron/ConfigValue:Soap}} = 'true')": true
+			},
+		},
+	]
+}

@@ -126,14 +126,14 @@
 					"ItemId": "(O)709",
 					"MinStack": 20,
 					"MaxStack": 50,
-					"Condition": "ITEM_ID Input (O)160 (O)899, KediDili.VanillaPlusProfessions_PlayerHasTalent Current BigFishSmallPond",
+					"Condition": "ITEM_ID Input (O)163 (O)900, KediDili.VanillaPlusProfessions_PlayerHasTalent Current BigFishSmallPond",
 					"Chance": 0.2,
 				},
 				"{{ModId}}_Legend_HyperQualityFertilizer": {
 					"ItemId": "(O)919",
 					"MinStack": 5,
 					"MaxStack": 10,
-					"Condition": "ITEM_ID Input (O)160 (O)899, KediDili.VanillaPlusProfessions_PlayerHasTalent Current BigFishSmallPond",
+					"Condition": "ITEM_ID Input (O)163 (O)900, KediDili.VanillaPlusProfessions_PlayerHasTalent Current BigFishSmallPond",
 					"Chance": 0.15,
 				},
 				"{{ModId}}_Glacierfish_Aquamarine": {

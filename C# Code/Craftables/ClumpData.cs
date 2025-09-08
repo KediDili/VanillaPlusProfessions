@@ -2,7 +2,7 @@
 {
     public class ClumpData
     {
-        public int Id;
+        public string Id;
 
         public string TextureName;
     }

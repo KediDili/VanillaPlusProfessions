@@ -197,7 +197,7 @@ namespace VanillaPlusProfessions.Managers
                     if (ShouldBeInvincible(__instance))
                     {
                         TalentUtility.MakeFarmerInvincible(__instance);
-                        __instance.currentLocation.debris.Add(new("Dodge", 5, __instance.StandingPixel.ToVector2(), Color.White, 4f, 0f));
+                        __instance.currentLocation.debris.Add(new(ModEntry.GetMe().Helper.Translation.Get("Message.Dodge"), 5, __instance.StandingPixel.ToVector2(), Color.White, 1f, 0f));
                         __result = false;
                     }
                 }

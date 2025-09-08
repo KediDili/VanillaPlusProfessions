@@ -29,7 +29,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
                 prefix: new HarmonyMethod(PatcherType, nameof(PullFishFromWater_Prefix))
             );
             CoreUtility.PatchMethod(
-                PatcherName, "FishPond.GetFishProduce",
+                PatcherName, "FishPond.dayUpdate",
                 original: AccessTools.Method(typeof(FishPond), nameof(FishPond.dayUpdate)),
                 postfix: new HarmonyMethod(PatcherType, nameof(dayUpdate_Postfix))
             );
@@ -198,13 +198,11 @@ namespace VanillaPlusProfessions.Talents.Patchers
         }
         public static int TryOverrideBubbleDistance() => TalentUtility.AnyPlayerHasTalent(Constants.Talent_BubbleTrouble) ? 8 : 5;
 
-        //What if we turn this into a postfix?
-
         public static void dayUpdate_Postfix(FishPond __instance)
         {
             try
             {
-                if ((__instance.output.Value is null || __instance.output.Value.QualifiedItemId != "(O)812"))
+                if ((__instance.output.Value is null || __instance.output.Value?.QualifiedItemId != "(O)812"))
                 {
                     Item output = ItemRegistry.GetObjectTypeDefinition().CreateFlavoredRoe(__instance.GetFishObject());
                     int stack = 0;
