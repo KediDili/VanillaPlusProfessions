@@ -3,7 +3,7 @@
 **Warning: This guide might assume you're already familiar with JSON format, Content Patcher packs, Game State Queries and/or C# based mods depending on the part of the guide.**
 
 ## Content Packs (Mostly CP, though)
-VPP offers two custom CP tokens and one custom GSQ for compatibility purposes at the moment.
+VPP offers three custom CP tokens and custom GSQs for compatibility purposes at the moment.
 Additionally, if you need to know whether your custom X is compatible with Y feature of VPP, every talent and profession section in [``features.md``](https://github.com/KediDili/VanillaPlusProfessions/blob/main/compatibility.md) tells how to add compatibility or do they need anything at all!
 
 The queries/tokens, and the formats are listed below:
@@ -88,8 +88,7 @@ VPP offers an API to do things like adding custom talent trees for SpaceCore ski
 If you want to use the VPP API:
 1) Copy [``IVanillaPlusProfessions.cs``](https://github.com/KediDili/VanillaPlusProfessions/blob/main/Compatibility/IVanillaPlusProfessions.cs) in Compatibility folder to your project.
 2) Delete the elements that you don't need, as the API may change anytime this will help your version to be compatible as long as possible.
-3) Copy [``Talent.cs``](https://github.com/KediDili/VanillaPlusProfessions/blob/main/Talents/Talent.cs) in Talents folder to your project (Do this only if you are a custom skill mod author who wants to add a custom talent tree for VPP. Otherwise, ignore this step.)
-4) Request it through SMAPI's ModRegistry.
+3) Request it through SMAPI's ModRegistry.
 
 If your add any new things of these following things, you might need to use the API for compatibility with these features:
 | Mod Feature     | VPP Feature                   |
@@ -114,13 +113,16 @@ There are also some guidelines to keep in mind that aren't necessarily technical
 - Level 20 professions are "combo" professions, which are special professions that do not care what you chose at level 15 and that are always a crossover of another skill and your skill. (or in VPP's case, two different vanilla skills).
 
 ***If you DO want to create a talent tree***
-- [Add the VPP API to your project.](https://github.com/KediDili/VanillaPlusProfessions/blob/main/compatibility.md#c-mods)
-- Create all of your talents as ``Talent`` instances. (You can do this however you may like, so you can read them from a .json file -which is the way VPP does it- or hardcode them in C# if that's your way.)
-- Register them by using the ``RegisterCustomSkillTree`` method.
+1) You will need access some of VPP's inner code and just copying the IVanillaPlusProfessions.cs will not work. This requires making VPP a hard dependency through your .csproj file, so making a "bridge mod" is a preferable approach than adding it to the base .dll (similar to PFMAutomate, used pre-1.6 to make PFM (Producer Framework Mod) machinery compatible with Automate, which was the proper way to add custom machines back then.)
+Copy this line to your .csproj file:
+``<Reference Include="VanillaPlusProfessions" HintPath="$(GameModsPath)\VanillaPlusProfessions\VanillaPlusProfessions.dll" Private="False" />``
+
+2) Register it through ``RegisterCustomSkillTree(string skillID, Func<string> displayTitle, List<Talent> talents, Texture2D treeTexture, Rectangle sourceRect, int bundleID = -1, Color? tintColor = null)`` method found in the VPP API: [``IVanillaPlusProfessions.cs``](https://github.com/KediDili/VanillaPlusProfessions/blob/main/Compatibility/IVanillaPlusProfessions.cs) file.
+
 <br/><br/>
 
 There are also a couple of guidelines to keep in mind that aren't necessarily technical:
-- VPP awards talent points for every level up, including SpaceCore skills. This means there's at least ``[insert your level limit]`` talent points the player may gain just from your skill so it's highly recommended your talent tree has at least a few more than the limit, otherwise a player can max your talent tree and still be left with extra points and have nothing more to experience your tree, which reduces replayability. (For exp: VPP adds 25 talents for every vanilla skill, since the max limit is now 20 and not 10)
+- VPP awards talent points for every level up, including SpaceCore skills. This means there's at least ``[insert your level limit]`` talent points the player may gain just from your skill so it's highly recommended your talent tree has at least a few more than the limit, otherwise a player can max your talent tree and still be left with extra points and have nothing more to experience your tree, which reduces replayability for your mod, for VPP itself and for other skill mods. (For exp: VPP adds 25 talents for every vanilla skill, since the max limit is now 20 and not 10)
 - Talents are much more powerful and accessible than professions, due to talents being immediately purchasable but professions have level limits. This means having a talent do an exact same thing as your professions will lead the player to prefer talents instead of your professions because they're just easier and basically kill your professions or enable min-maxing by trying to benefit from both at once.<br/><br/>TLDR; Do not make your talents do the same thing as your professions or your skill's other extra features.
 
 
