@@ -387,6 +387,7 @@ For Mod Authors: There's nothing you should do to add compatibility with this pr
 <img width="78" height="78" alt="Icon15" src="https://github.com/user-attachments/assets/c60e2cb5-3117-488d-bfff-f5ebbbc9fef1" />
 <br/>Chance for recycled trash to produce various tackles.
 There's a chance that putting trash in recycling machine will output tackles. Full drops are explained below:
+
 | Type of Trash   | Possible Drop                               |
 |:---------------:|:-------------------------------------------:|
 | Trash           | Lead Bobber (%25)<br/>Sonar Bobber (%10)    |
@@ -412,6 +413,7 @@ For Mod Authors: Your fish must have at least one ``PopulationGate`` entry to be
 <img width="78" height="78" alt="Icon43" src="https://github.com/user-attachments/assets/397c1c9c-b165-4f43-98f7-fad0e6635de4" />
 <br/>Gems can be used as tackles.
 Every vanilla gem will act like a certain vanilla tackle when placed to the fishing rod[^2]. The matches are:
+
 | Gem           | Tackle it Acts Like |
 |:-------------:|:-------------------:|
 |Prismatic Shard| Curiosity Lure      |
@@ -552,6 +554,7 @@ For Mod Authors: If you add custom ores and metal bars, you should also make fur
 <img width="78" height="78" alt="Icon28" src="https://github.com/user-attachments/assets/056d36d7-e16a-4026-9587-41e6a469ad21" />
 <br/>Crafting recipes gained via the mining skill require less materials.
 The recipe changes are explained below:
+
 | Craftable Name | Old Recipe | New Recipe |
 |:--------------:|:----------:|:----------:|
 | Cherry Bomb    | 4 Copper Ore<br/>1 Coal | 3 Copper Ore<br/>1 Coal |
@@ -617,9 +620,8 @@ It'll allow you to enchant your weapons and tools using 4 fire quartzes for each
 
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 ### Mining-Combat (Lv20)
-<br/>Gain combat buffs for every 100 stones broken that day via pickaxe or bombs.
-<img width="78" height="78" alt="Icon48" src="https://github.com/user-attachments/assets/2b38b8e4-ab86-4992-aad0-e8ba8778e244" />
-<br/>Every 100 stones you break will grant you ``stone amount / 100``+ Defense and attack buffs. It doesn't matter whether they're destroyed by hand or bombs, but it will reset the next day.
+<img width="78" height="78" alt="Icon48" src="https://github.com/user-attachments/assets/2b38b8e4-ab86-4992-aad0-e8ba8778e244" /><br/>Gain combat buffs for every 100 stones broken that day via pickaxe or bombs.
+Every 100 stones you break will grant you ``stone amount / 100``+ Defense and attack buffs. It doesn't matter whether they're destroyed by hand or bombs, but it will reset the next day.
 
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 ### Mining-Foraging (Lv20)
