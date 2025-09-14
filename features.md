@@ -190,29 +190,37 @@ Every profession you see with '(Lv15)' can be chosen at level 15, and '(Lv20)' m
 ```
 
 ### Nutritionist (Lv15)
-Machines that take coop animal goods have a chance to double their output. (Machinery as in Mayonnaise machine or loom, but VPP doesn't try to keep track of wool comes from whether a sheep or a rabbit as that'd require effort that isn't worth it imho.)
+<img width="78" height="78" alt="Icon12" src="https://github.com/user-attachments/assets/638365f5-fc54-492f-b3f2-e8ea580fc06d" />
+<br/>Machines that take coop animal goods have a chance to double their output. (Machinery as in Mayonnaise machine or loom, but VPP doesn't try to keep track of wool comes from whether a sheep or a rabbit as that'd require effort that isn't worth it imho.)
 
-For Mod Authors: If your animal(s) live in the coop and their products use machines that aren't Mayonnaise Machine or Loom, you should add ``StackModifiers`` to your rules to double the amount of the output. You can use the ``HasProfession`` token to detect if the player has this profession.
+For Mod Authors: If your animal(s) live in the coop and their products use machines that aren't Mayonnaise Machine or Loom, you should add ``StackModifiers`` to your rules to double the amount of the output. You can use the ``HasProfession`` token to 
+detect if the player has this profession.
 ### Breeder (Lv15)
-Coop animals are worth more when sold.
+<img width="78" height="78" alt="Icon1" src="https://github.com/user-attachments/assets/3c67e270-47b1-40cf-99f3-b8cf56beca08" />
+<br/>Coop animals are worth more when sold.
 
 For Mod Authors: You don't need to do anything, as VPP will automatically detect your animal if it lives in any vanilla coop.
 ### Musterer (Lv15)
-Machines that take barn animal goods work faster.
+<img width="78" height="78" alt="Icon2" src="https://github.com/user-attachments/assets/fa5c6264-f080-4c48-b6bb-025195bbdfb1" />
+<br/>Machines that take barn animal goods work faster.
 Loom, Mayonnaise machine (only for ostrich eggs) and cheese presses will work faster.
 
-For Mod Authors: If your animal(s) live in the barn and their products use machines that aren't Loom or Cheese Press, or if they use Mayonnaise Machine you should add ``ReadyTimeModifiers`` to the said machinery to make the your produce faster. You can use the ``HasProfession`` token to detect if the player has this profession.
+For Mod Authors: If your animal(s) live in the barn and their products use machines that aren't Loom or Cheese Press, or if 
+they use Mayonnaise Machine you should add ``ReadyTimeModifiers`` to the said machinery to make the your produce faster. You can use the ``HasProfession`` token to detect if the player has this profession.
 ### Caretaker (Lv15)
-Milk pail and shears take no energy. Chance for hay eaten by animals to not be consumed. The chance for animals to not eat hay is %35, and its evaluated for every animal individually.
+<img width="78" height="78" alt="Icon3" src="https://github.com/user-attachments/assets/4aa7e07d-0f23-405c-9f1e-461e458eac91" />
+<br/>Milk pail and shears take no energy. Chance for hay eaten by animals to not be consumed. The chance for animals to not eat hay is %35, and its evaluated for every animal individually.
 
 For Mod Authors: For custom animals, you don't need to do anything as VPP will apply these effects automatically for any animal. If you add any custom tools for animals, you'll have to check if the player has a profession with the ID of ``33``.
 ### Machinist (Lv15)
-Machines that take harvested crops work faster.
+<img width="78" height="78" alt="Icon4" src="https://github.com/user-attachments/assets/ee959da7-3722-410a-bad2-1a6fb2a711a2" />
+<br/>Machines that take harvested crops work faster.
 Preserves Jar, Keg and Oil Maker will process 25% faster when the inputs are harvested crops.
 
 For Mod Authors: If you add machinery that accept crops, you should add a ReadyTimeModifier that applies the same effect when
 ### Connoisseur (Lv15)
-Artisan goods are loved by NPCs.
+<img width="78" height="78" alt="Icon5" src="https://github.com/user-attachments/assets/95899958-bf7e-4f7d-9b4e-254fcd1eac11" />
+<br/>Artisan goods are loved by NPCs.
 Most NPCs will love most artisan goods, but it wont automatically make every artisan good loved. Exclusion cases are mentioned below.
 
 For Mod Authors: VPP chooses to ignore the characters or items in the following cases:
@@ -221,16 +229,19 @@ For Mod Authors: VPP chooses to ignore the characters or items in the following 
 3) The NPC has an entry of ``"Kedi.VPP.ExcludeFromConnoisseur": "true"`` in their Data/Characters entry's CustomFields
 So if you want to exclude an item for your NPC fully or just have it ignore your NPC/item, add any of those
 ### Horticulturist (Lv15)
-Trees grown in greenhouses will give iridium-quality produce.
+<img width="78" height="78" alt="Icon11" src="https://github.com/user-attachments/assets/f9786a6a-c1af-4362-9b1e-36ac8a90ef2f" />
+<br/>Trees grown in greenhouses will give iridium-quality produce.
 
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 ### Agronomist (Lv15)
-If a crop is grown outside of a greenhouse, chance for fertilizer to not be consumed.
+<img width="78" height="78" alt="Icon10" src="https://github.com/user-attachments/assets/2257d0bc-ac2b-4ee9-b8aa-300a3615081d" />
+<br/>If a crop is grown outside of a greenhouse, chance for fertilizer to not be consumed.
 Once you choose this profession, for every fertilizer you use outside of a greenhouse, each time its got a %30 chance to not be consumed. Gem dusts made with geode crushers are also affected by this profession.
 
 For Mod Authors: Crop modders do not have to do anything, but for mods that add custom fertilizers, you might need to check if the player has a profession with the ID of ``37``.
 ### Farming-Mining (Lv20)
-This profession allows you to use the Geode Crusher to produce Gem Dusts out of minerals, which you can use in place of fertilizers (gem dusts are affected by Agronomist profession as well.)
+<img width="78" height="78" alt="Icon42" src="https://github.com/user-attachments/assets/867c2548-9bb8-4e13-8b81-bf0a2f9381e5" />
+<br/>This profession allows you to use the Geode Crusher to produce Gem Dusts out of minerals, which you can use in place of fertilizers (gem dusts are affected by Agronomist profession as well.)
 Which type of effect they give depends on their price and color:
 
 | Color                        | Effect             |
@@ -250,7 +261,8 @@ Which type of effect they give depends on their price and color:
 
 For Mod Authors: If you add custom minerals, they should have an appropriate color tag and be in the minerals category. If both of those are met, VPP will make gem dusts of your custom mineral too.
 ### Farming-Foraging (Lv20)
-Fruit trees and giant crops are tappable.
+<img width="78" height="78" alt="Icon41" src="https://github.com/user-attachments/assets/fe3f8656-1ab2-4570-a6f4-fab1f49fca8d" />
+<br/>Fruit trees and giant crops are tappable.
 You can now tap any giant crop and fruit tree with any tapper. Every 5 days that the tapper isn't removed, it will yield either a custom item defined by the game data (goes only for custom giant crops and fruit tree) or a Fruit Syrup flavored with the crop or fruit of the giant crop/fruit tree. 
 
 - For Mod Authors: If you want your fruit tree or giant crop to give a custom item instead of a Fruit Syrup, you should add an entry like ``"Kedi.VPP.DoesUseCustomItem": "Example.ModID_UnqualifiedItemID"`` to the fruit tree/giant crop data's CustomFields. Otherwise you don't have to do anything other than giving your fruit tree or giant crop at least one fruit/crop.
@@ -277,21 +289,26 @@ You can now tap any giant crop and fruit tree with any tapper. Every 5 days that
 ```
 
 ### Oceanologist (Lv15)
-Attaching bait to a fishing rod will prevent trash from being caught.
+<img width="78" height="78" alt="Icon9" src="https://github.com/user-attachments/assets/f9211b84-c76e-475b-b958-9f8914f72af2" />
+
+<br/>Attaching bait to a fishing rod will prevent trash from being caught.
 If the first catch is a trash item, the catch determination process is re-run up to 100 times, then the mod lets it go to prevent infinite loops even if its a trash.
 
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 ### Artificer (Lv15)
-Tackles last longer before breaking.
+<img width="78" height="78" alt="Icon8" src="https://github.com/user-attachments/assets/f6444c0f-f25e-4d88-911b-62e0717dbd47" />
+<br/>Tackles last longer before breaking.
 Tackles will have now 40 uses instead of 20.
 
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 ### Plunderer (Lv15)
-Guaranteed treasure chest with every fishing rod cast.
+<img width="78" height="78" alt="Icon7" src="https://github.com/user-attachments/assets/3f0e5646-4aba-4390-a2c5-f15851782e79" />
+<br/>Guaranteed treasure chest with every fishing rod cast.
 
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 ### Buccaneer (Lv15)
-Treasure chests contain rarer and more valuable items.
+<img width="78" height="78" alt="Icon6" src="https://github.com/user-attachments/assets/a7fe00e3-a5cf-41b0-a28e-f47c58665453" />
+<br/>Treasure chests contain rarer and more valuable items.
 Some drops will be switched with others upon fishing these treasures with a rod. The artifact drops will be replaced only if you have donated them to the museum already. Full drops are explained below:
 
 |                Old Loot                | New Loot                                  |
@@ -356,16 +373,19 @@ Some drops will be switched with others upon fishing these treasures with a rod.
  
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 ### Aquaculturalist (Lv15)
-Chance for fish ponds to produce double roe.
+<img width="78" height="78" alt="Icon13" src="https://github.com/user-attachments/assets/dff030c2-2dd3-4a76-a045-c095d4ba2611" />
+<br/>Chance for fish ponds to produce double roe.
 
 For Mod Authors: There's nothing you should do to add compatibility with this profession even if you add custom fish.
 ### Trawler (Lv15)
-Adding bait to a crab pot guarantees a high-quality catch.
+<img width="78" height="78" alt="Icon14" src="https://github.com/user-attachments/assets/68af87ce-dbdb-494e-ba0a-de06508435a3" />
+<br/>Adding bait to a crab pot guarantees a high-quality catch.
 There's a %30 chance the output will be iridium quality, and %70 chance to be gold quality.
 
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 ### Recycler (Lv15)
-Chance for recycled trash to produce various tackles.
+<img width="78" height="78" alt="Icon15" src="https://github.com/user-attachments/assets/c60e2cb5-3117-488d-bfff-f5ebbbc9fef1" />
+<br/>Chance for recycled trash to produce various tackles.
 There's a chance that putting trash in recycling machine will output tackles. Full drops are explained below:
 | Type of Trash   | Possible Drop                               |
 |:---------------:|:-------------------------------------------:|
@@ -377,17 +397,20 @@ There's a chance that putting trash in recycling machine will output tackles. Fu
 
 For Mod Authors: If you aren't adding custom tackles, this shouldn't matter for your mod. If so, you should add machine rules to Recycling Machine to give your tackle as output. VPP adds rules for vanilla tackles, with a chance of %25 for common ones and %10 for rarer ones. You can use the ``HasProfession`` token to detect if the player has this profession.
 ### Hydrologist (Lv15)
-Chance for crab pots to produce a double catch.
+<img width="78" height="78" alt="Icon16" src="https://github.com/user-attachments/assets/a9a0acbb-fc14-4080-9b62-2a4d1a433ca2" />
+<br/>Chance for crab pots to produce a double catch.
 There's a %30 chance your crab pot catch to be doubled in stack.
 
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 ### Fishing-Farming (Lv20)
-Full fish ponds will continue making item requests. If completed, double yield for the rest of the week.
+<img width="78" height="78" alt="Icon44" src="https://github.com/user-attachments/assets/14b8fef3-fe98-4f67-9490-eb12cee04f31" />
+<br/>Full fish ponds will continue making item requests. If completed, double yield for the rest of the week.
 Fish ponds that are full will ask for quest items, just as they did while wanting to expand the population. If you bring the item to them, they'll give double items for the rest of the week.
 
 For Mod Authors: Your fish must have at least one ``PopulationGate`` entry to be compatible with this profession.
 ### Fishing-Mining (Lv20)
-Gems can be used as tackles.
+<img width="78" height="78" alt="Icon43" src="https://github.com/user-attachments/assets/397c1c9c-b165-4f43-98f7-fad0e6635de4" />
+<br/>Gems can be used as tackles.
 Every vanilla gem will act like a certain vanilla tackle when placed to the fishing rod[^2]. The matches are:
 | Gem           | Tackle it Acts Like |
 |:-------------:|:-------------------:|
@@ -425,39 +448,48 @@ For Mod Authors: There's nothing you should do to add compatibility with this pr
 
 ```
 ### Arborist (Lv15)
-Wild trees grow faster.
+<img width="78" height="78" alt="Icon17" src="https://github.com/user-attachments/assets/43a40092-e74f-4211-bef8-c977e2c65aff" />
+<br/>Wild trees grow faster.
 
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 ### Shaker (Lv15)
-Chance for wild trees to drop items when shaken.
+<img width="78" height="78" alt="Icon18" src="https://github.com/user-attachments/assets/dbff3cfc-307f-4172-aeac-4846cda5d85e" />
+<br/>Chance for wild trees to drop items when shaken.
 
 For Mod Authors: You can add items as drops for your custom wild trees' ``ShakeItems`` and ``SeedDropItems`` fields. You can use the ``HasProfession`` token to see if the player has the profession.
 ### Sapper (Lv15)
-Tappers work faster.
+<img width="78" height="78" alt="Icon24" src="https://github.com/user-attachments/assets/d009d767-565d-4d3a-a741-7f06bcebef80" />
+<br/>Tappers work faster.
 All tappers will output %20 faster.
 
 For Mod Authors: If you add custom tappers, add ``tapper_multiplier_<speed>`` context tag to your item. Vanilla takes the speed bit and sets the minutes-until-ready to ``daysUntilReady x 1 / speed`` . You can use the ``HasProfession`` token to see if the player has the profession.
 ### Orchardist (Lv15)
-Tappers give double harvest.
+<img width="78" height="78" alt="Icon23" src="https://github.com/user-attachments/assets/bf73dd47-026d-4558-89f4-87fceeefc47d" />
+<br/>Tappers give double harvest.
 
 For Mod Authors: There's nothing you need to do to add compatibility with this profession.
 ### Ranger (Lv15)
-Forest forage worth more. The prices will be doubled.
+<img width="78" height="78" alt="Icon22" src="https://github.com/user-attachments/assets/1ffb929b-12e9-4468-b82b-9a2825459d79" />
+<br/>Forest forage worth more. The prices will be doubled.
+
 
 For Mod Authors: You can exclude your custom forage if you give it the ``kedi_vpp_banned_ranger`` context tag.
 ### Adventurer (Lv15)
-Non-forest forage worth more. The prices will be doubled.
+<img width="78" height="78" alt="Icon21" src="https://github.com/user-attachments/assets/ea9a0f6d-f9af-4d64-a6c2-47ed2a634907" />
+<br/>Non-forest forage worth more. The prices will be doubled.
 
 For Mod Authors: You can exclude your custom forage if you give it the ``kedi_vpp_banned_adventurer`` context tag.
 ### Gleaner (Lv15)
-Crop seeds can be found as forage.
+<img width="78" height="78" alt="Icon20" src="https://github.com/user-attachments/assets/5b31643f-fece-4fe0-8704-3b6fea42e70f" />
+<br/>Crop seeds can be found as forage.
 
 Any vanilla seed may be found during their growing seasons in Forest, Mountain and Backwoods. (VPP will only affect vanilla seeds, but other mods can add theirs too.)
 
 For Mod Authors: If you add custom crops, you can add your seeds as forage with a chance of 0.1, if you wish.
 
 ### Wayfarer (Lv15)
-Chance for forage to be found out of season.
+<img width="78" height="78" alt="Icon19" src="https://github.com/user-attachments/assets/1bdef1be-a341-4735-b997-dca2a880e2e1" />
+<br/>Chance for forage to be found out of season.
 
 Any vanilla forage may be found OUT OF their regular seasons as well, for example a Holly may appear in Summer, Fall and Spring as well with this profession.
 VPP affects only vanilla forage on its own, but other mods may add theirs too.
@@ -465,13 +497,15 @@ VPP affects only vanilla forage on its own, but other mods may add theirs too.
 For Mod Authors: If you add custom forage, you can add your forage with a chance of 0.1 out of their regular seasons, if you wish.
 
 ### Foraging-Fishing (Lv20)
-Every four days, a randomly-selected forage item will be able to summon fishing bubbles when tossed in the water.
+<img width="78" height="78" alt="Icon46" src="https://github.com/user-attachments/assets/5e3ab6b2-1875-48ba-ba74-ed411dd72a3c" />
+<br/>Every four days, a randomly-selected forage item will be able to summon fishing bubbles when tossed in the water.
 
 For Mod Authors: If you want your forage to be included by this, make sure it has the ``forage_item`` context tag.
 If you want your forage to be excluded, make sure it has ``vpp_forageThrowGame_banned`` context tag.
 
 ### Foraging-Combat (Lv20)
-Off-screen monsters can be tracked.
+<img width="78" height="78" alt="Icon45" src="https://github.com/user-attachments/assets/9ac591ab-871d-4046-aa61-35998f5f32d6" />
+<br/>Off-screen monsters can be tracked.
 Similar to the Tracker Profession in vanilla, when you choose this profession you'll be shown small and moving red arrows that points at monsters.
 
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
@@ -498,21 +532,25 @@ For Mod Authors: There's nothing you should do to add compatibility with this pr
 ```
 
 ### Metallurgist (Lv15)
-Metal bars require less materials to produce.
+<img width="78" height="78" alt="Icon25" src="https://github.com/user-attachments/assets/5508f486-fc00-4ac0-baf4-70464ff8b5aa" />
+<br/>Metal bars require less materials to produce.
 For all vanilla bars and for Furnace and Heavy Furnaces, the amount of ores are reduced by %20
 
 For Mod Authors: If you add custom metal bars, then you should also reduce the material amount by %20.
 ### Ironmonger (Lv15)
-Ores are worth more.
+<img width="78" height="78" alt="Icon26" src="https://github.com/user-attachments/assets/35d0ceb5-cd3f-4e73-8fe9-0f7b206a26dc" />
+<br/>Ores are worth more.
 
 For Mod Authors: If you add custom ores, then you should also double your ore's sell price.
 ### Ignitor (Lv15)
-Furnaces work faster.
+<img width="78" height="78" alt="Icon27" src="https://github.com/user-attachments/assets/37820499-03d7-4ddf-9d0d-b8ce038d68fd" />
+<br/>Furnaces work faster.
 Makes it so that any metal bar is processed %20 faster in both Furnace and Heavy Furnaces.
 
 For Mod Authors: If you add custom ores and metal bars, you should also make furnaces faster.
 ### Crafter (Lv15)
-Crafting recipes gained via the mining skill require less materials.
+<img width="78" height="78" alt="Icon28" src="https://github.com/user-attachments/assets/056d36d7-e16a-4026-9587-41e6a469ad21" />
+<br/>Crafting recipes gained via the mining skill require less materials.
 The recipe changes are explained below:
 | Craftable Name | Old Recipe | New Recipe |
 |:--------------:|:----------:|:----------:|
@@ -530,7 +568,8 @@ The recipe changes are explained below:
 
 For Mod Authors: If you add custom crafting recipes to unlock with Mining skill, you should lower the materials required.
 ### Archeologist (Lv15)
-Artifacts can be recycled.
+<img width="78" height="78" alt="Icon29" src="https://github.com/user-attachments/assets/47e423b0-b7cb-4ed6-a9ce-fe712acf5d92" />
+<br/>Artifacts can be recycled.
 Allows artifacts to be recycled via Recycling Machine. The full outputs are explained below:
 
 | Artifact                          | Output                                                           |
@@ -561,26 +600,31 @@ Allows artifacts to be recycled via Recycling Machine. The full outputs are expl
 For Mod Authors: If you add custom artifacts, then you can also add machine rules to Recycling Machine to process your artifacts. (or you can make your own recycling machine for them, up to you)
 
 ### Mineralogist (Lv15)
-All vanilla geodes hold the same items as omni-geodes.
+<img width="78" height="78" alt="Icon30" src="https://github.com/user-attachments/assets/84187d52-7931-4bdf-a6f2-7dee64a76831" />
+<br/>All vanilla geodes hold the same items as omni-geodes.
 
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 ### Appraiser (Lv15)
-Cinder shard nodes drop more cinder shards.
+<img width="78" height="78" alt="Icon36" src="https://github.com/user-attachments/assets/b296357d-abd4-4bca-a6a2-a8a40ef452d2" />
+<br/>Cinder shard nodes drop more cinder shards.
 In vanilla, cinder shard nodes drop 1-3 shards each. This profession changes them to drop 2-5 instead.
 
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 ### Enchanter (Lv15)
-Cheaper enchantment of weapons and tools.
+<img width="78" height="78" alt="Icon35" src="https://github.com/user-attachments/assets/c6d57668-30e3-4a4b-bca4-14c33d6c99fd" />
+<br/>Cheaper enchantment of weapons and tools.
 It'll allow you to enchant your weapons and tools using 4 fire quartzes for each enchant attempt, but you still can use prismatic shards too.
 
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 ### Mining-Combat (Lv20)
-Gain combat buffs for every 100 stones broken that day via pickaxe or bombs.
-Every 100 stones you break will grant you ``stone amount / 100``+ Defense and attack buffs. It doesn't matter whether they're destroyed by hand or bombs, but it will reset the next day.
+<br/>Gain combat buffs for every 100 stones broken that day via pickaxe or bombs.
+<img width="78" height="78" alt="Icon48" src="https://github.com/user-attachments/assets/2b38b8e4-ab86-4992-aad0-e8ba8778e244" />
+<br/>Every 100 stones you break will grant you ``stone amount / 100``+ Defense and attack buffs. It doesn't matter whether they're destroyed by hand or bombs, but it will reset the next day.
 
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 ### Mining-Foraging (Lv20)
-Increased possibility for<br/>nMushroom level spawn.
+<img width="78" height="78" alt="Icon47" src="https://github.com/user-attachments/assets/e1f9f226-ac9a-492a-aac6-0232a540ad96" />
+<br/>Increased possibility for<br/>nMushroom level spawn.
 In vanilla, there are "mushroom levels" which spawn in the Mine, below level 80, has colorful lights on the walls and a lot of mushrooms.
 The chance for their appaearance is now at %15, while in vanilla this is %0.8.
 
@@ -607,51 +651,61 @@ For Mod Authors: There's nothing you should do to add compatibility with this pr
 ```
 
 ### Warrior (Lv15)
-Invincible monsters can be damaged.
+<img width="78" height="78" alt="Icon34" src="https://github.com/user-attachments/assets/f7ac6aab-d9cc-45ea-a9a9-7c2831cfa7d9" />
+<br/>Invincible monsters can be damaged.
 Monsters like armored bugs, rock crabs, mummies, or pupating grubs can be damaged.
 
 For Mod Authors: If you add custom monsters that aren't added via FTM and not named ``Grub``, ``RockCrab``, ``Mummy`` or ``Bug`` in the C# code (or is not a subclass of any of them), contact me for compatibility with your mod. Otherwise you don't need to do anything.
 ### Berserker (Lv15)
-Damage dealt increases at low health.
+<img width="78" height="78" alt="Icon33" src="https://github.com/user-attachments/assets/8aae1f59-ed23-4e3c-8a61-b006f3bdbe1e" />
+<br/>Damage dealt increases at low health.
 When your health is below 1/4 of your max health, your damage is doubled.
 
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 ### Survivalist (Lv15)
-Length of positive buffs increased.
+<img width="78" height="78" alt="Icon32" src="https://github.com/user-attachments/assets/224e7265-4693-4d4e-9de6-410ee5eb040d" />
+<br/>Length of positive buffs increased.
 The length of the positive buffs are doubled.
 
 For Mod Authors: If you're adding a custom buff that's not a debuff, make sure you set its IsDebuff field to false.
 ### Healer (Lv15)
-Length of negative buffs decreased.
+<img width="78" height="78" alt="Icon31" src="https://github.com/user-attachments/assets/061fc8c6-9ae5-40f6-b084-5e64779e262a" />
+<br/>Length of negative buffs decreased.
 The length of the negative buffs are halved.
 
 For Mod Authors: If you're adding a custom buff that's a debuff, make sure you set its IsDebuff field to true.
 ### Technician (Lv15)
-Grants invulnerability during special weapon cooldown.
+<img width="78" height="78" alt="Icon37" src="https://github.com/user-attachments/assets/a64f3dd2-84f3-4b87-8b60-51363e49908e" />
+<br/>Grants invulnerability during special weapon cooldown.
 You will temporarily be invulnerable to any enemy attack while any of your weapons are on cooldown.
 
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 ### Speedster (Lv15)
-Increased speed of weapon attacks and cooldowns.
+<img width="78" height="78" alt="Icon38" src="https://github.com/user-attachments/assets/d70a41de-4af9-4b9e-a0d2-8f1911a2f606" />
+<br/>Increased speed of weapon attacks and cooldowns.
 Your weapon attacks will be double as fast, but cooldowns will also take twice as much.
 
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 ### Assassin (Lv15)
-Guaranteed critical hits against monsters with high defense.
+<img width="78" height="78" alt="Icon39" src="https://github.com/user-attachments/assets/e709ddc0-46ef-4a7c-b226-59edd25475fc" />
+<br/>Guaranteed critical hits against monsters with high defense.
 You will be dealing guaranteed crits against Metal Heads, Hot Heads, Dwarvish Sentries, Stickbugs and Rock Crabs.
 
 For Mod Authors: If you add custom monsters that aren't added via FTM content packs and not named ``RockCrab``, ``MetalHead``, ``HotHead``, ``DwarvishSentry`` in the game code (or isn't subclasses of any of these), contact me for compatibility with your mod. Otherwise you don't need to do anything.
 ### Assailant (Lv15)
-No cooldowns after critical hits.
+<img width="78" height="78" alt="Icon40" src="https://github.com/user-attachments/assets/8f6b4dd0-8288-4ac2-8087-0b8daeab26d4" />
+<br/>No cooldowns after critical hits.
 
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 ### Combat-Farming (Lv20)
-Slimes in the slime hutch also produce valuable items.
+<img width="78" height="78" alt="Icon49" src="https://github.com/user-attachments/assets/aac4dc78-777e-4911-97f3-89647a48f1cf" />
+<br/>Slimes in the slime hutch also produce valuable items.
 When you leave your slimes without water, they'll produce Colored Petrified Slimes or Prismatic Slimes, which are valuable.
 
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 ### Combat-Fishing (Lv20)
-Fish can be used as slingshot ammo.
+<img width="78" height="78" alt="Icon50" src="https://github.com/user-attachments/assets/0192786a-263c-4825-862f-477412d4d80d" />
+<br/>Fish can be used as slingshot ammo.
 You read it right. Fish on slingshots. The damage the fish will do depends on how expensive it is.
 
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
