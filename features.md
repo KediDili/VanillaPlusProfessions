@@ -412,7 +412,7 @@ For Mod Authors: Your fish must have at least one ``PopulationGate`` entry to be
 ### Fishing-Mining (Lv20)
 <img width="78" height="78" alt="Icon43" src="https://github.com/user-attachments/assets/397c1c9c-b165-4f43-98f7-fad0e6635de4" />
 <br/>Gems can be used as tackles.
-Every vanilla gem will act like a certain vanilla tackle when placed to the fishing rod[^2]. The matches are:
+Every vanilla gem will act like a certain vanilla tackle when placed to the fishing rod. The matches are:
 
 | Gem           | Tackle it Acts Like |
 |:-------------:|:-------------------:|
@@ -425,7 +425,7 @@ Every vanilla gem will act like a certain vanilla tackle when placed to the fish
 |Amethyst       | Dressed Spinner     |
 |Topaz          | Cork Cobber         |
 
-[^2]: After being used at least once, they WILL NOT stack with other gems, even if they're of the same type!
+NOTE: After being used at least once, they WILL NOT stack with other gems, even if they're of the same type!
 
 For Mod Authors: There's nothing you should do to add compatibility with this profession.
 ## Foraging Professions
