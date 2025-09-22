@@ -44,6 +44,7 @@ namespace VanillaPlusProfessions
         internal IWearMoreRings WearMoreRingsAPI;
         internal IItemExtensions ItemExtensionsAPI;
         internal IBetterGameMenuApi BetterGameMenuAPI;
+        internal IExtraAnimalConfigApi ExtraAnimalConfigAPI;
 
         internal VanillaPlusProfessionsAPI VanillaPlusProfessionsAPI = new();
 
@@ -83,7 +84,7 @@ namespace VanillaPlusProfessions
             CoreModEntry.Value.Helper.Events.Player.LevelChanged += OnLevelChanged;
             CoreModEntry.Value.Helper.Events.Player.Warped += OnWarped;
             CoreModEntry.Value.Helper.Events.GameLoop.UpdateTicked += OnUpdateTicked;
-            
+
             CorePatcher.ApplyPatches();
             TalentCore.TalentCoreEntry.Value.Initialize(this);
             BuildingPatcher.ApplyPatches();
@@ -129,6 +130,7 @@ namespace VanillaPlusProfessions
                 me.WearMoreRingsAPI = me.Helper.ModRegistry.GetApi<IWearMoreRings>(Constants.ModId_WearMoreRings);
                 me.ItemExtensionsAPI = me.Helper.ModRegistry.GetApi<IItemExtensions>(Constants.ModId_ItemExtensions);
                 me.BetterGameMenuAPI = me.Helper.ModRegistry.GetApi<IBetterGameMenuApi>(Constants.ModId_BetterGameMenu);
+                me.ExtraAnimalConfigAPI = me.Helper.ModRegistry.GetApi<IExtraAnimalConfigApi>(Constants.ModId_ExtraAnimalConfig);
             }
             catch (Exception)
             {
@@ -285,7 +287,7 @@ namespace VanillaPlusProfessions
                         bird.update(Game1.currentGameTime, EmptyCritterRoom);
                     }
                 }
-            }            
+            }
         }
 
         private void OnWarped(object sender, WarpedEventArgs e)
@@ -312,7 +314,7 @@ namespace VanillaPlusProfessions
                                                      where tileobjpair.Value is not null && TalentUtility.IsBlandStone(tileobjpair.Value)
                                                      select tileobjpair.Key).ToList();
                         bool success = false;
-                        
+
                         Dictionary<Vector2, string> CoordinatesForMP = new();
                         for (int i = 0; i < validcoords.Count; i++)
                         {
@@ -487,7 +489,7 @@ namespace VanillaPlusProfessions
                             Game1.hudMessages.Add(new("Full inventory", HUDMessage.error_type));
                         }
                     }
-                    else if (Game1.player.currentLocation.Objects.TryGetValue(e.Cursor.Tile, out value2) && value2.ItemId == Constants.Id_BoxTrough && value2.lastInputItem.Value is null && Game1.player.ActiveObject?.ItemId == "178")
+                    else if (Game1.player.currentLocation.Objects.TryGetValue(e.Cursor.Tile, out value2) && value2.ItemId == Constants.Id_BoxTrough && value2.lastInputItem.Value is null && Game1.player.ActiveObject?.QualifiedItemId == (ExtraAnimalConfigAPI?.GetFeedOverride(Game1.currentLocation.ParentBuilding?.buildingType.Value) ?? "(O)178"))
                     {
                         value2.lastInputItem.Value = Game1.player.ActiveObject.getOne();
                         Game1.player.ActiveObject.ConsumeStack(1);

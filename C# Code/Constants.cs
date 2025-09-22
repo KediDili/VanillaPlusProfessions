@@ -11,6 +11,7 @@ namespace VanillaPlusProfessions
         public const string ModId_BetterGameMenu = "leclair.bettergamemenu";
         public const string ModId_TrinketTinker = "mushymato.TrinketTinker";
         public const string ModId_ItemExtensions = "mistyspring.ItemExtensions";
+        public const string ModId_ExtraAnimalConfig = "selph.ExtraAnimalConfig";
         public const string ModId_VPPCP = "KediDili.VPPData.CP";
 
         public const string Key_HasFoundForage = "Kedi.VPP.HasFoundForageGame";
@@ -184,7 +185,7 @@ namespace VanillaPlusProfessions
         public const string Talent_Resurgence = "Resurgence";
         public const string Talent_RefreshingWaters = "RefreshingWaters";
         public const string Talent_GoodSoaking = "GoodSoaking";
-        public const string Talent_NourishingRain = "NourishingRain";        
+        public const string Talent_NourishingRain = "NourishingRain";
         public const string Talent_HarmoniousBlooming = "HarmoniousBlooming";
         public const string Talent_Abundance = "Abundance";
         public const string Talent_FairysKiss = "FairysKiss";
