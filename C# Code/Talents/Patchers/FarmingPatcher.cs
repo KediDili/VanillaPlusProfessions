@@ -14,6 +14,8 @@ using StardewValley.GameData.Buildings;
 using StardewValley.Internal;
 using StardewValley.Objects;
 
+using IFeedInfo = VanillaPlusProfessions.Compatibility.IFeedInfo;
+
 namespace VanillaPlusProfessions.Talents.Patchers
 {
     public class FarmingPatcher
@@ -97,6 +99,10 @@ namespace VanillaPlusProfessions.Talents.Patchers
         public static void feedAllAnimals_Postfix(AnimalHouse __instance)
         {
             GameLocation rootLocation = __instance.GetRootLocation();
+            // If this building's feed is overridden by Extra Animal Config retrieve the feed info object
+            IFeedInfo? moddedFeedInfo = null;
+            string? eacFeedOverride = ModEntry.CoreModEntry.Value.ExtraAnimalConfigAPI?.GetFeedOverride(__instance.ParentBuilding?.buildingType.Value);
+            if (eacFeedOverride is not null && ModEntry.CoreModEntry.Value.ExtraAnimalConfigAPI.GetModdedFeedInfo().TryGetValue(eacFeedOverride, out moddedFeedInfo)) { }
             for (int x = 0; x < __instance.map.Layers[0].LayerWidth; x++)
             {
                 for (int y = 0; y < __instance.map.Layers[0].LayerHeight; y++)
@@ -104,7 +110,19 @@ namespace VanillaPlusProfessions.Talents.Patchers
                     Vector2 tileLocation = new(x, y);
                     if (__instance.objects.TryGetValue(tileLocation, out var boxTrough) && boxTrough.ItemId == Constants.Id_BoxTrough && boxTrough.lastInputItem.Value is null)
                     {
-                        Object hay = GameLocation.GetHayFromAnySilo(rootLocation);
+                        Object? hay = null;
+                        if (moddedFeedInfo is not null)
+                        {
+                            if (moddedFeedInfo.count > 0)
+                            {
+                                moddedFeedInfo.count--;
+                                hay = ItemRegistry.Create<Object>(eacFeedOverride);
+                            }
+                        }
+                        else
+                        {
+                            hay = GameLocation.GetHayFromAnySilo(rootLocation);
+                        }
                         if (hay == null)
                         {
                             return;
@@ -145,7 +163,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
                         }
                         if (fail)
                             continue;
-                        
+
                         requiredCount += item.Stack;
                         requiredCount -= requiredCount % conversion.RequiredCount;
                         items.Add(chestItemCount);
@@ -263,7 +281,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
                 }
             }
         }
-        
+
         public static IEnumerable<CodeInstruction> dayUpdate_Transpiler(IEnumerable<CodeInstruction> codeInstructions)
         {
             List<CodeInstruction> result = codeInstructions.ToList();
@@ -467,7 +485,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             {
                 CoreUtility.PrintError(e, PatcherName, "GameLocation.performLightningUpdate", "transpiling");
             }
-            
+
             return list;
         }
 
