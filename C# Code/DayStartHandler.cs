@@ -17,6 +17,8 @@ using VanillaPlusProfessions.Utilities;
 using xTile.Dimensions;
 using VanillaPlusProfessions.Craftables;
 using StardewValley.GameData.FruitTrees;
+using StardewValley.GameData.Locations;
+using StardewValley.Internal;
 
 namespace VanillaPlusProfessions
 {
@@ -51,6 +53,16 @@ namespace VanillaPlusProfessions
                     }
                 }
             }
+            //It works. don't touch.
+            IEnumerable<TrinketRing> lalalal = TalentUtility.GetAllTrinketRings(Game1.player);
+            if (lalalal.Any())
+            {
+                foreach (var trinketRing in lalalal)
+                {
+                    Game1.player.trinketItems.Add(trinketRing.GetRingTrinket());
+                }
+            }
+
             MachineryEventHandler.BirdsOnFeeders.Clear();
             ModEntry.EmptyCritterRoom ??= Game1.getLocationFromNameInLocationsList("KediDili.VPPData.CP_EmptyCritterRoom");
             TalentCore.VoidButterflyLocation = Game1.random.ChooseFrom(Constants.VoidButterfly_Locations);
@@ -69,7 +81,8 @@ namespace VanillaPlusProfessions
             MiniFridgeBigSpace = TalentUtility.AnyPlayerHasTalent(Constants.Talent_MiniFridgeBigSpace),
             HarmoniousBlooming = TalentUtility.AnyPlayerHasTalent(Constants.Talent_HarmoniousBlooming),
             CrabRave = TalentUtility.HostHasTalent(Constants.Talent_CrabRave) && Game1.player.isWearingRing("810"),
-            GoodSoaking = TalentUtility.AnyPlayerHasTalent(Constants.Talent_GoodSoaking);
+            GoodSoaking = TalentUtility.AnyPlayerHasTalent(Constants.Talent_GoodSoaking),
+            LocalKnowledge = TalentUtility.AnyPlayerHasTalent(Constants.Talent_LocalKnowledge);
 
             foreach (var item in Game1.player.Items)
             {
@@ -107,7 +120,7 @@ namespace VanillaPlusProfessions
             MachineryEventHandler.ThermalReactorLocations = new();
             MachineryEventHandler.NodeMakerLocations = new();
 
-            Utility.ForEachLocation(location => HandleForEachLocation(location, GoodSoaking), true, false);
+            Utility.ForEachLocation(location => HandleForEachLocation(location, GoodSoaking, LocalKnowledge), true, false);
 
             if (Game1.getFarm().modData.TryGetValue(Constants.Key_FaeBlessings, out string value))
             {
@@ -188,7 +201,7 @@ namespace VanillaPlusProfessions
 
             Utility.ForEachItem(item => HandleForEachItem(item, Trawler, Hydrologist, FishTrap, Diversification, DeadMansChest, CrabRave, FarmForage, HarmoniousBlooming, MiniFridgeBigSpace)); 
         }
-        public static bool HandleForEachLocation(GameLocation location, bool GoodSoaking)
+        public static bool HandleForEachLocation(GameLocation location, bool GoodSoaking, bool LocalKnowledge)
         {
             if (GoodSoaking && location.IsOutdoors)
             {
@@ -200,6 +213,65 @@ namespace VanillaPlusProfessions
                         {
                             dirt.state.Value = 1;
                             dirt.updateNeighbors();
+                        }
+                    }
+                }
+            }
+            var data = location.GetData();
+            if (LocalKnowledge && location.getTotalForageItems() < data?.MaxSpawnedForageAtOnce)
+            {
+                IEnumerable<Vector2> tiles = from objs in location.Objects.Pairs
+                                      where objs.Value.isForage()
+                                      select objs.Key;
+                foreach (var tile in tiles)
+                {
+                    location.Objects.Remove(tile);
+                }
+                Season season = location.GetSeason();
+
+                List<SpawnForageData> possibleForage = new List<SpawnForageData>();
+                foreach (SpawnForageData spawn in GameLocation.GetData("Default").Forage.Concat(data.Forage))
+                {
+                    if ((spawn.Condition == null || GameStateQuery.CheckConditions(spawn.Condition, location)) && (!spawn.Season.HasValue || spawn.Season == season))
+                    {
+                        possibleForage.Add(spawn);
+                    }
+                }
+                if (possibleForage.Any())
+                {
+                    int numberToSpawn = Game1.random.Next(data.MinDailyForageSpawn, data.MaxDailyForageSpawn + 1);
+                    numberToSpawn = Math.Min(numberToSpawn, data.MaxSpawnedForageAtOnce - location.numberOfSpawnedObjectsOnMap);
+                    ItemQueryContext itemQueryContext = new ItemQueryContext(location, null, null, "location '" + location.NameOrUniqueName + "' > forage");
+                    for (int i = 0; i < numberToSpawn; i++)
+                    {
+                        for (int attempt = 0; attempt < 11; attempt++)
+                        {
+                            int xCoord = Game1.random.Next(location.map.DisplayWidth / 64);
+                            int yCoord = Game1.random.Next(location.map.DisplayHeight / 64);
+                            Vector2 tile = new Vector2(xCoord, yCoord);
+                            if (location.objects.ContainsKey(tile) || location.IsNoSpawnTile(tile) || location.doesTileHaveProperty(xCoord, yCoord, "Spawnable", "Back") == null || location.doesEitherTileOrTileIndexPropertyEqual(xCoord, yCoord, "Spawnable", "Back", "F") || !location.CanItemBePlacedHere(tile) || location.hasTileAt(xCoord, yCoord, "AlwaysFront") || location.hasTileAt(xCoord, yCoord, "AlwaysFront2") || location.hasTileAt(xCoord, yCoord, "AlwaysFront3") || location.hasTileAt(xCoord, yCoord, "Front") || location.isBehindBush(tile) || (!Game1.random.NextBool(0.1) && location.isBehindTree(tile)))
+                            {
+                                continue;
+                            }
+                            SpawnForageData forage = Game1.random.ChooseFrom(possibleForage);
+                            if (!Game1.random.NextBool(forage.Chance))
+                            {
+                                continue;
+                            }
+                            Item forageItem = ItemQueryResolver.TryResolveRandomItem(forage, itemQueryContext, avoidRepeat: false);
+                            if (forageItem == null)
+                            {
+                                continue;
+                            }
+                            if (forageItem is StardewValley.Object forageObj)
+                            {
+                                forageObj.IsSpawnedObject = true;
+                                if (location.dropObject(forageObj, tile * 64f, Game1.viewport, initialPlacement: true))
+                                {
+                                    location.numberOfSpawnedObjectsOnMap++;
+                                    break;
+                                }
+                            }
                         }
                     }
                 }

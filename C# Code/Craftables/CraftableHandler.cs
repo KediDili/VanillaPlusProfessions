@@ -31,12 +31,25 @@ namespace VanillaPlusProfessions.Craftables
                         }
                     }
                 }
+                foreach (var item in loc.objects.Values)
+                {
+                    if (item.ItemId == Constants.Id_GlowingCrystal && item.modData.ContainsKey(Constants.Key_GlowingCrystalColor))
+                    {
+                        string[] colorcodes = item.modData[Constants.Key_GlowingCrystalColor].Split(',');
+                        item.lightSource.color.Value = new Color(byte.Parse(colorcodes[0]), byte.Parse(colorcodes[1]), byte.Parse(colorcodes[2]), byte.Parse(colorcodes[3]));
+                    }
+                    else if (item.isLamp.Value)
+                    {
+                        item.lightSource.color.Value = new Color(255, 255, 255) * 0.25f;
+                        Game1.player.currentLocation.sharedLights[item.lightSource.Id].color.Value = new Color(0, 0, 0);
+                    }
+                }
             }
         }
 
         internal static void OnInteract(Farmer who, Item item)
         {
-            if (ModEntry.ShouldForageCraftablesWork() && item is StardewValley.Object obj)
+            if (item is StardewValley.Object obj)
             {
                 GameLocation location = who.currentLocation;
                 string contextId = location.GetLocationContextId();

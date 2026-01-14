@@ -81,9 +81,14 @@ namespace VanillaPlusProfessions
             CoreModEntry.Value.Helper.Events.Input.ButtonReleased += OnButtonReleased;
             CoreModEntry.Value.Helper.Events.GameLoop.DayStarted += DayStartHandler.OnDayStarted;
             CoreModEntry.Value.Helper.Events.GameLoop.DayEnding += OnDayEnding;
+            CoreModEntry.Value.Helper.Events.GameLoop.SaveLoaded += OnSaveLoaded;
             CoreModEntry.Value.Helper.Events.Player.LevelChanged += OnLevelChanged;
             CoreModEntry.Value.Helper.Events.Player.Warped += OnWarped;
             CoreModEntry.Value.Helper.Events.GameLoop.UpdateTicked += OnUpdateTicked;
+<<<<<<< Updated upstream
+=======
+            CoreModEntry.Value.Helper.Events.World.ObjectListChanged += OnInventoryChanged;
+>>>>>>> Stashed changes
 
             CorePatcher.ApplyPatches();
             TalentCore.TalentCoreEntry.Value.Initialize(this);
@@ -96,7 +101,8 @@ namespace VanillaPlusProfessions
             CoreModEntry.Value.Helper.ConsoleCommands.Add("vpp.details", "Prints out skill related information. Might be useful for troubleshooting.", CoreUtility.details);
             CoreModEntry.Value.Helper.ConsoleCommands.Add("vpp.reset", "Can be used to reset professions added by VPP. First parameter is the level (15 or 20), second is the level (0 - Farming, 1 - Fishing, 2 - Foraging, 3 - Mining or 4 - Combat)", ManagerUtility.reset);
             CoreModEntry.Value.Helper.ConsoleCommands.Add("vpp.showXPLeft", "Shows how much XP left for the next level in all vanilla skills.", CoreUtility.showXPLeft);
-            CoreModEntry.Value.Helper.ConsoleCommands.Add("vpp.test", "It's a dummy command, supposed to be used ONLY by the mod's devs.", CoreUtility.Test);
+            CoreModEntry.Value.Helper.ConsoleCommands.Add("vpp.clearTrinkets", "It's a dummy command, supposed to be used ONLY by the mod's devs or beta users when instructed.", CoreUtility.clearTrinkets);
+            CoreModEntry.Value.Helper.ConsoleCommands.Add("vpp.test", "It's a dummy command, supposed to be used ONLY by the mod's devs or beta users when instructed.", CoreUtility.Test);
 
             Managers = new IProfessionManager[] { new FarmingManager(), new MiningManager(), new ForagingManager(), new FishingManager(), new CombatManager(), new ComboManager() };
 
@@ -117,6 +123,7 @@ namespace VanillaPlusProfessions
         public void OnGameLaunched(object sender, GameLaunchedEventArgs e)
         {
             ModEntry me = GetMe();
+            DisplayHandler.CoreDisplayHandler.Value.XPDisplayInstalled = me.Helper.ModRegistry.IsLoaded("Shockah.XPDisplay");
             if (me.ModConfig.MasteryCaveChanges != 10 && me.ModConfig.MasteryCaveChanges != 15 && me.ModConfig.MasteryCaveChanges != 20)
             {
                 me.ModConfig.MasteryCaveChanges = 20;
@@ -159,7 +166,7 @@ namespace VanillaPlusProfessions
                 me.GenericModConfigMenuAPI.AddBoolOption(me.Manifest, () => me.ModConfig.StaminaCostAdjustments, value => me.ModConfig.StaminaCostAdjustments = value, () => me.Helper.Translation.Get("GMCM.StaminaCostAdjustments.Name"), () => me.Helper.Translation.Get("GMCM.StaminaCostAdjustments.Desc"));
                 me.GenericModConfigMenuAPI.AddBoolOption(me.Manifest, () => me.ModConfig.ProfessionsOnly, value => me.ModConfig.ProfessionsOnly = value, () => me.Helper.Translation.Get("GMCM.ProfessionsOnly.Name"), () => me.Helper.Translation.Get("GMCM.ProfessionsOnly.Desc"));
                 me.GenericModConfigMenuAPI.AddTextOption(me.Manifest, () => me.ModConfig.TalentHintLevel, value => me.ModConfig.TalentHintLevel = value, () => me.Helper.Translation.Get("GMCM.TalentHintLevel.Name"), () => me.Helper.Translation.Get("GMCM.TalentHintLevel.Desc"), new string[] { "Hidden", "Partial", "Full" }, option => me.Helper.Translation.Get($"GMCM.TalentHintLevel.Options.{option}"));
-
+                me.GenericModConfigMenuAPI.AddKeybindList(me.Manifest, () => me.ModConfig.TalentMenuKeybind, value => me.ModConfig.TalentMenuKeybind = value, () => me.Helper.Translation.Get("GMCM.TalentMenuKeybind.Name"), () => me.Helper.Translation.Get("GMCM.TalentMenuKeybind.Desc"));
                 me.GenericModConfigMenuAPI.AddSectionTitle(me.Manifest, () => me.Helper.Translation.Get("GMCM.BalanceSection.Name"));
                 me.GenericModConfigMenuAPI.AddParagraph(me.Manifest, () => me.Helper.Translation.Get("GMCM.BalanceSection.Paragraph"));
                 //Chances
@@ -274,7 +281,30 @@ namespace VanillaPlusProfessions
                 }
             }
         }
-
+        private void OnInventoryChanged(object sender, ObjectListChangedEventArgs e)
+        {
+            foreach (var item in e.Added)
+            {
+                if (item.Value is StardewValley.Object obj && obj.isLamp.Value)
+                {
+                    obj.lightSource.color.Value = new Color(255, 215, 175);
+                    Game1.player.currentLocation.sharedLights[obj.lightSource.Id].color.Value = new Color(0, 40, 80);
+                }
+            }
+        }
+        private void OnSaveLoaded(object sender, SaveLoadedEventArgs e)
+        {
+            Utility.ForEachItem(item =>
+            {
+                if (item is StardewValley.Object obj && obj.ItemId == Constants.Id_GlowingCrystal && obj.modData.ContainsKey(Constants.Key_GlowingCrystalColor))
+                {
+                    string[] colorcodes = obj.modData[Constants.Key_GlowingCrystalColor].Split(',');
+                    obj.lightSource.color.Value = new Color(byte.Parse(colorcodes[0]), byte.Parse(colorcodes[1]), byte.Parse(colorcodes[2]), byte.Parse(colorcodes[3]));
+                }
+                return true;
+            });
+            BuildingHandler.OnSaveLoaded();
+        }
         private void OnUpdateTicked(object sender, UpdateTickedEventArgs e)
         {
             if (Context.IsWorldReady)
@@ -511,7 +541,7 @@ namespace VanillaPlusProfessions
                         }
                     }
                     //There's a false because nothing here is supposed to be accessed yet.
-                    if (ShouldForageCraftablesWork() && Game1.player.ActiveObject?.ItemId is Constants.Id_MossyFertilizer or Constants.Id_WildTotem or Constants.Id_SunTotem or Constants.Id_SnowTotem or Constants.Id_NodeLifter)
+                    if (Game1.player.ActiveObject?.ItemId is Constants.Id_MossyFertilizer or Constants.Id_WildTotem or Constants.Id_SunTotem or Constants.Id_SnowTotem or Constants.Id_NodeLifter)
                     {
                         CraftableHandler.OnInteract(Game1.player, Game1.player.ActiveObject);
                     }
@@ -520,6 +550,18 @@ namespace VanillaPlusProfessions
                         if (value3.heldObject.Value?.heldObject.Value is Chest chest && TalentUtility.CurrentPlayerHasTalent(Constants.Talent_Fertigation))
                         {
                             chest.GetMutex().RequestLock(chest.ShowMenu);
+                        }
+                        if (value3.ItemId == Constants.Id_GlowingCrystal && Game1.player.ActiveItem.Category is StardewValley.Object.mineralsCategory or StardewValley.Object.GemCategory)
+                        {
+                            value3.lightSource.color.Value = TailoringMenu.GetDyeColor(Game1.player.ActiveItem) ?? value3.lightSource.color.Value;
+                            Color color = new Color(value3.lightSource.color.Value.R + 100, value3.lightSource.color.Value.G + 100, value3.lightSource.color.Value.B + 100, 255);
+                            Game1.player.currentLocation.sharedLights[value3.lightSource.Id].color.Value = new(255 - color.R, 255 - color.G, 255 - color.B);
+                            value3.modData[Constants.Key_GlowingCrystalColor] = $"{color.R},{color.G},{color.B},{color.A}";
+                        }
+                        else if (value3.isLamp.Value)
+                        {
+                            value3.lightSource.color.Value = new Color(255, 255, 255) * 0.25f;
+                            Game1.player.currentLocation.sharedLights[value3.lightSource.Id].color.Value = new Color(0, 0, 0);
                         }
                         MachineryEventHandler.OnMachineInteract(value3, Game1.player);
                     }
@@ -858,15 +900,11 @@ namespace VanillaPlusProfessions
             }
         }
 
-        internal static bool ShouldForageCraftablesWork()
-        {
-            return true;
-        }
-
         private void OnDayEnding(object sender, DayEndingEventArgs e)
         {
             TalentCore.IsDayStartOrEnd = true;
             MachineryEventHandler.BirdsOnFeeders.Clear();
+            CoreUtility.confirmTrinkets = false;
             bool Orchardist = CoreUtility.AnyPlayerHasProfession(Constants.Profession_Orchardist);
             bool Accumulation = TalentUtility.AnyPlayerHasTalent(Constants.Talent_Accumulation);
             bool Abundance = TalentUtility.AnyPlayerHasTalent(Constants.Talent_Abundance);
@@ -1019,6 +1057,17 @@ namespace VanillaPlusProfessions
                 }
                 return true;
             });
+            BuildingHandler.OnDayEnding();
+            //It works. don't touch.
+            IEnumerable<TrinketRing> lalalal = TalentUtility.GetAllTrinketRings(Game1.player);
+            if (lalalal.Any())
+            {
+                foreach (var trinketRing in lalalal)
+                {
+                    trinketRing.GetRingTrinket().onUnequip(Game1.player);
+                    Game1.player.trinketItems.Remove(trinketRing.GetRingTrinket());
+                }
+            }
             if (!Game1.player.modData.TryAdd(Constants.Key_TalentPoints, TalentCore.TalentCoreEntry.Value.TalentPointCount.ToString()))
                 Game1.player.modData[Constants.Key_TalentPoints] = TalentCore.TalentCoreEntry.Value.TalentPointCount.ToString();
             if (!Game1.player.modData.TryAdd(Constants.Key_DisabledTalents, string.Join('|', TalentCore.DisabledTalents.ToArray())))

@@ -42,7 +42,6 @@ namespace VanillaPlusProfessions.Talents
             {
                 Game1.player.team.GetOrCreateGlobalInventory(Constants.GlobalInventoryID_RingTrinkets).Remove(trinketFound);
             }
-
             return trinketFound as Trinket;
         }
 
@@ -68,7 +67,11 @@ namespace VanillaPlusProfessions.Talents
             if (modData.ContainsKey(Constants.Key_RingTrinkets))
             {
                 Trinket trinket = GetRingTrinket();
-                Game1.player.trinketItems.Remove(trinket);
+
+                if (Game1.player.trinketItems.Remove(trinket))
+                
+                    Game1.player.RemoveCompanion(trinket.GetEffect()?.Companion);
+                    trinket.Unapply(Game1.player);
             }
             base.onUnequip(who);
         }

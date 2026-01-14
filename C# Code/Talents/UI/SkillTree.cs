@@ -10,7 +10,7 @@ using VanillaPlusProfessions.Utilities;
 
 namespace VanillaPlusProfessions.Talents.UI
 {
-    internal class SkillTree
+    public class SkillTree
     {
         internal readonly string SkillIndex;
 

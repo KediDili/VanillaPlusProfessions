@@ -9,19 +9,19 @@ using VanillaPlusProfessions.Enchantments;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley.Menus;
-using StardewValley.GameData.Objects;
 using StardewValley.TerrainFeatures;
 using System.Reflection;
 using HarmonyLib;
 using StardewValley.Objects.Trinkets;
 using VanillaPlusProfessions.Talents.Patchers;
 using StardewValley.Buildings;
-using System.Collections.Generic;
 
 namespace VanillaPlusProfessions.Utilities
 {
     public class CoreUtility
     {
+        internal static bool confirmTrinkets = false;
+
         public static bool IsOverlayValid()
         {
             if (Game1.player.FarmingLevel > 10 || Game1.player.FishingLevel > 10 || Game1.player.ForagingLevel > 10 || Game1.player.MiningLevel > 10 || Game1.player.CombatLevel > 10)
@@ -94,13 +94,31 @@ namespace VanillaPlusProfessions.Utilities
                 }
             }
         }
-
         public static void Test(string command, string[] args)
         {
-            List<Vector2> list = TalentUtility.GetTilesAroundBeeHouse(Game1.player.Tile.X, Game1.player.Tile.Y);
-            for (int i = 0; i < list.Count; i++)
+
+        }
+        public static void clearTrinkets(string command, string[] args)
+        {
+            var monitor = ModEntry.GetMe().ModMonitor;
+            if (Context.IsWorldReady)
             {
-                ModEntry.CoreModEntry.Value.ModMonitor.Log($"({list[i].X}, {list[i].Y})", LogLevel.Debug);
+                if (confirmTrinkets)
+                {
+                    Game1.player.UnapplyAllTrinketEffects();
+                    Game1.player.trinketItems.Clear();
+                    monitor.Log("All non-ring trinket items and all trinket effects are now unapplied and cleared. Re-equip your previous trinkets/trinket rings to get the effects back.", LogLevel.Info);
+                    confirmTrinkets = false;
+                }
+                else
+                {
+                    monitor.Log("Before running this command, you must unequip ALL of your regular trinkets. Otherwise they will be lost for good. Run the command again when you've unequipped all and ready to clear trinkets.", LogLevel.Warn);
+                    confirmTrinkets = true;
+                }
+            }
+            else
+            {
+                monitor.Log("Load a save first!", LogLevel.Warn);
             }
         }
 
@@ -348,7 +366,7 @@ namespace VanillaPlusProfessions.Utilities
                     });
                     Utility.ForEachItem(item =>
                     {
-                        if (item.modData.Remove(Constants.Key_XrayDrop))
+                        if (item.modData.Remove(Constants.Key_XrayDrop) | item.modData.Remove(Constants.Key_XrayDrop2))
                             XrayDrop++;
 
                         if (item.modData.Remove(Constants.Key_HiddenBenefit_FairyBox))

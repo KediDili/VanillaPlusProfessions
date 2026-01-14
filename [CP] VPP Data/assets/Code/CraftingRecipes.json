@@ -85,11 +85,12 @@
 				"VPP Trinket Workbench": "709 50 335 3/Field/Kedi.VPP.Accessorise.TrinketWorkbench/true/none/",
                 "VPP Fertigator": "915 1 913 1/Field/Kedi.VPP.Fertigator/false/none/",
 				"VPP Parrot Perch": "709 10/Field/Kedi.VPP.HiddenBenefits.ParrotPerch/true/none/",
-				"VPP Box Trough": "388 388/Field/{{ModId}}_BoxTrough/true/none/",
+				"VPP Box Trough": "388 50/Field/{{ModId}}_BoxTrough/true/none/",
 				"VPP Glowing Crystal": "80 35 390 30 382 1/Field/{{ModId}}_GlowingCrystal/true/s Mining 11/", //35 quartz, 30 stone, 1 coal
                 "VPP Programmable Drill": "122 1 334 10 335 5/Field/{{ModId}}_ProgrammableDrill/true/s Mining 12/", //1 Dwarf gadget, 10 copper bars, 5 iron bars
                 "VPP Thermal Reactor": "82 45 573 1 84 3/Field/{{ModId}}_ThermalReactor/true/s Mining 13/", //45 fire quartz, Hematite, 3 frozen tears
                 "VPP Node Maker": "111 1 335 15 336 15/Field/{{ModId}}_NodeMaker/true/s Mining 14/", // Rusty Cog, 5 iron bars, 5 gold bars
+                "VPP Node Lifter": "335 2 336 2/Field/{{ModId}}_NodeLifter/false/s Mining 14/",
                 "VPP Minecart Chest": "709 25 390 16 Kedi.VPP.LargeOakResin 1/Field/{{ModId}}_MinecartChest/true/s Mining 16/", //25 hardwood, 16 stone, 1 large oak resin
                 "VPP Machinery Collector": "122 1 334 20/Field/{{ModId}}_DrillCollector/true/s Mining 17/", //1 Dwarf gadget, 20 copper bars
 				"VPP Bird Feeder": "388 20 335 2/Field/{{ModId}}_BirdFeeder/true/s Foraging 11",

@@ -202,7 +202,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
         {
             try
             {
-                if ((__instance.output.Value is null || __instance.output.Value?.QualifiedItemId != "(O)812"))
+                if (__instance.fishType.Value is not null && (__instance.output.Value is null || __instance.output.Value?.QualifiedItemId != "(O)812"))
                 {
                     Item output = ItemRegistry.GetObjectTypeDefinition().CreateFlavoredRoe(__instance.GetFishObject());
                     int stack = 0;

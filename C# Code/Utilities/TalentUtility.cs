@@ -440,14 +440,16 @@ namespace VanillaPlusProfessions.Utilities
             return CumulativeList;
         }
 
-        public static void DetermineGeodeDrop(Item geode, bool update = true) //remove the update parameter
+        public static void DetermineGeodeDrop(Item geode) //, bool update = true remove the update parameter
         {
             if (Utility.IsGeode(geode, true))
             {
                 MiningPatcher.IsUpdating = true;
                 Item drop = Utility.getTreasureFromGeode(geode);
                 MiningPatcher.IsUpdating = false;
-                geode.modData[Constants.Key_XrayDrop] = drop.QualifiedItemId;
+
+                geode.modData[Constants.Key_XrayDrop + (geode.modData[Constants.Key_WhichXrayDrop] == "0" ? "" : "2")] = drop.QualifiedItemId;
+                geode.modData[Constants.Key_WhichXrayDrop] = geode.modData[Constants.Key_WhichXrayDrop] == "0" ? "1" : "0";
             }
         }
 
@@ -615,6 +617,7 @@ namespace VanillaPlusProfessions.Utilities
                     {
                         if (ModEntry.CoreModEntry.Value.WearMoreRingsAPI?.GetRing(i) is not null)
                         {
+                            //This if block might be dead, since from some early version TrinketRings cant be combined anymore, but what if some users did in earlier versions?
                             if (ModEntry.CoreModEntry.Value.WearMoreRingsAPI?.GetRing(i) is CombinedRing combinedRing && combinedRing is not null)
                             {
                                 if (combinedRing.combinedRings[0] is TrinketRing)
@@ -687,7 +690,7 @@ namespace VanillaPlusProfessions.Utilities
             else if (inputItem is TrinketRing ring)
             {
                 Trinket trinket1 = ring.GetRingTrinket(true);
-
+                trinket1.modData[Constants.Key_RingTrinkets] = "";
                 player.ActiveItem = null;
                 player.addItemToInventory(trinket1);
             }
@@ -799,7 +802,7 @@ namespace VanillaPlusProfessions.Utilities
                 string locdata = Game1.player.currentLocation.GetData().CustomFields[flag ? Constants.Key_CrystalCavern : Constants.Key_Upheaval].Trim();
                 if (!string.IsNullOrEmpty(locdata))
                 {
-                    string[] strings = locdata.Split('/', StringSplitOptions.TrimEntries);
+                    string[] strings = locdata.Split(' ', StringSplitOptions.TrimEntries);
                     result = Game1.random.ChooseFrom(strings);
                 }
                 else

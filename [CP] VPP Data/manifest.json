@@ -2,7 +2,7 @@
 	"Name": "[CP] VPP Data",
 	"Author": "KediDili",
 	"Description": "Adds further branches to vanilla professions.",
-	"Version": "1.0.9",
+	"Version": "1.1.0",
 	"UniqueID": "KediDili.VPPData.CP",
 	"UpdateKeys": [ "Nexus:20054" ],
 	"ContentPackFor": {

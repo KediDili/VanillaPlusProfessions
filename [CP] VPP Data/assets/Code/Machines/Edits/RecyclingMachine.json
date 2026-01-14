@@ -8,25 +8,6 @@
 				"OutputRules"
 			],
 			"Entries": {
-				"Kedi.VPP.Archaeologist.ChippedAmphora": {
-					"Id": "Kedi.VPP.Archaeologist.ChippedAmphora",
-					"UseFirstValidOutput": false,
-					"MinutesUntilReady": 60,
-					"Triggers": [
-						{
-							"RequiredItemId": "(O)100",
-							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
-						}
-					],
-					"OutputItem": [
-						{
-							"Id": "(O)330",
-							"ItemId": "(O)330",
-							"MinStack": 3,
-							"MaxStack": 3
-						}
-					]
-				},
 				"Kedi.VPP.Archaeologist.Arrowhead_PrehistoricHeadaxe": {
 					"Id": "Kedi.VPP.Archaeologist.Arrowhead_PrehistoricHeadaxe",
 					"UseFirstValidOutput": false,
@@ -39,6 +20,10 @@
 						{
 							"RequiredItemId": "(O)120",
 							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						},
+						{
+							"RequiredItemId": "(O)115",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
 						}
 					],
 					"OutputItem": [
@@ -46,46 +31,14 @@
 							"Id": "(O)390",
 							"ItemId": "(O)390",
 							"MinStack": 3,
-							"MaxStack": 3
-						}
-					]
-				},
-				"Kedi.VPP.Archaeologist.ChewingStick": {
-					"Id": "Kedi.VPP.Archaeologist.ChewingStick",
-					"UseFirstValidOutput": false,
-					"MinutesUntilReady": 60,
-					"Triggers": [
+							"MaxStack": 3,
+							"Condition": "!ITEM_ID Input (O)115"
+						},
 						{
-							"RequiredItemId": "(O)105",
-							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
-						}
-					],
-					"OutputItem": [
-						{
-							"Id": "(O)388",
-							"ItemId": "(O)388",
-							"MinStack": 1,
-							"MaxStack": 1
-						}
-					]
-				},
-				"Kedi.VPP.Archaeologist.RustySpoon": {
-					"Id": "Kedi.VPP.Archaeologist.RustySpoon",
-					"UseFirstValidOutput": false,
-					"MinutesUntilReady": 60,
-					"Triggers": [
-						{
-							"RequiredItemId": "(O)110",
-							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
-						}
-					],
-					"OutputItem": [
-						{
-							"Id": "(O)380",
-							"ItemId": "(O)380",
-							"MinStack": 3,
-							"MaxStack": 3
-						}
+							"Id": "(O)390",
+							"ItemId": "(O)390",
+							"Condition": "ITEM_ID Input (O)115"
+						},
 					]
 				},
 				"Kedi.VPP.Archaeologist.RustySpur.RustyCog": {
@@ -104,7 +57,7 @@
 					],
 					"OutputItem": [
 						{
-							"Id": "(O)378",
+							"Id": "(O)378", //Copper ore
 							"ItemId": "(O)378",
 							"MinStack": 3,
 							"MaxStack": 3
@@ -119,52 +72,22 @@
 						{
 							"RequiredItemId": "(O)118",
 							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
-						}
+						},
+						{
+							"RequiredItemId": "(O)Lumisteria.MtVapius_Treasures_GlassBowl", //Visit Mount Vapius
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						},
+						{
+							"RequiredItemId": "(O)Lumisteria.MtVapius_Treasures_StainedGlass", //Visit Mount Vapius
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						},
+						
 					],
 					"OutputItem": [
 						{
 							"Id": "(O)338",
 							"ItemId": "(O)338",
-							"MinStack": 1,
-							"MaxStack": 1
-						}
-					]
-				},
-				"Kedi.VPP.Archaeologist.Anchor": {
-					"Id": "Kedi.VPP.Archaeologist.Anchor",
-					"UseFirstValidOutput": false,
-					"MinutesUntilReady": 60,
-					"Triggers": [
-						{
-							"RequiredItemId": "(O)117",
-							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
-						}
-					],
-					"OutputItem": [
-						{
-							"Id": "(O)335",
-							"ItemId": "(O)335",
-							"MinStack": 3,
-							"MaxStack": 3
-						}
-					]
-				},
-				"Kedi.VPP.Archaeologist.OrnamentalFan": {
-					"Id": "Kedi.VPP.Archaeologist.OrnamentalFan",
-					"UseFirstValidOutput": false,
-					"MinutesUntilReady": 60,
-					"Triggers": [
-						{
-							"RequiredItemId": "(O)106",
-							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
-						}
-					],
-					"OutputItem": [
-						{
-							"Id": "(O)388",
-							"ItemId": "(O)388",
-							"MinStack": 2,
-							"MaxStack": 2
+							"MaxStack": 3,
 						}
 					]
 				},
@@ -180,14 +103,23 @@
 						{
 							"RequiredItemId": "(O)125",
 							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						},
+						{
+							"RequiredItemId": "(O)104",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
 						}
 					],
 					"OutputItem": [
 						{
-							"Id": "(O)336",
+							"Id": "(O)336", //Gold Ore
 							"ItemId": "(O)336",
 							"MinStack": 2,
 							"MaxStack": 2
+						},
+						{
+							"Id": "(O)62",
+							"ItemId": "(O)62",
+							"Condition": "RANDOM 0.2, ITEM_ID INPUT (O)104"
 						}
 					]
 				},
@@ -213,25 +145,6 @@
 						}
 					]
 				},
-				"Kedi.VPP.Archaeologist.PrehistoricTool": {
-					"Id": "Kedi.VPP.Archaeologist.PrehistoricTool",
-					"UseFirstValidOutput": false,
-					"MinutesUntilReady": 60,
-					"Triggers": [
-						{
-							"RequiredItemId": "(O)115",
-							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
-						}
-					],
-					"OutputItem": [
-						{
-							"Id": "(O)390",
-							"ItemId": "(O)390",
-							"MinStack": 1,
-							"MaxStack": 1
-						}
-					]
-				},
 				"Kedi.VPP.Archaeologist.DriedStarfish": {
 					"Id": "Kedi.VPP.Archaeologist.DriedStarfish",
 					"UseFirstValidOutput": false,
@@ -246,8 +159,6 @@
 						{
 							"Id": "(O)557",
 							"ItemId": "(O)557",
-							"MinStack": 1,
-							"MaxStack": 1
 						}
 					]
 				},
@@ -261,55 +172,62 @@
 								"fossil_item"
 							],
 							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						},
+						{
+							"Id": "{{ModId}}.VMV.Archaeologist.BrokenWatch.Trigger", //Visit mount Vapius
+							"RequiredItemId": "(O)Lumisteria.MtVapius_Treasures_BrokenTeaCup",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						},
+						{
+							"Id": "{{ModId}}.VMV.Archaeologist.FaiencePlate.Trigger", //Visit mount Vapius
+							"RequiredItemId": "(O)Lumisteria.MtVapius_Treasures_FaiencePlate",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						},
+						{
+							"Id": "{{ModId}}.SBV.Archaeologist.ChippedJug.Trigger", //Sunberry Village
+							"RequiredItemId": "(O)skellady.SBVCP_ChippedJug",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						},{
+							"Id": "{{ModId}}.SBV.Archaeologist.WickedVase.Trigger", //Sunberry Village
+							"RequiredItemId": "(O)skellady.SBVCP_WickedVase",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						},
+						{
+							"RequiredItemId": "(O)100",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
 						}
 					],
 					"OutputItem": [
 						{
+							"Id": "SummerSpangle",
+							"ItemId": "(O)593",
+							"Condition": "ITEM_ID Input (O)Lumisteria.MtVapius_Treasures_PetrifiedFlower, RANDOM 0.2"
+						},
+						{
+							"Id": "VoidEssence",
+							"ItemId": "(O)769",
+							"MinStack": 5,
+							"MaxStack": 10,
+							"Condition": "ITEM_ID Input (O)skellady.SBVCP_WickedVase, RANDOM 0.2"
+						},
+						{
 							"Id": "NautilusFossil",
 							"ItemId": "(O)392",
-							"MinStack": 1,
-							"MaxStack": 1,
-							"Condition": "ITEM_ID Input (0)586"
+							"Condition": "ITEM_ID Input (O)586"
 						},
 						{
 							"Id": "Clay",
 							"ItemId": "(O)330",
 							"MinStack": 3,
 							"MaxStack": 3,
-							"Condition": "!ITEM_ID Input (0)586"
+							"Condition": "!ITEM_ID Input (O)586"
 						},
 						{
 							"Id": "Opal",
 							"ItemId": "(O)564",
 							"MinStack": 2,
 							"MaxStack": 2,
-							"Condition": "!ITEM_ID Input (0)586, RANDOM 0.2"
-						}
-					]
-				},
-				"Kedi.VPP.Archaeologist.ElvenJewelry": {
-					"Id": "Kedi.VPP.Archaeologist.ElvenJewelry",
-					"UseFirstValidOutput": false,
-					"MinutesUntilReady": 60,
-					"Triggers": [
-						{
-							"RequiredItemId": "(O)104",
-							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
-						}
-					],
-					"OutputItem": [
-						{
-							"Id": "(O)336",
-							"ItemId": "(O)336",
-							"MinStack": 2,
-							"MaxStack": 2
-						},
-						{
-							"Id": "(O)14",
-							"ItemId": "(O)14",
-							"MinStack": 1,
-							"MaxStack": 1,
-							"Condition": "RANDOM 0.2"
+							"Condition": "!ITEM_ID Input (O)586, RANDOM 0.2"
 						}
 					]
 				},
@@ -320,8 +238,12 @@
 					"Triggers": [
 						{
 							"RequiredTags": [
-								"dwarvish_item"
+								"dwarvish_item", "!scroll_item", "!mt_vapius"
 							],
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						},
+						{
+							"RequiredItemId": "(O)117",
 							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
 						}
 					],
@@ -330,79 +252,89 @@
 							"Id": "(O)335",
 							"ItemId": "(O)335",
 							"MinStack": 2,
-							"MaxStack": 2
+							"MaxStack": 2,
+							"StackModifiers": [
+								{
+									"Id": "Anchor",
+									"Modification": "Set",
+									"Amount": 3,
+									"Condition": "ITEM_ID Input (O)117"
+								}
+							]
 						},
 						{
 							"Id": "(O)578",
 							"ItemId": "(O)578",
-							"MinStack": 1,
-							"MaxStack": 1,
 							"Condition": "RANDOM 0.2"
 						}
 					]
 				},
 				"Kedi.VPP.Archaeologist.DwarvishScrolls": {
-					"Id": "Kedi.VPP.Archaeologist.DwarvishScrolls",
+					"Id": "Kedi.VPP.Archaeologist.DwarvishScrollsAndKeys",
 					"UseFirstValidOutput": false,
 					"MinutesUntilReady": 60,
 					"Triggers": [
 						{
-							"RequiredItemId": "(O)96",
+							"RequiredTags": [
+								"scroll_item"
+							],
 							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
 						},
 						{
-							"RequiredItemId": "(O)97",
+							"Id": "{{ModId}}.SBV.Archaeologist.DwarfKeyI.Trigger",
+							"RequiredItemId": "(O)skellady.SBVCP_DwarfKeyI",
 							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
 						},
 						{
-							"RequiredItemId": "(O)98",
+							"Id": "{{ModId}}.SBV.Archaeologist.DwarfKeyII.Trigger",
+							"RequiredItemId": "(O)skellady.SBVCP_DwarfKeyII",
 							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
 						},
 						{
-							"RequiredItemId": "(O)99",
+							"Id": "{{ModId}}.SBV.Archaeologist.DwarfKeyIII.Trigger",
+							"RequiredItemId": "(O)skellady.SBVCP_DwarfKeyIII",
 							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
-						}
+						},
+						{
+							"Id": "{{ModId}}.SBV.Archaeologist.DwarfKeyIV.Trigger",
+							"RequiredItemId": "(O)skellady.SBVCP_DwarfKeyIV",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						},
 					],
 					"OutputItem": [
 						{
 							"Id": "(O)428",
 							"ItemId": "(O)428",
-							"MinStack": 1,
-							"MaxStack": 1
+							"Condition": "ITEM_CONTEXT_TAG Input scroll_item",
+						},
+						{
+							"Id": "(O)539",
+							"ItemId": "(O)539",
+							"Condition": "!ITEM_CONTEXT_TAG Input scroll_item",
 						},
 						{
 							"Id": "(O)64",
 							"ItemId": "(O)64",
-							"MinStack": 1,
-							"MaxStack": 1,
 							"Condition": "ITEM_ID Input (O)96, RANDOM 0.2"
 						},
 						{
 							"Id": "(O)60",
 							"ItemId": "(O)60",
-							"MinStack": 1,
-							"MaxStack": 1,
 							"Condition": "ITEM_ID Input (O)97, RANDOM 0.2"
 						},
 						{
 							"Id": "(O)70",
 							"ItemId": "(O)70",
-							"MinStack": 1,
-							"MaxStack": 1,
 							"Condition": "ITEM_ID Input (O)97, RANDOM 0.2"
 						},
 						{
 							"Id": "(O)62",
 							"ItemId": "(O)62",
-							"MinStack": 1,
-							"MaxStack": 1,
 							"Condition": "ITEM_ID Input (O)98, RANDOM 0.2"
 						},
 						{
 							"Id": "(O)68",
 							"ItemId": "(O)68",
-							"MinStack": 1,
-							"MaxStack": 1,
 							"Condition": "ITEM_ID Input (O)99, RANDOM 0.2"
 						}
 					]
@@ -410,20 +342,14 @@
 				"Kedi.VPP.Archaeologist.Dolls": {
 					"Id": "Kedi.VPP.Archaeologist.Dolls",
 					"UseFirstValidOutput": false,
-					"MinutesUntilReady": 60,
+					"MinutesUntilReady": 60, 
 					"Triggers": [
 						{
-							"RequiredItemId": "(O)103",
+							"RequiredTags": [
+								"doll_item"
+							],
 							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
 						},
-						{
-							"RequiredItemId": "(O)126",
-							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
-						},
-						{
-							"RequiredItemId": "(O)127",
-							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
-						}
 					],
 					"OutputItem": [
 						{
@@ -435,8 +361,6 @@
 						{
 							"Id": "(O)428",
 							"ItemId": "(O)428",
-							"MinStack": 1,
-							"MaxStack": 1,
 							"Condition": "RANDOM 0.2"
 						}
 					]
@@ -461,28 +385,7 @@
 						{
 							"Id": "(O)547",
 							"ItemId": "(O)547",
-							"MinStack": 1,
-							"MaxStack": 1,
 							"Condition": "RANDOM 0.2"
-						}
-					]
-				},
-				"Kedi.VPP.Archaeologist.ChickenStatue": {
-					"Id": "Kedi.VPP.Archaeologist.ChickenStatue",
-					"UseFirstValidOutput": false,
-					"MinutesUntilReady": 60,
-					"Triggers": [
-						{
-							"RequiredItemId": "(O)113",
-							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
-						}
-					],
-					"OutputItem": [
-						{
-							"Id": "(O)334",
-							"ItemId": "(O)334",
-							"MinStack": 1,
-							"MaxStack": 2
 						}
 					]
 				},
@@ -492,23 +395,40 @@
 					"MinutesUntilReady": 60,
 					"Triggers": [
 						{
-							"RequiredItemId": "(O)123",
+							"RequiredItemId": "(O)123_AncientDrum",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						},
+						{
+							"RequiredItemId": "(O)106_OrnamentalFan",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						},
+						{
+							"RequiredItemId": "(O)105_PrehistoricTool",
 							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
 						}
 					],
 					"OutputItem": [
 						{
-							"Id": "(O)388",
+							"Id": "(O)388_2",
 							"ItemId": "(O)388",
 							"MinStack": 2,
-							"MaxStack": 2
+							"MaxStack": 2,
+							"Condition": "!ITEM_ID Input (O)105",
+							"StackModifiers": [
+								{
+									"Id": "ChewingStick",
+									"Modification": "Set",
+									"Amount": 1,
+									"Condition": "ITEM_ID Input (O)105"
+								}
+							]
 						},
 						{
 							"Id": "(O)428",
 							"ItemId": "(O)428",
 							"MinStack": 1,
 							"MaxStack": 1,
-							"Condition": "RANDOM 0.2"
+							"Condition": "RANDOM 0.2, ITEM_ID Input (O)123"
 						}
 					]
 				},
@@ -520,6 +440,14 @@
 						{
 							"RequiredItemId": "(O)109",
 							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						},
+						{
+							"RequiredItemId": "(O)110",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						},
+						{
+							"RequiredItemId": "(O)113",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
 						}
 					],
 					"OutputItem": [
@@ -527,14 +455,22 @@
 							"Id": "(O)334",
 							"ItemId": "(O)334",
 							"MinStack": 1,
-							"MaxStack": 1
+							"MaxStack": 2
 						},
 						{
 							"Id": "(O)380",
 							"ItemId": "(O)380",
 							"MinStack": 2,
 							"MaxStack": 2,
-							"Condition": "RANDOM 0.2"
+							"Condition": "ANY \"RANDOM 0.2, ITEM_ID Input (O)109\" \"ITEM_ID Input (O)110\"",
+							"StackModifiers": [
+								{
+									"Id": "Rusty Spoon",
+									"Modification": "Set",
+									"Amount": 3,
+									"Condition": "ITEM_ID Input (O)110",
+								}
+							]
 						}
 					]
 				},
@@ -626,9 +562,9 @@
 					],
 					"OutputItem": [
 						{
-							//Migrate to Peritemcondition
 							"Id": "Kedi.VPP.CycleOfKnowledge.BaitAndBobber.Output.Bait",
-							"RandomItemId": [ "(O)DeluxeBait", "(O)774", "(O)908" ],
+							"ItemId": "RANDOM_ITEMS (O)",
+							"PerItemCondition": "ITEM_CATEGORY Target -21",
 							"MinStack": 5,
 							"MaxStack": 10
 						},
@@ -823,7 +759,416 @@
 							"MaxStack": 25
 						}
 					]
-				}
+				},
+				//SUNBERRY VILLAGE - ARTIFACTS
+				"{{ModId}}.SBV.Archaeologist.MushroomStatue":{
+					"Id": "{{ModId}}.SBV.Archaeologist.MushroomStatue",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"Id": "{{ModId}}.SBV.Archaeologist.MushroomStatue.Trigger",
+							"RequiredItemId": "(O)skellady.SBVCP_MushroomStatue",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						},
+					],
+					"OutputItem": [
+						{
+							"Id": "Mushroom",
+							"PerItemCondition": "ANY \"ITEM_CONTEXT_TAG Target edible_mushroom\" \"ITEM_CONTEXT_TAG poisonous_mushroom_item\""
+						}
+					]
+				},
+				"{{ModId}}.SBV.Archaeologist.AncientStaff":{
+					"Id": "{{ModId}}.SBV.Archaeologist.AncientStaff",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"Id": "{{ModId}}.SBV.Archaeologist.AncientStaff.Trigger",
+							"RequiredItemId": "(O)skellady.SBVCP_AncientStaff",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						},
+					],
+					"OutputItem": [
+						{
+							"Id": "Hardwood",
+							"ItemId": "(O)709",
+							"MinStack": 1,
+							"MaxStack": 3,
+						},
+						{
+							"Id": "AncientSeed",
+							"ItemId": "(O)499",
+						},
+					]
+				},
+				"{{ModId}}.SBV.Archaeologist.MetalBars":{
+					"Id": "{{ModId}}.SBV.Archaeologist.MetalBars",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"Id": "{{ModId}}.SBV.Archaeologist.MetalBars.Trigger.1",
+							"RequiredItemId": "(O)skellady.SBVCP_GoldenCoins",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						},
+						{
+							"Id": "{{ModId}}.SBV.Archaeologist.MetalBars.Trigger.2",
+							"RequiredItemId": "(O)skellady.SBVCP_LapisNecklace",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						},
+						{
+							"Id": "{{ModId}}.SBV.Archaeologist.MetalBars.Trigger.3",
+							"RequiredItemId": "(O)skellady.SBVCP_SilverMask",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						},
+					],
+					"OutputItem": [
+						{
+							"Id": "Aquamarine",
+							"ItemId": "(O)769",
+							"Condition": "ITEM_ID Input (O)skellady.SBVCP_LapisNecklace, RANDOM 0.2",
+						},
+						{
+							"Id": "Goldenbar",
+							"ItemId": "(O)330",
+							"Condition": "ITEM_ID Input (O)skellady.SBVCP_LapisNecklace (O)skellady.SBVCP_GoldenCoins"
+						},
+						{
+							"Id": "IronBar",
+							"ItemId": "(O)330",
+							"MinStack": 2,
+							"Condition": "ITEM_ID Input (O)skellady.SBVCP_SilverMask"
+						},
+					]
+				},
+				//VISIT MOUNT VAPIUS - ARTIFACTS
+				"{{ModId}}.VMV.Archaeologist.Ores": {
+					"Id": "{{ModId}}.VMV.Archaeologist.Ores",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"Id": "{{ModId}}.VMV.Archaeologist.BrokenWatch.Trigger",
+							"RequiredItemId": "(O)Lumisteria.MtVapius_Treasures_BrokenWatch", //gold/iron ore
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						},
+						{
+							"Id": "{{ModId}}.VMV.Archaeologist.Medallion.Trigger",
+							"RequiredItemId": "(O)Lumisteria.MtVapius_Treasures_Medallion", //copper/gold ore
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						},
+						{
+							"Id": "{{ModId}}.VMV.Archaeologist.Cyanotype.Trigger",
+							"RequiredItemId": "(O)Lumisteria.MtVapius_Treasures_Cyanotype", //iron ore
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						},
+						{
+							"Id": "{{ModId}}.VMV.Archaeologist.CopperFibula.Trigger",
+							"RequiredItemId": "(O)Lumisteria.MtVapius_Treasures_CopperFibula", //3 copper ores
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						},
+						{
+							"Id": "{{ModId}}.VMV.Archaeologist.RustyRing.Trigger",
+							"RequiredItemId": "(O)Lumisteria.MtVapius_Treasures_RustyRing", //1 copper bar
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						},
+						{
+							"Id": "{{ModId}}.VMV.Archaeologist.RailroadSpike.Trigger",
+							"RequiredItemId": "(O)Lumisteria.MtVapius_Treasures_RailroadSpike", //1 iron bar
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						},
+						{
+							"Id": "{{ModId}}.VMV.Archaeologist.OldShield.Trigger",
+							"RequiredItemId": "(O)Lumisteria.MtVapius_Treasures_OldShield", //iron bar
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						},
+					],
+					"OutputItem": [
+						{
+							"Id": "GoldOre",
+							"ItemId": "(O)384",
+							"MinStack": 1,
+							"MaxStack": 3,
+							"Condition": "ITEM_ID Input (O)Lumisteria.MtVapius_Treasures_Medallion (O)Lumisteria.MtVapius_Treasures_BrokenWatch"
+						},
+						{
+							"Id": "IronOre",
+							"ItemId": "(O)380",
+							"MinStack": 1,
+							"MaxStack": 3,
+							"Condition": "ITEM_ID Input (O)Lumisteria.MtVapius_Treasures_BrokenWatch (O)Lumisteria.MtVapius_Treasures_Cyanotype"
+						},
+						{
+							"Id": "IronBar",
+							"ItemId": "(O)335",
+							"Condition": "ITEM_ID Input (O)Lumisteria.MtVapius_Treasures_RailroadSpike (O)Lumisteria.MtVapius_Treasures_OldShield"
+						},
+						{
+							"Id": "CopperOre",
+							"ItemId": "(O)378",
+							"MinStack": 1,
+							"MaxStack": 3,
+							"Condition": "ITEM_ID Input (O)Lumisteria.MtVapius_Treasures_Medallion (O)Lumisteria.MtVapius_Treasures_CopperFibula"
+						},
+						{
+							"Id": "CopperBar",
+							"ItemId": "(O)334",
+							"Condition": "ITEM_ID Input (O)Lumisteria.MtVapius_Treasures_RustyRing"
+						},
+					]
+				},
+				"{{ModId}}.VMV.Archaeologist.IridiumOre": {
+					"Id": "{{ModId}}.VMV.Archaeologist.Ores",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"Id": "{{ModId}}.VMV.Archaeologist.EfficientCog.Trigger",
+							"RequiredItemId": "(O)Lumisteria.MtVapius_Treasures_EfficientCog",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						},
+						{
+							"Id": "{{ModId}}.VMV.Archaeologist.DwarvishDevice.Trigger",
+							"RequiredItemId": "(O)Lumisteria.MtVapius_Treasures_DwarvishDevice",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						},
+					],
+					"OutputItem": [
+						{
+							"Id": "IridiumOre",
+							"ItemId": "(O)386",
+							"MinStack": 3,
+							"MaxStack": 3,
+						}
+					]
+				},
+				"{{ModId}}.VMV.Archaeologist.OldMinerLamp": {
+					"Id": "{{ModId}}.VMV.Archaeologist.OldMinerLamp",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"Id": "{{ModId}}.VMV.Archaeologist.OldMinerLamp.Trigger",
+							"RequiredItemId": "(O)Lumisteria.MtVapius_Treasures_OldMinerLamp",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						},
+						{
+							"Id": "{{ModId}}.VMV.Archaeologist.RareStamp.Trigger",
+							"RequiredItemId": "(O)Lumisteria.MtVapius_Treasures_RareStamp",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						},
+						{
+							"Id": "{{ModId}}.VMV.Archaeologist.DahuStatuette.Trigger",
+							"RequiredItemId": "(O)Lumisteria.MtVapius_Treasures_DahuStatuette",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						},
+					],
+					"OutputItem": [
+						{
+							"Id": "Torches",
+							"ItemId": "(O)93",
+							"MinStack": 2,
+							"MaxStack": 5,
+							"StackModifiers":[
+								{
+									"Id": "RareStampStack",
+									"Modification": "Set",
+									"Amount": 1,
+									"Condition": "ITEM_ID Input (O)Lumisteria.MtVapius_Treasures_RareStamp (O)Lumisteria.MtVapius_Treasures_DahuStatuette"
+								}
+							]
+						}
+					]
+				},
+				"{{ModId}}.VMV.Archaeologist.BrokenSundial": {
+					"Id": "{{ModId}}.VMV.Archaeologist.BrokenSundial",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"Id": "{{ModId}}.VMV.Archaeologist.BrokenSundial.Trigger",
+							"RequiredItemId": "(O)Lumisteria.MtVapius_Treasures_BrokenSundial",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						},
+					],
+					"OutputItem": [
+						{
+							"Id": "Topaz",
+							"ItemId": "(O)68",
+						}
+					]
+				},
+				"{{ModId}}.VMV.Archaeologist.FragmentMask": {
+					"Id": "{{ModId}}.VMV.Archaeologist.FragmentMask",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"Id": "{{ModId}}.VMV.Archaeologist.FragmentMask.Trigger",
+							"RequiredItemId": "(O)Lumisteria.MtVapius_Treasures_FragmentMask",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Archaeologist"
+						},
+					],
+					"OutputItem": [
+						{
+							"Id": "Cloth",
+							"ItemId": "(O)428",
+						}
+					]
+				},
+				//VISIT MOUNT VAPIUS BOOKS
+				"{{ModId}}.VMV.CycleOfKnowledge.Farming": {
+					"Id": "{{ModId}}.VMV.CycleOfKnowledge.Farming",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"Id": "{{ModId}}.VMV.CycleOfKnowledge.Farming.Trigger.1",
+							"RequiredItemId": "(O)Lumisteria.MtVapius_FarmingBook02",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CycleOfKnowledge"
+						},
+						{
+							"Id": "{{ModId}}.VMV.CycleOfKnowledge.Farming.Trigger.2",
+							"RequiredItemId": "(O)Lumisteria.MtVapius_FarmingBook02",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CycleOfKnowledge"
+						},
+						{
+							"Id": "{{ModId}}.VMV.CycleOfKnowledge.Farming.Trigger.3",
+							"RequiredItemId": "(O)Lumisteria.MtVapius_FarmingBook03",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CycleOfKnowledge"
+						},
+					],
+					"OutputItem": [
+						{
+							"Id": "Seeds",
+							"PerItemCondition": "ITEM_CATEGORY Target -74",
+							"MinStack": 3,
+							"ItemId": "ALL_ITEMS (O) @requirePrice",
+						}
+					]
+				},
+				"{{ModId}}.VMV.CycleOfKnowledge.Mining": {
+					"Id": "{{ModId}}.VMV.CycleOfKnowledge.Mining",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"Id": "{{ModId}}.VMV.CycleOfKnowledge.Mining.Trigger.1",
+							"RequiredItemId": "(O)Lumisteria.MtVapius_MiningBook02",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CycleOfKnowledge"
+						},
+						{
+							"Id": "{{ModId}}.VMV.CycleOfKnowledge.Mining.Trigger.2",
+							"RequiredItemId": "(O)Lumisteria.MtVapius_MiningBook02",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CycleOfKnowledge"
+						},
+						{
+							"Id": "{{ModId}}.VMV.CycleOfKnowledge.Mining.Trigger.3",
+							"RequiredItemId": "(O)Lumisteria.MtVapius_MiningBook03",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CycleOfKnowledge"
+						},
+					],
+					"OutputItem": [
+						{
+							"Id": "Bars",
+							"PerItemCondition": "ITEM_CATEGORY Target -15",
+							"MinStack": 3,
+							"ItemId": "ALL_ITEMS (O) @requirePrice",
+						}
+					]
+				},
+				"{{ModId}}.VMV.CycleOfKnowledge.Foraging": {
+					"Id": "{{ModId}}.VMV.CycleOfKnowledge.Foraging",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"Id": "{{ModId}}.VMV.CycleOfKnowledge.Foraging.Trigger.1",
+							"RequiredItemId": "(O)Lumisteria.MtVapius_ForagingBook02",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CycleOfKnowledge"
+						},
+						{
+							"Id": "{{ModId}}.VMV.CycleOfKnowledge.Foraging.Trigger.2",
+							"RequiredItemId": "(O)Lumisteria.MtVapius_ForagingBook02",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CycleOfKnowledge"
+						},
+						{
+							"Id": "{{ModId}}.VMV.CycleOfKnowledge.Foraging.Trigger.3",
+							"RequiredItemId": "(O)Lumisteria.MtVapius_ForagingBook03",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CycleOfKnowledge"
+						},
+					],
+					"OutputItem": [
+						{
+							"Id": "Forage",
+							"PerItemCondition": "ITEM_CONTEXT_TAG Target mt_vapius_forage",
+							"MinStack": 3,
+							"ItemId": "ALL_ITEMS (O) @requirePrice",
+						}
+					]
+				},
+				"{{ModId}}.VMV.CycleOfKnowledge.Fishing": {
+					"Id": "{{ModId}}.VMV.CycleOfKnowledge.Fishing",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"Id": "{{ModId}}.VMV.CycleOfKnowledge.Fishing.Trigger.1",
+							"RequiredItemId": "(O)Lumisteria.MtVapius_FishingBook02",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CycleOfKnowledge"
+						},
+						{
+							"Id": "{{ModId}}.VMV.CycleOfKnowledge.Fishing.Trigger.2",
+							"RequiredItemId": "(O)Lumisteria.MtVapius_FishingBook02",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CycleOfKnowledge"
+						},
+						{
+							"Id": "{{ModId}}.VMV.CycleOfKnowledge.Fishing.Trigger.3",
+							"RequiredItemId": "(O)Lumisteria.MtVapius_FishingBook03",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CycleOfKnowledge"
+						},
+					],
+					"OutputItem": [
+						{
+							"Id": "Feeesh",
+							"PerItemCondition": "ITEM_CONTEXT_TAG Target mt_vapius_fish, ITEM_PRICE Target 1 250, !ITEM_CONTEXT_TAG Target mt_vapius_legendary_fish",
+							"MinStack": 2,
+							"ItemId": "ALL_ITEMS (O) @requirePrice",
+						}
+					]
+				},
+				"{{ModId}}.VMV.CycleOfKnowledge.Combat": {
+					"Id": "{{ModId}}.VMV.CycleOfKnowledge.Combat",
+					"UseFirstValidOutput": false,
+					"MinutesUntilReady": 60,
+					"Triggers": [
+						{
+							"Id": "{{ModId}}.VMV.CycleOfKnowledge.Combat.Trigger.1",
+							"RequiredItemId": "(O)Lumisteria.MtVapius_CombatBook02",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CycleOfKnowledge"
+						},
+						{
+							"Id": "{{ModId}}.VMV.CycleOfKnowledge.Combat.Trigger.2",
+							"RequiredItemId": "(O)Lumisteria.MtVapius_CombatBook02",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CycleOfKnowledge"
+						},
+						{
+							"Id": "{{ModId}}.VMV.CycleOfKnowledge.Combat.Trigger.3",
+							"RequiredItemId": "(O)Lumisteria.MtVapius_CombatBook03",
+							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CycleOfKnowledge"
+						},
+					],
+					"OutputItem": [
+						{
+							"Id": "Potions",
+							"RandomItemId": [ "(O)773", "(O)772", "(O)879" ],
+							"MinStack": 1,
+							"MaxStack": 3
+						}
+					]
+				},
 			}
 		},
 		{

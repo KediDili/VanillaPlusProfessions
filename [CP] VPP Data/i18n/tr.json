@@ -58,11 +58,25 @@
 	
 	"Objects.MinersMeal.Name": "Madenci'nin Yemeği",
 	"Objects.MinersMeal.Desc": "Sosu, tatlısı, oturtması... yorgun madenci için leziz görünüyor. Belki fazla leziz.",
+	"Objects.ForagersBowl.Name": "Toplayıcı'nın Kasesi", //Added in 1.1.0
+	"Objects.ForagersBowl.Desc": "Mevsimsel meyve lezzetlerinin enfes bir karışımı. Doğanın aromaları bir kasede!", //Added in 1.1.0
+	
 	"Objects.SnowTotem.Name": "Kar Totemi",
 	"Objects.SnowTotem.Desc": "Totem, soğuk gözleriyle sana bakıyor...",
 	"Objects.SunTotem.Name": "Güneş Totemi",
 	"Objects.SunTotem.Desc": "Totemin içindeki sıcaklığı hissedebiliyorsun.",
-	
+	"Objects.WildTotem.Name": "Yabani Totem",
+	"Objects.WildTotem.Desc": "Yosun, taş ve biraz çiçek gibi kokuyor.", //Added in 1.1.0
+	"Objects.MossyFertilizer.Name": "Yosunlu Gübre", //Added in 1.1.0
+	"Objects.MossyFertilizer.Desc": "Sonraki gün ağaçların üstünde yosun olma ihtimalini artırır.", //Added in 1.1.0
+	"Objects.DeluxeWildSpringSeeds.Name": "Lüks Yabani Bahar Tohumu", //Added in 1.1.0
+	"Objects.DeluxeWildSpringSeeds.Desc": "Baharda ekilir. 7 günde yetişir, Kömürözü Ormanı'ndaysa daha hızlı.", //Added in 1.1.0
+	"Objects.DeluxeWildSummerSeeds.Name": "Lüks Yabani Yaz Tohumu", //Added in 1.1.0
+	"Objects.DeluxeWildSummerSeeds.Desc": "Yazın ekilir. 7 günde yetişir, Kömürözü Ormanı'ndaysa daha hızlı.", //Added in 1.1.0
+	"Objects.DeluxeWildFallSeeds.Name": "Lüks Yabani Güz Tohumu", //Added in 1.1.0
+	"Objects.DeluxeWildFallSeeds.Desc": "Güzde ekilir. 7 günde yetişir, Kömürözü Ormanı'ndaysa daha hızlı.", //Added in 1.1.0
+	"Objects.DeluxeWildWinterSeeds.Name": "Lüks Yabani Kış Tohumu", //Added in 1.1.0
+	"Objects.DeluxeWildWinterSeeds.Desc": "Kışın ekilir. 7 günde yetişir, Kömürözü Ormanı'ndaysa daha hızlı.", //Added in 1.1.0
 	
 	"CraftingRecipes.Transmute.Au": "Dönüşüm (Tersinir - Au)", //Added display names for Alchemic Reversal recipes
 	"CraftingRecipes.Transmute.Ir": "Dönüşüm (Tersinir - Ir)",
@@ -70,11 +84,13 @@
 	"BigCraftables.ParrotPerch.Name": "Papağan Tüneği",
 	"BigCraftables.ParrotPerch.Desc": "Bir papağan için mükemmel görünüyor! Gerçi ondan nereden bulacaksın?",
 	"BigCraftables.TrinketWorkbench.Name": "Aksesuar Masası",
-	"BigCraftables.TrinketWorkbench.Desc": "Burada aksesurarları yüzüklere ve yüzükleri yeniden aksesuarlara çevirebilirsin!",
+	"BigCraftables.TrinketWorkbench.Desc": "Burada aksesuarları yüzüklere ve yüzükleri yeniden aksesuarlara çevirebilirsin!",
+	"BigCraftables.BoxTrough.Name": "Kutu Yemlik", //Added in 1.1.0
+	"BigCraftables.BoxTrough.Desc": "Hayvan binalarına koymak için küçük taşınabilir bir yemlik.", //Added in 1.1.0
 	"BigCraftables.GlowingCrystal.Name": "Parlayan Kristal",
-	"BigCraftables.GlowingCrystal.Desc": "Parlak mı parlak!",
+	"BigCraftables.GlowingCrystal.Desc": "Parlak mı parlak! Rengini alması için bir mineralle tıkla (açık renklilerle daha iyi çalışır)",
 	"BigCraftables.MiningDrill.Name": "Programlanabilir Matkap",
-	"BigCraftables.MiningDrill.Desc": "Çalışmak için bir pil ve bir cevher, mücevher, jeot, kömür ya da taş gerekir. Eğer yanında bir Makine Toplayıcı varsa daha iyi çalışır ve fazladan ürün verir.",
+	"BigCraftables.MiningDrill.Desc": "Çalışmak için bir pil ve bir cevher, mücevher, jeot, kömür ya da taş gerekir. Sadece stabil maden ortamında çalışır. Eğer yanında bir Makine Toplayıcı varsa daha iyi çalışır ve fazladan ürün verir.",
 	"BigCraftables.ThermalReactor.Name": "Termal Reaktör",
 	"BigCraftables.ThermalReactor.Desc": "Lav bulunan mekanlara konulduğunda batarya üretir. Direkt olarak lavın içine KOYMAYIN.",
 	"BigCraftables.NodeMaker.Name": "Taş Yapıcı",
@@ -82,7 +98,11 @@
 	"BigCraftables.MinecartChest.Name": "Maden Arabası",
 	"BigCraftables.MinecartChest.Desc": "Eğer inşa edildiyse, içine konulanları çiftlikteki Maden Deposu'na gönderir, yoksa bir işe yaramaz.",
 	"BigCraftables.DrillCollector.Name": "Makine Toplayıcı",
-	"BigCraftables.DrillCollector.Desc": "Belirli makinelerin ürünlerini toplayabilen ve içine malzeme yerleştirebilen akıllı bir toplayıcı.",
+	"BigCraftables.DrillCollector.Desc": "Belirli makinelerin ürünlerini toplayabilen ve içine malzeme yerleştirebilen akıllı bir toplayıcı. Hemen yanına yerleştirin.",
+	"BigCraftables.BirdFeeder.Name": "Kuş Yemliği", //Added in 1.1.0
+	"BigCraftables.BirdFeeder.Desc": "Farklı yemler farklı kuşları getirir! Yemler elle yerleştirilmelidir.", //Added in 1.1.0
+	"BigCraftables.SeedSifter.Name": "Tohum Eleği", //Added in 1.1.0
+	"BigCraftables.SeedSifter.Desc": "Toplamalardan yabani tohum elde etmek için bir masa. Sahil ve çöl toplamalarıyla veya mevsimsel olmayanlarla çalışmaz.", //Added in 1.1.0
 	
 	"Machinery.NodeMaker.InvalidCount": "2 kil gerektirir.",
 	"Machinery.MiningDrill.InvalidCount": "1 batarya gerektirir.",
@@ -226,5 +246,9 @@
 	"Buildings.MineralCavern.Desc": "Merak etme, girmek güvenli! Gizemli bir şekilde, buraya bırakılan taşlar zamanla büyür.",
 	"Buildings.MineTent.Name": "Maden Deposu",
 	"Buildings.MineTent.Desc": "Sen dönene kadar maden çıktılarını güvende tutacak depo binası. Bir save dosyasında, bu binadan sadece bir tane bulunabilir.",
+	"Buildings.Sawmill.Name": "Hızarhane", //Added in 1.1.0
+	"Buildings.Sawmill.Desc": "Dökme suyla dönen değirmen. Kesim tahtasına, odun almak için kereste bırak.", // Added in 1.1.0
+	"Buildings.SecretGlade.Name": "Gizli Koru", // Added in 1.1.0
+	"Buildings.SecretGlade.Desc": "Kapıdan içeri girdiğinde huzurlu bir toplama alanı bulacaksın.", // Added in 1.1.0
 
 }

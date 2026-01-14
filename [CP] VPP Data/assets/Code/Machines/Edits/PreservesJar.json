@@ -20,9 +20,9 @@
 			"Entries":{ 
 				"Kedi.VPP.RoeMance.1": {
 					"Id": "Kedi.VPP.RoeMance.1",
-					"Amount": 0.75,
+					"Amount": 1.25,
 					"Modification": "Multiply",
-					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Roemance" 
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Roe-mance" 
 				}
 			},
 		},
@@ -33,9 +33,9 @@
 			"Entries":{ 
 				"Kedi.VPP.RoeMance": {
 					"Id": "Kedi.VPP.RoeMance",
-					"Amount": 0.75,
+					"Amount": 1.25,
 					"Modification": "Multiply",
-					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Roemance"
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current Roe-mance"
 				}
 			},
 		}

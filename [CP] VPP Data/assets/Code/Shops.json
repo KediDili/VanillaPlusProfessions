@@ -485,7 +485,7 @@
 					"Price": 7500,
 					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current CraftSupplies, PLAYER_BASE_MINING_LEVEL Current 19",
 				},
-				"{{ModId}}_Shops_Meal": {
+				"{{ModId}}_Shops_ForagersBowl": {
 					"Id": "{{ModId}}_Shops_ForagersBowl",
 					"ItemId": "{{ModId}}_ForagersBowl",
 					"Price": 7500,

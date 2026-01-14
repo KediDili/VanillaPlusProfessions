@@ -42,6 +42,8 @@ namespace VanillaPlusProfessions
         public const string Key_DisabledTalents = "Kedi.VPP.DisabledTalents";
 
         public const string Key_XrayDrop = "Kedi.VPP.XrayDrop";
+        public const string Key_XrayDrop2 = "Kedi.VPP.XrayDrop2";
+        public const string Key_WhichXrayDrop = "Kedi.VPP.WhichXrayDrop";
         public const string Key_AccessoriseRing = "Kedi.VPP.AccessoriseRing";
         public const string Key_CrystalCavern = "Kedi.VPP.CrystalCavern";
         public const string Key_Upheaval = "Kedi.VPP.Upheaval";
@@ -90,12 +92,14 @@ namespace VanillaPlusProfessions
 
         public const string Key_ResourceClumpName = "KediDili.VanillaPlusProfessions/ResourceClumpName";
         public const string Key_ClumpSaveName = "KediDili.VanillaPlusProfessions/ResourceClumpSave";
+        public const string Key_ParsedClumpType = "KediDili.VanillaPlusProfessions/ParsedClumpType";
         public const string Key_MossyFertilizer = "KediDili.VanillaPlusProfessions/MossyFertilizer";
         public const string Key_WildTotem = "KediDili.VanillaPlusProfessions/WildTotem";
         public const string Key_BirdFeederTime = "KediDili.VanillaPlusProfessions_BirdFeederTime";
         public const string Key_VPPDeluxeForage = "KediDili.VanillaPlusProfessions/DeluxeForage";
         public const string Key_MineralCavern_NodeToBoulder = "KediDili.VanillaPlusProfessions_NodeToBoulder";
         public const string Key_NodeMaker_OreToNode = "KediDili.VanillaPlusProfessions_OreToNode";
+        public const string Key_GlowingCrystalColor = "KediDili.VanillaPlusProfessions_GlowingCrystalColor";
 
         public readonly static string[] GemNodes = new string[] { "2", "4", "6", "8", "10", "12", "14" };
         public readonly static string[] GeodeNodes = new string[] { "75", "76", "77", "819" };
@@ -122,6 +126,7 @@ namespace VanillaPlusProfessions
         public const string Id_MachineryCollector = "KediDili.VPPData.CP_DrillCollector";
         public const string Id_BoxTrough = "KediDili.VPPData.CP_BoxTrough";
         public const string Id_NodeLifter = "KediDili.VPPData.CP_NodeLifter";
+        public const string Id_GlowingCrystal = "KediDili.VPPData.CP_GlowingCrystal";
 
         public readonly static List<string> VoidButterfly_Locations = new() { "WitchSwamp", "BugLair", "Sewers", "PirateCove", "Railroad", "BusTunnel", "UndergroundMines121", "Caldera" };
         public readonly static List<string> Fertilizer_Ids = new() { "(O)368", "(O)369", "(O)919", "(O)370", "(O)371", "(O)920", "(O)465", "(O)466", "(O)918" };
@@ -242,7 +247,6 @@ namespace VanillaPlusProfessions
         public const string Talent_Roemance = "Roe-mance";
         public const string Talent_SpawningSeason = "SpawningSeason";
         public const string Talent_Exsquidsite = "Ex-squid-site";
-        public const string Talent_FitForACzar = "FitForACzar";
         public const string Talent_TakeItSlow = "TakeItSlow";
         public const string Talent_ItWasThisBig = "ItWasThisBig";
         public const string Talent_DeadMansChest = "DeadMansChest";

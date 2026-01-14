@@ -17,24 +17,24 @@ namespace VanillaPlusProfessions.Compatibility
         internal Dictionary<string, SkillTree> CustomTalentTrees = new();
         internal List<CustomMonsterData> CustomMonsters = new();
         internal Dictionary<IEnumerable<string>, Action<Dictionary<string, string>>> RunBeforeTalentMenuCloses = new();
-        public void RegisterCustomSkillTree(string skillID, Func<string> displayTitle, List<Talent> talents, Texture2D treeTexture, Rectangle sourceRect, int bundleID = -1, Color? tintColor = null)
+        public void RegisterCustomSkillTree(SkillTree tree)//string skillID, Func<string> displayTitle, List<Talent> talents, Texture2D treeTexture, Rectangle sourceRect, int bundleID = -1, Color? tintColor = null)
         {
             string[] skills = ModEntry.CoreModEntry.Value.SpaceCoreAPI.GetCustomSkills();
-            if (skills.Contains(skillID))
+            if (skills.Contains(tree.SkillIndex))
             {
-                if (bundleID is <= (-1) or > 6)
+                if (tree.BundleId is <= (-1) or > 6)
                 {
-                    if (!tintColor.HasValue)
+                    if (!tree.BundleColor.HasValue)
                     {
-                        ModEntry.CoreModEntry.Value.ModMonitor.Log("SpaceCore-registered skill with the ID of " + skillID + " has chosen an invalid color option. They haven't specified neither of bundleID and tintColor. Please let the custom skill mod author know of this.", StardewModdingAPI.LogLevel.Error);
+                        ModEntry.CoreModEntry.Value.ModMonitor.Log("SpaceCore-registered skill with the ID of " + tree.SkillIndex + " has chosen an invalid color option. They haven't specified neither of bundleID and tintColor. Please let the custom skill mod author know of this.", StardewModdingAPI.LogLevel.Error);
                         return;
                     }
                 }
                 else
                 {
-                    if (tintColor.HasValue)
+                    if (tree.BundleColor.HasValue)
                     {
-                        ModEntry.CoreModEntry.Value.ModMonitor.Log("SpaceCore-registered skill with the ID of " + skillID + " has chosen an invalid color option. They can't specify both bundleID and tintColor at once. Please let the custom skill mod author know of this.", StardewModdingAPI.LogLevel.Error);
+                        ModEntry.CoreModEntry.Value.ModMonitor.Log("SpaceCore-registered skill with the ID of " + tree.SkillIndex + " has chosen an invalid color option. They can't specify both bundleID and tintColor at once. Please let the custom skill mod author know of this.", StardewModdingAPI.LogLevel.Error);
                         return;
                     }
                 }
@@ -42,11 +42,11 @@ namespace VanillaPlusProfessions.Compatibility
                 {
                     //wtf was i gonna do here
                 }
-                CustomTalentTrees.TryAdd(skillID, new(null, skillID, displayTitle.Invoke(), treeTexture, talents, sourceRect, bundleID, tintColor));
+                CustomTalentTrees.TryAdd(tree.SkillIndex, tree);
             }
             else
             {
-                ModEntry.CoreModEntry.Value.ModMonitor.Log("There is no such SpaceCore-registered skill with the ID of " + skillID + ". Please let the custom skill mod author know of this.", StardewModdingAPI.LogLevel.Error);
+                ModEntry.CoreModEntry.Value.ModMonitor.Log("There is no such SpaceCore-registered skill with the ID of " + tree.SkillIndex + ". Please let the custom skill mod author know of this.", StardewModdingAPI.LogLevel.Error);
             }
         }
 

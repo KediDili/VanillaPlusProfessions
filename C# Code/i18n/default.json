@@ -624,6 +624,8 @@
 	"GMCM.TalentHintLevel.Options.Hidden": "Hidden",
 	"GMCM.TalentHintLevel.Options.Partial": "Partial",
 	"GMCM.TalentHintLevel.Options.Full": "Full",
+	"GMCM.TalentMenuKeybind.Name": "Talent Menu Keybind", //Added in 1.1.0
+	"GMCM.TalentMenuKeybind.Desc": "When pressed, opens the talent menu. (Works only if ProfessionsOnly is false)", //Added in 1.1.0
 	"GMCM.DeveloperOrTestingMode.Name": "Developer Or Testing Mode",
 	"GMCM.DeveloperOrTestingMode.Desc": "This option should be kept turned off by most users. Enable only if you know what this option does.",
 

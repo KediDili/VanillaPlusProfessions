@@ -27,7 +27,7 @@ namespace VanillaPlusProfessions.Craftables
 
         public static void OnPlayerWarp()
         {
-            if (ModEntry.ShouldForageCraftablesWork() && Context.IsMainPlayer && !BirdsOnFeeders.ContainsKey(Game1.player.currentLocation.NameOrUniqueName) && !Game1.player.currentLocation.IsRainingHere() && !Game1.player.currentLocation.IsGreenRainingHere())
+            if (Context.IsMainPlayer && !BirdsOnFeeders.ContainsKey(Game1.player.currentLocation.NameOrUniqueName) && !Game1.player.currentLocation.IsRainingHere() && !Game1.player.currentLocation.IsGreenRainingHere())
             {
                 List<Critter> sdsd = new();
                 foreach (var item in Game1.player.currentLocation.Objects.Values)
@@ -428,7 +428,7 @@ namespace VanillaPlusProfessions.Craftables
 
         public static void OnMachineInteract(StardewValley.Object machine, Farmer who)
         {
-            
+
         }
     }
 }

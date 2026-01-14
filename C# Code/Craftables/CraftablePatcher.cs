@@ -67,7 +67,7 @@ namespace VanillaPlusProfessions.Craftables
         
         public static void Eat_Postfix(FarmAnimal __instance)
         {
-            if (ModEntry.ShouldForageCraftablesWork() && Game1.GetPlayer(__instance.ownerID.Value) is Farmer who && who.GetUnmodifiedSkillLevel(3) >= 16 & Game1.random.NextBool(0.02))
+            if (Game1.GetPlayer(__instance.ownerID.Value) is Farmer who && who.GetUnmodifiedSkillLevel(3) >= 16 & Game1.random.NextBool(0.02))
             {
                 var list = (from asd in DataLoader.Objects(Game1.content)
                             where asd.Value.Category == StardewValley.Object.SeedsCategory && TalentUtility.EligibleForCropPerks(asd.Key, Constants.LevelPerk_Foraging_16)
@@ -165,7 +165,7 @@ namespace VanillaPlusProfessions.Craftables
                 ForageCropLocations.TryAdd(crop.currentLocation.NameOrUniqueName, new());
                 ForageCropLocations[crop.currentLocation.NameOrUniqueName].Add(crop.tilePosition);
             }
-            return ModEntry.ShouldForageCraftablesWork() && !returnValue;
+            return !returnValue;
         }
     }
 }

@@ -302,15 +302,7 @@
 			"Entries": {
 				"Kedi.VPP.CrystalCavern": "{{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier3}}",
 				"Kedi.VPP.Upheaval": "Lumisteria.MtVapius_Node_GeodeOre Lumisteria.MtVapius_Node_GeodeOre Lumisteria.MtVapius_Node_GeodeOre 75 75 76",
-			}
-		},
-		{
-			"Action": "EditData",
-			"Target": "Data/Locations",
-			"TargetField": [ "Lumisteria.MtVapius_ForestCaveLong", "CustomFields" ],
-			"Entries": {
-				"Kedi.VPP.CrystalCavern": "{{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier3}}",
-				"Kedi.VPP.Upheaval": "Lumisteria.MtVapius_Node_GeodeOre Lumisteria.MtVapius_Node_GeodeOre Lumisteria.MtVapius_Node_GeodeOre 75 75 76",
+				"Kedi.VPP.SharedFocus": "true"
 			}
 		},
 		{
@@ -320,6 +312,7 @@
 			"Entries": {
 				"Kedi.VPP.CrystalCavern": "{{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier3}}",
 				"Kedi.VPP.Upheaval": "Lumisteria.MtVapius_Node_GeodeOre Lumisteria.MtVapius_Node_GeodeOre Lumisteria.MtVapius_Node_GeodeOre 75 75 76 819",
+				"Kedi.VPP.SharedFocus": "true"
 			}
 		},
 		{
@@ -329,6 +322,7 @@
 			"Entries": {
 				"Kedi.VPP.CrystalCavern": "{{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier3}}",
 				"Kedi.VPP.Upheaval": "Lumisteria.MtVapius_Node_GeodeOre Lumisteria.MtVapius_Node_GeodeOre Lumisteria.MtVapius_Node_GeodeOre 75 75 76 77 819 819",
+				"Kedi.VPP.SharedFocus": "true"
 			}
 		},
 		{
@@ -338,6 +332,7 @@
 			"Entries": {
 				"Kedi.VPP.CrystalCavern": "{{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier3}}",
 				"Kedi.VPP.Upheaval": "Lumisteria.MtVapius_Node_GeodeOre Lumisteria.MtVapius_Node_GeodeOre 75 76 77 819 819",
+				"Kedi.VPP.SharedFocus": "true"
 			}
 		},
 		{
@@ -347,6 +342,7 @@
 			"Entries": {
 				"Kedi.VPP.CrystalCavern": "{{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier3}} {{VMVGemsTier2}} {{VMVGemsTier3}}",
 				"Kedi.VPP.Upheaval": "Lumisteria.MtVapius_Node_GeodeOre Lumisteria.MtVapius_Node_GeodeOre 75 76 77 819 819",
+				"Kedi.VPP.SharedFocus": "true"
 			}
 		},
 				{
@@ -356,6 +352,7 @@
 			"Entries": {
 				"Kedi.VPP.CrystalCavern": "{{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier3}} {{VMVGemsTier3}}",
 				"Kedi.VPP.Upheaval": "Lumisteria.MtVapius_Node_GeodeOre Lumisteria.MtVapius_Node_GeodeOre 75 76 77 819 819",
+				"Kedi.VPP.SharedFocus": "true"
 			}
 		},
 		{
@@ -365,6 +362,7 @@
 			"Entries": {
 				"Kedi.VPP.CrystalCavern": "{{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier1}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier2}} {{VMVGemsTier3}} {{VMVGemsTier3}} {{VMVGemsTier3}}",
 				"Kedi.VPP.Upheaval": "Lumisteria.MtVapius_Node_GeodeOre Lumisteria.MtVapius_Node_GeodeOre 75 76 76 76 77 819",
+				"Kedi.VPP.SharedFocus": "true"
 			}
 		},
 		{ //Candy Maker - Machinist - Candied Fruit, Candied Flower, Candy Cane, Mosco Cotto, Calisson, Coffee Candy

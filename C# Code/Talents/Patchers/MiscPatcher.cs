@@ -60,7 +60,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
                 transpiler: new HarmonyMethod(PatcherType, nameof(ShowMenu_Transpiler))
             );
             CoreUtility.PatchMethod(
-                PatcherName, "Object constructor",
+                PatcherName, "Object constructor #3",
                 original: AccessTools.Constructor(typeof(StardewValley.Object), new Type[] { typeof(string), typeof(int), typeof(bool), typeof(int), typeof(int) }),
                 postfix: new HarmonyMethod(PatcherType, nameof(Object_Constructor_Postfix))
             );
@@ -94,12 +94,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
                         __instance.FixQuality();
                     }
                 }
-                if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_Roemance))
-                {
-                    if (__instance.ItemId is "812" or "447" or "445")
-                        __instance.Price *= 5 / 4;
-                }
-                if (CoreUtility.CurrentPlayerHasProfession(Constants.Profession_Ironmonger))
+                if (CoreUtility.CurrentPlayerHasProfession(Constants.Profession_Ironmonger)) //Worky
                 {
                     if (__instance.HasContextTag("ore_item"))
                         __instance.Price *= 2;

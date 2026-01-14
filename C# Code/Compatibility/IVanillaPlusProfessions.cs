@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
 using StardewValley.Menus;
-using VanillaPlusProfessions.Talents;
+using VanillaPlusProfessions.Talents.UI;
 
 namespace VanillaPlusProfessions.Compatibility
 {
@@ -27,7 +27,7 @@ namespace VanillaPlusProfessions.Compatibility
         /// <param name="sourceRect">The rectangle for the talent schema to display on your custom skill tree, width and height are strongly recommended to be 320 and 180.</param>
         /// <param name="bundleID">Which bundle animation you want your custom skill to have, all bundle shapes are on <c>LooseSprites\\JunimoNote</c>. Green one uses 0, dark blue uses 6.</param>
         /// <param name="tintColor">If you don't want to use a vanilla bundle type, fill this field with any color instance and VPP will use it to make custom colored icons.</param>
-        public void RegisterCustomSkillTree(string skillID, Func<string> displayTitle, List<Talent> talents, Texture2D treeTexture, Rectangle sourceRect, int bundleID = -1, Color? tintColor = null);
+        public void RegisterCustomSkillTree(SkillTree tree);
 
         /// <summary>
         ///  A method to find out what professions a player has.

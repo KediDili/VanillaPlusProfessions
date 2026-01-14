@@ -42,6 +42,8 @@ namespace VanillaPlusProfessions
         internal Texture2D ProfessionIcons;
 
         internal int lossAmount;
+        internal bool XPDisplayInstalled = false;
+        internal int TalentMenuHintApplied;
 
         internal void Initialize(ModEntry modEntry)
         {
@@ -143,16 +145,20 @@ namespace VanillaPlusProfessions
             // not using ModEntry.GetGameMenuPage() because BetterGameMenu won't have a SkillsPage initialized at MenuChanged
             if (e.NewMenu is GameMenu menu1)
             {
-                if (menu1.pages[1] is SkillsPage or NewSkillsPage && CoreUtility.IsOverlayValid() && ShouldHandleSkillPage)
+                TalentMenuHintApplied = 0;
+                if (menu1.pages[1] is SkillsPage or NewSkillsPage)
                 {
-                    OpenTalentMenuCooldown = true;
-                    HandleSkillPage(menu1.pages[1], menu1);
+                    if (CoreUtility.IsOverlayValid() && ShouldHandleSkillPage)
+                    {
+                        OpenTalentMenuCooldown = true;
+                        HandleSkillPage(menu1.pages[1], menu1);
+                    }
                 }
             }
 
             if (e.OldMenu is BobberBar bobberBar)
             {
-                if (TalentUtility.CurrentPlayerHasTalent("HereFishyFishy"))
+                if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_HereFishyFishy))
                 {
                     if (bobberBar.distanceFromCatching is 0f)
                         lossAmount++;
@@ -162,7 +168,7 @@ namespace VanillaPlusProfessions
             }
             else if (e.NewMenu is BobberBar bobberBar1)
             {
-                if (TalentUtility.CurrentPlayerHasTalent("HereFishyFishy"))
+                if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_HereFishyFishy))
                 {
                     if (lossAmount > 1)
                     {
@@ -170,7 +176,7 @@ namespace VanillaPlusProfessions
                         bobberBar1.bobberBarPos -= lossAmount * 20;
                     }
                 }
-                if (TalentUtility.CurrentPlayerHasTalent("OneFishTwoFish"))
+                if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_OneFishTwoFish))
                 {
                     if (bobberBar1.challengeBaitFishes > -1)
                     {
@@ -180,7 +186,9 @@ namespace VanillaPlusProfessions
             }
 
             if (ModEntry.IsGameMenu(e.OldMenu) || ModEntry.IsGameMenu(e.NewMenu))
+            {
                 IsOverlayActive = false;
+            }
 
             if (e.OldMenu is CraftingPage craftingPage && craftingPage.cooking && e.NewMenu is null)
                 TalentCore.TalentCoreEntry.Value.IsCookoutKit = false;
@@ -317,6 +325,11 @@ namespace VanillaPlusProfessions
                         {
                             int standartIndex = StandardizeSkillIndexes(FF);
                             int skillLevel = Game1.player.GetSkillLevel(standartIndex);
+                            if (TalentMenuHintApplied < 4)
+                            {
+                                page.skillAreas[FF].hoverText += "(Click to open talent menu)"; //TODO Make this into i18n
+                                TalentMenuHintApplied++;
+                            }
                             for (int SS = 0; SS < 10; SS++)
                             {
                                 if (SS is 4 or 9)
@@ -392,12 +405,22 @@ namespace VanillaPlusProfessions
                     Dictionary<int, int> skillAreaSkillIndexes = ModEntry.CoreModEntry.Value.Helper.Reflection.GetField<Dictionary<int, int>>(page2, "skillAreaSkillIndexes").GetValue();
                     int skillScrollOffset = ModEntry.CoreModEntry.Value.Helper.Reflection.GetField<int>(page2, "skillScrollOffset").GetValue();
                     int LastVisibleSkillIndex = ModEntry.CoreModEntry.Value.Helper.Reflection.GetProperty<int>(page2, "LastVisibleSkillIndex").GetValue();
-                    if (IsOverlayActive)
+                    bool enableShadow = false;
+                    foreach (var item in page2.skillAreas)
                     {
-                        foreach (var item in page2.skillAreas)
+                        if (skillAreaSkillIndexes.TryGetValue(item.myID, out int skillIndex) && (skillIndex < skillScrollOffset || skillIndex > LastVisibleSkillIndex))
+                            continue;
+                        //4, because we need to exclude the Misc/Daily Life tree.
+                        if (TalentMenuHintApplied < 5 + ModEntry.CoreModEntry.Value.VanillaPlusProfessionsAPI.CustomTalentTrees.Count)
                         {
-                            if (skillAreaSkillIndexes.TryGetValue(item.myID, out int skillIndex) && (skillIndex < skillScrollOffset || skillIndex > LastVisibleSkillIndex))
-                                continue;
+                            if (!item.name.StartsWith('C') || ModEntry.CoreModEntry.Value.VanillaPlusProfessionsAPI.CustomTalentTrees.ContainsKey(item.name))
+                            {
+                                item.hoverText += "\n(Click to open talent menu)";
+                                TalentMenuHintApplied++;
+                            }
+                        }
+                        if (IsOverlayActive)
+                        {                            
                             if (item.name.StartsWith('C'))
                             {
                                 string thisSkillId = ModEntry.CoreModEntry.Value.SpaceCoreAPI.GetCustomSkills().First(s => item.name[1..] == ModEntry.CoreModEntry.Value.SpaceCoreAPI.GetDisplayNameOfCustomSkill(s));
@@ -425,7 +448,7 @@ namespace VanillaPlusProfessions
                             else
                             {
                                 int standartIndex = StandardizeSkillIndexes(int.Parse(item.name));
-                                int level = Game1.player.GetUnmodifiedSkillLevel(standartIndex);
+                                int level = Game1.player.GetUnmodifiedSkillLevel(standartIndex); 
                                 for (int i = 0; i < 10; i++)
                                 {
                                     if (i is 4 or 9)
@@ -437,7 +460,7 @@ namespace VanillaPlusProfessions
                                         e.SpriteBatch.Draw(SkillIcons, new Vector2(item.bounds.X + item.bounds.Width + 24 + (36 * i) + (i > 3 ? 24 : 0), item.bounds.Y - (skillScrollOffset * 56)), new Rectangle(level >= (i + 11) ? 8 : 0, ModEntry.CoreModEntry.Value.ModConfig.ColorBlindnessChanges ? 9 : 0, 7, 9), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.5f);
                                     }
                                 }
-                                if (true) // XP display is installed?
+                                if (CoreDisplayHandler.Value.XPDisplayInstalled)
                                 {
                                     for (int i = 1; i < 10; i++)
                                     {
@@ -458,6 +481,7 @@ namespace VanillaPlusProfessions
                                             if (item.bounds.Y < cursorY && cursorY < item.bounds.Height + item.bounds.Y && Game1.getMouseX(true) > item.bounds.X && Game1.getMouseX(true) < menuPage.width - 100 + menuPage.xPositionOnScreen && hoverText?.Length == 0)
                                             {
                                                 hoverText = $"{XPcurrent} / {XPnext} ({(int)(progress * 100)}%)";
+                                                enableShadow = true;
                                             }
                                             if (fillHeight > 0) // only draw if at least 1 pixel to avoid 0-draw
                                             {
@@ -471,28 +495,27 @@ namespace VanillaPlusProfessions
                                     }
                                 }
                             }
-                        }
-                        foreach (ClickableTextureComponent c in MyCustomSkillBars)
-                        {
-                            if (c.containsPoint(Game1.getMouseX(true), Game1.getMouseY(true) + (skillScrollOffset * 56)) && c.hoverText.Length > 0 && !c.name.Equals("-1"))
+                            foreach (ClickableTextureComponent c in MyCustomSkillBars)
                             {
-                                IClickableMenu.drawTextureBox(e.SpriteBatch, Game1.menuTexture, new Rectangle(0, 256, 60, 60), c.bounds.X - 24, c.bounds.Y - 32 - (skillScrollOffset * 56), 96, 96, Color.White, drawShadow: false);
-                                if (c.name.StartsWith('C'))
+                                if (c.containsPoint(Game1.getMouseX(true), Game1.getMouseY(true) + (skillScrollOffset * 56)) && c.hoverText.Length > 0 && !c.name.Equals("-1"))
                                 {
-                                    Texture2D profIcon = SpaceCore.Skills.GetSkillList()
-                                        .SelectMany(s => SpaceCore.Skills.GetSkill(s).Professions)
-                                        .Single(p => p.Id == c.name[1..])
-                                        .Icon;
-                                    e.SpriteBatch.Draw(profIcon, new Vector2(c.bounds.X - 8, c.bounds.Y - 16 - (skillScrollOffset * 56)), new Rectangle(0, 0, 16, 16), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 1f);
-                                }
-                                else
-                                {
-                                    e.SpriteBatch.Draw(ProfessionIcons, new Vector2(c.bounds.X - 8, c.bounds.Y - 16 - (skillScrollOffset * 56)), new Rectangle((Convert.ToInt32(c.name) - 467830) % 6 * 16, (Convert.ToInt32(c.name) - 467830) / 6 * 16, 16, 16), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 1f);
+                                    IClickableMenu.drawTextureBox(e.SpriteBatch, Game1.menuTexture, new Rectangle(0, 256, 60, 60), c.bounds.X - 24, c.bounds.Y - 32 - (skillScrollOffset * 56), 96, 96, Color.White, drawShadow: false);
+                                    if (c.name.StartsWith('C'))
+                                    {
+                                        Texture2D profIcon = SpaceCore.Skills.GetSkillList()
+                                            .SelectMany(s => SpaceCore.Skills.GetSkill(s).Professions)
+                                            .Single(p => p.Id == c.name[1..])
+                                            .Icon;
+                                        e.SpriteBatch.Draw(profIcon, new Vector2(c.bounds.X - 8, c.bounds.Y - 16 - (skillScrollOffset * 56)), new Rectangle(0, 0, 16, 16), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 1f);
+                                    }
+                                    else
+                                    {
+                                        e.SpriteBatch.Draw(ProfessionIcons, new Vector2(c.bounds.X - 8, c.bounds.Y - 16 - (skillScrollOffset * 56)), new Rectangle((Convert.ToInt32(c.name) - 467830) % 6 * 16, (Convert.ToInt32(c.name) - 467830) / 6 * 16, 16, 16), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 1f);
+                                    }
                                 }
                             }
                         }
                     }
-
                     if (CoreUtility.IsOverlayValid())
                     {
                         LittlePlus.draw(e.SpriteBatch);
@@ -502,7 +525,14 @@ namespace VanillaPlusProfessions
                     {
                         StringBuilder sb = new();
                         sb.Append(hoverText);
-                        drawHoverText(e.SpriteBatch, sb, Game1.smallFont, hoverTitle);
+                        if (enableShadow)
+                        {
+                            IClickableMenu.drawHoverText(e.SpriteBatch, sb, Game1.smallFont);
+                        }
+                        else
+                        {
+                            drawHoverText(e.SpriteBatch, sb, Game1.smallFont, hoverTitle);
+                        }
                     }
                     else if (Game1.activeClickableMenu is GameMenu gameMenu && gameMenu.hoverText.Length > 0)
                     {
@@ -532,7 +562,7 @@ namespace VanillaPlusProfessions
             }
             if (Game1.activeClickableMenu is BobberBar bobberBar)
             {
-                if (TalentUtility.CurrentPlayerHasTalent("TakeABreak"))
+                if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_TakeABreak))
                 {
                     bobberBar.distanceFromCatchPenaltyModifier = !bobberBar.treasureCaught && bobberBar.treasurePosition != 0 && bobberBar.treasurePosition + 12f <= bobberBar.bobberBarPos - 32f + bobberBar.bobberBarHeight && bobberBar.treasurePosition - 16f >= bobberBar.bobberBarPos - 32f
                         ? 0f
@@ -614,7 +644,7 @@ namespace VanillaPlusProfessions
         }
         private void drawHoverText(SpriteBatch b, StringBuilder text, SpriteFont font, string boldTitleText)
         {
-            //I know, I know. You want to incinerate me for this and you're right to do so, but its because I had a double shadow.
+            //I know, I know. You hate me, its because I had a double shadow.
             if (text == null || text.Length == 0)
                 return;
 

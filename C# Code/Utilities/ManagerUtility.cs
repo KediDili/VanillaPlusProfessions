@@ -67,7 +67,6 @@ namespace VanillaPlusProfessions.Utilities
                 }
             }
         }
-
         public static string GetProduceTimeBasedOnPrice(TerrainFeature feature, out Object produce)
         {
             int price = 140;

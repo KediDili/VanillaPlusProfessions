@@ -10,6 +10,7 @@
 					"Texture": "Buildings\\{{ModId}}\\MineralCavern",
 					"Builder": "Robin",
 					"BuildCost": 20000,
+					"SeasonOffset": "80,0",
 					"BuildMaterials": [
 						{
 							"Id": "Clays",
@@ -29,6 +30,12 @@
 					],
 					"BuildDays": 2,
 					"BuildCondition": "PLAYER_BASE_MINING_LEVEL Current 18",
+					"SourceRect": {
+						"X": 0,
+						"Y": 0,
+						"Width": 80,
+						"Height": 96
+					},
 					"Size": {
 						"X": 5,
 						"Y": 3
@@ -47,6 +54,7 @@
 					"Texture": "Buildings\\{{ModId}}\\SmallSaltTent",
 					"Builder": "Robin",
 					"BuildCost": 10000,
+					"SeasonOffset": "80,0",
 					"BuildMaterials": [
 						{
 							"Id": "CopperBars",
@@ -101,8 +109,8 @@
 						{
 							"Id": "GemsAndOres",
 							"SourceRect": {
-								"X": 80,
-								"Y": 0,
+								"X": 0,
+								"Y": 80,
 								"Width": 48,
 								"Height": 32,
 							},
@@ -125,11 +133,23 @@
 				"{{ModId}}_Sawmill":{
 					"Name": "[LocalizedText Strings\\Buildings:{{ModId}}_Sawmill_Name]",
 					"Description": "[LocalizedText Strings\\Buildings:{{ModId}}_Sawmill_Description]",
-					"Texture": "Buildings\\{{ModId}}\\Sawmill",
+					"Texture": "Buildings\\{{ModId}}\\Sawmill_Left",
+					"Skins": [
+						{
+							"Id": "Sawmill_Right",
+							"Name": "[LocalizedText Strings\\Buildings:{{ModId}}_Sawmill_Name]",
+							"Description": "[LocalizedText Strings\\Buildings:{{ModId}}_Sawmill_Description]",
+							"Texture":"Buildings\\{{ModId}}\\Sawmill_Right",
+						}
+					],
 					"Builder": "Robin",
 					"BuildCondition": "PLAYER_BASE_FORAGING_LEVEL Current 16",
 					"BuildCost": 10000,
 					"BuildDays": 3,
+					"AllowsFlooringUnderneath": true,
+					"DrawShadow": false,
+					"SeasonOffset": "112,0",
+					"BuildMenuDrawOffset": "-24,0",
 					"BuildMaterials": [
 						{
 							"Id": "Hardwood",
@@ -143,16 +163,16 @@
 						},
 					],
 					"Size": {
-						"X": 8, //7
-						"Y": 5
+						"X": 5,
+						"Y": 4
 					},
 					"SourceRect": {
 						"X": 0,
 						"Y": 0,
-						"Width": 128, //112
+						"Width": 96,
 						"Height": 112
 					},
-					"CollisionMap": "XXOOOOOO\nXXXXXXXO\nXXXOOOOX\nXXXXXOOX\nXXXXXXOX",
+					"CollisionMap": "OXXXO\nXOOOX\nXXXOX\nXXXOX",
 					"ActionTiles":[
 						{
 							"Id": "Open_Input_Chest_1", //+
@@ -175,136 +195,90 @@
 						{
 							"Id": "LogBeingCut", //+
 							"SourceRect": {
-								"X": 232,
-								"Y": 32,
+								"X": 48,
+								"Y": 192,
 								"Width": 24,
 								"Height": 13,
 							},
+							
 							"SortTileOffset": 0.001,
 							"SortTileOffset": 0.03,
 							"OnlyDrawIfChestHasContents": "InputOrOutput",
-							"DrawPosition": "38, 85",
+							"DrawPosition": "22, 85",
 						},
 						{
-							"Id": "TurningSaw", //+
+							"Id": "TurningSaw",
 							"SourceRect": {
-								"X": 128,
-								"Y": 38,
+								"X": 48,
+								"Y": 176,
 								"Width": 16,
-								"Height": 10,
+								"Height": 16,
 							},
 							"FrameCount": 3,
 							"FrameDuration": 300,
 							"SortTileOffset": 0.04,
-							"DrawPosition": "59, 82",
+							"DrawPosition": "8, 76",
 						},
 						{
 							"Id": "SawBench",
 							"SourceRect": {
-								"X": 240,
-								"Y": 48,
+								"X": 0,
+								"Y": 176,
 								"Width": 48,
 								"Height": 32,
 							},
-							"DrawPosition": "33, 78",
+							"DrawPosition": "1, 78",
 							"SortTileOffset": 0.05,
 						},
 						{
-							"Id": "SawmillRails", //++
+							"Id": "TurningWatermill_Left",
 							"SourceRect": {
-								"X": 176,
-								"Y": 32,
-								"Width": 56,
-								"Height": 13,
-							},
-							"DrawPosition": "38, 93",
-						},
-						{
-							"Id": "TurningWatermill",
-							"SourceRect": {
-								"X": 192,
-								"Y": 48,
+								"X": 0,
+								"Y": 112,
 								"Width": 10,
 								"Height": 55,
 							},
 							"FrameCount": 4,
 							"FrameDuration": 200,
-							"DrawPosition": "11, 45",
+							"DrawPosition": "-20, 45",
 						},
 						{
-							"Id": "TurningMiniCoverThingy",
+							"Id": "TurningWatermill_Right",
 							"SourceRect": {
-								"X": 192,
-								"Y": 103,
+								"X": 52,
+								"Y": 112,
 								"Width": 10,
+								"Height": 55,
+							},
+							"FrameCount": 4,
+							"FrameDuration": 200,
+							"DrawPosition": "95, 45",
+						},
+						{
+							"Id": "TurningMiniCoverThingy_Left",
+							"SourceRect": {
+								"X": 40,
+								"Y": 112,
+								"Width": 12,
 								"Height": 9,
 							},
 							"FrameCount": 4,
 							"FrameDuration": 200,
-							"DrawPosition": "22, 70",
+							"FramesPerRow": 1,
+							"DrawPosition": "-10, 70",
 						},
 						{
-							"Id": "PouringWater",
+							"Id": "TurningMiniCoverThingy_Right",
 							"SourceRect": {
-								"X": 232,
-								"Y": 64,
-								"Width": 2,
-								"Height": 37,
+								"X": 92,
+								"Y": 112,
+								"Width": 12,
+								"Height": 9,
 							},
-							"FrameCount": 2,
-							"FrameDuration": 250,
-							"SortTileOffset": -1,
-							"DrawPosition": "15, 12",
-						},
-						{
-							"Id": "BottomWater",
-							"SourceRect": {
-								"X": 192,
-								"Y": 48,
-								"Width": 32,
-								"Height": 64,
-							},
-							"DrawPosition": "0, 48",
-							"DrawInBackground": true,
-						},
-						{
-							"Id": "WaterTiles2",
-							"SourceRect": {
-								"X": 128,
-								"Y": 0,
-								"Width": 32,
-								"Height": 32,
-							},
-							"FrameCount": 5,
-							"DrawPosition": "0, 48",
-							"FrameDuration": 180,
-							"DrawInBackground": true,
-						},
-						{
-							"Id": "WaterTiles1",
-							"SourceRect": {
-								"X": 128,
-								"Y": 0,
-								"Width": 32,
-								"Height": 32,
-							},
-							"FrameCount": 5,
-							"DrawPosition": "0, 80",
-							"FrameDuration": 180,
-							"DrawInBackground": true,
-						},
-						{
-							"Id": "SideWaterTiles",
-							"SourceRect": {
-								"X": 128,
-								"Y": 48,
-								"Width": 32,
-								"Height": 64,
-							},
-							"FrameCount": 2,
-							"DrawPosition": "0, 48",
-							"FrameDuration": 1000,
-							"DrawInBackground": true,
+							"FrameCount": 4,
+							"FrameDuration": 200,
+							"FramesPerRow": 1,
+							"DrawPosition": "83, 70",
 						},
 					],
 					"Chests": [ 
@@ -333,7 +307,6 @@
 							"MaxDailyConversions": 70,
 						}
 					],
-					"DrawShadow": false,
 				},
 				"{{ModId}}_SecretGlade":{
 					"Name": "[LocalizedText Strings\\Buildings:{{ModId}}_SecretGlade_Name]",
@@ -343,6 +316,7 @@
 					"BuildCondition": "PLAYER_BASE_FORAGING_LEVEL Current 18",
 					"BuildCost": 20000,
 					"MagicalConstruction": true,
+					"SeasonOffset": "112,0",
 					"HumanDoor": {
 						"X": 3,
 						"Y": 2
@@ -369,21 +343,6 @@
 						"X": 7,
 						"Y": 3
 					},
-					/*"DrawLayers": [
-						{
-							"Id": "DoorBottom", //+
-							"SourceRect": {
-								"X": 112,
-								"Y": 0,
-								"Width": 16,
-								"Height": 32,
-							},
-							"SortTileOffset": 0.001,
-							"SortTileOffset": 0.03,
-							"DrawInBackground": true,
-							"DrawPosition": "48, 48",
-						},
-					],*/
 					"SourceRect": {
 						"X": 0,
 						"Y": 0,

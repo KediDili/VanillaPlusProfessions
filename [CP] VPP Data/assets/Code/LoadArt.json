@@ -2,7 +2,7 @@
 	"Changes": [
 		{
 			"Action": "Load",
-			"Target": "Buildings/{{ModId}}/MineralCavern, Buildings/{{ModId}}/SecretGlade, TileSheets/{{ModId}}/Machinery, TileSheets/{{ModId}}/ItemIcons, Buildings\\{{ModId}}\\SmallSaltTent, Buildings\\{{ModId}}\\SmallSaltTent_PaintMask,  Buildings\\{{ModId}}\\Sawmill, Buildings\\{{ModId}}\\Sawmill_PaintMask",
+			"Target": "Buildings/{{ModId}}/MineralCavern, Buildings/{{ModId}}/SecretGlade, TileSheets/{{ModId}}/Machinery, TileSheets/{{ModId}}/ItemIcons, Buildings\\{{ModId}}\\SmallSaltTent, Buildings\\{{ModId}}\\SmallSaltTent_PaintMask, Buildings\\{{ModId}}\\Sawmill_Left, Buildings\\{{ModId}}\\Sawmill_Right, Buildings\\{{ModId}}\\Sawmill_Right_PaintMask, Buildings\\{{ModId}}\\Sawmill_Left_PaintMask",
 			"FromFile": "assets/Art/{{TargetWithoutPath}}.png",
 		}
 	]

@@ -591,6 +591,11 @@
 	"Message.ParrotPerch": "Bu sadece hayvan binalarına yerleştirilebilir!",
 	"Message.MossyFertilizer": "Bu ağaçta zaten Yosunlu Gübre var!",
 	"Message.TotemFailed": "Totem, toplama çağırmak için uygun bir yer bulamadı.",
+	"Message.SunTotemSuccess.Normal": "Bulutlar gökyüzünden kayboluyor uzaklarda...#Güneş ışınları gözünü kamaştırıyor.", //Added in 1.1.0
+	"Message.SunTotemSuccess.Summer": "İçerideki ışık yarın daha fazla ışık olacağından şüphe bırakmıyor.", //Added in 1.1.0
+	"Message.SnowTotemSuccess.Normal": "Küçük soğuk kristaller göklere bir değişim oluşturmaya gidiyor...", //Added in 1.1.0
+	"Message.SnowTotemSuccess.Winter": "Küçük soğuk kristaller çevredeki bulutlardan arkadaşlarını çağırıyor...", //Added in 1.1.0
+	"Message.Dodge": "Kaçınma", //Added in 1.1.0
 
 	//Buffs
 	"Buff.Slippery.Name": "Kaygan",
@@ -605,6 +610,7 @@
 	"Buff.SpeedOfDarkness.Desc": "Koş! Yatağına yetiş!",
 
 	//Config
+	"GMCM.MainOptionsSection.Name": "Ana Seçenekler", //Added in 1.1.0
 	"GMCM.ColorBlindnessChanges.Name": "Renk Körlüğü Değişimleri",
 	"GMCM.ColorBlindnessChanges.Desc": "VPP ve vanilla beceri barlarını çizgili versiyonlarla değiştirir.",
 	"GMCM.MasteryCaveChanges.Name": "Ustalık Mağarası Değişimleri",
@@ -618,8 +624,35 @@
 	"GMCM.TalentHintLevel.Options.Hidden": "Gizli",
 	"GMCM.TalentHintLevel.Options.Partial": "Kısmen",
 	"GMCM.TalentHintLevel.Options.Full": "Tam",
+	"GMCM.TalentMenuKeybind.Name": "Maharet Menü Kısayolu",
+	"GMCM.TalentMenuKeybind.Desc": "Basıldığında maharet menüsünü açar. (Yalnızca 'Sadece Uzmanlıklar' seçeneği kapalıysa çalışır)",
 	"GMCM.DeveloperOrTestingMode.Name": "Geliştirici Modu",
 	"GMCM.DeveloperOrTestingMode.Desc": "Birçok kullanıcı tarafından bu seçenek kapalı tutulmalıdır. Sadece ne yaptığını biliyorsanız bunu açın.",
+	
+	"GMCM.BalanceSection.Name": "Denge", //Added in 1.1.0
+	"GMCM.BalanceSection.Paragraph": "Bu bölüm, kendi oyununuzun dengesini kendiniz ayarlayabilmeniz için eklendi, çünkü 'Denge' herkes için farklıdır. Ayrıca modun CP kısmında Dazzla için de bir seçenek var. Diğer maharet/uzmanlıklar için de seçenekler istemekten çekinmeyin. Eğer yapılabilir ve mantıklıysa ekleyebilirim.", //Added in 1.1.0
+	"GMCM.CycleOfLifeChance.Name": "'Hayatın Döngüsü' İhtimal", //Added in 1.1.0
+	"GMCM.CycleOfLifeChance.Desc": "Her ekin için kontrol edilir.", //Added in 1.1.0
+	"GMCM.FalloutChance.Name": "'Nükleer Sızıntı' İhtimal", //Added in 1.1.0
+	"GMCM.FalloutChance.Desc": "Her taş başına, maden katıyla çarpılarak kontrol edilir.", //Added in 1.1.0
+	"GMCM.CrystalCavernChance.Name": "'Kristal Mağara' İhtimal", //Added in 1.1.0
+	"GMCM.CrystalCavernChance.Desc": "Bir maden katına girerken sadece bir kez kontrol edilir.", //Added in 1.1.0
+	"GMCM.UpheavalChance.Name": "'Çalkantı' İhtimal", //Added in 1.1.0
+	"GMCM.UpheavalChance.Desc": "Bir maden katına girerken sadece bir kez kontrol edilir.", //Added in 1.1.0
+	"GMCM.WildGrowthChance.Name": "'Çılgın Büyüme' İhtimal", //Added in 1.1.0
+	"GMCM.WildGrowthChance.Desc": "Her sabah hayvan başına bir kez kontrol edilir.", //Added in 1.1.0
+	"GMCM.VolatilityChance.Name": "'İstikrarsız' İhtimal", //Added in 1.1.0 
+	"GMCM.VolatilityChance.Desc": "Kırılan her taş başına kontrol edilir.", //Added in 1.1.0
+	"GMCM.SpawningSeasonChance.Name": "'Üreme Dönemi' İhtimal", //Added in 1.1.0
+	"GMCM.SpawningSeasonChance.Desc": "Balık havuzu başına kontrol edilir.", //Added in 1.1.0
+	"GMCM.AdmirationMultiplier.Name": "'Hayranlık' Çarpanı", //Added in 1.1.0
+	"GMCM.AdmirationMultiplier.Desc": "Ana arkadaşlık kaybıyla ÇARPILIR, 1'den küçük sayılar bunu azaltır.", //Added in 1.1.0
+	"GMCM.AquaculturalistMultiplier.Name": "'Su Ürünleri Uzmanı' Çarpanı", //Added in 1.1.0
+	"GMCM.AquaculturalistMultiplier.Desc": "Uygulanabilirse, balık havuzu verisindeki bütün yığın(item stack) değerleriyle çarpılır.", //Added in 1.1.0
+	"GMCM.MeditationHealth.Name": "'Meditasyon' Sağlığı", //Added in 1.1.0
+	"GMCM.MeditationHealth.Desc": "Çalıştığı her seferde çiftçinin sağlığına eklenir.", //Added in 1.1.0
+	"GMCM.DownInTheDepthsStones.Name": "'Derinliklerde' Taşları", //Added in 1.1.0
+	"GMCM.DownInTheDepthsStones.Desc": "Mahareti çalıştırmak için EN FAZLA kaç taş kırmalısın?", //Added in 1.1.0
 
 	//Items
 	"Item.Xray.GeodeDrop": "(X-ray Jeot Ürünü: {{dropName}})",
@@ -628,5 +661,8 @@
 
 	//Extra Info
 	"ExtraInfo.MinecartRepository": "Artık Robin'in dükkanından Maden Deposu inşa edebilirsin.",
-	"ExtraInfo.MineralCavern": "Artık Robin'in dükkanından Mineral Mağarası inşa edebilirsin."
+	"ExtraInfo.MineralCavern": "Artık Robin'in dükkanından Mineral Mağarası inşa edebilirsin.",
+	"ExtraInfo.Sawmill": "Artık Robin'in dükkanından Hızarhane inşa edebilirsin.", //Added in 1.1.0
+	"ExtraInfo.AnimalsDropSeedsOnEatGrass": "Çiftlik hayvanları çim yediklerinde tohum bırakabilir.", //Added in 1.1.0
+	"ExtraInfo.SecretGlade": "You can build Secret Glades from Wizard's bookstand." //Added in 1.1.0
 }

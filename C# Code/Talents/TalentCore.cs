@@ -21,10 +21,13 @@ using Microsoft.Xna.Framework.Graphics;
 using StardewValley.Locations;
 using SpaceCore;
 using StardewValley.GameData.Objects;
+using StardewValley.Objects.Trinkets;
 using VanillaPlusProfessions.Craftables;
 using StardewValley.Triggers;
 using Microsoft.Xna.Framework;
 using StardewValley.BellsAndWhistles;
+using VanillaPlusProfessions.Talents.UI;
+using StardewValley.Objects;
 
 namespace VanillaPlusProfessions.Talents
 {
@@ -66,6 +69,7 @@ namespace VanillaPlusProfessions.Talents
                 modEntry.Helper.Events.World.TerrainFeatureListChanged += OnTerrainFeatureListChanged;
                 modEntry.Helper.Events.World.ChestInventoryChanged += OnChestInventoryChanged;
                 modEntry.Helper.Events.GameLoop.OneSecondUpdateTicked += OnOneSecondUpdateTicked;
+                modEntry.Helper.Events.Input.ButtonsChanged += OnButtonsChanged;
 
                 List<Talent> Talentlist = modEntry.Helper.ModContent.Load<List<Talent>>("assets\\talents.json");
 
@@ -95,6 +99,14 @@ namespace VanillaPlusProfessions.Talents
                 ModEntry.CoreModEntry.Value.ModMonitor.LogOnce("Talent system is disabled, and only VPP professions will work. If you didn't intend this, turn the ProfessionsOnly config off.", LogLevel.Info);
             }
         }
+        internal void OnButtonsChanged(object sender, ButtonsChangedEventArgs e)
+        {
+            if (ModEntry.GetMe().ModConfig.TalentMenuKeybind.GetState() == SButtonState.Pressed && Context.IsWorldReady && Game1.activeClickableMenu is null)
+            {
+                Game1.activeClickableMenu = new TalentSelectionMenu(0, ModEntry.GetMe());
+            }
+        }
+
         internal void OnModMessageReceived(object sender, ModMessageReceivedEventArgs e)
         {
             if (e.FromModID == ModEntry.CoreModEntry.Value.Manifest.UniqueID && e.FromPlayerID == Game1.MasterPlayer.UniqueMultiplayerID && !Context.IsMainPlayer)
@@ -142,7 +154,7 @@ namespace VanillaPlusProfessions.Talents
         }
         internal void OnChestInventoryChanged(object sender, ChestInventoryChangedEventArgs e)
         {
-            if (e.QuantityChanged is not null)
+            /*if (e.QuantityChanged is not null)
             {
                 foreach (var item in e.QuantityChanged)
                 {
@@ -151,7 +163,7 @@ namespace VanillaPlusProfessions.Talents
                         TalentUtility.DetermineGeodeDrop(item.Item);
                     }
                 }
-            }
+            }*/
         }
 
         internal void OnSaveCreated(object sender, SaveCreatedEventArgs e)
@@ -339,7 +351,7 @@ namespace VanillaPlusProfessions.Talents
         {
             if (e.IsLocalPlayer)
             {
-                if (e.QuantityChanged is not null)
+               /* if (e.QuantityChanged is not null)
                 {
                     foreach (var item in e.QuantityChanged)
                     {
@@ -351,7 +363,7 @@ namespace VanillaPlusProfessions.Talents
                             }
                         }
                     }
-                }
+                }*/
                 if (e.Added is not null)
                 {
                     foreach (var item in e.Added)
@@ -364,21 +376,32 @@ namespace VanillaPlusProfessions.Talents
                                 can.modData[Constants.Key_Resurgence] = "0";
                                 break;
                             }
-                            else if (item is StardewValley.Object obj && obj.QualifiedItemId == "(O)92")
+                            else if (item is StardewValley.Object obj)
                             {
-                                if (TalentUtility.AnyPlayerHasTalent(Constants.Talent_SapSipper))
+                                if (obj.QualifiedItemId == "(O)92")
                                 {
-                                    obj.Edibility = 3;
+                                    if (TalentUtility.AnyPlayerHasTalent(Constants.Talent_SapSipper))
+                                    {
+                                        obj.Edibility = 3;
+                                    }
+                                    else
+                                    {
+                                        obj.Edibility = -1;
+                                    }
                                 }
-                                else
+                                else if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_Roemance) && !obj.modData.ContainsKey("KediDili.VanillaPlusProfessions/PriceAppliedInfo"))
                                 {
-                                    obj.Edibility = -1;
+                                    if (obj.ItemId is "812")
+                                    {
+                                        obj.Price = obj.Price * 5 / 4;
+                                        obj.modData.Add("KediDili.VanillaPlusProfessions/PriceAppliedInfo", "true");
+                                    }
                                 }
                             }
-                            else if (!item.modData.ContainsKey(Constants.Key_XrayDrop))
+                           /*else if (!item.modData.ContainsKey(Constants.Key_XrayDrop))
                             {
                                 TalentUtility.DetermineGeodeDrop(item);
-                            }
+                            }*/
                         }                        
                     }
                 }
@@ -392,13 +415,13 @@ namespace VanillaPlusProfessions.Talents
                             can.modData[Constants.Key_Resurgence] = "0";
                             break;
                         }
-                        else if (Game1.activeClickableMenu is MenuWithInventory menu && menu.heldItem != item || Game1.activeClickableMenu is null)
+                        /*else if (Game1.activeClickableMenu is MenuWithInventory menu && menu.heldItem != item || Game1.activeClickableMenu is null)
                         {
                             if (!item.modData.ContainsKey(Constants.Key_XrayDrop))
                             {
                                 TalentUtility.DetermineGeodeDrop(item);
                             }
-                        }
+                        }*/
                     }
                 }
             }
@@ -462,7 +485,61 @@ namespace VanillaPlusProfessions.Talents
                     }
                 }
             }
+            Utility.ForEachItem(obj =>
+            {
+                if (obj is not TrinketRing)
+                {
+                    return true;
+                }
+                if (!obj.modData.ContainsKey(Constants.Key_RingTrinkets))
+                {
+                    obj.modData.Add(Constants.Key_RingTrinkets, Guid.NewGuid().ToString());
+                    Game1.player.team.GetOrCreateGlobalInventory(Constants.GlobalInventoryID_RingTrinkets).Add((obj as TrinketRing).Trinket ?? (obj as TrinketRing).GetRingTrinket());
+                }
+                return true;
+            });
 
+            IEnumerable<TrinketRing> trinketRings = TalentUtility.GetAllTrinketRings(Game1.player);
+            if (trinketRings.Any())
+            {
+                foreach (var ring in trinketRings)
+                {
+                    if (!ring.modData.ContainsKey(Constants.Key_RingTrinkets) && ring.Trinket is not null)
+                    {
+                        ring.modData.Add(Constants.Key_RingTrinkets, Guid.NewGuid().ToString());
+                        ring.Trinket.modData.Add(Constants.Key_RingTrinkets, ring.modData[Constants.Key_RingTrinkets]);
+                        Game1.player.team.GetOrCreateGlobalInventory(Constants.GlobalInventoryID_RingTrinkets).Add(ring.Trinket ?? ring.GetRingTrinket());
+                    }
+                }
+            }
+            foreach (var item in Game1.player.trinketItems)
+            {
+                if (Game1.player.team.GetOrCreateGlobalInventory(Constants.GlobalInventoryID_RingTrinkets).Contains(item) && !item.modData.ContainsKey(Constants.Key_RingTrinkets))
+                {
+                    Game1.player.team.GetOrCreateGlobalInventory(Constants.GlobalInventoryID_RingTrinkets).Remove(item);
+                }
+                var list = Game1.player.trinketItems.ToList().FindAll(match => {
+
+                    if (match.modData.TryGetValue(Constants.Key_RingTrinkets, out string val) && item.modData.TryGetValue(Constants.Key_RingTrinkets, out string val2))
+                    {
+                        if (val == val2 && match.GetEffect()?.Companion is not null)
+                        {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+                );
+                if (list?.Count > 1)
+                {
+                    for (int i = 0; i < list.Count - 1; i++)
+                    {
+                        Game1.player.companions.Remove(list[i].GetEffect()?.Companion);
+                        Game1.player.trinketItems.Remove(list[i]);
+                        list[i].Unapply(Game1.player);
+                    }
+                }
+            }
             if (TalentUtility.AnyPlayerHasTalent(Constants.Talent_Overcrowding) || TalentUtility.AnyPlayerHasTalent(Constants.Talent_BreedLikeRabbits))
             {
                 ModEntry.CoreModEntry.Value.Helper.GameContent.InvalidateCache("Data\\Buildings");

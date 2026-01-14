@@ -1,10 +1,8 @@
 ﻿using HarmonyLib;
 using StardewValley;
-using StardewValley.Buildings;
 using StardewValley.Menus;
 using StardewValley.TerrainFeatures;
 using System.Collections.Generic;
-using System.Reflection.Emit;
 using VanillaPlusProfessions.Utilities;
 
 namespace VanillaPlusProfessions.Craftables
@@ -24,6 +22,8 @@ namespace VanillaPlusProfessions.Craftables
                 postfix: new(AccessTools.Method(typeof(BuildingPatcher), nameof(GetShakeOffItem)))
             );
         }
+
+
         public static void GetShakeOffItem(Bush __instance, ref string __result)
         {
             if (__instance.Location.ParentBuilding?.buildingType.Value == Constants.Id_SecretGlade && __instance.tileSheetOffset.Value == 1)

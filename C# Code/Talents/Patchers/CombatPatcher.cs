@@ -217,6 +217,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
                         ModEntry.CoreModEntry.Value.Helper.Multiplayer.SendMessage(vectors, "KediDili.VanillaPlusProfessions/NodeMakerLocationData", new string[] { "KediDili.VanillaPlusProfessions" });
                     }
                 }
+               
             }
             catch (Exception e)
             {
@@ -383,7 +384,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
         {
             try
             {
-                if (Game1.player.currentLocation.IsFarm && Game1.player.currentLocation is not SlimeHutch && howMuch is not 0 && which is 4 && TalentUtility.CurrentPlayerHasTalent("dsdsds", who: __instance))
+                if (Game1.player.currentLocation.IsFarm && Game1.player.currentLocation is not SlimeHutch && howMuch is not 0 && which is 4 && TalentUtility.CurrentPlayerHasTalent(Constants.Talent_FullKnowledge, who: __instance))
                     howMuch *= 3;
             }
             catch (Exception e)
@@ -401,7 +402,6 @@ namespace VanillaPlusProfessions.Talents.Patchers
 
                     if (__instance.GetBackArmDistance(who) > 4 && !__instance.canPlaySound)
                     {
-
                         AccessTools.Method(typeof(Slingshot), "updateAimPos").Invoke(__instance, null);
                         int mouseX = __instance.aimPos.X;
                         int mouseY = __instance.aimPos.Y;

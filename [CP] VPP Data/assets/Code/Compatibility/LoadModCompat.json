@@ -27,6 +27,13 @@
 			"When": {
 				"HasMod": "Rafseazz.RSVCP"
 			}
-		}
+		},
+		{
+			"Action": "Include",
+			"FromFile": "assets/Code/Compatibility/LumiGlimmeringClumpsNodes.json",
+			"When": {
+				"HasMod": "Lumisteria.GlimmeringClumpsNodes"
+			}
+		},
 	]
 }

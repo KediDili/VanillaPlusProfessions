@@ -1,4 +1,5 @@
 ﻿
+using StardewModdingAPI.Utilities;
 using StardewValley;
 
 namespace VanillaPlusProfessions
@@ -16,6 +17,8 @@ namespace VanillaPlusProfessions
         public bool StaminaCostAdjustments = true;
 
         public string TalentHintLevel = "Hidden";
+
+        public KeybindList TalentMenuKeybind = new();
 
         public float CycleOfLife_Chance = 0.5f;
 

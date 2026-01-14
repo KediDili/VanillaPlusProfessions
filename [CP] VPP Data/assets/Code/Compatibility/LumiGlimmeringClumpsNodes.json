@@ -4,9 +4,9 @@
 		{ //ModId: Lumisteria.GlimmeringClumpsNodes
 			"Action": "EditData",
 			"Target": "Data/Objects",
-			"TargetField": [ "60", "CustomFields" ],
+			"TargetField": [ "60", "CustomFields" ],			
 			"Entries": {
-				"KediDili.VanillaPlusProfessions_OreToNode": "{{ModId}}_Node_Emerald 12",
+				"KediDili.VanillaPlusProfessions_OreToNode": "Lumisteria.GlimmeringClumpsNodes_Node_Emerald 12",
 			}
 		},
 		{
@@ -14,207 +14,405 @@
 			"Target": "Data/Objects",
 			"TargetField": [ "62", "CustomFields" ],
 			"Entries": {
-				"KediDili.VanillaPlusProfessions_OreToNode": "{{ModId}}_Node_Aquamarine 14",
+				"KediDili.VanillaPlusProfessions_OreToNode": "Lumisteria.GlimmeringClumpsNodes_Node_Aquamarine 14",
 			}
 		},
 		{
 			"Action": "EditData",
 			"Target": "Data/Objects",
-			"TargetField": [ "Ruby", "CustomFields" ],
+			"TargetField": [ "64", "CustomFields" ],
 			"Entries": {
-				"KediDili.VanillaPlusProfessions_OreToNode": "{{ModId}}_Node_Ruby RubyNode",
+				"KediDili.VanillaPlusProfessions_OreToNode": "Lumisteria.GlimmeringClumpsNodes_Node_Ruby 4",
 			}
 		},
 		{
 			"Action": "EditData",
 			"Target": "Data/Objects",
-			"TargetField": [ "Topaz", "CustomFields" ],
+			"TargetField": [ "68", "CustomFields" ],
 			"Entries": {
-				"KediDili.VanillaPlusProfessions_OreToNode": "{{ModId}}_Node_Topaz TopazNode",
+				"KediDili.VanillaPlusProfessions_OreToNode": "Lumisteria.GlimmeringClumpsNodes_Node_Topaz 10",
 			}
 		},
 		{
 			"Action": "EditData",
 			"Target": "Data/Objects",
-			"TargetField": [ "Amethyst", "CustomFields" ],
+			"TargetField": [ "66", "CustomFields" ],
 			"Entries": {
-				"KediDili.VanillaPlusProfessions_OreToNode": "{{ModId}}_Node_Amethyst AmethystNode",
+				"KediDili.VanillaPlusProfessions_OreToNode": "Lumisteria.GlimmeringClumpsNodes_Node_Amethyst 8",
 			}
 		},
 		{
 			"Action": "EditData",
 			"Target": "Data/Objects",
-			"TargetField": [ "Aquamarine", "CustomFields" ],
+			"TargetField": [ "70", "CustomFields" ],
 			"Entries": {
-				"KediDili.VanillaPlusProfessions_OreToNode": "{{ModId}}_Node_Aquamarine AquamarineNode",
+				"KediDili.VanillaPlusProfessions_OreToNode": "Lumisteria.GlimmeringClumpsNodes_Node_Jade 6",
 			}
 		},
 		{
 			"Action": "EditData",
 			"Target": "Data/Objects",
-			"TargetField": [ "Jade", "CustomFields" ],
+			"TargetField": [ "72", "CustomFields" ],
 			"Entries": {
-				"KediDili.VanillaPlusProfessions_OreToNode": "{{ModId}}_Node_Jade JadeNode",
+				"KediDili.VanillaPlusProfessions_OreToNode": "Lumisteria.GlimmeringClumpsNodes_Node_Diamond 2",
 			}
 		},
 		{
 			"Action": "EditData",
 			"Target": "Data/Objects",
-			"TargetField": [ "Diamond", "CustomFields" ],
+			"TargetField": [ "378", "CustomFields" ],
 			"Entries": {
-				"KediDili.VanillaPlusProfessions_OreToNode": "{{ModId}}_Node_Diamond DiamondNode",
+				"KediDili.VanillaPlusProfessions_OreToNode": "Lumisteria.GlimmeringClumpsNodes_Node_Copper 751 849",
 			}
 		},
 		{
 			"Action": "EditData",
 			"Target": "Data/Objects",
-			"TargetField": [ "CopperOre", "CustomFields" ],
+			"TargetField": [ "380", "CustomFields" ],
 			"Entries": {
-				"KediDili.VanillaPlusProfessions_OreToNode": "{{ModId}}_Node_Copper CopperNode",
+				"KediDili.VanillaPlusProfessions_OreToNode": "Lumisteria.GlimmeringClumpsNodes_Node_Iron 850 290",
 			}
 		},
 		{
 			"Action": "EditData",
 			"Target": "Data/Objects",
-			"TargetField": [ "Iron", "CustomFields" ],
+			"TargetField": [ "382", "CustomFields" ],
 			"Entries": {
-				"KediDili.VanillaPlusProfessions_OreToNode": "{{ModId}}_Node_Iron IronNode",
+				"KediDili.VanillaPlusProfessions_OreToNode": "Lumisteria.GlimmeringClumpsNodes_Node_Coal Lumisteria.GlimmeringClumpsNodes_Node_Coal2 BasicCoalNode1 BasicCoalNode0 668 670 845 846 847 VolcanoCoalNode0 VolcanoCoalNode1",
 			}
 		},
 		{
 			"Action": "EditData",
 			"Target": "Data/Objects",
-			"TargetField": [ "Gold", "CustomFields" ],
+			"TargetField": [ "384", "CustomFields" ],
 			"Entries": {
-				"KediDili.VanillaPlusProfessions_OreToNode": "{{ModId}}_Node_Gold GoldNode",
+				"KediDili.VanillaPlusProfessions_OreToNode": "Lumisteria.GlimmeringClumpsNodes_Node_Gold 764 VolcanoGoldNode",
 			}
 		},
 		{
 			"Action": "EditData",
 			"Target": "Data/Objects",
-			"TargetField": [ "Each Copper Node", "CustomFields" ],
+			"TargetField": [ "386", "CustomFields" ],
 			"Entries": {
-				"KediDili.VanillaPlusProfessions_NodeToBoulder": "{{ModId}}_Clump_Copper",
+				"KediDili.VanillaPlusProfessions_OreToNode": "Lumisteria.GlimmeringClumpsNodes_Node_Iridium 765",
+			}
+		},
+		//BOULDERS
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Lumisteria.GlimmeringClumpsNodes_Node_Copper", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.GlimmeringClumpsNodes_Clump_Copper",
 			}
 		},
 		{
 			"Action": "EditData",
 			"Target": "Data/Objects",
-			"TargetField": [ "Each Iron Node", "CustomFields" ],
+			"TargetField": [ "751", "CustomFields" ],
 			"Entries": {
-				"KediDili.VanillaPlusProfessions_NodeToBoulder": "{{ModId}}_Node_Iron",
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.GlimmeringClumpsNodes_Clump_Copper",
 			}
 		},
 		{
 			"Action": "EditData",
 			"Target": "Data/Objects",
-			"TargetField": [ "Each Gold Node", "CustomFields" ],
+			"TargetField": [ "849", "CustomFields" ],
 			"Entries": {
-				"KediDili.VanillaPlusProfessions_NodeToBoulder": "{{ModId}}_Clump_Gold",
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.GlimmeringClumpsNodes_Clump_Copper",
 			}
 		},
 		{
 			"Action": "EditData",
 			"Target": "Data/Objects",
-			"TargetField": [ "Each Iridium Node", "CustomFields" ],
+			"TargetField": [ "Lumisteria.GlimmeringClumpsNodes_Node_Coal", "CustomFields" ],
 			"Entries": {
-				"KediDili.VanillaPlusProfessions_NodeToBoulder": "{{ModId}}_Clump_Iridium",
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.GlimmeringClumpsNodes_Clump_CoalOre",
 			}
 		},
 		{
 			"Action": "EditData",
 			"Target": "Data/Objects",
-			"TargetField": [ "Each Coal Node", "CustomFields" ],
+			"TargetField": [ "Lumisteria.GlimmeringClumpsNodes_Node_Coal2", "CustomFields" ],
 			"Entries": {
-				"KediDili.VanillaPlusProfessions_NodeToBoulder": "{{ModId}}_Clump_CoalOre",
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.GlimmeringClumpsNodes_Clump_CoalOre",
 			}
 		},
 		{
 			"Action": "EditData",
 			"Target": "Data/Objects",
-			"TargetField": [ "Emerald nodes", "CustomFields" ],
+			"TargetField": [ "BasicCoalNode1", "CustomFields" ],
 			"Entries": {
-				"KediDili.VanillaPlusProfessions_NodeToBoulder": "{{ModId}}_Clump_Emerald",
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.GlimmeringClumpsNodes_Clump_CoalOre",
 			}
 		},
 		{
 			"Action": "EditData",
 			"Target": "Data/Objects",
-			"TargetField": [ "Aquamarine nodes", "CustomFields" ],
+			"TargetField": [ "BasicCoalNode0", "CustomFields" ],
 			"Entries": {
-				"KediDili.VanillaPlusProfessions_NodeToBoulder": "{{ModId}}_Clump_Aquamarine",
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.GlimmeringClumpsNodes_Clump_CoalOre",
 			}
 		},
 		{
 			"Action": "EditData",
 			"Target": "Data/Objects",
-			"TargetField": [ "Ruby nodes", "CustomFields" ],
+			"TargetField": [ "668", "CustomFields" ],
 			"Entries": {
-				"KediDili.VanillaPlusProfessions_NodeToBoulder": "{{ModId}}_Clump_Ruby",
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.GlimmeringClumpsNodes_Clump_CoalOre",
 			}
 		},
 		{
 			"Action": "EditData",
 			"Target": "Data/Objects",
-			"TargetField": [ "Diamond nodes", "CustomFields" ],
+			"TargetField": [ "670", "CustomFields" ],
 			"Entries": {
-				"KediDili.VanillaPlusProfessions_NodeToBoulder": "{{ModId}}_Clump_Diamond",
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.GlimmeringClumpsNodes_Clump_CoalOre",
 			}
 		},
 		{
 			"Action": "EditData",
 			"Target": "Data/Objects",
-			"TargetField": [ "Topaz Nodes", "CustomFields" ],
+			"TargetField": [ "845", "CustomFields" ],
 			"Entries": {
-				"KediDili.VanillaPlusProfessions_NodeToBoulder": "{{ModId}}_Clump_Topaz",
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.GlimmeringClumpsNodes_Clump_CoalOre",
 			}
 		},
 		{
 			"Action": "EditData",
 			"Target": "Data/Objects",
-			"TargetField": [ "Jade Nodes", "CustomFields" ],
+			"TargetField": [ "846", "CustomFields" ],
 			"Entries": {
-				"KediDili.VanillaPlusProfessions_NodeToBoulder": "{{ModId}}_Clump_Jade",
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.GlimmeringClumpsNodes_Clump_CoalOre",
 			}
 		},
 		{
 			"Action": "EditData",
 			"Target": "Data/Objects",
-			"TargetField": [ "Amethyst Nodes", "CustomFields" ],
+			"TargetField": [ "847", "CustomFields" ],
 			"Entries": {
-				"KediDili.VanillaPlusProfessions_NodeToBoulder": "{{ModId}}_Clump_Amethyst",
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.GlimmeringClumpsNodes_Clump_CoalOre",
 			}
 		},
 		{
 			"Action": "EditData",
 			"Target": "Data/Objects",
-			"TargetField": [ "Basic Geode Nodes", "CustomFields" ],
+			"TargetField": [ "VolcanoCoalNode0", "CustomFields" ],
 			"Entries": {
-				"KediDili.VanillaPlusProfessions_NodeToBoulder": "{{ModId}}_Clump_Geode",
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.GlimmeringClumpsNodes_Clump_CoalOre",
 			}
 		},
 		{
 			"Action": "EditData",
 			"Target": "Data/Objects",
-			"TargetField": [ "Frozen Geode Nodes", "CustomFields" ],
+			"TargetField": [ "VolcanoCoalNode1", "CustomFields" ],
 			"Entries": {
-				"KediDili.VanillaPlusProfessions_NodeToBoulder": "{{ModId}}_Clump_FrozenGeode",
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.GlimmeringClumpsNodes_Clump_CoalOre",
 			}
 		},
 		{
 			"Action": "EditData",
 			"Target": "Data/Objects",
-			"TargetField": [ "Magma Geode Nodes", "CustomFields" ],
+			"TargetField": [ "Lumisteria.GlimmeringClumpsNodes_Node_Iron", "CustomFields" ],
 			"Entries": {
-				"KediDili.VanillaPlusProfessions_NodeToBoulder": "{{ModId}}_Clump_MagmaGeode",
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.GlimmeringClumpsNodes_Clump_Iron",
 			}
 		},
 		{
 			"Action": "EditData",
 			"Target": "Data/Objects",
-			"TargetField": [ "Omni Geode Nodes", "CustomFields" ],
+			"TargetField": [ "850", "CustomFields" ],
 			"Entries": {
-				"KediDili.VanillaPlusProfessions_NodeToBoulder": "{{ModId}}_Clump_OmniGeode",
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.GlimmeringClumpsNodes_Clump_Iron",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "290", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.GlimmeringClumpsNodes_Clump_Iron",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Lumisteria.GlimmeringClumpsNodes_Node_Gold", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.GlimmeringClumpsNodes_Clump_Gold",
+			}
+		},{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "764", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.GlimmeringClumpsNodes_Clump_Gold",
+			}
+		},{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "VolcanoGoldNode", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.GlimmeringClumpsNodes_Clump_Gold",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "765", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.GlimmeringClumpsNodes_Clump_Iridium 622",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Lumisteria.GlimmeringClumpsNodes_Node_Iridium", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.GlimmeringClumpsNodes_Clump_Iridium 622",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "12", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.GlimmeringClumpsNodes_Clump_Emerald",
+			}
+		},{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Lumisteria.GlimmeringClumpsNodes_Node_Emerald", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.GlimmeringClumpsNodes_Clump_Emerald",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Lumisteria.GlimmeringClumpsNodes_Node_Aquamarine", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.GlimmeringClumpsNodes_Clump_Aquamarine",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "14", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.GlimmeringClumpsNodes_Clump_Aquamarine",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "4", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.GlimmeringClumpsNodes_Clump_Ruby",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Lumisteria.GlimmeringClumpsNodes_Node_Ruby", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.GlimmeringClumpsNodes_Clump_Ruby",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Lumisteria.GlimmeringClumpsNodes_Node_Diamond", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.GlimmeringClumpsNodes_Clump_Diamond",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "2", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.GlimmeringClumpsNodes_Clump_Diamond",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Lumisteria.GlimmeringClumpsNodes_Node_Topaz", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.GlimmeringClumpsNodes_Clump_Topaz",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "10", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.GlimmeringClumpsNodes_Clump_Topaz",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "6", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.GlimmeringClumpsNodes_Clump_Jade",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Lumisteria.GlimmeringClumpsNodes_Node_Jade", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.GlimmeringClumpsNodes_Clump_Jade",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "Lumisteria.GlimmeringClumpsNodes_Node_Amethyst", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.GlimmeringClumpsNodes_Clump_Amethyst",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "8", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.GlimmeringClumpsNodes_Clump_Amethyst",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "75", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.GlimmeringClumpsNodes_Clump_Geode",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "76", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.GlimmeringClumpsNodes_Clump_FrozenGeode",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "77", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.GlimmeringClumpsNodes_Clump_MagmaGeode",
+			}
+		},
+		{
+			"Action": "EditData",
+			"Target": "Data/Objects",
+			"TargetField": [ "819", "CustomFields" ],
+			"Entries": {
+				"KediDili.VanillaPlusProfessions_NodeToBoulder": "Lumisteria.GlimmeringClumpsNodes_Clump_OmniGeode",
 			}
 		},
 	]

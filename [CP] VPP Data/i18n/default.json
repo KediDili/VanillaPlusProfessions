@@ -92,7 +92,7 @@
 	"BigCraftables.BoxTrough.Name": "Box Trough", //Added in 1.1.0
 	"BigCraftables.BoxTrough.Desc": "A small, portable trough to place in your animal buildings.", //Added in 1.1.0
 	"BigCraftables.GlowingCrystal.Name": "Glowing Crystal",
-	"BigCraftables.GlowingCrystal.Desc": "Oooh... shiny and glowy!",
+	"BigCraftables.GlowingCrystal.Desc": "Oooh... shiny and glowy! Click with a mineral for it to take its color (works better with bright colored gems)", //Modified in 1.1.0
 	"BigCraftables.MiningDrill.Name": "Programmable Drill",
 	"BigCraftables.MiningDrill.Desc": "Requires a battery pack and an ore, gem, geode, coal or stone to function. Works only in stable mine locations. Gives additional outputs and work more smoothly if a Machinery Collector is nearby.", //Modified in 1.1.0
 	"BigCraftables.ThermalReactor.Name": "Thermal Reactor",
@@ -248,7 +248,7 @@
 	"Buildings.MineralCavern.Name": "Mineral Cavern",
 	"Buildings.MineralCavern.Desc": "Don't worry, it's safe to enter! Mysteriously, stones placed inside grow bigger with time.",
 	"Buildings.MineTent.Name": "Minecart Repository",
-	"Buildings.MineTent.Desc": "Storage building to keep mined goods safe until you return. Only one of this building can be present in one save.",
+	"Buildings.MineTent.Desc": "Storage building to keep mined goods safe until you return. Only one can be present.",
 	"Buildings.Sawmill.Name": "Sawmill", //Added in 1.1.0
 	"Buildings.Sawmill.Desc": "The mill that turns with spilled water. Place hardwood to the saw bench to receive wood.", // Added in 1.1.0
 	"Buildings.SecretGlade.Name": "Secret Glade", // Added in 1.1.0

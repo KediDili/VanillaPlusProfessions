@@ -84,8 +84,9 @@ namespace VanillaPlusProfessions.Talents.Patchers
             {
                 if (__result is not null && geode is not null && !geode.ItemId.Contains("MysteryBox"))
                 {
-                    if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_Xray) && geode.modData.TryGetValue(Constants.Key_XrayDrop, out string drop) is true && !IsUpdating)
+                    if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_Xray) && geode.modData.TryGetValue(Constants.Key_WhichXrayDrop, out string drop) && geode.modData.TryGetValue(drop == "0" ? Constants.Key_XrayDrop : Constants.Key_XrayDrop2, out drop) is true && !IsUpdating)
                     {
+                        bool outputModified = false;
                         if (drop is not null or "" && Utility.IsGeode(geode, true) && TalentUtility.EligibleForGeodePerks(geode.ItemId, Constants.Talent_Xray))
                         {
                             Item tryItem = ItemRegistry.Create(drop, geode.Category == __result?.Category ? __result?.Stack ?? 1 : 1, 0);
@@ -103,7 +104,8 @@ namespace VanillaPlusProfessions.Talents.Patchers
                                                 queryResults.SetFlagOnPickup = data1.GeodeDrops[i].SetFlagOnPickup;
                                             queryResults.Quality = __result?.Quality ?? 0;
                                             queryResults.Stack = 1;
-                                            __result = queryResults ?? __result;
+                                            __result = queryResults;
+                                            outputModified = true;
                                             break;
                                         }
                                     }
@@ -112,8 +114,9 @@ namespace VanillaPlusProfessions.Talents.Patchers
                             else
                             {
                                 __result = tryItem;
+                                outputModified = true;
                             }
-                            if (Game1.activeClickableMenu is MenuWithInventory menu && menu.heldItem?.QualifiedItemId == geode.QualifiedItemId)
+                            if (Game1.activeClickableMenu is MenuWithInventory menu && menu.heldItem?.QualifiedItemId == geode.QualifiedItemId && outputModified)
                             {
                                 TalentUtility.DetermineGeodeDrop(menu.heldItem);
                             }

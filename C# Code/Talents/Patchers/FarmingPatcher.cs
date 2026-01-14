@@ -13,6 +13,7 @@ using StardewValley.Buildings;
 using StardewValley.GameData.Buildings;
 using StardewValley.Internal;
 using StardewValley.Objects;
+using IFeedInfo = VanillaPlusProfessions.Compatibility.IFeedInfo;
 
 using IFeedInfo = VanillaPlusProfessions.Compatibility.IFeedInfo;
 
@@ -99,10 +100,19 @@ namespace VanillaPlusProfessions.Talents.Patchers
         public static void feedAllAnimals_Postfix(AnimalHouse __instance)
         {
             GameLocation rootLocation = __instance.GetRootLocation();
+<<<<<<< Updated upstream
             // If this building's feed is overridden by Extra Animal Config retrieve the feed info object
             IFeedInfo? moddedFeedInfo = null;
             string? eacFeedOverride = ModEntry.CoreModEntry.Value.ExtraAnimalConfigAPI?.GetFeedOverride(__instance.ParentBuilding?.buildingType.Value);
             if (eacFeedOverride is not null && ModEntry.CoreModEntry.Value.ExtraAnimalConfigAPI.GetModdedFeedInfo().TryGetValue(eacFeedOverride, out moddedFeedInfo)) { }
+=======
+            
+            // If this building's feed is overridden by Extra Animal Config retrieve the feed info object
+            IFeedInfo? moddedFeedInfo = null;
+            string? eacFeedOverride = ModEntry.CoreModEntry.Value.ExtraAnimalConfigAPI?.GetFeedOverride(__instance.ParentBuilding?.buildingType.Value);
+            if (eacFeedOverride is not null)
+                ModEntry.CoreModEntry.Value.ExtraAnimalConfigAPI.GetModdedFeedInfo().TryGetValue(eacFeedOverride, out moddedFeedInfo);
+>>>>>>> Stashed changes
             for (int x = 0; x < __instance.map.Layers[0].LayerWidth; x++)
             {
                 for (int y = 0; y < __instance.map.Layers[0].LayerHeight; y++)
@@ -294,8 +304,8 @@ namespace VanillaPlusProfessions.Talents.Patchers
                     if (code.opcode.Equals(OpCodes.Callvirt) && code.OperandIs(methodinfo))
                     {
                         result.Insert(count - 8, new(OpCodes.Call, AccessTools.Method(PatcherType, nameof(SaveFarmAnimalProductData))));
-                        result.Insert(count - 9, new(OpCodes.Ldloc_S, 18));
-                        result.Insert(count - 10, new(OpCodes.Ldarg_0));
+                        result.Insert(count - 8, new(OpCodes.Ldloc_S, 18));
+                        result.Insert(count - 8, new(OpCodes.Ldarg_0));
                         break;
                     }
                     count++;
