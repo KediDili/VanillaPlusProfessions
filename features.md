@@ -7,7 +7,7 @@ VPP has a lot of features, but mainly divided in three groups:
   - [Skill Craftables](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#skill-craftables)
     - Farming (To be Implemented)
     - [Mining](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#mining)
-    - Foraging (To be Implemented)
+    - [Foraging](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#foraging)
     - Fishing (To be Implemented)
     - Combat (To be Implemented)
 - [Professions](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#professions)
@@ -30,7 +30,7 @@ Please click one of the titles to jump between sections.
 Following is the changes VPP adds for skills:
 - Changes the skill leveling limit to be 20 instead of 10
 - Adds an overlay in skills page to display your progress
-- Locks Mastery Cave to be behind leveling up all skills to level 20. (Can be changed via config.json or GMCM menu)
+- Locks Mastery Cave to be behind leveling up all skills to level 15 or 20. (Can be changed via config.json or GMCM menu)
 - Adds craftables between levels 11-14 and 16-19 (Vanilla skills only, to be documented)
 
 ## New Skill Levels
@@ -91,6 +91,7 @@ VPP adds a total of 9 unlockables for Mining skill. What they are and unlocking 
 #### Glowing Crystal
 It's a lamp-like big craftable which is unlocked on level 11.
 Requires 35 quartz, 30 stone and 1 coal to craft.
+<img width="318" height="234" alt="image" src="https://github.com/user-attachments/assets/9ecfc9fc-fafa-4d86-9a88-bc1afe18d591" />
 
 #### Programmable Drill
 It's a special machine which is unlocked on level 12.
@@ -103,24 +104,31 @@ As output, it gives more of the input, counts are listed below:
 | Geodes        | 10-30   |
 | Coal          | 100-300 |
 | Stone         | 300-750 |
+<img width="315" height="349" alt="image" src="https://github.com/user-attachments/assets/77a3697b-7ee8-46ad-b9e8-d789c3c8c5c3" />
 
 It will not work if its not in an indoor "mine" location. (in vanilla, that's only the mine entrance)
 If any of the four adjacent tiles has a Machinery Collector; the drill will put any produced output into the collector, create extra drops (with %0.05 chance every 10 in-game minutes), pull inputs from the first possible collector detected. The initial input is prioritized while pulling input, if applicable. It can still take input even if batteries and ores/geodes/etc. are in different containers.
 Requires 1 dwarf gadget, 10 copper bars and 5 iron bars to craft.
 
-For Mod Authors: If you'd like programmable drills to work in your mine location, simply add the ``"KediDili.VanillaPlusProfessions_IsConsistentMineLocation": "true"`` in your location data's CustomFields. However, there currently isn't a way to exclude youre ores/geodes/etc. from being inputted into the drill.
+For Mod Authors: If you'd like programmable drills to work in your mine location, simply add the ``"KediDili.VanillaPlusProfessions_IsConsistentMineLocation": "true"`` in your location data's CustomFields. However, there currently isn't a way to exclude your ores/geodes/etc. from being inputted into the drill.
 
 #### Thermal Reactor
 It's a solar panel-like machine unlocked on level 13.
 It does not require any input, but it requires being placed into any location with lava (for vanilla, the Caldera is the only place it works.) Takes 7 days to give output, which is 21-49 batteries.
 Requires 45 fire quartz, 1 Hematite and 3 frozen tears to craft.
+<img width="315" height="272" alt="image" src="https://github.com/user-attachments/assets/015527d7-7eca-43c9-9f4a-f0b8f100905b" />
 
 For Mod Authors: If you'd like thermal reactors to work in your mine location, simply add the ``"KediDili.VanillaPlusProfessions_IsLavaLocation": "true"`` in your location data's CustomFields.
 #### Node Maker
 It's a regular machine unlocked on level 14.
 It can take any ore/geode/gem as input along with 2 clay, as long as there's a corresponding stone node for it.
-Outputs 2-6 of the corresponding stone node, which can be placed down in Mineral Cavern indoors.
+Outputs 2-5 of the corresponding stone node, which can be placed down in Mineral Cavern indoors.
 Requires 1 Rusty Cog, 5 iron bars and 5 gold bars to craft.
+<img width="316" height="291" alt="image" src="https://github.com/user-attachments/assets/eaaada7c-cb8f-4956-a8f2-4f1421d43ebb" />
+
+#### Node Maker
+It's a craftable QoL item unlocked on level 14.
+TODO: ADD PICS
 
 For Mod Authors: If you'd like your nodes to be outputted with the node maker, add the "KediDili.VanillaPlusProfessions/NodeMakerData" key and the unqualified Ids of the nodes (I will find a better way later.)
 
@@ -129,31 +137,92 @@ It's a special chest unlocked on level 16, along with the minecart repository.
 If there's a Minecart Repository built on the farm, warps any placed content to it. Otherwise has no function.
 Requires 25 hardwood, 16 stone and 1 large oak resin to craft.
 The large oak resin can be found via the Spring Thaw talent.
+<img width="331" height="306" alt="image" src="https://github.com/user-attachments/assets/851a76c8-0635-4fc1-8ee3-73e1ac43ad63" />
 
 #### Minecart Repository
 It's a special storage building unlocked on level 16, along with the minecart chest.
 If you build one on your farm and place anything in a minecart chest, any of its content will warp into this building.
 Only one of the repository can be built per save. If you want to build a new one, you need to demolish the existing one first.
 Requires 20 copper bars, 10 iron bars and 300 stones to build. It can be built from Robin's Carpenter shop for 10000g.
+<img width="899" height="504" alt="image" src="https://github.com/user-attachments/assets/a3c252b1-2af1-4060-a464-f1e2fdca06cc" />
 
 #### Machinery Collector
 It's a special type of chest unlocked on level 17.
 It can work with programmable drills to collect output and put input into them.
 Any and all Machinery Collectors are disabled from Automate's interactions by default.
 Requirs 1 Dwarf gadget and 20 copper bars to craft.
+<img width="319" height="265" alt="image" src="https://github.com/user-attachments/assets/aeff0bf5-9f87-4374-868b-715c3b85bf82" />
 
 #### Mineral Cavern
 It's a special building unlocked on level 18.
 The nodes from Node Maker can be placed indoors of this building, and any applicable combination of 2x2 (four in total) nodes have a %30 chance to grow into a boulder/clump overnight if there's a matching one with the nodes.
 Requires 40 clay, 100 wood and 250 stones to build. It can be built from Robin's Carpenter shop for 20000g.
+<img width="898" height="500" alt="image" src="https://github.com/user-attachments/assets/a344f02e-d7cb-426f-8657-ee11d21f6e0b" />
 
 #### Miner's Meal
 It's a cooked food unlocked on level 19.
 When eaten, gives 
 //TODO, COMPLETE THIS
 
-### Foraging 
-(To be Implemented)
+### Foraging
+
+#### Bird Feeder
+It's a cosmetic thing unlocked at level 11.
+<img width="314" height="242" alt="image" src="https://github.com/user-attachments/assets/9aa25944-0ff9-4a43-9754-2f4ee9a2f02b" />
+<details>
+  <summary>Hand-placing these feed will attract...</summary>
+- Corn => Crows
+<br> - Any bait => Town Birbs
+<br> - Sunflower Seeds => Parrots
+<br> - Gold ore => Gold Parrots
+<br> - Any fish => Seagulls
+</details>
+<img width="214" height="217" alt="image" src="https://github.com/user-attachments/assets/42fb6ff5-d186-458b-bc05-ed2422b868f1" />
+
+#### Mossy fertilizer
+It's a building unlocked at level 18 and buildable from Wizard's.
+
+#### Sun, Snow & Wild totems
+They're three Rain-Totem-Like craftables unlocked at level 13.
+
+<img width="314" height="258" alt="image" src="https://github.com/user-attachments/assets/d761837b-3be9-4894-b749-a8407d1851d8" />
+<img width="329" height="274" alt="image" src="https://github.com/user-attachments/assets/447b3a24-0368-462d-9a26-4892bd22d4d5" />
+<img width="309" height="260" alt="image" src="https://github.com/user-attachments/assets/c5b60326-1f21-4770-80e3-c047e48feb7e" />
+
+#### Seasonal Deluxe Wild Seeds
+They're craftable seeds unlocked at level 14 and uses regular seasonal wild seeds as ingredients.
+
+These are like any seasonal seeds with two major differences:
+- They give a lot more XP than usual (27->50xp)
+- They grow faster in the Cindersap Forest. (Much like Efflorescence/Tropical Bliss/Nourishing Rain)
+<img width="381" height="261" alt="image" src="https://github.com/user-attachments/assets/eaf6886b-279e-4380-9c24-560b0c0d14ee" />
+<img width="390" height="250" alt="image" src="https://github.com/user-attachments/assets/242b29bb-f153-4666-9b0f-86553b4b1ebb" />
+<img width="337" height="258" alt="image" src="https://github.com/user-attachments/assets/96a00016-45d7-4ac9-b64a-d64988fe6dec" />
+<img width="372" height="257" alt="image" src="https://github.com/user-attachments/assets/dc3fdc95-f81b-4fab-a685-6625e2001185" />
+
+#### Sawmill
+It's a building unlocked at level 16 and buildable from Robin's.
+<img width="898" height="505" alt="image" src="https://github.com/user-attachments/assets/f7f2dedf-98cf-42c2-a09d-1fc0516f0210" />
+
+Any hardwood placed on its sawbench will become wood tomorrow.
+It also has two skins that are purely aesthetical.
+<img width="454" height="460" alt="image" src="https://github.com/user-attachments/assets/89815100-27ed-4620-9bf7-675fca66fef5" />
+<img width="467" height="471" alt="image" src="https://github.com/user-attachments/assets/76cbe229-c7d1-4faa-848d-f2e024195f83" />
+(All images are Fall season variants of the building.)
+
+#### Seed Sifter
+It's a machine that produces wild seasonal seeds from any forage that is not:
+- From Desert
+- From beach
+- Non-seasonal
+
+#### Secret Glade
+It's a building unlocked at level 18 and buildable from Wizard's.
+<img width="815" height="509" alt="image" src="https://github.com/user-attachments/assets/3e4eaa25-7719-4cd8-bf51-cf8f90c1771b" />
+
+#### Forager's Meal
+It's a cooked food unlocked on level 19.
+When eaten, gives 
 
 ### Fishing 
 (To be Implemented)
@@ -416,14 +485,14 @@ Every vanilla gem will act like a certain vanilla tackle when placed to the fish
 
 | Gem           | Tackle it Acts Like |
 |:-------------:|:-------------------:|
-|Prismatic Shard| Curiosity Lure      |
-|Diamond        | Quality Bobber      |
-|Ruby           | Treasure Hunter     |
-|Emerald        | Barbed Hook         |
-|Jade           | Trap Bobber         |
-|Aquamarine     | Lead Bobber         |
-|Amethyst       | Dressed Spinner     |
-|Topaz          | Cork Cobber         |
+| Prismatic Shard| Curiosity Lure      |
+| Diamond        | Quality Bobber      |
+| Ruby           | Treasure Hunter     |
+| Emerald        | Barbed Hook         |
+| Jade           | Trap Bobber         |
+| Aquamarine     | Lead Bobber         |
+| Amethyst       | Dressed Spinner     |
+| Topaz          | Cork Cobber         |
 
 NOTE: After being used at least once, they WILL NOT stack with other gems, even if they're of the same type!
 
@@ -457,6 +526,27 @@ For Mod Authors: There's nothing you should do to add compatibility with this pr
 ### Shaker (Lv15)
 <img width="78" height="78" alt="Icon18" src="https://github.com/user-attachments/assets/dbff3cfc-307f-4172-aeac-4846cda5d85e" />
 <br/>Chance for wild trees to drop items when shaken.
+When shaked, any tree with leaves may drop:
+| Item Name     | Chance | Season |
+|---------------|--------|--------|
+| Hazelnut      | %10    | Any    |
+| Duck Feather  | %10    | Any    |
+| Hay           | %10    | Any    |
+| Fiber         | %10    | Any    |
+| Hardwood      | %10    | Any    |
+| Stone         | %10    | Any    |
+| Wood          | %10    | Any    |
+| Spice Berry   | %10    | Summer |
+| Wild Plum     | %10    | Fall   |
+| Tea Set       | %1     | Spring |
+| Crystal Fruit | %10    | Winter |
+| Gold Ore      | %10    | Any    |
+| Iron Ore      | %10    | Any    |
+| Copper Ore    | %10    | Any    |
+
+The chances are not a cumulative thing to %100, it's the chance that the item will be used 
+So the process is roughly
+-> Game chooses an entry -> if Season matches -> %-Chance- it will be dropped.
 
 For Mod Authors: You can add items as drops for your custom wild trees' ``ShakeItems`` and ``SeedDropItems`` fields. You can use the ``HasProfession`` token to see if the player has the profession.
 ### Sapper (Lv15)
@@ -760,7 +850,7 @@ Chance for animals to produce both deluxe & normal items.
 Coops & barns can house more animals.
 Vanilla coops and barns will increase in size to house more animals by %20.
 
-Note: In case you're using a barn/coop replacer mod, there's an option in the CP part of the mod to turn the map edits off so that you can use the replacer.
+Note: In case you're using a barn/coop replacer mod, there's an option in the CP part of the mod to turn the map edits off so that you can use the replacer. As of 1.1.0, A new craftable named Box Trough is added, which you can place anywhere inside the coop/barn/whatever else, there's built-in compatibility with Extra Animal Configs.
 
 ### Bio-Engineering
 Large animal produce will result in doubled artisan goods.
@@ -839,11 +929,15 @@ This talent will changes the recipes of Iridium sprinkler and Quality Sprinkler,
 | Quality Sprinkler | 1 Iron Bar<br/>1 Gold Bar<br/>1 Refined Quartz  | 1 Gold Bar<br/>1 Coal<br/>1 Sprinkler                 |
 | Iridium Sprinkler | 1 Gold Bar<br/>1 Iridium Bar<br/>1 Battery Pack | 1 Iridium Bar<br/>1 Battery Pack<br/>1 Quality Sprinkler |
 
+<img width="307" height="309" alt="image" src="https://github.com/user-attachments/assets/f353ad94-f4a0-486f-9369-b615d4cd15c4" />
+<img width="308" height="307" alt="image" src="https://github.com/user-attachments/assets/e592a04d-5946-49e0-bf21-bb992b6dd444" />
+
 ### Fertigation
 Both pressure nozzles and enrichers can be added to sprinklers.
 
 Upon purchasing the talent, you will get a new crafting recipe for an item named "Fertigator" which requires one Pressure Nozzle and one Enricher.
 When you place it to the sprinkler, you will get effects of both.
+<img width="310" height="296" alt="image" src="https://github.com/user-attachments/assets/b7c55878-2bb0-43df-b916-7f3f061a6beb" />
 
 ### Trickster
 Crows wont eat full-grown crops anymore.
@@ -921,7 +1015,9 @@ Crystalariums work faster.
 
 ### Dazzle
 Chance for crystalariums to improve item quality by one.
-This affects minerals, and geodes if you have Synthesis talent. 
+This affects minerals, and geodes if you have Synthesis talent.
+
+Note: As of 1.1.0, you can change it's chance through the CP pack's config.
 
 ### Straight Run
 Robin sells staircases for 2000g each.
@@ -939,7 +1035,11 @@ Higher tier metal bars can be converted into lower ones.
 The talent will add two crafting recipes, similar to the Transmute bars added by Mining skill.
 You will be able to have 5 gold bars for 2 iridium bars
 and 5 iron bars for 2 gold bars.
-
+<br>
+<img width="400" height="233" alt="image" src="https://github.com/user-attachments/assets/bb6f6a78-8108-499f-93e0-4503feea8edf" />
+<br>
+<img width="412" height="232" alt="image" src="https://github.com/user-attachments/assets/b7309caf-1509-4c18-b46d-064d1ee4bf57" />
+<br>
 ### Room And Pillar
 All ore nodes can spawn in the quarry mine.
 
@@ -956,11 +1056,16 @@ Note: This talent only makes these gems into universal loves. Due to how gift ta
 Low chance for all stones on a mine floor\nto be replaced by gem nodes. The chance for it to trigger is 0.0005.
 For vanilla mines; Ruby, Jade, Diamond, Aquamarine, Topaz and Emerald Nodes may appear with equal random chances.
 
+Note: As of 1.1.0, you can modify the chance to trigger from VPP's balance configs.
+
 For Mod Authors: If you want your custom mines to be affected by this talent, add the ``Kedi.VPP.CrystalCavern`` key to your Data/Locations entry's CustomFields... field. Optionally, you can add a space-delimited list of UNQUALIFIED object IDs for the gem nodes you want your regular stones to be replaced with as value. If you don't set it, VPP will just use the vanilla ones instead.
 
 ### Over The Rainbow
 Add prismatic shard crafting recipe.
 The recipe will require one of every gem.
+<br>
+<img width="309" height="418" alt="image" src="https://github.com/user-attachments/assets/2a207d3a-3a4b-4121-ae18-23094e5f6042" />
+<br>
 
 ## Foraging Talents
 ![ForagingTalents](https://github.com/user-attachments/assets/c77b4061-72e1-4f15-9abb-f9f20c115dfa)
@@ -996,7 +1101,7 @@ Chance for flowers to spawn in Calico Desert on rainy days in Pelican Town.
 ### Bountiful Boletes
 High chance for mushrooms to spawn after rainy days.
 
-For Mod Authors: If you add custom mushrooms and want them to be affected by this talent, you need to add one of these context tags to them; ``edible_mushroom`` or ``Kedi_VPP_Poisonous_Mushroom``, but the edible mushroom tag will make them available for Dehydrators' Dried Mushrooms as well which is not intended.
+For Mod Authors: If you add custom mushrooms and want them to be affected by this talent, you need to add one of these context tags to them; ``edible_mushroom`` or ``kedi_vpp_poisonous_mushroom``, but the edible mushroom tag will make them available for Dehydrators' Dried Mushrooms as well which might not be intended.
 
 ### Renewing Mist
 Double forage spawns on the first sunny day after rain.
@@ -1012,6 +1117,11 @@ Large tapper produce can be harvested from tappers.
 
 This will only affect the vanilla pine tars, maple syrups and oak resins and turn them into their large versions added by VPP.
 This talent may be needed for some skill craftables added by VPP as well.
+
+<img width="322" height="315" alt="image" src="https://github.com/user-attachments/assets/6b7e535c-538e-4878-90d8-284a9bf3f03d" />
+<img width="313" height="253" alt="image" src="https://github.com/user-attachments/assets/7ad6429d-0e69-46ec-a287-625f1a265087" />
+<img width="315" height="255" alt="image" src="https://github.com/user-attachments/assets/d24fc3a0-031b-4f79-b85b-2260d842c744" />
+
 
 ### Accumulation
 Chance for tapper products to increase\nin quality if left uncollected overnight.
@@ -1234,6 +1344,7 @@ The effects are listed below:
 ### Accessorise
 Trinkets can be converted into rings.
 A new big craftable recipe is added into your crafting recipes, which is named "Trinket Workbench" and is craftable for 50 hardwood & 3 iron bars.
+<img width="309" height="244" alt="image" src="https://github.com/user-attachments/assets/4ccd75a1-79e8-4b1f-8ede-40986d18007f" />
 
 Note: Said rings spawned from CJB or SMAPI console will not be functional because both of those wont do some necessary changes VPP does. Trinket rings can't be combined with any ring since version 1.0.3.
 
@@ -1247,7 +1358,7 @@ There is only one exception to this. Combined Rings still can't be combined agai
 All vanilla trinkets will get a second purpose.
 
 There are 8 trinkets in vanilla, and one extra purpose for each.
-In case there are people who want to learn what it is themselves, only the hint locations are listed below:
+In case there are people who want to learn what it is themselves, the hint locations are listed below:
 
 | Trinket name   | Location          |
 |:--------------:|:-----------------:|
@@ -1259,6 +1370,20 @@ In case there are people who want to learn what it is themselves, only the hint 
 | Basilisk Paw   | Wizard's Basement |
 | Magic Quiver   | Adventurer Guild  |
 | Magic Hair Gel | Alex's Room       |
+
+<details>
+  <summary>If you don't want to try figure them out...</summary>
+| Trinket name   | Second Purpose          |
+|:--------------:|:-----------------------:|
+| Golden Spur    | Tailored into Cowboy Boots using Leather Boots, which plays a special song while worn. |
+| Frog Egg       | Placed into any fish pond for double roe (you can take it back from them) |
+| Parrot Egg     | Placed into the Parrot Perch, which acts like a autopetter mechanically. |
+| Fairy Box      | Click on a crop with it to make it instantly grow tomorrow. Has a daily limit. |
+| Ice Rod        | Makes any cooked food high quality when placed into a fridge or mini-fridge |
+| Basilisk Paw   | Click on any out of reach forage to grab them |
+| Magic Quiver   | Shoot arrows if equipped to a slingshot. |
+| Magic Hair Gel | Gives +30 max stamina when equipped. |
+</details>
 
 ### Rending Strike
 4 consecutive strikes against a monster will reduce damage dealt by that monster.
@@ -1317,20 +1442,19 @@ Choose one of four pre-defined group of monsters and deal additional damage to t
 
 When you choose this talent in talent menu, you will get another menu with four more choices, the options and which monsters they affect are listed below.
 
-|Branch Name| Pre-defined Group of Monsters                                    |
-|-----------|:----------------------------------------------------------------:|
-| Ground    | Slime, Grub, Dust Sprite<br/>Duggy, Lava Lurk, Spider            |
-| Humanoid  | Golem, Skeleton<br/>Mummy, Shadow                                |
-| Flying    | Bat, Ghost, Serpent, Magma Sprite<br/>Blue Squid, Squid kid, Fly |
-| Armoured  | Dwarvish Sentry, Hot Head<br/>Metal Head, Rock Crab              |
+| Branch Name | Pre-defined Group of Monsters                                    |
+|-------------|:----------------------------------------------------------------:|
+| Ground      | Slime, Grub, Dust Sprite<br/>Duggy, Lava Lurk, Spider            |
+| Humanoid    | Golem, Skeleton<br/>Mummy, Shadow                                |
+| Flying      | Bat, Ghost, Serpent, Magma Sprite<br/>Blue Squid, Squid kid, Fly |
+| Armoured    | Dwarvish Sentry, Hot Head<br/>Metal Head, Rock Crab              |
 
 For Mod Authors: If you add custom monsters via C# (excluding FTM monsters), and if they're not a subclass of any vanilla monsters, contact me for compatibility.
 
 ### Sugar Rush
 Foods cooked with sugar will remove the Nauseated debuff. If you have Survival Cooking, its recipes will remove Nauseated as well.
-For Vanilla, VPP will only cover anything that contains sugar in their recipe.
 
-For Mod Authors: If you add custom desserts, you should add the ``ginger_item`` context tag ONLY if the farmer has the talent.
+For Mod Authors: As of 1.1.0, VPP will automatically detect any recipe with sugar in it, custom or vanilla.
 
 ### Meditation
 Passive health regeneration while standing still.
@@ -1394,7 +1518,16 @@ The price increases for the vanilla NPCs are listed below:
 | Willy     | All baits and tackles                                                        |
 | Wizard    | Solar Essence & Void Essence<br/>Super Cucumber                              |
 
-For Mod Authors: If you're a custom NPC author and want your NPC(s) affected by this talent, you need to add an entry to Insider Info's data. The format DOES NOT accept context tags or category IDs. You can get the target path for the data by using the ``ContentPaths`` token. The key must be the NPC's internal name, and the value should be a space-delimited list of UNQUALIFIED item IDs. For exp: ``"Abigail": "123 456 789 102 425"``
+For Mod Authors: If you're a custom NPC author and want your NPC(s) affected by this talent, you need to add an entry to your NPC's CustomFields. The format DOES NOT accept context tags or category IDs. The value should be a space-delimited list of UNQUALIFIED item IDs. Example code block:
+
+```json
+"ExampleAuthor.MyCustomCharacter": {
+  //blablabla other important stuff go here
+  "CustomFields": {
+    "KediDili.VanillaPlusProfessions_InsiderInfoData": "123 456 789 102 425" //Value is item ids of your choice.
+  }
+}
+```
 
 ### Gift of Friendship
 The villagers will start giving you gifts after you're close enough to them to show their gratitude. The gifts are usually the villagers' loved and liked gifts.
@@ -1479,6 +1612,6 @@ On bad luck days, a void butterfly spawns in distant locations (sewers, swamp, s
 
 For Mod Authors: There's nothing you need to do add compatibility with this talent.
 ### Gift of The Talented
-Gives you a stardrop. This stardrop doesn't count towards perfection.
+Gives you a stardrop. This stardrop doesn't count towards perfection due to the way tracks them.
 
 For Mod Authors: There's nothing you need to do add compatibility with this talent.
