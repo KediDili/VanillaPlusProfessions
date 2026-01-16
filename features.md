@@ -528,7 +528,7 @@ For Mod Authors: There's nothing you should do to add compatibility with this pr
 <br/>Chance for wild trees to drop items when shaken.
 When shaked, any tree with leaves may drop:
 | Item Name     | Chance | Season |
-|---------------|--------|--------|
+|:-------------:|:------:|:------:|
 | Hazelnut      | %10    | Any    |
 | Duck Feather  | %10    | Any    |
 | Hay           | %10    | Any    |
@@ -563,7 +563,6 @@ For Mod Authors: There's nothing you need to do to add compatibility with this p
 ### Ranger (Lv15)
 <img width="78" height="78" alt="Icon22" src="https://github.com/user-attachments/assets/1ffb929b-12e9-4468-b82b-9a2825459d79" />
 <br/>Forest forage worth more. The prices will be doubled.
-
 
 For Mod Authors: You can exclude your custom forage if you give it the ``kedi_vpp_banned_ranger`` context tag.
 ### Adventurer (Lv15)
