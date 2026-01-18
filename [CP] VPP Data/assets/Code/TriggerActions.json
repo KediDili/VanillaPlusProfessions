@@ -40,7 +40,7 @@
 			"Entries":{
 				"{{ModId}}_RecipeTalentUpdates":{
 					"Id": "{{ModId}}_RecipeTalentUpdates",
-                    "Trigger": "KediDili.VanillaPlusProfessions_UpdateRecipes",
+                    "Trigger": "KediDili.VanillaPlusProfessions_UpdateRecipes DayStarted",
 					"MarkActionApplied": false,
                     "Actions": [
 						"If KediDili.VanillaPlusProfessions_PlayerHasTalent Current TakeItSlow ## MarkCraftingRecipeKnown Current \"VPP Snail Tackle\" true ## MarkCraftingRecipeKnown Current \"VPP Snail Tackle\" false",

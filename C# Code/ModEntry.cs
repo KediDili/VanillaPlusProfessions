@@ -57,7 +57,7 @@ namespace VanillaPlusProfessions
 
         internal bool IsUninstalling;
         internal bool IsRecalculatingPoints;
-        internal Config ModConfig;
+        internal Config ModConfig = new();
 
         //So mods can access it without needing reflection.
         public static Dictionary<string, Profession> Professions = new();
@@ -85,10 +85,9 @@ namespace VanillaPlusProfessions
             CoreModEntry.Value.Helper.Events.Player.LevelChanged += OnLevelChanged;
             CoreModEntry.Value.Helper.Events.Player.Warped += OnWarped;
             CoreModEntry.Value.Helper.Events.GameLoop.UpdateTicked += OnUpdateTicked;
-<<<<<<< Updated upstream
-=======
             CoreModEntry.Value.Helper.Events.World.ObjectListChanged += OnInventoryChanged;
->>>>>>> Stashed changes
+            CoreModEntry.Value.Helper.Events.Multiplayer.PeerConnected += OnPeerConnected;
+            CoreModEntry.Value.Helper.Events.Multiplayer.PeerContextReceived += OnPeerContextReceived;
 
             CorePatcher.ApplyPatches();
             TalentCore.TalentCoreEntry.Value.Initialize(this);
@@ -285,7 +284,7 @@ namespace VanillaPlusProfessions
         {
             foreach (var item in e.Added)
             {
-                if (item.Value is StardewValley.Object obj && obj.isLamp.Value)
+                if (item.Value is StardewValley.Object obj && obj.isLamp.Value && Game1.player.currentLocation.sharedLights.ContainsKey(obj.lightSource.Id))
                 {
                     obj.lightSource.color.Value = new Color(255, 215, 175);
                     Game1.player.currentLocation.sharedLights[obj.lightSource.Id].color.Value = new Color(0, 40, 80);
@@ -309,14 +308,33 @@ namespace VanillaPlusProfessions
         {
             if (Context.IsWorldReady)
             {
-                if (MachineryEventHandler.BirdsOnFeeders.TryGetValue(Game1.player.currentLocation.NameOrUniqueName, out var val))
+                if (MachineryEventHandler.BirdsOnFeeders?.TryGetValue(Game1.player.currentLocation.NameOrUniqueName, out var val) is true)
                 {
                     foreach (var bird in val)
                     {
                         //Nyehehehe
-                        bird.update(Game1.currentGameTime, EmptyCritterRoom);
+                        if (EmptyCritterRoom is not null)
+                        {
+                            bird.update(Game1.currentGameTime, EmptyCritterRoom);
+                        }
                     }
                 }
+            }            
+        }
+
+        private void OnPeerConnected(object sender, PeerConnectedEventArgs e)
+        {
+            if (e.Peer.IsSplitScreen)
+            {
+                Monitor.Log($"Player with ID {e.Peer.PlayerID} in screen {e.Peer.ScreenID} has successfuly connected.");
+            }
+        }
+
+        private void OnPeerContextReceived(object sender, PeerContextReceivedEventArgs e)
+        {
+            if (e.Peer.IsSplitScreen && Context.IsMainPlayer)
+            {
+                Helper.Multiplayer.SendMessage(CoreModEntry.Value, "SplitScreenFarmhandEntry", new string[] { Manifest.UniqueID }, new long[] {e.Peer.PlayerID});
             }
         }
 
@@ -326,7 +344,7 @@ namespace VanillaPlusProfessions
             {
                 var data = e.NewLocation?.GetData()?.CustomFields ?? new();
                 MineShaft shaft = e.NewLocation as MineShaft;
-                MachineryEventHandler.OnPlayerWarp();
+                MachineryEventHandler.ThisIsMe.OnPlayerWarp();
 
                 if (e.NewLocation is not null && shaft is not null)
                 {
@@ -344,7 +362,7 @@ namespace VanillaPlusProfessions
                                                      where tileobjpair.Value is not null && TalentUtility.IsBlandStone(tileobjpair.Value)
                                                      select tileobjpair.Key).ToList();
                         bool success = false;
-
+                        
                         Dictionary<Vector2, string> CoordinatesForMP = new();
                         for (int i = 0; i < validcoords.Count; i++)
                         {
@@ -563,7 +581,6 @@ namespace VanillaPlusProfessions
                             value3.lightSource.color.Value = new Color(255, 255, 255) * 0.25f;
                             Game1.player.currentLocation.sharedLights[value3.lightSource.Id].color.Value = new Color(0, 0, 0);
                         }
-                        MachineryEventHandler.OnMachineInteract(value3, Game1.player);
                     }
                     else
                     {

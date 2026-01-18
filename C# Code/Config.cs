@@ -1,6 +1,4 @@
-﻿
-using StardewModdingAPI.Utilities;
-using StardewValley;
+﻿using StardewModdingAPI.Utilities;
 
 namespace VanillaPlusProfessions
 {

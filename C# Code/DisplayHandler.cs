@@ -105,7 +105,7 @@ namespace VanillaPlusProfessions
         {
             if (e.Step is StardewValley.Mods.RenderSteps.World_Sorted)
             {
-                MachineryEventHandler.OnWorldDrawn(e.SpriteBatch);
+                MachineryEventHandler.ThisIsMe.OnWorldDrawn(e.SpriteBatch);
                 foreach (var item in Game1.player.currentLocation.Objects.Pairs)
                 {
                     if (item.Value.IsSprinkler() && item.Value.heldObject.Value is not null && item.Value.heldObject.Value.QualifiedItemId is "(O)Kedi.VPP.PressureNozzleEnricher")
@@ -258,7 +258,7 @@ namespace VanillaPlusProfessions
                 }
             }
 
-            MachineryEventHandler.OnMenuChanged(e);
+            MachineryEventHandler.ThisIsMe.OnMenuChanged(e);
         }
         private void OnRenderedHud(object sender, RenderedHudEventArgs e)
         {

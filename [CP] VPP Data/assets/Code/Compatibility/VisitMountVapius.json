@@ -374,7 +374,7 @@
 					"Id": "{{ModId}}.VisitMountVapius.CandyMaker.Machinist",
 					"Modification": "Multiply",
 					"Amount": 0.8,
-					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Machinist, ITEM_ID Output Lumisteria.MtVapius_Candy_CandiedFruit Lumisteria.MtVapius_Candy_CandiedFlower Lumisteria.MtVapius_Candy_CandyCane Lumisteria.MtVapius_ArtisanGoods_MoscoCotto Lumisteria.MtVapius_Candy_Calisson Lumisteria.MtVapius_Candy_CoffeeCandy, !ITEM_CONTEXT_TAG Input forage_item",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Machinist, ITEM_ID Target Lumisteria.MtVapius_Candy_CandiedFruit Lumisteria.MtVapius_Candy_CandiedFlower Lumisteria.MtVapius_Candy_CandyCane Lumisteria.MtVapius_ArtisanGoods_MoscoCotto Lumisteria.MtVapius_Candy_Calisson Lumisteria.MtVapius_Candy_CoffeeCandy, !ITEM_CONTEXT_TAG Input forage_item",
 				}
 			}
 		},
@@ -563,7 +563,7 @@
 					"Id": "{{ModId}}.VisitMountVapius.CheesePress.Musterer",
 					"Modification": "Multiply",
 					"Amount": 0.8,
-					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Musterer, ITEM_ID Output Lumisteria.MtVapius_EweCheese",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Musterer, ITEM_ID Target Lumisteria.MtVapius_EweCheese",
 				}
 			}
 		},
@@ -626,7 +626,7 @@
 					"Id": "{{ModId}}.VisitMountVapius.PreservesJar.Musterer",
 					"Modification": "Multiply",
 					"Amount": 0.8,
-					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Musterer, ITEM_ID Output Lumisteria.MtVapius_Cream",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Musterer, ITEM_ID Target Lumisteria.MtVapius_Cream",
 				}
 			}
 		},
@@ -639,7 +639,7 @@
 					"Id": "{{ModId}}.VisitMountVapius.MaturingShelves.Musterer",
 					"Modification": "Multiply",
 					"Amount": 0.8,
-					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Musterer, ITEM_ID Output Lumisteria.MtVapius_SaltspringCheese Lumisteria.MtVapius_SkyshardSharpCheese Lumisteria.MtVapius_BlueVapiusCheese",
+					"Condition": "KediDili.VanillaPlusProfessions_PlayerHasProfession Current Musterer, ITEM_ID Target Lumisteria.MtVapius_SaltspringCheese Lumisteria.MtVapius_SkyshardSharpCheese Lumisteria.MtVapius_BlueVapiusCheese",
 				}
 			}
 		},

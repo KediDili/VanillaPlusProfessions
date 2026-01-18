@@ -32,7 +32,7 @@ namespace VanillaPlusProfessions.Utilities
             //Alchemic Reversal/Over The Rainbow/Survival Cooking/Drift Fencing
             //Take It Slow/Upcycling/Camp Spirit/Spring Thaw/Accessorise/Hidden Benefits
             string[] recipeUpdaters = new string[] { Constants.Talent_AlchemicReversal, Constants.Talent_OverTheRainbow, Constants.Talent_SurvivalCooking, Constants.Talent_DriftFencing, Constants.Talent_TakeItSlow,
-            Constants.Talent_Upcycling, Constants.Talent_CampSpirit, Constants.Talent_SpringThaw, Constants.Talent_Accessorise, Constants.Talent_HiddenBenefits, Constants.Talent_Overcrowding };
+            Constants.Talent_Upcycling, Constants.Talent_CampSpirit, Constants.Talent_SpringThaw, Constants.Talent_Accessorise, Constants.Talent_Fertigation, Constants.Talent_HiddenBenefits, Constants.Talent_Overcrowding };
             bool updateRecipes = recipeUpdaters.Intersect(talentStatuses.Keys).Any();
 
             //Essence Infusion/Double Hook/Cold Press
@@ -188,7 +188,7 @@ namespace VanillaPlusProfessions.Utilities
             if (excludeTags is not null)
             {
                 firstList = (from sds in firstList
-                             where excludeTags.Intersect(sds.Value.ContextTags).Any() is false
+                             where sds.Value.ContextTags is not null && sds.Value.ContextTags.Intersect(excludeTags).Any() is false
                              select sds).ToList();
             }
 

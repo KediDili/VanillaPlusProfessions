@@ -21,13 +21,11 @@ using Microsoft.Xna.Framework.Graphics;
 using StardewValley.Locations;
 using SpaceCore;
 using StardewValley.GameData.Objects;
-using StardewValley.Objects.Trinkets;
 using VanillaPlusProfessions.Craftables;
 using StardewValley.Triggers;
 using Microsoft.Xna.Framework;
 using StardewValley.BellsAndWhistles;
 using VanillaPlusProfessions.Talents.UI;
-using StardewValley.Objects;
 
 namespace VanillaPlusProfessions.Talents
 {
@@ -81,7 +79,7 @@ namespace VanillaPlusProfessions.Talents
                 SpaceEvents.AfterGiftGiven += OnAfterGiftGiven;
                 SpaceEvents.ChooseNightlyFarmEvent += OnChooseNightlyFarmEvent;
 
-                modEntry.VanillaPlusProfessionsAPI.RegisterTalentStatusAction(new string[] { Constants.Talent_AlchemicReversal, Constants.Talent_OverTheRainbow, Constants.Talent_SurvivalCooking, Constants.Talent_DriftFencing, Constants.Talent_TakeItSlow, Constants.Talent_Upcycling, Constants.Talent_CampSpirit, Constants.Talent_SpringThaw, Constants.Talent_Accessorise, Constants.Talent_EssenceInfusion, Constants.Talent_DoubleHook, Constants.Talent_ColdPress, Constants.Talent_SugarRush, Constants.Talent_SapSipper, Constants.Talent_TrashedTreasure, Constants.Talent_EyeSpy, Constants.Talent_FisheryGrant, Constants.Talent_MonumentalDiscount, Constants.Talent_Overcrowding, Constants.Talent_InTheWeeds, Constants.Talent_BigFishSmallPond, Constants.Talent_EveryonesBestFriend, Constants.Talent_BookclubBargains, Constants.Talent_WelcomeToTheJungle, Constants.Talent_VastDomain, Constants.Talent_HiddenBenefits, Constants.Talent_SleepUnderTheStars, Constants.Talent_BreedLikeRabbits, Constants.Talent_OneFishTwoFish }, TalentUtility.DataUpdates);
+                modEntry.VanillaPlusProfessionsAPI.RegisterTalentStatusAction(new string[] { Constants.Talent_AlchemicReversal, Constants.Talent_Fertigation, Constants.Talent_OverTheRainbow, Constants.Talent_SurvivalCooking, Constants.Talent_DriftFencing, Constants.Talent_TakeItSlow, Constants.Talent_Upcycling, Constants.Talent_CampSpirit, Constants.Talent_SpringThaw, Constants.Talent_Accessorise, Constants.Talent_EssenceInfusion, Constants.Talent_DoubleHook, Constants.Talent_ColdPress, Constants.Talent_SugarRush, Constants.Talent_SapSipper, Constants.Talent_TrashedTreasure, Constants.Talent_EyeSpy, Constants.Talent_FisheryGrant, Constants.Talent_MonumentalDiscount, Constants.Talent_Overcrowding, Constants.Talent_InTheWeeds, Constants.Talent_BigFishSmallPond, Constants.Talent_EveryonesBestFriend, Constants.Talent_BookclubBargains, Constants.Talent_WelcomeToTheJungle, Constants.Talent_VastDomain, Constants.Talent_HiddenBenefits, Constants.Talent_SleepUnderTheStars, Constants.Talent_BreedLikeRabbits, Constants.Talent_OneFishTwoFish }, TalentUtility.DataUpdates);
                 modEntry.VanillaPlusProfessionsAPI.RegisterTalentStatusAction(new string[] { Constants.Talent_SapSipper, Constants.Talent_SugarRush, Constants.Talent_Accessorise }, TalentUtility.OnItemBasedTalentBoughtOrRefunded);
                 modEntry.VanillaPlusProfessionsAPI.RegisterTalentStatusAction(new string[] { Constants.Talent_GiftOfTheTalented }, TalentUtility.GiftOfTheTalented_ApplyOrUnApply);
 
@@ -149,6 +147,23 @@ namespace VanillaPlusProfessions.Talents
                 else if (e.Type == ModEntry.CoreModEntry.Value.Manifest.UniqueID + "/MushroomLevel")
                 {
                     (Game1.player.currentLocation as MineShaft).rainbowLights.Value = true;
+                }
+                if (e.ReadAs<ModEntry>() is ModEntry modEntry && e.Type == "SplitScreenFarmhandEntry")
+                {
+                    ModEntry me = ModEntry.GetMe();
+                    me.ModMonitor.Log($"BetterGameMenu API: {me.BetterGameMenuAPI is null}", LogLevel.Debug);
+                    me.ModMonitor.Log($"ContentPatcher API: {me.ContentPatcherAPI is null}", LogLevel.Debug);
+                    me.ModMonitor.Log($"ExtraAnimalConfig API: {me.ExtraAnimalConfigAPI is null}", LogLevel.Debug);
+                    me.ModMonitor.Log($"GenericModConfigMenu API: {me.GenericModConfigMenuAPI is null}", LogLevel.Debug);
+                    me.ModMonitor.Log($"ItemExtensions API: {me.ItemExtensionsAPI is null}", LogLevel.Debug);
+                    me.ModMonitor.Log($"SpaceCore API: {me.SpaceCoreAPI is null}", LogLevel.Debug);
+                    me.ModMonitor.Log($"WearMoreRings API: {me.WearMoreRingsAPI is null}", LogLevel.Debug);
+                    me.ModMonitor.Log($"VanillaPlusProfessions API: {me.VanillaPlusProfessionsAPI is null}", LogLevel.Debug);
+
+                    me.ModMonitor.Log($"Helper: {me.Helper is null}", LogLevel.Debug);
+                    me.ModMonitor.Log($"Manifest: {me.Manifest is null}", LogLevel.Debug);
+                    me.ModMonitor.Log($"ModConfig: {me.ModConfig is null}", LogLevel.Debug);
+                    me.ModMonitor.Log($"EmptyCritterRoom: {ModEntry.EmptyCritterRoom is null}", LogLevel.Debug);
                 }
             }
         }
@@ -271,7 +286,7 @@ namespace VanillaPlusProfessions.Talents
         {
             if (e.OldTime < e.NewTime && IsTimeFollowing(e))
             {
-                MachineryEventHandler.OnTimeChanged(e);
+                MachineryEventHandler.ThisIsMe.OnTimeChanged(e);
                 if (TalentUtility.AllPlayersHaveTalent(Constants.Talent_SpeedOfDarkness))
                 {
                     if (e.NewTime is 2400 && e.OldTime is 2350)
@@ -430,6 +445,7 @@ namespace VanillaPlusProfessions.Talents
         {
             ModEntry.CoreModEntry.Value.Helper.GameContent.InvalidateCache(PathUtilities.NormalizeAssetName("Strings/UI"));
             ModEntry.CoreModEntry.Value.Helper.GameContent.InvalidateCache(PathUtilities.NormalizeAssetName("LooseSprites/Cursors_1_6"));
+            ModEntry.EmptyCritterRoom ??= Game1.getLocationFromNameInLocationsList("KediDili.VPPData.CP_EmptyCritterRoom");
 
             if (Game1.player.modData.TryGetValue(Constants.Key_TalentPoints, out string value))
             {

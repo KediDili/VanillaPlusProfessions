@@ -12,11 +12,14 @@ using StardewValley.Extensions;
 using StardewValley.Inventories;
 using StardewValley.BellsAndWhistles;
 using StardewModdingAPI;
+using StardewModdingAPI.Utilities;
 
 namespace VanillaPlusProfessions.Craftables
 {
     public class MachineryEventHandler
-    {     
+    {
+        internal static MachineryEventHandler ThisIsMe = new();
+
         internal static Dictionary<string, List<Vector2>> DrillLocations = new();
         internal static Dictionary<string, List<Vector2>> NodeMakerLocations = new();
         internal static Dictionary<string, List<Vector2>> ThermalReactorLocations = new();
@@ -25,9 +28,9 @@ namespace VanillaPlusProfessions.Craftables
 
         internal static Building MineTent;
 
-        public static void OnPlayerWarp()
+        public void OnPlayerWarp()
         {
-            if (Context.IsMainPlayer && !BirdsOnFeeders.ContainsKey(Game1.player.currentLocation.NameOrUniqueName) && !Game1.player.currentLocation.IsRainingHere() && !Game1.player.currentLocation.IsGreenRainingHere())
+            if (Context.IsMainPlayer && BirdsOnFeeders?.ContainsKey(Game1.player.currentLocation.NameOrUniqueName) is false && !Game1.player.currentLocation.IsRainingHere() && !Game1.player.currentLocation.IsGreenRainingHere())
             {
                 List<Critter> sdsd = new();
                 foreach (var item in Game1.player.currentLocation.Objects.Values)
@@ -75,7 +78,7 @@ namespace VanillaPlusProfessions.Craftables
                         }
                     }
                 }
-                if (sdsd.Count > 0)
+                if (sdsd.Count > 0 && BirdsOnFeeders is not null)
                 {
                     BirdsOnFeeders[Game1.player.currentLocation.NameOrUniqueName] = sdsd;
                     if (Context.HasRemotePlayers)
@@ -86,19 +89,41 @@ namespace VanillaPlusProfessions.Craftables
             }
         }
 
-        public static void OnWorldDrawn(SpriteBatch b)
+        public void OnWorldDrawn(SpriteBatch b)
         {
-            if (BirdsOnFeeders.TryGetValue(Game1.player.currentLocation.NameOrUniqueName, out var value))
+            if (Context.IsWorldReady)
             {
-                for (int i = 0; i < value.Count; i++)
+                if (BirdsOnFeeders?.TryGetValue(Game1.player.currentLocation.NameOrUniqueName, out var value) is true)
                 {
-                    value[i].draw(b);
+                    for (int i = 0; i < value.Count; i++)
+                    {
+                        value[i].draw(b);
+                    }
                 }
             }
         }
 
-        public static void OnTimeChanged(TimeChangedEventArgs e)
+        public void OnTimeChanged(TimeChangedEventArgs e)
         {
+            Utility.ForEachItem(item =>
+            {
+                if (item is StardewValley.Object obj)
+                {
+                    if (obj.Location is not null && Game1.isTimeToTurnOffLighting(obj.Location))
+                    {
+                        if (obj.ItemId == Constants.Id_GlowingCrystal && obj.modData.ContainsKey(Constants.Key_GlowingCrystalColor))
+                        {
+                            string[] colorcodes = obj.modData[Constants.Key_GlowingCrystalColor].Split(',');
+                            obj.lightSource.color.Value = new Color(byte.Parse(colorcodes[0]), byte.Parse(colorcodes[1]), byte.Parse(colorcodes[2]), byte.Parse(colorcodes[3]));
+                        }
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            });
             foreach (var item in DrillLocations)
             {
                 var loc = Game1.getLocationFromName(item.Key);
@@ -316,7 +341,7 @@ namespace VanillaPlusProfessions.Craftables
             }
         }
 
-        public static void OnMenuChanged(MenuChangedEventArgs e)
+        public void OnMenuChanged(MenuChangedEventArgs e)
         {
             if (e.NewMenu is ItemGrabMenu menu2)
             {
@@ -347,7 +372,7 @@ namespace VanillaPlusProfessions.Craftables
                 }
             }
         }
-        public static void OnMenuExit()
+        public void OnMenuExit()
         {
             if (MineTent is null || Context.IsMultiplayer)
             {
@@ -360,7 +385,7 @@ namespace VanillaPlusProfessions.Craftables
             }
         }
 
-        public static bool IsThereAContainerNearby(StardewValley.Object drill, out List<Chest> container, bool hasToBeNotFull = false)
+        public bool IsThereAContainerNearby(StardewValley.Object drill, out List<Chest> container, bool hasToBeNotFull = false)
         {
             container = new();
             if (drill is null)
@@ -385,7 +410,7 @@ namespace VanillaPlusProfessions.Craftables
             }
             return container.Count > 0;
         }
-        public static bool ShouldKeepSearching(Building building)
+        public bool ShouldKeepSearching(Building building)
         {
             if (Game1.activeClickableMenu is not null)
                 return false;
@@ -424,11 +449,6 @@ namespace VanillaPlusProfessions.Craftables
                 return false;
             }
             return true;
-        }
-
-        public static void OnMachineInteract(StardewValley.Object machine, Farmer who)
-        {
-
         }
     }
 }

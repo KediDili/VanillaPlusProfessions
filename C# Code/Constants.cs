@@ -190,7 +190,7 @@ namespace VanillaPlusProfessions
         public const string Talent_Resurgence = "Resurgence";
         public const string Talent_RefreshingWaters = "RefreshingWaters";
         public const string Talent_GoodSoaking = "GoodSoaking";
-        public const string Talent_NourishingRain = "NourishingRain";
+        public const string Talent_NourishingRain = "NourishingRain";        
         public const string Talent_HarmoniousBlooming = "HarmoniousBlooming";
         public const string Talent_Abundance = "Abundance";
         public const string Talent_FairysKiss = "FairysKiss";

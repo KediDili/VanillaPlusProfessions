@@ -38,7 +38,7 @@ namespace VanillaPlusProfessions.Craftables
                         string[] colorcodes = item.modData[Constants.Key_GlowingCrystalColor].Split(',');
                         item.lightSource.color.Value = new Color(byte.Parse(colorcodes[0]), byte.Parse(colorcodes[1]), byte.Parse(colorcodes[2]), byte.Parse(colorcodes[3]));
                     }
-                    else if (item.isLamp.Value)
+                    else if (item.isLamp.Value && Game1.player.currentLocation.sharedLights.ContainsKey(item.lightSource.Id))
                     {
                         item.lightSource.color.Value = new Color(255, 255, 255) * 0.25f;
                         Game1.player.currentLocation.sharedLights[item.lightSource.Id].color.Value = new Color(0, 0, 0);

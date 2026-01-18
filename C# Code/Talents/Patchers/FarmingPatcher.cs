@@ -15,8 +15,6 @@ using StardewValley.Internal;
 using StardewValley.Objects;
 using IFeedInfo = VanillaPlusProfessions.Compatibility.IFeedInfo;
 
-using IFeedInfo = VanillaPlusProfessions.Compatibility.IFeedInfo;
-
 namespace VanillaPlusProfessions.Talents.Patchers
 {
     public class FarmingPatcher
@@ -100,19 +98,12 @@ namespace VanillaPlusProfessions.Talents.Patchers
         public static void feedAllAnimals_Postfix(AnimalHouse __instance)
         {
             GameLocation rootLocation = __instance.GetRootLocation();
-<<<<<<< Updated upstream
-            // If this building's feed is overridden by Extra Animal Config retrieve the feed info object
-            IFeedInfo? moddedFeedInfo = null;
-            string? eacFeedOverride = ModEntry.CoreModEntry.Value.ExtraAnimalConfigAPI?.GetFeedOverride(__instance.ParentBuilding?.buildingType.Value);
-            if (eacFeedOverride is not null && ModEntry.CoreModEntry.Value.ExtraAnimalConfigAPI.GetModdedFeedInfo().TryGetValue(eacFeedOverride, out moddedFeedInfo)) { }
-=======
             
             // If this building's feed is overridden by Extra Animal Config retrieve the feed info object
             IFeedInfo? moddedFeedInfo = null;
             string? eacFeedOverride = ModEntry.CoreModEntry.Value.ExtraAnimalConfigAPI?.GetFeedOverride(__instance.ParentBuilding?.buildingType.Value);
             if (eacFeedOverride is not null)
                 ModEntry.CoreModEntry.Value.ExtraAnimalConfigAPI.GetModdedFeedInfo().TryGetValue(eacFeedOverride, out moddedFeedInfo);
->>>>>>> Stashed changes
             for (int x = 0; x < __instance.map.Layers[0].LayerWidth; x++)
             {
                 for (int y = 0; y < __instance.map.Layers[0].LayerHeight; y++)
@@ -173,7 +164,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
                         }
                         if (fail)
                             continue;
-
+                        
                         requiredCount += item.Stack;
                         requiredCount -= requiredCount % conversion.RequiredCount;
                         items.Add(chestItemCount);
@@ -291,7 +282,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
                 }
             }
         }
-
+        
         public static IEnumerable<CodeInstruction> dayUpdate_Transpiler(IEnumerable<CodeInstruction> codeInstructions)
         {
             List<CodeInstruction> result = codeInstructions.ToList();
@@ -495,7 +486,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             {
                 CoreUtility.PrintError(e, PatcherName, "GameLocation.performLightningUpdate", "transpiling");
             }
-
+            
             return list;
         }
 
