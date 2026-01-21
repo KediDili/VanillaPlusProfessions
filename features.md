@@ -593,6 +593,7 @@ For Mod Authors: There's nothing you should do to add compatibility with this pr
 <img width="78" height="78" alt="Icon18" src="https://github.com/user-attachments/assets/dbff3cfc-307f-4172-aeac-4846cda5d85e" />
 <br/>Chance for wild trees to drop items when shaken.
 When shaked, any tree with leaves may drop:
+
 | Item Name     | Chance | Season |
 |:-------------:|:------:|:------:|
 | Hazelnut      | %10    | Any    |
@@ -1460,6 +1461,7 @@ In case there are people who want to learn what it is themselves, the hint locat
 
 <details>
   <summary>If you don't want to try figure them out...</summary>
+
 | Trinket name   | Second Purpose          |
 |:--------------:|:-----------------------:|
 | Golden Spur    | Tailored into Cowboy Boots using Leather Boots, which plays a special song while worn. |
@@ -1470,6 +1472,7 @@ In case there are people who want to learn what it is themselves, the hint locat
 | Basilisk Paw   | Click on any out of reach forage to grab them |
 | Magic Quiver   | Shoot arrows if equipped to a slingshot. |
 | Magic Hair Gel | Gives +30 max stamina when equipped. |
+
 </details>
 
 ### Rending Strike
