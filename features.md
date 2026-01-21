@@ -62,9 +62,21 @@ The vanilla and custom level experiences needed are listed below.
 
 ## Skills Display
 It's available ONLY if you have at least one skill above level 10 (doesn't matter whether vanilla or modded). If you can't see it still, try resizing your window. If that doesn't work too, submit a bug report. It's accessed by clicking the little plus button that appears next to the menu's border. For striped versions, it comes with a color-blindness config.
-
-TODO - ADD PICTURES HERE WITH CONFIG ON AND OFF
-
+<br>
+<br>
+Color Blindness Config Off:
+<br>
+<img width="533" height="250" alt="image" src="https://github.com/user-attachments/assets/20967e4b-3759-41d9-b5ec-c5eb1817bfb5" />
+<br>
+<img width="528" height="247" alt="image" src="https://github.com/user-attachments/assets/775e3f37-9e5b-4d64-a5e8-ca546afaf6c6" />
+<br>
+<br>
+Color Blindness Config On:
+<br>
+<img width="519" height="243" alt="image" src="https://github.com/user-attachments/assets/99ad11d5-1eb4-4ce2-ba83-24f8685aa102" />
+<br>
+<img width="519" height="231" alt="image" src="https://github.com/user-attachments/assets/ded0a4f6-a2ba-4318-aced-ad47e8341a44" />
+<br>
 ## Mastery Cave Changes
 VPP changes Mastery Cave to unlock at when all skills are levelled up to 20, unless the config is turned off. It locks "Singular Mastery" and "Master of Five Ways" achievements behind that along with any and all Mastery experience to be gained.
 Additionally, if you have Accessorise talent, you will be able to find trinkets even if you haven't obtained Combat Mastery yet, but you will still need the Combat Mastery to get any trinket slots.
@@ -75,24 +87,27 @@ Additionally, if you have Accessorise talent, you will be able to find trinkets 
 (To be Implemented)
 
 ### Mining
-VPP adds a total of 9 unlockables for Mining skill. What they are and unlocking levels are listed below:
+VPP adds a total of 10 unlockables for Mining skill. What they are and unlocking levels are listed below:
 
-| Level | Unlockable Name | Type |
-|:-----:|:---------------:|:----:|
-| 11 | Glowing Crystal | Big Craftable |
-| 12 | Programmable Drill | Big Craftable |
-| 13 | Thermal Reactor | Big Craftable |
-| 14 | Node Maker | Big Craftable |
-| 16 | Minecart Chest</br>Minecart Repository | Big Craftable</br>Building |
-| 17 | Machinery Collector | Big Craftable |
-| 18 | Mineral Cavern | Building |
-| 19 | Miner's Meal | Cooking |
+| Level | Unlockable Name                        | Type                             |
+|:-----:|:--------------------------------------:|:--------------------------------:|
+| 11    | Glowing Crystal                        | Big Craftable                    |
+| 12    | Programmable Drill                     | Big Craftable                    |
+| 13    | Thermal Reactor                        | Big Craftable                    |
+| 14    | Node Maker</br>Node Lifter             | Big Craftable</br>Craftable Item |
+| 16    | Minecart Chest</br>Minecart Repository | Big Craftable</br>Building       |
+| 17    | Machinery Collector                    | Big Craftable                    |
+| 18    | Mineral Cavern                         | Building                         |
+| 19    | Miner's Meal                           | Cooking                          |
 
 #### Glowing Crystal
-It's a lamp-like big craftable which is unlocked on level 11.
-Requires 35 quartz, 30 stone and 1 coal to craft.
-<img width="318" height="234" alt="image" src="https://github.com/user-attachments/assets/9ecfc9fc-fafa-4d86-9a88-bc1afe18d591" />
-
+It's a lamp-like big craftable which is unlocked on level 11. Requires 35 quartz, 30 stone and 1 coal to craft. When clicked to with a gem(Ruby, Emerald) or a geode mineral(Fairystone, Calcite, Soapstone etc.), it will glow in its color. The gem isn't consumed. Wait until evening to see the effect. Works better with brighter and light-colored ones.
+<br>
+<img width="339" height="395" alt="image" src="https://github.com/user-attachments/assets/229036ee-58ee-45b2-b90f-cbc8175d7565" />
+<br>
+<br>
+<img width="319" height="261" alt="image" src="https://github.com/user-attachments/assets/30adcd33-6ff7-4d12-965b-11130a87cbae" />
+<br>
 #### Programmable Drill
 It's a special machine which is unlocked on level 12.
 Requires a battery pack and one of any ore, gem, geode, coal or stone as input and works for 1 in-game week.
@@ -104,55 +119,70 @@ As output, it gives more of the input, counts are listed below:
 | Geodes        | 10-30   |
 | Coal          | 100-300 |
 | Stone         | 300-750 |
-<img width="315" height="349" alt="image" src="https://github.com/user-attachments/assets/77a3697b-7ee8-46ad-b9e8-d789c3c8c5c3" />
 
+<br>
 It will not work if its not in an indoor "mine" location. (in vanilla, that's only the mine entrance)
 If any of the four adjacent tiles has a Machinery Collector; the drill will put any produced output into the collector, create extra drops (with %0.05 chance every 10 in-game minutes), pull inputs from the first possible collector detected. The initial input is prioritized while pulling input, if applicable. It can still take input even if batteries and ores/geodes/etc. are in different containers.
+<br>
+<br>
 Requires 1 dwarf gadget, 10 copper bars and 5 iron bars to craft.
-
+<br>
+<br>
+<img width="346" height="472" alt="image" src="https://github.com/user-attachments/assets/5fe7b2b0-b2a7-4756-b0aa-35fcd482f6f4" />
+<br>
+<br>
 For Mod Authors: If you'd like programmable drills to work in your mine location, simply add the ``"KediDili.VanillaPlusProfessions_IsConsistentMineLocation": "true"`` in your location data's CustomFields. However, there currently isn't a way to exclude your ores/geodes/etc. from being inputted into the drill.
 
 #### Thermal Reactor
 It's a solar panel-like machine unlocked on level 13.
 It does not require any input, but it requires being placed into any location with lava (for vanilla, the Caldera is the only place it works.) Takes 7 days to give output, which is 21-49 batteries.
 Requires 45 fire quartz, 1 Hematite and 3 frozen tears to craft.
-<img width="315" height="272" alt="image" src="https://github.com/user-attachments/assets/015527d7-7eca-43c9-9f4a-f0b8f100905b" />
-
+<br>
+<br>
+<img width="338" height="372" alt="image" src="https://github.com/user-attachments/assets/ecf96895-191f-4e1c-b0ef-0af02c28e323" />
+<br>
+<br>
 For Mod Authors: If you'd like thermal reactors to work in your mine location, simply add the ``"KediDili.VanillaPlusProfessions_IsLavaLocation": "true"`` in your location data's CustomFields.
 #### Node Maker
 It's a regular machine unlocked on level 14.
 It can take any ore/geode/gem as input along with 2 clay, as long as there's a corresponding stone node for it.
 Outputs 2-5 of the corresponding stone node, which can be placed down in Mineral Cavern indoors.
 Requires 1 Rusty Cog, 5 iron bars and 5 gold bars to craft.
-<img width="316" height="291" alt="image" src="https://github.com/user-attachments/assets/eaaada7c-cb8f-4956-a8f2-4f1421d43ebb" />
-
-#### Node Maker
-It's a craftable QoL item unlocked on level 14.
-TODO: ADD PICS
-
-For Mod Authors: If you'd like your nodes to be outputted with the node maker, add the "KediDili.VanillaPlusProfessions/NodeMakerData" key and the unqualified Ids of the nodes (I will find a better way later.)
-
+<br>
+<br>
+<img width="382" height="322" alt="image" src="https://github.com/user-attachments/assets/44e34648-3f29-4952-8250-7b9ab28b827e" />
+<br>
+#### Node Lifter
+It's a craftable QoL item unlocked on level 14. Requires 2 gold bars and 2 iron bars as ingredients. When clicked to a node, it will lift it up without breaking the node. Useful for accidentally misplaced nodes.
+<br>
+<br>
+<img width="386" height="300" alt="image" src="https://github.com/user-attachments/assets/b49d8b5b-79bd-4f8d-a6dd-4349f2d2406a" />
+<br>
 #### Minecart Chest
 It's a special chest unlocked on level 16, along with the minecart repository.
 If there's a Minecart Repository built on the farm, warps any placed content to it. Otherwise has no function.
 Requires 25 hardwood, 16 stone and 1 large oak resin to craft.
 The large oak resin can be found via the Spring Thaw talent.
-<img width="331" height="306" alt="image" src="https://github.com/user-attachments/assets/851a76c8-0635-4fc1-8ee3-73e1ac43ad63" />
-
+<br>
+<br>
+<img width="375" height="322" alt="image" src="https://github.com/user-attachments/assets/e25b7b0b-8e21-4d3d-8c8f-1e6346fd2156" />
+<br>
 #### Minecart Repository
 It's a special storage building unlocked on level 16, along with the minecart chest.
 If you build one on your farm and place anything in a minecart chest, any of its content will warp into this building.
 Only one of the repository can be built per save. If you want to build a new one, you need to demolish the existing one first.
 Requires 20 copper bars, 10 iron bars and 300 stones to build. It can be built from Robin's Carpenter shop for 10000g.
+<br>
 <img width="899" height="504" alt="image" src="https://github.com/user-attachments/assets/a3c252b1-2af1-4060-a464-f1e2fdca06cc" />
-
+<br>
 #### Machinery Collector
 It's a special type of chest unlocked on level 17.
 It can work with programmable drills to collect output and put input into them.
 Any and all Machinery Collectors are disabled from Automate's interactions by default.
 Requirs 1 Dwarf gadget and 20 copper bars to craft.
-<img width="319" height="265" alt="image" src="https://github.com/user-attachments/assets/aeff0bf5-9f87-4374-868b-715c3b85bf82" />
-
+<br>
+<img width="382" height="294" alt="image" src="https://github.com/user-attachments/assets/b2b6a236-32c9-4f1a-b833-ceb625c5eaab" />
+<br>
 #### Mineral Cavern
 It's a special building unlocked on level 18.
 The nodes from Node Maker can be placed indoors of this building, and any applicable combination of 2x2 (four in total) nodes have a %30 chance to grow into a boulder/clump overnight if there's a matching one with the nodes.
@@ -165,40 +195,72 @@ When eaten, gives
 //TODO, COMPLETE THIS
 
 ### Foraging
+VPP adds a total of 13 unlockables for Mining skill. What they are and unlocking levels are listed below:
+
+| Level | Unlockable Name                         | Type                             |
+|:-----:|:---------------------------------------:|:--------------------------------:|
+| 11    | Bird Feeder                             | Big Craftable                    |
+| 12    | Mossy Fertilizer                        | Craftable Item                   |
+| 13    | Sun Totem</br>Snow Totem</br>Wild Totem | Craftable Item                   |
+| 14    | Seasonal Deluxe Wild Seeds (x4)         | Craftable Item                   |
+| 16    | Sawmill                                 | Building                         |
+| 17    | Seed Sifter                             | Big Craftable                    |
+| 18    | Secret Glade                            | Building                         |
+| 19    | Forager's Bowl                          | Cooking                          |
 
 #### Bird Feeder
-It's a cosmetic thing unlocked at level 11.
-<img width="314" height="242" alt="image" src="https://github.com/user-attachments/assets/9aa25944-0ff9-4a43-9754-2f4ee9a2f02b" />
+It's a cosmetic big craftable unlocked at level 11. It works in any location. The feed will require refilling once a week. Feed isn't consumed in rainy, stormy or snowy weather and no birds will appear.
+<br>
+<img width="338" height="369" alt="image" src="https://github.com/user-attachments/assets/beb517ca-1ad0-4634-814d-33b04fc24cf7" />
+<br>
 <details>
   <summary>Hand-placing these feed will attract...</summary>
-- Corn => Crows
-<br> - Any bait => Town Birbs
-<br> - Sunflower Seeds => Parrots
-<br> - Gold ore => Gold Parrots
-<br> - Any fish => Seagulls
+  - Corn => Crows
+<br>   - Any bait => Town Birbs
+<br>   - Sunflower Seeds => Parrots
+<br>   - Gold ore => Gold Parrots
+<br>   - Any fish => Seagulls
 </details>
+<br>
 <img width="214" height="217" alt="image" src="https://github.com/user-attachments/assets/42fb6ff5-d186-458b-bc05-ed2422b868f1" />
 
 #### Mossy fertilizer
-It's a building unlocked at level 18 and buildable from Wizard's.
+It's a fertilizer applicable to trees unlocked at level 12. Makes it more likely for applied trees to have moss on them the next day. Can be applied only once to per tree only once per day.
+<br>
+<img width="376" height="325" alt="image" src="https://github.com/user-attachments/assets/c398530a-c7f8-4b9e-9747-d15340fe1215" />
 
 #### Sun, Snow & Wild totems
-They're three Rain-Totem-Like craftables unlocked at level 13.
-
-<img width="314" height="258" alt="image" src="https://github.com/user-attachments/assets/d761837b-3be9-4894-b749-a8407d1851d8" />
-<img width="329" height="274" alt="image" src="https://github.com/user-attachments/assets/447b3a24-0368-462d-9a26-4892bd22d4d5" />
-<img width="309" height="260" alt="image" src="https://github.com/user-attachments/assets/c5b60326-1f21-4770-80e3-c047e48feb7e" />
+They're three Rain-Totem-Like craftables unlocked at level 13. None of the totems will work if the location doesn't allow rain totems.
+<br>
+<br>
+<img width="387" height="334" alt="image" src="https://github.com/user-attachments/assets/1c6f4e87-ff8e-42c8-940e-a38bc272139c" />
+<br>
+Sun Totem uses 2 hardwood and 5 solar essence as ingredients. If used successfully, it will make sure the weather is be sunny the next day. It has a custom totem animation and responds differently during summer and non-summer.
+<br>
+<br>
+<img width="381" height="330" alt="image" src="https://github.com/user-attachments/assets/a5074142-f8b7-44f5-b453-ee504c7f35dd" />
+<br>
+Snow Totem uses 2 hardwood and 2 frozen tears as ingredients. If used successfully, it will make sure it will be snowy the next day. It has a custom totem animation and responds differently during winter and non-winter.
+<br>
+<br>
+<img width="378" height="327" alt="image" src="https://github.com/user-attachments/assets/56e79d01-6bdc-462a-b3e3-bc2a5c1689f8" />
+<br>
+Wild totem uses 2 hardwood and 30 moss as ingredients. If used successfully, it will try to spawn forage will not place forage on tiles blocked by impassable tiles, trees, bushes, animals and so on. It has a custom totem animation. It will not work or be consumed if no forage can be spawned.
+<br>
+<br>
+For Mod Authors: You can exclude your forage from this by using compatibility context tags.
 
 #### Seasonal Deluxe Wild Seeds
-They're craftable seeds unlocked at level 14 and uses regular seasonal wild seeds as ingredients.
+They're craftable seeds unlocked at level 14 and use regular seasonal wild seeds as ingredients.
 
 These are like any seasonal seeds with two major differences:
 - They give a lot more XP than usual (27->50xp)
 - They grow faster in the Cindersap Forest. (Much like Efflorescence/Tropical Bliss/Nourishing Rain)
-<img width="381" height="261" alt="image" src="https://github.com/user-attachments/assets/eaf6886b-279e-4380-9c24-560b0c0d14ee" />
-<img width="390" height="250" alt="image" src="https://github.com/user-attachments/assets/242b29bb-f153-4666-9b0f-86553b4b1ebb" />
-<img width="337" height="258" alt="image" src="https://github.com/user-attachments/assets/96a00016-45d7-4ac9-b64a-d64988fe6dec" />
-<img width="372" height="257" alt="image" src="https://github.com/user-attachments/assets/dc3fdc95-f81b-4fab-a685-6625e2001185" />
+<br>
+<img width="437" height="292" alt="image" src="https://github.com/user-attachments/assets/80ab0b2c-3f47-4e28-881e-a5011d7a4354" />
+<img width="463" height="283" alt="image" src="https://github.com/user-attachments/assets/73a72c73-ee63-44d8-b0c6-2c81e02f55bb" />
+<img width="408" height="300" alt="image" src="https://github.com/user-attachments/assets/246094b6-fb34-48ed-8502-8dc858327ba3" />
+<img width="442" height="290" alt="image" src="https://github.com/user-attachments/assets/420ebfa5-c12e-45ca-b5d3-389438123803" />
 
 #### Sawmill
 It's a building unlocked at level 16 and buildable from Robin's.
@@ -208,6 +270,7 @@ Any hardwood placed on its sawbench will become wood tomorrow.
 It also has two skins that are purely aesthetical.
 <img width="454" height="460" alt="image" src="https://github.com/user-attachments/assets/89815100-27ed-4620-9bf7-675fca66fef5" />
 <img width="467" height="471" alt="image" src="https://github.com/user-attachments/assets/76cbe229-c7d1-4faa-848d-f2e024195f83" />
+<br>
 (All images are Fall season variants of the building.)
 
 #### Seed Sifter
@@ -217,9 +280,12 @@ It's a machine that produces wild seasonal seeds from any forage that is not:
 - Non-seasonal
 
 #### Secret Glade
-It's a building unlocked at level 18 and buildable from Wizard's.
+It's a building unlocked at level 18 and buildable from Wizard's. When built, forage will spawn in its interior every day.
+<br>
 <img width="815" height="509" alt="image" src="https://github.com/user-attachments/assets/3e4eaa25-7719-4cd8-bf51-cf8f90c1771b" />
-
+<br>
+<br>
+For Mod Authors: You can exclude your custom forage through compatibility context tags. (Soon to be documented)
 #### Forager's Meal
 It's a cooked food unlocked on level 19.
 When eaten, gives 
@@ -848,8 +914,10 @@ Chance for animals to produce both deluxe & normal items.
 ### Overcrowding
 Coops & barns can house more animals.
 Vanilla coops and barns will increase in size to house more animals by %20.
-
-Note: In case you're using a barn/coop replacer mod, there's an option in the CP part of the mod to turn the map edits off so that you can use the replacer. As of 1.1.0, A new craftable named Box Trough is added, which you can place anywhere inside the coop/barn/whatever else, there's built-in compatibility with Extra Animal Configs.
+<br>
+<img width="375" height="223" alt="image" src="https://github.com/user-attachments/assets/3b158b85-c619-41ce-8a58-33ea6b9e9acc" />
+<br>
+In case you're using a barn/coop replacer mod, there's an option in the CP part of the mod to turn the map edits off so that you can use the replacer. As of 1.1.0, A new craftable named Box Trough is added, which you can place anywhere inside the coop/barn/whatever else, there's built-in compatibility with Extra Animal Configs. The Box Troughs require 50 wood to craft.
 
 ### Bio-Engineering
 Large animal produce will result in doubled artisan goods.
@@ -867,6 +935,8 @@ In vanilla, the base chance is ``currentAnimalAmount * 0.0055`` every night, the
 
 ### Cycle Of Life
 50% chance to receive back a seed of a harvested non-regrowable crop.
+
+As of 1.1.0, Cycle of Life's chance can be adjusted through the mod config.
 
 ### Effloresence
 Reduces time flowers take to grow.[^5]
@@ -888,7 +958,15 @@ Milled rice/flour/sugar matches the ingredient quality.
 
 ### Drift Fencing
 Crafting fences produces double items.
-
+<br>
+<img width="364" height="312" alt="image" src="https://github.com/user-attachments/assets/f51d4d8f-ba75-4af7-b273-973584c4ef4c" />
+<br>
+<img width="377" height="292" alt="image" src="https://github.com/user-attachments/assets/2a0e04a8-80c3-4277-be53-7081d0ced662" />
+<br>
+<img width="383" height="314" alt="image" src="https://github.com/user-attachments/assets/21336855-7910-4612-b532-8d62aebdacca" />
+<br>
+<img width="371" height="297" alt="image" src="https://github.com/user-attachments/assets/e99604c4-526a-4136-9b18-25914c12a3f7" />
+<br>
 ### Storm Surge
 Lightning rods protect more crops and fruit trees even when producing.
 
@@ -920,24 +998,27 @@ All of these will have names such as Tomato Oil but will act like the vanilla re
 
 ### Upcycling
 Higher-tier sprinklers require lower ones as materials.
-
-This talent will changes the recipes of Iridium sprinkler and Quality Sprinkler, the old and new recipes are listed below
-
+<br>
+This talent will changes the recipes of Iridium sprinkler and Quality Sprinkler, the old and new recipes are listed below:
+<br>
 |     Sprinkler     |                    Old Recipe                   |                       New Recipe                      |
 |:-----------------:|:-----------------------------------------------:|:-----------------------------------------------------:|
 | Quality Sprinkler | 1 Iron Bar<br/>1 Gold Bar<br/>1 Refined Quartz  | 1 Gold Bar<br/>1 Coal<br/>1 Sprinkler                 |
 | Iridium Sprinkler | 1 Gold Bar<br/>1 Iridium Bar<br/>1 Battery Pack | 1 Iridium Bar<br/>1 Battery Pack<br/>1 Quality Sprinkler |
-
-<img width="307" height="309" alt="image" src="https://github.com/user-attachments/assets/f353ad94-f4a0-486f-9369-b615d4cd15c4" />
-<img width="308" height="307" alt="image" src="https://github.com/user-attachments/assets/e592a04d-5946-49e0-bf21-bb992b6dd444" />
-
+<br>
+<img width="333" height="375" alt="image" src="https://github.com/user-attachments/assets/d8122a7a-8412-4d9d-a272-7dd14b61dd56" />
+<br>
+<br>
+<img width="340" height="376" alt="image" src="https://github.com/user-attachments/assets/91ea3a1d-dcca-4579-9d34-2b4ff9e93495" />
+<br>
 ### Fertigation
 Both pressure nozzles and enrichers can be added to sprinklers.
 
 Upon purchasing the talent, you will get a new crafting recipe for an item named "Fertigator" which requires one Pressure Nozzle and one Enricher.
 When you place it to the sprinkler, you will get effects of both.
-<img width="310" height="296" alt="image" src="https://github.com/user-attachments/assets/b7c55878-2bb0-43df-b916-7f3f061a6beb" />
-
+<br>
+<img width="381" height="337" alt="image" src="https://github.com/user-attachments/assets/27e6e494-204d-458c-9a30-38471f15745f" />
+<br>
 ### Trickster
 Crows wont eat full-grown crops anymore.
 
@@ -1033,11 +1114,11 @@ an iron node to drop gold, etc.
 Higher tier metal bars can be converted into lower ones.
 The talent will add two crafting recipes, similar to the Transmute bars added by Mining skill.
 You will be able to have 5 gold bars for 2 iridium bars
-and 5 iron bars for 2 gold bars.
+and 5 iridium bars for 2 radioactive bars.
 <br>
-<img width="400" height="233" alt="image" src="https://github.com/user-attachments/assets/bb6f6a78-8108-499f-93e0-4503feea8edf" />
+<img width="514" height="278" alt="image" src="https://github.com/user-attachments/assets/82f5e76a-3768-4a99-8123-698b0942e331" />
 <br>
-<img width="412" height="232" alt="image" src="https://github.com/user-attachments/assets/b7309caf-1509-4c18-b46d-064d1ee4bf57" />
+<img width="514" height="278" alt="image" src="https://github.com/user-attachments/assets/3ff72f1f-0cd6-43cf-938b-150070728424" />
 <br>
 ### Room And Pillar
 All ore nodes can spawn in the quarry mine.
@@ -1063,7 +1144,7 @@ For Mod Authors: If you want your custom mines to be affected by this talent, ad
 Add prismatic shard crafting recipe.
 The recipe will require one of every gem.
 <br>
-<img width="309" height="418" alt="image" src="https://github.com/user-attachments/assets/2a207d3a-3a4b-4121-ae18-23094e5f6042" />
+<img width="371" height="451" alt="image" src="https://github.com/user-attachments/assets/e11a3979-bdbe-4d72-9753-3d3f2eb47c89" />
 <br>
 
 ## Foraging Talents
@@ -1116,12 +1197,13 @@ Large tapper produce can be harvested from tappers.
 
 This will only affect the vanilla pine tars, maple syrups and oak resins and turn them into their large versions added by VPP.
 This talent may be needed for some skill craftables added by VPP as well.
-
-<img width="322" height="315" alt="image" src="https://github.com/user-attachments/assets/6b7e535c-538e-4878-90d8-284a9bf3f03d" />
-<img width="313" height="253" alt="image" src="https://github.com/user-attachments/assets/7ad6429d-0e69-46ec-a287-625f1a265087" />
-<img width="315" height="255" alt="image" src="https://github.com/user-attachments/assets/d24fc3a0-031b-4f79-b85b-2260d842c744" />
-
-
+<br>
+<img width="331" height="337" alt="image" src="https://github.com/user-attachments/assets/5db01c40-1b6e-4f92-88ef-7beb24e09d69" />
+<br>
+<img width="345" height="335" alt="image" src="https://github.com/user-attachments/assets/2b5a16a2-b2ef-46cb-99b0-ff10ba653625" />
+<br>
+<img width="344" height="401" alt="image" src="https://github.com/user-attachments/assets/b247e130-01fb-485e-b55d-15e5d21d224f" />
+<br>
 ### Accumulation
 Chance for tapper products to increase\nin quality if left uncollected overnight.
 
@@ -1145,7 +1227,10 @@ No penalty for falling asleep at 2AM if at the beach, mountain, or forest.
 
 ### Camp Spirit
 Food made with a Cookout Kit restores more energy and health than food made in a kitchen.
-
+<br>
+<img width="372" height="356" alt="image" src="https://github.com/user-attachments/assets/fe0aef80-ce56-4ed2-821a-0758dab1b28d" />
+<br>
+It also slightly modifies the Cookout Kit recipe to be easier to craft.
 ### Survival Cooking
 Adds unique recipes to Cookout Kits.
 There will be new 10 cooking recipes that will be only available from Cookout Kits. So you wont be able to cook them in regular kitchens. Most of VPP-spesific ones use forage as ingredients because they're supposed to heal the player a middle amount while they're out in the wild.
@@ -1260,7 +1345,9 @@ This also affects Caviar as well.
 
 ### Take it Slow
 Fishing casting bar will move more slowly if you have the Snail Tackle equipped.
-
+<br>
+<img width="384" height="311" alt="image" src="https://github.com/user-attachments/assets/14558609-2f54-4f6b-b85b-749d5d6f2a70" />
+<br>
 After you purchase the talent, a new crafting recipe will be available which is named Snail Tackle.
 It will require one Snail and one iron bar. After equipped to the rod, it'll slow the casting bar.
 
@@ -1343,8 +1430,9 @@ The effects are listed below:
 ### Accessorise
 Trinkets can be converted into rings.
 A new big craftable recipe is added into your crafting recipes, which is named "Trinket Workbench" and is craftable for 50 hardwood & 3 iron bars.
-<img width="309" height="244" alt="image" src="https://github.com/user-attachments/assets/4ccd75a1-79e8-4b1f-8ede-40986d18007f" />
-
+<br>
+<img width="391" height="276" alt="image" src="https://github.com/user-attachments/assets/ff9abe8b-99f6-419c-9ee5-d57410149a2a" />
+<br>
 Note: Said rings spawned from CJB or SMAPI console will not be functional because both of those wont do some necessary changes VPP does. Trinket rings can't be combined with any ring since version 1.0.3.
 
 For Mod Authors: If you add custom trinkets, you need to add a custom ring item, and add an entry like ``"Kedi.VPP.AccessoriseRing": "ExampleAuthor.ExampleMod_UnqualifiedItemIDForMyRing"`` to your trinket's CustomFields field. This is needed for VPP to match your trinket to your ring.
