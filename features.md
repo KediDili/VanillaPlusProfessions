@@ -916,7 +916,9 @@ Chance for animals to produce both deluxe & normal items.
 Coops & barns can house more animals.
 Vanilla coops and barns will increase in size to house more animals by %20.
 <br>
+<br>
 <img width="375" height="223" alt="image" src="https://github.com/user-attachments/assets/3b158b85-c619-41ce-8a58-33ea6b9e9acc" />
+<br>
 <br>
 In case you're using a barn/coop replacer mod, there's an option in the CP part of the mod to turn the map edits off so that you can use the replacer. As of 1.1.0, A new craftable named Box Trough is added, which you can place anywhere inside the coop/barn/whatever else, there's built-in compatibility with Extra Animal Configs. The Box Troughs require 50 wood to craft.
 
@@ -961,11 +963,9 @@ Milled rice/flour/sugar matches the ingredient quality.
 Crafting fences produces double items.
 <br>
 <img width="364" height="312" alt="image" src="https://github.com/user-attachments/assets/f51d4d8f-ba75-4af7-b273-973584c4ef4c" />
-<br>
 <img width="377" height="292" alt="image" src="https://github.com/user-attachments/assets/2a0e04a8-80c3-4277-be53-7081d0ced662" />
 <br>
 <img width="383" height="314" alt="image" src="https://github.com/user-attachments/assets/21336855-7910-4612-b532-8d62aebdacca" />
-<br>
 <img width="371" height="297" alt="image" src="https://github.com/user-attachments/assets/e99604c4-526a-4136-9b18-25914c12a3f7" />
 <br>
 ### Storm Surge
@@ -1012,6 +1012,7 @@ This talent will changes the recipes of Iridium sprinkler and Quality Sprinkler,
 <br>
 <img width="340" height="376" alt="image" src="https://github.com/user-attachments/assets/91ea3a1d-dcca-4579-9d34-2b4ff9e93495" />
 <br>
+
 ### Fertigation
 Both pressure nozzles and enrichers can be added to sprinklers.
 
@@ -1119,7 +1120,8 @@ and 5 iridium bars for 2 radioactive bars.
 <br>
 <img width="514" height="278" alt="image" src="https://github.com/user-attachments/assets/82f5e76a-3768-4a99-8123-698b0942e331" />
 <br>
-<img width="514" height="278" alt="image" src="https://github.com/user-attachments/assets/3ff72f1f-0cd6-43cf-938b-150070728424" />
+<br>
+<<img width="498" height="268" alt="image" src="https://github.com/user-attachments/assets/d47b81ba-0137-4b09-8f5d-b238f08fd1c6" />
 <br>
 ### Room And Pillar
 All ore nodes can spawn in the quarry mine.
