@@ -1735,6 +1735,36 @@ For Mod Authors: There's nothing you need to do add compatibility with this tale
 ### Trashed Treasure
 More valuable items can be found in trash cans.
 
+The changes for the base cans and their loot are below:
+| Garbage Can Location              | Item List (None are Changed)                           | Chances   | Condition |
+|:---------------------------------:|:------------------------------------------------------:|:---------:|:---------:|
+| Any, if no other<br>items are chosen | Pearl, Prismatic Shard<br>Treasure Chest, Golden Pumpkin | Unchanged | Unchanged |
+| Blacksmith | Ores | %60 (affected by luck) | --- |
+| Museum | Omnigeode | %10 | --- |
+| Museum | Geode | %60 (affected by luck) | --- |
+| Alex's | Cookie | %60 (affected by luck) | --- |
+| JojaMart | Movie Ticket, Corn | %60 | If Jojamart has become Theater |
+| JojaMart | Joja Cola | %60 | If Jojamart hasn't closed |
+
+
+The can locations, new added loot lists, chances and conditions are below:
+| Garbage Can Location | Item List (Added) | Chances | Conditions |
+|:--------------------:|:-----------------:|:-------:|:----------:|
+| Mayor's Manor | Vegetable Medley, Glazed Yams | --- | If luck is greater than 0 |
+| Mayor's Manor | Holly, Quartz | --- | If luck is lesser than 0 |
+| Blacksmith | Artichoke Dip, Iridium Ore, Omnigeode | --- | If Luck is Greater than 0 |
+| Blacksmith | Clam, Salmonberry | --- | If Luck is Lesser than 0 |
+| Emily & Haley's | Survival Burger, Daffodil, Fruit Salad, Pomegranate | --- | If Luck is Greater than 0 |
+| Emily & Haley's | Fish Taco, Ice Cream, Goat Milk, Snow Yam | --- | If Luck is Lesser than 0 |
+| Alex's | Raisins, Leek, Salmon Dinner | --- | If Luck is Greater than 0 |
+| Alex's | Fried Eel, Clay, Sap | --- | If Luck is Lesser than 0 |
+| Jodi & Kent | Maple Bar, Cranberry Candy, Fried Eel, Roasted Hazelnuts | --- | If Luck is Greater than 0 |
+| Jodi & Kent | Algae Soup, Triple Shot Espresso, Pickles, Daffodil | --- | If Luck is Lesser than 0 |
+| Saloon | Fish Taco, Escargot | --- | If Luck is Greater than 0 |
+| Saloon | Coleslaw, Grass Starter | --- | If Luck is Lesser than 0 |
+| Museum | Any Gems (except Prismatic Shard) | %20 (affected by luck) | If Luck is Greater than 0 |
+| JojaMart | Fried Calamari, Strange Bun, Lucky Lunch, Pizza, Carp Surprise, Fish Taco, Cookie, Fried Eel, Maki Roll, Ice Cream, Triple Shot Espresso, Algae Soup, Artichoke Dip, Cranberry Candy, Maple Bar | %20 (affected by luck) | If Luck is Greater than 0 |
+
 For Mod Authors: There's nothing you need to do add compatibility with this talent.
 ### Butterfly Effect
 On bad luck days, a void butterfly spawns in distant locations (sewers, swamp, secret woods, etc) and gives a +10 luck buff when found.
