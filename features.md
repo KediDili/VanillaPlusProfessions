@@ -191,8 +191,9 @@ Requires 40 clay, 100 wood and 250 stones to build. It can be built from Robin's
 
 #### Miner's Meal
 It's a cooked food unlocked on level 19.
-When eaten, gives 
-//TODO, COMPLETE THIS
+When eaten, gives a +9 mining buff and +60 Magnetism buff. for the next 14 minutes.
+<br>
+<img width="390" height="514" alt="image" src="https://github.com/user-attachments/assets/89d10cc1-94ee-4146-9dc4-46bbfba017b1" />
 
 ### Foraging
 VPP adds a total of 13 unlockables for Mining skill. What they are and unlocking levels are listed below:
@@ -288,8 +289,10 @@ It's a building unlocked at level 18 and buildable from Wizard's. When built, fo
 For Mod Authors: You can exclude your custom forage through compatibility context tags. (Soon to be documented)
 #### Forager's Meal
 It's a cooked food unlocked on level 19.
-When eaten, gives 
-
+When eaten, gives a 10+ foraging buff for the next 14 minutes.
+<br>
+<img width="396" height="532" alt="image" src="https://github.com/user-attachments/assets/28f6fa8d-1a1d-458e-82bf-27dd54d2c524" />
+<br>
 ### Fishing 
 (To be Implemented)
 
