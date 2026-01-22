@@ -915,6 +915,8 @@ For each rainy day, growth time for outdoor crops is reduced by 1 day.[^5]
 ### Wild Growth
 Chance for animals to produce both deluxe & normal items.
 
+As of 1.1.0, you can configure the chance in the mod config.
+
 ### Overcrowding
 Coops & barns can house more animals.
 Vanilla coops and barns will increase in size to house more animals by %20.
@@ -1042,6 +1044,7 @@ They will be twice as fast.
 
 ### Down In The Depths
 If no ladder has spawned, guaranteed chance of finding one after breaking 8 stones.
+As of 1.1.0, you can configure the amount of stones before the ladder spawns by the talent in the mod config.
 
 ### Shadow Buddies
 If befriended, Krobus will gift you 1-3 geodes via mail each week.
@@ -1085,6 +1088,8 @@ Crystalariums can copy geodes.
 Low chance for all stones on a mine floor to be replaced by geode nodes. The chance for it to trigger is 0.0005.
 Magma Geodes, Frozen Geodes and regular Geodes may appear depending on where you are.
 
+As of 1.1.0, you can configure the chance in the mod config.
+
 <br>
 <img width="800" height="640" alt="test_1-22-2026_30459690" src="https://github.com/user-attachments/assets/8212cd6a-5798-4121-9619-5d1719ef0059" />
 <br>
@@ -1120,6 +1125,7 @@ Bombs won't destroy forage, machinery, or artifact spots.
 Chance for ore nodes to drop higher tier ore as well.
 There's a %50 chance for a copper node to additionally drop iron ore,
 an iron node to drop gold, etc.
+As of 1.1.0, you can configure the chance in the mod config.
 
 ### Alchemic Reversal
 Higher tier metal bars can be converted into lower ones.
@@ -1138,6 +1144,8 @@ All ore nodes can spawn in the quarry mine.
 ### Fallout
 Radioactive ore nodes spawn in the non-dangerous mines and Skull Cavern.
 The chance is ``0.0001 * mineLevel`` per stone.
+
+As of 1.1.0, you can configure the chance in the mod config. (mineLevel will still affect the true chance.)
 
 ### Everyone's Best Friend
 Diamond, tigerseye, opal, fire opal, jasper, and star shards will become universal loved gifts.
@@ -1323,6 +1331,7 @@ For mod authors: Give non-roe drops for your legendary fish locked behind this t
 Chance for roe yield in fish ponds is increased.
 
 If there's no output for the day or if it's not roe, there's a %50 chance the next might be roe.
+As of 1.1.0, you can configure the chance in the mod config.
 
 ### Ex-squid-site
 Chance for roe to increase in quality if left uncollected overnight. Roe quality will apply to Aged Roe, Caviar, and Squid Ink.
@@ -1575,6 +1584,8 @@ For Mod Authors: As of 1.1.0, VPP will automatically detect any recipe with suga
 Passive health regeneration while standing still.
 Every 10 in-game minutes, you will gain 15 points of health.
 
+As of 1.1.0, you can configure the amount of health regen points in the mod config.
+
 ## Daily Life Talents
 ![DailyLifeTalents](https://github.com/user-attachments/assets/1eb3e255-dbdd-456e-985c-a8254f98d73b)
 
@@ -1593,7 +1604,7 @@ New craftables gained by skill level-up are sold at shops after being unlocked. 
 
 ### Admiration
 Halves the friendship decay due to not interacting with characters, doesn't affect things like disliked gifts or negative event choices. 
-There's nothing you should do for compatibiliy with this talent.
+As of 1.1.0, you can configure the decay modifier in the mod config.
 
 ### Insider Info
 The price increases for the vanilla NPCs are listed below:
