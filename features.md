@@ -1056,7 +1056,9 @@ If the Dwarvish Translation Guide has been obtained, dwarf scrolls can be read f
 
 ### Speed Of Darkness
 Receive a speed boost after 12 AM.
-
+<br>
+<img width="337" height="212" alt="image" src="https://github.com/user-attachments/assets/3f1d877a-ac13-4f74-aa7e-4ed6ddd86acc" />
+<br>
 ### Ancestral Weaponry
 If Ginger Island has been unlocked,\nthe Dwarf sells dwarven weaponry.
 
@@ -1079,6 +1081,10 @@ Crystalariums can copy geodes.
 ### Upheaval
 Low chance for all stones on a mine floor to be replaced by geode nodes. The chance for it to trigger is 0.0005.
 Magma Geodes, Frozen Geodes and regular Geodes may appear depending on where you are.
+
+<br>
+<img width="800" height="640" alt="test_1-22-2026_30459690" src="https://github.com/user-attachments/assets/8212cd6a-5798-4121-9619-5d1719ef0059" />
+<br>
 
 For Mod Authors: If you want your custom mines to be affected by this talent, add the ``Kedi.VPP.Upheaval`` key to your Data/Locations entry's CustomFields... field. Optionally, you can add a space-delimited list of UNQUALIFIED object IDs for the geode nodes you want your regular stones to be replaced with as value. If you don't set it, VPP will just use the vanilla ones instead. As a bonus, if you have custom nodes as well, add them the ``Kedi_VPP_Bland_Stone_Node`` context tag to your "stone items".
 
@@ -1138,6 +1144,10 @@ Note: This talent only makes these gems into universal loves. Due to how gift ta
 ### Crystal Cavern
 Low chance for all stones on a mine floor\nto be replaced by gem nodes. The chance for it to trigger is 0.0005.
 For vanilla mines; Ruby, Jade, Diamond, Aquamarine, Topaz and Emerald Nodes may appear with equal random chances.
+
+<br>
+<img width="1280" height="240" alt="test_1-22-2026_30369775" src="https://github.com/user-attachments/assets/5a709e84-f9ef-4566-bc5a-4c871dffa538" />
+<br>
 
 Note: As of 1.1.0, you can modify the chance to trigger from VPP's balance configs.
 
@@ -1494,13 +1504,17 @@ Club attacks hit a second time. The second strike deals reduced damage.
 
 ### Champion
 Grants +2 Defense for 6 seconds after striking an enemy with a sword.
-
+<br>
+<img width="307" height="244" alt="image" src="https://github.com/user-attachments/assets/e23cbd15-a502-4242-84c2-440cb25fc42f" />
+<br>
 ### Flurry
 Consecutive dagger strikes against the same target deal half additional damage, stacking up to 5 times.
 
 ### Ferocity
 Critical hits add a short 10% crit damage buff.
-
+<br>
+<img width="353" height="275" alt="image" src="https://github.com/user-attachments/assets/b88c56da-69f5-4669-8387-84e72cf2b44a" />
+<br>
 The buff lasts 10 seconds.
 
 ### Starburst
@@ -1513,17 +1527,23 @@ Increases the damage invulneravility period by %20.
 
 ### Sidestep
 Chance to dodge enemy attacks.
-
+<br>
+<img width="310" height="274" alt="image" src="https://github.com/user-attachments/assets/3db65e6d-7f72-45ae-8edd-d3270c4dbcd6" />
+<br>
 Every time a monster hits you, there's a %10 chance that you wont be damaged and the talent will give you a temporary invulnerability. The farmer will flash, but its to show the invulnerability.
 If you have slime charmer ring, the talent wont be effectful against slimes.
 
 ### Slippery
 Changes the Slimy debuff into a +1 Speed buff.
-
+<br>
+<img width="305" height="296" alt="image" src="https://github.com/user-attachments/assets/4ee33598-266c-40d6-9343-6a21d8ba8f47" />
+<br>
 ### Fortified
 For every monster in the current location, gain +1 Defense to a limit of +8.
 (aka capped at 8, so if there is 15 monsters there, the buff will still be +8.)
-
+<br>
+<img width="271" height="246" alt="image" src="https://github.com/user-attachments/assets/fdb17373-786c-4802-a202-5e0227f3fe86" />
+<br>
 ### Full Knowledge
 Gives full exp for monsters killed on the farm.
 
