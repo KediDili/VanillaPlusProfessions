@@ -1666,33 +1666,47 @@ For Mod Authors: There's nothing you need to do add compatibility with this tale
 ### Lost And Found
 Reading lost books after they've been found gives you daily buffs, reading another book while one will override the previous book buff and the buffs will be removed next day. Here are the buffs for vanilla lost books:
 
-|Starts With                  | Type of Buff | Strength of Buff |
-|:---------------------------:|:------------:|:----------------:|
-|Tips on Farming              | Farming      | +1               |
-|...This is a book by Marnie. | Farming      | +2               |
-|On Foraging                  | Foraging     | +2               |
-|The Fisherman, Act I         | Fishing      | +1               |
-|How deep do the mines go?    | Mining       | +1               |
-|An Old Farmer's Journal      | Magnetism    | +40              |
-|Scarecrows                   | Farming      | +3               |
-|The Secret of the Stardrop   | Max Stamina  | +40              |
-|Journey of the Prairie King  | Attack       | +2               |
-|A Study on Diamond Yields    | Mining       | +3               |
-|Brewmaster's Guide           | Farming      | +4               |
-|Mysteries of the Dwarves     | Mining       | +3               |
-|From The Book of Yoba        | Foraging     | +4               |
-|Marriage Guide for Farmers   | Luck         | +3               |
-|The Fisherman, Act II        | Fishing      | +3               |
-|Technology Report!           | Mining       | +4               |
-|Secrets of the Legendary Fish| Fishing      | +4               |
-|The Bus Tunnel               | Luck         | +3               |
-|Note From Gunther            | Speed        | +4               |
-|'Goblins' by M. Jasper       | Defense      | +4               |
-|Solok Ulan Paa Eno Ra        | Speed        | +4               |
+| Starts With                   | Type of Buff | Strength of Buff |
+|:-----------------------------:|:------------:|:----------------:|
+| Tips on Farming               | Farming      | +1               |
+| ...This is a book by Marnie.  | Farming      | +2               |
+| On Foraging                   | Foraging     | +2               |
+| The Fisherman, Act I          | Fishing      | +1               |
+| How deep do the mines go?     | Mining       | +1               |
+| An Old Farmer's Journal       | Magnetism    | +40              |
+| Scarecrows                    | Farming      | +3               |
+| The Secret of the Stardrop    | Max Stamina  | +40              |
+| Journey of the Prairie King   | Attack       | +2               |
+| A Study on Diamond Yields     | Mining       | +3               |
+| Brewmaster's Guide            | Farming      | +4               |
+| Mysteries of the Dwarves      | Mining       | +3               |
+| From The Book of Yoba         | Foraging     | +4               |
+| Marriage Guide for Farmers    | Luck         | +3               |
+| The Fisherman, Act II         | Fishing      | +3               |
+| Technology Report!            | Mining       | +4               |
+| Secrets of the Legendary Fish | Fishing      | +4               |
+| The Bus Tunnel                | Luck         | +3               |
+| Note From Gunther             | Speed        | +4               |
+| 'Goblins' by M. Jasper        | Defense      | +4               |
+| Solok Ulan Paa Eno Ra         | Speed        | +4               |
 
 For Mod Authors: There's nothing you need to do add compatibility with this talent.
 ### Bookclub Bargains
-Reduces the bookseller's prices.
+Reduces the bookseller's prices. The books, old and new prices are listed below:
+
+| Nook Name           | Old Price | New Price |
+|:-------------------:|:---------:|:---------:|
+| Book of Stars       | 15000     | 5000      |
+| Random Skill Book 1 | 10000     | 5000      |
+| Random Skill Book 2 | 8000      | 4000      |
+| Random Skill Book 3 | 5000      | 2500      |
+| Random Book         | 20000     | 12500     |
+| Way of The Wind 1   | 15000     | 10000     |
+| Way of The Wind 2   | 35000     | 15000     |
+| Horse: The Book     | 25000     | 20000     |
+| Ol' Slitherlegs     | 25000     | 15000     |
+| Queen of Sauce      | 50000     | 25000     |
+| Woodcutter's Weekly | 8000      | 4000      |
 
 ### Cycle of Knowledge
 Extra books can be recycled.
