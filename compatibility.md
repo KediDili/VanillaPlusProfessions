@@ -10,7 +10,7 @@ The queries/tokens, and the formats are listed below:
 
 | Token Name    | Details |
 |:-------------:|:--------|
-| ContentPaths  | Accepts one of ``ItemSpritesheet``, ``ProfessionIcons``, ``TalentBG``, ``TalentSchema``, ``BundleIcons`` and ``SkillBars``.<br/><br/>``ItemSpritesheet`` will give you sprites of any item VPP adds, but it also contains a few misc things that don't fit anywhere else.<br/>``ProfessionIcons`` contains all and only profession icons meant to be used by VPP.<br/>``TalentSchema`` contains an image consisting of all "lines" and an icon of all VPP base talent trees.<br/>``BundleIcons`` is only the colored smaller bundles and greyscale bundles only meant for VPP to use.<br/>``SkillBars`` are the skill bars from VPP's Color Blindness config and skill overlay.<br/> depending on the input, it'll return a path to be used in the Target field.
+| ContentPaths  | Accepts one of ``ItemSpritesheet``, ``Anims``, ``ProfessionIcons``, ``TalentBG``, ``TalentSchema``, ``BundleIcons`` and ``SkillBars``.<br/><br/>``ItemSpritesheet`` will give you sprites of any item VPP adds, but it also contains a few misc things that don't fit anywhere else.<br/>``ProfessionIcons`` contains all and only profession icons meant to be used by VPP.<br/>``TalentSchema`` contains an image consisting of all "lines" and an icon of all VPP base talent trees.<br/>``BundleIcons`` is only the colored smaller bundles and greyscale bundles only meant for VPP to use.<br/>``SkillBars`` are the skill bars from VPP's Color Blindness config and skill overlay.<br/> depending on the input, it'll return a path to be used in the Target field.<br/>``Anims`` contains special animations by VPP (currently only used by the custom foraging skill totems added in 1.1.0)
 | HasProfessions | Returns a list of the professions the farmer currently has. |
 | HasTalents | Returns a list of the talents the farmer currently has. Respects the Professions Only config and disabled talents feature. |
 
@@ -46,6 +46,34 @@ VPP adds three GSQs to be used with VPP compatibility, their names, parameters a
 | ``KediDili.VanillaPlusProfessions_WasRainingHereYesterday <location>`` | Checks if it was raining the said location YESTERDAY.<br/>This can be used for compatibility with talents such as Bountiful Boletes or Renewing Mist that need this check. |
 | ``KediDili.VanillaPlusProfessions_PlayerHasTalent <player> <talentName>`` | Checks if the ``<player>`` has purchased ``<talentName>``. It's highly recommended to use this instead of mail flag checks to track talents, since this query also accounts for ``ProfessionsOnly`` config and the new disabled talents feature. |
 | ``KediDili.VanillaPlusProfessions_PlayerHasProfession <player> <professionName>`` | Checks if the ``<player>`` has obtained ``<professionName>``. It's recommended to use in fields such as ``Condition`` since they require GSQs. |
+|``KediDili.VanillaPlusProfessions_IsLavaLocation``| Used by the Thermal Reactor to detect lava locations. Checks whether the location is the Caldera or it's CustomFields contain the ``"KediDili.VanillaPlusProfessions/IsLavaLocation"`` key. |
+|``KediDili.VanillaPlusProfessions_IsConsistentMineLocation``| Used by the Programmable Drill to detect lava locations. Checks whether the location is the Mine entrance or it's CustomFields contain the ``"KediDili.VanillaPlusProfessions/IsConsistentMineLocation"`` key. |
+
+### Compatibility Context Tags
+VPP adds many talents, professions and skill unlockables that use many vanilla and modded items to provide functionality, and authors should have a say in whether their items will be included or not. If these context tags are found, singular or categorically your item(s) will be excluded from or included to related features. Below is the list of any talents, professions and other features that check these context tags and what type of items do they search the tag in:
+| Context Tag                          | Item Checked | Checked For              | If Found |
+|:------------------------------------:|:------------:|:------------------------:|:--------:|
+| ``"poisonous_mushroom_item"``        | Mushrooms    | Bountiful Boletes        | Included |
+| ``"kedi_vpp_banned_matryoshka"``     | Geodes       | Matryoshka               | Excluded |
+| ``"kedi_vpp_banned_xray"``           | Geodes       | X-ray                    | Excluded |
+| ``"kedi_vpp_banned_naturesecrets"``  | Forage       | Nature Secrets           | Excluded |
+| ``"kedi_vpp_banned_adventurer"``     | Forage       | Adventurer               | Excluded |
+| ``"kedi_vpp_banned_ranger"``         | Forage       | Ranger                   | Excluded |
+| ``"kedi_vpp_banned_wildtotem"``      | Forage       | Wild Totem               | Excluded |
+| ``"kedi_vpp_banned_grassdrop"``      | Seeds        | Grass Seed Drops         | Excluded |
+| ``"kedi_vpp_banned_efflorescence"``  | Flowers      | Efflorescence            | Excluded |
+| ``"kedi_vpp_banned_tropicalbliss"``  | Crops        | Tropical Bliss           | Excluded |
+| ``"kedi_vpp_banned_nourishingrain"`` | Crops        | Nourishing Rain          | Excluded |
+| ``"kedi_vpp_banned_secretglade"``    | Forage       | Secret Glade             | Excluded |
+| ``"vpp_forageThrowGame_banned"``     | Forage       | Foraging-Fishing         | Excluded |
+| ``"kedi_vpp_banned_wayfarer"``       | Forage       | Wayfarer                 | Excluded |
+| ``"kedi_vpp_banned_gleaner"``        | Seeds        | Gleaner                  | Excluded |
+| ``"kedi_vpp_banned_node"``           | Custom Nodes | Crystal Cavern, Upheaval | Excluded |
+| ``"kedi_vpp_banned_forage"``         | Forage       | Any Forage perks         | Excluded |
+| ``"kedi_vpp_banned_geode"``          | Geodes       | Any Geode Perks          | Excluded |
+| ``"kedi_vpp_banned_fish"``           | Fish         | Any Fish Perks           | Excluded |
+| ``"kedi_vpp_banned_crop"``           | Crops        | Any Crop Perks           | Excluded |
+| ``"kedi_vpp_survival_cooking_food"`` | Cooked Food  | Survival Cooking         | Included |
 
 ### What you can/need to add compatibility depending on what your mod adds:
 | Added by mods          | VPP Feature                                     |
@@ -58,7 +86,7 @@ VPP adds three GSQs to be used with VPP compatibility, their names, parameters a
 | Crops                  | [Gleaner](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#gleaner-lv15) |
 | Crop Machinery         | [Machinist](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#machinist-lv15), [Cold Press](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#cold-press) |
 | Crystalariums          | [Dazzle](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#dazzle), [Geometry](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#geometry), [Synthesis](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#synthesis) |
-| Cooked foods           | [Survival Cooking](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#survival-cooking), [Sugar Rush](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#sugar-rush) |
+| Cooked foods           | [Survival Cooking](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#survival-cooking) |
 | Fruit Trees            | [Farming-Foraging](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#farming-foraging-lv20) |
 | Forage                 | [Ranger](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#ranger-lv15), [Adventurer](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#adventurer-lv15), [Wayfarer](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#wayfarer-lv15),<br/>[Foraging-Fishing](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#foraging-fishing-lv20), [Bountiful Boletes](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#bountiful-boletes), [Nature Secrets](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#nature-secrets)  |
 | Furnaces               | [Metallurgist](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#metallurgist-lv15), [Ignitor](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md#ironmonger-lv15) |
