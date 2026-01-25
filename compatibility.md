@@ -3,7 +3,7 @@
 **Warning: This guide might assume you're already familiar with JSON format, Content Patcher packs, Game State Queries and/or C# based mods depending on the part of the guide.**
 
 ## Contents
-- [ContentPacks](https://github.com/KediDili/VanillaPlusProfessions/blob/main/compatibility.md#content-packs-mostly-cp-though)
+- [Content Packs (Mostly CP, though)](https://github.com/KediDili/VanillaPlusProfessions/blob/main/compatibility.md#content-packs-mostly-cp-though)
     - [Game State Queries](https://github.com/KediDili/VanillaPlusProfessions/blob/main/compatibility.md#game-state-queries)
     - [Compatibility Context Tags](https://github.com/KediDili/VanillaPlusProfessions/blob/main/compatibility.md#compatibility-context-tags)
     - [Console Commands](https://github.com/KediDili/VanillaPlusProfessions/blob/main/compatibility.md#console-commands)
