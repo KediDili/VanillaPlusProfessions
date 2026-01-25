@@ -3,12 +3,12 @@
 **Warning: This guide might assume you're already familiar with JSON format, Content Patcher packs, Game State Queries and/or C# based mods depending on the part of the guide.**
 
 ## Contents
-- [ContentPacks] 
-    - [Game State Queries]
-    - [Compatibility Context Tags]
-    - [Console Commands]
-    - [What you can/need to add compatibility depending on what your mod adds:]
-- [C# Mods]
+- [ContentPacks](https://github.com/KediDili/VanillaPlusProfessions/blob/main/compatibility.md#content-packs-mostly-cp-though)
+    - [Game State Queries](https://github.com/KediDili/VanillaPlusProfessions/blob/main/compatibility.md#game-state-queries)
+    - [Compatibility Context Tags](https://github.com/KediDili/VanillaPlusProfessions/blob/main/compatibility.md#compatibility-context-tags)
+    - [Console Commands](https://github.com/KediDili/VanillaPlusProfessions/blob/main/compatibility.md#console-commands)
+    - [What you can/need to add compatibility depending on what your mod adds:](https://github.com/KediDili/VanillaPlusProfessions/blob/main/compatibility.md#what-you-canneed-to-add-compatibility-depending-on-what-your-mod-adds)
+- [C# Mods](https://github.com/KediDili/VanillaPlusProfessions/blob/main/compatibility.md#c-mods)
 
 ## Content Packs (Mostly CP, though)
 VPP offers three custom CP tokens and custom GSQs for compatibility purposes at the moment.
