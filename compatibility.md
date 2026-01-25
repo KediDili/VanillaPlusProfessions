@@ -2,9 +2,17 @@
 
 **Warning: This guide might assume you're already familiar with JSON format, Content Patcher packs, Game State Queries and/or C# based mods depending on the part of the guide.**
 
+## Contents
+- [ContentPacks] 
+    - [Game State Queries]
+    - [Compatibility Context Tags]
+    - [Console Commands]
+    - [What you can/need to add compatibility depending on what your mod adds:]
+- [C# Mods]
+
 ## Content Packs (Mostly CP, though)
 VPP offers three custom CP tokens and custom GSQs for compatibility purposes at the moment.
-Additionally, if you need to know whether your custom X is compatible with Y feature of VPP, every talent and profession section in [``features.md``](https://github.com/KediDili/VanillaPlusProfessions/blob/main/compatibility.md) tells how to add compatibility or do they need anything at all!
+Additionally, if you need to know whether your custom X is compatible with Y feature of VPP, every talent and profession section in [``features.md``](https://github.com/KediDili/VanillaPlusProfessions/blob/main/features.md) tells how to add compatibility or do they need anything at all!
 
 The queries/tokens, and the formats are listed below:
 
@@ -74,6 +82,18 @@ VPP adds many talents, professions and skill unlockables that use many vanilla a
 | ``"kedi_vpp_banned_fish"``           | Fish         | Any Fish Perks           | Excluded |
 | ``"kedi_vpp_banned_crop"``           | Crops        | Any Crop Perks           | Excluded |
 | ``"kedi_vpp_survival_cooking_food"`` | Cooked Food  | Survival Cooking         | Included |
+
+### Console Commands
+VPP also adds a few console commands helpful for testing, fixing some issues and getting info. Their names and purposes are below:
+| Command                        | Arguments | Purpose |
+|:------------------------------:|:---------:|:-------:|
+| ``vpp.removeAll [trulyErase]`` | ``trulyErase``: Boolean (optional) | If ``trulyErase`` is true, tries to erase and revert everything added and done by VPP. (which is currently an incomplete feature!!) Otherwise removes/reverts things recoverable by ``vpp.recalculatepoints``. Can be used for testing. |
+| ``vpp.recalculatepoints`` | None | Mainly used to update existing saves and getting lost points/levels and getting rid of extra ones. (Negative talent points by this command ARE NOT BUGS. It means you used the buggy talent points. Reset your talents to get rid of the negativity.) |
+| ``vpp.details`` | None | Posts info about skill levels(SC ones included), skill experiences, player's VPP configs and values, player's VPP talents and professions and a few bits of other stuff. |
+| ``vpp.reset <level> <skillID>`` | ``level``: 15 or 20<br>``skillID``: an integer between 0-4 (Farming, Fishing, Foraging, Mining, Combat) | Allows you to instantly re-choose Level ``level`` in ``skillID`` profession. It will NOT clear works of the previous profession. |
+| ``vpp.showXPLeft`` | None | A quick way to print XP info, remaning XP to the next level of VPP in each of vanilla skills. |
+| ``vpp.clearTrinkets`` | None | Used to clear duplicate trinket effects caused by buggy Trinket Rings. **Unequip all regular trinkets before use or you will lose them!!** |
+| ``vpp.test`` | None | It's a dummy command that could contain anything. Don't run unless instructed or you know what you're doing. Meant to be used by C# devs/beta testers. |
 
 ### What you can/need to add compatibility depending on what your mod adds:
 | Added by mods          | VPP Feature                                     |
