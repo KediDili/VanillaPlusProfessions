@@ -111,7 +111,7 @@ namespace VanillaPlusProfessions.Craftables
                 {
                     if (obj.Location is not null && Game1.isTimeToTurnOffLighting(obj.Location))
                     {
-                        if (obj.ItemId == Constants.Id_GlowingCrystal && obj.modData.ContainsKey(Constants.Key_GlowingCrystalColor))
+                        if (obj.ItemId == Constants.Id_GlowingCrystal && obj.modData.ContainsKey(Constants.Key_GlowingCrystalColor) && obj.lightSource is not null)
                         {
                             string[] colorcodes = obj.modData[Constants.Key_GlowingCrystalColor].Split(',');
                             obj.lightSource.color.Value = new Color(byte.Parse(colorcodes[0]), byte.Parse(colorcodes[1]), byte.Parse(colorcodes[2]), byte.Parse(colorcodes[3]));
@@ -128,7 +128,7 @@ namespace VanillaPlusProfessions.Craftables
             {
                 var loc = Game1.getLocationFromName(item.Key);
 
-                foreach (var item2 in item.Value) 
+                foreach (var item2 in item.Value)
                 {
                     Chest inputChest = new();
                     Chest batteryChest = new();
@@ -417,12 +417,12 @@ namespace VanillaPlusProfessions.Craftables
             if (building?.buildingType.Value == Constants.Id_MinecartRepository)
             {
                 Chest defaultChest = (MineTent ?? building).GetBuildingChest("Default_Chest");
-                
+
                 foreach (var objs in Game1.player.team.GetOrCreateGlobalInventory(Constants.GlobalInventoryId_Minecarts))
                 {
                     if (objs is null)
                         continue;
-                    
+
                     if (Utility.canItemBeAddedToThisInventoryList(objs.getOne(), defaultChest.Items, defaultChest.GetActualCapacity()) && objs is not Tool)
                     {
                         foreach (var item in defaultChest.Items)
@@ -437,7 +437,7 @@ namespace VanillaPlusProfessions.Craftables
                             defaultChest.Items.Add(objs);
                             Game1.player.team.GetOrCreateGlobalInventory(Constants.GlobalInventoryId_Minecarts).RemoveButKeepEmptySlot(objs);
                         }
-                        
+
                         if (objs.Stack == 0)
                         {
                             Game1.player.team.GetOrCreateGlobalInventory(Constants.GlobalInventoryId_Minecarts).RemoveButKeepEmptySlot(objs);

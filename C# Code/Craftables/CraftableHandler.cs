@@ -33,6 +33,7 @@ namespace VanillaPlusProfessions.Craftables
                 }
                 foreach (var item in loc.objects.Values)
                 {
+                    if (item.lightSource is null) continue;
                     if (item.ItemId == Constants.Id_GlowingCrystal && item.modData.ContainsKey(Constants.Key_GlowingCrystalColor))
                     {
                         string[] colorcodes = item.modData[Constants.Key_GlowingCrystalColor].Split(',');
@@ -162,7 +163,7 @@ namespace VanillaPlusProfessions.Craftables
             {
                 new(57, 2000, secondaryArm: false, flip: false, Farmer.canMoveNow, behaviorAtEndOfFrame: true)
             });
-            
+
             switch (effect)
             {
                 case "Sun":
@@ -199,7 +200,7 @@ namespace VanillaPlusProfessions.Craftables
                         delayBeforeAnimationStart = 2400,
                         drawAboveAlwaysFront = true
                     };
-                    
+
                     TotemSprite11.CopyAppearanceFromItemId(obj.QualifiedItemId);
                     Game1.Multiplayer.broadcastSprites(location, TotemSprite11);
 
@@ -208,7 +209,7 @@ namespace VanillaPlusProfessions.Craftables
                         Game1.Multiplayer.broadcastSprites(location, new TemporaryAnimatedSprite("TileSheets//Projectiles", new(48, 16, 16, 16), 9999f, 1, 0, who.Position + new Vector2(0f, -244f), flicker: false, flipped: false, 1.1f, 0.00085f, Color.White, 4f, 0f, 0f, 0f)
                         {
                             delayBeforeAnimationStart = 3000 + i * 150,
-                            motion= new Vector2((Game1.random.NextSingle() + Game1.random.NextSingle() + Game1.random.NextSingle()) * (Game1.random.NextBool() ? 1 : -1), -Game1.random.NextSingle()),
+                            motion = new Vector2((Game1.random.NextSingle() + Game1.random.NextSingle() + Game1.random.NextSingle()) * (Game1.random.NextBool() ? 1 : -1), -Game1.random.NextSingle()),
                         });
                     }
                     DelayedAction.playSoundAfterDelay("rainsound", 2000);
@@ -216,24 +217,40 @@ namespace VanillaPlusProfessions.Craftables
                 case "Snow":
                     TemporaryAnimatedSprite TotemSprite2 = new(0, 50f, 1, 65, Game1.player.Position + new Vector2(-16f, -96f), flicker: false, flipped: false, verticalFlipped: false, 0f)
                     {
-                        motion = new Vector2(0f, -7f), acceleration = new Vector2(0f, 0.15f), scaleChange = 0.005f,
-                        stopAcceleratingWhenVelocityIsZero = true, alpha = 1f, alphaFade = 0.00085f,
-                        shakeIntensity = 0.1f, initialPosition = Game1.player.Position + new Vector2(-16f, -96f),
-                        xPeriodic = true, xPeriodicLoopTime = 800f, xPeriodicRange = 5f, layerDepth = 1f,
+                        motion = new Vector2(0f, -7f),
+                        acceleration = new Vector2(0f, 0.15f),
+                        scaleChange = 0.005f,
+                        stopAcceleratingWhenVelocityIsZero = true,
+                        alpha = 1f,
+                        alphaFade = 0.00085f,
+                        shakeIntensity = 0.1f,
+                        initialPosition = Game1.player.Position + new Vector2(-16f, -96f),
+                        xPeriodic = true,
+                        xPeriodicLoopTime = 800f,
+                        xPeriodicRange = 5f,
+                        layerDepth = 1f,
                     };
                     TotemSprite2.CopyAppearanceFromItemId(obj.QualifiedItemId);
                     Game1.Multiplayer.broadcastSprites(location, TotemSprite2);
 
                     TemporaryAnimatedSprite TotemSprite22 = new(0, 9999f, 1, 9, Game1.player.Position + new Vector2(+16, -262f), flicker: false, flipped: false, verticalFlipped: false, 0f)
                     {
-                        alpha = 1f, shakeIntensity = 0.1f, alphaFade = 0.004f,
+                        alpha = 1f,
+                        shakeIntensity = 0.1f,
+                        alphaFade = 0.004f,
                         initialPosition = Game1.player.Position + new Vector2(-16f, -262f),
-                        layerDepth = 1f, xPeriodic = true, xPeriodicLoopTime = 800f, xPeriodicRange = 5f,
-                        scale = 1.2f, scaleChange = 0.0005f, delayBeforeAnimationStart = 2400, drawAboveAlwaysFront = true
+                        layerDepth = 1f,
+                        xPeriodic = true,
+                        xPeriodicLoopTime = 800f,
+                        xPeriodicRange = 5f,
+                        scale = 1.2f,
+                        scaleChange = 0.0005f,
+                        delayBeforeAnimationStart = 2400,
+                        drawAboveAlwaysFront = true
                     };
                     TotemSprite22.CopyAppearanceFromItemId(obj.QualifiedItemId);
                     Game1.Multiplayer.broadcastSprites(location, TotemSprite22);
-                    
+
                     for (int i = 0; i < 10; i++)
                     {
                         Game1.Multiplayer.broadcastSprites(location, new TemporaryAnimatedSprite(ContentEditor.ContentPaths["Animations"], new(16 + Game1.random.Choose(0, 16, 32, 48), 32 + Game1.random.Choose(0, 16), 16, 16), 9999f, 1, 0, who.Position + new Vector2(0f, -244f), flicker: false, flipped: false, 1.1f, 0.00085f, Color.White, 4f, 0f, 0f, (float)(System.Math.PI / 180))
@@ -248,10 +265,17 @@ namespace VanillaPlusProfessions.Craftables
                 case "Wild":
                     TemporaryAnimatedSprite TotemSprite3 = new(0, 50f, 1, 999, Game1.player.Position + new Vector2(0f, -96f), flicker: false, flipped: false, verticalFlipped: false, 0f)
                     {
-                        motion = new Vector2(0f, -4f), acceleration = new Vector2(0f, 0.05f), scaleChange = 0.005f,
-                        alpha = 1f, alphaFade = 0.0075f, shakeIntensity = 1f,
+                        motion = new Vector2(0f, -4f),
+                        acceleration = new Vector2(0f, 0.05f),
+                        scaleChange = 0.005f,
+                        alpha = 1f,
+                        alphaFade = 0.0075f,
+                        shakeIntensity = 1f,
                         initialPosition = Game1.player.Position + new Vector2(0f, -96f),
-                        xPeriodic = true, xPeriodicLoopTime = 1000f, xPeriodicRange = 4f, layerDepth = 1f,
+                        xPeriodic = true,
+                        xPeriodicLoopTime = 1000f,
+                        xPeriodicRange = 4f,
+                        layerDepth = 1f,
                     };
                     TotemSprite3.CopyAppearanceFromItemId(obj.QualifiedItemId);
                     Game1.Multiplayer.broadcastSprites(location, TotemSprite3);

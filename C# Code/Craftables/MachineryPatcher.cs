@@ -20,11 +20,11 @@ namespace VanillaPlusProfessions.Craftables
                 transpiler: new(typeof(MachineryPatcher), nameof(draw_Critter_Transpiler))
             );
             CoreUtility.PatchMethod("MachineryPatcher", "StardewValley.Object.draw_3",
-                original: AccessTools.Method(typeof(StardewValley.Object), nameof(StardewValley.Object.draw), new System.Type[] { typeof(SpriteBatch), typeof(int), typeof(int), typeof(float), typeof(float)}),
+                original: AccessTools.Method(typeof(StardewValley.Object), nameof(StardewValley.Object.draw), new System.Type[] { typeof(SpriteBatch), typeof(int), typeof(int), typeof(float), typeof(float) }),
                 transpiler: new(typeof(MachineryPatcher), nameof(draw_SObject_Transpiler_3))
             );
             CoreUtility.PatchMethod("MachineryPatcher", "StardewValley.Object.draw_4",
-               original: AccessTools.Method(typeof(StardewValley.Object), nameof(StardewValley.Object.draw), new System.Type[] { typeof(SpriteBatch), typeof(int), typeof(int), typeof(float)}),
+               original: AccessTools.Method(typeof(StardewValley.Object), nameof(StardewValley.Object.draw), new System.Type[] { typeof(SpriteBatch), typeof(int), typeof(int), typeof(float) }),
                transpiler: new(typeof(MachineryPatcher), nameof(draw_SObject_Transpiler_4))
             );
         }
@@ -58,9 +58,7 @@ namespace VanillaPlusProfessions.Craftables
             {
                 int count = 5;
                 var method = AccessTools.PropertyGetter(typeof(Color), "White");
-                var prop = AccessTools.PropertyGetter(typeof(Object), "lightSource");
-                var field = AccessTools.Field(typeof(LightSource), "color");
-                var prop2 = AccessTools.PropertyGetter(typeof(Netcode.NetColor), "Value");
+                var getColorMethod = AccessTools.Method(typeof(MachineryPatcher), nameof(MaybeGetLightSourceColor));
                 foreach (var item in insns)
                 {
                     if (item.Is(OpCodes.Call, method))
@@ -69,9 +67,7 @@ namespace VanillaPlusProfessions.Craftables
                         if (count == 0)
                         {
                             list.Add(new(OpCodes.Ldarg_0));
-                            list.Add(new(OpCodes.Call, prop));
-                            list.Add(new(OpCodes.Ldfld, field));
-                            list.Add(new(OpCodes.Call, prop2));
+                            list.Add(new(OpCodes.Call, getColorMethod));
                             continue;
                         }
                     }
@@ -91,9 +87,7 @@ namespace VanillaPlusProfessions.Craftables
             {
                 int count = 3;
                 var method = AccessTools.PropertyGetter(typeof(Color), "White");
-                var prop = AccessTools.PropertyGetter(typeof(Object), "lightSource");
-                var field = AccessTools.Field(typeof(LightSource), "color");
-                var prop2 = AccessTools.PropertyGetter(typeof(Netcode.NetColor), "Value");
+                var getColorMethod = AccessTools.Method(typeof(MachineryPatcher), nameof(MaybeGetLightSourceColor));
                 foreach (var item in insns)
                 {
                     if (item.Is(OpCodes.Call, method))
@@ -102,9 +96,7 @@ namespace VanillaPlusProfessions.Craftables
                         if (count == 0)
                         {
                             list.Add(new(OpCodes.Ldarg_0));
-                            list.Add(new(OpCodes.Call, prop));
-                            list.Add(new(OpCodes.Ldfld, field));
-                            list.Add(new(OpCodes.Call, prop2));
+                            list.Add(new(OpCodes.Call, getColorMethod));
                             continue;
                         }
                     }
@@ -116,6 +108,11 @@ namespace VanillaPlusProfessions.Craftables
                 CoreUtility.PrintError(e, "MachineryPatcher", "Critter.draw", "transpiler");
             }
             return list;
+        }
+
+        static Color MaybeGetLightSourceColor(StardewValley.Object obj)
+        {
+            return obj.lightSource?.color.Value ?? Color.White;
         }
     }
 }
