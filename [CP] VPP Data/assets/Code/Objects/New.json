@@ -516,14 +516,14 @@
 							"Id": "ForageBuff",
 							"Duration": 1200,
 							"CustomAttributes": {
-								"ForagingLevel": 10
+								"ForagingLevel": 9
 							}
 						},
 					],
 					"GeodeDropsDefaultItems": false,
 					"ExcludeFromRandomSale": true,
 					"ExcludeFromShippingCollection": true,
-					"ContextTags": [ "cooking_item" ],
+					"ContextTags": [ ],
 					"CustomFields": {}
 				},
 				"{{ModId}}_MossyFertilizer": {

@@ -75,9 +75,9 @@
 			"Entries": {
 				"Prismatic Shard": "64 1 68 1 70 1 60 1 72 1 62 1 66 1/Home/74/false/none/",
 				"VPP Snail Tackle": "335 1 721 1/Home/Kedi.VPP.SnailTackle/false/none/",
-                "VPP Large Maple Syrup": "Kedi.VPP.LargeMapleSyrup/Home/724 3/false/none/[LocalizedText Strings\\Objects:MapleSyrup_Name]",
-                "VPP Large Oak Resin": "Kedi.VPP.LargeOakResin/Home/725 3/false/none/[LocalizedText Strings\\Objects:OakResin_Name]",
-				"VPP Large Pine Tar": "Kedi.VPP.LargePineTar/Home/726 3/false/none/[LocalizedText Strings\\Objects:PineTar_Name]",
+                "VPP Large Maple Syrup": "Kedi.VPP.LargeMapleSyrup 1/Home/724 3/false/none/[LocalizedText Strings\\Objects:MapleSyrup_Name]",
+                "VPP Large Oak Resin": "Kedi.VPP.LargeOakResin 1/Home/725 3/false/none/[LocalizedText Strings\\Objects:OakResin_Name]",
+				"VPP Large Pine Tar": "Kedi.VPP.LargePineTar 1/Home/726 3/false/none/[LocalizedText Strings\\Objects:PineTar_Name]",
 				"VPP Quality Sprinkler": "338 1 382 1 599 1/Home/621/false/none/",
 				"VPP Iridium Sprinkler": "337 1 787 1 621 1/Home/645/false/none/",
 				"Transmute (Ir)": "910 2/Home/337 5/false/none/[LocalizedText Strings\\Objects:Transmute_Ir_Name]",
@@ -91,7 +91,7 @@
                 "VPP Thermal Reactor": "82 45 573 1 84 3/Field/{{ModId}}_ThermalReactor/true/s Mining 13/", //45 fire quartz, Hematite, 3 frozen tears
                 "VPP Node Maker": "111 1 335 15 336 15/Field/{{ModId}}_NodeMaker/true/s Mining 14/", // Rusty Cog, 5 iron bars, 5 gold bars
                 "VPP Node Lifter": "335 2 336 2/Field/{{ModId}}_NodeLifter/false/s Mining 14/",
-                "VPP Minecart Chest": "709 25 390 16 Kedi.VPP.LargeOakResin 1/Field/{{ModId}}_MinecartChest/true/s Mining 16/", //25 hardwood, 16 stone, 1 large oak resin
+                "VPP Minecart Chest": "709 25 390 16 {{RecipeOakResin}}/Field/{{ModId}}_MinecartChest/true/s Mining 16/", //25 hardwood, 16 stone, 1 large oak resin or 3 oak resin
                 "VPP Machinery Collector": "122 1 334 20/Field/{{ModId}}_DrillCollector/true/s Mining 17/", //1 Dwarf gadget, 20 copper bars
 				"VPP Bird Feeder": "388 20 335 2/Field/{{ModId}}_BirdFeeder/true/s Foraging 11",
 				"VPP Mossy Fertilizer": "92 20 771 20/Field/{{ModId}}_MossyFertilizer/false/s Foraging 12",
@@ -103,24 +103,33 @@
 				"VPP Deluxe Fall Seeds": "497 5/Field/{{ModId}}_DeluxeWildFallSeeds 1/false/s Foraging 14",
 				"VPP Deluxe Winter Seeds": "498 5/Field/{{ModId}}_DeluxeWildWinterSeeds 1/false/s Foraging 14",
 				"VPP Seed Sifter": "388 50 335 3/Field/{{ModId}}_SeedSifter/true/s Foraging 17",
+				
+				//"VPP Bobber Machine": "/Field/{{ModId}}_BobberMachine/true/s Fishing 11",
+				//"VPP Sashimi Station": "/Field/{{ModId}}_SashimiStation/true/s Fishing 12",
+				//"VPP Rocker Box": "/Field/{{ModId}}_RockerBox/true/s Fishing 13",
+				//"VPP Fish Dryer": "/Field/{{ModId}}_FishDryer/true/s Fishing 13"
+				//"VPP Tackle Station": "/Field/{{ModId}}_TackleStation/true/s Fishing 14",
+				//"VPP Clothing Recycler": "/Field/{{ModId}}_ClothingRecycler/true/s Fishing 17"
 			},
 		},
 		{
 			"Action": "EditData",
 			"Target": "Data/CookingRecipes",
 			"Entries": {
-				"VPP Grilled Leek": "20/12 3/Kedi.VPP.GrilledLeek/none/",
+				"VPP Grilled Leek": "20 1/12 3/Kedi.VPP.GrilledLeek/none/",
 				"VPP Seaweed Salad": "152 2/12 3/Kedi.VPP.SeaweedSalad/none/",
 				"VPP Trail Mix": "408 1 396 1/12 3/Kedi.VPP.TrailMix/none/",
-				"VPP Roasted Fiddleheads": "259/12 3/Kedi.VPP.RoastedFiddleheads/none/",
+				"VPP Roasted Fiddleheads": "259 1/12 3/Kedi.VPP.RoastedFiddleheads/none/",
 				"VPP Wild Fruit Salad": "410 1 296 1/12 3/Kedi.VPP.WildFruitSalad/none/",
-				"VPP Grilled Fish": "-4/12 3/Kedi.VPP.GrilledFish/none/",
+				"VPP Grilled Fish": "-4 1/12 3/Kedi.VPP.GrilledFish/none/",
 				"VPP Baked Tubers": "416 1 412 1/12 3/Kedi.VPP.BakedTubers/none/",
 				"VPP Mushroom Kebab": "404 2/12 3/Kedi.VPP.MushroomKebab/none/",
-				"VPP Fried Bug Steak": "874/12 3/Kedi.VPP.FriedBugSteak/none/",
+				"VPP Fried Bug Steak": "874 1/12 3/Kedi.VPP.FriedBugSteak/none/",
 				"VPP Steamed Clams": "372 2/12 3/Kedi.VPP.SteamedClams/none/",
                 "VPP Miners Meal": "238 1 243 1 200 1/12 3/{{ModId}}_MinersMeal/s Mining 19/",
-				"VPP Foragers Bowl": "296 2 398 2 410 2 414 5 Kedi.VPP.LargeMapleSyrup 1/12 3/{{ModId}}_ForagersBowl/s Foraging 19/",
+				"VPP Foragers Bowl": "296 2 398 2 410 2 414 5 {{RecipeMapleSyrup}}/12 3/{{ModId}}_ForagersBowl/s Foraging 19/",
+				
+				//"VPP Fishers Dish": "/12 3/{{ModId}}_FishersDish/s Fishing 19",
 			}
 		}
 	]

@@ -352,7 +352,132 @@
 					"IndoorMap": "{{ModId}}\\SecretGlade",
 					"CollisionMap": "XXXXXXX\nXXXXXXX\nXXXOXXX",
 					"DrawShadow": false,
-				}
+				},
+				//Fishing
+				"{{ModId}}_Aquarium":{
+					"Name": "[LocalizedText Strings\\Buildings:{{ModId}}_Aquarium_Name]",
+					"Description": "[LocalizedText Strings\\Buildings:{{ModId}}_Aquarium_Description]",
+					"Texture": "Buildings\\{{ModId}}\\Aquarium",
+					"Builder": "Robin",
+					//"BuildCondition": "PLAYER_BASE_FISHING_LEVEL Current 16",
+					"BuildCost": 20000,
+					"MagicalConstruction": true,
+					//"SeasonOffset": "112,0",
+					"HumanDoor": {
+						"X": 3,
+						"Y": 2
+					},
+					"SortTileOffset": 1,
+					"BuildMaterials": [
+						{
+							"Id": "Hardwood",
+							"ItemId": "(O)709", //Double check
+							"Amount": 450
+						},
+						//Clay
+						//
+						//Oceanstones
+					],
+					"Size": {
+						"X": 7,
+						"Y": 3
+					},
+					"SourceRect": {
+						"X": 0,
+						"Y": 0,
+						"Width": 112,
+						"Height": 112,
+					},
+					"DrawLayers": [
+						{
+							"Id": "Feesh",
+							"SourceRect": {
+								"X": 0,
+								"Y": 112,
+								"Width": 24,
+								"Height": 39,
+							},
+							"FrameCount": 14,
+							"FrameDuration": 300,
+							"FramesPerRow": 5,
+							"DrawPosition": "80, 63",
+						},
+						{
+							"Id": "Glass",
+							"SourceRect": {
+								"X": 100,
+								"Y": 192,
+								"Width": 25,
+								"Height": 39,
+							},
+							"DrawPosition": "80, 65",
+						},
+					],
+					"CollisionMap": "XXXXXXX\nXXXXXXX\nXXXXXXX",
+					"DrawShadow": false,
+				},
+				/*"{{ModId}}_Smokehouse": {
+					"Name": "[LocalizedText Strings\\Buildings:{{ModId}}_Aquarium_Name]",
+					"Description": "[LocalizedText Strings\\Buildings:{{ModId}}_Aquarium_Description]",
+					"Texture": "Buildings\\{{ModId}}\\Aquarium",
+					"Builder": "Robin",
+					//"BuildCondition": "PLAYER_BASE_FISHING_LEVEL Current 16",
+					"BuildCost": 20000,
+					"MagicalConstruction": true,
+					//"SeasonOffset": "112,0",
+					"HumanDoor": {
+						"X": 3,
+						"Y": 2
+					},
+					"SortTileOffset": 1,
+					"BuildMaterials": [
+						{
+							"Id": "Hardwood",
+							"ItemId": "(O)709", //Double check
+							"Amount": 450
+						},
+						//Clay
+						//
+						//Oceanstones
+					],
+					"Size": {
+						"X": 7,
+						"Y": 3
+					},
+					"SourceRect": {
+						"X": 0,
+						"Y": 0,
+						"Width": 112,
+						"Height": 112,
+					},
+					"DrawLayers": [
+						{
+							"Id": "Feesh",
+							"SourceRect": {
+								"X": 0,
+								"Y": 112,
+								"Width": 24,
+								"Height": 39,
+							},
+							"FrameCount": 14,
+							"FrameDuration": 300,
+							"FramesPerRow": 5,
+							"DrawPosition": "80, 63",
+						},
+						{
+							"Id": "Glass",
+							"SourceRect": {
+								"X": 100,
+								"Y": 192,
+								"Width": 25,
+								"Height": 39,
+							},
+							"DrawPosition": "80, 65",
+						},
+					],
+					"CollisionMap": "XXXXXXX\nXXXXXXX\nXXXXXXX",
+					"DrawShadow": false,
+				}*/
 			}
 		},
 		{
@@ -367,6 +492,10 @@
 				"{{ModId}}_Sawmill_Description": "{{i18n:Buildings.Sawmill.Desc}}",
 				"{{ModId}}_SecretGlade_Name": "{{i18n:Buildings.SecretGlade.Name}}",
 				"{{ModId}}_SecretGlade_Description": "{{i18n:Buildings.SecretGlade.Desc}}",
+				"{{ModId}}_Smokehouse_Name":"{{i18n:Buildings.Smokehouse.Name}}",
+				"{{ModId}}_Smokehouse_Description": "{{i18n:Buildings.Smokehouse.Desc}}",
+				"{{ModId}}_Aquarium_Name":"{{i18n:Buildings.Aquarium.Name}}",
+				"{{ModId}}_Aquarium_Description": "{{i18n:Buildings.Aquarium.Desc}}",
 			}
 		},
 		{
@@ -374,7 +503,10 @@
 			"Target": "Data/PaintData",
 			"Entries": {
 				"{{ModId}}_MineTent": "Trim/-10 5/Roof/0 15",
-				"{{ModId}}_Sawmill": "Building/-10 5/Roof/0 15",
+				"{{ModId}}_Sawmill_Left": "Building/-10 5/Roof/0 15",
+				"{{ModId}}_Sawmill_Right": "Building/-10 5/Roof/0 15",
+				"{{ModId}}_Smokehouse": "Building/-10 5/Roof/0 15",
+				"{{ModId}}_Aquarium": "Building/-10 5/Roof/0 15",
 			}
 		}
 	]

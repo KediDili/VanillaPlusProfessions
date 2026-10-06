@@ -113,7 +113,7 @@
 					//"Price": 15000,
 					"PriceModifiers":[
 						{
-							"Id": "{{ModId}}_BookclubBargains_WayOfTheWind1",
+							"Id": "{{ModId}}_BookclubBargains_WayOfTheWind2",
 							"Modification": "Set",
 							"Amount": 15000,
 							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current BookclubBargains"
@@ -124,7 +124,7 @@
 					//"Price": 20000,
 					"PriceModifiers":[
 						{
-							"Id": "{{ModId}}_BookclubBargains_WayOfTheWind1",
+							"Id": "{{ModId}}_BookclubBargains_HorseBook",
 							"Modification": "Set",
 							"Amount": 20000,
 							"Condition": "KediDili.VanillaPlusProfessions_PlayerHasTalent Current BookclubBargains"

@@ -328,7 +328,7 @@
 			"Entries": {
 				"Kedi.VPP.TrashedTreasure.JojaMart.Good": {
 					"Id": "Kedi.VPP.TrashedTreasure.JojaMart.Good",
-					"RandomItemId": [ "(O)202", "(O)204", "(O)203", "(O)206", "(O)209", "(O)213", "(O)223", "(O)225", "(O)233", "(O)228", "(O)253", "(O)456", "(O)605", "(O)612", "(O)731" ],					
+					"RandomItemId": [ "(O)202", "(O)204", "(O)203", "(O)206", "(O)209", "(O)213", "(O)223", "(O)225", "(O)233", "(O)228", "(O)253", "(O)456", "(O)605", "(O)612", "(O)731" ],
 					"Condition": "{{Query: {{DailyLuck}} > 0}}, RANDOM 0.2 @addDailyLuck, KediDili.VanillaPlusProfessions_PlayerHasTalent Current TrashedTreasure"
 				}
 			}

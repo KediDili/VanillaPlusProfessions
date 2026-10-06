@@ -191,6 +191,39 @@
 			"Name": "VMVGemsTier3",
 			"Value": "Lumisteria.MtVapius_Node_MorganiteOre, Lumisteria.MtVapius_Node_HeliodorOre, Lumisteria.MtVapius_Node_LabradoriteOre, Lumisteria.MtVapius_Node_VoidDiamondOre, Lumisteria.MtVapius_Node_LarimarOre",
 		},
+		{
+			"Name": "RecipePineTar",
+			"Value": "Kedi.VPP.LargePineTar 1",
+		},
+		{
+			"Name": "RecipePineTar",
+			"Value": "726 3",
+			"When": {
+				"KediDili.VanillaPlusProfessions/ProfessionsOnly": true
+			}
+		},
+		{
+			"Name": "RecipeOakResin",
+			"Value": "Kedi.VPP.LargeOakResin 1",
+		},
+		{
+			"Name": "RecipeOakResin",
+			"Value": "725 3",
+			"When": {
+				"KediDili.VanillaPlusProfessions/ProfessionsOnly": true
+			}
+		},
+		{
+			"Name": "RecipeMapleSyrup",
+			"Value": "Kedi.VPP.LargeMapleSyrup 1",
+		},
+		{
+			"Name": "RecipeMapleSyrup",
+			"Value": "724 3",
+			"When": {
+				"KediDili.VanillaPlusProfessions/ProfessionsOnly": true
+			}
+		},
 	],
 	"Changes": [
 		{
