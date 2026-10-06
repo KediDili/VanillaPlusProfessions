@@ -42,21 +42,21 @@ namespace VanillaPlusProfessions
         internal Texture2D ProfessionIcons;
 
         internal int lossAmount;
-        internal bool XPDisplayInstalled = false;
+        internal static bool XPDisplayInstalled = false;
         internal int TalentMenuHintApplied;
 
         internal void Initialize(ModEntry modEntry)
         {
             CoreDisplayHandler.Value = this;
-            SkillIcons = ModEntry.CoreModEntry.Value.Helper.GameContent.Load<Texture2D>(ContentEditor.ContentPaths["SkillBars"]);
-            ProfessionIcons = ModEntry.CoreModEntry.Value.Helper.GameContent.Load<Texture2D>(ContentEditor.ContentPaths["ProfessionIcons"]);
+            SkillIcons = ModEntry.Helper.GameContent.Load<Texture2D>(ContentEditor.ContentPaths["SkillBars"]);
+            ProfessionIcons = ModEntry.Helper.GameContent.Load<Texture2D>(ContentEditor.ContentPaths["ProfessionIcons"]);
 
-            modEntry.Helper.Events.Display.MenuChanged += OnMenuChanged;
-            modEntry.Helper.Events.Display.WindowResized += OnWindowResized;
-            modEntry.Helper.Events.Display.RenderedActiveMenu += OnRenderedActiveMenu;
-            modEntry.Helper.Events.Display.RenderedStep += OnRenderedStep;
-            modEntry.Helper.Events.Display.RenderedHud += OnRenderedHud;
-            modEntry.Helper.Events.Input.ButtonPressed += OnButtonPressed;
+            ModEntry.Helper.Events.Display.MenuChanged += OnMenuChanged;
+            ModEntry.Helper.Events.Display.WindowResized += OnWindowResized;
+            ModEntry.Helper.Events.Display.RenderedActiveMenu += OnRenderedActiveMenu;
+            ModEntry.Helper.Events.Display.RenderedStep += OnRenderedStep;
+            ModEntry.Helper.Events.Display.RenderedHud += OnRenderedHud;
+            ModEntry.Helper.Events.Input.ButtonPressed += OnButtonPressed;
         }
 
         public static DisplayHandler GetMe()
@@ -66,9 +66,9 @@ namespace VanillaPlusProfessions
 
         internal void InitializeBetterGameMenu()
         {
-            if (ModEntry.CoreModEntry.Value.BetterGameMenuAPI is not null)
+            if (ModEntry.BetterGameMenuAPI is not null)
             {
-                ModEntry.CoreModEntry.Value.BetterGameMenuAPI?.OnPageCreated(OnPageCreated);
+                ModEntry.BetterGameMenuAPI?.OnPageCreated(OnPageCreated);
             }
         }
         private void OnPageCreated(IPageCreatedEvent e)
@@ -133,13 +133,14 @@ namespace VanillaPlusProfessions
             if (e.NewMenu is LevelUpMenu or SkillLevelUpMenu)
             {
                 if (!WasSkillMenuRaised)
-                    ModEntry.CoreModEntry.Value.Helper.GameContent.InvalidateCache("LooseSprites/Cursors");
+                    ModEntry.Helper.GameContent.InvalidateCache("LooseSprites/Cursors");
                 HandleLevelUpMenu(e.NewMenu);
             }
             else if (Game1.player.newLevels.Count == 0 && TalentCore.IsDayStartOrEnd)
             {
                 WasSkillMenuRaised = true;
-                ModEntry.CoreModEntry.Value.Helper.GameContent.InvalidateCache("LooseSprites/Cursors");
+                //Is Helper or ModEntry null?
+                ModEntry.Helper.GameContent.InvalidateCache("LooseSprites/Cursors");
             }
 
             // not using ModEntry.GetGameMenuPage() because BetterGameMenu won't have a SkillsPage initialized at MenuChanged
@@ -319,8 +320,8 @@ namespace VanillaPlusProfessions
                     //Yes, this is practically dead code because of SpaceCore, but I prefer to keep this block in case this changes again.
                     if (IsOverlayActive)
                     {
-                        string hoverText = ModEntry.CoreModEntry.Value.Helper.Reflection.GetField<string>(page, "hoverText").GetValue();
-                        string hoverTitle = ModEntry.CoreModEntry.Value.Helper.Reflection.GetField<string>(page, "hoverTitle").GetValue();
+                        string hoverText = ModEntry.Helper.Reflection.GetField<string>(page, "hoverText").GetValue();
+                        string hoverTitle = ModEntry.Helper.Reflection.GetField<string>(page, "hoverTitle").GetValue();
                         for (int FF = 0; FF < 5; FF++)
                         {
                             int standartIndex = StandardizeSkillIndexes(FF);
@@ -335,22 +336,22 @@ namespace VanillaPlusProfessions
                                 if (SS is 4 or 9)
                                 {
                                     if (skillLevel < (11 + SS))
-                                        e.SpriteBatch.Draw(SkillIcons, new Vector2(page.skillAreas[FF].bounds.X + page.skillAreas[FF].bounds.Width + 24 + (36 * SS) + (SS is 9 ? 24 : 0), page.skillAreas[FF].bounds.Y), new Rectangle(16, ModEntry.CoreModEntry.Value.ModConfig.ColorBlindnessChanges ? 9 : 0, 13, 9), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.5f);
+                                        e.SpriteBatch.Draw(SkillIcons, new Vector2(page.skillAreas[FF].bounds.X + page.skillAreas[FF].bounds.Width + 24 + (36 * SS) + (SS is 9 ? 24 : 0), page.skillAreas[FF].bounds.Y), new Rectangle(16, ModEntry.ModConfig.ColorBlindnessChanges ? 9 : 0, 13, 9), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.5f);
                                 }
                                 else
                                 {
                                     if (skillLevel < (11 + SS))
-                                        e.SpriteBatch.Draw(SkillIcons, new Vector2(page.skillAreas[FF].bounds.X + page.skillAreas[FF].bounds.Width + 24 + (36 * SS) + (SS > 3 ? 24 : 0), page.skillAreas[FF].bounds.Y), new Rectangle(0, ModEntry.CoreModEntry.Value.ModConfig.ColorBlindnessChanges ? 9 : 0, 7, 9), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.5f);
+                                        e.SpriteBatch.Draw(SkillIcons, new Vector2(page.skillAreas[FF].bounds.X + page.skillAreas[FF].bounds.Width + 24 + (36 * SS) + (SS > 3 ? 24 : 0), page.skillAreas[FF].bounds.Y), new Rectangle(0, ModEntry.ModConfig.ColorBlindnessChanges ? 9 : 0, 7, 9), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.5f);
                                     else
                                     {
                                         if (skillLevel == (11 + SS))
                                         {
                                             int XPcurrent = Game1.player.experiencePoints[standartIndex];
-                                            int XPprior = ModEntry.CoreModEntry.Value.levelExperiences[SS];
-                                            int XPnext = ModEntry.CoreModEntry.Value.levelExperiences[SS + 1];
+                                            int XPprior = ModEntry.levelExperiences[SS];
+                                            int XPnext = ModEntry.levelExperiences[SS + 1];
                                             float progress = Math.Clamp((float)(XPcurrent - XPprior) / (XPnext - XPprior), 0f, 1f); // Current progress through level (0.00 to 1.00 float, proportion)
                                             int fillHeight = (int)(9 * progress); // Height of fill as portion of progress * 9 (height of standard bar)
-                                            int yOffset = ModEntry.CoreModEntry.Value.ModConfig.ColorBlindnessChanges ? 9 : 0; // Offset of texture (depending on colourblind)
+                                            int yOffset = ModEntry.ModConfig.ColorBlindnessChanges ? 9 : 0; // Offset of texture (depending on colourblind)
                                             int fillY = yOffset + (9 - fillHeight); // Pixel coordinate of fill
                                             Vector2 pos = new(page.skillAreas[FF].bounds.X + page.skillAreas[FF].bounds.Width + 24 + (36 * SS) + (SS > 3 ? 24 : 0), page.skillAreas[FF].bounds.Y);
                                             e.SpriteBatch.Draw(SkillIcons, pos, new Rectangle(0, yOffset, 7, 9), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.5f); //draws empty
@@ -364,7 +365,7 @@ namespace VanillaPlusProfessions
                                         }
                                         e.SpriteBatch.Draw(SkillIcons,
                                         new Vector2(page.skillAreas[FF].bounds.X + page.skillAreas[FF].bounds.Width + 24 + (36 * SS) + (SS > 3 ? 24 : 0), page.skillAreas[FF].bounds.Y),
-                                        new Rectangle(8, ModEntry.CoreModEntry.Value.ModConfig.ColorBlindnessChanges ? 9 : 0, 7, 9), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.5f);
+                                        new Rectangle(8, ModEntry.ModConfig.ColorBlindnessChanges ? 9 : 0, 7, 9), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.5f);
                                     }
                                 }
                             }
@@ -398,80 +399,81 @@ namespace VanillaPlusProfessions
                         page.drawMouse(e.SpriteBatch);
                     }
                 }
-                else if (menuPage is NewSkillsPage page2)
+                else
+                    if (menuPage is NewSkillsPage page2)
                 {
-                    string hoverText = ModEntry.CoreModEntry.Value.Helper.Reflection.GetField<string>(page2, "hoverText").GetValue();
-                    string hoverTitle = ModEntry.CoreModEntry.Value.Helper.Reflection.GetField<string>(page2, "hoverTitle").GetValue();
-                    Dictionary<int, int> skillAreaSkillIndexes = ModEntry.CoreModEntry.Value.Helper.Reflection.GetField<Dictionary<int, int>>(page2, "skillAreaSkillIndexes").GetValue();
-                    int skillScrollOffset = ModEntry.CoreModEntry.Value.Helper.Reflection.GetField<int>(page2, "skillScrollOffset").GetValue();
-                    int LastVisibleSkillIndex = ModEntry.CoreModEntry.Value.Helper.Reflection.GetProperty<int>(page2, "LastVisibleSkillIndex").GetValue();
+                    string hoverText = ModEntry.Helper.Reflection.GetField<string>(page2, "hoverText").GetValue();
+                    string hoverTitle = ModEntry.Helper.Reflection.GetField<string>(page2, "hoverTitle").GetValue();
+                    Dictionary<int, int> skillAreaSkillIndexes = ModEntry.Helper.Reflection.GetField<Dictionary<int, int>>(page2, "skillAreaSkillIndexes").GetValue();
+                    int skillScrollOffset = ModEntry.Helper.Reflection.GetField<int>(page2, "skillScrollOffset").GetValue();
+                    int LastVisibleSkillIndex = ModEntry.Helper.Reflection.GetProperty<int>(page2, "LastVisibleSkillIndex").GetValue();
                     bool enableShadow = false;
                     foreach (var item in page2.skillAreas)
                     {
                         if (skillAreaSkillIndexes.TryGetValue(item.myID, out int skillIndex) && (skillIndex < skillScrollOffset || skillIndex > LastVisibleSkillIndex))
                             continue;
                         //4, because we need to exclude the Misc/Daily Life tree.
-                        if (TalentMenuHintApplied < 5 + ModEntry.CoreModEntry.Value.VanillaPlusProfessionsAPI.CustomTalentTrees.Count)
+                        if (TalentMenuHintApplied < 5 + ModEntry.VanillaPlusProfessionsAPI.CustomTalentTrees.Count)
                         {
-                            if (!item.name.StartsWith('C') || ModEntry.CoreModEntry.Value.VanillaPlusProfessionsAPI.CustomTalentTrees.ContainsKey(item.name))
+                            if (!item.name.StartsWith('C') || ModEntry.VanillaPlusProfessionsAPI.CustomTalentTrees.ContainsKey(item.name))
                             {
                                 item.hoverText += "\n(Click to open talent menu)";
                                 TalentMenuHintApplied++;
                             }
                         }
                         if (IsOverlayActive)
-                        {                            
-                            if (item.name.StartsWith('C'))
+                        {
+                            if (TalentCore.SkillsByName.ContainsKey(item.name))
                             {
-                                string thisSkillId = ModEntry.CoreModEntry.Value.SpaceCoreAPI.GetCustomSkills().First(s => item.name[1..] == ModEntry.CoreModEntry.Value.SpaceCoreAPI.GetDisplayNameOfCustomSkill(s));
-                                int level = ModEntry.CoreModEntry.Value.SpaceCoreAPI.GetLevelForCustomSkill(Game1.player, thisSkillId);
+                                string thisSkillId = ModEntry.SpaceCoreAPI.GetCustomSkills().First(s => item.name[1..] == ModEntry.SpaceCoreAPI.GetDisplayNameOfCustomSkill(s));
+                                int level = ModEntry.SpaceCoreAPI.GetLevelForCustomSkill(Game1.player, thisSkillId);
 
                                 for (int i = 0; i < 10; i++)
                                 {
                                     if (i is 4 or 9)
                                     {
-                                        e.SpriteBatch.Draw(SkillIcons, new Vector2(item.bounds.X + item.bounds.Width + 24 + (36 * i) + (i is 9 ? 24 : 0), item.bounds.Y - (skillScrollOffset * 56)), new Rectangle(level < (1 + i) ? 16 : 30, ModEntry.CoreModEntry.Value.ModConfig.ColorBlindnessChanges ? 9 : 0, 13, 9), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.5f);
+                                        e.SpriteBatch.Draw(SkillIcons, new Vector2(item.bounds.X + item.bounds.Width + 24 + (36 * i) + (i is 9 ? 24 : 0), item.bounds.Y - (skillScrollOffset * 56)), new Rectangle(level < (1 + i) ? 16 : 30, ModEntry.ModConfig.ColorBlindnessChanges ? 9 : 0, 13, 9), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.5f);
                                     }
                                     else
                                     {
                                         if (level < (1 + i))
-                                            e.SpriteBatch.Draw(SkillIcons, new Vector2(item.bounds.X + item.bounds.Width + 24 + (36 * i) + (i > 3 ? 24 : 0), item.bounds.Y - (skillScrollOffset * 56)), new Rectangle(0, ModEntry.CoreModEntry.Value.ModConfig.ColorBlindnessChanges ? 9 : 0, 7, 9), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.5f);
+                                            e.SpriteBatch.Draw(SkillIcons, new Vector2(item.bounds.X + item.bounds.Width + 24 + (36 * i) + (i > 3 ? 24 : 0), item.bounds.Y - (skillScrollOffset * 56)), new Rectangle(0, ModEntry.ModConfig.ColorBlindnessChanges ? 9 : 0, 7, 9), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.5f);
                                         else
                                         {
                                             e.SpriteBatch.Draw(SkillIcons,
                                             new Vector2(item.bounds.X + item.bounds.Width + 24 + (36 * i) + (i > 3 ? 24 : 0), item.bounds.Y - (skillScrollOffset * 56)),
-                                            new Rectangle(8, ModEntry.CoreModEntry.Value.ModConfig.ColorBlindnessChanges ? 9 : 0, 7, 9), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.5f);
+                                            new Rectangle(8, ModEntry.ModConfig.ColorBlindnessChanges ? 9 : 0, 7, 9), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.5f);
                                         }
                                     }
                                 }
                             }
-                            else
+                            else if (int.TryParse(item.name, out int result))
                             {
-                                int standartIndex = StandardizeSkillIndexes(int.Parse(item.name));
-                                int level = Game1.player.GetUnmodifiedSkillLevel(standartIndex); 
+                                int standartIndex = StandardizeSkillIndexes(result);
+                                int level = Game1.player.GetUnmodifiedSkillLevel(standartIndex);
                                 for (int i = 0; i < 10; i++)
                                 {
                                     if (i is 4 or 9)
                                     {
-                                        e.SpriteBatch.Draw(SkillIcons, new(item.bounds.X + item.bounds.Width + 24 + (36 * i) + (i is 9 ? 24 : 0), item.bounds.Y - (skillScrollOffset * 56)), new(level < (11 + i) == true ? 16 : 30, ModEntry.CoreModEntry.Value.ModConfig.ColorBlindnessChanges ? 9 : 0, 13, 9), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.5f);
+                                        e.SpriteBatch.Draw(SkillIcons, new(item.bounds.X + item.bounds.Width + 24 + (36 * i) + (i is 9 ? 24 : 0), item.bounds.Y - (skillScrollOffset * 56)), new(level < (11 + i) == true ? 16 : 30, ModEntry.ModConfig.ColorBlindnessChanges ? 9 : 0, 13, 9), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.5f);
                                     }
                                     else
                                     {
-                                        e.SpriteBatch.Draw(SkillIcons, new Vector2(item.bounds.X + item.bounds.Width + 24 + (36 * i) + (i > 3 ? 24 : 0), item.bounds.Y - (skillScrollOffset * 56)), new Rectangle(level >= (i + 11) ? 8 : 0, ModEntry.CoreModEntry.Value.ModConfig.ColorBlindnessChanges ? 9 : 0, 7, 9), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.5f);
+                                        e.SpriteBatch.Draw(SkillIcons, new Vector2(item.bounds.X + item.bounds.Width + 24 + (36 * i) + (i > 3 ? 24 : 0), item.bounds.Y - (skillScrollOffset * 56)), new Rectangle(level >= (i + 11) ? 8 : 0, ModEntry.ModConfig.ColorBlindnessChanges ? 9 : 0, 7, 9), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 0.5f);
                                     }
                                 }
-                                if (CoreDisplayHandler.Value.XPDisplayInstalled)
+                                if (XPDisplayInstalled)
                                 {
                                     for (int i = 1; i < 10; i++)
                                     {
                                         if (level == (i + 10))
                                         {
                                             int XPcurrent = Game1.player.experiencePoints[standartIndex];
-                                            int XPprior = ModEntry.CoreModEntry.Value.levelExperiences[i - 1];
-                                            int XPnext = ModEntry.CoreModEntry.Value.levelExperiences[i];
+                                            int XPprior = ModEntry.levelExperiences[i - 1];
+                                            int XPnext = ModEntry.levelExperiences[i];
                                             float progress = Math.Clamp((float)(XPcurrent - XPprior) / (XPnext - XPprior), 0f, 1f); // Current progress through level (0.00 to 1.00 float, proportion)
                                             int fillHeight = (int)(9 * progress); // Height of fill as portion of progress * 9 (height of standard bar)
-                                            int yOffset = ModEntry.CoreModEntry.Value.ModConfig.ColorBlindnessChanges ? 9 : 0; // Offset of texture (depending on colourblind)
+                                            int yOffset = ModEntry.ModConfig.ColorBlindnessChanges ? 9 : 0; // Offset of texture (depending on colourblind)
                                             int fillY = yOffset + (9 - fillHeight); // Pixel coordinate of fill
                                             Vector2 pos = new(page2.skillAreas[standartIndex].bounds.X + page2.skillAreas[standartIndex].bounds.Width + (36 * i) + (i > 4 ? 48 : 24), page2.skillAreas[standartIndex].bounds.Y);
 
@@ -518,7 +520,7 @@ namespace VanillaPlusProfessions
                     }
                     if (CoreUtility.IsOverlayValid())
                     {
-                        LittlePlus.draw(e.SpriteBatch);
+                        LittlePlus?.draw(e.SpriteBatch);
                         page2.drawMouse(e.SpriteBatch);
                     }
                     if (hoverText.Length > 0)
@@ -715,13 +717,13 @@ namespace VanillaPlusProfessions
         {
             if (levelUpMenu is LevelUpMenu or SkillLevelUpMenu)
             {
-                int currentLevel = ModEntry.CoreModEntry.Value.Helper.Reflection.GetField<int>(levelUpMenu, "currentLevel").GetValue();
+                int currentLevel = ModEntry.Helper.Reflection.GetField<int>(levelUpMenu, "currentLevel").GetValue();
                 int currentskill_int = -1;
                 string currentskill_string = null;
 
                 if (levelUpMenu is LevelUpMenu)
                 {
-                    currentskill_int = ModEntry.CoreModEntry.Value.Helper.Reflection.GetField<int>(levelUpMenu, "currentSkill").GetValue();
+                    currentskill_int = ModEntry.Helper.Reflection.GetField<int>(levelUpMenu, "currentSkill").GetValue();
                     if (currentLevel is 15 or 20)
                     {
                         (levelUpMenu as LevelUpMenu).isProfessionChooser = true;
@@ -729,7 +731,7 @@ namespace VanillaPlusProfessions
                 }
                 else
                 {
-                    currentskill_string = ModEntry.CoreModEntry.Value.Helper.Reflection.GetField<string>(levelUpMenu, "currentSkill").GetValue();
+                    currentskill_string = ModEntry.Helper.Reflection.GetField<string>(levelUpMenu, "currentSkill").GetValue();
                     if (currentLevel is 15 or 20)
                     {
                         (levelUpMenu as SkillLevelUpMenu).isProfessionChooser = true;
@@ -743,7 +745,7 @@ namespace VanillaPlusProfessions
                         if (Game1.player.professions.Contains(item.Value.Requires) && AreSkillConditionsMet(currentskill_string, currentskill_int) == item.Value.Skill.ToString())
                             _professionsToChoose.Add(item.Value.ID);
                     }
-                    ModEntry.CoreModEntry.Value.Helper.Reflection.GetField<List<int>>(levelUpMenu, "professionsToChoose").SetValue(_professionsToChoose);
+                    ModEntry.Helper.Reflection.GetField<List<int>>(levelUpMenu, "professionsToChoose").SetValue(_professionsToChoose);
                 }
                 else if (currentLevel is 20)
                 {
@@ -752,7 +754,7 @@ namespace VanillaPlusProfessions
                         if (currentLevel == item.Value.LevelRequirement && AreSkillConditionsMet(currentskill_string, currentskill_int) == item.Value.Skill.ToString())
                             _professionsToChoose.Add(item.Value.ID);
                     }
-                    ModEntry.CoreModEntry.Value.Helper.Reflection.GetField<List<int>>(levelUpMenu, "professionsToChoose").SetValue(_professionsToChoose);
+                    ModEntry.Helper.Reflection.GetField<List<int>>(levelUpMenu, "professionsToChoose").SetValue(_professionsToChoose);
                 }
                
                 if (_professionsToChoose.Count > 0 && levelUpMenu is LevelUpMenu lvlupMenu)

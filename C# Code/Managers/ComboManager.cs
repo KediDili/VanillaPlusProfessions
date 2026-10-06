@@ -257,7 +257,7 @@ namespace VanillaPlusProfessions.Managers
                 {
                     StonesBroken.Value++;
                 }
-                if (StonesBroken.Value / 100 > 0 && StonesBroken.Value % 100 == 0 && !Game1.doesHUDMessageExist(ModEntry.CoreModEntry.Value.Helper.Translation.Get("Message.StoneBroken", new { Stones = StonesBroken.Value - 1, Buff = StonesBroken.Value / 100 })))
+                if (StonesBroken.Value / 100 > 0 && StonesBroken.Value % 100 == 0 && !Game1.doesHUDMessageExist(ModEntry.Helper.Translation.Get("Message.StoneBroken", new { Stones = StonesBroken.Value - 1, Buff = StonesBroken.Value / 100 })))
                 {
                     BuffEffects buffEffects = new();
                     buffEffects.Attack.Value = StonesBroken.Value / 100;
@@ -267,7 +267,7 @@ namespace VanillaPlusProfessions.Managers
                     buffEffects2.Defense.Value = StonesBroken.Value / 100;
                     who.buffs.Apply(new("VPP.Mining-Combat.Defense", "VPP.CombatMining.ComboProfession", "Mining-Combat", Buff.ENDLESS, Game1.buffsIcons, 11, buffEffects, false, "Defense"));
 
-                    Game1.addHUDMessage(new(ModEntry.CoreModEntry.Value.Helper.Translation.Get("Message.StoneBroken", new { Stones = StonesBroken.Value, Buff = StonesBroken.Value / 100 }), 1));
+                    Game1.addHUDMessage(new(ModEntry.Helper.Translation.Get("Message.StoneBroken", new { Stones = StonesBroken.Value, Buff = StonesBroken.Value / 100 }), 1));
                 }
                 if (MiningPatcher.IsExplosionForExplosivePersonality && Game1.random.NextBool(0.15) && TalentUtility.CurrentPlayerHasTalent(Constants.Talent_ExplosivePersonality, who: who))
                 {
@@ -279,7 +279,7 @@ namespace VanillaPlusProfessions.Managers
                     if (shaft.modData.TryGetValue(Constants.Key_DownInTheDepths, out string val))
                     {
                         int count = int.Parse(val) + 1;
-                        if (count == ModEntry.CoreModEntry.Value.ModConfig.DownInTheDepths_Stones)
+                        if (count == ModEntry.ModConfig.DownInTheDepths_Stones)
                         {
                             shaft.createLadderDown(x, y);
                             shaft.createLadderAt(new(x, y));

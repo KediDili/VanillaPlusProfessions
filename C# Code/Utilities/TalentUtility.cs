@@ -53,74 +53,74 @@ namespace VanillaPlusProfessions.Utilities
             //Everyone's Best Friend
             if (talentStatuses.ContainsKey(Constants.Talent_EveryonesBestFriend))
             {
-                ModEntry.CoreModEntry.Value.Helper.GameContent.InvalidateCache("Data/NPCGiftTastes");
+                ModEntry.Helper.GameContent.InvalidateCache("Data/NPCGiftTastes");
             }
 
             //One Fish Two Fish
             if (talentStatuses.ContainsKey(Constants.Talent_OneFishTwoFish))
             {
-                ModEntry.CoreModEntry.Value.Helper.GameContent.InvalidateCache("LooseSprites/Cursors_1_6");
+                ModEntry.Helper.GameContent.InvalidateCache("LooseSprites/Cursors_1_6");
             }
 
             if (talentStatuses.ContainsKey(Constants.Talent_BreedLikeRabbits))
             {
-                ModEntry.CoreModEntry.Value.Helper.GameContent.InvalidateCache("Data/FarmAnimals");
+                ModEntry.Helper.GameContent.InvalidateCache("Data/FarmAnimals");
             }
 
             //Bookclub Bargains
             if (talentStatuses.ContainsKey(Constants.Talent_BookclubBargains))
             {
-                ModEntry.CoreModEntry.Value.Helper.GameContent.InvalidateCache("Data/Shops");
+                ModEntry.Helper.GameContent.InvalidateCache("Data/Shops");
             }
 
             //Welcome To The Jungle
             if (talentStatuses.ContainsKey(Constants.Talent_WelcomeToTheJungle))
             {
-                ModEntry.CoreModEntry.Value.Helper.GameContent.InvalidateCache("Data/WildTrees");
+                ModEntry.Helper.GameContent.InvalidateCache("Data/WildTrees");
             }
 
             //Vast Domain
             if (talentStatuses.ContainsKey(Constants.Talent_VastDomain))
             {
-                ModEntry.CoreModEntry.Value.Helper.GameContent.InvalidateCache("Data/Locations");
+                ModEntry.Helper.GameContent.InvalidateCache("Data/Locations");
             }
 
             //Hidden Benefits
             if (talentStatuses.ContainsKey(Constants.Talent_HiddenBenefits))
             {
-                ModEntry.CoreModEntry.Value.Helper.GameContent.InvalidateCache("Data/TailoringRecipes");
-                ModEntry.CoreModEntry.Value.Helper.GameContent.InvalidateCache("Maps/AnimalShop");
-                ModEntry.CoreModEntry.Value.Helper.GameContent.InvalidateCache("Maps/SebastianRoom");
-                ModEntry.CoreModEntry.Value.Helper.GameContent.InvalidateCache("Maps/HaleyHouse");
-                ModEntry.CoreModEntry.Value.Helper.GameContent.InvalidateCache("Maps/SeedShop");
-                ModEntry.CoreModEntry.Value.Helper.GameContent.InvalidateCache("Maps/AdventureGuild");
-                ModEntry.CoreModEntry.Value.Helper.GameContent.InvalidateCache("Maps/JoshHouse");
-                ModEntry.CoreModEntry.Value.Helper.GameContent.InvalidateCache("Maps/WizardHouseBasement");
+                ModEntry.Helper.GameContent.InvalidateCache("Data/TailoringRecipes");
+                ModEntry.Helper.GameContent.InvalidateCache("Maps/AnimalShop");
+                ModEntry.Helper.GameContent.InvalidateCache("Maps/SebastianRoom");
+                ModEntry.Helper.GameContent.InvalidateCache("Maps/HaleyHouse");
+                ModEntry.Helper.GameContent.InvalidateCache("Maps/SeedShop");
+                ModEntry.Helper.GameContent.InvalidateCache("Maps/AdventureGuild");
+                ModEntry.Helper.GameContent.InvalidateCache("Maps/JoshHouse");
+                ModEntry.Helper.GameContent.InvalidateCache("Maps/WizardHouseBasement");
             }
 
             //Sleep Under The Stars
             if (talentStatuses.ContainsKey(Constants.Talent_SleepUnderTheStars))
             {
-                ModEntry.CoreModEntry.Value.Helper.GameContent.InvalidateCache("Maps/Beach");
-                ModEntry.CoreModEntry.Value.Helper.GameContent.InvalidateCache("Maps/Mountain");
-                ModEntry.CoreModEntry.Value.Helper.GameContent.InvalidateCache("Maps/Forest");
+                ModEntry.Helper.GameContent.InvalidateCache("Maps/Beach");
+                ModEntry.Helper.GameContent.InvalidateCache("Maps/Mountain");
+                ModEntry.Helper.GameContent.InvalidateCache("Maps/Forest");
             }
 
             if (updateObjects)
             {
                 //Survival Cooking/Sugar Rush
-                ModEntry.CoreModEntry.Value.Helper.GameContent.InvalidateCache("Data/Objects");
+                ModEntry.Helper.GameContent.InvalidateCache("Data/Objects");
             }
             if (updateGarbageCans)
             {
                 //Trashed Treasure / Eye Spy
-                ModEntry.CoreModEntry.Value.Helper.GameContent.InvalidateCache("Data/GarbageCans");
+                ModEntry.Helper.GameContent.InvalidateCache("Data/GarbageCans");
             }
 
             if (updateBuildings)
             {
                 //Fishery Grant/Monumental Discount/Overcrowding
-                ModEntry.CoreModEntry.Value.Helper.GameContent.InvalidateCache("Data/Buildings");
+                ModEntry.Helper.GameContent.InvalidateCache("Data/Buildings");
                 if (talentStatuses.TryGetValue(Constants.Talent_Overcrowding, out string val))
                 {
                     if (val == Constants.ValidTalentStatuses[0] || val == Constants.ValidTalentStatuses[2])
@@ -165,13 +165,13 @@ namespace VanillaPlusProfessions.Utilities
             if (updateFishPonds)
             {
                 //In The Weeds
-                ModEntry.CoreModEntry.Value.Helper.GameContent.InvalidateCache("Data/FishPondData");
+                ModEntry.Helper.GameContent.InvalidateCache("Data/FishPondData");
             }
 
             if (updateMachines)
             {
                 //Double Hook/Cold Press
-                ModEntry.CoreModEntry.Value.Helper.GameContent.InvalidateCache("Data/Machines");
+                ModEntry.Helper.GameContent.InvalidateCache("Data/Machines");
             }
 
             if (updateRecipes)
@@ -210,7 +210,7 @@ namespace VanillaPlusProfessions.Utilities
                 if (monster is not BigSlime && monster.Health < 0)
                 {
                     monster.deathAnimation();
-                    ModEntry.CoreModEntry.Value.Helper.Reflection.GetMethod(who.currentLocation, "onMonsterKilled").Invoke(new object[] { who, monster, monster.GetBoundingBox(), false });
+                    ModEntry.Helper.Reflection.GetMethod(who.currentLocation, "onMonsterKilled").Invoke(new object[] { who, monster, monster.GetBoundingBox(), false });
                 }
             }
             else if (monster is not BigSlime && monster.Health - damage < 0)
@@ -220,7 +220,7 @@ namespace VanillaPlusProfessions.Utilities
                 {
                     monster.Health -= damage;
                     monster.deathAnimation();
-                    ModEntry.CoreModEntry.Value.Helper.Reflection.GetMethod(who.currentLocation, "onMonsterKilled").Invoke(new object[] { who, monster, monster.GetBoundingBox(), false });
+                    ModEntry.Helper.Reflection.GetMethod(who.currentLocation, "onMonsterKilled").Invoke(new object[] { who, monster, monster.GetBoundingBox(), false });
                 }
             }
             else
@@ -276,7 +276,7 @@ namespace VanillaPlusProfessions.Utilities
 
         public static bool CurrentPlayerHasTalent(string flag, long farmerID = -1, Farmer who = null, bool ignoreDisabledTalents = true)
         {
-            if (ModEntry.CoreModEntry.Value.ModConfig.ProfessionsOnly)
+            if (ModEntry.ModConfig.ProfessionsOnly)
                 return false;
 
             if (farmerID is not -1)
@@ -296,8 +296,8 @@ namespace VanillaPlusProfessions.Utilities
             else
                 returnValue = who.mailReceived.Contains(flag) && !who.mailReceived.Contains(flag + "_disabled");
 
-            if (ModEntry.CoreModEntry.Value.ModMonitor.IsVerbose || ModEntry.CoreModEntry.Value.ModConfig.DeveloperOrTestingMode)
-                ModEntry.CoreModEntry.Value.ModMonitor.Log($"Checked talent {flag}: {returnValue}", LogLevel.Warn);
+            if (ModEntry.ModMonitor.IsVerbose || ModEntry.ModConfig.DeveloperOrTestingMode)
+                ModEntry.ModMonitor.Log($"Checked talent {flag}: {returnValue}", LogLevel.Warn);
 
             return returnValue;
         }
@@ -316,7 +316,7 @@ namespace VanillaPlusProfessions.Utilities
 
         public static bool AllPlayersHaveTalent(string flag)
         {
-            if (!Context.IsWorldReady || ModEntry.CoreModEntry.Value.ModConfig.ProfessionsOnly)
+            if (!Context.IsWorldReady || ModEntry.ModConfig.ProfessionsOnly)
             {
                 return false;
             }
@@ -336,7 +336,7 @@ namespace VanillaPlusProfessions.Utilities
             bool Efflorescence = HostHasTalent(Constants.Talent_Efflorescence) && ItemRegistry.GetData(crop.GetData().HarvestItemId).IsErrorItem && ItemRegistry.GetData(crop.GetData().HarvestItemId).Category == StardewValley.Object.flowersCategory && EligibleForCropPerks(crop.netSeedIndex.Value, Constants.Talent_Efflorescence);
             bool Nourishing_Rain = HostHasTalent(Constants.Talent_NourishingRain) && dirt.Location.modData.TryGetValue(Constants.Key_WasRainingHere, out string value2) && value2 is "true" && EligibleForCropPerks(crop.netSeedIndex.Value, Constants.Talent_NourishingRain);
             bool Tropical_Bliss = HostHasTalent(Constants.Talent_TropicalBliss) && dirt.Location.InIslandContext() && (crop.GetData()?.Seasons.Contains(Season.Summer) is true || crop.GetData()?.Seasons.Count > 1) && EligibleForCropPerks(crop.netSeedIndex.Value, Constants.Talent_TropicalBliss);
-            bool Deluxe_Wild_Seeds = !CraftablePatcher.IsVPPForageCrop(crop, false) && crop.currentLocation.GetData()?.CustomFields?.ContainsKey("Kedi.VPP.ForestLocation") is true || crop.currentLocation is Forest or Woods;
+            bool Deluxe_Wild_Seeds = !CraftablePatcher.IsVPPForageCrop(crop) && crop.currentLocation.GetData()?.CustomFields?.ContainsKey("Kedi.VPP.ForestLocation") is true || crop.currentLocation is Forest or Woods;
 
             return Efflorescence || Nourishing_Rain || Tropical_Bliss || Deluxe_Wild_Seeds;
         }
@@ -389,7 +389,7 @@ namespace VanillaPlusProfessions.Utilities
 
         public static bool AnyPlayerHasTalent(string flag)
         {
-            if (!Context.IsWorldReady || ModEntry.CoreModEntry.Value.ModConfig.ProfessionsOnly)
+            if (!Context.IsWorldReady || ModEntry.ModConfig.ProfessionsOnly)
             {
                 return false;
             }
@@ -456,7 +456,7 @@ namespace VanillaPlusProfessions.Utilities
         public static bool isFavoredMonster(Monster monster, Farmer who)
         {
             CustomMonsterData monsterData = null;
-            foreach (var item in ModEntry.CoreModEntry.Value.VanillaPlusProfessionsAPI.CustomMonsters)
+            foreach (var item in ModEntry.VanillaPlusProfessionsAPI.CustomMonsters)
             {
                 if (item.Type.Equals(monster.GetType()))
                 {
@@ -568,7 +568,7 @@ namespace VanillaPlusProfessions.Utilities
 
         public static bool IsBlandStone(StardewValley.Object obj)
         {
-            if (ModEntry.CoreModEntry.Value.ItemExtensionsAPI is not null && ModEntry.CoreModEntry.Value.ItemExtensionsAPI.IsResource(obj.ItemId, out int? _, out string itemDropped))
+            if (ModEntry.ItemExtensionsAPI is not null && ModEntry.ItemExtensionsAPI.IsResource(obj.ItemId, out int? _, out string itemDropped))
             {
                 return itemDropped is "390" or "(O)390";
             }
@@ -589,7 +589,7 @@ namespace VanillaPlusProfessions.Utilities
                 return value;
             }
 
-            ModEntry.CoreModEntry.Value.ModMonitor.Log($"Cannot find ring ID for trinket {trinket.ItemId}. This should be reported to the author of the mod its coming from and not to KediDili.", LogLevel.Warn);
+            ModEntry.ModMonitor.Log($"Cannot find ring ID for trinket {trinket.ItemId}. This should be reported to the author of the mod its coming from and not to KediDili.", LogLevel.Warn);
             return null;
         }
 
@@ -609,16 +609,16 @@ namespace VanillaPlusProfessions.Utilities
         public static List<TrinketRing> GetAllTrinketRings(Farmer who)
         {
             List<TrinketRing> result = new();
-            if (ModEntry.CoreModEntry.Value.WearMoreRingsAPI is not null)
+            if (ModEntry.WearMoreRingsAPI is not null)
             {
-                for (int i = 0; i < ModEntry.CoreModEntry.Value.WearMoreRingsAPI?.RingSlotCount(); i++)
+                for (int i = 0; i < ModEntry.WearMoreRingsAPI?.RingSlotCount(); i++)
                 {
                     try
                     {
-                        if (ModEntry.CoreModEntry.Value.WearMoreRingsAPI?.GetRing(i) is not null)
+                        if (ModEntry.WearMoreRingsAPI?.GetRing(i) is not null)
                         {
                             //This if block might be dead, since from some early version TrinketRings cant be combined anymore, but what if some users did in earlier versions?
-                            if (ModEntry.CoreModEntry.Value.WearMoreRingsAPI?.GetRing(i) is CombinedRing combinedRing && combinedRing is not null)
+                            if (ModEntry.WearMoreRingsAPI?.GetRing(i) is CombinedRing combinedRing && combinedRing is not null && combinedRing.combinedRings.Count == 2)
                             {
                                 if (combinedRing.combinedRings[0] is TrinketRing)
                                     result.Add(combinedRing.combinedRings[0] as TrinketRing);
@@ -626,7 +626,7 @@ namespace VanillaPlusProfessions.Utilities
                                 if (combinedRing.combinedRings[1] is TrinketRing)
                                     result.Add(combinedRing.combinedRings[1] as TrinketRing);
                             }
-                            if (ModEntry.CoreModEntry.Value.WearMoreRingsAPI?.GetRing(i) is TrinketRing trinketRing && trinketRing != null)
+                            if (ModEntry.WearMoreRingsAPI?.GetRing(i) is TrinketRing trinketRing && trinketRing != null)
                                 result.Add(trinketRing);
                         }
                     }
@@ -670,7 +670,7 @@ namespace VanillaPlusProfessions.Utilities
             Item inputItem = player.ActiveItem;
             if (inputItem is Trinket trinket)
             {
-                if (!ModEntry.CoreModEntry.Value.Helper.ModRegistry.IsLoaded(Constants.ModId_TrinketTinker) || !GameStateQuery.CheckConditions($"mushymato.TrinketTinker_DIRECT_EQUIP_ONLY {trinket.ItemId}"))
+                if (!ModEntry.Helper.ModRegistry.IsLoaded(Constants.ModId_TrinketTinker) || !GameStateQuery.CheckConditions($"mushymato.TrinketTinker_DIRECT_EQUIP_ONLY {trinket.ItemId}"))
                 {
                     //get the new guid and give it to the trinket's moddata
                     trinket.modData.TryAdd(Constants.Key_RingTrinkets, Guid.NewGuid().ToString());
@@ -718,16 +718,16 @@ namespace VanillaPlusProfessions.Utilities
             }
             if (success && Context.IsMultiplayer && Context.HasRemotePlayers)
             {
-                ModEntry.CoreModEntry.Value.Helper.Multiplayer.SendMessage(CoordsForMP, ModEntry.CoreModEntry.Value.Manifest.UniqueID + "/SwitchMineStones", new string[] { ModEntry.CoreModEntry.Value.Manifest.UniqueID });
+                ModEntry.Helper.Multiplayer.SendMessage(CoordsForMP, ModEntry.Manifest.UniqueID + "/SwitchMineStones", new string[] { ModEntry.Manifest.UniqueID });
             }
         }
 
         private static bool ShouldAddToThePool(string node, bool flag, MineShaft mineShaft)
         {
-            if (ModEntry.CoreModEntry.Value.ItemExtensionsAPI.GetResourceData(node, false, out object resourceData))
+            if (ModEntry.ItemExtensionsAPI.GetResourceData(node, false, out object resourceData))
             {
-                string SpawnOnFloors = ModEntry.CoreModEntry.Value.Helper.Reflection.GetProperty<string>(resourceData, "SpawnOnFloors").GetValue();
-                double SpawnFrequency = ModEntry.CoreModEntry.Value.Helper.Reflection.GetProperty<double>(resourceData, "SpawnFrequency").GetValue();
+                string SpawnOnFloors = ModEntry.Helper.Reflection.GetProperty<string>(resourceData, "SpawnOnFloors").GetValue();
+                double SpawnFrequency = ModEntry.Helper.Reflection.GetProperty<double>(resourceData, "SpawnFrequency").GetValue();
 
                 if (SpawnOnFloors is not null)
                 {
@@ -812,7 +812,7 @@ namespace VanillaPlusProfessions.Utilities
             }
             if (ItemExtensions_GemNodeList.Contains(result) || ItemExtensions_GeodeNodeList.Contains(result))
             {
-                if (ModEntry.CoreModEntry.Value.ItemExtensionsAPI.IsResource(result, out int? nodeHealth, out string _))
+                if (ModEntry.ItemExtensionsAPI.IsResource(result, out int? nodeHealth, out string _))
                 {
                     health = nodeHealth;
                 }

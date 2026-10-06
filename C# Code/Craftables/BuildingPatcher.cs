@@ -44,26 +44,26 @@ namespace VanillaPlusProfessions.Craftables
             {
                 if (whichLevel is 16)
                 {
-                    __result.Add(ModEntry.CoreModEntry.Value.Helper.Translation.Get("ExtraInfo.MinecartRepository"));
+                    __result.Add(ModEntry.Helper.Translation.Get("ExtraInfo.MinecartRepository"));
                 }
                 else if (whichLevel is 18)
                 {
-                    __result.Add(ModEntry.CoreModEntry.Value.Helper.Translation.Get("ExtraInfo.MineralCavern"));
+                    __result.Add(ModEntry.Helper.Translation.Get("ExtraInfo.MineralCavern"));
                 }
             }
             if (whichSkill == 2)
             {
                 if (whichLevel is 14)
                 {
-                    __result.Add(ModEntry.CoreModEntry.Value.Helper.Translation.Get("ExtraInfo.AnimalsDropSeeds"));
+                    __result.Add(ModEntry.Helper.Translation.Get("ExtraInfo.AnimalsDropSeedsOnEatGrass"));
                 }
                 else if (whichLevel is 16)
                 {
-                    __result.Add(ModEntry.CoreModEntry.Value.Helper.Translation.Get("ExtraInfo.Sawmill"));
+                    __result.Add(ModEntry.Helper.Translation.Get("ExtraInfo.Sawmill"));
                 }
                 else if (whichLevel is 18)
                 {
-                    __result.Add(ModEntry.CoreModEntry.Value.Helper.Translation.Get("ExtraInfo.SecretGlade"));
+                    __result.Add(ModEntry.Helper.Translation.Get("ExtraInfo.SecretGlade"));
                 }
             }
         }

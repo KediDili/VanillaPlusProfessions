@@ -197,7 +197,7 @@ namespace VanillaPlusProfessions.Managers
                     if (ShouldBeInvincible(__instance))
                     {
                         TalentUtility.MakeFarmerInvincible(__instance);
-                        __instance.currentLocation.debris.Add(new(ModEntry.GetMe().Helper.Translation.Get("Message.Dodge"), 5, __instance.StandingPixel.ToVector2(), Color.White, 1f, 0f));
+                        __instance.currentLocation.debris.Add(new(ModEntry.Helper.Translation.Get("Message.Dodge"), 5, __instance.StandingPixel.ToVector2(), Color.White, 1f, 0f));
                         __result = false;
                     }
                 }
@@ -422,7 +422,7 @@ namespace VanillaPlusProfessions.Managers
                     BuffEffects sdsdsd = new();
                     sdsdsd.Defense.Value = 2;
 
-                    Buff buff = new("VPP.Champion.Defense", "Champion talent", "Champion talent", 6000, Game1.buffsIcons, 10, sdsdsd, false, ModEntry.CoreModEntry.Value.Helper.Translation.Get("Buff.Champion.Name"), Game1.parseText(ModEntry.CoreModEntry.Value.Helper.Translation.Get("Buff.Champion.Desc"), Game1.smallFont, TalentUtility.BuffDescriptionLength(ModEntry.CoreModEntry.Value.Helper.Translation.Get("Buff.Champion.Name"))));
+                    Buff buff = new("VPP.Champion.Defense", "Champion talent", "Champion talent", 6000, Game1.buffsIcons, 10, sdsdsd, false, ModEntry.Helper.Translation.Get("Buff.Champion.Name"), Game1.parseText(ModEntry.Helper.Translation.Get("Buff.Champion.Desc"), Game1.smallFont, TalentUtility.BuffDescriptionLength(ModEntry.Helper.Translation.Get("Buff.Champion.Name"))));
                     who.buffs.Apply(buff);
                 }
 
@@ -477,7 +477,7 @@ namespace VanillaPlusProfessions.Managers
                 {
                     BuffEffects buffEffects2 = new();
                     buffEffects2.CriticalPowerMultiplier.Value += 0.1f;
-                    who.buffs.Apply(new("VPP.Ferocity.Speed", "VPP.Ferocity.Talent", "Ferocity", 10000, Game1.buffsIcons, 11, buffEffects2, false, ModEntry.CoreModEntry.Value.Helper.Translation.Get("Buff.Ferocity.Name"), Game1.parseText(ModEntry.CoreModEntry.Value.Helper.Translation.Get("Buff.Ferocity.Desc"), Game1.smallFont, TalentUtility.BuffDescriptionLength(ModEntry.CoreModEntry.Value.Helper.Translation.Get("Buff.Ferocity.Name")))));
+                    who.buffs.Apply(new("VPP.Ferocity.Speed", "VPP.Ferocity.Talent", "Ferocity", 10000, Game1.buffsIcons, 11, buffEffects2, false, ModEntry.Helper.Translation.Get("Buff.Ferocity.Name"), Game1.parseText(ModEntry.Helper.Translation.Get("Buff.Ferocity.Desc"), Game1.smallFont, TalentUtility.BuffDescriptionLength(ModEntry.Helper.Translation.Get("Buff.Ferocity.Name")))));
                 }
             }
             catch (Exception e)

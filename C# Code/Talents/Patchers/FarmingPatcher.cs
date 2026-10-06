@@ -101,9 +101,9 @@ namespace VanillaPlusProfessions.Talents.Patchers
             
             // If this building's feed is overridden by Extra Animal Config retrieve the feed info object
             IFeedInfo? moddedFeedInfo = null;
-            string? eacFeedOverride = ModEntry.CoreModEntry.Value.ExtraAnimalConfigAPI?.GetFeedOverride(__instance.ParentBuilding?.buildingType.Value);
+            string? eacFeedOverride = ModEntry.ExtraAnimalConfigAPI?.GetFeedOverride(__instance.ParentBuilding?.buildingType.Value);
             if (eacFeedOverride is not null)
-                ModEntry.CoreModEntry.Value.ExtraAnimalConfigAPI.GetModdedFeedInfo().TryGetValue(eacFeedOverride, out moddedFeedInfo);
+                ModEntry.ExtraAnimalConfigAPI.GetModdedFeedInfo().TryGetValue(eacFeedOverride, out moddedFeedInfo);
             for (int x = 0; x < __instance.map.Layers[0].LayerWidth; x++)
             {
                 for (int y = 0; y < __instance.map.Layers[0].LayerHeight; y++)
@@ -315,7 +315,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             {
                 if (!string.IsNullOrEmpty(__instance?.netSeedIndex.Value) && !__instance.dead.Value && __result)
                 {
-                    if (Game1.random.NextBool(ModEntry.CoreModEntry.Value.ModConfig.CycleOfLife_Chance) && !__instance.RegrowsAfterHarvest() && TalentUtility.CurrentPlayerHasTalent(Constants.Talent_CycleOfLife))
+                    if (Game1.random.NextBool(ModEntry.ModConfig.CycleOfLife_Chance) && !__instance.RegrowsAfterHarvest() && TalentUtility.CurrentPlayerHasTalent(Constants.Talent_CycleOfLife))
                     {
                         if (junimoHarvester is null)
                         {

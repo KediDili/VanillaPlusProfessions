@@ -26,9 +26,9 @@ namespace VanillaPlusProfessions
         internal void Initialize(ModEntry modEntry)
         {
             CoreContentEditor.Value = this;
-            modEntry.Helper.Events.Content.AssetRequested += OnAssetRequested;
-            ShakerData = modEntry.Helper.ModContent.Load<List<WildTreeItemData>>("assets\\ShakerData.json");
-            BuccaneerData = modEntry.Helper.ModContent.Load<Dictionary<string, string>>("assets\\BuccaneerData.json");
+            ModEntry.Helper.Events.Content.AssetRequested += OnAssetRequested;
+            ShakerData = ModEntry.Helper.ModContent.Load<List<WildTreeItemData>>("assets\\ShakerData.json");
+            BuccaneerData = ModEntry.Helper.ModContent.Load<Dictionary<string, string>>("assets\\BuccaneerData.json");
             ContentPaths = new()
             {
                 { "ItemSpritesheet", "TileSheets\\KediDili.VPPData.CP\\ItemIcons" },
@@ -178,7 +178,7 @@ namespace VanillaPlusProfessions
             {
                 foreach (var item in Game1.locations)
                 {
-                    if (GameStateQuery.CheckConditions($"{ModEntry.CoreModEntry.Value.Manifest.UniqueID}_WasRainingHereYesterday", item))
+                    if (GameStateQuery.CheckConditions($"{ModEntry.Manifest.UniqueID}_WasRainingHereYesterday", item))
                     {
                         var data = item.GetData();
                         if (data is not null && item.currentEvent?.isFestival is false)
@@ -195,7 +195,7 @@ namespace VanillaPlusProfessions
         {
             if (CoreUtility.AnyPlayerHasProfession(Constants.Profession_Aquaculturalist))
             {
-                double multiplier = ModEntry.CoreModEntry.Value.ModConfig.Aquaculturalist_Multiplier;
+                double multiplier = ModEntry.ModConfig.Aquaculturalist_Multiplier;
                 for (int i = 0; i < editor.Count; i++)
                 {
                     for (int f = 0; f < editor[i].ProducedItems.Count; f++)
@@ -224,7 +224,7 @@ namespace VanillaPlusProfessions
                         editor.PatchImage(DisplayHandler.CoreDisplayHandler.Value.ProfessionIcons, null, new(0, 704, 96, 144));
                     }
 
-                    if (ModEntry.CoreModEntry.Value.ModConfig.ColorBlindnessChanges)
+                    if (ModEntry.ModConfig.ColorBlindnessChanges)
                         editor.PatchImage(DisplayHandler.CoreDisplayHandler.Value.SkillIcons, new(0, 18, 43, 9), new(129, 338, 43, 9));
 
                 }, AssetEditPriority.Late);
@@ -247,18 +247,18 @@ namespace VanillaPlusProfessions
 
                     foreach (var item in ModEntry.Professions.Keys)
                     {
-                        editor.Data.Add("LevelUp_ProfessionName_" + item, ModEntry.CoreModEntry.Value.Helper.Translation.Get("Profession." + item + ".Name"));
-                        editor.Data.Add("LevelUp_ProfessionDescription_" + item, ModEntry.CoreModEntry.Value.Helper.Translation.Get("Profession." + item + ".Desc").ToString().Replace('_', ' '));
+                        editor.Data.Add("LevelUp_ProfessionName_" + item, ModEntry.Helper.Translation.Get("Profession." + item + ".Name"));
+                        editor.Data.Add("LevelUp_ProfessionDescription_" + item, ModEntry.Helper.Translation.Get("Profession." + item + ".Desc").ToString().Replace('_', ' '));
                     }
                 });
             }
-            if (e.NameWithoutLocale.IsEquivalentTo(PathUtilities.NormalizeAssetName("Strings/1_6_Strings")) && ModEntry.CoreModEntry.Value.ModConfig.MasteryCaveChanges > 10)
+            if (e.NameWithoutLocale.IsEquivalentTo(PathUtilities.NormalizeAssetName("Strings/1_6_Strings")) && ModEntry.ModConfig.MasteryCaveChanges > 10)
             {
                 e.Edit(asset =>
                 {
                     var editor = asset.AsDictionary<string,string>();
 
-                    editor.Data["MasteryCave"] = ModEntry.CoreModEntry.Value.Helper.Translation.Get("Message.MasteryCave", new { Level = ModEntry.CoreModEntry.Value.ModConfig.MasteryCaveChanges });
+                    editor.Data["MasteryCave"] = ModEntry.Helper.Translation.Get("Message.MasteryCave", new { Level = ModEntry.ModConfig.MasteryCaveChanges });
 
                 });
             }
@@ -314,7 +314,7 @@ namespace VanillaPlusProfessions
                     if (TalentUtility.AnyPlayerHasTalent(Constants.Talent_BreedLikeRabbits))
                     {
                         editor["Rabbit"].CanGetPregnant = true;
-                        editor["Rabbit"].BirthText = ModEntry.CoreModEntry.Value.Helper.Translation.Get("Message.RabbitBirth");
+                        editor["Rabbit"].BirthText = ModEntry.Helper.Translation.Get("Message.RabbitBirth");
                     }
                 });
             }

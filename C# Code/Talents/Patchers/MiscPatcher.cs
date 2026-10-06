@@ -389,7 +389,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             {
                 if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_Admiration))
                 {
-                    return (int)(oldDecay * ModEntry.CoreModEntry.Value.ModConfig.Admiration_Multiplier);
+                    return (int)(oldDecay * ModEntry.ModConfig.Admiration_Multiplier);
                 }
             }
             catch (Exception e)

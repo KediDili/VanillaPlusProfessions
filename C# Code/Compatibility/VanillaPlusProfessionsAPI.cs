@@ -19,14 +19,14 @@ namespace VanillaPlusProfessions.Compatibility
         internal Dictionary<IEnumerable<string>, Action<Dictionary<string, string>>> RunBeforeTalentMenuCloses = new();
         public void RegisterCustomSkillTree(SkillTree tree)//string skillID, Func<string> displayTitle, List<Talent> talents, Texture2D treeTexture, Rectangle sourceRect, int bundleID = -1, Color? tintColor = null)
         {
-            string[] skills = ModEntry.CoreModEntry.Value.SpaceCoreAPI.GetCustomSkills();
+            string[] skills = ModEntry.SpaceCoreAPI.GetCustomSkills();
             if (skills.Contains(tree.SkillIndex))
             {
                 if (tree.BundleId is <= (-1) or > 6)
                 {
                     if (!tree.BundleColor.HasValue)
                     {
-                        ModEntry.CoreModEntry.Value.ModMonitor.Log("SpaceCore-registered skill with the ID of " + tree.SkillIndex + " has chosen an invalid color option. They haven't specified neither of bundleID and tintColor. Please let the custom skill mod author know of this.", StardewModdingAPI.LogLevel.Error);
+                        ModEntry.ModMonitor.Log("SpaceCore-registered skill with the ID of " + tree.SkillIndex + " has chosen an invalid color option. They haven't specified neither of bundleID and tintColor. Please let the custom skill mod author know of this.", StardewModdingAPI.LogLevel.Error);
                         return;
                     }
                 }
@@ -34,7 +34,7 @@ namespace VanillaPlusProfessions.Compatibility
                 {
                     if (tree.BundleColor.HasValue)
                     {
-                        ModEntry.CoreModEntry.Value.ModMonitor.Log("SpaceCore-registered skill with the ID of " + tree.SkillIndex + " has chosen an invalid color option. They can't specify both bundleID and tintColor at once. Please let the custom skill mod author know of this.", StardewModdingAPI.LogLevel.Error);
+                        ModEntry.ModMonitor.Log("SpaceCore-registered skill with the ID of " + tree.SkillIndex + " has chosen an invalid color option. They can't specify both bundleID and tintColor at once. Please let the custom skill mod author know of this.", StardewModdingAPI.LogLevel.Error);
                         return;
                     }
                 }
@@ -46,7 +46,7 @@ namespace VanillaPlusProfessions.Compatibility
             }
             else
             {
-                ModEntry.CoreModEntry.Value.ModMonitor.Log("There is no such SpaceCore-registered skill with the ID of " + tree.SkillIndex + ". Please let the custom skill mod author know of this.", StardewModdingAPI.LogLevel.Error);
+                ModEntry.ModMonitor.Log("There is no such SpaceCore-registered skill with the ID of " + tree.SkillIndex + ". Please let the custom skill mod author know of this.", StardewModdingAPI.LogLevel.Error);
             }
         }
 
@@ -146,33 +146,33 @@ namespace VanillaPlusProfessions.Compatibility
             }
             else
             {
-                ModEntry.CoreModEntry.Value.ModMonitor.Log("Invalid values were provided to the VPP API's RegisterTalentStatusAction method: ", LogLevel.Warn);
+                ModEntry.ModMonitor.Log("Invalid values were provided to the VPP API's RegisterTalentStatusAction method: ", LogLevel.Warn);
                 if (talents is null && action is not null)
                 {
-                    ModEntry.CoreModEntry.Value.ModMonitor.Log($"The 'talents' parameter is null but the 'action' parameter is not. The method is declared in the {action.Method.DeclaringType.Assembly.FullName ?? "<could not be found>"} assembly, {action.Method.DeclaringType.FullName ?? "<could not be found>"} type.", LogLevel.Warn);
+                    ModEntry.ModMonitor.Log($"The 'talents' parameter is null but the 'action' parameter is not. The method is declared in the {action.Method.DeclaringType.Assembly.FullName ?? "<could not be found>"} assembly, {action.Method.DeclaringType.FullName ?? "<could not be found>"} type.", LogLevel.Warn);
                 }
                 else if (action is null && talents is not null)
                 {
-                    ModEntry.CoreModEntry.Value.ModMonitor.Log($"The 'action' parameter is null but the 'talents' parameter is not. The talent values are: { string.Join('/', talents)}", LogLevel.Warn);
+                    ModEntry.ModMonitor.Log($"The 'action' parameter is null but the 'talents' parameter is not. The talent values are: { string.Join('/', talents)}", LogLevel.Warn);
                 }
                 else
                 {
-                    ModEntry.CoreModEntry.Value.ModMonitor.Log($"Both of the 'talents' and 'action' parameters are null.", LogLevel.Warn);
+                    ModEntry.ModMonitor.Log($"Both of the 'talents' and 'action' parameters are null.", LogLevel.Warn);
                 }
-                ModEntry.CoreModEntry.Value.ModMonitor.Log("This should NOT be reported on VPP's page, you're seeing this warning because another mod used the API incorrectly.", LogLevel.Warn);
+                ModEntry.ModMonitor.Log("This should NOT be reported on VPP's page, you're seeing this warning because another mod used the API incorrectly.", LogLevel.Warn);
                 return false;
             }
         }
         public ClickableTextureComponent[] CustomSkillBars => DisplayHandler.CoreDisplayHandler.Value.MyCustomSkillBars;
 
-        public int[] LevelExperiences => ModEntry.CoreModEntry.Value.levelExperiences;
+        public int[] LevelExperiences => ModEntry.levelExperiences;
 
-        public int MasteryCaveChanges => ModEntry.CoreModEntry.Value.ModConfig.MasteryCaveChanges;
+        public int MasteryCaveChanges => ModEntry.ModConfig.MasteryCaveChanges;
 
-        public bool ProfessionsOnly => ModEntry.CoreModEntry.Value.ModConfig.ProfessionsOnly;
+        public bool ProfessionsOnly => ModEntry.ModConfig.ProfessionsOnly;
 
-        public bool ColorBlindnessChanges => ModEntry.CoreModEntry.Value.ModConfig.ColorBlindnessChanges;
+        public bool ColorBlindnessChanges => ModEntry.ModConfig.ColorBlindnessChanges;
 
-        public bool StaminaCostAdjustments => ModEntry.CoreModEntry.Value.ModConfig.StaminaCostAdjustments;
+        public bool StaminaCostAdjustments => ModEntry.ModConfig.StaminaCostAdjustments;
     }
 }

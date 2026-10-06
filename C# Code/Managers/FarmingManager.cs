@@ -52,10 +52,9 @@ namespace VanillaPlusProfessions.Managers
                 if (CoreUtility.CurrentPlayerHasProfession(Constants.Profession_Connoisseur))
                 {
                     var obj = __instance.GetData();
-                    string field = "false";
-                    if (item.Category is -26 && !item.HasContextTag("alcohol_item") && (__result == 0 || __result == 8 || __result == 2))
+                    if (item.Category is -26 && !item.HasContextTag("alcohol_item") && (__result == 8 || __result == 2))
                     {
-                        if (obj.CustomFields?.TryGetValue("Kedi.VPP.ExcludeFromConnoisseur", out field) is true && (field?.ToLower() == "true"))
+                        if (!obj.CustomFields.ContainsKey("Kedi.VPP.ExcludeFromConnoisseur"))
                             __result = 0;
                     }
                 }

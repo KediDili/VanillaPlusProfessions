@@ -1,32 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using HarmonyLib;
+﻿using HarmonyLib;
 using Microsoft.Xna.Framework;
-using StardewValley;
-using StardewValley.Tools;
-using StardewValley.TerrainFeatures;
-using StardewValley.Buildings;
-using StardewValley.Extensions;
-using StardewValley.Objects.Trinkets;
-using StardewValley.Objects;
-using StardewValley.Locations;
-using StardewValley.Buffs;
+using SpaceCore;
+using SpaceCore.Interface;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewModdingAPI.Utilities;
-using VanillaPlusProfessions.Enchantments;
-using VanillaPlusProfessions.Utilities;
-using VanillaPlusProfessions.Talents;
-using VanillaPlusProfessions.Compatibility;
-using VanillaPlusProfessions.Managers;
-using StardewValley.Menus;
-using SpaceCore.Interface;
-using VanillaPlusProfessions.Talents.UI;
-using SpaceCore;
-using VanillaPlusProfessions.Craftables;
+using StardewValley;
+using StardewValley.Buffs;
+using StardewValley.Buildings;
+using StardewValley.Extensions;
 using StardewValley.Internal;
+using StardewValley.Locations;
+using StardewValley.Menus;
+using StardewValley.Objects;
+using StardewValley.Objects.Trinkets;
+using StardewValley.TerrainFeatures;
+using StardewValley.Tools;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Linq;
+using VanillaPlusProfessions.Compatibility;
+using VanillaPlusProfessions.Craftables;
+using VanillaPlusProfessions.Enchantments;
+using VanillaPlusProfessions.Managers;
+using VanillaPlusProfessions.Talents;
 using VanillaPlusProfessions.Talents.Patchers;
+using VanillaPlusProfessions.Talents.UI;
+using VanillaPlusProfessions.Utilities;
 
 namespace VanillaPlusProfessions
 {
@@ -34,30 +35,30 @@ namespace VanillaPlusProfessions
     {
         internal readonly static PerScreen<ModEntry> CoreModEntry = new(createNewState: () => new());
 
-        internal new IModHelper Helper;
-        internal IMonitor ModMonitor;
-        internal IManifest Manifest;
+        internal static new IModHelper Helper;
+        internal static IMonitor ModMonitor;
+        internal static IManifest Manifest;
 
-        internal IContentPatcher ContentPatcherAPI;
-        internal IGenericModConfigMenu GenericModConfigMenuAPI;
-        internal ISpaceCore SpaceCoreAPI;
-        internal IWearMoreRings WearMoreRingsAPI;
-        internal IItemExtensions ItemExtensionsAPI;
-        internal IBetterGameMenuApi BetterGameMenuAPI;
-        internal IExtraAnimalConfigApi ExtraAnimalConfigAPI;
+        internal static IContentPatcher ContentPatcherAPI;
+        internal static IGenericModConfigMenu GenericModConfigMenuAPI;
+        internal static ISpaceCore SpaceCoreAPI;
+        internal static IWearMoreRings WearMoreRingsAPI;
+        internal static IItemExtensions ItemExtensionsAPI;
+        internal static IBetterGameMenuApi BetterGameMenuAPI;
+        internal static IExtraAnimalConfigApi ExtraAnimalConfigAPI;
 
-        internal VanillaPlusProfessionsAPI VanillaPlusProfessionsAPI = new();
+        internal static VanillaPlusProfessionsAPI VanillaPlusProfessionsAPI = new();
 
-        internal CustomQueries CustomQueries = new();
-        internal Harmony Harmony { get; } = new("KediDili.VanillaPlusProfessions");
+        internal static CustomQueries CustomQueries = new();
+        internal static Harmony Harmony { get; } = new("KediDili.VanillaPlusProfessions");
 
         internal static IProfessionManager[] Managers = new IProfessionManager[6];
-        internal int[] levelExperiences;
+        internal static int[] levelExperiences;
         internal static GameLocation EmptyCritterRoom;
 
         internal bool IsUninstalling;
         internal bool IsRecalculatingPoints;
-        internal Config ModConfig = new();
+        internal static Config ModConfig = new();
 
         //So mods can access it without needing reflection.
         public static Dictionary<string, Profession> Professions = new();
@@ -65,29 +66,29 @@ namespace VanillaPlusProfessions
         public override void Entry(IModHelper helper)
         {
             CoreModEntry.Value = this;
-            CoreModEntry.Value.Helper = helper;
-            CoreModEntry.Value.ModMonitor = Monitor;
-            CoreModEntry.Value.Manifest = ModManifest;
+            Helper = helper;
+            ModMonitor = Monitor;
+            Manifest = ModManifest;
 
-            CoreModEntry.Value.ModConfig = Helper.ReadConfig<Config>();
-            CoreModEntry.Value.levelExperiences = Helper.Data.ReadJsonFile<int[]>("assets/levelExperiences.json");
+            ModConfig = Helper.ReadConfig<Config>();
+            levelExperiences = Helper.Data.ReadJsonFile<int[]>("assets/levelExperiences.json");
             Professions = Helper.Data.ReadJsonFile<Dictionary<string, Profession>>("assets/professions.json");
 
             ContentEditor.CoreContentEditor.Value.Initialize(this);
             DisplayHandler.CoreDisplayHandler.Value.Initialize(this);
 
-            CoreModEntry.Value.Helper.Events.GameLoop.GameLaunched += OnGameLaunched;
-            CoreModEntry.Value.Helper.Events.Input.ButtonPressed += OnButtonPressed;
-            CoreModEntry.Value.Helper.Events.Input.ButtonReleased += OnButtonReleased;
-            CoreModEntry.Value.Helper.Events.GameLoop.DayStarted += DayStartHandler.OnDayStarted;
-            CoreModEntry.Value.Helper.Events.GameLoop.DayEnding += OnDayEnding;
-            CoreModEntry.Value.Helper.Events.GameLoop.SaveLoaded += OnSaveLoaded;
-            CoreModEntry.Value.Helper.Events.Player.LevelChanged += OnLevelChanged;
-            CoreModEntry.Value.Helper.Events.Player.Warped += OnWarped;
-            CoreModEntry.Value.Helper.Events.GameLoop.UpdateTicked += OnUpdateTicked;
-            CoreModEntry.Value.Helper.Events.World.ObjectListChanged += OnInventoryChanged;
-            CoreModEntry.Value.Helper.Events.Multiplayer.PeerConnected += OnPeerConnected;
-            CoreModEntry.Value.Helper.Events.Multiplayer.PeerContextReceived += OnPeerContextReceived;
+            Helper.Events.GameLoop.GameLaunched += OnGameLaunched;
+            Helper.Events.Input.ButtonPressed += OnButtonPressed;
+            Helper.Events.Input.ButtonReleased += OnButtonReleased;
+            Helper.Events.GameLoop.DayStarted += DayStartHandler.OnDayStarted;
+            Helper.Events.GameLoop.DayEnding += OnDayEnding;
+            Helper.Events.GameLoop.SaveLoaded += OnSaveLoaded;
+            Helper.Events.Player.LevelChanged += OnLevelChanged;
+            Helper.Events.Player.Warped += OnWarped;
+            Helper.Events.GameLoop.UpdateTicked += OnUpdateTicked;
+            Helper.Events.World.ObjectListChanged += OnInventoryChanged;
+            Helper.Events.Multiplayer.PeerConnected += OnPeerConnected;
+            Helper.Events.Multiplayer.PeerContextReceived += OnPeerContextReceived;
 
             CorePatcher.ApplyPatches();
             TalentCore.TalentCoreEntry.Value.Initialize(this);
@@ -95,13 +96,13 @@ namespace VanillaPlusProfessions
             CraftablePatcher.ApplyPatches();
             MachineryPatcher.ApplyPatches();
 
-            CoreModEntry.Value.Helper.ConsoleCommands.Add("vpp.removeAll", "Removes all professions, talents and metadata added by Vanilla Plus Professions if added true after writing the command. Use only for testing or uninstalling.", CoreUtility.remove);
-            CoreModEntry.Value.Helper.ConsoleCommands.Add("vpp.recalculatepoints", "Recalculates all talent points, useful for existing saves that are being loaded for the first time with this mod.", CoreUtility.recalculate);
-            CoreModEntry.Value.Helper.ConsoleCommands.Add("vpp.details", "Prints out skill related information. Might be useful for troubleshooting.", CoreUtility.details);
-            CoreModEntry.Value.Helper.ConsoleCommands.Add("vpp.reset", "Can be used to reset professions added by VPP. First parameter is the level (15 or 20), second is the level (0 - Farming, 1 - Fishing, 2 - Foraging, 3 - Mining or 4 - Combat)", ManagerUtility.reset);
-            CoreModEntry.Value.Helper.ConsoleCommands.Add("vpp.showXPLeft", "Shows how much XP left for the next level in all vanilla skills.", CoreUtility.showXPLeft);
-            CoreModEntry.Value.Helper.ConsoleCommands.Add("vpp.clearTrinkets", "It's a dummy command, supposed to be used ONLY by the mod's devs or beta users when instructed.", CoreUtility.clearTrinkets);
-            CoreModEntry.Value.Helper.ConsoleCommands.Add("vpp.test", "It's a dummy command, supposed to be used ONLY by the mod's devs or beta users when instructed.", CoreUtility.Test);
+            Helper.ConsoleCommands.Add("vpp.removeAll", "Removes all professions, talents and metadata added by Vanilla Plus Professions if added true after writing the command. Use only for testing or uninstalling.", CoreUtility.remove);
+            Helper.ConsoleCommands.Add("vpp.recalculatepoints", "Recalculates all talent points, useful for existing saves that are being loaded for the first time with this mod.", CoreUtility.recalculate);
+            Helper.ConsoleCommands.Add("vpp.details", "Prints out skill related information. Might be useful for troubleshooting.", CoreUtility.details);
+            Helper.ConsoleCommands.Add("vpp.reset", "Can be used to reset professions added by VPP. First parameter is the level (15 or 20), second is the level (0 - Farming, 1 - Fishing, 2 - Foraging, 3 - Mining or 4 - Combat)", ManagerUtility.reset);
+            Helper.ConsoleCommands.Add("vpp.showXPLeft", "Shows how much XP left for the next level in all vanilla skills.", CoreUtility.showXPLeft);
+            Helper.ConsoleCommands.Add("vpp.clearTrinkets", "It's a dummy command, supposed to be used ONLY by the mod's devs or beta users when instructed.", CoreUtility.clearTrinkets);
+            Helper.ConsoleCommands.Add("vpp.test", "It's a dummy command, supposed to be used ONLY by the mod's devs or beta users when instructed.", CoreUtility.Test);
 
             Managers = new IProfessionManager[] { new FarmingManager(), new MiningManager(), new ForagingManager(), new FishingManager(), new CombatManager(), new ComboManager() };
 
@@ -115,110 +116,109 @@ namespace VanillaPlusProfessions
         }
         public override object GetApi(IModInfo mod)
         {
-            CoreModEntry.Value.ModMonitor.Log("Mod with the name of " + mod.Manifest.Name + " and with the unique ID of " + mod.Manifest.UniqueID + " has requested the API.");
-            return CoreModEntry.Value.VanillaPlusProfessionsAPI;
+            ModMonitor.Log("Mod with the name of " + mod.Manifest.Name + " and with the unique ID of " + mod.Manifest.UniqueID + " has requested the API.");
+            return VanillaPlusProfessionsAPI;
         }
 
         public void OnGameLaunched(object sender, GameLaunchedEventArgs e)
         {
-            ModEntry me = GetMe();
-            DisplayHandler.CoreDisplayHandler.Value.XPDisplayInstalled = me.Helper.ModRegistry.IsLoaded("Shockah.XPDisplay");
-            if (me.ModConfig.MasteryCaveChanges != 10 && me.ModConfig.MasteryCaveChanges != 15 && me.ModConfig.MasteryCaveChanges != 20)
+            DisplayHandler.XPDisplayInstalled = Helper.ModRegistry.IsLoaded("Shockah.XPDisplay");
+            if (ModConfig.MasteryCaveChanges != 10 && ModConfig.MasteryCaveChanges != 15 && ModConfig.MasteryCaveChanges != 20)
             {
-                me.ModConfig.MasteryCaveChanges = 20;
-                me.ModMonitor.Log("Mastery Cave Changes was changed to an invalid value. Modified it to 20.", LogLevel.Warn);
+                ModConfig.MasteryCaveChanges = 20;
+                ModMonitor.Log("Mastery Cave Changes was changed to an invalid value. Modified it to 20.", LogLevel.Warn);
             }
             try
             {
-                me.ContentPatcherAPI = me.Helper.ModRegistry.GetApi<IContentPatcher>(Constants.ModId_ContentPatcher);
-                me.GenericModConfigMenuAPI = me.Helper.ModRegistry.GetApi<IGenericModConfigMenu>(Constants.ModId_GenericModConfigMenu);
-                me.SpaceCoreAPI = me.Helper.ModRegistry.GetApi<ISpaceCore>(Constants.ModId_SpaceCore);
-                me.WearMoreRingsAPI = me.Helper.ModRegistry.GetApi<IWearMoreRings>(Constants.ModId_WearMoreRings);
-                me.ItemExtensionsAPI = me.Helper.ModRegistry.GetApi<IItemExtensions>(Constants.ModId_ItemExtensions);
-                me.BetterGameMenuAPI = me.Helper.ModRegistry.GetApi<IBetterGameMenuApi>(Constants.ModId_BetterGameMenu);
-                me.ExtraAnimalConfigAPI = me.Helper.ModRegistry.GetApi<IExtraAnimalConfigApi>(Constants.ModId_ExtraAnimalConfig);
+                ContentPatcherAPI = Helper.ModRegistry.GetApi<IContentPatcher>(Constants.ModId_ContentPatcher);
+                GenericModConfigMenuAPI = Helper.ModRegistry.GetApi<IGenericModConfigMenu>(Constants.ModId_GenericModConfigMenu);
+                SpaceCoreAPI = Helper.ModRegistry.GetApi<ISpaceCore>(Constants.ModId_SpaceCore);
+                WearMoreRingsAPI = Helper.ModRegistry.GetApi<IWearMoreRings>(Constants.ModId_WearMoreRings);
+                ItemExtensionsAPI = Helper.ModRegistry.GetApi<IItemExtensions>(Constants.ModId_ItemExtensions);
+                BetterGameMenuAPI = Helper.ModRegistry.GetApi<IBetterGameMenuApi>(Constants.ModId_BetterGameMenu);
+                ExtraAnimalConfigAPI = Helper.ModRegistry.GetApi<IExtraAnimalConfigApi>(Constants.ModId_ExtraAnimalConfig);
             }
             catch (Exception)
             {
-                me.ModMonitor.Log("Something has seriously gone wrong with an API request. This could indicate VPP's versions of APIs being out of date, outright the wrong type or some other error. Little to no interactions may work this session.");
+                ModMonitor.Log("Something has seriously gone wrong with an API request. This could indicate VPP's versions of APIs being out of date, outright the wrong type or some other error. Little to no interactions may work this session.", LogLevel.Warn);
             }
 
-            me.CustomQueries.Initialize();
+            CustomQueries.Initialize();
             DisplayHandler.CoreDisplayHandler.Value.InitializeBetterGameMenu();
 
-            if (me.ContentPatcherAPI is not null)
+            if (ContentPatcherAPI is not null)
             {
-                me.ContentPatcherAPI.RegisterToken(me.Manifest, "HasProfessions", GetProfessions);
-                me.ContentPatcherAPI.RegisterToken(me.Manifest, "HasTalents", new HasTalents());
-                me.ContentPatcherAPI.RegisterToken(me.Manifest, "ContentPaths", new ContentPaths());
-                me.ContentPatcherAPI.RegisterToken(me.Manifest, "ProfessionsOnly", () => new string[] { me.ModConfig.ProfessionsOnly.ToString() });
+                ContentPatcherAPI.RegisterToken(Manifest, "HasProfessions", GetProfessions);
+                ContentPatcherAPI.RegisterToken(Manifest, "HasTalents", new HasTalents());
+                ContentPatcherAPI.RegisterToken(Manifest, "ContentPaths", new ContentPaths());
+                ContentPatcherAPI.RegisterToken(Manifest, "ProfessionsOnly", () => new string[] { ModConfig.ProfessionsOnly.ToString() });
             }
             else
-                me.ModMonitor.Log("Content Patcher is either not installed or there was a problem while requesting the API. Skipping token additions.", LogLevel.Info);
-            if (me.GenericModConfigMenuAPI is not null)
+                ModMonitor.Log("Content Patcher is either not installed or there was a problem while requesting the API. Skipping token additions.", LogLevel.Info);
+            if (GenericModConfigMenuAPI is not null)
             {
-                me.GenericModConfigMenuAPI.Register(me.Manifest, () => me.ModConfig = new Config(), () => SaveConfig());
-                me.GenericModConfigMenuAPI.AddSectionTitle(me.Manifest, () => me.Helper.Translation.Get("GMCM.MainOptionsSection.Name"));
-                me.GenericModConfigMenuAPI.AddBoolOption(me.Manifest, () => me.ModConfig.ColorBlindnessChanges, value => me.ModConfig.ColorBlindnessChanges = value, () => me.Helper.Translation.Get("GMCM.ColorBlindnessChanges.Name"), () => me.Helper.Translation.Get("GMCM.ColorBlindnessChanges.Desc"));
-                me.GenericModConfigMenuAPI.AddBoolOption(me.Manifest, () => me.ModConfig.DeveloperOrTestingMode, value => me.ModConfig.DeveloperOrTestingMode = value, () => me.Helper.Translation.Get("GMCM.DeveloperOrTestingMode.Name"), () => me.Helper.Translation.Get("GMCM.DeveloperOrTestingMode.Desc"));
-                me.GenericModConfigMenuAPI.AddNumberOption(me.Manifest, () => me.ModConfig.MasteryCaveChanges, value => me.ModConfig.MasteryCaveChanges = (int)value, () => me.Helper.Translation.Get("GMCM.MasteryCaveChanges.Name"), () => me.Helper.Translation.Get("GMCM.MasteryCaveChanges.Desc"), 10, 20, 5);
-                me.GenericModConfigMenuAPI.AddBoolOption(me.Manifest, () => me.ModConfig.StaminaCostAdjustments, value => me.ModConfig.StaminaCostAdjustments = value, () => me.Helper.Translation.Get("GMCM.StaminaCostAdjustments.Name"), () => me.Helper.Translation.Get("GMCM.StaminaCostAdjustments.Desc"));
-                me.GenericModConfigMenuAPI.AddBoolOption(me.Manifest, () => me.ModConfig.ProfessionsOnly, value => me.ModConfig.ProfessionsOnly = value, () => me.Helper.Translation.Get("GMCM.ProfessionsOnly.Name"), () => me.Helper.Translation.Get("GMCM.ProfessionsOnly.Desc"));
-                me.GenericModConfigMenuAPI.AddTextOption(me.Manifest, () => me.ModConfig.TalentHintLevel, value => me.ModConfig.TalentHintLevel = value, () => me.Helper.Translation.Get("GMCM.TalentHintLevel.Name"), () => me.Helper.Translation.Get("GMCM.TalentHintLevel.Desc"), new string[] { "Hidden", "Partial", "Full" }, option => me.Helper.Translation.Get($"GMCM.TalentHintLevel.Options.{option}"));
-                me.GenericModConfigMenuAPI.AddKeybindList(me.Manifest, () => me.ModConfig.TalentMenuKeybind, value => me.ModConfig.TalentMenuKeybind = value, () => me.Helper.Translation.Get("GMCM.TalentMenuKeybind.Name"), () => me.Helper.Translation.Get("GMCM.TalentMenuKeybind.Desc"));
-                me.GenericModConfigMenuAPI.AddSectionTitle(me.Manifest, () => me.Helper.Translation.Get("GMCM.BalanceSection.Name"));
-                me.GenericModConfigMenuAPI.AddParagraph(me.Manifest, () => me.Helper.Translation.Get("GMCM.BalanceSection.Paragraph"));
+                GenericModConfigMenuAPI.Register(Manifest, () => ModConfig = new Config(), () => SaveConfig());
+                GenericModConfigMenuAPI.AddSectionTitle(Manifest, () => Helper.Translation.Get("GMCM.MainOptionsSection.Name"));
+                GenericModConfigMenuAPI.AddBoolOption(Manifest, () => ModConfig.ColorBlindnessChanges, value => ModConfig.ColorBlindnessChanges = value, () => Helper.Translation.Get("GMCM.ColorBlindnessChanges.Name"), () => Helper.Translation.Get("GMCM.ColorBlindnessChanges.Desc"));
+                GenericModConfigMenuAPI.AddBoolOption(Manifest, () => ModConfig.DeveloperOrTestingMode, value => ModConfig.DeveloperOrTestingMode = value, () => Helper.Translation.Get("GMCM.DeveloperOrTestingMode.Name"), () => Helper.Translation.Get("GMCM.DeveloperOrTestingMode.Desc"));
+                GenericModConfigMenuAPI.AddNumberOption(Manifest, () => ModConfig.MasteryCaveChanges, value => ModConfig.MasteryCaveChanges = (int)value, () => Helper.Translation.Get("GMCM.MasteryCaveChanges.Name"), () => Helper.Translation.Get("GMCM.MasteryCaveChanges.Desc"), 10, 20, 5);
+                GenericModConfigMenuAPI.AddBoolOption(Manifest, () => ModConfig.StaminaCostAdjustments, value => ModConfig.StaminaCostAdjustments = value, () => Helper.Translation.Get("GMCM.StaminaCostAdjustments.Name"), () => Helper.Translation.Get("GMCM.StaminaCostAdjustments.Desc"));
+                GenericModConfigMenuAPI.AddBoolOption(Manifest, () => ModConfig.ProfessionsOnly, value => ModConfig.ProfessionsOnly = value, () => Helper.Translation.Get("GMCM.ProfessionsOnly.Name"), () => Helper.Translation.Get("GMCM.ProfessionsOnly.Desc"));
+                GenericModConfigMenuAPI.AddTextOption(Manifest, () => ModConfig.TalentHintLevel, value => ModConfig.TalentHintLevel = value, () => Helper.Translation.Get("GMCM.TalentHintLevel.Name"), () => Helper.Translation.Get("GMCM.TalentHintLevel.Desc"), new string[] { "Hidden", "Partial", "Full" }, option => Helper.Translation.Get($"GMCM.TalentHintLevel.Options.{option}"));
+                GenericModConfigMenuAPI.AddKeybindList(Manifest, () => ModConfig.TalentMenuKeybind, value => ModConfig.TalentMenuKeybind = value, () => Helper.Translation.Get("GMCM.TalentMenuKeybind.Name"), () => Helper.Translation.Get("GMCM.TalentMenuKeybind.Desc"));
+                GenericModConfigMenuAPI.AddSectionTitle(Manifest, () => Helper.Translation.Get("GMCM.BalanceSection.Name"));
+                GenericModConfigMenuAPI.AddParagraph(Manifest, () => Helper.Translation.Get("GMCM.BalanceSection.Paragraph"));
                 //Chances
-                me.GenericModConfigMenuAPI.AddNumberOption(me.Manifest, () => me.ModConfig.CycleOfLife_Chance, value => me.ModConfig.CycleOfLife_Chance = value, () => me.Helper.Translation.Get("GMCM.CycleOfLifeChance.Name"), () => me.Helper.Translation.Get("GMCM.CycleOfLifeChance.Desc"));
-                me.GenericModConfigMenuAPI.AddNumberOption(me.Manifest, () => me.ModConfig.WildGrowth_Chance, value => me.ModConfig.WildGrowth_Chance = value, () => me.Helper.Translation.Get("GMCM.WildGrowthChance.Name"), () => me.Helper.Translation.Get("GMCM.WildGrowthChance.Desc"));
-                me.GenericModConfigMenuAPI.AddNumberOption(me.Manifest, () => me.ModConfig.Fallout_Chance, value => me.ModConfig.Fallout_Chance = value, () => me.Helper.Translation.Get("GMCM.FalloutChance.Name"), () => me.Helper.Translation.Get("GMCM.FalloutChance.Desc"));
-                me.GenericModConfigMenuAPI.AddNumberOption(me.Manifest, () => me.ModConfig.Volatility_Chance, value => me.ModConfig.Volatility_Chance = value, () => me.Helper.Translation.Get("GMCM.VolatilityChance.Name"), () => me.Helper.Translation.Get("GMCM.VolatilityChance.Desc"));
-                me.GenericModConfigMenuAPI.AddNumberOption(me.Manifest, () => me.ModConfig.CrystalCavern_Chance, value => me.ModConfig.CrystalCavern_Chance = value, () => me.Helper.Translation.Get("GMCM.CrystalCavernChance.Name"), () => me.Helper.Translation.Get("GMCM.CrystalCavernChance.Desc"));
-                me.GenericModConfigMenuAPI.AddNumberOption(me.Manifest, () => me.ModConfig.Upheaval_Chance, value => me.ModConfig.Upheaval_Chance = value, () => me.Helper.Translation.Get("GMCM.UpheavalChance.Name"), () => me.Helper.Translation.Get("GMCM.UpheavalChance.Desc"));
-                me.GenericModConfigMenuAPI.AddNumberOption(me.Manifest, () => me.ModConfig.SpawningSeason_Chance, value => me.ModConfig.SpawningSeason_Chance = value, () => me.Helper.Translation.Get("GMCM.SpawningSeasonChance.Name"), () => me.Helper.Translation.Get("GMCM.SpawningSeasonChance.Desc"));
+                GenericModConfigMenuAPI.AddNumberOption(Manifest, () => ModConfig.CycleOfLife_Chance, value => ModConfig.CycleOfLife_Chance = value, () => Helper.Translation.Get("GMCM.CycleOfLifeChance.Name"), () => Helper.Translation.Get("GMCM.CycleOfLifeChance.Desc"));
+                GenericModConfigMenuAPI.AddNumberOption(Manifest, () => ModConfig.WildGrowth_Chance, value => ModConfig.WildGrowth_Chance = value, () => Helper.Translation.Get("GMCM.WildGrowthChance.Name"), () => Helper.Translation.Get("GMCM.WildGrowthChance.Desc"));
+                GenericModConfigMenuAPI.AddNumberOption(Manifest, () => ModConfig.Fallout_Chance, value => ModConfig.Fallout_Chance = value, () => Helper.Translation.Get("GMCM.FalloutChance.Name"), () => Helper.Translation.Get("GMCM.FalloutChance.Desc"));
+                GenericModConfigMenuAPI.AddNumberOption(Manifest, () => ModConfig.Volatility_Chance, value => ModConfig.Volatility_Chance = value, () => Helper.Translation.Get("GMCM.VolatilityChance.Name"), () => Helper.Translation.Get("GMCM.VolatilityChance.Desc"));
+                GenericModConfigMenuAPI.AddNumberOption(Manifest, () => ModConfig.CrystalCavern_Chance, value => ModConfig.CrystalCavern_Chance = value, () => Helper.Translation.Get("GMCM.CrystalCavernChance.Name"), () => Helper.Translation.Get("GMCM.CrystalCavernChance.Desc"));
+                GenericModConfigMenuAPI.AddNumberOption(Manifest, () => ModConfig.Upheaval_Chance, value => ModConfig.Upheaval_Chance = value, () => Helper.Translation.Get("GMCM.UpheavalChance.Name"), () => Helper.Translation.Get("GMCM.UpheavalChance.Desc"));
+                GenericModConfigMenuAPI.AddNumberOption(Manifest, () => ModConfig.SpawningSeason_Chance, value => ModConfig.SpawningSeason_Chance = value, () => Helper.Translation.Get("GMCM.SpawningSeasonChance.Name"), () => Helper.Translation.Get("GMCM.SpawningSeasonChance.Desc"));
                 //multipliers
-                me.GenericModConfigMenuAPI.AddNumberOption(me.Manifest, () => me.ModConfig.Aquaculturalist_Multiplier, value => me.ModConfig.Aquaculturalist_Multiplier = value, () => me.Helper.Translation.Get("GMCM.AquaculturalistMultiplier.Name"), () => me.Helper.Translation.Get("GMCM.AquaculturalistMultiplier.Desc"));
-                me.GenericModConfigMenuAPI.AddNumberOption(me.Manifest, () => me.ModConfig.Admiration_Multiplier, value => me.ModConfig.Admiration_Multiplier = value, () => me.Helper.Translation.Get("GMCM.AdmirationMultiplier.Name"), () => me.Helper.Translation.Get("GMCM.AdmirationMultiplier.Desc"));
+                GenericModConfigMenuAPI.AddNumberOption(Manifest, () => ModConfig.Aquaculturalist_Multiplier, value => ModConfig.Aquaculturalist_Multiplier = value, () => Helper.Translation.Get("GMCM.AquaculturalistMultiplier.Name"), () => Helper.Translation.Get("GMCM.AquaculturalistMultiplier.Desc"));
+                GenericModConfigMenuAPI.AddNumberOption(Manifest, () => ModConfig.Admiration_Multiplier, value => ModConfig.Admiration_Multiplier = value, () => Helper.Translation.Get("GMCM.AdmirationMultiplier.Name"), () => Helper.Translation.Get("GMCM.AdmirationMultiplier.Desc"));
                 //whole numbers
-                me.GenericModConfigMenuAPI.AddNumberOption(me.Manifest, () => me.ModConfig.Meditation_Health, value => me.ModConfig.Meditation_Health = value, () => me.Helper.Translation.Get("GMCM.MeditationHealth.Name"), () => me.Helper.Translation.Get("GMCM.MeditationHealth.Desc"));
-                me.GenericModConfigMenuAPI.AddNumberOption(me.Manifest, () => me.ModConfig.DownInTheDepths_Stones, value => me.ModConfig.DownInTheDepths_Stones = value, () => me.Helper.Translation.Get("GMCM.DownInTheDepthsStones.Name"), () => me.Helper.Translation.Get("GMCM.DownInTheDepthsStones.Desc"));
+                GenericModConfigMenuAPI.AddNumberOption(Manifest, () => ModConfig.Meditation_Health, value => ModConfig.Meditation_Health = value, () => Helper.Translation.Get("GMCM.MeditationHealth.Name"), () => Helper.Translation.Get("GMCM.MeditationHealth.Desc"));
+                GenericModConfigMenuAPI.AddNumberOption(Manifest, () => ModConfig.DownInTheDepths_Stones, value => ModConfig.DownInTheDepths_Stones = value, () => Helper.Translation.Get("GMCM.DownInTheDepthsStones.Name"), () => Helper.Translation.Get("GMCM.DownInTheDepthsStones.Desc"));
             }
 
             else
-                me.ModMonitor.Log("Generic Mod Config Menu is either not installed or there was a problem while requesting the API. The config menu wont be created.", LogLevel.Info);
-            if (me.SpaceCoreAPI is null)
-                me.ModMonitor.Log("SpaceCore is either not installed or there was a problem while requesting the API. If its the latter, custom skill mod integrations will not work.", LogLevel.Info);
+                ModMonitor.Log("Generic Mod Config Menu is either not installed or there was a problem while requesting the API. The config menu wont be created.", LogLevel.Info);
+            if (SpaceCoreAPI is null)
+                ModMonitor.Log("SpaceCore is either not installed or there was a problem while requesting the API. If its the latter, custom skill mod integrations will not work.", LogLevel.Info);
             else
             {
-                me.SpaceCoreAPI.RegisterSerializerType(typeof(ParrotPerch));
-                me.SpaceCoreAPI.RegisterSerializerType(typeof(TrinketRing));
-                me.SpaceCoreAPI.RegisterSerializerType(typeof(SlingshotEnchantment));
-                me.SpaceCoreAPI.RegisterSerializerType(typeof(ThriftyEnchantment));
-                me.SpaceCoreAPI.RegisterSerializerType(typeof(BatKillerEnchantment));
-                me.SpaceCoreAPI.RegisterSerializerType(typeof(AutoFireEnchantment));
-                me.SpaceCoreAPI.RegisterSerializerType(typeof(RapidEnchantment));
+                SpaceCoreAPI.RegisterSerializerType(typeof(ParrotPerch));
+                SpaceCoreAPI.RegisterSerializerType(typeof(TrinketRing));
+                SpaceCoreAPI.RegisterSerializerType(typeof(SlingshotEnchantment));
+                SpaceCoreAPI.RegisterSerializerType(typeof(ThriftyEnchantment));
+                SpaceCoreAPI.RegisterSerializerType(typeof(BatKillerEnchantment));
+                SpaceCoreAPI.RegisterSerializerType(typeof(AutoFireEnchantment));
+                SpaceCoreAPI.RegisterSerializerType(typeof(RapidEnchantment));
             }
 
-            if (me.WearMoreRingsAPI is null)
+            if (WearMoreRingsAPI is null)
             {
-                me.ModMonitor.Log("Wear More Rings is either not installed or there was a problem while requesting the API. If its the latter, custom ring slots will not be recognized by this mod.", LogLevel.Info);
+                ModMonitor.Log("Wear More Rings is either not installed or there was a problem while requesting the API. If its the latter, custom ring slots will not be recognized by this mod.", LogLevel.Info);
             }
 
-            if (me.ItemExtensionsAPI is null)
+            if (ItemExtensionsAPI is null)
             {
-                me.ModMonitor.Log("Item Extensions is either not installed or there was a problem while requesting the API. If its the latter; custom gem, ore and stone nodes will not be recognized by this mod.", LogLevel.Info);
+                ModMonitor.Log("Item Extensions is either not installed or there was a problem while requesting the API. If its the latter; custom gem, ore and stone nodes will not be recognized by this mod.", LogLevel.Info);
             }
         }
 
         public void SaveConfig()
         {
             ModEntry me = GetMe();
-            if (me.ModConfig.MasteryCaveChanges != 10 && me.ModConfig.MasteryCaveChanges != 15 && me.ModConfig.MasteryCaveChanges != 20)
+            if (ModConfig.MasteryCaveChanges != 10 && ModConfig.MasteryCaveChanges != 15 && ModConfig.MasteryCaveChanges != 20)
             {
-                me.ModConfig.MasteryCaveChanges = 20;
-                me.ModMonitor.Log("Mastery Cave Changes was changed to an invalid value. Modified it to 20.", LogLevel.Warn);
+                ModConfig.MasteryCaveChanges = 20;
+                ModMonitor.Log("Mastery Cave Changes was changed to an invalid value. Modified it to 20.", LogLevel.Warn);
             }
-            me.Helper.WriteConfig(ModConfig);
+            Helper.WriteConfig(ModConfig);
         }
 
         public static ModEntry GetMe()
@@ -251,8 +251,8 @@ namespace VanillaPlusProfessions
         {
             if (menu is GameMenu gameMenu)
                 return gameMenu.GetCurrentPage();
-            if (CoreModEntry.Value.BetterGameMenuAPI != null && menu != null)
-                return CoreModEntry.Value.BetterGameMenuAPI.GetCurrentPage(menu);
+            if (BetterGameMenuAPI != null && menu != null)
+                return BetterGameMenuAPI.GetCurrentPage(menu);
             return null;
         }
 
@@ -260,14 +260,14 @@ namespace VanillaPlusProfessions
         {
             if (menu is GameMenu)
                 return true;
-            if (CoreModEntry.Value.BetterGameMenuAPI != null)
-                return CoreModEntry.Value.BetterGameMenuAPI.AsMenu(menu) != null;
+            if (BetterGameMenuAPI != null)
+                return BetterGameMenuAPI.AsMenu(menu) != null;
             return false;
         }
 
         public static IEnumerable<string> GetTalents()
         {
-            if (!Context.IsWorldReady || CoreModEntry.Value.ModConfig.ProfessionsOnly)
+            if (!Context.IsWorldReady || ModConfig.ProfessionsOnly)
             {
                 yield return null;
                 yield break;
@@ -280,7 +280,7 @@ namespace VanillaPlusProfessions
                 }
             }
         }
-        private void OnInventoryChanged(object sender, ObjectListChangedEventArgs e)
+        internal void OnInventoryChanged(object sender, ObjectListChangedEventArgs e)
         {
             foreach (var item in e.Added)
             {
@@ -291,7 +291,7 @@ namespace VanillaPlusProfessions
                 }
             }
         }
-        private void OnSaveLoaded(object sender, SaveLoadedEventArgs e)
+        internal void OnSaveLoaded(object sender, SaveLoadedEventArgs e)
         {
             Utility.ForEachItem(item =>
             {
@@ -348,14 +348,31 @@ namespace VanillaPlusProfessions
 
                 if (e.NewLocation is not null && shaft is not null)
                 {
-                    if (CoreUtility.CurrentPlayerHasProfession(Constants.Profession_MineForage, useThisInstead: e.Player) && Game1.random.NextBool(0.15) && shaft.getMineArea(shaft.mineLevel) is 80 && !shaft.rainbowLights.Value)
+                    if (CoreUtility.CurrentPlayerHasProfession(Constants.Profession_MineForage, useThisInstead: e.Player))
                     {
-                        shaft.rainbowLights.Value = true;
-                        if (Context.IsMainPlayer && Context.HasRemotePlayers)
+                        if (Game1.random.NextBool(0.15) && shaft.getMineArea(shaft.mineLevel) is 80 && !shaft.rainbowLights.Value)
                         {
-                            CoreModEntry.Value.Helper.Multiplayer.SendMessage(true, Manifest.UniqueID + "/MushroomLevel", new string[] { Manifest.UniqueID });
+                            shaft.rainbowLights.Value = true;
+                            if (Context.HasRemotePlayers && !Context.IsMainPlayer)
+                            {
+                                Helper.Multiplayer.SendMessage(Game1.player.currentLocation.NameOrUniqueName, Manifest.UniqueID + "/MushroomLevel", new string[] { Manifest.UniqueID }, new long[] { Game1.MasterPlayer.UniqueMultiplayerID });
+                            }
                         }
                     }
+                    /*
+                     Bütün oyuncular aynı anda gidebilir.
+                     Sadece bir oyuncu gidebilir.
+                     Sadece iki-yedi oyuncu gidebilir.
+
+                     O halde kod mantığı nasıl olmalı.
+
+                     Sadece hosta değil de, ilk giden kişiye göre mi yapsak?
+                     Ama MP'de her şey host üzerinden dönüyor zaten o yüzden host şartını koyduk.
+                     O zaman şey olsa ilk kişi girdiğinde şeedip hosta postalasın ondan sonra herkese yayılır?
+                     Ama o zaman da eğer bir kişi host gelmeden oradan çıkarsa herkese bozuk bir versiyon yayılır.
+                    Ama niye önemli olsun ki anında gerçekleşiyor her şey ve muhtemelen hosta da bilgi gidiyordur
+                    Denemek lazım, olabilir.
+                     */
                     if (TalentUtility.AllPlayersHaveTalent(Constants.Talent_Fallout) && shaft.getMineArea() is 80 or 121)
                     {
                         List<Vector2> validcoords = (from tileobjpair in e.NewLocation.Objects.Pairs
@@ -366,7 +383,7 @@ namespace VanillaPlusProfessions
                         Dictionary<Vector2, string> CoordinatesForMP = new();
                         for (int i = 0; i < validcoords.Count; i++)
                         {
-                            if (Game1.random.NextBool(CoreModEntry.Value.ModConfig.Fallout_Chance * shaft.mineLevel))
+                            if (Game1.random.NextBool(ModConfig.Fallout_Chance * shaft.mineLevel))
                             {
                                 e.NewLocation.Objects[validcoords[i]] = ItemRegistry.Create<StardewValley.Object>("95");
                                 e.NewLocation.Objects[validcoords[i]].MinutesUntilReady = 25;
@@ -374,9 +391,9 @@ namespace VanillaPlusProfessions
                                 success = true;
                             }
                         }
-                        if (success && Context.IsMainPlayer && Context.HasRemotePlayers)
+                        if (success && Context.HasRemotePlayers)
                         {
-                            CoreModEntry.Value.Helper.Multiplayer.SendMessage(CoordinatesForMP, Manifest.UniqueID + "/SwitchMineStones", new string[] { Manifest.UniqueID });
+                            Helper.Multiplayer.SendMessage(CoordinatesForMP, Manifest.UniqueID + "/SwitchMineStones", new string[] { Manifest.UniqueID });
                         }
                     }
                     if (TalentUtility.AllPlayersHaveTalent(Constants.Talent_DownInTheDepths))
@@ -405,7 +422,7 @@ namespace VanillaPlusProfessions
                         }
                         if (success && Context.IsMainPlayer && Context.HasRemotePlayers)
                         {
-                            CoreModEntry.Value.Helper.Multiplayer.SendMessage(CoordinatesForMP, Manifest.UniqueID + "/SwitchMineStones", new string[] { Manifest.UniqueID });
+                            Helper.Multiplayer.SendMessage(CoordinatesForMP, Manifest.UniqueID + "/SwitchMineStones", new string[] { Manifest.UniqueID });
                         }
                     }
                 }
@@ -486,7 +503,7 @@ namespace VanillaPlusProfessions
                                         trinket.modData[Constants.Key_HiddenBenefit_FairyBox] = (int.Parse(trinket.modData[Constants.Key_HiddenBenefit_FairyBox]) + 1).ToString();
                                     }
                                     else
-                                        Game1.showGlobalMessage(CoreModEntry.Value.Helper.Translation.Get("Message.FairyBreak"));
+                                        Game1.showGlobalMessage(Helper.Translation.Get("Message.FairyBreak"));
                                 }
                                 else
                                     shouldGrow = true;
@@ -495,18 +512,18 @@ namespace VanillaPlusProfessions
                                     if (!dirt.crop.modData.TryAdd(Constants.Key_HiddenBenefit_Crop, "true"))
                                     {
                                         if (dirt.crop.modData[Constants.Key_HiddenBenefit_Crop] == "true")
-                                            Game1.showGlobalMessage(CoreModEntry.Value.Helper.Translation.Get("Message.AlreadyFertilized"));
+                                            Game1.showGlobalMessage(Helper.Translation.Get("Message.AlreadyFertilized"));
                                         else
                                         {
                                             Game1.playSound("wand");
                                             dirt.crop.modData[Constants.Key_HiddenBenefit_Crop] = "true";
-                                            Game1.showGlobalMessage(CoreModEntry.Value.Helper.Translation.Get("Message.Fertilized"));
+                                            Game1.showGlobalMessage(Helper.Translation.Get("Message.Fertilized"));
                                         }
                                     }
                                     else
                                     {
                                         Game1.playSound("wand");
-                                        Game1.showGlobalMessage(CoreModEntry.Value.Helper.Translation.Get("Message.Fertilized"));
+                                        Game1.showGlobalMessage(Helper.Translation.Get("Message.Fertilized"));
                                         dirt.crop.modData[Constants.Key_HiddenBenefit_Crop] = "true";
                                     }
                                 }
@@ -547,6 +564,25 @@ namespace VanillaPlusProfessions
                     {
                         Game1.player.currentLocation.Objects[e.Cursor.Tile] = new ParrotPerch(e.Cursor.Tile, "Kedi.VPP.HiddenBenefits.ParrotPerch", false);
                     }
+                    else if (Game1.player.currentLocation.Objects.TryGetValue(e.Cursor.Tile, out value2) && value2 is not CrabPot && value2.QualifiedItemId.EndsWith("WaterLight"))
+                    {
+                        //Water Lights
+
+                        var obj3 = new CrabPot
+                        {
+                            ItemId = "",
+                            Stack = 1,
+                        };
+                        obj3.ResetParentSheetIndex();
+                        if (Game1.objectData.TryGetValue("itemId", out var value3345))
+                        {
+                            obj3.Name = value3345.Name ?? ItemRegistry.GetDataOrErrorItem(obj3.QualifiedItemId).InternalName;
+                            obj3.Price = value3345.Price;
+                            obj3.Category = value3345.Category;
+                        }
+
+                        Game1.player.currentLocation.Objects[e.Cursor.Tile] = obj3;
+                    }
                     else if (Game1.player.ActiveObject?.Category == StardewValley.Object.litterCategory && !Game1.player.currentLocation.Objects.ContainsKey(e.Cursor.GrabTile))
                     {
                         if (Game1.player.currentLocation.Objects.TryAdd(e.Cursor.GrabTile, Game1.player.ActiveObject.getOne() as StardewValley.Object) && Game1.player.Tile != e.Cursor.GrabTile)
@@ -569,14 +605,14 @@ namespace VanillaPlusProfessions
                         {
                             chest.GetMutex().RequestLock(chest.ShowMenu);
                         }
-                        if (value3.ItemId == Constants.Id_GlowingCrystal && Game1.player.ActiveItem.Category is StardewValley.Object.mineralsCategory or StardewValley.Object.GemCategory)
+                        if (value3.ItemId == Constants.Id_GlowingCrystal && Game1.player.ActiveItem?.Category is StardewValley.Object.mineralsCategory or StardewValley.Object.GemCategory)
                         {
                             value3.lightSource.color.Value = TailoringMenu.GetDyeColor(Game1.player.ActiveItem) ?? value3.lightSource.color.Value;
                             Color color = new Color(value3.lightSource.color.Value.R + 100, value3.lightSource.color.Value.G + 100, value3.lightSource.color.Value.B + 100, 255);
                             Game1.player.currentLocation.sharedLights[value3.lightSource.Id].color.Value = new(255 - color.R, 255 - color.G, 255 - color.B);
                             value3.modData[Constants.Key_GlowingCrystalColor] = $"{color.R},{color.G},{color.B},{color.A}";
                         }
-                        else if (value3.isLamp.Value)
+                        else if (value3.isLamp.Value && value3.lightSource is not null)
                         {
                             value3.lightSource.color.Value = new Color(255, 255, 255) * 0.25f;
                             Game1.player.currentLocation.sharedLights[value3.lightSource.Id].color.Value = new Color(0, 0, 0);
@@ -635,7 +671,7 @@ namespace VanillaPlusProfessions
                         Game1.player.gainExperience(3, 250);
                         Game1.player.currentLocation.playSound("shwip");
                         var msg = HUDMessage.ForItemGained(Game1.player.ActiveObject, 1, "ElderScrolls");
-                        msg.message = CoreModEntry.Value.Helper.Translation.Get("Message.ReadDwarfScroll");
+                        msg.message = Helper.Translation.Get("Message.ReadDwarfScroll");
                         Game1.addHUDMessage(msg);
                         if (Game1.player.ActiveObject.ConsumeStack(1) is null)
                         {
@@ -833,7 +869,7 @@ namespace VanillaPlusProfessions
             }
             if (IsGameMenu(Game1.activeClickableMenu))
             {
-                if ((e.Button.IsUseToolButton() || e.Button.IsActionButton()) && DisplayHandler.CoreDisplayHandler.Value.OpenTalentMenuCooldown && !ModConfig.ProfessionsOnly)
+                if ((e.Button.IsUseToolButton() || e.Button.IsActionButton()) && DisplayHandler.CoreDisplayHandler.Value.OpenTalentMenuCooldown)
                 {
                     var menuPage = GetGameMenuPage(Game1.activeClickableMenu);
                     if (menuPage is SkillsPage page)
@@ -842,6 +878,11 @@ namespace VanillaPlusProfessions
                         {
                             if (page.skillAreas[i].containsPoint(Game1.getMouseX(true), Game1.getMouseY(true)))
                             {
+                                if (ModConfig.ProfessionsOnly)
+                                {
+                                    Game1.addHUDMessage(new("Talent System is Disabled by Professions Only config.", HUDMessage.newQuest_type));
+                                    break;
+                                }
                                 //Do not standardize the skill index!!
                                 Game1.activeClickableMenu = new TalentSelectionMenu(i, this);
                             }
@@ -853,6 +894,11 @@ namespace VanillaPlusProfessions
                         {
                             if (pagee.skillAreas[i].containsPoint(Game1.getMouseX(true), Game1.getMouseY(true)))
                             {
+                                if (ModConfig.ProfessionsOnly)
+                                {
+                                    Game1.addHUDMessage(new("Talent System is Disabled by Professions Only config.", HUDMessage.newQuest_type));
+                                    break;
+                                }
                                 //Do not standardize the skill index!!
                                 Game1.activeClickableMenu = new TalentSelectionMenu(i, this);
                             }
@@ -1062,7 +1108,7 @@ namespace VanillaPlusProfessions
                 {
                     loc.modData[Constants.Key_WasRainingHere] = loc.IsRainingHere().ToString().ToLower();
                 }
-                foreach (var obj in loc.Objects.Values)
+                /*foreach (var obj in loc.Objects.Values)
                 {
                     if (obj.isForage() && CraftablePatcher.ForageCropLocations.TryGetValue(obj.Location.NameOrUniqueName, out List<Vector2> tiles1))
                     {
@@ -1071,7 +1117,7 @@ namespace VanillaPlusProfessions
                             obj.modData.TryAdd(Constants.Key_VPPDeluxeForage, "");
                         }
                     }
-                }
+                }*/
                 return true;
             });
             BuildingHandler.OnDayEnding();

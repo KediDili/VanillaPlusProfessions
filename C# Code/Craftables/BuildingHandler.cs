@@ -77,16 +77,16 @@ namespace VanillaPlusProfessions.Craftables
                                 interior.resourceClumps.Add(clump);
                                 //break;
                             }
-                            else if (ModEntry.CoreModEntry.Value.ItemExtensionsAPI is not null)
+                            else if (ModEntry.ItemExtensionsAPI is not null)
                             {
                                 if (!interior.modData.TryAdd(Constants.Key_ClumpSaveName, $"{clumpToSpawn}/{item.Value.TileLocation.X}+{item.Value.TileLocation.Y}"))
                                 {
                                     interior.modData[Constants.Key_ClumpSaveName] += $"||{clumpToSpawn}/{item.Value.TileLocation.X}+{item.Value.TileLocation.Y}";
                                 }
-                                ModEntry.CoreModEntry.Value.ItemExtensionsAPI.TrySpawnClump(clumpToSpawn, item.Value.TileLocation, interior, out string error, true);
+                                ModEntry.ItemExtensionsAPI.TrySpawnClump(clumpToSpawn, item.Value.TileLocation, interior, out string error, true);
                                 if (!string.IsNullOrEmpty(error))
                                 {
-                                    ModEntry.CoreModEntry.Value.ModMonitor.Log(error, StardewModdingAPI.LogLevel.Error);
+                                    ModEntry.ModMonitor.Log(error, StardewModdingAPI.LogLevel.Error);
                                 }
                                 foreach (var clump in interior.resourceClumps)
                                 {
@@ -175,12 +175,12 @@ namespace VanillaPlusProfessions.Craftables
                         {
                             interior.resourceClumps.Add(new(result, 2, 2, tile));
                         }
-                        else if(ModEntry.CoreModEntry.Value.ItemExtensionsAPI is not null)
+                        else if(ModEntry.ItemExtensionsAPI is not null)
                         {
-                            ModEntry.CoreModEntry.Value.ItemExtensionsAPI.TrySpawnClump(Seperated[0], tile, interior, out string error, true);
+                            ModEntry.ItemExtensionsAPI.TrySpawnClump(Seperated[0], tile, interior, out string error, true);
                             if (error is not null)
                             {
-                                ModEntry.CoreModEntry.Value.ModMonitor.Log(error, StardewModdingAPI.LogLevel.Error);
+                                ModEntry.ModMonitor.Log(error, StardewModdingAPI.LogLevel.Error);
                             }
                         }
                     }

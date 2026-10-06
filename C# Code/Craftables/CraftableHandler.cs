@@ -68,7 +68,7 @@ namespace VanillaPlusProfessions.Craftables
                 }
                 else if (obj.ItemId == Constants.Id_MossyFertilizer)
                 {
-                    if (who.currentLocation.terrainFeatures.TryGetValue(ModEntry.CoreModEntry.Value.Helper.Input.GetCursorPosition().GrabTile, out var feature) && feature is Tree tree)
+                    if (who.currentLocation.terrainFeatures.TryGetValue(ModEntry.Helper.Input.GetCursorPosition().GrabTile, out var feature) && feature is Tree tree)
                     {
                         if (!tree.modData.TryGetValue(Constants.Key_MossyFertilizer, out string val) || val is not null and "false")
                         {
@@ -77,12 +77,12 @@ namespace VanillaPlusProfessions.Craftables
                             item.ConsumeStack(1);
                         }
                         else
-                            Game1.pauseThenMessage(250, ModEntry.CoreModEntry.Value.Helper.Translation.Get("Message.MossyFertilizer"));
+                            Game1.pauseThenMessage(250, ModEntry.Helper.Translation.Get("Message.MossyFertilizer"));
                     }
                 }
                 else if (obj.ItemId == Constants.Id_NodeLifter)
                 {
-                    Vector2 tile = ModEntry.CoreModEntry.Value.Helper.Input.GetCursorPosition().GrabTile;
+                    Vector2 tile = ModEntry.Helper.Input.GetCursorPosition().GrabTile;
                     if (who.currentLocation.Objects.TryGetValue(tile, out var obj2) && obj2.Category == StardewValley.Object.litterCategory)
                     {
                         if (Utility.canItemBeAddedToThisInventoryList(obj2, Game1.player.Items))
@@ -137,7 +137,7 @@ namespace VanillaPlusProfessions.Craftables
                 }
                 if (applied)
                 {
-                    Game1.pauseThenMessage(2000, ModEntry.CoreModEntry.Value.Helper.Translation.Get(GetSuccessString(location.GetSeason(), effect)));
+                    Game1.pauseThenMessage(2000, ModEntry.Helper.Translation.Get(GetSuccessString(location.GetSeason(), effect)));
                     obj.ConsumeStack(1);
                 }
             }
@@ -362,7 +362,7 @@ namespace VanillaPlusProfessions.Craftables
             }
             if (count == 0)
             {
-                Game1.activeClickableMenu = new DialogueBox(ModEntry.CoreModEntry.Value.Helper.Translation.Get("Message.TotemFailed"));
+                Game1.activeClickableMenu = new DialogueBox(ModEntry.Helper.Translation.Get("Message.TotemFailed"));
             }
             else
             {

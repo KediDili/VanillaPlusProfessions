@@ -5,6 +5,7 @@ using VanillaPlusProfessions.Managers;
 using StardewModdingAPI.Events;
 using StardewValley.Buildings;
 using StardewValley.Objects;
+using StardewValley.Objects.Trinkets;
 using StardewValley.TerrainFeatures;
 using StardewValley.Tools;
 using StardewValley;
@@ -19,6 +20,8 @@ using VanillaPlusProfessions.Craftables;
 using StardewValley.GameData.FruitTrees;
 using StardewValley.GameData.Locations;
 using StardewValley.Internal;
+using StardewModdingAPI;
+using StardewValley.Locations;
 
 namespace VanillaPlusProfessions
 {
@@ -62,10 +65,12 @@ namespace VanillaPlusProfessions
                     Game1.player.trinketItems.Add(trinketRing.GetRingTrinket());
                 }
             }
-
-            MachineryEventHandler.BirdsOnFeeders.Clear();
-            ModEntry.EmptyCritterRoom ??= Game1.getLocationFromNameInLocationsList("KediDili.VPPData.CP_EmptyCritterRoom");
-            TalentCore.VoidButterflyLocation = Game1.random.ChooseFrom(Constants.VoidButterfly_Locations);
+            if (Context.IsMainPlayer || !Context.HasRemotePlayers)
+            {
+                MachineryEventHandler.BirdsOnFeeders.Clear();
+                ModEntry.EmptyCritterRoom ??= Game1.getLocationFromNameInLocationsList("KediDili.VPPData.CP_EmptyCritterRoom");
+                TalentCore.VoidButterflyLocation = Game1.random.ChooseFrom(Constants.VoidButterfly_Locations);
+            }
 
             bool RefreshingWaters = TalentUtility.CurrentPlayerHasTalent(Constants.Talent_RefreshingWaters),
             Caretaker = CoreUtility.AnyPlayerHasProfession(Constants.Profession_Caretaker), 
@@ -116,9 +121,12 @@ namespace VanillaPlusProfessions
                     return true;
                 }, false, false);
             }
-            MachineryEventHandler.DrillLocations = new();
-            MachineryEventHandler.ThermalReactorLocations = new();
-            MachineryEventHandler.NodeMakerLocations = new();
+            if (Context.IsMainPlayer || !Context.HasRemotePlayers)
+            {
+                MachineryEventHandler.DrillLocations = new();
+                MachineryEventHandler.ThermalReactorLocations = new();
+                MachineryEventHandler.NodeMakerLocations = new();
+            }
 
             Utility.ForEachLocation(location => HandleForEachLocation(location, GoodSoaking, LocalKnowledge), true, false);
 
@@ -176,8 +184,8 @@ namespace VanillaPlusProfessions
                         if (!farmer.modData.TryAdd(Constants.Key_ForageGuessItemID, chosenNewForage))
                             farmer.modData[Constants.Key_ForageGuessItemID] = chosenNewForage;
 
-                        if (!Game1.doesHUDMessageExist(ModEntry.CoreModEntry.Value.Helper.Translation.Get("Message.ForageBubbleReset")))
-                            Game1.addHUDMessage(new(ModEntry.CoreModEntry.Value.Helper.Translation.Get("Message.ForageBubbleReset"), HUDMessage.newQuest_type));
+                        if (!Game1.doesHUDMessageExist(ModEntry.Helper.Translation.Get("Message.ForageBubbleReset")))
+                            Game1.addHUDMessage(new(ModEntry.Helper.Translation.Get("Message.ForageBubbleReset"), HUDMessage.newQuest_type));
                     }
                 }
             }
@@ -189,10 +197,12 @@ namespace VanillaPlusProfessions
                         continue;
                     foreach (var item in location.terrainFeatures.Values)
                     {
-                        if (item is FruitTree tree) 
+                        if (item is FruitTree tree)
                         {
                             for (int i = 0; i < tree.fruit.Count; i++)
+                            {
                                 tree.fruit[i].Quality = 4;
+                            }
                         }
                     }
                 }
@@ -218,18 +228,19 @@ namespace VanillaPlusProfessions
                 }
             }
             var data = location.GetData();
-            if (LocalKnowledge && location.getTotalForageItems() < data?.MaxSpawnedForageAtOnce)
+            if (LocalKnowledge && data is not null && !location.modData.ContainsKey(Constants.Key_LocalKnowledge_Banned) && location is not FarmCave && !location.IsGreenhouse)
             {
                 IEnumerable<Vector2> tiles = from objs in location.Objects.Pairs
-                                      where objs.Value.isForage()
-                                      select objs.Key;
+                                             where objs.Value.isForage() && objs.Value.SpecialVariable != 724519 //724519 is a number for forage crops assigned by vanilla
+                                             select objs.Key;
+
                 foreach (var tile in tiles)
                 {
                     location.Objects.Remove(tile);
                 }
                 Season season = location.GetSeason();
 
-                List<SpawnForageData> possibleForage = new List<SpawnForageData>();
+                List<SpawnForageData> possibleForage = new();
                 foreach (SpawnForageData spawn in GameLocation.GetData("Default").Forage.Concat(data.Forage))
                 {
                     if ((spawn.Condition == null || GameStateQuery.CheckConditions(spawn.Condition, location)) && (!spawn.Season.HasValue || spawn.Season == season))
@@ -341,7 +352,7 @@ namespace VanillaPlusProfessions
                             animal.fullness.Value = 255;
                         }
 
-                        if (WildGrowth && Game1.random.NextBool(ModEntry.CoreModEntry.Value.ModConfig.WildGrowth_Chance))
+                        if (WildGrowth && Game1.random.NextBool(ModEntry.ModConfig.WildGrowth_Chance))
                         {
                             foreach (var item in animalHouse.Objects.Pairs)
                             {
@@ -527,16 +538,16 @@ namespace VanillaPlusProfessions
                         Random r = new();
                         string bait = crabPot.bait.Value?.ItemId ?? "685";
                         Farmer who = Game1.GetPlayer(crabPot.owner.Value, true) ?? Game1.MasterPlayer;
-                        StardewValley.Object @object = (StardewValley.Object)crabPot.Location.getFish(1f, bait, r.Next(1, 5), who, 5, crabPot.TileLocation);
+                        StardewValley.Object object2 = (StardewValley.Object)crabPot.Location.getFish(1f, bait, r.Next(1, 5), who, 5, crabPot.TileLocation);
                         do
                         {
-                            @object = (StardewValley.Object)crabPot.Location.getFish(1f, bait, r.Next(1, 5), who, 5, crabPot.TileLocation);
-                        } while (@object?.HasContextTag("fish_legendary") is true || @object?.HasContextTag("trash_item") is true); //so that you dont get legendaries in crabpots 
+                            object2 = (StardewValley.Object)crabPot.Location.getFish(1f, bait, r.Next(1, 5), who, 5, crabPot.TileLocation);
+                        } while (object2?.HasContextTag("fish_legendary") is true || object2?.HasContextTag("trash_item") is true); //so that you dont get legendaries in crabpots 
 
                         if (crabPot.heldObject.Value is null || crabPot.heldObject.Value?.HasContextTag("trash_item") is true)
                         {
                             if (FishTrap && r.NextBool(0.20))
-                                crabPot.heldObject.Value = @object;
+                                crabPot.heldObject.Value = object2;
                             if (DeadMansChest && r.NextBool(0.1))
                                 crabPot.heldObject.Value = ItemRegistry.Create("(O)275") as StardewValley.Object;
                             if (CrabRave && r.NextBool(0.1) && crabPot.owner.Value == Game1.player.UniqueMultiplayerID)
@@ -645,6 +656,11 @@ namespace VanillaPlusProfessions
                     chest.SpecialChestType = MiniFridgeBigSpace
                         ? Chest.SpecialChestTypes.BigChest
                         : chest.SpecialChestType;
+                }
+
+                if (bigcraftable is Trinket trinket && trinket.modData.ContainsKey(Constants.Key_HiddenBenefit_FairyBox))
+                {
+                    trinket.modData[Constants.Key_HiddenBenefit_FairyBox] = "1";
                 }
             }
             return true;

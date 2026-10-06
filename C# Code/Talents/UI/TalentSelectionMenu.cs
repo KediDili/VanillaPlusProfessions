@@ -56,8 +56,8 @@ namespace VanillaPlusProfessions.Talents.UI
                 modEntry.IsRecalculatingPoints = false;
             }
 
-            JunimoNote = modEntry.Helper.GameContent.Load<Texture2D>("LooseSprites\\JunimoNote");
-            TalentBG = modEntry.Helper.GameContent.Load<Texture2D>(ContentEditor.ContentPaths["TalentBG"]);
+            JunimoNote = ModEntry.Helper.GameContent.Load<Texture2D>("LooseSprites\\JunimoNote");
+            TalentBG = ModEntry.Helper.GameContent.Load<Texture2D>(ContentEditor.ContentPaths["TalentBG"]);
 
             width = 640;
             height = 360;
@@ -100,22 +100,22 @@ namespace VanillaPlusProfessions.Talents.UI
             
             ResetMessages = new string[]
             {
-                modEntry.Helper.Translation.Get("Talent.ResetMessages.ItemMissing"),
-                modEntry.Helper.Translation.Get("Talent.ResetMessages.SettleTreeFirst"),
-                modEntry.Helper.Translation.Get("Talent.ResetMessages.SettleFullFirst"),
-                modEntry.Helper.Translation.Get("Talent.ResetMessages.ResetAll"),
-                modEntry.Helper.Translation.Get("Talent.ResetMessages.ResetTree"),
-                modEntry.Helper.Translation.Get("Talent.ResetMessages.Confirm"),
-                modEntry.Helper.Translation.Get("Talent.ResetMessages.BoughtNone"),
-                modEntry.Helper.Translation.Get("Talent.ResetMessages.AbortReset"),
+                ModEntry.Helper.Translation.Get("Talent.ResetMessages.ItemMissing"),
+                ModEntry.Helper.Translation.Get("Talent.ResetMessages.SettleTreeFirst"),
+                ModEntry.Helper.Translation.Get("Talent.ResetMessages.SettleFullFirst"),
+                ModEntry.Helper.Translation.Get("Talent.ResetMessages.ResetAll"),
+                ModEntry.Helper.Translation.Get("Talent.ResetMessages.ResetTree"),
+                ModEntry.Helper.Translation.Get("Talent.ResetMessages.Confirm"),
+                ModEntry.Helper.Translation.Get("Talent.ResetMessages.BoughtNone"),
+                ModEntry.Helper.Translation.Get("Talent.ResetMessages.AbortReset"),
             };
             skillTrees = new();
 
             foreach (var branch in TalentCore.Talents["MonsterSpecialist"].Branches)
             {
                 Talent.Branch branch2 = branch;
-                branch.DisplayName = str => modEntry.Helper.Translation.Get($"Talent.Branch.{branch2.Name}.Name");
-                branch.Desc = str => modEntry.Helper.Translation.Get($"Talent.Branch.{branch2.Name}.Desc");
+                branch.DisplayName = str => ModEntry.Helper.Translation.Get($"Talent.Branch.{branch2.Name}.Name");
+                branch.Desc = str => ModEntry.Helper.Translation.Get($"Talent.Branch.{branch2.Name}.Desc");
             }
 
             var farmingList = (from talent in TalentCore.Talents where talent.Value.Skill is "Farming" select talent.Value).ToList();
@@ -125,7 +125,7 @@ namespace VanillaPlusProfessions.Talents.UI
             var combatList = (from talent in TalentCore.Talents where talent.Value.Skill is "Combat" select talent.Value).ToList();
             var miscList = (from talent in TalentCore.Talents where talent.Value.Skill is "Misc" select talent.Value).ToList();
 
-            Texture2D AllTrees = modEntry.Helper.GameContent.Load<Texture2D>(ContentEditor.ContentPaths["TalentSchema"]);
+            Texture2D AllTrees = ModEntry.Helper.GameContent.Load<Texture2D>(ContentEditor.ContentPaths["TalentSchema"]);
 
             foreach (var item in TalentCore.Talents.Values)
             {
@@ -144,14 +144,14 @@ namespace VanillaPlusProfessions.Talents.UI
                 }
             }
 
-            skillTrees.Add(new(this, "Farming", modEntry.Helper.Translation.Get("Talent.Farming.Title"), AllTrees, farmingList, new(0, 0, 320, 180), 1));
-            skillTrees.Add(new(this, "Mining", modEntry.Helper.Translation.Get("Talent.Mining.Title"), AllTrees, miningList, new(320, 0, 320, 180), 5));
-            skillTrees.Add(new(this, "Foraging", modEntry.Helper.Translation.Get("Talent.Foraging.Title"), AllTrees, foragingList, new(0, 180, 320, 180), 0));
-            skillTrees.Add(new(this, "Fishing", modEntry.Helper.Translation.Get("Talent.Fishing.Title"), AllTrees, fishingList, new(320, 180, 320, 180), 3));
-            skillTrees.Add(new(this, "Combat", modEntry.Helper.Translation.Get("Talent.Combat.Title"), AllTrees, combatList, new(0, 360, 320, 180), 4));
+            skillTrees.Add(new(this, "Farming", ModEntry.Helper.Translation.Get("Talent.Farming.Title"), AllTrees, farmingList, new(0, 0, 320, 180), 1));
+            skillTrees.Add(new(this, "Mining", ModEntry.Helper.Translation.Get("Talent.Mining.Title"), AllTrees, miningList, new(320, 0, 320, 180), 5));
+            skillTrees.Add(new(this, "Foraging", ModEntry.Helper.Translation.Get("Talent.Foraging.Title"), AllTrees, foragingList, new(0, 180, 320, 180), 0));
+            skillTrees.Add(new(this, "Fishing", ModEntry.Helper.Translation.Get("Talent.Fishing.Title"), AllTrees, fishingList, new(320, 180, 320, 180), 3));
+            skillTrees.Add(new(this, "Combat", ModEntry.Helper.Translation.Get("Talent.Combat.Title"), AllTrees, combatList, new(0, 360, 320, 180), 4));
 
             //This order is important, because there is no skill named Misc
-            foreach (var tree in modEntry.VanillaPlusProfessionsAPI.CustomTalentTrees.Values)
+            foreach (var tree in ModEntry.VanillaPlusProfessionsAPI.CustomTalentTrees.Values)
             {
                 tree.MainMenu = this;
                 if (!tree.ButtonsCreated)
@@ -160,7 +160,7 @@ namespace VanillaPlusProfessions.Talents.UI
                 skillTrees.Add(tree);
             }
             //skillTrees.AddRange(ModEntry.VanillaPlusProfessionsAPI.CustomTalentTrees.Values);
-            skillTrees.Add(new(this, "Misc", modEntry.Helper.Translation.Get("Talent.Misc.Title"), AllTrees, miscList, new(320, 360, 320, 180), 5));
+            skillTrees.Add(new(this, "Misc", ModEntry.Helper.Translation.Get("Talent.Misc.Title"), AllTrees, miscList, new(320, 360, 320, 180), 5));
             CurrentSkill = skill;
             if (CurrentSkill > skillTrees.Count - 1)
             {
@@ -606,9 +606,9 @@ namespace VanillaPlusProfessions.Talents.UI
 
         protected override void cleanupBeforeExit()
         {
-            if (ModEntry.CoreModEntry.Value.VanillaPlusProfessionsAPI.RunBeforeTalentMenuCloses.Count > 0)
+            if (ModEntry.VanillaPlusProfessionsAPI.RunBeforeTalentMenuCloses.Count > 0)
             {
-                foreach (var item in ModEntry.CoreModEntry.Value.VanillaPlusProfessionsAPI.RunBeforeTalentMenuCloses)
+                foreach (var item in ModEntry.VanillaPlusProfessionsAPI.RunBeforeTalentMenuCloses)
                 {
                     IEnumerable<string> talents = item.Key.Intersect(TalentsToReset.Keys).ToList();
                     if (talents.Any())
@@ -626,15 +626,15 @@ namespace VanillaPlusProfessions.Talents.UI
                         }
                         catch (System.Exception e)
                         {
-                            ModEntry.CoreModEntry.Value.ModMonitor.Log($"There was an unexpected error while updating talents before talent menu was exited: {e}\n\nDo NOT report this to VPP's page, as this is very unlikely to be caused by it. Details of the method that threw the error: {item.Value.Method.DeclaringType.Assembly.FullName ?? "<could not be found>"} assembly, {item.Value.Method.DeclaringType.FullName ?? "<could not be found>"}", StardewModdingAPI.LogLevel.Warn);
+                            ModEntry.ModMonitor.Log($"There was an unexpected error while updating talents before talent menu was exited: {e}\n\nDo NOT report this to VPP's page, as this is very unlikely to be caused by it. Details of the method that threw the error: {item.Value.Method.DeclaringType.Assembly.FullName ?? "<could not be found>"} assembly, {item.Value.Method.DeclaringType.FullName ?? "<could not be found>"}", StardewModdingAPI.LogLevel.Warn);
                         }
                     }
                 }
             }
             //Known bug: If you use BGM with EnableMod config off, you'll still get the BGM menu. It's so minor honestly.
             IClickableMenu menu;
-            if (ModEntry.CoreModEntry.Value.BetterGameMenuAPI is not null)
-                menu = ModEntry.CoreModEntry.Value.BetterGameMenuAPI.CreateMenu(nameof(VanillaTabOrders.Skills));
+            if (ModEntry.BetterGameMenuAPI is not null)
+                menu = ModEntry.BetterGameMenuAPI.CreateMenu(nameof(VanillaTabOrders.Skills));
             else
                 menu = new GameMenu(GameMenu.skillsTab);
             DisplayHandler.CoreDisplayHandler.Value.OpenTalentMenuCooldown = true;

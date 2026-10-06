@@ -17,12 +17,12 @@ namespace VanillaPlusProfessions.Utilities
         {
             if (args.Length < 2)
             {
-                ModEntry.CoreModEntry.Value.ModMonitor.Log("Insufficient arguments.", LogLevel.Warn);
+                ModEntry.ModMonitor.Log("Insufficient arguments.", LogLevel.Warn);
                 return;
             }
             if (!Context.IsWorldReady)
             {
-                ModEntry.CoreModEntry.Value.ModMonitor.Log("Load a save first (or wait until your save loads).", LogLevel.Warn);
+                ModEntry.ModMonitor.Log("Load a save first (or wait until your save loads).", LogLevel.Warn);
                 return;
             }
             int skill = -1;
@@ -131,8 +131,8 @@ namespace VanillaPlusProfessions.Utilities
                     result.preserve.Value = (Object.PreserveType)1115;
                     result.preservedParentSheetIndex.Value = ingredient.ParentSheetIndex.ToString();
                     result.Name = result.displayName = ingredient.Name + " " + (value is Constants.Id_FruitSyrup ? "Syrup" : "Dust");
-                    result.displayName = ModEntry.CoreModEntry.Value.Helper.Translation.Get("Item." + (value is Constants.Id_FruitSyrup ? "Syrup" : "Dust") + ".ProduceNameFormat").ToString().Replace("{0}", ingredient.DisplayName);
-                    result.displayNameFormat = ModEntry.CoreModEntry.Value.Helper.Translation.Get("Item." + (value is Constants.Id_FruitSyrup ? "Syrup" : "Dust") + ".ProduceNameFormat").ToString().Replace("{0}", ingredient.DisplayName); ;
+                    result.displayName = ModEntry.Helper.Translation.Get("Item." + (value is Constants.Id_FruitSyrup ? "Syrup" : "Dust") + ".ProduceNameFormat").ToString().Replace("{0}", ingredient.DisplayName);
+                    result.displayNameFormat = ModEntry.Helper.Translation.Get("Item." + (value is Constants.Id_FruitSyrup ? "Syrup" : "Dust") + ".ProduceNameFormat").ToString().Replace("{0}", ingredient.DisplayName); ;
                     result.Price += ingredient.Price / 2;
                     if (value is Constants.Id_FruitSyrup && ingredient.Edibility != -300)
                         result.Edibility = ingredient.Edibility * 2;

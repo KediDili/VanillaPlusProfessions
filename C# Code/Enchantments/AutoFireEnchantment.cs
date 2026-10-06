@@ -11,7 +11,7 @@ namespace VanillaPlusProfessions.Enchantments
     {
         public AutoFireEnchantment() { }
 
-        public override string GetName() => ModEntry.CoreModEntry.Value.Helper.Translation.Get("Enchantments.AutoFire.Name");
+        public override string GetName() => ModEntry    .Helper.Translation.Get("Enchantments.AutoFire.Name");
 
         protected override void _OnShoot(GameLocation gameLocation, Slingshot slingshot)
         {

@@ -58,7 +58,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             }
             catch (Exception e)
             {
-                CoreUtility.PrintError(e, PatcherName, "Object.getDescription", "prefixed", true);
+                CoreUtility.PrintError(e, PatcherName, "Object.onExplosion", "prefixed", true);
             }
             return true;
         }
@@ -69,7 +69,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             {
                 if (Utility.IsGeode(__instance, true) && TalentUtility.CurrentPlayerHasTalent(Constants.Talent_Xray) && __instance.modData.TryGetValue(Constants.Key_XrayDrop, out string value) && value is not null or "")
                 {
-                    __result = Game1.parseText(__result.Replace("\n", "").Replace("\r", "") + " " + ModEntry.CoreModEntry.Value.Helper.Translation.Get("Item.Xray.GeodeDrop", new { dropName = ItemRegistry.GetData(value).DisplayName }), Game1.smallFont, ModEntry.CoreModEntry.Value.Helper.Reflection.GetMethod(__instance, "getDescriptionWidth").Invoke<int>(null));
+                    __result = Game1.parseText(__result.Replace("\n", "").Replace("\r", "") + " " + ModEntry.Helper.Translation.Get("Item.Xray.GeodeDrop", new { dropName = ItemRegistry.GetData(value).DisplayName }), Game1.smallFont, ModEntry.Helper.Reflection.GetMethod(__instance, "getDescriptionWidth").Invoke<int>(null));
                 }
             }
             catch (Exception e)

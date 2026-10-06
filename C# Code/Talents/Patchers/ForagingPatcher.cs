@@ -14,6 +14,8 @@ using VanillaPlusProfessions.Utilities;
 using StardewValley.Quests;
 using xTile.Dimensions;
 using StardewValley.Characters;
+using StardewValley.ItemTypeDefinitions;
+using StardewValley.Internal;
 
 namespace VanillaPlusProfessions.Talents.Patchers
 {
@@ -58,7 +60,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             );
             CoreUtility.PatchMethod(PatcherName, "CraftingPage.GetRecipesToDisplay",
                 original: AccessTools.Method(typeof(CraftingPage), "GetRecipesToDisplay"),
-                prefix: new HarmonyMethod(PatcherType, nameof(GetRecipesToDisplay_Prefix))
+                postfix: new HarmonyMethod(PatcherType, nameof(GetRecipesToDisplay_Prefix))
             );
 
             //Keep this under watch but... why?
@@ -144,15 +146,18 @@ namespace VanillaPlusProfessions.Talents.Patchers
             {
                 if (__instance.cooking && !TalentCore.TalentCoreEntry.Value.IsCookoutKit && __result is not null)
                 {
-                    List<string> listToEdit = __result;
+                    List<string> listToEdit = new();
                     foreach (var item in __result)
                     {
-                        if (ItemContextTagManager.HasBaseTag(ArgUtility.SplitQuoteAware(item, '/')[2], Constants.ContextTag_SurvivalCooking))
+                        if (ItemContextTagManager.HasBaseTag(ArgUtility.SplitQuoteAware(CraftingRecipe.cookingRecipes[item], '/')[2], Constants.ContextTag_SurvivalCooking))
                         {
-                            listToEdit.Remove(item);
+                            listToEdit.Add(item);
                         }
                     }
-                    __result = listToEdit;
+                    foreach (var item in listToEdit)
+                    {
+                        __result.Remove(item);
+                    }
                 }
             }
             catch (Exception e)
@@ -168,7 +173,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
                 if (__instance.hasSeed.Value && __instance.modData.ContainsKey(Constants.Key_Reforestation) && TalentUtility.CurrentPlayerHasTalent(Constants.Talent_Reforestation) && __instance.growthStage.Value is 5)
                 {
                     WildTreeData data = __instance.GetData();
-                    if (data != null && data.SeedDropItems?.Count > 0)
+                    if (data != null && data?.SeedDropItems?.Count > 0)
                     {
                         foreach (WildTreeSeedDropItemData drop in data.SeedDropItems)
                         {
@@ -249,15 +254,43 @@ namespace VanillaPlusProfessions.Talents.Patchers
                 {
                     if (TalentUtility.AnyPlayerHasTalent(Constants.Talent_NatureSecrets) && __instance.Location?.GetData()?.Forage?.Count > 0)
                     {
-                        List<string> strings = (from forageData in __instance.Location.GetData().Forage
+                        /*List<string> strings = (from forageData in __instance.Location.GetData().Forage
                                                 where GameStateQuery.CheckConditions(forageData.Condition, __instance.Location ?? t.getLastFarmerToUse().currentLocation ?? Game1.player.currentLocation, t.getLastFarmerToUse() ?? Game1.player)
                                                 && (forageData.Season is null || (forageData.Season is not null && Game1.season == forageData.Season))
-                                                select forageData.ItemId).ToList();
-
+                                                select forageData.ItemId).ToList();*/
+                        List<string> strings = new();
+                        var list = __instance.Location.GetData().Forage;
+                        foreach (var forageData in list)
+                        {
+                            if (forageData.Season is null || (forageData.Season is not null && Game1.season == forageData.Season))
+                            {
+                                if (GameStateQuery.CheckConditions(forageData.Condition, __instance.Location ?? t.getLastFarmerToUse().currentLocation ?? Game1.player.currentLocation, t.getLastFarmerToUse() ?? Game1.player))
+                                {
+                                    string stringToAdd = "";
+                                    stringToAdd = forageData.ItemId;
+                                    if (!ItemRegistry.Exists("(O)"+ forageData.ItemId) && !string.IsNullOrWhiteSpace(forageData.ItemId))
+                                    {
+                                        object item = ItemQueryResolver.TryResolveRandomItem(forageData, null, true);
+                                        if (item is not null)
+                                        {
+                                            stringToAdd = (item as Item).ItemId;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        stringToAdd = Game1.random.ChooseFrom(forageData.RandomItemId).Replace("(O)", "");
+                                    }
+                                    strings.Add(stringToAdd);
+                                }
+                            }
+                        }
                         strings.RemoveWhere(str => string.IsNullOrEmpty(str) || !TalentUtility.EligibleForForagePerks(str, Constants.Talent_NatureSecrets) || !ItemRegistry.Exists("(O)" + str));
-
                         if (strings.Count > 0)
                         {
+                            /*for (int i = 0; i < strings.Count; i++)
+                            {
+                                ModEntry.GetMe().Monitor.Log(strings[i], StardewModdingAPI.LogLevel.Debug);
+                            }*/
                             Game1.createObjectDebris(Game1.random.ChooseFrom(strings), (int)__instance.Tile.X, (int)__instance.Tile.Y, __instance.Location);
                         }
                     }
@@ -378,7 +411,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             }
             catch (Exception e)
             {
-                CoreUtility.PrintError(e, PatcherName, "Bush.dayUpdate", "postfixed", true);
+                CoreUtility.PrintError(e, PatcherName, "Bush.inBloom", "postfixed", true);
             }
         }
 

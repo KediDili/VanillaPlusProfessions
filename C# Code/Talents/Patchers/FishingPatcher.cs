@@ -213,7 +213,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
                             stack++;
                         }
                     }
-                    if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_SpawningSeason, __instance.owner.Value) && Game1.random.NextBool(ModEntry.CoreModEntry.Value.ModConfig.SpawningSeason_Chance))
+                    if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_SpawningSeason, __instance.owner.Value) && Game1.random.NextBool(ModEntry.ModConfig.SpawningSeason_Chance))
                     {
                         stack++;
                     }

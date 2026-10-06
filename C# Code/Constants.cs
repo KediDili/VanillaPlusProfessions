@@ -51,7 +51,7 @@ namespace VanillaPlusProfessions
         public const string Key_Resurgence = "Kedi.VPP.Resurgence";
         public const string Key_SlowerSliming = "Kedi.VPP.SlowerSliming";
         public const string Key_FaeBlessings = "Kedi.VPP.FaeBlessings";
-        public const string Key_LocalKnowledge = "Kedi.VPP.LocalKnowledge";
+        public const string Key_LocalKnowledge_Banned = "Kedi.VPP.LocalKnowledge.Banned";
         public const string Key_WasRainingHere = "Kedi.VPP.WasRainingHere";
         public const string Key_DownInTheDepths = "Kedi.VPP.DownInTheDepths";
         public const string Key_WildGrowth = "Kedi.VPP.WildGrowth";
@@ -128,7 +128,7 @@ namespace VanillaPlusProfessions
         public const string Id_NodeLifter = "KediDili.VPPData.CP_NodeLifter";
         public const string Id_GlowingCrystal = "KediDili.VPPData.CP_GlowingCrystal";
 
-        public readonly static List<string> VoidButterfly_Locations = new() { "WitchSwamp", "BugLair", "Sewers", "PirateCove", "Railroad", "BusTunnel", "UndergroundMines121", "Caldera" };
+        public readonly static List<string> VoidButterfly_Locations = new() { "BusTunnel", "WitchSwamp", "BugLair", "Sewers", "PirateCove", "Railroad", "BusTunnel", "Caldera" };
         public readonly static List<string> Fertilizer_Ids = new() { "(O)368", "(O)369", "(O)919", "(O)370", "(O)371", "(O)920", "(O)465", "(O)466", "(O)918" };
         public readonly static List<List<string>> Fertilizer_Color_Tags = new() {
             new() { "color_orange", "color_yellow", "color_brown", "color_sand", "color_poppyseed", "color_dark_orange", "color_dark_yellow", "color_gold", "color_copper" },

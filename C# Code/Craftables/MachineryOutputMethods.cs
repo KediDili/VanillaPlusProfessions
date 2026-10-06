@@ -2,7 +2,6 @@
 using StardewValley;
 using StardewValley.GameData.Objects;
 using StardewValley.Extensions;
-using VanillaPlusProfessions.Utilities;
 
 namespace VanillaPlusProfessions.Craftables
 {

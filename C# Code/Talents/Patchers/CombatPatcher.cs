@@ -128,7 +128,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
         {
             try
             {
-                if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_Accessorise, who: f) && ModEntry.CoreModEntry.Value.ModConfig.MasteryCaveChanges > 10)
+                if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_Accessorise, who: f) && ModEntry.ModConfig.MasteryCaveChanges > 10)
                 {
                     __result = f.CombatLevel >= 10;
                 }
@@ -178,7 +178,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
                     MachineryEventHandler.DrillLocations[currentLocName] = vectors;
                     if (Context.HasRemotePlayers)
                     {
-                        ModEntry.CoreModEntry.Value.Helper.Multiplayer.SendMessage(vectors, "KediDili.VanillaPlusProfessions/DrillLocationData" , new string[] { "KediDili.VanillaPlusProfessions" });
+                        ModEntry.Helper.Multiplayer.SendMessage(vectors, "KediDili.VanillaPlusProfessions/DrillLocationData" , new string[] { "KediDili.VanillaPlusProfessions" });
                     }
                 }
                 else if (__instance.ItemId == Constants.Id_ThermalReactor)
@@ -196,7 +196,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
                     MachineryEventHandler.ThermalReactorLocations[currentLocName] = vectors;
                     if (Context.HasRemotePlayers)
                     {
-                        ModEntry.CoreModEntry.Value.Helper.Multiplayer.SendMessage(vectors, "KediDili.VanillaPlusProfessions/ThermalReactorLocationData", new string[] { "KediDili.VanillaPlusProfessions" });
+                        ModEntry.Helper.Multiplayer.SendMessage(vectors, "KediDili.VanillaPlusProfessions/ThermalReactorLocationData", new string[] { "KediDili.VanillaPlusProfessions" });
                     }
                 }
                 else if (__instance.ItemId == Constants.Id_NodeMaker)
@@ -214,7 +214,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
                     MachineryEventHandler.NodeMakerLocations[currentLocName] = vectors;
                     if (Context.HasRemotePlayers)
                     {
-                        ModEntry.CoreModEntry.Value.Helper.Multiplayer.SendMessage(vectors, "KediDili.VanillaPlusProfessions/NodeMakerLocationData", new string[] { "KediDili.VanillaPlusProfessions" });
+                        ModEntry.Helper.Multiplayer.SendMessage(vectors, "KediDili.VanillaPlusProfessions/NodeMakerLocationData", new string[] { "KediDili.VanillaPlusProfessions" });
                     }
                 }
                
@@ -306,7 +306,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
             }
             catch (Exception e)
             {
-                CoreUtility.PrintError(e, PatcherName, "RainbowHairTrinketEffect.OnUnApply", "transpiled", true);
+                CoreUtility.PrintError(e, PatcherName, "GameLocation.damageMonster", "transpiled", true);
             }
             return instructions;
         }
@@ -484,7 +484,7 @@ namespace VanillaPlusProfessions.Talents.Patchers
                     who.buffs.Remove("13");
                     BuffEffects dsdsd = new();
                     dsdsd.Speed.Value = 1;
-                    who.buffs.Apply(new("VPP.Slippery.Speed", "talents", "Slippery Talent", 20000, ModEntry.CoreModEntry.Value.Helper.GameContent.Load<Texture2D>(ContentEditor.ContentPaths["ItemSpritesheet"]), 28, dsdsd, false, Game1.parseText(ModEntry.CoreModEntry.Value.Helper.Translation.Get("Buff.Slippery.Name")), Game1.parseText(ModEntry.CoreModEntry.Value.Helper.Translation.Get("Buff.Slippery.Desc"), Game1.smallFont, TalentUtility.BuffDescriptionLength(ModEntry.CoreModEntry.Value.Helper.Translation.Get("Buff.Slippery.Name")))));
+                    who.buffs.Apply(new("VPP.Slippery.Speed", "talents", "Slippery Talent", 20000, ModEntry.Helper.GameContent.Load<Texture2D>(ContentEditor.ContentPaths["ItemSpritesheet"]), 28, dsdsd, false, Game1.parseText(ModEntry.Helper.Translation.Get("Buff.Slippery.Name")).Trim(), Game1.parseText(ModEntry.Helper.Translation.Get("Buff.Slippery.Desc"), Game1.smallFont, TalentUtility.BuffDescriptionLength(ModEntry.Helper.Translation.Get("Buff.Slippery.Name")))));
                 }
             }
             catch (Exception e)

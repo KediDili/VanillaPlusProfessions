@@ -38,7 +38,7 @@ namespace VanillaPlusProfessions.Talents
         internal bool IsActionButtonUsed;
         internal int prevTimeSpeed;
         internal bool IsCookoutKit;
-        internal static string VoidButterflyLocation;
+        internal static string VoidButterflyLocation = "";
         internal int TripleShotCooldown;
 
         internal static bool IsDayStartOrEnd = false;
@@ -54,22 +54,22 @@ namespace VanillaPlusProfessions.Talents
         {
             HasWaterCan = false;
             TalentCoreEntry.Value = this;
-            modEntry.Helper.Events.GameLoop.SaveLoaded += OnSaveLoaded;
-            modEntry.Helper.Events.GameLoop.ReturnedToTitle += OnReturnedToTitle;
-            modEntry.Helper.Events.GameLoop.SaveCreated += OnSaveCreated;
-            modEntry.Helper.Events.Multiplayer.ModMessageReceived += OnModMessageReceived;
-            modEntry.Helper.Events.GameLoop.TimeChanged += OnTimeChanged;
+            ModEntry.Helper.Events.GameLoop.SaveLoaded += OnSaveLoaded;
+            ModEntry.Helper.Events.GameLoop.ReturnedToTitle += OnReturnedToTitle;
+            ModEntry.Helper.Events.GameLoop.SaveCreated += OnSaveCreated;
+            ModEntry.Helper.Events.Multiplayer.ModMessageReceived += OnModMessageReceived;
+            ModEntry.Helper.Events.GameLoop.TimeChanged += OnTimeChanged;
 
-            if (!ModEntry.CoreModEntry.Value.ModConfig.ProfessionsOnly)
+            if (!ModEntry.ModConfig.ProfessionsOnly)
             {
-                modEntry.Helper.Events.Player.InventoryChanged += OnInventoryChanged;
-                modEntry.Helper.Events.World.NpcListChanged += OnNPCListChanged;
-                modEntry.Helper.Events.World.TerrainFeatureListChanged += OnTerrainFeatureListChanged;
-                modEntry.Helper.Events.World.ChestInventoryChanged += OnChestInventoryChanged;
-                modEntry.Helper.Events.GameLoop.OneSecondUpdateTicked += OnOneSecondUpdateTicked;
-                modEntry.Helper.Events.Input.ButtonsChanged += OnButtonsChanged;
+                ModEntry.Helper.Events.Player.InventoryChanged += OnInventoryChanged;
+                ModEntry.Helper.Events.World.NpcListChanged += OnNPCListChanged;
+                ModEntry.Helper.Events.World.TerrainFeatureListChanged += OnTerrainFeatureListChanged;
+                ModEntry.Helper.Events.World.ChestInventoryChanged += OnChestInventoryChanged;
+                ModEntry.Helper.Events.GameLoop.OneSecondUpdateTicked += OnOneSecondUpdateTicked;
+                ModEntry.Helper.Events.Input.ButtonsChanged += OnButtonsChanged;
 
-                List<Talent> Talentlist = modEntry.Helper.ModContent.Load<List<Talent>>("assets\\talents.json");
+                List<Talent> Talentlist = ModEntry.Helper.ModContent.Load<List<Talent>>("assets\\talents.json");
 
                 for (int i = 0; i < Talentlist.Count; i++)
                 {
@@ -79,9 +79,9 @@ namespace VanillaPlusProfessions.Talents
                 SpaceEvents.AfterGiftGiven += OnAfterGiftGiven;
                 SpaceEvents.ChooseNightlyFarmEvent += OnChooseNightlyFarmEvent;
 
-                modEntry.VanillaPlusProfessionsAPI.RegisterTalentStatusAction(new string[] { Constants.Talent_AlchemicReversal, Constants.Talent_Fertigation, Constants.Talent_OverTheRainbow, Constants.Talent_SurvivalCooking, Constants.Talent_DriftFencing, Constants.Talent_TakeItSlow, Constants.Talent_Upcycling, Constants.Talent_CampSpirit, Constants.Talent_SpringThaw, Constants.Talent_Accessorise, Constants.Talent_EssenceInfusion, Constants.Talent_DoubleHook, Constants.Talent_ColdPress, Constants.Talent_SugarRush, Constants.Talent_SapSipper, Constants.Talent_TrashedTreasure, Constants.Talent_EyeSpy, Constants.Talent_FisheryGrant, Constants.Talent_MonumentalDiscount, Constants.Talent_Overcrowding, Constants.Talent_InTheWeeds, Constants.Talent_BigFishSmallPond, Constants.Talent_EveryonesBestFriend, Constants.Talent_BookclubBargains, Constants.Talent_WelcomeToTheJungle, Constants.Talent_VastDomain, Constants.Talent_HiddenBenefits, Constants.Talent_SleepUnderTheStars, Constants.Talent_BreedLikeRabbits, Constants.Talent_OneFishTwoFish }, TalentUtility.DataUpdates);
-                modEntry.VanillaPlusProfessionsAPI.RegisterTalentStatusAction(new string[] { Constants.Talent_SapSipper, Constants.Talent_SugarRush, Constants.Talent_Accessorise }, TalentUtility.OnItemBasedTalentBoughtOrRefunded);
-                modEntry.VanillaPlusProfessionsAPI.RegisterTalentStatusAction(new string[] { Constants.Talent_GiftOfTheTalented }, TalentUtility.GiftOfTheTalented_ApplyOrUnApply);
+                ModEntry.VanillaPlusProfessionsAPI.RegisterTalentStatusAction(new string[] { Constants.Talent_AlchemicReversal, Constants.Talent_Fertigation, Constants.Talent_OverTheRainbow, Constants.Talent_SurvivalCooking, Constants.Talent_DriftFencing, Constants.Talent_TakeItSlow, Constants.Talent_Upcycling, Constants.Talent_CampSpirit, Constants.Talent_SpringThaw, Constants.Talent_Accessorise, Constants.Talent_EssenceInfusion, Constants.Talent_DoubleHook, Constants.Talent_ColdPress, Constants.Talent_SugarRush, Constants.Talent_SapSipper, Constants.Talent_TrashedTreasure, Constants.Talent_EyeSpy, Constants.Talent_FisheryGrant, Constants.Talent_MonumentalDiscount, Constants.Talent_Overcrowding, Constants.Talent_InTheWeeds, Constants.Talent_BigFishSmallPond, Constants.Talent_EveryonesBestFriend, Constants.Talent_BookclubBargains, Constants.Talent_WelcomeToTheJungle, Constants.Talent_VastDomain, Constants.Talent_HiddenBenefits, Constants.Talent_SleepUnderTheStars, Constants.Talent_BreedLikeRabbits, Constants.Talent_OneFishTwoFish }, TalentUtility.DataUpdates);
+                ModEntry.VanillaPlusProfessionsAPI.RegisterTalentStatusAction(new string[] { Constants.Talent_SapSipper, Constants.Talent_SugarRush, Constants.Talent_Accessorise }, TalentUtility.OnItemBasedTalentBoughtOrRefunded);
+                ModEntry.VanillaPlusProfessionsAPI.RegisterTalentStatusAction(new string[] { Constants.Talent_GiftOfTheTalented }, TalentUtility.GiftOfTheTalented_ApplyOrUnApply);
 
                 FarmingPatcher.ApplyPatches();
                 MiningPatcher.ApplyPatches();
@@ -94,22 +94,53 @@ namespace VanillaPlusProfessions.Talents
             }
             else
             {
-                ModEntry.CoreModEntry.Value.ModMonitor.LogOnce("Talent system is disabled, and only VPP professions will work. If you didn't intend this, turn the ProfessionsOnly config off.", LogLevel.Info);
+                ModEntry.ModMonitor.LogOnce("Talent system is disabled, and only VPP professions will work. If you didn't intend this, turn the ProfessionsOnly config off.", LogLevel.Info);
             }
         }
         internal void OnButtonsChanged(object sender, ButtonsChangedEventArgs e)
         {
-            if (ModEntry.GetMe().ModConfig.TalentMenuKeybind.GetState() == SButtonState.Pressed && Context.IsWorldReady && Game1.activeClickableMenu is null)
+            if (ModEntry.ModConfig.TalentMenuKeybind?.GetState() == SButtonState.Pressed && Context.IsWorldReady && Game1.activeClickableMenu is null)
             {
+                if (ModEntry.ModConfig.ProfessionsOnly)
+                {
+                    Game1.addHUDMessage(new("Talent System is Disabled by Professions Only config.", HUDMessage.newQuest_type));
+                    return;
+                }
+
                 Game1.activeClickableMenu = new TalentSelectionMenu(0, ModEntry.GetMe());
             }
         }
 
         internal void OnModMessageReceived(object sender, ModMessageReceivedEventArgs e)
         {
-            if (e.FromModID == ModEntry.CoreModEntry.Value.Manifest.UniqueID && e.FromPlayerID == Game1.MasterPlayer.UniqueMultiplayerID && !Context.IsMainPlayer)
+            if (e.FromModID == "KediDili.VanillaPlusProfessions")
             {
-                if (e.Type == ModEntry.CoreModEntry.Value.Manifest.UniqueID + "/SwitchMineStones" && e.ReadAs<Dictionary<Vector2, string>>() is Dictionary<Vector2, string> dict)
+                //Anyone
+                if (e.Type == ModEntry.Manifest.UniqueID + "/BirdFeederData" && e.ReadAs<List<Critter>>() is List<Critter> birdList)
+                {
+                    MachineryEventHandler.BirdsOnFeeders.Add(Game1.MasterPlayer.currentLocation.NameOrUniqueName, birdList);
+                }
+                //Anyone
+                else if (e.ReadAs<List<Vector2>>() is List<Vector2> tileList)
+                {
+                    string locName = Game1.GetPlayer(e.FromPlayerID, true)?.currentLocation?.NameOrUniqueName;
+                    if (locName is not null)
+                    {
+                        if (e.Type.StartsWith(ModEntry.Manifest.UniqueID + "/DrillLocationData"))
+                        {
+                            MachineryEventHandler.DrillLocations[locName] = tileList;
+                        }
+                        else if (e.Type.StartsWith(ModEntry.Manifest.UniqueID + "/ThermalReactorLocationData"))
+                        {
+                            MachineryEventHandler.ThermalReactorLocations[locName] = tileList;
+                        }
+                        else if (e.Type.StartsWith(ModEntry.Manifest.UniqueID + "/NodeMakerLocationData"))
+                        {
+                            MachineryEventHandler.NodeMakerLocations[locName] = tileList;
+                        }
+                    }
+                }
+                else if (e.Type == ModEntry.Manifest.UniqueID + "/SwitchMineStones" && e.ReadAs<Dictionary<Vector2, string>>() is Dictionary<Vector2, string> dict)
                 {
                     foreach (var key in dict.Keys)
                     {
@@ -118,52 +149,44 @@ namespace VanillaPlusProfessions.Talents
                         {
                             stone.MinutesUntilReady = TalentUtility.GetStoneHealth(stone.ItemId);
                         }
-                        Game1.player.currentLocation.Objects[key] = stone;
+                        //Change this to reflect 'real' current location
+                        Game1.getLocationFromName(Game1.GetPlayer(e.FromPlayerID).currentLocation.NameOrUniqueName).Objects[key] = stone;
                     }
                 }
-                else if (e.Type == ModEntry.CoreModEntry.Value.Manifest.UniqueID + "/BirdFeederData" && e.ReadAs<List<Critter>>() is List<Critter> birdList)
-                {
-                    MachineryEventHandler.BirdsOnFeeders.Add(Game1.MasterPlayer.currentLocation.NameOrUniqueName, birdList);
-                }
-                if (e.ReadAs<List<Vector2>>() is List<Vector2> tileList)
-                {
-                    string locName = Game1.GetPlayer(e.FromPlayerID, true)?.currentLocation?.NameOrUniqueName;
-                    if (locName is not null)
-                    {
-                        if (e.Type.StartsWith(ModEntry.CoreModEntry.Value.Manifest.UniqueID + "/DrillLocationData"))
-                        {
-                            MachineryEventHandler.DrillLocations[locName] = tileList;
-                        }
-                        else if (e.Type.StartsWith(ModEntry.CoreModEntry.Value.Manifest.UniqueID + "/ThermalReactorLocationData"))
-                        {
-                            MachineryEventHandler.ThermalReactorLocations[locName] = tileList;
-                        }
-                        else if (e.Type.StartsWith(ModEntry.CoreModEntry.Value.Manifest.UniqueID + "/NodeMakerLocationData"))
-                        {
-                            MachineryEventHandler.NodeMakerLocations[locName] = tileList;
-                        }
-                    }
-                }
-                else if (e.Type == ModEntry.CoreModEntry.Value.Manifest.UniqueID + "/MushroomLevel")
-                {
-                    (Game1.player.currentLocation as MineShaft).rainbowLights.Value = true;
-                }
-                if (e.ReadAs<ModEntry>() is ModEntry modEntry && e.Type == "SplitScreenFarmhandEntry")
-                {
-                    ModEntry me = ModEntry.GetMe();
-                    me.ModMonitor.Log($"BetterGameMenu API: {me.BetterGameMenuAPI is null}", LogLevel.Debug);
-                    me.ModMonitor.Log($"ContentPatcher API: {me.ContentPatcherAPI is null}", LogLevel.Debug);
-                    me.ModMonitor.Log($"ExtraAnimalConfig API: {me.ExtraAnimalConfigAPI is null}", LogLevel.Debug);
-                    me.ModMonitor.Log($"GenericModConfigMenu API: {me.GenericModConfigMenuAPI is null}", LogLevel.Debug);
-                    me.ModMonitor.Log($"ItemExtensions API: {me.ItemExtensionsAPI is null}", LogLevel.Debug);
-                    me.ModMonitor.Log($"SpaceCore API: {me.SpaceCoreAPI is null}", LogLevel.Debug);
-                    me.ModMonitor.Log($"WearMoreRings API: {me.WearMoreRingsAPI is null}", LogLevel.Debug);
-                    me.ModMonitor.Log($"VanillaPlusProfessions API: {me.VanillaPlusProfessionsAPI is null}", LogLevel.Debug);
 
-                    me.ModMonitor.Log($"Helper: {me.Helper is null}", LogLevel.Debug);
-                    me.ModMonitor.Log($"Manifest: {me.Manifest is null}", LogLevel.Debug);
-                    me.ModMonitor.Log($"ModConfig: {me.ModConfig is null}", LogLevel.Debug);
-                    me.ModMonitor.Log($"EmptyCritterRoom: {ModEntry.EmptyCritterRoom is null}", LogLevel.Debug);
+                //Farmhand only
+                if (e.FromPlayerID == Game1.MasterPlayer.UniqueMultiplayerID && !Context.IsMainPlayer)
+                {
+                    if (e.ReadAs<ModEntry>() is ModEntry modEntry && e.Type == "SplitScreenFarmhandEntry")
+                    {
+                        ModEntry.CoreModEntry.Value ??= new();
+                        TalentCoreEntry.Value ??= new();
+                        Initialize(ModEntry.CoreModEntry.Value);
+                        DisplayHandler.CoreDisplayHandler.Value ??= new();
+                        DisplayHandler.CoreDisplayHandler.Value.Initialize(ModEntry.CoreModEntry.Value);
+                        DisplayHandler.CoreDisplayHandler.Value.InitializeBetterGameMenu();
+                        TalentCoreEntry.Value.OnSaveLoaded(null, null);
+                        DayStartHandler.OnDayStarted(null, null);
+
+                        ModEntry.ModMonitor.Log($"BetterGameMenu API: {ModEntry.BetterGameMenuAPI is null}", LogLevel.Debug);
+                        ModEntry.ModMonitor.Log($"ContentPatcher API: {ModEntry.ContentPatcherAPI is null}", LogLevel.Debug);
+                        ModEntry.ModMonitor.Log($"ExtraAnimalConfig API: {ModEntry.ExtraAnimalConfigAPI is null}", LogLevel.Debug);
+                        ModEntry.ModMonitor.Log($"GenericModConfigMenu API: {ModEntry.GenericModConfigMenuAPI is null}", LogLevel.Debug);
+                        ModEntry.ModMonitor.Log($"ItemExtensions API: {ModEntry.ItemExtensionsAPI is null}", LogLevel.Debug);
+                        ModEntry.ModMonitor.Log($"SpaceCore API: {ModEntry.SpaceCoreAPI is null}", LogLevel.Debug);
+                        ModEntry.ModMonitor.Log($"WearMoreRings API: {ModEntry.WearMoreRingsAPI is null}", LogLevel.Debug);
+                        ModEntry.ModMonitor.Log($"VanillaPlusProfessions API: {ModEntry.VanillaPlusProfessionsAPI is null}", LogLevel.Debug);
+
+                        ModEntry.ModMonitor.Log($"Helper: {ModEntry.Helper is null}", LogLevel.Debug);
+                        ModEntry.ModMonitor.Log($"Manifest: {ModEntry.Manifest is null}", LogLevel.Debug);
+                        ModEntry.ModMonitor.Log($"ModConfig: {ModEntry.ModConfig is null}", LogLevel.Debug);
+                        ModEntry.ModMonitor.Log($"EmptyCritterRoom: {ModEntry.EmptyCritterRoom is null}", LogLevel.Debug);
+                    }
+                    //Farmhand
+                    else if (e.Type == ModEntry.Manifest.UniqueID + "/MushroomLevel")
+                    {
+                        (Game1.player.currentLocation as MineShaft).rainbowLights.Value = true;
+                    }
                 }
             }
         }
@@ -293,13 +316,13 @@ namespace VanillaPlusProfessions.Talents
                     {
                         BuffEffects buffEffects = new();
                         buffEffects.Speed.Value = 1;
-                        Buff buff = new("VPP.SpeedOfDarkness.Speed", "VPP.SpeedOfDarkness", "Speed Of Darkness", -2, ModEntry.CoreModEntry.Value.Helper.GameContent.Load<Texture2D>(ContentEditor.ContentPaths["ItemSpritesheet"]), 27, buffEffects, false, ModEntry.CoreModEntry.Value.Helper.Translation.Get("Buff.SpeedOfDarkness.Name"), Game1.parseText(ModEntry.CoreModEntry.Value.Helper.Translation.Get("Buff.SpeedOfDarkness.Desc"), Game1.smallFont, TalentUtility.BuffDescriptionLength(ModEntry.CoreModEntry.Value.Helper.Translation.Get("Buff.SpeedOfDarkness.Name"))));
+                        Buff buff = new("VPP.SpeedOfDarkness.Speed", "VPP.SpeedOfDarkness", "Speed Of Darkness", -2, ModEntry.Helper.GameContent.Load<Texture2D>(ContentEditor.ContentPaths["ItemSpritesheet"]), 27, buffEffects, false, ModEntry.Helper.Translation.Get("Buff.SpeedOfDarkness.Name"), Game1.parseText(ModEntry.Helper.Translation.Get("Buff.SpeedOfDarkness.Desc"), Game1.smallFont, TalentUtility.BuffDescriptionLength(ModEntry.Helper.Translation.Get("Buff.SpeedOfDarkness.Name"))));
                         Game1.player.buffs.Apply(buff);
                     }
                 }
                 if (TalentUtility.AllPlayersHaveTalent(Constants.Talent_Meditation) && !Game1.player.isMoving() && Context.IsPlayerFree)
                 {
-                    int extraHealth = ModEntry.CoreModEntry.Value.ModConfig.Meditation_Health;
+                    int extraHealth = ModEntry.ModConfig.Meditation_Health;
                     if (Game1.player.health + extraHealth >= Game1.player.maxHealth)
                     {
                         Game1.player.health = Game1.player.maxHealth;
@@ -443,8 +466,8 @@ namespace VanillaPlusProfessions.Talents
         }
         internal void OnSaveLoaded(object sender, SaveLoadedEventArgs e)
         {
-            ModEntry.CoreModEntry.Value.Helper.GameContent.InvalidateCache(PathUtilities.NormalizeAssetName("Strings/UI"));
-            ModEntry.CoreModEntry.Value.Helper.GameContent.InvalidateCache(PathUtilities.NormalizeAssetName("LooseSprites/Cursors_1_6"));
+            ModEntry.Helper.GameContent.InvalidateCache(PathUtilities.NormalizeAssetName("Strings/UI"));
+            ModEntry.Helper.GameContent.InvalidateCache(PathUtilities.NormalizeAssetName("LooseSprites/Cursors_1_6"));
             ModEntry.EmptyCritterRoom ??= Game1.getLocationFromNameInLocationsList("KediDili.VPPData.CP_EmptyCritterRoom");
 
             if (Game1.player.modData.TryGetValue(Constants.Key_TalentPoints, out string value))
@@ -458,9 +481,9 @@ namespace VanillaPlusProfessions.Talents
             {
                 Game1.player.modData.TryAdd(Constants.Key_TalentPoints, "0");
             }
-            if (ModEntry.CoreModEntry.Value.SpaceCoreAPI?.GetCustomSkills().Length > 0)
+            if (ModEntry.SpaceCoreAPI?.GetCustomSkills().Length > 0)
             {
-                SkillsByName = ModEntry.CoreModEntry.Value.Helper.Reflection.GetField<Dictionary<string, Skills.Skill>>(typeof(Skills), "SkillsByName").GetValue();
+                SkillsByName = ModEntry.Helper.Reflection.GetField<Dictionary<string, Skills.Skill>>(typeof(Skills), "SkillsByName").GetValue();
             }
             Game1.player.team.specialOrders.OnElementChanged += OnSpecialOrderChanged;
             Game1.player.mailReceived.OnValueAdded += OnMailFlagGiven;
@@ -477,15 +500,15 @@ namespace VanillaPlusProfessions.Talents
                 }
             }
 
-            if (ModEntry.CoreModEntry.Value.ItemExtensionsAPI is not null)
+            if (ModEntry.ItemExtensionsAPI is not null)
             {
                 var nodeList = from obj in DataLoader.Objects(Game1.content)
-                               where ModEntry.CoreModEntry.Value.ItemExtensionsAPI.IsStone(obj.Key) && !ModEntry.CoreModEntry.Value.ItemExtensionsAPI.IsClump(obj.Key)
+                               where ModEntry.ItemExtensionsAPI.IsStone(obj.Key) && !ModEntry.ItemExtensionsAPI.IsClump(obj.Key)
                                select obj;
 
                 foreach (var item in nodeList)
                 {
-                    if (ModEntry.CoreModEntry.Value.ItemExtensionsAPI.IsResource(item.Key, out int? _, out string itemDropped) && itemDropped is not null)
+                    if (ModEntry.ItemExtensionsAPI.IsResource(item.Key, out int? _, out string itemDropped) && itemDropped is not null)
                     {
                         if (ItemRegistry.GetData(itemDropped).RawData is not ObjectData objectData || objectData?.ContextTags?.Contains(Constants.ContextTag_Banned_Node) is true)
                             continue;
@@ -558,10 +581,10 @@ namespace VanillaPlusProfessions.Talents
             }
             if (TalentUtility.AnyPlayerHasTalent(Constants.Talent_Overcrowding) || TalentUtility.AnyPlayerHasTalent(Constants.Talent_BreedLikeRabbits))
             {
-                ModEntry.CoreModEntry.Value.Helper.GameContent.InvalidateCache("Data\\Buildings");
+                ModEntry.Helper.GameContent.InvalidateCache("Data\\Buildings");
                 if (TalentUtility.AnyPlayerHasTalent(Constants.Talent_BreedLikeRabbits))
                 {
-                    ModEntry.CoreModEntry.Value.Helper.GameContent.InvalidateCache("Data/FarmAnimals");
+                    ModEntry.Helper.GameContent.InvalidateCache("Data/FarmAnimals");
                 }
                 Utility.ForEachBuilding(building =>
                 {
@@ -603,8 +626,8 @@ namespace VanillaPlusProfessions.Talents
                 ModEntry.CoreModEntry.Value.IsRecalculatingPoints = false;
             }
             TalentPointCount += increase;
-            if (postMessage && !ModEntry.CoreModEntry.Value.ModConfig.ProfessionsOnly)
-                Game1.showGlobalMessage(ModEntry.CoreModEntry.Value.Helper.Translation.Get("Message.TalentPoint"));
+            if (postMessage && !ModEntry.ModConfig.ProfessionsOnly)
+                Game1.showGlobalMessage(ModEntry.Helper.Translation.Get("Message.TalentPoint"));
         }
 
         internal void OnTerrainFeatureListChanged(object sender, TerrainFeatureListChangedEventArgs e)

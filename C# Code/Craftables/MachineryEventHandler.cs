@@ -83,7 +83,7 @@ namespace VanillaPlusProfessions.Craftables
                     BirdsOnFeeders[Game1.player.currentLocation.NameOrUniqueName] = sdsd;
                     if (Context.HasRemotePlayers)
                     {
-                        ModEntry.CoreModEntry.Value.Helper.Multiplayer.SendMessage(BirdsOnFeeders[Game1.player.currentLocation.NameOrUniqueName], "KediDili.VanillaPlusProfessions/BirdFeederData", new string[] { "KediDili.VanillaPlusProfessions" });
+                        ModEntry.Helper.Multiplayer.SendMessage(BirdsOnFeeders[Game1.player.currentLocation.NameOrUniqueName], "KediDili.VanillaPlusProfessions/BirdFeederData", new string[] { "KediDili.VanillaPlusProfessions" });
                     }
                 }
             }
@@ -93,7 +93,7 @@ namespace VanillaPlusProfessions.Craftables
         {
             if (Context.IsWorldReady)
             {
-                if (BirdsOnFeeders?.TryGetValue(Game1.player.currentLocation.NameOrUniqueName, out var value) is true)
+                if (BirdsOnFeeders?.TryGetValue(Game1.player.currentLocation.NameOrUniqueName ?? Game1.player.currentLocation.Name, out var value) is true)
                 {
                     for (int i = 0; i < value.Count; i++)
                     {
@@ -294,7 +294,7 @@ namespace VanillaPlusProfessions.Craftables
                         {
                             foreach (var chest in container)
                             {
-                                ModEntry.CoreModEntry.Value.Helper.Reflection.GetField<IInventory>(typeof(StardewValley.Object), "autoLoadFrom", true).SetValue(chest.Items);
+                                ModEntry.Helper.Reflection.GetField<IInventory>(typeof(StardewValley.Object), "autoLoadFrom", true).SetValue(chest.Items);
 
                                 if (obj.heldObject.Value is null)
                                 {

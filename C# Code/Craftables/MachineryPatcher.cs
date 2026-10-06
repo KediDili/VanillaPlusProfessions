@@ -57,10 +57,8 @@ namespace VanillaPlusProfessions.Craftables
             try
             {
                 int count = 5;
+                var methodd = AccessTools.Method(typeof(MachineryPatcher), nameof(GetColorFromMachine));
                 var method = AccessTools.PropertyGetter(typeof(Color), "White");
-                var prop = AccessTools.PropertyGetter(typeof(Object), "lightSource");
-                var field = AccessTools.Field(typeof(LightSource), "color");
-                var prop2 = AccessTools.PropertyGetter(typeof(Netcode.NetColor), "Value");
                 foreach (var item in insns)
                 {
                     if (item.Is(OpCodes.Call, method))
@@ -69,9 +67,7 @@ namespace VanillaPlusProfessions.Craftables
                         if (count == 0)
                         {
                             list.Add(new(OpCodes.Ldarg_0));
-                            list.Add(new(OpCodes.Call, prop));
-                            list.Add(new(OpCodes.Ldfld, field));
-                            list.Add(new(OpCodes.Call, prop2));
+                            list.Add(new(OpCodes.Call, methodd));
                             continue;
                         }
                     }
@@ -84,16 +80,15 @@ namespace VanillaPlusProfessions.Craftables
             }
             return list;
         }
+
         public static IEnumerable<CodeInstruction> draw_SObject_Transpiler_3(IEnumerable<CodeInstruction> insns)
         {
             List<CodeInstruction> list = new();
             try
             {
                 int count = 3;
+                var methodd = AccessTools.Method(typeof(MachineryPatcher), nameof(GetColorFromMachine));
                 var method = AccessTools.PropertyGetter(typeof(Color), "White");
-                var prop = AccessTools.PropertyGetter(typeof(Object), "lightSource");
-                var field = AccessTools.Field(typeof(LightSource), "color");
-                var prop2 = AccessTools.PropertyGetter(typeof(Netcode.NetColor), "Value");
                 foreach (var item in insns)
                 {
                     if (item.Is(OpCodes.Call, method))
@@ -102,9 +97,7 @@ namespace VanillaPlusProfessions.Craftables
                         if (count == 0)
                         {
                             list.Add(new(OpCodes.Ldarg_0));
-                            list.Add(new(OpCodes.Call, prop));
-                            list.Add(new(OpCodes.Ldfld, field));
-                            list.Add(new(OpCodes.Call, prop2));
+                            list.Add(new(OpCodes.Call, methodd));
                             continue;
                         }
                     }
@@ -117,5 +110,7 @@ namespace VanillaPlusProfessions.Craftables
             }
             return list;
         }
+
+        public static Color GetColorFromMachine(Object machine) => machine.lightSource?.color.Value ?? Color.White;
     }
 }

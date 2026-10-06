@@ -120,7 +120,7 @@ namespace VanillaPlusProfessions.Managers
                             Game1.createObjectDebris("(O)848", x, y);
                         }
                     }
-                    if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_Volatility, who: who) && r.NextBool(ModEntry.CoreModEntry.Value.ModConfig.Volatility_Chance))
+                    if (TalentUtility.CurrentPlayerHasTalent(Constants.Talent_Volatility, who: who) && r.NextBool(ModEntry.ModConfig.Volatility_Chance))
                     {
                         if (stoneId == "751")
                         {
